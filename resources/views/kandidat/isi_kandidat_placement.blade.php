@@ -1,4 +1,4 @@
-@extends('layouts.script')
+@extends('layouts.input')
 
 @section('content')
 @include('sweetalert::alert')

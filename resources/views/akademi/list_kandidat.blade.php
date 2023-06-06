@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <b class="" style="text-transform:uppercase;">Data Kandidat</b>
-                <a href="" class="float-right btn text-white" style="background-color: #FF9E27">Tambah Kandidat/Murid</a>
+                <a href="/akademi/isi_kandidat_personal" class="float-right btn text-white" style="background-color: #FF9E27">Tambah Kandidat/Murid</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -12,19 +12,24 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                                <th>Age</th>
-                                <th>Start date</th>
-                                <th>Salary</th>
+                                <th>Nama</th>
+                                <th>No. Telp</th>
+                                <th>Jenis Kelamin</th>
+                                <th>Lihat Profil</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                            @foreach ($kandidat as $item)
+                                <tr>
+                                    <td>{{$loop->iteration}}</td>
+                                    <td>{{$item->nama}}</td>
+                                    <td>{{$item->no_telp}}</td>
+                                    <td>{{$item->jenis_kelamin}}</td>
+                                    <td>
+                                        <a class="btn btn-info" href="/akademi/kandidat/lihat_profil/{{$item->id_kandidat}}">Lihat</a>
+                                    </td>
+                                </tr>    
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

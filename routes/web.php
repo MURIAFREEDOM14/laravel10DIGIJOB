@@ -132,15 +132,39 @@ Route::controller(LamanController::class)->group(function() {
 
 // DATA AKADEMI //
 Route::controller(AkademiController::class)->group(function() {
-    Route::get('/akademi', 'index')->name('akademi')->middleware(('verify'));
+    Route::get('/akademi', 'index')->name('akademi')->middleware(('akademi'));
+    Route::get('/akademi/lihat/profil','lihatProfilAkademi');
 
-    Route::get('/isi_akademi_data','isi_akademi_data')->middleware('verify');
-    Route::post('/isi_akademi_data','simpan_akademi_data');
+    Route::get('/akademi/isi_akademi_data','isi_akademi_data')->middleware('akademi');
+    Route::post('/akademi/isi_akademi_data','simpan_akademi_data');
 
-    Route::get('/isi_akademi_operator','isi_akademi_operator')->middleware('verify');
-    Route::post('/isi_akademi_operator','simpan_akademi_operator');
+    Route::get('/akademi/isi_akademi_operator','isi_akademi_operator')->middleware('akademi');
+    Route::post('/akademi/isi_akademi_operator','simpan_akademi_operator');
 
-    Route::get('/list_kandidat','listKandidat')->middleware('verify');
+    // DATA KANDIDAT //
+    Route::get('/akademi/list_kandidat','listKandidat')->middleware('akademi');
+    {
+        Route::get('/akademi/isi_kandidat_personal', 'isi_personal')->middleware('akademi');
+        Route::post('/akademi/isi_kandidat_personal', 'simpan_personal');
+        
+        Route::get('/akademi/isi_kandidat_document', 'isi_document')->middleware('akademi');
+        Route::post('/akademi/isi_kandidat_document', 'simpan_document');
+
+        Route::get('/akademi/isi_kandidat_vaksin', 'isi_vaksin')->middleware('akademi');
+        Route::post('/akademi/isi_kandidat_vaksin', 'simpan_vaksin');
+
+        Route::get('/akademi/isi_kandidat_parent', 'isi_parent')->middleware('akademi');
+        Route::post('/akademi/isi_kandidat_parent', 'simpan_parent');
+
+        Route::get('/akademi/isi_kandidat_permission', 'isi_permission')->middleware('akademi');
+        Route::post('/akademi/isi_kandidat_permission', 'simpan_permission');
+
+        Route::get('/akademi/isi_kandidat_placement', 'isi_placement')->middleware('akademi');
+        Route::post('/akademi/isi_kandidat_placement', 'simpan_placement');
+
+        Route::get('/akademi/isi_kandidat_job', 'isi_job')->middleware('akademi');
+        Route::post('/akademi/isi_kandidat_job', 'simpan_job');
+    }
 });
 
 // DATA PERUSAHAAN //

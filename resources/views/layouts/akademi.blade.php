@@ -154,12 +154,12 @@
                                         <li>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="/akademi">Profil Akademi</a>
-                                            {{-- <a class="dropdown-item" href="#">My Balance</a> --}}
-                                            {{-- <a class="dropdown-item" href="#">Kotak Masuk</a>
-                                            <div class="dropdown-divider"></div> --}}
-                                            {{-- <a class="dropdown-item" href="#">Pengaturan akun</a>
-                                            <div class="dropdown-divider"></div> --}}
-                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                            <a class="dropdown-item" href="/akademi/isi_akademi_data">Edit Profil</a>
+                                            {{-- <a class="dropdown-item" href="#">Kotak Masuk</a> --}}
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="/contact_us">Contact Us</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" onclick="return confirm('apakah anda yakin ingin keluar?')" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
                                                 Keluar
@@ -181,7 +181,40 @@
             <div class="sidebar sidebar-style-2">
                 <div class="sidebar-wrapper scrollbar scrollbar-inner">
                     <div class="sidebar-content">
-                        <ul class="nav nav-warning">
+                        <div class="user">
+                            <div class="avatar-sm float-left mr-2">
+                                @if ($akademi->logo_akademi !== null)
+                                    <img src="/gambar/Akademi/{{$akademi->nama_akademi}}/Logo/{{$akademi->logo_akademi}}" alt="" class="avatar-img rounded-circle">                                    
+                                @else
+                                    <img src="/gambar/default_user.png" alt="" class="avatar-img rounded-circle">
+                                @endif
+                            </div>
+                            <div class="info">
+                                <a data-toggle="collapse" href="#collapseExample" class="btn" aria-expanded="true">
+                                    <span>
+                                        <span class="" style="text-transform: uppercase;"><b class="bold">{{$akademi->nama_akademi}}</b></span>
+                                        <span class="caret"></span>
+                                    </span>
+                                </a>
+                                <div class="clearfix"></div>
+    
+                                <div class="collapse in" id="collapseExample">
+                                    <ul class="nav">
+                                        <li>
+                                            <a href="/akademi/lihat/profil" class="dropdown-item">
+                                                <span class="link-collapse">Profil Akademi</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="akademi/isi_akademi_data" class="dropdown-item">
+                                                <span class="link-collapse">Edit Profil</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="nav nav-primary">
                             <li class="nav-item active">
                                 <a href="" class="btn" aria-expanded="false">
                                     <i class="fas fa-home"></i>
@@ -194,76 +227,12 @@
                                 </span>
                                 <h4 class="text-section">Komponen</h4>
                             </li>
-                            @if (auth()->user()->type == 3)
-                                <li class="nav-item">
-                                    <a data-toggle="collapse" href="#base">
-                                        <i class="fas fa-layer-group"></i>
-                                        <p>Data Kandidat</p>
-                                        <span class="caret"></span>
-                                    </a>
-                                    <div class="collapse" id="base">
-                                        <ul class="nav nav-collapse">
-                                            <li>
-                                                <a href="/dalam_negeri">
-                                                    <span class="sub-item">Dalam Negeri</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="/luar_negeri">
-                                                    <span class="sub-item">Luar Negeri</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="/pekerjaan">
-                                                    <span class="sub-item">Data Pekerjaan</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li class="nav-item">
-                                    <a  href="#sidebarLayouts">
-                                        <i class="fas fa-th-list"></i>
-                                        <p>Data Akademi</p>
-                                    </a>
-                                </li>
-                            @elseif (auth()->user()->type == 2)
-                                <li class="nav-item">
-                                    <a data-toggle="collapse" href="#base">
-                                        <i class="fas fa-layer-group"></i>
-                                        <p>Data Kandidat</p>
-                                        <span class="caret"></span>
-                                    </a>
-                                    <div class="collapse" id="base">
-                                        <ul class="nav nav-collapse">
-                                            <li>
-                                                <a href="/dalam_negeri">
-                                                    <span class="sub-item">Dalam Negeri</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="/luar_negeri">
-                                                    <span class="sub-item">Luar Negeri</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li class="nav-item">
-                                    <a  href="#sidebarLayouts">
-                                        <i class="fas fa-th-list"></i>
-                                        <p>Data Akademi</p>
-                                    </a>
-                                </li>
-                            @elseif (auth()->user()->type == 1)
-                                <li class="nav-item">
-                                    <a data-toggle="" class="btn" href="/list_kandidat">
-                                        <i class="fas fa-layer-group"></i>
-                                        <p>Data Kandidat</p>
-                                    </a>
-                                </li>
-                            @else
-                            @endif      
+                            <li class="nav-item">
+                                <a class="btn" href="/akademi/list_kandidat">
+                                    <i class="fas fa-layer-group"></i>
+                                    <p>Data Kandidat</p>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>

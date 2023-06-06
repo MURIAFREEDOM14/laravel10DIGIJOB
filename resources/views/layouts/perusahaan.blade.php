@@ -181,12 +181,12 @@
                                         <li>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="/perusahaan/lihat/perusahaan">Profil</a>
-                                            <a class="dropdown-item" href="/perusahaan/isi_perusahaan_data">Edit Profil Perusahaan</a>
+                                            <a class="dropdown-item" href="/perusahaan/isi_perusahaan_data">Edit Profil</a>
                                             {{-- <a class="dropdown-item" href="#">Kotak Masuk</a> --}}
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="/contact_us">Contact Us</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                            <a class="dropdown-item" onclick="return confirm('apakah anda yakin ingin keluar?')" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
                                                 Keluar
@@ -235,11 +235,6 @@
                                         <li>
                                             <a href="perusahaan/isi_perusahaan_data" class="dropdown-item">
                                                 <span class="link-collapse">Edit Profil</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/logout" class="dropdown-item">
-                                                <span class="link-collapse">Keluar</span>
                                             </a>
                                         </li>
                                     </ul>
