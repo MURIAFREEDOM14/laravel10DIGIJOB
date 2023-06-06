@@ -24,7 +24,7 @@ return new class extends Migration
             // $table->timestamp('email_verified_at')->nullable();
             $table->tinyInteger('type')->default(0);
             // users: 0 => User, 1 => Admin, 2 => Manager 
-            $table->string('referral_manager')->unique()->nullable();
+            $table->string('verify_confirmed')->nullable();
             // $table->rememberToken();
             $table->timestamps();
         });

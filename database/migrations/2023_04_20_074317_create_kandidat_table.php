@@ -35,16 +35,19 @@ return new class extends Migration
             $table->string('foto_ket_lahir')->nullable();
             $table->string('foto_ijazah')->nullable();
             $table->enum('stats_nikah',['Menikah', 'Single', 'Cerai_hidup', 'Cerai_mati'])->nullable();
+            $table->string('nama_panggilan')->nullable();
+            $table->integer('usia')->nullable();
+            $table->enum('stat_pemilik',['diambil'])->nullable();
 
             //address
             $table->text('alamat')->nullable();
             $table->integer('rt')->nullable();
             $table->integer('rw')->nullable();
             $table->string('dusun')->nullable();
-            $table->string('kelurahan_id')->nullable();
-            $table->string('kecamatan_id')->nullable();
-            $table->string('kabupaten_id')->nullable();
-            $table->string('provinsi_id')->nullable();
+            $table->string('kelurahan')->nullable();
+            $table->string('kecamatan')->nullable();
+            $table->string('kabupaten')->nullable();
+            $table->string('provinsi')->nullable();
             $table->string('stats_negara')->nullable();
 
             //vaksin
@@ -62,10 +65,12 @@ return new class extends Migration
             $table->string('sertifikat_vaksin3')->nullable();
 
             //Parent
-            $table->string('nama_ayah')->default("-");
-            $table->string('umur_ayah')->default("-");
-            $table->string('nama_ibu')->default("-");
-            $table->string('umur_ibu')->default("-");
+            $table->string('nama_ayah')->default("-")->nullable();
+            $table->string('umur_ayah')->default("-")->nullable();
+            $table->date('tgl_lahir_ayah')->nullable();
+            $table->string('nama_ibu')->default("-")->nullable();
+            $table->string('umur_ibu')->default("-")->nullable();
+            $table->date('tgl_lahir_ibu')->nullable();
             $table->integer('jml_sdr_lk')->default(0);
             $table->integer('jml_sdr_pr')->default(0);
             $table->integer('anak_ke')->default(1);
@@ -110,10 +115,9 @@ return new class extends Migration
             //Permission
             $table->string('nama_perizin')->nullable();
             $table->string('nik_perizin')->nullable();
-            $table->text('alamat_perizin')->nullable();
             $table->string('tmp_lahir_perizin')->nullable();
             $table->date('tgl_lahir_perizin')->nullable();
-            $table->string('hubungan')->nullable();
+            $table->string('hubungan_perizin')->nullable();
             $table->integer('rt_perizin')->nullable();
             $table->integer('rw_perizin')->nullable();
             $table->string('dusun_perizin')->nullable();
@@ -125,6 +129,14 @@ return new class extends Migration
             $table->string('no_telp_perizin')->nullable();
             $table->string('foto_ktp_izin')->nullable();
 
+            // paspor //
+            $table->string('no_paspor')->nullable();
+            $table->date('tgl_terbit_paspor')->nullable();
+            $table->date('tgl_akhir_paspor')->nullable();
+            $table->text('tmp_paspor')->nullable();
+            $table->text('foto_paspor')->nullable();
+
+            // placement //
             $table->enum('penempatan',['dalam negeri','luar negeri'])->nullable();
             $table->string('negara_id')->nullable();
             $table->string('kontrak')->nullable();
