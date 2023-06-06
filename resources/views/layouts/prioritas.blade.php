@@ -62,9 +62,9 @@
                     <div class="container-fluid">
                         <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
                             <li class="nav-item dropdown hidden-caret">
-                                {{-- <a class="nav-link dropdown-toggle" href="/perbaikan" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-envelope"></i>
-                                </a> --}}
+                                <a class=" btn btn-outline-primary dropdown-toggle" href="/perbaikan" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-envelope" style="color: white"></i>
+                                </a>
                                 <ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
                                     <li>
                                         <div class="dropdown-title d-flex justify-content-between align-items-center">
@@ -72,7 +72,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <div class="message-notif-scroll scrollbar-outer">
+                                        {{-- <div class="message-notif-scroll scrollbar-outer">
                                             <div class="notif-center">
                                                 <a href="">
                                                     <div class="notif-img">
@@ -87,6 +87,29 @@
                                                     </div>
                                                 </a>
                                             </div>
+                                        </div> --}}
+                                        <div class="message-notif-scroll scrollbar-outer">
+                                            <div class="notif-center">
+                                                @foreach ($pesan as $item)
+                                                    <a href="">
+                                                        <div class="notif-img">
+                                                            @if ($item->foto_4x6 !== null)
+                                                                <img src="/gambar/Kandidat/{{$item->nama}}/4x6/{{$item->foto_4x6}}" alt="/Atlantis/examples." class="avatar-img rounded-circle">
+                                                            @else
+                                                                <img src="/gambar/default_user.png" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                            
+                                                            @endif
+                                                            {{-- <img src="/Atlantis/examples/assets/img/jm_denis.jpg" alt="Img Profile"> --}}
+                                                        </div>
+                                                        <div class="notif-content">
+                                                            <span class="subject">{{$item->pengirim}}</span>
+                                                            <span class="block">
+                                                                {{$item->pesan}}
+                                                            </span>
+                                                            <span class="time">{{date('d-m-Y | h:m:sa',strtotime($item->created_at))}}</span>
+                                                        </div>
+                                                    </a>
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </li>
                                     <li>
@@ -95,7 +118,7 @@
                                 </ul>
                             </li>
                             <li class="nav-item dropdown hidden-caret">
-                                <a class="btn btn-outline-light dropdown-toggle" href="" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="btn btn-outline-primary dropdown-toggle" href="" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-bell" style="color: orange"></i>
                                     {{-- <span class="notification"></span> --}}
                                 </a>
@@ -108,10 +131,10 @@
                                             <div class="notif-center">
                                                 @foreach ($notif as $item)
                                                 <a>
-                                                    <div class="notif-icon notif-warning"> <i class="fa fa-comment"></i> </div>
+                                                    <div class="notif-icon notif-warning"> <i class="fas fa-bell"></i> </div>
                                                     <div class="notif-content">
-                                                        <div class="">{{$item->nama}}</div>
-                                                        <div class="" style="">{{$item->pesan}}</div>
+                                                        <div class="" style="">{{$item->isi}}</div>
+                                                        <span class="time">{{date('d-m-Y | h:m:sa',strtotime($item->created_at))}}</span>
                                                     </div>
                                                 </a>    
                                                 @endforeach
@@ -134,7 +157,7 @@
                                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                                     <div class="avatar-sm">
                                         @if ($kandidat->foto_4x6 !== null)
-                                            <img src="/gambar/Kandidat/4x6/{{$kandidat->foto_4x6}}" alt="/Atlantis/examples." class="avatar-img rounded-circle">
+                                            <img src="/gambar/Kandidat/{{$kandidat->nama}}/4x6/{{$kandidat->foto_4x6}}" alt="/Atlantis/examples." class="avatar-img rounded-circle">
                                         @else
                                             <img src="/gambar/default_user.png" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                            
                                         @endif
@@ -146,7 +169,7 @@
                                             <div class="user-box">
                                                 <div class="avatar-lg">
                                                     @if ($kandidat->foto_4x6 !== null)
-                                                        <img src="/gambar/Kandidat/4x6/{{$kandidat->foto_4x6}}" alt="image profile" class="avatar-img rounded">
+                                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/4x6/{{$kandidat->foto_4x6}}" alt="image profile" class="avatar-img rounded">
                                                     @else
                                                         <img src="/gambar/default_user.png" alt="image profile" class="avatar-img rounded">                                                        
                                                     @endif
@@ -161,11 +184,11 @@
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="/kandidat/prioritas">Profilku</a>
                                             <a class="dropdown-item" href="/isi_kandidat_personal">Edit Profil</a>
-                                            {{-- <a class="dropdown-item" href="#">Kotak Masuk</a>
-                                            <div class="dropdown-divider"></div> --}}
-                                            {{-- <a class="dropdown-item" href="#">Pengaturan akun</a>
-                                            <div class="dropdown-divider"></div> --}}
-                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                            {{-- <a class="dropdown-item" href="#">Kotak Masuk</a> --}}
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="contact_us">Contact Us</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" onclick="return confirm('apakah anda yakin ingin keluar?')" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
                                                 Keluar
@@ -190,7 +213,7 @@
                         <div class="user">
                             <div class="avatar-sm float-left mr-2">
                                 @if ($kandidat->foto_4x6 !== null)
-                                    <img src="/gambar/Kandidat/4x6/{{$kandidat->foto_4x6}}" alt="" class="avatar-img rounded-circle">                                    
+                                    <img src="/gambar/Kandidat/{{$kandidat->nama}}/4x6/{{$kandidat->foto_4x6}}" alt="" class="avatar-img rounded-circle">                                    
                                 @else
                                     <img src="/gambar/default_user.png" alt="" class="avatar-img rounded-circle">
                                 @endif
@@ -198,19 +221,13 @@
                             <div class="info">
                                 <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                                     <span>
-                                        <span class="" style="text-transform: uppercase;"><b class="bold">Kandidat</b></span>
+                                        <span class="" style="text-transform: uppercase;"><b class="bold">{{$kandidat->nama_panggilan}}</b></span>
                                         <span class="caret"></span>
                                     </span>
                                 </a>
                                 <div class="clearfix"></div>
-    
                                 <div class="collapse in" id="collapseExample">
                                     <ul class="nav">
-                                        <li>
-                                            <a href="/kandidat" class="dropdown-item">
-                                                <span class="link-collapse">Beranda</span>
-                                            </a>
-                                        </li>
                                         <li>
                                             <a href="/profil_kandidat" class="dropdown-item">
                                                 <span class="link-collapse">Profilku</span>

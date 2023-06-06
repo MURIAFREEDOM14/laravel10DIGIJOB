@@ -20,6 +20,7 @@ use App\Models\Perusahaan;
 use App\Models\Interview;
 use App\Models\notifyKandidat;
 use App\Models\messageKandidat;
+use App\Models\Pelatihan;
 use Carbon\Carbon;
 
 class ManagerController extends Controller
@@ -163,38 +164,32 @@ class ManagerController extends Controller
         $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
         $tgl_perizin = Carbon::create($kandidat->tgl_lahir_perizin)->isoFormat('D MMM Y');
         // dd($tmp_user->cityName);
-        if ($kandidat->periode_awal1 !== null) {
-            $periode_awal1 = Carbon::create($kandidat->periode_awal1)->isoFormat('D MMM Y');
-            $periode_akhir1 = Carbon::create($kandidat->periode_akhir1)->isoFormat('D MMM Y');
-        } else {
-            $periode_awal1 = null;
-            $periode_akhir1 = null;
-        }
-        if ($kandidat->periode_awal2 !== null) {
-            $periode_awal2 = Carbon::create($kandidat->periode_awal2)->isoFormat('D MMM Y');
-            $periode_akhir2 = Carbon::create($kandidat->periode_akhir2)->isoFormat('D MMM Y');
-        } else {
-            $periode_awal2 = null;
-            $periode_akhir2 = null;
-        }
-        if ($kandidat->periode_awal3 !== null){
-            $periode_awal3 = Carbon::create($kandidat->periode_awal3)->isoFormat('D MMM Y');
-            $periode_akhir3 = Carbon::create($kandidat->periode_akhir3)->isoFormat('D MMM Y');    
-        } else {
-            $periode_awal3 = null;
-            $periode_akhir3 = null;
-        }
+        // if ($kandidat->periode_awal1 !== null) {
+        //     $periode_awal1 = Carbon::create($kandidat->periode_awal1)->isoFormat('D MMM Y');
+        //     $periode_akhir1 = Carbon::create($kandidat->periode_akhir1)->isoFormat('D MMM Y');
+        // } else {
+        //     $periode_awal1 = null;
+        //     $periode_akhir1 = null;
+        // }
+        // if ($kandidat->periode_awal2 !== null) {
+        //     $periode_awal2 = Carbon::create($kandidat->periode_awal2)->isoFormat('D MMM Y');
+        //     $periode_akhir2 = Carbon::create($kandidat->periode_akhir2)->isoFormat('D MMM Y');
+        // } else {
+        //     $periode_awal2 = null;
+        //     $periode_akhir2 = null;
+        // }
+        // if ($kandidat->periode_awal3 !== null){
+        //     $periode_awal3 = Carbon::create($kandidat->periode_awal3)->isoFormat('D MMM Y');
+        //     $periode_akhir3 = Carbon::create($kandidat->periode_akhir3)->isoFormat('D MMM Y');    
+        // } else {
+        //     $periode_awal3 = null;
+        //     $periode_akhir3 = null;
+        // }
         return view('manager/kandidat/cetak_surat', compact(
             'kandidat',
             'tgl_print',
             'tgl_user',
             'tgl_perizin',
-            // 'periode_awal1',
-            // 'periode_awal2',
-            // 'periode_awal3',
-            // 'periode_akhir1',
-            // 'periode_akhir2',
-            // 'periode_akhir3',
         ));
     }
 
@@ -330,6 +325,10 @@ class ManagerController extends Controller
         $kandidat = Kandidat::where('id_kandidat', $id)->first();    
         // cek foto ktp
         if($request->file('foto_ktp') !== null){
+            $hapus_ktp = public_path('/gambar/Kandidat/'.$kandidat->nama.'/KTP/').$kandidat->foto_ktp;
+            if(file_exists($hapus_ktp)){
+                @unlink($hapus_ktp);
+            }
             $ktp = $kandidat->nama.time().'.'.$request->foto_ktp->extension();  
             $request->foto_ktp->move(public_path('/gambar/Kandidat/KTP'), $ktp);
         } else {
@@ -341,6 +340,10 @@ class ManagerController extends Controller
         }
         // cek foto kk
         if ($request->file('foto_kk') !== null) {    
+            $hapus_kk = public_path('/gambar/Kandidat/'.$kandidat->nama.'/KK/').$kandidat->foto_kk;
+            if(file_exists($hapus_kk)){
+                @unlink($hapus_kk);
+            }
             $kk = $kandidat->nama.time().'.'.$request->foto_kk->extension();  
             $request->foto_kk->move(public_path('/gambar/Kandidat/KK'), $kk);
         } else {
@@ -352,6 +355,10 @@ class ManagerController extends Controller
         }
         // cek foto set badan
         if($request->file('foto_set_badan') !== null){
+            $hapus_set_badan = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Set_badan/').$kandidat->foto_set_badan;
+            if(file_exists($hapus_set_badan)){
+                @unlink($hapus_set_badan);
+            }
             $set_badan = $kandidat->nama.time().'.'.$request->foto_set_badan->extension();  
             $request->foto_set_badan->move(public_path('/gambar/Kandidat/Set_badan'), $set_badan);
         } else {
@@ -363,6 +370,10 @@ class ManagerController extends Controller
         }
         // cek foto 4x6
         if($request->file('foto_4x6') !== null){
+            $hapus_4x6 = public_path('/gambar/Kandidat/'.$kandidat->nama.'/4x6/').$kandidat->foto_4x6;
+            if(file_exists($hapus_4x6)){
+                @unlink($hapus_4x6);
+            }
             $foto_4x6 = $kandidat->nama.time().'.'.$request->foto_4x6->extension();  
             $request->foto_4x6->move(public_path('/gambar/Kandidat/4x6'), $foto_4x6);
         } else {
@@ -374,6 +385,10 @@ class ManagerController extends Controller
         }
         // cek foto ket lahir
         if($request->file('foto_ket_lahir') !== null){
+            $hapus_ket_lahir = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Ket_lahir/').$kandidat->foto_ket_lahir;
+            if(file_exists($hapus_ket_lahir)){
+                @unlink($hapus_ket_lahir);
+            }
             $ket_lahir = $kandidat->nama.time().'.'.$request->foto_ket_lahir->extension();  
             $request->foto_ket_lahir->move(public_path('/gambar/Kandidat/Ket_lahir'), $ket_lahir);
         } else {
@@ -385,6 +400,10 @@ class ManagerController extends Controller
         }
         // cek foto ijazah
         if($request->file('foto_ijazah') !== null){
+            $hapus_ijazah = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Ijazah/').$kandidat->foto_ijazah;
+            if(file_exists($hapus_ijazah)){
+                @unlink($hapus_ijazah);
+            }
             $ijazah = $kandidat->nama.time().'.'.$request->foto_ijazah->extension();  
             $request->foto_ijazah->move(public_path('/gambar/Kandidat/Ijazah'), $ijazah);            
         } else {
@@ -485,6 +504,10 @@ class ManagerController extends Controller
         $kandidat = Kandidat::where('id_kandidat',$id)->first();
         // cek buku nikah
         if($request->file('foto_buku_nikah') !== null){
+            $hapus_buku_nikah = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/').$kandidat->foto_buku_nikah;
+            if(file_exists($hapus_buku_nikah)){
+                @unlink($hapus_buku_nikah);
+            }
             $buku_nikah = $kandidat->nama.time().'.'.$request->foto_buku_nikah->extension();  
             $request->foto_buku_nikah->move(public_path('/gambar/Kandidat/Buku Nikah'), $buku_nikah);
         } else {
@@ -495,6 +518,10 @@ class ManagerController extends Controller
             }
         }
         if($request->file('foto_cerai')){
+            $hapus_foto_cerai = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Cerai/').$kandidat->foto_foto_cerai;
+            if(file_exists($hapus_foto_cerai)){
+                @unlink($hapus_foto_cerai);
+            }
             $cerai = $kandidat->nama.time().'.'.$request->foto_cerai->extension();  
             $request->foto_cerai->move(public_path('/gambar/Kandidat/Cerai'), $cerai);
         } else {
@@ -505,6 +532,10 @@ class ManagerController extends Controller
             }
         }
         if($request->file('foto_kematian_pasangan')){
+            $hapus_kematian_pasangan = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Kematian Pasangan/').$kandidat->foto_kematian_pasangan;
+            if(file_exists($hapus_kematian_pasangan)){
+                @unlink($hapus_kematian_pasangan);
+            }
             $kematian_pasangan = $kandidat->nama.time().'.'.$request->foto_kematian_pasangan->extension();  
             $request->foto_kematian_pasangan->move(public_path('/gambar/Kandidat/Kematian Pasangan'), $kematian_pasangan);
         } else {
@@ -561,6 +592,10 @@ class ManagerController extends Controller
         $kandidat = Kandidat::where('id_kandidat',$id)->first();
         // cek vaksin1
         if($request->file('sertifikat_vaksin1') !== null){
+            $hapus_sertifikat_vaksin1 = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Vaksin Pertama/').$kandidat->sertifikat_vaksin1;
+            if(file_exists($hapus_sertifikat_vaksin1)){
+                @unlink($hapus_sertifikat_vaksin1);
+            }
             $sertifikat_vaksin1 = $kandidat->nama.time().'.'.$request->sertifikat_vaksin1->extension();  
             $request->sertifikat_vaksin1->move(public_path('/gambar/Kandidat/Vaksin Pertama'), $sertifikat_vaksin1);
         } else {
@@ -572,6 +607,10 @@ class ManagerController extends Controller
         }
         // cek vaksin2
         if($request->file('sertifikat_vaksin2') !== null){
+            $hapus_sertifikat_vaksin2 = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Vaksin Kedua/').$kandidat->sertifikat_vaksin2;
+            if(file_exists($hapus_sertifikat_vaksin2)){
+                @unlink($hapus_sertifikat_vaksin2);
+            }
             $sertifikat_vaksin2 = $kandidat->nama.time().'.'.$request->sertifikat_vaksin2->extension();  
             $request->sertifikat_vaksin2->move(public_path('/gambar/Kandidat/Vaksin Kedua'), $sertifikat_vaksin2);    
         } else {
@@ -583,6 +622,10 @@ class ManagerController extends Controller
         }
         // cek vaksin3
         if($request->file('sertifikat_vaksin3') !== null){
+            $hapus_sertifikat_vaksin3 = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Vaksin Ketiga/').$kandidat->sertifikat_vaksin3;
+            if(file_exists($hapus_sertifikat_vaksin3)){
+                @unlink($hapus_sertifikat_vaksin3);
+            }
             $sertifikat_vaksin3 = $kandidat->nama.time().'.'.$request->sertifikat_vaksin3->extension();  
             $request->sertifikat_vaksin3->move(public_path('/gambar/Kandidat/Vaksin Ketiga'), $sertifikat_vaksin3);
         } else {
@@ -679,8 +722,8 @@ class ManagerController extends Controller
                 'video_kerja1' => 'mimes:mp4,mov,ogg,qt | max:2000',
             ]);
             $video_kerja1 = $request->file('video_kerja1');
-            $video_kerja1->move('Video/Kandidat/Pengalaman Kerja1',$video_kerja1->getClientOriginalName());
-            $simpan_kerja1 = $video_kerja1->getClientOriginalName();
+            $video_kerja1->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/Pengalaman Kerja1',$kandidat->nama.$video_kerja1->getClientOriginalName());
+            $simpan_kerja1 = $kandidat->nama.$video_kerja1->getClientOriginalName();
             dd($simpan_kerja1);
         } else {
             if($kandidat->video_kerja1 !== null){
@@ -695,8 +738,8 @@ class ManagerController extends Controller
                 'video_kerja2' => 'mimes:mp4,mov,ogg,qt | max:2000',
             ]);
             $video_kerja2 = $request->file('video_kerja2');
-            $video_kerja2->move('Video/Kandidat/Pengalaman Kerja2',$video_kerja2->getClientOriginalName());
-            $simpan_kerja2 = $video_kerja2->getClientOriginalName();
+            $video_kerja2->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/Pengalaman Kerja2',$kandidat->nama.$video_kerja2->getClientOriginalName());
+            $simpan_kerja2 = $kandidat->nama.$video_kerja2->getClientOriginalName();
         } else {
             if($kandidat->video_kerja2 !== null){
                 $simpan_kerja2 = $kandidat->video_kerja2;
@@ -710,8 +753,8 @@ class ManagerController extends Controller
                 'video_kerja3' => 'mimes:mp4,mov,ogg,qt | max:20000',
             ]);
             $video_kerja3 = $request->file('video_kerja3');
-            $video_kerja3->move('Video/Kandidat/Pengalaman Kerja3',$video_kerja3->getClientOriginalName());
-            $simpan_kerja3 = $video_kerja3->getClientOriginalName();
+            $video_kerja3->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/Pengalaman Kerja3',$kandidat->nama.$video_kerja3->getClientOriginalName());
+            $simpan_kerja3 = $kandidat->nama.$video_kerja3->getClientOriginalName();
         } else {
             if($kandidat->video_kerja3 !== null){
                 $simpan_kerja3 = $kandidat->video_kerja3;                   
@@ -789,6 +832,10 @@ class ManagerController extends Controller
             // $this->validate($request, [
             //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
             // ]);
+            $hapus_foto_ktp_izin = public_path('/gambar/Kandidat/'.$kandidat->nama.'/KTP Perizin/').$kandidat->foto_ktp_izin;
+            if(file_exists($hapus_foto_ktp_izin)){
+                @unlink($hapus_foto_ktp_izin);
+            }
             $ktp_izin = $kandidat->nama.time().'.'.$request->foto_ktp_izin->extension();
             $request->foto_ktp_izin->move(public_path('/gambar/Kandidat/KTP Perizin'), $ktp_izin);
         } else {
@@ -848,6 +895,10 @@ class ManagerController extends Controller
             // $this->validate($request, [
             //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
             // ]);
+            $hapus_paspor = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Paspor/').$kandidat->foto_paspor;
+            if(file_exists($hapus_paspor)){
+                @unlink($hapus_paspor);
+            }
             $paspor = $kandidat->nama.time().'.'.$request->foto_paspor->extension();  
             $request->foto_paspor->move(public_path('/gambar/Kandidat/Paspor'), $paspor);
         } else {
@@ -922,6 +973,144 @@ class ManagerController extends Controller
             'id_pekerjaan'=> $request->id_pekerjaan
         ]);
         return redirect('/manager/kandidat/lihat_profil/'.$id);
+    }
+
+    public function pelatihan()
+    {
+        $auth = Auth::user();
+        $manager = User::where('referral_code',$auth->referral_code)->first();      
+        $pelatihan = Pelatihan::limit(40)->get();
+        return view('manager/kandidat/pelatihan',compact('manager','pelatihan'));
+    }
+
+    public function tambahPelatihan()
+    {
+        $auth = Auth::user();
+        $manager = User::where('referral_code',$auth->referral_code)->first();
+        $negara = Negara::all();
+        return view('manager/kandidat/tambah_pelatihan',compact('manager','negara'));
+    }
+
+    public function simpanPelatihan(Request $request)
+    {
+        $auth = Auth::user();
+        $manager = User::where('referral_code',$auth->referral_code)->first();
+        $pelatihan = Pelatihan::where('judul','like','%'.$request->judul.'%')->first();
+        
+        // THUMBNAIL //
+        if($request->file('thumbnail') !== null){
+            $thumbnail = $request->judul.time().'.'.$request->thumbnail->extension();  
+            $request->thumbnail->move(public_path('/gambar/Manager/Pelatihan/'.$request->judul.'/Thumbnail'), $thumbnail);
+        } else {
+            $thumbnail = null;
+        }
+
+        // VIDEO PELATIHAN //
+        $validated = $request->validate([
+            'video' => 'mimes:mp4,mov,ogg,qt | max:3000',
+        ]);
+        $video = $request->file('video');
+        $video->move('gambar/Manager/Pelatihan/'.$request->judul.'/Video',$request->judul.$video->getClientOriginalName());
+        $simpanVideo = $request->judul.$video->getClientOriginalName();
+        
+        Pelatihan::create([
+            'judul'=>$request->judul,
+            'video'=>$simpanVideo,
+            'deskripsi'=>$request->deskripsi,
+            'thumbnail'=>$thumbnail,
+            'url'=>$request->url,
+            'negara_id'=>$request->negara_id,
+        ]);
+        return redirect('/manager/kandidat/pelatihan');
+    }
+
+    public function editPelatihan($id)
+    {
+        $auth = Auth::user();
+        $manager = User::where('referral_code',$auth->referral_code)->first();
+        $pelatihan = Pelatihan::where('id',$id)->first();
+        $negara = Negara::all();
+        return view('manager/kandidat/edit_pelatihan',compact('pelatihan','manager','negara'));
+    }
+
+    public function updatePelatihan(Request $request,$id)
+    {
+        $auth = Auth::user();
+        $manager = User::where('referral_code',$auth->referral_code)->first();
+        $pelatihan = Pelatihan::where('id',$id)->first();
+        
+        // THUMBNAIL //
+        if ($request->file('thumbnail') !== null) {    
+            $hapus_thumbnail = public_path('/gambar/Manager/Pelatihan/'.$pelatihan->judul.'/Thumbnail/').$pelatihan->thumbnail;
+            if(file_exists($hapus_thumbnail)){
+                @unlink($hapus_thumbnail);
+            }
+            $thumbnail = $request->judul.time().'.'.$request->thumbnail->extension();  
+            $request->thumbnail->move(public_path('/gambar/Manager/Pelatihan/'.$request->judul.'/Thumbnail'), $thumbnail);
+        } else {
+            if ($pelatihan->thumbnail !== null) {
+                $thumbnail = $pelatihan->thumbnail;
+            } else {
+                $thumbnail = null;
+            }
+        }
+
+        // VIDEO PELATIHAN //
+        if($request->file('video') !== null){
+            $validated = $request->validate([
+                'video' => 'mimes:mp4,mov,ogg,qt | max:3000',
+            ]);
+            $hapus_video = public_path('/gambar/Manager/Pelatihan/'.$pelatihan->judul.'/Video/').$pelatihan->video;
+            if(file_exists($hapus_video)){
+                @unlink($hapus_video);
+            }
+            $video = $request->file('video');
+            $video->move('gambar/Manager/Pelatihan/'.$request->judul.'/Video',$request->judul.$video->getClientOriginalName());
+            $simpan_video = $request->judul.$video->getClientOriginalName();
+        } else {
+            if($pelatihan->video !== null){
+                $simpan_video = $pelatihan->video;
+            } else {
+                $simpan_video = null;
+            }
+        }
+        
+        // Cek thumbnail //
+        if($thumbnail !== null){
+            $thumbnailPelatihan = $thumbnail;
+        } else {
+            $thumbnailPelatihan = null;
+        }
+        // Cek video //
+        if($simpan_video !== null){
+            $videoPelatihan = $simpan_video;
+        } else {
+            $videoPelatihan = null;
+        }
+        Pelatihan::where('id',$id)->update([
+            'judul'=>$request->judul,
+            'video'=>$videoPelatihan,
+            'deskripsi'=>$request->deskripsi,
+            'thumbnail'=>$thumbnailPelatihan,
+            'url'=>$request->url,
+            'negara_id'=>$request->negara_id,
+        ]);
+        return redirect('/manager/kandidat/pelatihan');
+    }
+
+    public function hapusPelatihan($id)
+    {
+        $hapus = Pelatihan::findorfail($id);
+        $file = public_path('/gambar/Manager/Pelatihan/'.$hapus->judul.'/Thumbnail/').$hapus->thumbnail;
+        if(file_exists($file)){
+            @unlink($file);
+        }
+        $video = public_path('/gambar/Manager/Pelatihan/'.$hapus->judul.'/Video/').$hapus->video;
+        if(file_exists($video)){
+            @unlink($video);
+        }
+        Pelatihan::where('id',$id)->delete();
+        return redirect('/manager/kandidat/pelatihan');
     }
 
     public function pembayaranKandidat()

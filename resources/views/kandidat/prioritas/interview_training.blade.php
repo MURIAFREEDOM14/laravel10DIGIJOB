@@ -11,7 +11,7 @@
                                         <div class="card-body">
                                             <div class="avatar-xxl">
                                                 @if ($kandidat->foto_4x6 !== null)
-                                                    <img src="/gambar/Kandidat/4x6/{{$kandidat->foto_4x6}}" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                                
+                                                    <img src="/gambar/Kandidat/{{$kandidat->nama}}/4x6/{{$kandidat->foto_4x6}}" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                                
                                                 @else
                                                     <img src="/gambar/default_user.png" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                                                                                        
                                                 @endif
@@ -27,56 +27,38 @@
                                             <b class="" style="text-transform: uppercase;">Pelatihan Interview</b>
                                         </div>
                                         <div class="card-body text-white" style="font-size: 15px; text-transform:uppercase;">
-                                            <b>Mari Atasi sikap gugupmu dan tambahkan rasa percaya dirimu dengan Pelatihan Interview Secara Gratis</b> 
+                                            <b>Mari Atasi sikap gugupmu dan tambahkan rasa percaya dirimu dengan Pelatihan Interview</b> 
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                {{-- @foreach ($interview as $item) --}}
-                                    <div class="col-md-4">
+                                @foreach ($pelatihan as $item)
+                                    <div class="col-6">
                                         <div class="card">
+                                            <div class="card-header">
+                                                <b>{{$item->judul}}</b>
+                                            </div>
                                             <div class="card-body">
                                                 <div class="row">
-                                                    <div class="col-5">
-                                                        <img src="/gambar/default_user.png" width="100" height="100" alt="">
+                                                    <div class="col-6">
+                                                        <video width="200" poster="/gambar/Manager/Pelatihan/{{$item->judul}}/Thumbnail/{{$item->thumbnail}}" controls>
+                                                            <source src="/gambar/Manager/Pelatihan/{{$item->judul}}/Video/{{$item->video}}" type="video/mp4">
+                                                        </video>
                                                     </div>
-                                                    <div class="col">
-                                                        Video 1
+                                                    <div class="col-6">
+                                                        <b>{{$item->deskripsi}}</b>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-5">
-                                                        <img src="/gambar/default_user.png" width="100" height="100" alt="">
-                                                    </div>
-                                                    <div class="col">
-                                                        Video 2
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-5">
-                                                        <img src="/gambar/default_user.png" width="100" height="100" alt="">                                                    
-                                                    </div>
-                                                    <div class="col">
-                                                        Video 3
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {{-- @endforeach --}}
+                                @endforeach
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <a class="btn btn-primary" href="/list_video_interview">Lihat Lebih banyak</a>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -54,10 +54,14 @@ class PerusahaanController extends Controller
         $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
         if($request->file('foto_perusahaan') !== null){
             // $this->validate($request, [
-            //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
+            //     'foto_perusahaan' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
             // ]);
+            $hapus_foto_perusahaan = public_path('/gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Foto Perusahaan/').$perusahaan->foto_perusahaan;
+            if(file_exists($hapus_foto_perusahaan)){
+                @unlink($hapus_foto_perusahaan);
+            }
             $photo_perusahaan = time().'.'.$request->foto_perusahaan->extension();  
-            $request->foto_perusahaan->move(public_path('/gambar/Perusahaan/Perusahaan'), $photo_perusahaan);
+            $request->foto_perusahaan->move(public_path('/gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Foto Perusahaan'),$photo_perusahaan);
         } else {
             if($perusahaan->foto_perusahaan !== null){
                 $photo_perusahaan = $perusahaan->foto_perusahaan;                
@@ -70,8 +74,12 @@ class PerusahaanController extends Controller
             // $this->validate($request, [
             //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
             // ]);
+            $hapus_logo_perusahaan = public_path('/gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Logo Perusahaan/').$perusahaan->logo_perusahaan;
+            if(file_exists($hapus_foto_perusahaan)){
+                @unlink($hapus_foto_perusahaan);
+            }
             $logo = time().'.'.$request->logo_perusahaan->extension();  
-            $request->logo_perusahaan->move(public_path('/gambar/Perusahaan/Logo'), $logo);
+            $request->logo_perusahaan->move(public_path('/gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Logo Perusahaan'), $logo);
         } else {
             if($perusahaan->logo_perusahaan !== null){
                 $logo = $perusahaan->logo_perusahaan;                
@@ -101,7 +109,8 @@ class PerusahaanController extends Controller
             'no_nib'=>$request->no_nib,
             'nama_pemimpin'=>$request->nama_pemimpin,
             'foto_perusahaan'=>$foto_perusahaan,
-            'logo_perusahaan'=>$logo_perusahaan
+            'logo_perusahaan'=>$logo_perusahaan,
+            'tmp_negara'=>$request->tmp_negara,
         ]);
         return redirect()->route('perusahaan.alamat');
     }
@@ -127,7 +136,6 @@ class PerusahaanController extends Controller
             'kota'=>$kota->kota,
             'kecamatan'=>$kecamatan->kecamatan,
             'kelurahan'=>$kelurahan->kelurahan,
-            'tmp_negara'=>$request->tmp_negara,
             'no_telp_perusahaan'=>$request->no_telp_perusahaan,
         ]);
         return redirect()->route('perusahaan.operator');

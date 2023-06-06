@@ -1,12 +1,12 @@
 @extends('layouts.manager')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-5">
         @if (auth()->user()->type == 3)
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title float-left">Data Kandidat Luar Negeri</h4>
+                    <h4 class="card-title float-left">Data Kandidat Dalam Negeri</h4>
                     <a href="/tambah_kandidat_personal" class="btn btn-primary float-right">Tambah Kandidat</a>
                 </div>
                 <div class="card-body">

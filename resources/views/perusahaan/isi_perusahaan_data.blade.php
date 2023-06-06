@@ -44,7 +44,7 @@
                                     <label for="inputPassword6" class="col-form-label">Tempat Perusahaan</label>
                                 </div>
                                 <div class="col-md-3">
-                                    <select name="tmp_negara" class="form-select" id="">
+                                    <select name="tmp_negara" required class="form-select" id="">
                                         <option value="Dalam negeri" @if ($perusahaan->tmp_negara == "Dalam negeri")
                                             selected                                            
                                         @endif>Dalam Negeri</option>

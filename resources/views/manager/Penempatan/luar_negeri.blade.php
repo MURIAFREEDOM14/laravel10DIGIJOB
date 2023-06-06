@@ -1,7 +1,7 @@
 @extends('layouts.manager')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-5">
         @if (auth()->user()->type == 3)
         <div class="col-md-12">
             <div class="card">

@@ -228,11 +228,6 @@
                                 <div class="collapse in" id="collapseExample">
                                     <ul class="nav">
                                         <li>
-                                            <a href="/perusahaan" class="dropdown-item">
-                                                <span class="link-collapse">Beranda</span>
-                                            </a>
-                                        </li>
-                                        <li>
                                             <a href="/perusahaan/lihat/perusahaan" class="dropdown-item">
                                                 <span class="link-collapse">Profil Perusahaan</span>
                                             </a>

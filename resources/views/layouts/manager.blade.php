@@ -209,6 +209,11 @@
                                                 <span class="sub-item">Data Surat izin</span>
                                             </a>
                                         </li>
+                                        <li>
+                                            <a class="btn" href="/manager/kandidat/pelatihan">
+                                                <span class="sub-item">Data Pelatihan</span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>

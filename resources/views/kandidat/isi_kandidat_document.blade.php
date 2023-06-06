@@ -81,7 +81,7 @@
                                     <label for="inputPassword6" class="col-form-label">NIK</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="number" placeholder="Masukkan NIK 16 digit angka" required name="nik" min="16" max="16" pattern="[0-9]{16}" value="{{$kandidat->nik}}" id="inputPassword6" class="form-control @error('nik') is-invalid @enderror" aria-labelledby="passwordHelpInline">
+                                    <input type="number" placeholder="Masukkan NIK 16 digit angka" required name="nik" pattern="[0-9]{16}" value="{{$kandidat->nik}}" id="inputPassword6" class="form-control @error('nik') is-invalid @enderror" aria-labelledby="passwordHelpInline">
                                     @error('nik')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>NIK harus berisi 16 digit angka</strong>
