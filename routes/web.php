@@ -143,27 +143,28 @@ Route::controller(AkademiController::class)->group(function() {
 
     // DATA KANDIDAT //
     Route::get('/akademi/list_kandidat','listKandidat')->middleware('akademi');
+    Route::get('/akademi/kandidat/lihat_profil/{nama}/{id}','lihatProfilKandidat')->middleware('akademi');
     {
         Route::get('/akademi/isi_kandidat_personal', 'isi_personal')->middleware('akademi');
         Route::post('/akademi/isi_kandidat_personal', 'simpan_personal');
         
-        Route::get('/akademi/isi_kandidat_document', 'isi_document')->middleware('akademi');
-        Route::post('/akademi/isi_kandidat_document', 'simpan_document');
+        Route::get('/akademi/isi_kandidat_document/{nama}/{id}', 'isi_document')->middleware('akademi');
+        Route::post('/akademi/isi_kandidat_document/{nama}/{id}', 'simpan_document');
 
-        Route::get('/akademi/isi_kandidat_vaksin', 'isi_vaksin')->middleware('akademi');
-        Route::post('/akademi/isi_kandidat_vaksin', 'simpan_vaksin');
+        Route::get('/akademi/isi_kandidat_vaksin/{nama}/{id}', 'isi_vaksin')->middleware('akademi');
+        Route::post('/akademi/isi_kandidat_vaksin/{nama}/{id}', 'simpan_vaksin');
 
-        Route::get('/akademi/isi_kandidat_parent', 'isi_parent')->middleware('akademi');
-        Route::post('/akademi/isi_kandidat_parent', 'simpan_parent');
+        Route::get('/akademi/isi_kandidat_parent/{nama}/{id}', 'isi_parent')->middleware('akademi');
+        Route::post('/akademi/isi_kandidat_parent/{nama}/{id}', 'simpan_parent');
 
-        Route::get('/akademi/isi_kandidat_permission', 'isi_permission')->middleware('akademi');
-        Route::post('/akademi/isi_kandidat_permission', 'simpan_permission');
+        Route::get('/akademi/isi_kandidat_permission/{nama}/{id}', 'isi_permission')->middleware('akademi');
+        Route::post('/akademi/isi_kandidat_permission/{nama}/{id}', 'simpan_permission');
 
-        Route::get('/akademi/isi_kandidat_placement', 'isi_placement')->middleware('akademi');
-        Route::post('/akademi/isi_kandidat_placement', 'simpan_placement');
+        Route::get('/akademi/isi_kandidat_placement/{nama}/{id}', 'isi_placement')->middleware('akademi');
+        Route::post('/akademi/isi_kandidat_placement/{nama}/{id}', 'simpan_placement');
 
-        Route::get('/akademi/isi_kandidat_job', 'isi_job')->middleware('akademi');
-        Route::post('/akademi/isi_kandidat_job', 'simpan_job');
+        Route::get('/akademi/isi_kandidat_job/{nama}/{id}', 'isi_job')->middleware('akademi');
+        Route::post('/akademi/isi_kandidat_job/{nama}/{id}', 'simpan_job');
     }
 });
 
@@ -361,8 +362,8 @@ Route::get('webcam', [CaptureController::class, 'index']);
 Route::post('webcam', [CaptureController::class, 'store'])->name('webcam.capture');
 
 Route::controller(PrototypeController::class)->group(function(){
-    Route::get('/prototype','tgl');
-    Route::post('/prototype','umur');
+    Route::get('/prototype','test');
+    Route::post('/prototype','cek');
 });
 
 Route::get('/linewire',Location::class)->middleware('verify');

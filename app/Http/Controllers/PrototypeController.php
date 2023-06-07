@@ -3,32 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kandidat;
+use App\Models\Kecamatan;
+use App\Models\Negara;
+use App\Models\Provinsi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class PrototypeController extends Controller
 {
-    public function test2()
+    public function test()
     {
-        $id = Auth::user();
-        $kandidat = Kandidat::where('referral_code', $id->referral_code)->first();
-        return view('prototype2', compact('kandidat'));
-    }
-    public function test3()
-    {
-        return view('prototype3');
+        $data = Provinsi::get();
+        return view('/prototype',compact('data'));
     }
 
-    public function tgl()
+    public function cek(Request $request)
     {
-        $umur = "";
-        return view('prototype',compact('umur'));
-    }
-
-    public function umur(Request $request)
-    {
-        $umur = Carbon::parse($request->tgl)->age;
-        return view('prototype',compact('umur'));
+        dd($request);
+        $data['kota'] = Kecamatan::where("provinsi_id", $request->country_id)
+                                ->get(["name", "id"]);
+  
+        return response()->json($data);
     }
 }

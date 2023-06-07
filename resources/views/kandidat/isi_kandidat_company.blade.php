@@ -26,7 +26,7 @@
                         <a class="nav-link" href="{{route('parent')}}">Parent</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{route('company')}}">Company</a>
+                        <a class="nav-link active" href="{{route('company')}}">Pengalaman Kerja</a>
                     </li>                          
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('permission')}}">Permission</a>

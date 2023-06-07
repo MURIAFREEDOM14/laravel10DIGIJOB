@@ -139,15 +139,15 @@ class ManagerController extends Controller
             'penempatan'=>$penempatan,
         ]);
 
-        dd($kandidat);
-        $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->first();
-        if($pengalaman_kerja == null){
-            PengalamanKerja::create([
-                'id_kandidat' => $kandidat->id_kandidat,
-                'pengalaman_kerja'=>"",
-                'lama_kerja'=>"",
-            ]);
-        }
+        // dd($kandidat);
+        // $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->first();
+        // if($pengalaman_kerja == null){
+        //     PengalamanKerja::create([
+        //         'id_kandidat' => $kandidat->id_kandidat,
+        //         'pengalaman_kerja'=>"",
+        //         'lama_kerja'=>"",
+        //     ]);
+        // }
         return redirect('/manager/surat_izin')->with('success', 'Data berhasil ditambahkan');
     }
 

@@ -2,12 +2,10 @@
 
 @section('content')
     <div class="container mt-5">
-        @if (auth()->user()->type == 3)
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title float-left">Data Kandidat Dalam Negeri</h4>
-                    <a href="/tambah_kandidat_personal" class="btn btn-primary float-right">Tambah Kandidat</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -16,7 +14,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
-                                    <th>No telp</th>
+                                    <th>Pendidikan</th>
                                     <th>Penempatan Negara</th>
                                     <th>Lihat Bio Data</th>
                                 </tr>
@@ -26,7 +24,7 @@
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{ $item->nama }}</td>
-                                    <td>{{ $item->no_telp }}</td>
+                                    <td>{{ $item->pendidikan }}</td>
                                     <td>{{ $item->penempatan }}</td>
                                     <td>
                                         <a href="/manager/kandidat/lihat_profil/{{$item->id_kandidat}}">Lihat Profil</a>
@@ -39,21 +37,5 @@
                 </div>
             </div>
         </div>
-        @elseif (auth()->user()->type == 2)
-        
-        @elseif (auth()->user()->type == 1)
-        
-        @else
-            <div class="card">
-                <div class="card-header">
-                    Biodata Diri
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        
-                    </div>
-                </div>
-            </div>        
-        @endif
     </div>
 @endsection

@@ -1,5 +1,4 @@
 @extends('layouts.input')
-
 @section('content')
 @include('sweetalert::alert')
     <div class="container mt-5">        
@@ -28,7 +27,7 @@
                         <a class="nav-link" href="{{route('parent')}}">Parent</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('company')}}">Company</a>
+                        <a class="nav-link" href="{{route('company')}}">Pengalaman Kerja</a>
                     </li>                          
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('permission')}}">Permission</a>
@@ -90,14 +89,21 @@
                                     </select>
                                 </div>
                             </div>
-                            {{-- <div class="row mb-3 g-3 align-items-center">
+                            <div class="row">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Pilih Jabatan</label>
+                                    <label for="" class="col-form-label">Pilih Penempatan Negara</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" name="jabatan_kandidat" class="form-control" value="{{$kandidat->jabatan_kandidat}}" id="">
+                                    <select name="negara_id" required class="form-select" id="negara">
+                                        <option value="">-- Pilih Negara --</option>
+                                        @foreach ($negara as $item)
+                                            <option value="{{$item->negara_id}}" @if ($kandidat->negara_id == $item->negara_id)selected @endif>{{$item->negara}}</option>
+                                        @endforeach
+                                    </select>
+                                    <select name="id_pekerjaan" class="form-control" id="pekerjaan">
+                                    </select>
                                 </div>
-                            </div>                                 --}}
+                            </div>
                         </div>
                         <button class="btn btn-primary my-3 float-end" type="submit">Simpan</button>
                     </form>

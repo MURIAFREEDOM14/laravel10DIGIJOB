@@ -39,11 +39,11 @@ class KandidatController extends Controller
         $perusahaan = Perusahaan::limit(2)->get();
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
         if ($kandidat->penempatan == null) {
-            return redirect('/isi_kandidat_personal')->with('toast_warning','Harap Lengkapi Data Personal Dahulu');
+            return redirect('/isi_kandidat_personal')->with('toast_warning',"Harap Lengkapi Data Personal Dahulu");
         } elseif($kandidat->nik == null) {
-            return redirect('/isi_kandidat_document')->with('toast_warning','Harap Isi Data Document Dahulu');
+            return redirect('/isi_kandidat_document')->with('toast_warning',"Harap Isi Data Document Dahulu");
         } elseif($kandidat->negara_id == null) {
-            return redirect('/isi_kandidat_placement')->with('toast_warning','Harap Tentukan negara Tujuan Kerja');
+            return redirect('/isi_kandidat_placement')->with('toast_warning',"Harap Tentukan negara Tujuan Kerja");
         } else {
         return view('kandidat/index',compact('kandidat','notif','perusahaan','pembayaran','pesan'));
         }
@@ -363,18 +363,12 @@ class KandidatController extends Controller
             'kabupaten' => $kota->kota,
             'provinsi' => $provinsi->provinsi,
             'stats_negara' => "Indonesia",
-            'foto_ktp' => 
-            $foto_ktp,
-            'foto_kk' => 
-            $foto_kk,
-            'foto_set_badan' => 
-            $foto_set_badan,
-            'foto_4x6' => 
-            $photo_4x6,
-            'foto_ket_lahir' =>
-            $foto_ket_lahir,
-            'foto_ijazah' => 
-            $foto_ijazah,
+            'foto_ktp' => $foto_ktp,
+            'foto_kk' => $foto_kk,
+            'foto_set_badan' => $foto_set_badan,
+            'foto_4x6' => $photo_4x6,
+            'foto_ket_lahir' =>$foto_ket_lahir,
+            'foto_ijazah' => $foto_ijazah,
             'stats_nikah' => $request->stats_nikah
         ]);
         if ($request->stats_nikah !== "Single") {
@@ -418,7 +412,7 @@ class KandidatController extends Controller
             }
         }
         if($request->file('foto_cerai')){
-            $hapus_foto_cerai = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Cerai/').$kandidat->foto_foto_cerai;
+            $hapus_foto_cerai = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Cerai/').$kandidat->foto_cerai;
             if(file_exists($hapus_foto_cerai)){
                 @unlink($hapus_foto_cerai);
             }

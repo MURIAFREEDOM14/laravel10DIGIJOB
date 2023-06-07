@@ -15,7 +15,7 @@
                                 <th>Nama</th>
                                 <th>No. Telp</th>
                                 <th>Jenis Kelamin</th>
-                                <th>Lihat Profil</th>
+                                <th>Opsi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -26,7 +26,11 @@
                                     <td>{{$item->no_telp}}</td>
                                     <td>{{$item->jenis_kelamin}}</td>
                                     <td>
-                                        <a class="btn btn-info" href="/akademi/kandidat/lihat_profil/{{$item->id_kandidat}}">Lihat</a>
+                                        @if ($item->negara_id == null)
+                                            <a class="btn btn-warning" href="/akademi/isi_kandidat_document/{{$item->nama}}/{{$item->id_kandidat}}">Harap lengkapi profil anda</a>
+                                        @else
+                                            <a class="btn btn-info" href="/akademi/kandidat/lihat_profil/{{$item->nama}}/{{$item->id_kandidat}}">Lihat Profil</a>
+                                        @endif
                                     </td>
                                 </tr>    
                             @endforeach

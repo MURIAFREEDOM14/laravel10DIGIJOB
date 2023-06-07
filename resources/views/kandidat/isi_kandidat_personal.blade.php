@@ -27,7 +27,7 @@
                         <a class="nav-link" href="{{route('parent')}}">Parent</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('company')}}">Company</a>
+                        <a class="nav-link" href="{{route('company')}}">Pengalaman Kerja</a>
                     </li>                          
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('permission')}}">Permission</a>
@@ -181,6 +181,7 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="float-start">Catatan : Harap isi data ini dan simpan</div>
                         <button class="btn btn-primary my-3 float-end" type="submit">Simpan</button>
                     </form>
                 </div>
