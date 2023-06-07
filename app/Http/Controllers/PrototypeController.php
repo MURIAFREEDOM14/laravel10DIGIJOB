@@ -20,9 +20,8 @@ class PrototypeController extends Controller
 
     public function cek(Request $request)
     {
-        dd($request);
-        $data['kota'] = Kecamatan::where("provinsi_id", $request->country_id)
-                                ->get(["name", "id"]);
+        $data = Kecamatan::where("provinsi_id", $request->country_id)
+        ->get();
   
         return response()->json($data);
     }
