@@ -372,6 +372,7 @@ Route::post('webcam', [CaptureController::class, 'store'])->name('webcam.capture
 
 Route::controller(PrototypeController::class)->group(function(){
     Route::get('/prototype','test');
+    Route::get('/select1','select');
     Route::post('/prototype','cek');
 });
 

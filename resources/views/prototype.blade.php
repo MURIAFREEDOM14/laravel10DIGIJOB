@@ -1,78 +1,50 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Document</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Bootstrap demo</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     </head>
     <body>
-        <div class="container">
-            <select name="" id="country-dropdown" class="form-control">
-                <option value="">-- pilih provinsi --</option>
-                @foreach ($data as $item)
-                    <option value="{{$item->id}}">{{$item->provinsi}}</option>
-                @endforeach
-            </select>
-            <select name="" id="state-dropdown" class="form-control">
-            </select>
-        </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                /*------------------------------------------
-                --------------------------------------------
-                Country Dropdown Change Event
-                --------------------------------------------
-                --------------------------------------------*/
-                $('#country-dropdown').on('change', function () {
-                    var idCountry = this.value;
-                    $("#state-dropdown").html('');
-                    $.ajax({
-                        // url: "{{url('api/fetch-states')}}",
-                        url: "{{'/prototype'}}",
-                        type: "POST",
-                        data: {
-                            country_id: idCountry,
-                            _token: '{{csrf_token()}}'
-                        },
-                        dataType: 'json',
-                        success: function (result) {
-                            $('#state-dropdown').html('<option value="">-- Select State --</option>');
-                            $.each(result.states, function (key, value) {
-                                $("#state-dropdown").append('<option value="' + value
-                                    .id + '">' + value.name + '</option>');
-                            });
-                            $('#city-dropdown').html('<option value="">-- Select City --</option>');
+        <select name="" class="select1" id="select1">
+            @foreach ($prov as $item)
+                <option value="{{$item->id}}">{{$item->provinsi}}</option>                
+            @endforeach
+        </select>
+        <select name="select2" id="select2">
+        </select>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript">
+        $(document).ready(function(){
+            $(document).on('change','.select1',function(){
+                console.log("berubah");
+                var getID = $(this).val();
+                console.log(getID);
+                var div = $(this).parent();
+                var op = "";
+                $.ajax({
+                    type:'get',
+                    url: '{!!URL::to('select1')!!}',
+                    data:{'id':getID},
+                    success:function (data) {
+                        console.log('success');
+                        console.log(data);
+                        console.log(data.length);
+                        op+='<option value="0" selected disabled> pilih </option>';
+                        for(var i = 0; i < data.length; i++){
+                            op+='<option value="'+data[i].id+'">+data[i].kota+</option>';
                         }
-                    });
-                });
-                /*------------------------------------------
-                --------------------------------------------
-                State Dropdown Change Event
-                --------------------------------------------
-                --------------------------------------------*/
-                $('#state-dropdown').on('change', function () {
-                    var idState = this.value;
-                    $("#city-dropdown").html('');
-                    $.ajax({
-                        url: "{{url('api/fetch-cities')}}",
-                        type: "POST",
-                        data: {
-                            state_id: idState,
-                            _token: '{{csrf_token()}}'
-                        },
-                        dataType: 'json',
-                        success: function (res) {
-                            $('#city-dropdown').html('<option value="">-- Select City --</option>');
-                            $.each(res.cities, function (key, value) {
-                                $("#city-dropdown").append('<option value="' + value
-                                    .id + '">' + value.name + '</option>');
-                            });
-                        }
-                    });
+                    },
+                    div.find('.select2').html("");
+                    div.find('.select2').append("");
+                    error:function() {
+
+                    }
                 });
             });
-        </script>    
+        });
+        </script>
     </body>
-</html>    
+</html>
