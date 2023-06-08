@@ -113,6 +113,7 @@ Route::controller(ManagerController::class)->group(function() {
 Route::controller(LamanController::class)->group(function() {
     Route::get('/laman', 'index')->name('laman');    
     
+    Route::get('/login','loginSemua');
     Route::get('/login/kandidat', 'login_kandidat');
     Route::get('/login/akademi', 'login_akademi');
     Route::get('/login/perusahaan', 'login_perusahaan');
@@ -126,6 +127,9 @@ Route::controller(LamanController::class)->group(function() {
     Route::get('/login_info',  'login_info');
     Route::post('/login_info',  'info');
 
+    Route::get('/digijob_system','digijobSystem');
+    Route::get('/benefits','benefits');
+    Route::get('/features','features');
     Route::get('/contact_us','contact');
     Route::get('/about_us','about');
 });
@@ -225,6 +229,7 @@ Route::controller(KandidatController::class)->group(function() {
 
     Route::get('/isi_kandidat_company', 'isi_kandidat_company')->middleware('kandidat')->name('company');
     Route::post('/isi_kandidat_company', 'simpan_kandidat_company');
+    Route::post('/tambah_kandidat_pengalaman_kerja', 'pengalamanKerja');
 
     Route::get('/isi_kandidat_permission', 'isi_kandidat_permission')->middleware('kandidat')->name('permission');
     Route::post('/isi_kandidat_permission', 'simpan_kandidat_permission');
@@ -238,8 +243,8 @@ Route::controller(KandidatController::class)->group(function() {
     Route::get('/isi_kandidat_job', 'isi_kandidat_job')->middleware('kandidat')->name('job');
     Route::post('/isi_kandidat_job', 'simpan_kandidat_job');
 
-    Route::get('/contact_us','contactUsKandidat');
-    Route::post('/contact_us','sendContactUsKandidat');
+    // Route::get('/contact_us','contactUsKandidat');
+    // Route::post('/contact_us','sendContactUsKandidat');
     // DATA PERUSAHAAN //
     Route::get('/profil_perusahaan/{id}','perusahaan');
 });
@@ -260,6 +265,8 @@ Route::controller(NotifikasiController::class)->group(function() {
 
 // data login
 Route::controller(LoginController::class)->group(function() {
+    Route::get('/login','loginSemua');
+    Route::post('/login','AuthenticateLogin');
     Route::get('/login/kandidat','loginKandidat');
     Route::get('/login/akademi','loginAkademi');
     Route::get('/login/perusahaan','loginPerusahaan');
@@ -272,6 +279,8 @@ Route::controller(LoginController::class)->group(function() {
 // data registrasi
 Route::controller(RegisterController::class)->group(function() {
     Route::post('/register/kandidat', 'kandidat');
+    Route::get('/kandidat_umur/{nama}','umurKandidat');
+    Route::post('/kandidat_umur/{nama}','syaratUmur');
     Route::post('/register/akademi', 'akademi');
     Route::post('/register/perusahaan', 'perusahaan');
 });

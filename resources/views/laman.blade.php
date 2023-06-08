@@ -13,6 +13,12 @@
     body {
       font-family: Poppins;
     }
+    .text1 {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
   </style>
 
   <!-- Favicons -->
@@ -56,9 +62,12 @@
           {{-- <li><a class="nav-link scrollto" href="#services">Masuk</a></li> --}}
           <li class="dropdown"><a href=""><span style="color: black">Masuk</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="/login/kandidat" style="color: black">Kandidat</a></li>
+              {{-- <li><a href="/login/kandidat" style="color: black">Kandidat</a></li>
               <li><a href="/login/akademi" style="color: black">Akademi</a></li>
-              <li><a href="/login/perusahaan" style="color: black">Perusahaan</a></li>
+              <li><a href="/login/perusahaan" style="color: black">Perusahaan</a></li> --}}
+              <li><a href="/register/kandidat" style="color: black">Kandidat</a></li>
+              <li><a href="/register/akademi" style="color: black">Akademi</a></li>
+              <li><a href="/register/perusahaan" style="color: black">Perusahaan</a></li>
             </ul>
           </li>
           <li><a class="nav-link scrollto" style="color: black" href="/perbaikan">Portfolio</a></li>
@@ -78,32 +87,32 @@
           <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item active" data-bs-interval="2300">
-                <h4 style="color: black; text-transform:uppercase">Low Cost</h4>
-                <h5 style="color: black">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</h5>
+                <h4 style="color: black; text-transform:uppercase">Murah / Low Cost</h4>
+                <h5 style="color: black">Digijob adalah pilihan tepat yang dapat membantu mewujudkan kebutuhan pekerja dengan biaya yang murah</h5>
                 <div class="d-flex justify-content-center justify-content-sm-start mb-5">
                 </div>
               </div>
               <div class="carousel-item" data-bs-interval="2300">
-                <h4 style="color: black; text-transform:uppercase">On hand</h4>
-                <h5 style="color: black">Lorem Ipsum is simply dummy text of 3he printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</h5>
+                <h4 style="color: black; text-transform:uppercase">Mudah / On hand</h4>
+                <h5 style="color: black">Digijob memfasilitasi dalam bentuk aplikasi yang aman dan mudah dioperasikan</h5>
                 <div class="d-flex justify-content-center justify-content-sm-start mb-5">
                 </div>
               </div>
               <div class="carousel-item" data-bs-interval="2300">
-                <h4 style="color: black; text-transform:uppercase">Efficient</h4>
-                <h5 style="color: black">Lorem Ipsum is simply dummy text of th5 printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</h5>
+                <h4 style="color: black; text-transform:uppercase">Cepat / Efficient</h4>
+                <h5 style="color: black">Pelayanan yang cepat dan dukungan optimal yang kami berikan kepada pengguna</h5>
                 <div class="d-flex justify-content-center justify-content-sm-start mb-5">
                 </div>
               </div>
               <div class="carousel-item" data-bs-interval="2300">
-                <h4 style="color: black; text-transform:uppercase">Accurate</h4>
-                <h5 style="color: black">Lorem Ipsum is simply dummy text o3 the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</h5>
+                <h4 style="color: black; text-transform:uppercase">Akurat / Accurate</h4>
+                <h5 style="color: black">Digijob menyediakan informasi yang akurat dan data valid</h5>
                 <div class="d-flex justify-content-center justify-content-sm-start mb-5">
                 </div>
               </div>
               <div class="carousel-item" data-bs-interval="2300">
-                <h4 style="color: black; text-transform:uppercase">integrate</h4>
-                <h5 style="color: black">Lorem Ipsum is simply dummy text of th5 printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</h5>
+                <h4 style="color: black; text-transform:uppercase">Menyatu / integrate</h4>
+                <h5 style="color: black">Terintegrasi untuk dapat melayani anda agar dapat berhubungan</h5>
                 <div class="d-flex justify-content-center justify-content-sm-start mb-5">
                 </div>
               </div>
@@ -192,29 +201,37 @@
           <div class="col-md-3 align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
             <div class="icon-box text-center" style="">
               <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="/login/kandidat" style="text-transform: uppercase;">digijob system</a></h4>
-              <p>Masukkan Text</p>
+              <h4><a href="digijob_system" style="text-transform: uppercase;">digijob system</a></h4>
+              <p class="text1">
+                DIGIJOB dirancang untuk membantu organisasi dalam upaya mereka memaksimalkan efisiensi dan efektivitas proses perekrutan pekerja lokal dan migran. DIGIJOB mengubah kemampuan rekrutmen yang secara tradisional digunakan oleh industri rekrutmen pekerja menjadi platform online tunggal yang mudah digunakan dan hemat biaya. Sebagai sistem yang lengkap, DIGIJOB menawarkan nilai yang luar biasa kepada pengguna.   DIGIJOB dirancang agar sesuai dengan proses rekrutmen pekerja di negara-negara sumber tenaga kerja lokal dan luar negeri. Ruang lingkup DIGIJOB mencakup semua langkah utama dalam proses perekrutan pekerja migran dan menyediakan portal manajemen yang komprehensif bagi pengguna. Selain itu, DIGIJOB dirancang untuk meminimalkan upaya administratif dan menjadi solusi sederhana dan mudah digunakan untuk perekrutan pekerja migran.
+              </p>
             </div>
           </div>
           <div class="col-md-3 align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
             <div class="icon-box text-center">
               <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="/login/kandidat" style="text-transform: uppercase;">Benefits</a></h4>
-              <p>Masukkan Text</p>
+              <h4><a href="/benefits" style="text-transform: uppercase;">Keunggulan</a></h4>
+              <p class="text1">
+                TURUNKAN BIAYA ANDA,KEPATUHAN HUKUM,HEMAT WAKTU DAN KURANGI BEBAN ADMINISTRASI ANDA,MANAJEMEN PROSES REKRUTMEN YANG KOMPREHENSIF,KONTROL
+              </p>
             </div>
           </div>
           <div class="col-md-3 align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
             <div class="icon-box text-center">
               <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="/login/akademi" style="text-transform: uppercase;">Features</a></h4>
-              <p>Masukkan Text</p>
+              <h4><a href="/features" style="text-transform: uppercase;">Tambahan</a></h4>
+              <p class="text1">
+                Jaminan kehadiran pekerja di Pusat Medis Terakreditasi untuk pemeriksaan kesehatan pekerja.
+              </p>
             </div>
           </div>
           <div class="col-md-3 align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
             <div class="icon-box text-center">
               <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="/contact_us" style="text-transform: uppercase;">Contact Us</a></h4>
-              <p>Masukkan Text</p>
+              <h4><a href="/contact_us" style="text-transform: uppercase;">Hubungi Kami</a></h4>
+              <p class="text1">
+                Hubungi kami disini
+              </p>
             </div>
           </div>
         </div>
@@ -232,19 +249,19 @@
                 <div class="col-md-4 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                   <div class="icon-box text-center" style="border-style: outset; background-color:#FFD966">
                     <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
-                    <h4><a href="/login/kandidat" style="text-transform: uppercase;color:#0a3e52;">Pencari Kerja</a></h4>
+                    <h4><a href="/login" style="text-transform: uppercase;color:#0a3e52;">Pencari Kerja</a></h4>
                   </div>
                 </div>
                 <div class="col-md-4 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                   <div class="icon-box text-center" style="border-style: outset;background-color:#B0DAFF">
                     <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
-                    <h4><a href="/login/akademi" style="text-transform: uppercase; color:#0a3e52">Akademi</a></h4>
+                    <h4><a href="/login" style="text-transform: uppercase; color:#0a3e52">Akademi</a></h4>
                   </div>
                 </div>
                 <div class="col-md-4 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                   <div class="icon-box text-center" style="border-style: outset;background-color:#19A7CE">
                     <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
-                    <h4><a href="/login/perusahaan" style="text-transform: uppercase; color:#0a3e52">Perusahaan</a></h4>
+                    <h4><a href="/login" style="text-transform: uppercase; color:#0a3e52">Perusahaan</a></h4>
                   </div>
                 </div>
               </div>

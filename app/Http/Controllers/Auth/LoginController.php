@@ -42,6 +42,11 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function loginSemua()
+    {
+        return view('auth/login_semua');
+    }
+
     public function loginKandidat()
     {
         return view('/auth/login_kandidat');
@@ -54,6 +59,18 @@ class LoginController extends Controller
     {
         return view('/auth/login_perusahaan');
     }
+
+    public function AuthenticateLogin(Request $request)
+    {
+        $semua = User::where('email',$request->email)->where('password',$request->password)->first();
+        if($semua){
+            Auth::login($semua);
+            return redirect('/')->with('success',"selamat datang");
+        } else {
+            return redirect('/login')->with('error',"maaf email atau password salah");
+        }
+    }
+
     public function AuthenticateKandidat(Request $request)
     {
         $kandidat = User::where('no_telp', $request->no_telp)->where('email', $request->email)->where('type',0)->first();

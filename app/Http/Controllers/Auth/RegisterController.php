@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Mail\DemoMail;
 use App\Models\Kandidat;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -110,12 +111,21 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|unique:users|max:255',
             'no_telp' => 'required|unique:users|min:10|max:13',
+            'password' => 'min:6|max:20',
         ]);
-        
+     
+        $tgl = Carbon::parse($request->tgl)->age;
+        if($tgl < 18){
+            return redirect('/register/kandidat')->with('warning',"Maaf umur anda belum cukup");
+        }
+
+        $password = Hash::make($request->password);
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'no_telp' => $request->no_telp
+            'no_telp' => $request->no_telp,
+            'password' => $password,
         ]);
 
         $id = $user->id;
@@ -125,15 +135,19 @@ class RegisterController extends Controller
             'referral_code' => $userId
         ]);
 
+        $nama = $request->name;
+
         $kandidat = Kandidat::create([
             'id' => $id,
             'nama' => $request->name,
             'referral_code' => $userId,
             'email' => $request->email,
-            'no_telp' => $request->no_telp
+            'no_telp' => $request->no_telp,
+            'tgl_lahir' => $request->tgl,
+            'usia' => $tgl,
         ]);
 
-        Auth::login($user);   
+        Auth::login($user);
         return redirect()->route('personal');
     }
 
@@ -149,13 +163,15 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|unique:users|max:255',
             'no_nis' => 'required|unique:users|max:40',
+            'password' => 'min:6|max:20',
         ]);
 
         $user = User::create([
             'name_akademi' => $request->name,
             'email' => $request->email,
             'no_nis' => $request->no_nis,
-            'type' => 1
+            'type' => 1,
+            'password' => $request->password,
         ]);
 
         $id = $user->id;
@@ -177,16 +193,24 @@ class RegisterController extends Controller
         //     'user_referral' => $userId
         // ];
         // Mail::to($request->email)->send(new DemoMail($pengirim));
-        return redirect('/perbaikan');
+        return redirect()->route('akademi');
     }
 
     protected function perusahaan(Request $request)
     {
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|unique:users|max:255',
+            'no_nib' => 'required|unique:users|max:40',
+            'password' => 'min:6|max:20',
+        ]);
+
         $user = User::create([
             'name_perusahaan' => $request->name,
             'email' => $request->email,
             'no_nib' => $request->nib,
-            'type' => 2
+            'type' => 2,
+            'password' => $request->password,
         ]);
 
         $id = $user->id;

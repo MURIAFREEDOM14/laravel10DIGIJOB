@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('thumbnail')->nullable();
             $table->text('video')->nullable();
             $table->text('deskripsi')->nullable();
+            $table->integer('negara_id')->nullable();
             $table->timestamps();
         });
     }

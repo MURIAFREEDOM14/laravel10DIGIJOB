@@ -16,6 +16,11 @@ class LamanController extends Controller
         return view('laman');
     }
 
+    public function loginSemua()
+    {
+        return view('auth/login_semua');
+    }
+
     public function login_kandidat()
     {
         return view('auth/login_kandidat');
@@ -93,6 +98,21 @@ class LamanController extends Controller
 
         Mail::to($request->email)->send(new DemoMail($pengirim));
         return redirect('login_info');
+    }
+
+    public function digijobSystem()
+    {
+        return view('digijob_system');
+    }
+
+    public function benefits()
+    {
+        return view('benefits');
+    }
+
+    public function features()
+    {
+        return view('features');
     }
 
     public function contact()

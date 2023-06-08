@@ -177,18 +177,6 @@ class KandidatController extends Controller
             'no_telp' => $kandidat->no_telp,
             'email' => $kandidat->email
         ]);
-
-        
-        $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->first();
-        if($pengalaman_kerja == null){
-            PengalamanKerja::create([
-                'id_kandidat' => $kandidat->id_kandidat,
-                'pengalaman_kerja'=>"",
-                'lama_kerja'=>"",
-            ]);
-        }
-        
-
         return redirect('/isi_kandidat_document');
     }
 
@@ -610,7 +598,53 @@ class KandidatController extends Controller
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code', $id->referral_code)->first();
-        return view('Kandidat/isi_kandidat_company', ['kandidat'=>$kandidat]);
+        $pengalaman_kerja = PengalamanKerja::join(
+            'kandidat','prt_pengalaman_kerja.id_kandidat','=','kandidat.id_kandidat'
+        )->where('prt_pengalaman_kerja.id_kandidat',$kandidat->id_kandidat)->get();
+        return view('Kandidat/isi_kandidat_company', ['kandidat'=>$kandidat,'pengalaman_kerja'=>$pengalaman_kerja]);
+    }
+
+    public function pengalamanKerja(Request $request)
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        $video_kandidat = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->first('video_pengalaman_kerja');
+        if($request->file('video') !== null){
+            $validated = $request->validate([
+                'video' => 'mimes:mp4,mov,ogg,qt | max:3000',
+            ]);
+            $hapus_video_kerja = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$video_kandidat;
+            if(file_exists($hapus_video_kerja)){
+                @unlink($hapus_video_kerja);
+            }
+            $video_kerja = $request->file('video');
+            $video_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.$video_kerja->getClientOriginalName());
+            $simpan_kerja = $kandidat->nama.$video_kerja->getClientOriginalName();
+        } else {
+            if($video_kandidat->video_pengalaman_kerja !== null){
+                $simpan_kerja = $video_kandidat->video_pengalaman_kerja;
+            } else {
+                $simpan_kerja = null;
+            }
+        }
+
+        if($simpan_kerja !== null){
+            $video1 = $simpan_kerja;
+        } else {
+            $video1 = null;
+        }
+
+        PengalamanKerja::create([
+            'nama_perusahaan'=>$request->nama_perusahaan,
+            'alamat_perusahaan'=>$request->alamat_perusahaan,
+            'jabatan'=>$request->jabatan,
+            'periode_awal'=>$request->periode_awal,
+            'periode_akhir'=>$request->periode_akhir,
+            'alasan_berhenti'=>$request->alasan_berhenti,
+            'video_pengalaman_kerja'=>$simpan_kerja,
+            'id_kandidat'=>$kandidat->id_kandidat,
+        ]);
+        return redirect()->route('company');
     }
 
     public function simpan_kandidat_company(Request $request)
