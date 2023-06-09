@@ -231,9 +231,9 @@ Route::controller(KandidatController::class)->group(function() {
     Route::post('/isi_kandidat_company', 'simpan_kandidat_company');
     Route::get('/tambah_kandidat_pengalaman_kerja', 'tambahPengalamanKerja');
     Route::post('/simpan_kandidat_pengalaman_kerja', 'simpanPengalamanKerja');
-    Route::get('/edit_kandidat_pengalaman_kerja','editPengalamanKerja');
-    Route::post('/update_kandidat_pengalaman_kerja','updatePengalamanKerja');
-    Route::get('/delete_kandidat_pengalaman_kerja','hapusPengalamanKerja');
+    Route::get('/edit_kandidat_pengalaman_kerja/{id}','editPengalamanKerja');
+    Route::post('/update_kandidat_pengalaman_kerja/{id}','updatePengalamanKerja');
+    Route::get('/hapus_kandidat_pengalaman_kerja/{id}','hapusPengalamanKerja');
 
     Route::get('/isi_kandidat_permission', 'isi_kandidat_permission')->middleware('kandidat')->name('permission');
     Route::post('/isi_kandidat_permission', 'simpan_kandidat_permission');

@@ -637,24 +637,28 @@ class KandidatController extends Controller
         $periodeAkhir = new \DateTime($request->periode_akhir);
         $tahun = $periodeAkhir->diff($periodeAwal)->y;
 
-        PengalamanKerja::create([
-            'nama_perusahaan'=>$request->nama_perusahaan,
-            'alamat_perusahaan'=>$request->alamat_perusahaan,
-            'jabatan'=>$request->jabatan,
-            'periode_awal'=>$request->periode_awal,
-            'periode_akhir'=>$request->periode_akhir,
-            'alasan_berhenti'=>$request->alasan_berhenti,
-            'video_pengalaman_kerja'=>$video,
-            'id_kandidat'=>$kandidat->id_kandidat,
-            'nama_kandidat' => $kandidat->nama,
-            'lama_kerja' => $tahun,
-        ]);
-        return redirect()->route('company')->with('toast_success',"Data anda tersimpan");
+        // PengalamanKerja::create([
+        //     'nama_perusahaan'=>$request->nama_perusahaan,
+        //     'alamat_perusahaan'=>$request->alamat_perusahaan,
+        //     'jabatan'=>$request->jabatan,
+        //     'periode_awal'=>$request->periode_awal,
+        //     'periode_akhir'=>$request->periode_akhir,
+        //     'alasan_berhenti'=>$request->alasan_berhenti,
+        //     'video_pengalaman_kerja'=>$video,
+        //     'id_kandidat'=>$kandidat->id_kandidat,
+        //     'nama_kandidat' => $kandidat->nama,
+        //     'lama_kerja' => $tahun,
+        // ]);
+        // return redirect()->route('company')->with('toast_success',"Data anda tersimpan");
     }
 
-    public function editPengalamanKerja()
+    public function editPengalamanKerja($id)
     {
-        return view();
+        $pengalaman_kerja = PengalamanKerja::join(
+            'kandidat', 'prt_pengalaman_kerja.id_kandidat','=','kandidat.id_kandidat'
+        )
+        ->where('prt_pengalaman_kerja.pengalaman_kerja_id',$id)->first();
+        return view('kandidat/edit_kandidat_company', compact('pengalaman_kerja'));
     }
 
     public function updatePengalamanKerja(Request $request)
@@ -703,6 +707,12 @@ class KandidatController extends Controller
             'nama_kandidat' => $kandidat->nama,
             'lama_kerja' => $tahun,
         ]);
+    }
+
+    public function hapusPengalamanKerja($id)
+    {
+        PengalamanKerja::where('pengalaman_kerja_id',$id)->delete();
+        return redirect()->route('company');
     }
 
     public function simpan_kandidat_company(Request $request)

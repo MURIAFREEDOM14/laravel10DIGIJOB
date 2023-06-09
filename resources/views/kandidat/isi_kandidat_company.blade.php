@@ -76,7 +76,7 @@
                                     <div class="card-header">
                                         <h6 class="ml-5 float-start">PENGALAMAN KERJA</h6> 
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#buatPengalamanKerja">
+                                        <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#buatPengalamanKerja" onclick="create()">
                                             Tambah
                                         </button>
                                     </div>
@@ -114,8 +114,9 @@
                                                                 @endif
                                                             </td>
                                                             <td>
-                                                                <a class="btn btn-warning" href="/edit_kandidat_pengalaman_kerja/{id}"><i class=""></i>Edit</a>
-                                                                <a class="btn btn-danger" href="/hapus_kandidat_pengalaman_kerja/{id}"><i class=""></i>Hapus</a>
+                                                                <a class="btn btn-warning" href="/edit_kandidat_pengalaman_kerja/{{$item->pengalaman_kerja_id}}"><i class=""></i>Edit</a>
+                                                                <a class="btn btn-danger" href="/hapus_kandidat_pengalaman_kerja/{{$item->pengalaman_kerja_id}}"><i class=""></i>Hapus</a>
+                                                                {{-- <button onclick="destroy({{$item->pengalaman_kerja_id}})">Hapus</button> --}}
                                                             </td>
                                                         </tr>                                    
                                                     @endforeach
@@ -241,13 +242,26 @@
                 type:"get",
                 url:"{{url('simpan_kandidat_pengalaman_kerja')}}",
                 data:   "nama_perusahaan=" + nama_perusahaan,
-                        // "alamat_perusahaan=" + alamat_perusahaan,
-                        // "jabatan=" + jabatan,
-                        // "periode_awal=" + periode_awal,
-                        // "periode_akhir=" + periode_akhir,
-                        // "alasan_berhenti=" + alasan_berhenti,
-                        // "video=" + video,
+                        "alamat_perusahaan=" + alamat_perusahaan,
+                        "jabatan=" + jabatan,
+                        "periode_awal=" + periode_awal,
+                        "periode_akhir=" + periode_akhir,
+                        "alasan_berhenti=" + alasan_berhenti,
+                        "video=" + video,
                 success:function(data){
+                }
+            });
+        }
+
+        function destroy(id) {
+            confirm("Apakah anda yakin ingin menghapus data ini?");
+            console.log(id);
+            $.ajax({
+                type:"get",
+                url: "{{url('hapus_kandidat_pengalaman_kerja')}}/" + id,
+                data: "pengalaman_kerja_id" + id,
+                success:function(data){
+                    console.log("data terhapus");
                 }
             });
         }
