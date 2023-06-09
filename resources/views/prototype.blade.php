@@ -8,11 +8,13 @@
     </head>
     <body>
         <select name="" class="select1" id="select1">
+            <option value="">pilih</option>
             @foreach ($prov as $item)
                 <option value="{{$item->id}}">{{$item->provinsi}}</option>                
             @endforeach
         </select>
-        <select name="select2" id="select2">
+        <select class="select2" name="select2" id="select2">
+            <option value=""></option>
         </select>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -30,15 +32,16 @@
                     data:{'id':getID},
                     success:function (data) {
                         console.log('success');
-                        console.log(data);
+                        // console.log(data);
                         console.log(data.length);
-                        op+='<option value="0" selected disabled> pilih </option>';
+                        op+='<option value="" selected> pilih </option>';
                         for(var i = 0; i < data.length; i++){
-                            op+='<option value="'+data[i].id+'">+data[i].kota+</option>';
+                            op+='<option value="'+data[i].id+'">"'+data[i].kota+'"</option>';
                         }
+                        div.find('.select2').html(" ");
+                        div.find('.select2').append(op);
+                        console.log(op);
                     },
-                    div.find('.select2').html("");
-                    div.find('.select2').append("");
                     error:function() {
 
                     }

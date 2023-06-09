@@ -25,9 +25,9 @@ class PrototypeController extends Controller
         return response()->json($data);
     }
 
-    public function select1(Request $request)
-    {
-        $data = Kota::where('provinsi_id',$request->id)->get();
-        return response()->json($data);
-    }
+    // public function select1(Request $request)
+    // {
+    //     $data = Kota::where('provinsi_id',$request->id)->get();
+    //     return response()->json($data);
+    // }
 }

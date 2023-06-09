@@ -1,5 +1,6 @@
 @extends('layouts.input')
 @section('content')
+@include('sweetalert::alert')
     <div class="container mt-5">        
         <div class="card mb-5">
             <div class="card-header mx-auto">
@@ -43,7 +44,7 @@
                             <a class="nav-link disabled" href="{{route('placement')}}">Placement</a>
                         </li>
                     @endif
-                    @if ($kandidat->negara_id == 2)
+                    {{-- @if ($kandidat->negara_id == 2)
                         <li class="nav-item">
                             <a class="nav-link disabled" href="{{route('job')}}">Job</a>
                         </li>                        
@@ -51,7 +52,7 @@
                         <li class="nav-item">
                             <a class="nav-link active" href="{{route('job')}}">Job</a>
                         </li>
-                    @endif
+                    @endif --}}
                     <li class="nav-item">
                         <a class="nav-link" href="/">Selesai</a>
                     </li>

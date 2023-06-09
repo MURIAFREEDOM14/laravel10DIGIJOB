@@ -21,6 +21,8 @@ return new class extends Migration
             $table->text('alasan_berhenti')->nullable();
             $table->text('video_pengalaman_kerja')->nullable();
             $table->integer('id_kandidat')->nullable();
+            $table->string('nama_kandidat')->nullable();
+            $table->integer('lama_kerja')->nullable();
             // $table->timestamps();
         });
     }

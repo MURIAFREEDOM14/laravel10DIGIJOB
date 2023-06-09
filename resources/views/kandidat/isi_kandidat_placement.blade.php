@@ -44,7 +44,7 @@
                             <a class="nav-link disabled" href="{{route('placement')}}">Placement</a>
                         </li>
                     @endif
-                    @if ($kandidat->negara_id == 2)
+                    {{-- @if ($kandidat->negara_id == 2)
                         <li class="nav-item">
                             <a class="nav-link disabled" href="{{route('job')}}">Job</a>
                         </li>                        
@@ -58,7 +58,7 @@
                                 <a class="nav-link" href="{{route('job')}}">Job</a>
                             </li>                            
                         @endif
-                    @endif
+                    @endif --}}
                     <li class="nav-item">
                         <a class="nav-link" href="/">Selesai</a>
                     </li>
@@ -68,48 +68,122 @@
                 <div class="row">
                     <h4 class="text-center">PROFIL BIO DATA</h4>
                     <h6 class="text-center mb-5">Indonesia</h6>
-                    <form action="/isi_kandidat_placement" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <div class="" id="perizin">
-                            <div class="row mb-1">
-                                <div class="col-md-4">
-                                    <h6 class="ms-5">Data Penempatan Kerja</h6> 
-                                </div>
+                    <div class="" id="perizin">
+                        <div class="row mb-1">
+                            <div class="col-md-4">
+                                <h6 class="ms-5">Data Penempatan Kerja</h6> 
                             </div>
+                        </div>
+                        <form action="/isi_kandidat_placement" method="post">
+                            @csrf
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Pilih Penempatan Negara</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <select name="negara_id" required class="form-select" id="">
-                                        <option value="">-- Pilih Negara --</option>
-                                        @foreach ($negara as $item)
-                                            <option value="{{$item->negara_id}}" @if ($kandidat->negara_id == $item->negara_id)selected @endif>{{$item->negara}}</option>
-                                        @endforeach
-                                    </select>
+                                    <div class="input-group">
+                                        <select name="negara_id" required class="form-select" id="negara">
+                                            <option value="">-- Pilih Negara --</option>
+                                            @foreach ($negara as $item)
+                                                <option value="{{$item->negara_id}}" @if ($kandidat->negara_id == $item->negara_id)selected @endif>{{$item->negara}}</option>
+                                            @endforeach
+                                        </select>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="" class="col-form-label">Pilih Penempatan Negara</label>
+                        </form>
+                        {{-- @if ($pekerjaan == null)
+                            <form action="/isi_kandidat_placement" method="POST">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-head-bg-primary table-bordered-bd-primary">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nama Pekerjaan</th>
+                                                        <th>Syarat Umur</th>
+                                                        <th>Syarat Kelamin</th>
+                                                        <th>Pilihan Pekerjaan</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach ($pekerjaan as $item)
+                                                        <tr>
+                                                            @if ($item->syarat_kelamin == $kandidat->jenis_kelamin)
+                                                                <td>{{$item->nama_pekerjaan}}</td>
+                                                                <td>{{$item->syarat_umur}}</td>
+                                                                <td>Laki-laki</td>
+                                                                <td>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" value="{{$item->id_pekerjaan}}" type="radio" name="id_pekerjaan" id="flexRadioDefault1">
+                                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                            @elseif($item->syarat_kelamin == $kandidat->jenis_kelamin)
+                                                                <td>{{$item->nama_pekerjaan}}</td>
+                                                                <td>{{$item->syarat_umur}}</td>
+                                                                <td>Perempuan</td>
+                                                                <td>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" value="{{$item->id_pekerjaan}}" type="radio" name="id_pekerjaan" id="flexRadioDefault1">
+                                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                            @elseif($item->syarat_kelamin == "MF")
+                                                                <td>{{$item->nama_pekerjaan}}</td>
+                                                                <td>{{$item->syarat_umur}}</td>
+                                                                <td>Laki-laki & Perempuan</td>
+                                                                <td>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" value="{{$item->id_pekerjaan}}" type="radio" name="id_pekerjaan" id="flexRadioDefault1">
+                                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                            @endif                                                                
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-md-8">
-                                    <select name="negara_id" required class="form-select" id="negara">
-                                        <option value="">-- Pilih Negara --</option>
-                                        @foreach ($negara as $item)
-                                            <option value="{{$item->negara_id}}" @if ($kandidat->negara_id == $item->negara_id)selected @endif>{{$item->negara}}</option>
-                                        @endforeach
-                                    </select>
-                                    <select name="id_pekerjaan" class="form-control" id="pekerjaan">
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="btn btn-primary my-3 float-end" type="submit">Simpan</button>
-                    </form>
+                                <button class="btn btn-primary my-3 float-end" type="submit">Simpan</button>
+                            </form>
+                        @endif --}}
+                    </div>
                 </div>
                 <hr>
             </div>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript">
+        $(document).ready(function(){
+            $(document).on('change','#negara',function(){
+                console.log("berubah");
+                var getID = $(this).val();
+                console.log(getID);
+                var div = $(this).parent();
+                var op = "";
+                $.ajax({
+                    type:'get',
+                    url:'{!!URL::to('select_kandidat_job')!!}',
+                    data:{'id':getID},
+                    success:function (pekerjaan) {
+                        console.log('success');
+                        console.log(pekerjaan);
+                        console.log(pekerjaan.length);
+
+                    },
+                    error:function() {
+
+                    }
+                });
+            });
+        });
+        </script>
 @endsection

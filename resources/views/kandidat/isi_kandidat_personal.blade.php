@@ -44,7 +44,7 @@
                             <a class="nav-link disabled" href="{{route('placement')}}">Placement</a>
                         </li>
                     @endif
-                    @if ($kandidat->negara_id == 2)
+                    {{-- @if ($kandidat->negara_id == 2)
                         <li class="nav-item">
                             <a class="nav-link disabled" href="{{route('job')}}">Job</a>
                         </li>                        
@@ -58,7 +58,7 @@
                                 <a class="nav-link" href="{{route('job')}}">Job</a>
                             </li>                            
                         @endif
-                    @endif
+                    @endif --}}
                     <li class="nav-item">
                         <a class="nav-link" href="/">Selesai</a>
                     </li>

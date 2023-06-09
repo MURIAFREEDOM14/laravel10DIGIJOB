@@ -201,7 +201,7 @@
           <div class="col-md-3 align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
             <div class="icon-box text-center" style="">
               <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="digijob_system" style="text-transform: uppercase;">digijob system</a></h4>
+              <h4><a href="digijob_system" style="text-transform: uppercase;">Digijob System</a></h4>
               <p class="text1">
                 DIGIJOB dirancang untuk membantu organisasi dalam upaya mereka memaksimalkan efisiensi dan efektivitas proses perekrutan pekerja lokal dan migran. DIGIJOB mengubah kemampuan rekrutmen yang secara tradisional digunakan oleh industri rekrutmen pekerja menjadi platform online tunggal yang mudah digunakan dan hemat biaya. Sebagai sistem yang lengkap, DIGIJOB menawarkan nilai yang luar biasa kepada pengguna.   DIGIJOB dirancang agar sesuai dengan proses rekrutmen pekerja di negara-negara sumber tenaga kerja lokal dan luar negeri. Ruang lingkup DIGIJOB mencakup semua langkah utama dalam proses perekrutan pekerja migran dan menyediakan portal manajemen yang komprehensif bagi pengguna. Selain itu, DIGIJOB dirancang untuk meminimalkan upaya administratif dan menjadi solusi sederhana dan mudah digunakan untuk perekrutan pekerja migran.
               </p>
@@ -212,7 +212,7 @@
               <div class="icon"><i class="bx bx-file"></i></div>
               <h4><a href="/benefits" style="text-transform: uppercase;">Keunggulan</a></h4>
               <p class="text1">
-                TURUNKAN BIAYA ANDA,KEPATUHAN HUKUM,HEMAT WAKTU DAN KURANGI BEBAN ADMINISTRASI ANDA,MANAJEMEN PROSES REKRUTMEN YANG KOMPREHENSIF,KONTROL
+                Murah, Mudah, Cepat, Akurat, Menyatu
               </p>
             </div>
           </div>

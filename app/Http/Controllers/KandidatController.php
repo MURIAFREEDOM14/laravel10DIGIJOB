@@ -177,7 +177,7 @@ class KandidatController extends Controller
             'no_telp' => $kandidat->no_telp,
             'email' => $kandidat->email
         ]);
-        return redirect('/isi_kandidat_document');
+        return redirect('/isi_kandidat_document')->with('toast_success',"Data anda tersimpan");
     }
 
     public function isi_kandidat_document()
@@ -360,9 +360,9 @@ class KandidatController extends Controller
             'stats_nikah' => $request->stats_nikah
         ]);
         if ($request->stats_nikah !== "Single") {
-            return redirect()->route('family');
+            return redirect()->route('family')->with('toast_success',"Data anda tersimpan");
         } else {
-            return redirect('/isi_kandidat_vaksin');
+            return redirect('/isi_kandidat_vaksin')->with('toast_success',"Data anda tersimpan");
 
         }        
     }
@@ -376,7 +376,7 @@ class KandidatController extends Controller
         } elseif($kandidat->stats_nikah !== "Single") {
             return view('Kandidat/isi_kandidat_family',compact('kandidat'));    
         } else {
-            return redirect('/isi_kandidat_vaksin');
+            return redirect('/isi_kandidat_vaksin')->with('toast_success',"Data anda tersimpan");
         }
     }
 
@@ -459,7 +459,7 @@ class KandidatController extends Controller
             'foto_cerai' => $foto_cerai,
             'foto_kematian_pasangan' => $foto_kematian_pasangan,
         ]);
-        return redirect('/isi_kandidat_vaksin');
+        return redirect('/isi_kandidat_vaksin')->with('toast_success',"Data anda tersimpan");
     }
 
     public function isi_kandidat_vaksin()
@@ -558,7 +558,7 @@ class KandidatController extends Controller
             // null,
             $foto_sertifikat_vaksin3
         ]);
-        return redirect('/isi_kandidat_parent');
+        return redirect('/isi_kandidat_parent')->with('toast_success',"Data anda tersimpan");
     }
 
     public function isi_kandidat_parent()
@@ -588,9 +588,9 @@ class KandidatController extends Controller
 
         $ket = 1;
         if ($ket == $request->confirm) {
-            return redirect('/isi_kandidat_company');
+            return redirect('/isi_kandidat_company')->with('toast_success',"Data anda tersimpan");
         } else {
-            return redirect('/isi_kandidat_permission');
+            return redirect('/isi_kandidat_permission')->with('toast_success',"Data anda tersimpan");
         }        
     }
 
@@ -601,10 +601,63 @@ class KandidatController extends Controller
         $pengalaman_kerja = PengalamanKerja::join(
             'kandidat','prt_pengalaman_kerja.id_kandidat','=','kandidat.id_kandidat'
         )->where('prt_pengalaman_kerja.id_kandidat',$kandidat->id_kandidat)->get();
-        return view('Kandidat/isi_kandidat_company', ['kandidat'=>$kandidat,'pengalaman_kerja'=>$pengalaman_kerja]);
+        return view('Kandidat/isi_kandidat_company', [
+            'kandidat'=>$kandidat,
+            'pengalaman_kerja'=>$pengalaman_kerja,
+        ]);
     }
 
-    public function pengalamanKerja(Request $request)
+    public function tambahPengalamanKerja()
+    {
+        return view('kandidat/modalKandidat/tambah_pengalaman_kerja');
+    }
+
+    public function simpanPengalamanKerja(Request $request)
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        $video_kandidat = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->first('video_pengalaman_kerja');
+        if($request->file('video') !== null){
+            $validated = $request->validate([
+                'video' => 'mimes:mp4,mov,ogg,qt | max:3000',
+            ]);
+            $video_kerja = $request->file('video');
+            $video_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.$video_kerja->getClientOriginalName());
+            $simpan_kerja = $kandidat->nama.$video_kerja->getClientOriginalName();
+        } else {
+            $simpan_kerja = null;
+        }
+        if($simpan_kerja !== null){
+            $video = $simpan_kerja;
+        } else {
+            $video = null;
+        }
+
+        $periodeAwal = new \Datetime($request->periode_awal);
+        $periodeAkhir = new \DateTime($request->periode_akhir);
+        $tahun = $periodeAkhir->diff($periodeAwal)->y;
+
+        PengalamanKerja::create([
+            'nama_perusahaan'=>$request->nama_perusahaan,
+            'alamat_perusahaan'=>$request->alamat_perusahaan,
+            'jabatan'=>$request->jabatan,
+            'periode_awal'=>$request->periode_awal,
+            'periode_akhir'=>$request->periode_akhir,
+            'alasan_berhenti'=>$request->alasan_berhenti,
+            'video_pengalaman_kerja'=>$video,
+            'id_kandidat'=>$kandidat->id_kandidat,
+            'nama_kandidat' => $kandidat->nama,
+            'lama_kerja' => $tahun,
+        ]);
+        return redirect()->route('company')->with('toast_success',"Data anda tersimpan");
+    }
+
+    public function editPengalamanKerja()
+    {
+        return view();
+    }
+
+    public function updatePengalamanKerja(Request $request)
     {
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
@@ -629,10 +682,14 @@ class KandidatController extends Controller
         }
 
         if($simpan_kerja !== null){
-            $video1 = $simpan_kerja;
+            $video = $simpan_kerja;
         } else {
-            $video1 = null;
+            $video = null;
         }
+
+        $periodeAwal = new \Datetime($request->periode_awal);
+        $periodeAkhir = new \DateTime($request->periode_akhir);
+        $tahun = $periodeAkhir->diff($periodeAwal)->y;
 
         PengalamanKerja::create([
             'nama_perusahaan'=>$request->nama_perusahaan,
@@ -641,135 +698,24 @@ class KandidatController extends Controller
             'periode_awal'=>$request->periode_awal,
             'periode_akhir'=>$request->periode_akhir,
             'alasan_berhenti'=>$request->alasan_berhenti,
-            'video_pengalaman_kerja'=>$simpan_kerja,
+            'video_pengalaman_kerja'=>$video,
             'id_kandidat'=>$kandidat->id_kandidat,
+            'nama_kandidat' => $kandidat->nama,
+            'lama_kerja' => $tahun,
         ]);
-        return redirect()->route('company');
     }
 
     public function simpan_kandidat_company(Request $request)
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        // dd($request);
-        //video1
-        if($request->file('video_kerja1') !== null){
-            $validated = $request->validate([
-                'video_kerja1' => 'mimes:mp4,mov,ogg,qt | max:3000',
-            ]);
-            $hapus_video_kerja1 = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/Pengalaman kerja1/').$kandidat->video_kerja1;
-            if(file_exists($hapus_video_kerja1)){
-                @unlink($hapus_video_kerja1);
-            }
-            $video_kerja1 = $request->file('video_kerja1');
-            $video_kerja1->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/Pengalaman Kerja1',$kandidat->nama.$video_kerja1->getClientOriginalName());
-            $simpan_kerja1 = $kandidat->nama.$video_kerja1->getClientOriginalName();
-        } else {
-            if($kandidat->video_kerja1 !== null){
-                $simpan_kerja1 = $kandidat->video_kerja1;
-            } else {
-                $simpan_kerja1 = null;
-            }
-        }
-        //video2
-        if ($request->file('video_kerja2') !== null){
-            $validated = $request->validate([
-                'video_kerja2' => 'mimes:mp4,mov,ogg,qt | max:3000',
-            ]);
-            $hapus_video_kerja2 = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/Pengalaman kerja2/').$kandidat->video_kerja2;
-            if(file_exists($hapus_video_kerja2)){
-                @unlink($hapus_video_kerja2);
-            }
-            $video_kerja2 = $request->file('video_kerja2');
-            $video_kerja2->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/Pengalaman Kerja2',$kandidat->nama.$video_kerja2->getClientOriginalName());
-            $simpan_kerja2 = $kandidat->nama.$video_kerja2->getClientOriginalName();
-        } else {
-            if($kandidat->video_kerja2 !== null){
-                $simpan_kerja2 = $kandidat->video_kerja2;
-            } else {
-                $simpan_kerja2 = null;                 
-            }
-        }
-        //video3
-        if ($request->file('video_kerja3') !== null){
-            $validated = $request->validate([
-                'video_kerja3' => 'mimes:mp4,mov,ogg,qt | max:3000',
-            ]);
-            $hapus_video_kerja3 = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/Pengalaman kerja3/').$kandidat->video_kerja3;
-            if(file_exists($hapus_video_kerja3)){
-                @unlink($hapus_video_kerja3);
-            }
-            $video_kerja3 = $request->file('video_kerja3');
-            $video_kerja3->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/Pengalaman Kerja3',$kandidat->nama.$video_kerja3->getClientOriginalName());
-            $simpan_kerja3 = $kandidat->nama.$video_kerja3->getClientOriginalName();
-        } else {
-            if($kandidat->video_kerja3 !== null){
-                $simpan_kerja3 = $kandidat->video_kerja3;                   
-            } else {
-                $simpan_kerja3 = null;
-            }
-        }
-        //cek_video1
-        if($simpan_kerja1 !== null){
-            $video1 = $simpan_kerja1;
-        } else {
-            $video1 = null;
-        }
-        //cek_video2
-        if($simpan_kerja2 !== null){
-            $video2 = $simpan_kerja2;
-        } else {
-            $video2 = null;
-        }
-        // cek_video3
-        if($simpan_kerja3 !== null){
-            $video3 = $simpan_kerja3;
-        } else {
-            $video3 = null;
-        }
-
+        $jabatan = $request->jabatan;
+        $jabatanValues = implode(",",$jabatan);
         $id = Auth::user();
-        Kandidat::where('referral_code', $id->referral_code)->update([
-            'nama_perusahaan1' => $request->nama_perusahaan1,
-            'alamat_perusahaan1' => $request->alamat_perusahaan1,
-            'jabatan1' => $request->jabatan1,
-            'periode_awal1' => $request->periode_awal1,
-            'periode_akhir1' => $request->periode_akhir1,
-            'alasan1' => $request->alasan1,
-            'video_kerja1' => $video1,
-            'nama_perusahaan2' => $request->nama_perusahaan2,
-            'alamat_perusahaan2' => $request->alamat_perusahaan2,
-            'jabatan2' => $request->jabatan2,
-            'periode_awal2' => $request->periode_awal2,
-            'periode_akhir2' => $request->periode_akhir2,
-            'alasan2' => $request->alasan2,
-            'video_kerja2' => $video2,
-            'nama_perusahaan3' => $request->nama_perusahaan3,
-            'alamat_perusahaan3' => $request->alamat_perusahaan3,
-            'jabatan3' => $request->jabatan3,
-            'periode_awal3' => $request->periode_awal3,
-            'periode_akhir3' => $request->periode_akhir3,
-            'alasan3' => $request->alasan3,
-            'video_kerja3' => $video3,
+        Kandidat::where('id_kandidat', $kandidat->id_kandidat)->update([
+            'pengalaman_kerja' => $jabatanValues,
         ]);
-
-        $periodeAwal1 = new \Datetime($request->periode_awal1);
-        $periodeAkhir1 = new \DateTime($request->periode_akhir1);
-        $periodeAwal2 = new \Datetime($request->periode_awal2);
-        $periodeAkhir2 = new \DateTime($request->periode_akhir2);
-        $periodeAwal3 = new \Datetime($request->periode_awal3);
-        $periodeAkhir3 = new \DateTime($request->periode_akhir3);
-        $tahun1 = $periodeAkhir1->diff($periodeAwal1)->y;
-        $tahun2 = $periodeAkhir2->diff($periodeAwal2)->y;
-        $tahun3 = $periodeAkhir3->diff($periodeAwal3)->y;
-        $lama_kerja = $tahun1+$tahun2+$tahun3;
-
-        PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->update([
-            'id_kandidat'=>$kandidat->id_kandidat,
-            'pengalaman_kerja'=>$request->jabatan1.','.$request->jabatan2.','.$request->jabatan3,
-            'lama_kerja'=>$lama_kerja
-        ]);
-        return redirect('/isi_kandidat_permission');
+        return redirect('/isi_kandidat_permission')->with('toast_success',"Data anda tersimpan");
     }
 
     public function isi_kandidat_permission()
@@ -842,7 +788,7 @@ class KandidatController extends Controller
             'hubungan_perizin' => $request->hubungan_perizin
         ]);
 
-            return redirect()->route('paspor');
+            return redirect()->route('paspor')->with('toast_success',"Data anda tersimpan");
     }
 
     public function isi_kandidat_paspor()
@@ -888,21 +834,42 @@ class KandidatController extends Controller
             'foto_paspor'=>$foto_paspor,
         ]);
         if ($kandidat->penempatan == "luar negeri") {
-            return redirect()->route('placement');
+            return redirect()->route('placement')->with('toast_success',"Data anda tersimpan");
         } else {
-            return redirect('/');
+            return redirect()->route('kandidat')->with('toast_success',"Data anda tersimpan");
         }
     }
 
     public function isi_kandidat_placement()
     {
+        $negara_id = "";
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code', $id->referral_code)->first();
         $negara = Negara::where('negara_id','not like',2)->get();
+        $pekerjaan = Pekerjaan::where('negara_id',$negara_id)->get();
         if ($kandidat->penempatan == "luar negeri"){
-            return view('Kandidat/isi_kandidat_placement',compact('negara','kandidat'));
+            return view('Kandidat/isi_kandidat_placement',compact('negara','kandidat','pekerjaan'));
         }
         return redirect('/');
+    }
+
+    public function selectKandidatJob(Request $request)
+    {
+        $pekerjaan = Pekerjaan::where('negara_id',$request->id)->get();
+        return response()->json($pekerjaan);
+    }
+
+    public function selectNegaraJob(Request $request)
+    {
+        $negara_id = $request->negara_id;
+        $id = Auth::user();
+        $kandidat = Kandidat::where('referral_code', $id->referral_code)->first();
+        $negara = Negara::where('negara_id','not like',2)->get();
+        $pekerjaan = Pekerjaan::where('negara_id',$negara_id)->get();
+        Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
+            'negara_id'=>$negara_id,
+        ]);
+        return redirect()->with('toast_success',"Data anda tersimpan");
     }
 
     public function simpan_kandidat_placement(Request $request)
@@ -910,10 +877,10 @@ class KandidatController extends Controller
         $id = Auth::user();
         Kandidat::where('referral_code', $id->referral_code)->update([
             'negara_id' => $request->negara_id,
-            'jabatan_kandidat' => $request->jabatan_kandidat,
-            'kontrak' => $request->kontrak,
+            // 'jabatan_kandidat' => $request->jabatan_kandidat,
+            // 'kontrak' => $request->kontrak,
         ]);
-        return redirect('/isi_kandidat_job');
+        return redirect()->route('kandidat')->with('toast_success',"Data anda tersimpan");
     }
 
     public function isi_kandidat_job()

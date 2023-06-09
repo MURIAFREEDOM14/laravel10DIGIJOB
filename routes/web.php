@@ -229,7 +229,11 @@ Route::controller(KandidatController::class)->group(function() {
 
     Route::get('/isi_kandidat_company', 'isi_kandidat_company')->middleware('kandidat')->name('company');
     Route::post('/isi_kandidat_company', 'simpan_kandidat_company');
-    Route::post('/tambah_kandidat_pengalaman_kerja', 'pengalamanKerja');
+    Route::get('/tambah_kandidat_pengalaman_kerja', 'tambahPengalamanKerja');
+    Route::post('/simpan_kandidat_pengalaman_kerja', 'simpanPengalamanKerja');
+    Route::get('/edit_kandidat_pengalaman_kerja','editPengalamanKerja');
+    Route::post('/update_kandidat_pengalaman_kerja','updatePengalamanKerja');
+    Route::get('/delete_kandidat_pengalaman_kerja','hapusPengalamanKerja');
 
     Route::get('/isi_kandidat_permission', 'isi_kandidat_permission')->middleware('kandidat')->name('permission');
     Route::post('/isi_kandidat_permission', 'simpan_kandidat_permission');
@@ -238,6 +242,8 @@ Route::controller(KandidatController::class)->group(function() {
     Route::post('/isi_kandidat_paspor', 'simpan_kandidat_paspor');    
 
     Route::get('/isi_kandidat_placement', 'isi_kandidat_placement')->middleware('kandidat')->name('placement');
+    Route::get('/select_kandidat_job', 'selectKandidatJob');
+    Route::post('/select_negara_job','selectNegaraJob');
     Route::post('/isi_kandidat_placement', 'simpan_kandidat_placement');
 
     Route::get('/isi_kandidat_job', 'isi_kandidat_job')->middleware('kandidat')->name('job');

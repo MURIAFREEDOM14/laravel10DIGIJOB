@@ -1,5 +1,6 @@
 @extends('layouts.input')
 @section('content')
+@include('sweetalert::alert')
     <div class="container mt-5">
         <div class="card mb-5">
             <div class="card-header mx-auto">
@@ -43,7 +44,7 @@
                             <a class="nav-link disabled" href="{{route('placement')}}">Penempatan</a>
                         </li>
                     @endif
-                    @if ($kandidat->negara_id == 2)
+                    {{-- @if ($kandidat->negara_id == 2)
                         <li class="nav-item">
                             <a class="nav-link disabled" href="{{route('job')}}">Job</a>
                         </li>                        
@@ -57,7 +58,7 @@
                                 <a class="nav-link" href="{{route('job')}}">Job</a>
                             </li>                            
                         @endif
-                    @endif
+                    @endif --}}
                     <li class="nav-item">
                         <a class="nav-link" href="/">Selesai</a>
                     </li>
@@ -75,13 +76,13 @@
                                     <div class="card-header">
                                         <h6 class="ml-5 float-start">PENGALAMAN KERJA</h6> 
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                        <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#buatPengalamanKerja">
                                             Tambah
                                         </button>
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table class="table table-striped">
+                                            <table class="table table-striped table-bordered">
                                                 <thead>
                                                     <tr>
                                                         <th>No.</th>
@@ -91,6 +92,7 @@
                                                         <th>Periode</th>
                                                         <th>Alasan Berhenti</th>
                                                         <th>Video</th>
+                                                        <th>Opsi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -99,13 +101,21 @@
                                                             <td>{{$loop->iteration}}</td>
                                                             <td>{{$item->nama_perusahaan}}</td>
                                                             <td>{{$item->alamat_perusahaan}}</td>
-                                                            <td>{{$item->jabatan}}</td>
-                                                            <td>{{$item->periode_awal}} - {{$item->periode_akhir}}</td>
+                                                            <td>{{$item->jabatan}}<input hidden name="jabatan[]" value="{{$item->jabatan}}" id=""></td>
+                                                            <td>{{$item->periode_awal}} - {{date('d-m-Y',strtotime($item->periode_akhir))}}</td>
                                                             <td>{{$item->alasan_berhenti}}</td>
                                                             <td>
-                                                                <video width="200" controls>
-                                                                    <source src="/gambar/Kandidat/{{$item->nama}}/Pengalaman Kerja/{{$item->video_pengalaman_kerja}}">
-                                                                </video>
+                                                                @if ($item->video_pengalaman_kerja !== null)
+                                                                    <video width="200" controls>
+                                                                        <source src="/gambar/Kandidat/{{$item->nama}}/Pengalaman Kerja/{{$item->video_pengalaman_kerja}}">
+                                                                    </video>    
+                                                                @else
+                                                                ---
+                                                                @endif
+                                                            </td>
+                                                            <td>
+                                                                <a class="btn btn-warning" href="/edit_kandidat_pengalaman_kerja/{id}"><i class=""></i>Edit</a>
+                                                                <a class="btn btn-danger" href="/hapus_kandidat_pengalaman_kerja/{id}"><i class=""></i>Hapus</a>
                                                             </td>
                                                         </tr>                                    
                                                     @endforeach
@@ -122,9 +132,32 @@
                 <hr>
             </div>
             <!-- Modal -->
+            <!-- Create -->
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <form action="/tambah_kandidat_pengalaman_kerja" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Pengalaman Kerja</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="" id="page"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- EndCreate -->
+            
+            <!-- Edit -->
+            <div class="modal fade" id="buatPengalamanKerja" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <form action="/simpan_kandidat_pengalaman_kerja" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-content">
                             <div class="modal-header">
@@ -171,8 +204,54 @@
                     </form>
                 </div>
             </div>
+            <!-- EndEdit -->
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // function show(id) {
+            //     $,get("{{url('create')}}/" + id, {}, function(data, status) {
+            //         $("#staticBackdrop").html('Edit Data')
+            //         $("#page").html(data);
+            //         $("#staticBackdrop").modal('show');
+            //     });
+            // }
+        });        
+
+        // Modal Create //
+        function create(){
+            $.get("{{url('tambah_kandidat_pengalaman_kerja')}}",{},function(data,status){
+                $("#staticBackdropLabel").html('Tambah Pengalaman Kerja');
+                $("#page").html(data);
+                $("#staticBackdrop").modal('show');
+            });
+        }
+
+        // Modal Store //
+        function store() {
+            var nama_perusahaan = $("#nama_perusahaan").val();
+            var alamat_perusahaan = $("#alamat_perusahaan").val();
+            var jabatan = $("#jabatan").val();
+            var periode_awal = $("#periode_awal").val();
+            var periode_akhir = $("#periode_akhir").val();
+            var alasan_berhenti = $("#alasan_berhenti").val();
+            var video = $("#video").val();
+            $.ajax({
+                type:"get",
+                url:"{{url('simpan_kandidat_pengalaman_kerja')}}",
+                data:   "nama_perusahaan=" + nama_perusahaan,
+                        // "alamat_perusahaan=" + alamat_perusahaan,
+                        // "jabatan=" + jabatan,
+                        // "periode_awal=" + periode_awal,
+                        // "periode_akhir=" + periode_akhir,
+                        // "alasan_berhenti=" + alasan_berhenti,
+                        // "video=" + video,
+                success:function(data){
+                }
+            });
+        }
+    </script>
     <script>
         function Kerja2(){
             document.getElementById('kerja2').style.display = "block";
