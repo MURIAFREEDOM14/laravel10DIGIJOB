@@ -67,7 +67,12 @@
             <div class="card-body">
                 <div class="row">
                     <h4 class="text-center">PROFIL BIO DATA</h4>
-                    <h6 class="text-center mb-5">Indonesia</h6>
+                    <h6 class="text-center mb-5" style="text-transform: uppercase">
+                        @if ($kandidat->penempatan == null)
+                        @else
+                            {{$kandidat->penempatan}}
+                        @endif
+                    </h6>
                     <form action="/isi_kandidat_company" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
@@ -84,7 +89,7 @@
                                         <div class="table-responsive">
                                             <table class="table table-striped table-bordered">
                                                 <thead>
-                                                    <tr>
+                                                    <tr style="font-size:12px;">
                                                         <th>No.</th>
                                                         <th>Nama Perusahaan</th>
                                                         <th>Alamat Perusahaan</th>
@@ -102,7 +107,7 @@
                                                             <td>{{$item->nama_perusahaan}}</td>
                                                             <td>{{$item->alamat_perusahaan}}</td>
                                                             <td>{{$item->jabatan}}<input hidden name="jabatan[]" value="{{$item->jabatan}}" id=""></td>
-                                                            <td>{{$item->periode_awal}} - {{date('d-m-Y',strtotime($item->periode_akhir))}}</td>
+                                                            <td>{{date('d-M-Y',strtotime($item->periode_awal))}} - {{date('d-M-Y',strtotime($item->periode_akhir))}}</td>
                                                             <td>{{$item->alasan_berhenti}}</td>
                                                             <td>
                                                                 @if ($item->video_pengalaman_kerja !== null)
@@ -114,8 +119,8 @@
                                                                 @endif
                                                             </td>
                                                             <td>
-                                                                <a class="btn btn-warning" href="/edit_kandidat_pengalaman_kerja/{{$item->pengalaman_kerja_id}}"><i class=""></i>Edit</a>
-                                                                <a class="btn btn-danger" href="/hapus_kandidat_pengalaman_kerja/{{$item->pengalaman_kerja_id}}"><i class=""></i>Hapus</a>
+                                                                <a class="btn btn-warning mb-1" href="/edit_kandidat_pengalaman_kerja/{{$item->pengalaman_kerja_id}}"><i class=""></i>Edit</a>
+                                                                <a class="btn btn-danger mb-1" href="/hapus_kandidat_pengalaman_kerja/{{$item->pengalaman_kerja_id}}" onclick="return confirm('apakah anda ingin menghapus data ini?')"><i class=""></i>Hapus</a>
                                                                 {{-- <button onclick="destroy({{$item->pengalaman_kerja_id}})">Hapus</button> --}}
                                                             </td>
                                                         </tr>                                    

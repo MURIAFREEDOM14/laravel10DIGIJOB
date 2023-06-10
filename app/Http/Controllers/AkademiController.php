@@ -94,6 +94,13 @@ class AkademiController extends Controller
         return redirect('/');
     }
 
+    public function contactUsAkademi()
+    {
+        $id = Auth::user();
+        $akademi = Akademi::where('referral_code',$id->referral_code)->first();
+        return view('akademi/contact_us',compact('akademi'));
+    }
+
     public function listKandidat()
     {
         $auth = Auth::user();

@@ -61,27 +61,28 @@ class KandidatController extends Controller
         $usia = Carbon::parse($kandidat->tgl_lahir)->age;
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
         $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
-        if ($kandidat->periode_awal1 !== null) {
-            $periode_awal1 = Carbon::create($kandidat->periode_awal1)->isoFormat('D MMM Y');
-            $periode_akhir1 = Carbon::create($kandidat->periode_akhir1)->isoFormat('D MMM Y');
-        } else {
-            $periode_awal1 = null;
-            $periode_akhir1 = null;
-        }
-        if ($kandidat->periode_awal2 !== null) {
-            $periode_awal2 = Carbon::create($kandidat->periode_awal2)->isoFormat('D MMM Y');
-            $periode_akhir2 = Carbon::create($kandidat->periode_akhir2)->isoFormat('D MMM Y');
-        } else {
-            $periode_awal2 = null;
-            $periode_akhir2 = null;
-        }
-        if ($kandidat->periode_awal3 !== null){
-            $periode_awal3 = Carbon::create($kandidat->periode_awal3)->isoFormat('D MMM Y');
-            $periode_akhir3 = Carbon::create($kandidat->periode_akhir3)->isoFormat('D MMM Y');    
-        } else {
-            $periode_awal3 = null;
-            $periode_akhir3 = null;
-        }
+        // if ($kandidat->periode_awal1 !== null) {
+        //     $periode_awal1 = Carbon::create($kandidat->periode_awal1)->isoFormat('D MMM Y');
+        //     $periode_akhir1 = Carbon::create($kandidat->periode_akhir1)->isoFormat('D MMM Y');
+        // } else {
+        //     $periode_awal1 = null;
+        //     $periode_akhir1 = null;
+        // }
+        // if ($kandidat->periode_awal2 !== null) {
+        //     $periode_awal2 = Carbon::create($kandidat->periode_awal2)->isoFormat('D MMM Y');
+        //     $periode_akhir2 = Carbon::create($kandidat->periode_akhir2)->isoFormat('D MMM Y');
+        // } else {
+        //     $periode_awal2 = null;
+        //     $periode_akhir2 = null;
+        // }
+        // if ($kandidat->periode_awal3 !== null){
+        //     $periode_awal3 = Carbon::create($kandidat->periode_awal3)->isoFormat('D MMM Y');
+        //     $periode_akhir3 = Carbon::create($kandidat->periode_akhir3)->isoFormat('D MMM Y');    
+        // } else {
+        //     $periode_awal3 = null;
+        //     $periode_akhir3 = null;
+        // }
+        $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->limit(3)->get();
         $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->get();
         $pesan = Kandidat::join(
             'message_kandidat', 'kandidat.id_kandidat','=','message_kandidat.id_kandidat'
@@ -110,12 +111,13 @@ class KandidatController extends Controller
                     'notif',
                     'pesan',
                     'pembayaran',
-                    'periode_awal1',
-                    'periode_awal2',
-                    'periode_awal3',
-                    'periode_akhir1',
-                    'periode_akhir2',
-                    'periode_akhir3',
+                    'pengalaman_kerja',
+                    // 'periode_awal1',
+                    // 'periode_awal2',
+                    // 'periode_awal3',
+                    // 'periode_akhir1',
+                    // 'periode_akhir2',
+                    // 'periode_akhir3',
                 ));
             // }
         }                   
@@ -135,7 +137,11 @@ class KandidatController extends Controller
         $id = Auth::user();
         $user = User::where('id',$id->id)->first();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        return view('kandidat/isi_kandidat_personal',compact('timeNow','user','kandidat'));
+        $negara = Kandidat::join(
+            'ref_negara', 'kandidat.negara_id','=','ref_negara.negara_id'
+        )
+        ->where('kandidat.negara_id',$kandidat->negara_id)->first('negara');
+        return view('kandidat/isi_kandidat_personal',compact('timeNow','user','kandidat','negara'));
     }
 
     public function simpan_kandidat_personal(Request $request)
@@ -180,6 +186,50 @@ class KandidatController extends Controller
         return redirect('/isi_kandidat_document')->with('toast_success',"Data anda tersimpan");
     }
 
+    public function isi_kandidat_placement()
+    {
+        $negara_id = "";
+        $id = Auth::user();
+        $kandidat = Kandidat::where('referral_code', $id->referral_code)->first();
+        $negara_name = Negara::where('negara_id',$kandidat->negara_id)->first('negara');
+        $negara = Negara::where('negara_id','not like',2)->get();
+        $pekerjaan = Pekerjaan::where('negara_id',$negara_id)->get();
+        if ($kandidat->penempatan == "luar negeri"){
+            return view('Kandidat/isi_kandidat_placement',compact('negara','kandidat','pekerjaan','negara_id'));
+        }
+        return redirect('/');
+    }
+
+    public function selectKandidatJob(Request $request)
+    {
+        $pekerjaan = Pekerjaan::where('negara_id',$request->id)->get();
+        return response()->json($pekerjaan);
+    }
+
+    public function selectNegaraJob(Request $request)
+    {
+        $negara_id = $request->negara_id;
+        $id = Auth::user();
+        $kandidat = Kandidat::where('referral_code', $id->referral_code)->first();
+        $negara = Negara::where('negara_id','not like',2)->get();
+        $pekerjaan = Pekerjaan::where('negara_id',$negara_id)->get();
+        Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
+            'negara_id'=>$negara_id,
+        ]);
+        return redirect()->with('toast_success',"Data anda tersimpan");
+    }
+
+    public function simpan_kandidat_placement(Request $request)
+    {
+        $id = Auth::user();
+        Kandidat::where('referral_code', $id->referral_code)->update([
+            'negara_id' => $request->negara_id,
+            // 'jabatan_kandidat' => $request->jabatan_kandidat,
+            // 'kontrak' => $request->kontrak,
+        ]);
+        return redirect()->route('kandidat')->with('success',"Data anda tersimpan");
+    }
+
     public function isi_kandidat_document()
     {
         $id = Auth::user();
@@ -188,7 +238,8 @@ class KandidatController extends Controller
         $kecamatan = Kecamatan::all();
         $kota = Kota::all();
         $provinsi = Provinsi::all();
-        $negara = Negara::all();
+        // $negara = Negara::all();
+        $negara = Negara::where('negara_id',$kandidat->negara_id)->first('negara');
         return view('Kandidat/isi_kandidat_document',compact('kandidat','kelurahan','kecamatan','kota','provinsi','negara'));
     }
 
@@ -359,7 +410,32 @@ class KandidatController extends Controller
             'foto_ijazah' => $foto_ijazah,
             'stats_nikah' => $request->stats_nikah
         ]);
-        if ($request->stats_nikah !== "Single") {
+        if ($request->stats_nikah == "Menikah") {
+            return redirect()->route('family')->with('toast_success',"Data anda tersimpan");
+        } elseif($request->stats_nikah == "Cerai hidup"){
+            $hapus_buku_nikah = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/').$kandidat->foto_buku_nikah;
+            if(file_exists($hapus_buku_nikah)){
+                @unlink($hapus_buku_nikah);
+            }
+            Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
+                'nama_pasangan'=> null,
+                'tgl_lahir_pasangan'=> null,
+                'umur_pasangan'=> null,
+                'pekerjaan_pasangan'=> null,
+                'foto_buku_nikah' => null,
+            ]);
+            return redirect()->route('family')->with('toast_success',"Data anda tersimpan");
+        } elseif($request->stats_nikah == "Cerai mati"){
+            $hapus_buku_nikah = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/').$kandidat->foto_buku_nikah;
+            if(file_exists($hapus_buku_nikah)){
+                @unlink($hapus_buku_nikah);
+            }
+            Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
+                'nama_pasangan'=> null,
+                'tgl_lahir_pasangan'=> null,
+                'umur_pasangan'=> null,
+                'pekerjaan_pasangan'=> null,
+            ]);
             return redirect()->route('family')->with('toast_success',"Data anda tersimpan");
         } else {
             return redirect('/isi_kandidat_vaksin')->with('toast_success',"Data anda tersimpan");
@@ -371,10 +447,11 @@ class KandidatController extends Controller
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
+        $negara = Negara::where('negara_id',$kandidat->negara_id)->first('negara');
         if ($kandidat->stats_nikah == null) {
             return redirect()->route('company');
         } elseif($kandidat->stats_nikah !== "Single") {
-            return view('Kandidat/isi_kandidat_family',compact('kandidat'));    
+            return view('Kandidat/isi_kandidat_family',compact('kandidat','negara'));    
         } else {
             return redirect('/isi_kandidat_vaksin')->with('toast_success',"Data anda tersimpan");
         }
@@ -446,11 +523,14 @@ class KandidatController extends Controller
             $foto_kematian_pasangan = null;
         }
 
+        $umur = Carbon::parse($request->tgl_lahir_pasangan)->age;
+
         $id = Auth::user();
         Kandidat::where('referral_code', $id->referral_code)->update([
             'foto_buku_nikah' => $foto_buku_nikah,
             'nama_pasangan' => $request->nama_pasangan,
-            'umur_pasangan' => $request->umur_pasangan,
+            'umur_pasangan' => $umur,
+            'tgl_lahir_pasangan' => $request->tgl_lahir_pasangan,
             'pekerjaan_pasangan' => $request->pekerjaan_pasangan,
             'jml_anak_lk' => $request->jml_anak_lk,
             'umur_anak_lk' => $request->umur_anak_lk,
@@ -466,7 +546,8 @@ class KandidatController extends Controller
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code', $id->referral_code)->first(); 
-        return view('Kandidat/isi_kandidat_vaksinasi',['kandidat'=>$kandidat]);
+        $negara = Negara::where('negara_id',$kandidat->negara_id)->first('negara');
+        return view('Kandidat/isi_kandidat_vaksinasi',['kandidat'=>$kandidat,'negara'=>$negara]);
     }
 
     public function simpan_kandidat_vaksin(Request $request)
@@ -565,7 +646,8 @@ class KandidatController extends Controller
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code', $id->referral_code)->first();
-        return view('Kandidat/isi_kandidat_parent',['kandidat'=>$kandidat]);
+        $negara = Negara::where('negara_id',$kandidat->negara_id)->first('negara');
+        return view('Kandidat/isi_kandidat_parent',['kandidat'=>$kandidat,'negara'=>$negara]);
     }
 
     public function simpan_kandidat_parent(Request $request)
@@ -598,12 +680,14 @@ class KandidatController extends Controller
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code', $id->referral_code)->first();
+        $negara = Negara::where('negara_id',$kandidat->negara_id)->first('negara');
         $pengalaman_kerja = PengalamanKerja::join(
             'kandidat','prt_pengalaman_kerja.id_kandidat','=','kandidat.id_kandidat'
         )->where('prt_pengalaman_kerja.id_kandidat',$kandidat->id_kandidat)->get();
         return view('Kandidat/isi_kandidat_company', [
             'kandidat'=>$kandidat,
             'pengalaman_kerja'=>$pengalaman_kerja,
+            'negara'=>$negara,
         ]);
     }
 
@@ -637,19 +721,19 @@ class KandidatController extends Controller
         $periodeAkhir = new \DateTime($request->periode_akhir);
         $tahun = $periodeAkhir->diff($periodeAwal)->y;
 
-        // PengalamanKerja::create([
-        //     'nama_perusahaan'=>$request->nama_perusahaan,
-        //     'alamat_perusahaan'=>$request->alamat_perusahaan,
-        //     'jabatan'=>$request->jabatan,
-        //     'periode_awal'=>$request->periode_awal,
-        //     'periode_akhir'=>$request->periode_akhir,
-        //     'alasan_berhenti'=>$request->alasan_berhenti,
-        //     'video_pengalaman_kerja'=>$video,
-        //     'id_kandidat'=>$kandidat->id_kandidat,
-        //     'nama_kandidat' => $kandidat->nama,
-        //     'lama_kerja' => $tahun,
-        // ]);
-        // return redirect()->route('company')->with('toast_success',"Data anda tersimpan");
+        PengalamanKerja::create([
+            'nama_perusahaan'=>$request->nama_perusahaan,
+            'alamat_perusahaan'=>$request->alamat_perusahaan,
+            'jabatan'=>$request->jabatan,
+            'periode_awal'=>$request->periode_awal,
+            'periode_akhir'=>$request->periode_akhir,
+            'alasan_berhenti'=>$request->alasan_berhenti,
+            'video_pengalaman_kerja'=>$video,
+            'id_kandidat'=>$kandidat->id_kandidat,
+            'nama_kandidat' => $kandidat->nama,
+            'lama_kerja' => $tahun,
+        ]);
+        return redirect()->route('company')->with('toast_success',"Data anda tersimpan");
     }
 
     public function editPengalamanKerja($id)
@@ -661,7 +745,7 @@ class KandidatController extends Controller
         return view('kandidat/edit_kandidat_company', compact('pengalaman_kerja'));
     }
 
-    public function updatePengalamanKerja(Request $request)
+    public function updatePengalamanKerja(Request $request, $id)
     {
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
@@ -695,7 +779,7 @@ class KandidatController extends Controller
         $periodeAkhir = new \DateTime($request->periode_akhir);
         $tahun = $periodeAkhir->diff($periodeAwal)->y;
 
-        PengalamanKerja::create([
+        PengalamanKerja::where('pengalaman_kerja_id',$id)->update([
             'nama_perusahaan'=>$request->nama_perusahaan,
             'alamat_perusahaan'=>$request->alamat_perusahaan,
             'jabatan'=>$request->jabatan,
@@ -707,6 +791,7 @@ class KandidatController extends Controller
             'nama_kandidat' => $kandidat->nama,
             'lama_kerja' => $tahun,
         ]);
+        return redirect()->route('company')->with('toast_success',"Data anda tersimpan");
     }
 
     public function hapusPengalamanKerja($id)
@@ -736,7 +821,8 @@ class KandidatController extends Controller
         $kota = Kota::all();
         $kecamatan = Kecamatan::all();
         $kelurahan = Kelurahan::all();
-        return view('Kandidat/isi_kandidat_permission',compact('kandidat','provinsi','kecamatan','kelurahan','kota'));
+        $negara = Negara::where('negara_id',$kandidat->negara_id)->first('negara');
+        return view('Kandidat/isi_kandidat_permission',compact('kandidat','provinsi','kecamatan','kelurahan','kota','negara'));
     }
 
     public function simpan_kandidat_permission(Request $request)
@@ -805,7 +891,8 @@ class KandidatController extends Controller
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        return view('kandidat/isi_kandidat_paspor',compact('kandidat'));
+        $negara = Negara::where('negara_id',$kandidat->negara_id)->first('negara');
+        return view('kandidat/isi_kandidat_paspor',compact('kandidat','negara'));
     }
 
     public function simpan_kandidat_paspor(Request $request)
@@ -850,48 +937,7 @@ class KandidatController extends Controller
         }
     }
 
-    public function isi_kandidat_placement()
-    {
-        $negara_id = "";
-        $id = Auth::user();
-        $kandidat = Kandidat::where('referral_code', $id->referral_code)->first();
-        $negara = Negara::where('negara_id','not like',2)->get();
-        $pekerjaan = Pekerjaan::where('negara_id',$negara_id)->get();
-        if ($kandidat->penempatan == "luar negeri"){
-            return view('Kandidat/isi_kandidat_placement',compact('negara','kandidat','pekerjaan'));
-        }
-        return redirect('/');
-    }
-
-    public function selectKandidatJob(Request $request)
-    {
-        $pekerjaan = Pekerjaan::where('negara_id',$request->id)->get();
-        return response()->json($pekerjaan);
-    }
-
-    public function selectNegaraJob(Request $request)
-    {
-        $negara_id = $request->negara_id;
-        $id = Auth::user();
-        $kandidat = Kandidat::where('referral_code', $id->referral_code)->first();
-        $negara = Negara::where('negara_id','not like',2)->get();
-        $pekerjaan = Pekerjaan::where('negara_id',$negara_id)->get();
-        Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
-            'negara_id'=>$negara_id,
-        ]);
-        return redirect()->with('toast_success',"Data anda tersimpan");
-    }
-
-    public function simpan_kandidat_placement(Request $request)
-    {
-        $id = Auth::user();
-        Kandidat::where('referral_code', $id->referral_code)->update([
-            'negara_id' => $request->negara_id,
-            // 'jabatan_kandidat' => $request->jabatan_kandidat,
-            // 'kontrak' => $request->kontrak,
-        ]);
-        return redirect()->route('kandidat')->with('toast_success',"Data anda tersimpan");
-    }
+    
 
     public function isi_kandidat_job()
     {
@@ -929,17 +975,6 @@ class KandidatController extends Controller
         ->limit(3)->get();
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
         return view('kandidat/contact_us',compact('kandidat','notif','pembayaran','pesan'));
-    }
-
-    public function sendContactUsKandidat(Request $request)
-    {
-        $id = Auth::user();
-        $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        ContactUs::create([
-            'id_kandidat'=>$kandidat->id_kandidat,
-            'isi_pesan_kandidat'=>$request->isi_pesan_kandidat,
-        ]);
-        return redirect('/kandidat')->with('toast_success','Pesan anda sudah terkirim, mohon tunggu pesan dari admin');
     }
 
     public function Perusahaan($id)

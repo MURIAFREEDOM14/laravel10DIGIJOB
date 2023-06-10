@@ -9,39 +9,39 @@
                         <a class="nav-link" href="{{route('personal')}}">Personal</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('document')}}">Document</a>
+                        <a class="nav-link" href="{{route('document')}}">Documen</a>
                     </li>
                     <li class="nav-item">
                         @if($kandidat->stats_nikah == null)
-                            <a class="nav-link disabled" href="{{route('family')}}">Family</a>
+                            <a class="nav-link disabled" href="{{route('family')}}">Keluarga</a>
                         @elseif($kandidat->stats_nikah !== "Single")
-                            <a class="nav-link" href="{{route('family')}}">Family</a>                          
+                            <a class="nav-link" href="{{route('family')}}">Keluarga</a>                          
                         @else
-                            <a class="nav-link disabled" href="{{route('family')}}">Family</a>                          
+                            <a class="nav-link disabled" href="{{route('family')}}">Keluarga</a>                          
                         @endif
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" href="{{route('vaksin')}}">Vaksin</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('parent')}}">Parent</a>
+                        <a class="nav-link" href="{{route('parent')}}">Orang tua</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('company')}}">Pengalaman Kerja</a>
                     </li>                          
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('permission')}}">Permission</a>
+                        <a class="nav-link" href="{{route('permission')}}">Izin Keluarga</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('paspor')}}">Paspor</a>
                     </li>
                     @if ($kandidat->penempatan == "luar negeri")
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('placement')}}">Placement</a>
+                            <a class="nav-link" href="{{route('placement')}}">Penempatan</a>
                         </li>
                     @else
                         <li class="nav-item">
-                            <a class="nav-link disabled" href="{{route('placement')}}">Placement</a>
+                            <a class="nav-link disabled" href="{{route('placement')}}">Penempatan</a>
                         </li>
                     @endif
                     {{-- @if ($kandidat->negara_id == 2)
@@ -67,7 +67,12 @@
             <div class="card-body">
                 <div class="row">
                     <h4 class="text-center">PROFIL BIO DATA</h4>
-                    <h6 class="text-center mb-5">Indonesia</h6>
+                    <h6 class="text-center mb-5" style="text-transform: uppercase">
+                        @if ($kandidat->penempatan == null)
+                        @else
+                            {{$kandidat->penempatan}}
+                        @endif
+                    </h6>
                     <form action="/isi_kandidat_vaksin" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="" id="vaksinasi">
@@ -119,7 +124,7 @@
                                         @if ($kandidat->sertifikat_vaksin1 == "")
                                             <input type="file" required value="{{$kandidat->sertifikat_vaksin1}}" name="sertifikat_vaksin1" class="form-control" accept="image/*">                                            
                                         @elseif ($kandidat->sertifikat_vaksin1 !== null)
-                                            <img src="/gambar/Kandidat/{{$kandidat->nama}}/Vaksin Pertama/{{$kandidat->sertifikat_vaksin1}}" width="120" height="150" alt="">
+                                            <img src="/gambar/Kandidat/{{$kandidat->nama}}/Vaksin Pertama/{{$kandidat->sertifikat_vaksin1}}" width="150" height="150" alt="">
                                             <input type="file" value="{{$kandidat->sertifikat_vaksin1}}" name="sertifikat_vaksin1" class="form-control" accept="image/*">                                            
                                         @else
                                             <input type="file" required value="{{$kandidat->sertifikat_vaksin1}}" name="sertifikat_vaksin1" class="form-control" accept="image/*">                                            
@@ -171,7 +176,7 @@
                                         @if ($kandidat->sertifikat_vaksin2 == "")
                                             <input type="file" required name="sertifikat_vaksin2" class="form-control" accept="image/*">                                            
                                         @elseif ($kandidat->sertifikat_vaksin2 !== null)
-                                            <img src="/gambar/Kandidat/{{$kandidat->nama}}/Vaksin Kedua/{{$kandidat->sertifikat_vaksin2}}" width="120" height="150" alt="">
+                                            <img src="/gambar/Kandidat/{{$kandidat->nama}}/Vaksin Kedua/{{$kandidat->sertifikat_vaksin2}}" width="150" height="150" alt="">
                                             <input type="file" name="sertifikat_vaksin2" class="form-control" accept="image/*">                                            
                                         @else
                                             <input type="file" required name="sertifikat_vaksin2" class="form-control" accept="image/*">                                            
@@ -223,7 +228,7 @@
                                         @if ($kandidat->sertifikat_vaksin3 == "")
                                             <input type="file" name="sertifikat_vaksin3" class="form-control" accept="image/*">                                            
                                         @elseif ($kandidat->sertifikat_vaksin3 !== null)
-                                            <img src="/gambar/Kandidat/{{$kandidat->nama}}/Vaksin Ketiga/{{$kandidat->sertifikat_vaksin3}}" width="120" height="150" alt="">
+                                            <img src="/gambar/Kandidat/{{$kandidat->nama}}/Vaksin Ketiga/{{$kandidat->sertifikat_vaksin3}}" width="150" height="150" alt="">
                                             <input type="file" name="sertifikat_vaksin3" class="form-control" accept="image/*">                                            
                                         @else
                                             <input type="file" name="sertifikat_vaksin3" class="form-control" accept="image/*">                                            

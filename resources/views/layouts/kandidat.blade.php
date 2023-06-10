@@ -171,7 +171,7 @@
                                             <a class="dropdown-item" href="/profil_kandidat">Profilku</a>
                                             <a class="dropdown-item" href="/isi_kandidat_personal">Edit Profil</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="/contact_us">Contact Us</a>
+                                            <a class="dropdown-item" href="/contact_us_kandidat">Contact Us</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" onclick="return confirm('Apakah anda yakin ingin keluar?')" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();

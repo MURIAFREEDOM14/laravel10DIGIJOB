@@ -21,6 +21,7 @@ use App\Models\Interview;
 use App\Models\notifyKandidat;
 use App\Models\messageKandidat;
 use App\Models\Pelatihan;
+use App\Models\ContactUs;
 use Carbon\Carbon;
 
 class ManagerController extends Controller
@@ -238,6 +239,45 @@ class ManagerController extends Controller
             'manager',
             'pengalamanKerja',
         ));
+    }
+
+    public function contactUs()
+    {
+        return view('contact_us');
+    }
+    
+    public function sendContactUs(Request $request)
+    {
+        $dari = $request->dari;
+        $kepada = "Admin";
+        $isi = $request->isi;
+        $id_kandidat = $request->id_kandidat;
+        $id_akademi = $request->id_akademi;
+        $id_perusahaan = $request->id_perusahaan;
+        
+        if($request->file('gambar') !== null){
+            $gambar = $dari.time().'.'.$request->gambar->extension();  
+            $request->gambar->move(public_path('/gambar/Manager/Hubungi Kami/'), $gambar);    
+        } else {
+            $gambar = null;
+        }
+
+        if($gambar !== null){
+            $data = $gambar;
+        } else {
+            $data = null;
+        }
+
+        ContactUs::create([
+            'dari' => $dari,
+            'kepada' => $kepada,
+            'isi' => $isi,
+            'id_kandidat' => $id_kandidat,
+            'id_akademi' => $id_akademi,
+            'id_perusahaan' => $id_perusahaan,
+            'gambar' => $data,
+        ]);
+        return redirect('/');
     }
 
     public function dalam_negeri()

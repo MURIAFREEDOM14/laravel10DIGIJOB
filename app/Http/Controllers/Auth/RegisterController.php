@@ -116,7 +116,7 @@ class RegisterController extends Controller
      
         $tgl = Carbon::parse($request->tgl)->age;
         if($tgl < 18){
-            return redirect('/register/kandidat')->with('warning',"Maaf umur anda belum cukup");
+            return redirect('/register/kandidat')->with('warning',"Maaf umur anda belum cukup, syarat umur ialah 18 thn keatas");
         }
 
         $password = Hash::make($request->password);

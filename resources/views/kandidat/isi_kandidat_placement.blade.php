@@ -9,39 +9,39 @@
                         <a class="nav-link" href="{{route('personal')}}">Personal</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('document')}}">Document</a>
+                        <a class="nav-link" href="{{route('document')}}">Documen</a>
                     </li>
                     <li class="nav-item">
                         @if($kandidat->stats_nikah == null)
-                            <a class="nav-link disabled" href="{{route('family')}}">Family</a>
+                            <a class="nav-link disabled" href="{{route('family')}}">Keluarga</a>
                         @elseif($kandidat->stats_nikah !== "Single")
-                            <a class="nav-link" href="{{route('family')}}">Family</a>                          
+                            <a class="nav-link" href="{{route('family')}}">Keluarga</a>                          
                         @else
-                            <a class="nav-link disabled" href="{{route('family')}}">Family</a>                          
+                            <a class="nav-link disabled" href="{{route('family')}}">Keluarga</a>                          
                         @endif
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('vaksin')}}">Vaksin</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('parent')}}">Parent</a>
+                        <a class="nav-link" href="{{route('parent')}}">Orang tua</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('company')}}">Pengalaman Kerja</a>
                     </li>                          
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('permission')}}">Permission</a>
+                        <a class="nav-link" href="{{route('permission')}}">Izin Keluarga</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('paspor')}}">Paspor</a>
                     </li>
                     @if ($kandidat->penempatan == "luar negeri")
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{route('placement')}}">Placement</a>
+                            <a class="nav-link active" href="{{route('placement')}}">Penempatan</a>
                         </li>
                     @else
                         <li class="nav-item">
-                            <a class="nav-link disabled" href="{{route('placement')}}">Placement</a>
+                            <a class="nav-link disabled" href="{{route('placement')}}">Penempatan</a>
                         </li>
                     @endif
                     {{-- @if ($kandidat->negara_id == 2)
@@ -67,7 +67,12 @@
             <div class="card-body">
                 <div class="row">
                     <h4 class="text-center">PROFIL BIO DATA</h4>
-                    <h6 class="text-center mb-5">Indonesia</h6>
+                    <h6 class="text-center mb-5" style="text-transform: uppercase">
+                        @if ($kandidat->penempatan == null)
+                        @else
+                            {{$kandidat->penempatan}}
+                        @endif
+                    </h6>
                     <div class="" id="perizin">
                         <div class="row mb-1">
                             <div class="col-md-4">

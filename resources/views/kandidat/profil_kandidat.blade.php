@@ -85,9 +85,9 @@
                     </div>
                     <div class="col-md-3">
                         @if ($kandidat->foto_set_badan !== null)
-                            <img class="float-right img" src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" width="130px" height="150px" alt="">
+                            <img class="float-right img" src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" width="150" height="150" alt="">
                         @else
-                            <img class="float-right img" src="/gambar/default_user.png" width="120px" height="150px" alt="">
+                            <img class="float-right img" src="/gambar/default_user.png" width="150" height="150" alt="">
                         @endif
                     </div>
                 </div>
@@ -114,24 +114,26 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <th><b class="bold">1st</b></th>
-                                                        <td><b class="bold">{{$kandidat->nama_perusahaan1}}</b></td>
-                                                        <td><b class="bold">{{$kandidat->alamat_perusahaan1}}</b></td>
-                                                        <td><b class="bold">{{$kandidat->jabatan1}}</b></td>
-                                                        <td><b class="bold">{{$periode_awal1}} - {{$periode_akhir1}}</b></td>
-                                                        <td><b class="bold">{{$kandidat->alasan1}}</b></td>
-                                                        @if ($kandidat->video_kerja1 !== null)
-                                                            <td>
-                                                                <button type="button" style="font-size: 10px; font-weight:bold;" class="btn" data-bs-toggle="modal" data-bs-target="#video_kerja1">
-                                                                    See Video
-                                                                </button>
-                                                            </td>                                                    
-                                                        @else
-                                                            <td></td>
-                                                        @endif
-                                                    </tr>
-                                                    <tr>
+                                                    @foreach ($pengalaman_kerja as $item)
+                                                        <tr>
+                                                            <th><b class="bold">{{$loop->iteration}}</b></th>
+                                                            <td><b class="bold">{{$item->nama_perusahaan}}</b></td>
+                                                            <td><b class="bold">{{$item->alamat_perusahaan}}</b></td>
+                                                            <td><b class="bold">{{$item->jabatan}}</b></td>
+                                                            <td><b class="bold">{{date('d-M-Y',strtotime($item->periode_awal))}} - {{date('d-M-Y',strtotime($item->periode_akhir))}}</b></td>
+                                                            <td><b class="bold">{{$item->alasan_berhenti}}</b></td>
+                                                            @if ($item->video_pengalaman_kerja !== null)
+                                                                <td>
+                                                                    <button type="button" style="font-size: 10px; font-weight:bold;" id="" class="btn" data-bs-toggle="modal" onclick="Video({{$item->pengalaman_kerja_id}})" data-bs-target="#video_kerja">
+                                                                        Lihat Video
+                                                                    </button>
+                                                                </td>                                                    
+                                                            @else
+                                                                <td></td>
+                                                            @endif    
+                                                        </tr>
+                                                    @endforeach
+                                                    {{-- <tr>
                                                         <th><b class="bold">2nd</b></th>
                                                         <td><b class="bold">{{$kandidat->nama_perusahaan2}}</b></td>
                                                         <td><b class="bold">{{$kandidat->alamat_perusahaan2}}</b></td>
@@ -164,7 +166,7 @@
                                                         @else
                                                             <td></td>
                                                         @endif
-                                                    </tr>
+                                                    </tr> --}}
                                                 </tbody>
                                             </table>
                                         </div>
@@ -179,20 +181,20 @@
         </div>
     </div>        
     <!-- Modal -->
-    <div class="modal fade" id="video_kerja1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="video_kerja" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body text-center">
                     <div class="ratio ratio-4x3">
                         <video width="400" controls>
-                            <source src="/gambar/Kandidat/{{$kandidat->nama}}/Pengalaman Kerja/Pengalaman Kerja1/{{$kandidat->video_kerja1}}" type="video/mp4">
+                            <source src="" type="video/mp4">
                         </video>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="video_kerja2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="video_kerja2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-body text-center">
@@ -217,6 +219,8 @@
                 </div>
             </div>
         </div>
-    </div>        
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    </div>         --}}
+    <script>
+        
+    </script>
 @endsection

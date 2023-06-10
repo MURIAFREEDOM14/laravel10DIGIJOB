@@ -6,7 +6,8 @@
                 Edit Pengalaman Kerja
             </div>
             <div class="card-body">
-                <form action="/update_kandidat_pengalaman_kerja">
+                <form action="/update_kandidat_pengalaman_kerja/{{$pengalaman_kerja->pengalaman_kerja_id}}" method="POST" enctype="multipart/form-data">
+                    @csrf
                     <div class="">
                         <div class="mb-2">
                             <label for="exampleInputEmail1" class="form-label">Nama Perusahaan</label>
@@ -35,20 +36,22 @@
                         </div>
                         <div class="mb-2">
                             <label for="exampleInputEmail1" class="form-label">Video Kerja</label>
-                            @if ($pengalaman_kerja->video_pengalaman_kerja !== null)
-                                <video width="400" controls>
-                                    <source src="/gambar/Kandidat/">
-                                </video>
-                                <input type="file" name="video" class="form-control" id="video" aria-describedby="emailHelp" accept="video/*">
-                                <small>Usahakan untuk ukuran video 3mb</small>                                
-                            @else
-                                <input type="file" name="video" class="form-control" id="video" aria-describedby="emailHelp" accept="video/*">
-                                <small>Usahakan untuk ukuran video 3mb</small>                                
-                            @endif
+                            <div class="">
+                                @if ($pengalaman_kerja->video_pengalaman_kerja !== null)
+                                    <video width="400" controls>
+                                        <source src="/gambar/Kandidat/{{$pengalaman_kerja->nama}}/Pengalaman Kerja/{{$pengalaman_kerja->video_pengalaman_kerja}}">
+                                    </video>
+                                    <input type="file" name="video" class="form-control" id="video" aria-describedby="emailHelp" accept="video/*">
+                                    <small>Usahakan untuk ukuran video 3mb</small>                                
+                                @else
+                                    <input type="file" name="video" class="form-control" id="video" aria-describedby="emailHelp" accept="video/*">
+                                    <small>Usahakan untuk ukuran video 3mb</small>                                
+                                @endif
+                            </div>
                         </div>
                         <div class="mb-2">
                             <a href="/isi_kandidat_company" class="btn btn-danger">Kembali</a>
-                            <button class="btn btn-warning"{{--onclick="store()"--}}>Ubah</button>
+                            <button type="submit" class="btn btn-warning"{{--onclick="store()"--}}>Ubah</button>
                         </div>    
                     </div>
                 </form>

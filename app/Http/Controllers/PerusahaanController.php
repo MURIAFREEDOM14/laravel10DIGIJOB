@@ -190,6 +190,13 @@ class PerusahaanController extends Controller
         return view('/perusahaan/profil_perusahaan',compact('perusahaan','notif'));
     }
 
+    public function contactUsPerusahaan()
+    {
+        $id = Auth::user();
+        $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
+        return view('perusahaan/contact_us',compact('perusahaan'));
+    }
+
     // DATA KANDIDAT //
     public function kandidat()
     {

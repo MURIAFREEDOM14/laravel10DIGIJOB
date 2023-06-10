@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('message_kandidat', function (Blueprint $table) {
-            $table->id();
+        Schema::create('contact_us', function (Blueprint $table) {
+            $table->id('id');
+            $table->string('dari');
+            $table->string('kepada');
+            $table->text('isi');
             $table->integer('id_kandidat')->nullable();
-            $table->integer('id_perusahaan')->nullable();
-            $table->text('pesan')->nullable();
-            $table->string('penngirim')->nullable();
-            $table->string('kepada')->nullable();
-            $table->integer('id_interview')->nullable();
             $table->integer('id_akademi')->nullable();
+            $table->integer('id_perusahaan')->nullable();
+            $table->text('gambar')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('message_kandidat');
+        Schema::dropIfExists('contact_us');
     }
 };

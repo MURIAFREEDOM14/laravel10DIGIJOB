@@ -9,39 +9,39 @@
                         <a class="nav-link" href="{{route('personal')}}">Personal</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('document')}}">Document</a>
+                        <a class="nav-link" href="{{route('document')}}">Documen</a>
                     </li>
                     <li class="nav-item">
                         @if($kandidat->stats_nikah == null)
-                            <a class="nav-link disabled" href="{{route('family')}}">Family</a>
+                            <a class="nav-link disabled" href="{{route('family')}}">Keluarga</a>
                         @elseif($kandidat->stats_nikah !== "Single")
-                            <a class="nav-link active" href="{{route('family')}}">Family</a>                          
+                            <a class="nav-link active" href="{{route('family')}}">Keluarga</a>                          
                         @else
-                            <a class="nav-link disabled" href="{{route('family')}}">Family</a>                          
+                            <a class="nav-link disabled" href="{{route('family')}}">Keluarga</a>                          
                         @endif
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('vaksin')}}">Vaksin</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('parent')}}">Parent</a>
+                        <a class="nav-link" href="{{route('parent')}}">Orang tua</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('company')}}">Pengalaman Kerja</a>
                     </li>                          
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('permission')}}">Permission</a>
+                        <a class="nav-link" href="{{route('permission')}}">Izin Keluarga</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('paspor')}}">Paspor</a>
                     </li>
                     @if ($kandidat->penempatan == "luar negeri")
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('placement')}}">Placement</a>
+                            <a class="nav-link" href="{{route('placement')}}">Penempatan</a>
                         </li>
                     @else
                         <li class="nav-item">
-                            <a class="nav-link disabled" href="{{route('placement')}}">Placement</a>
+                            <a class="nav-link disabled" href="{{route('placement')}}">Penempatan</a>
                         </li>
                     @endif
                     {{-- @if ($kandidat->negara_id == 2)
@@ -67,7 +67,12 @@
             <div class="card-body">
                 <div class="row">
                     <h4 class="text-center">PROFIL BIO DATA</h4>
-                    <h6 class="text-center mb-5">Indonesia</h6>
+                    <h6 class="text-center mb-5" style="text-transform: uppercase">
+                        @if ($kandidat->penempatan == null)
+                        @else
+                            {{$kandidat->penempatan}}
+                        @endif
+                    </h6>
                     <form action="/isi_kandidat_family" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="" id="family_background">
@@ -77,7 +82,7 @@
                                 </div>
                             </div>
                             @if ($kandidat->stats_nikah == "Cerai hidup")
-                                <div class="row mb-3 g-3 align-items-center">
+                                {{-- <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
                                         <label for="inputPassword6" class="col-form-label">Foto Buku Nikah</label>
                                     </div>
@@ -89,13 +94,13 @@
                                             <input type="file" disabled name="foto_buku_nikah" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                         @endif
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
                                         <label for="inputPassword6" class="col-form-label">Nama Pasangan</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="text" disabled value="{{$kandidat->nama_pasangan}}" name="nama_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                        <input type="text" disabled value="{{$kandidat->nama_pasangan}}" required name="nama_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                     </div>
                                 </div>
                                 <div class="row mb-3 g-3 align-items-center">
@@ -103,7 +108,7 @@
                                         <label for="inputPassword6" class="col-form-label">Umur Pasangan</label>
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="number" disabled min="0" name="umur_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                        <input type="number" disabled min="0" value="{{$kandidat->umur_pasangan}}" name="umur_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                     </div>
                                 </div>
                                 <div class="row mb-3 g-3 align-items-center">
@@ -273,19 +278,15 @@
                                         <label for="inputPassword6" class="col-form-label">Nama Pasangan</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="text" value="{{$kandidat->nama_pasangan}}" name="nama_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                        <input type="text" required value="{{$kandidat->nama_pasangan}}" name="nama_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                     </div>
                                 </div>
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
-                                        <label for="inputPassword6" class="col-form-label">Umur Pasangan</label>
+                                        <label for="inputPassword6" class="col-form-label">Tanggal Lahir Pasangan</label>
                                     </div>
                                     <div class="col-md-2">
-                                        @if ($kandidat->umur_pasangan !== null)
-                                            <input type="number" value="{{$kandidat->umur_pasangan}}" name="umur_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
-                                        @else
-                                            <input type="number" min="0" name="umur_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
-                                        @endif
+                                        <input type="date" required class="form-control" name="tgl_lahir_pasangan" value="{{$kandidat->tgl_lahir_pasangan}}" id="">
                                     </div>
                                 </div>
                                 <div class="row mb-3 g-3 align-items-center">
@@ -293,7 +294,7 @@
                                         <label for="inputPassword6" class="col-form-label">Pekerjaan Pasangan</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="text" value="{{$kandidat->pekerjaan_pasangan}}" name="pekerjaan_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                        <input type="text" required value="{{$kandidat->pekerjaan_pasangan}}" name="pekerjaan_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                     </div>
                                 </div>
                                 <div class="" id="punya_anak">

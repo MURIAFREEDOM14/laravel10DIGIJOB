@@ -86,6 +86,7 @@ return new class extends Migration
             $table->integer('umur_anak_pr')->nullable();
             $table->string('foto_cerai')->nullable();
             $table->string('foto_kematian_pasangan')->nullable();
+            $table->date('tgl_lahir_pasangan')->nullable();
 
             //Company
             $table->string('nama_perusahaan1')->nullable();

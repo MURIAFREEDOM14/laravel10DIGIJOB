@@ -11,12 +11,22 @@
                         @csrf       
                         <div class="row mb-3">
                             <div class="col-6">
-                                <b class="bold">Hello {{$kandidat->nama}}, Apa yang bisa kami bantu?</b>
+                                <b class="bold">Hai {{$kandidat->nama}}, Apa yang bisa kami bantu?</b>
+                                <div class="row my-3">
+                                    <div class="col-4">
+                                        <label class="form-label" for="">Nama Pengirim</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <input type="text" class="form-control" disabled name="" value="{{$kandidat->nama}}" id="">
+                                        <input type="text" hidden name="dari" value="{{$kandidat->nama}}" id="">    
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-6">
                                 <div class="row">
                                     <div class="mx-auto">Jelaskan apa kendalamu</div>
-                                    <textarea required name="isi_pesan_kandidat" class="form-control" id=""></textarea>
+                                    <input type="text" hidden name="id_kandidat" value="{{$kandidat->id_kandidat}}" id="">
+                                    <textarea required name="isi" class="form-control" id=""></textarea>
                                 </div>
                             </div>
                         </div>

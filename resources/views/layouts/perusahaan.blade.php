@@ -184,7 +184,7 @@
                                             <a class="dropdown-item" href="/perusahaan/isi_perusahaan_data">Edit Profil</a>
                                             {{-- <a class="dropdown-item" href="#">Kotak Masuk</a> --}}
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="/contact_us">Contact Us</a>
+                                            <a class="dropdown-item" href="/contact_us_perusahaan">Contact Us</a>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" onclick="return confirm('apakah anda yakin ingin keluar?')" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();

@@ -47,7 +47,7 @@ Route::controller(ManagerController::class)->group(function() {
     Route::get('/manager_access', 'login')->name('manager_access');
     Route::post('/manager_access', 'authenticate');
     Route::get('/manager', 'index')->middleware('manager')->name('manager');
-    
+
     // DATA KANDIDAT // 
     Route::get('/manager/kandidat/lihat_profil/{id}','lihatProfil')->middleware('manager');
     Route::get('/manager/kandidat/dalam_negeri','dalam_negeri')->middleware('manager');
@@ -107,6 +107,8 @@ Route::controller(ManagerController::class)->group(function() {
     // Route::get('/riwayat/kandidat','riwayatKandidat');
     // Route::get('/riwayat/perusahaan','riwayatPerusahaan');
     // Route::get('/list_akademi','akademi');
+
+    Route::post('/contact_us','sendContactUs');
 });
 
 // DATA LAMAN //
@@ -130,7 +132,7 @@ Route::controller(LamanController::class)->group(function() {
     Route::get('/digijob_system','digijobSystem');
     Route::get('/benefits','benefits');
     Route::get('/features','features');
-    Route::get('/contact_us','contact');
+    Route::get('/hubungi_kami','contact');
     Route::get('/about_us','about');
 });
 
@@ -138,6 +140,7 @@ Route::controller(LamanController::class)->group(function() {
 Route::controller(AkademiController::class)->group(function() {
     Route::get('/akademi', 'index')->name('akademi')->middleware(('akademi'));
     Route::get('/akademi/lihat/profil','lihatProfilAkademi');
+    Route::get('/contact_us_akademi','contactUsAkademi');
 
     Route::get('/akademi/isi_akademi_data','isi_akademi_data')->middleware('akademi');
     Route::post('/akademi/isi_akademi_data','simpan_akademi_data');
@@ -183,6 +186,7 @@ Route::controller(PerusahaanController::class)->group(function(){
     Route::get('/perusahaan/isi_perusahaan_operator','isi_perusahaan_operator')->name('perusahaan.operator');
     Route::post('/perusahaan/isi_perusahaan_operator','simpan_perusahaan_operator');
     Route::get('/perusahaan/lihat/perusahaan','lihatProfilPerusahaan');    
+    Route::get('/contact_us_perusahaan','contactUsPerusahaan');
 
     // DATA KANDIDAT //
     Route::get('/perusahaan/list/kandidat','kandidat');
@@ -211,6 +215,7 @@ Route::controller(KandidatController::class)->group(function() {
     Route::get('/kandidat','index')->middleware('kandidat')->name('kandidat');
     Route::get('/profil_kandidat','profil')->middleware('kandidat');
     Route::get('/edit_profil','edit')->name('edit_profil');
+    Route::get('/contact_us_kandidat','contactUsKandidat');
 
     Route::get('/isi_kandidat_personal', 'isi_kandidat_personal')->middleware('kandidat')->name('personal');
     Route::post('/isi_kandidat_personal', 'simpan_kandidat_personal');
@@ -253,6 +258,7 @@ Route::controller(KandidatController::class)->group(function() {
     // Route::post('/contact_us','sendContactUsKandidat');
     // DATA PERUSAHAAN //
     Route::get('/profil_perusahaan/{id}','perusahaan');
+    
 });
 
 // data akun prioritas
