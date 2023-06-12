@@ -62,9 +62,15 @@ class LoginController extends Controller
 
     public function AuthenticateLogin(Request $request)
     {
-        $semua = User::where('email',$request->email)->where('password',$request->password)->first();
-        if($semua){
-            Auth::login($semua);
+        // $semua = User::where('email',$request->email)->where('password',$request->password)->first();
+        $email = $request->email;
+        $password = $request->password;
+        $user = User::where('email',$email)->where('password',$password)->first();
+        if(Auth::attempt(['email'=>$request->email,'password'=>$request->password]))
+        {
+            return redirect('/')->with('success',"selamat datang");
+        } elseif($user !== null) {
+            Auth::login($user);
             return redirect('/')->with('success',"selamat datang");
         } else {
             return redirect('/login')->with('error',"maaf email atau password salah");

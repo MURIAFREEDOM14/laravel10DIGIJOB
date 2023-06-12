@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Kandidat;
 use App\Models\Pembayaran;
 use App\Models\Akademi;
@@ -90,6 +91,7 @@ class ManagerController extends Controller
 
         $id = $user->id;
         $userId = \Hashids::encode($id.$request->no_telp);
+        $password = Hash::make($request->nama); 
 
         User::where('id',$id)->update([
             'referral_code' => $userId
@@ -138,6 +140,7 @@ class ManagerController extends Controller
             'negara_perizin'=>"Indonesia",
             'stats_negara'=>"Indonesia",
             'penempatan'=>$penempatan,
+            'password' => $password,
         ]);
 
         // dd($kandidat);
@@ -277,7 +280,12 @@ class ManagerController extends Controller
             'id_perusahaan' => $id_perusahaan,
             'gambar' => $data,
         ]);
-        return redirect('/');
+        if(Auth::user() == null)
+        {
+            return redirect('/hubungi_kami')->with('success',"Pesan berhasil terkirim");
+        } else {
+            return redirect('/')->with('success',"Pesan berhasil terkirim");
+        }
     }
 
     public function dalam_negeri()

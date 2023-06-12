@@ -77,7 +77,7 @@
                         @csrf
                         <div class="" id="parent">
                             <div class="row mb-1">
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                     <h6 class="ms-5">Data Orang Tua / Wali</h6> 
                                 </div>
                             </div>

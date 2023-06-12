@@ -57,7 +57,7 @@
                                         @if ($kandidat->sertifikat_vaksin1 == "")
                                             <input type="file" required value="{{$kandidat->sertifikat_vaksin1}}" name="sertifikat_vaksin1" class="form-control" accept="image/*">                                            
                                         @elseif ($kandidat->sertifikat_vaksin1 !== null)
-                                            <img src="/gambar/Akademi/{{$akademi->nama_akademi}}/Kandidat/{{$kandidat->nama}}/Vaksin Pertama/{{$kandidat->sertifikat_vaksin1}}" width="150" height="150" alt="">
+                                            <img src="/gambar/Kandidat/{{$kandidat->nama}}/Vaksin Pertama/{{$kandidat->sertifikat_vaksin1}}" width="150" height="150" alt="">
                                             <input type="file" value="{{$kandidat->sertifikat_vaksin1}}" name="sertifikat_vaksin1" class="form-control" accept="image/*">                                            
                                         @else
                                             <input type="file" required value="{{$kandidat->sertifikat_vaksin1}}" name="sertifikat_vaksin1" class="form-control" accept="image/*">                                            
@@ -109,7 +109,7 @@
                                         @if ($kandidat->sertifikat_vaksin2 == "")
                                             <input type="file" required name="sertifikat_vaksin2" class="form-control" accept="image/*">                                            
                                         @elseif ($kandidat->sertifikat_vaksin2 !== null)
-                                            <img src="/gambar/Akademi/{{$akademi->nama_akademi}}/Kandidat/{{$kandidat->nama}}/Vaksin Kedua/{{$kandidat->sertifikat_vaksin2}}" width="150" height="150" alt="">
+                                            <img src="/gambar/Kandidat/{{$kandidat->nama}}/Vaksin Kedua/{{$kandidat->sertifikat_vaksin2}}" width="150" height="150" alt="">
                                             <input type="file" name="sertifikat_vaksin2" class="form-control" accept="image/*">                                            
                                         @else
                                             <input type="file" required name="sertifikat_vaksin2" class="form-control" accept="image/*">                                            
@@ -161,7 +161,7 @@
                                         @if ($kandidat->sertifikat_vaksin3 == "")
                                             <input type="file" name="sertifikat_vaksin3" class="form-control" accept="image/*">                                            
                                         @elseif ($kandidat->sertifikat_vaksin3 !== null)
-                                            <img src="/gambar/Akademi/{{$akademi->nama_akademi}}/Kandidat/{{$kandidat->nama}}/Vaksin Ketiga/{{$kandidat->sertifikat_vaksin3}}" width="150" height="150" alt="">
+                                            <img src="/gambar/Kandidat/{{$kandidat->nama}}/Vaksin Ketiga/{{$kandidat->sertifikat_vaksin3}}" width="150" height="150" alt="">
                                             <input type="file" name="sertifikat_vaksin3" class="form-control" accept="image/*">                                            
                                         @else
                                             <input type="file" name="sertifikat_vaksin3" class="form-control" accept="image/*">                                            

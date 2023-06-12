@@ -1,7 +1,7 @@
 @extends('layouts.input')
 @section('content')
     <div class="container mt-5">
-        <div class="card">
+        <div class="card mb-5">
             <div class="card-header">
                 Edit Pengalaman Kerja
             </div>

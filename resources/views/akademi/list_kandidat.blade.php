@@ -1,10 +1,11 @@
 @extends('layouts.akademi')
 @section('content')
+@include('sweetalert::alert')
     <div class="container mt-5">
         <div class="card">
             <div class="card-header">
                 <b class="" style="text-transform:uppercase;">Data Kandidat</b>
-                <a href="/akademi/isi_kandidat_personal" class="float-right btn text-white" style="background-color: #FF9E27">Tambah Kandidat/Murid</a>
+                <a href="/akademi/tambah_kandidat" class="float-right btn text-white" style="background-color: #FF9E27">Tambah Kandidat/Murid</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

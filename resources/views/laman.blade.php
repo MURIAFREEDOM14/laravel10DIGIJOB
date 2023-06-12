@@ -48,9 +48,7 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
-
 <body>
-
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top" style="background-color: #FFD966">
     <div class="container d-flex align-items-center">
@@ -60,7 +58,7 @@
           <li><a class="nav-link scrollto active" style="color: black" href="#hero">Home</a></li>
           <li><a class="nav-link scrollto" style="color: black;" href="#services">Tentang</a></li>
           {{-- <li><a class="nav-link scrollto" href="#services">Masuk</a></li> --}}
-          <li class="dropdown"><a href=""><span style="color: black">Masuk</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown"><a href=""><span style="color: black">Daftar</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               {{-- <li><a href="/login/kandidat" style="color: black">Kandidat</a></li>
               <li><a href="/login/akademi" style="color: black">Akademi</a></li>
@@ -71,7 +69,7 @@
             </ul>
           </li>
           <li><a class="nav-link scrollto" style="color: black" href="/perbaikan">Portfolio</a></li>
-          <li><a class="nav-link scrollto" style="color: black" href="/contact_us">Hubungi</a></li>
+          <li><a class="nav-link scrollto" style="color: black" href="/hubungi_kami">Hubungi</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
@@ -228,7 +226,7 @@
           <div class="col-md-3 align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
             <div class="icon-box text-center">
               <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="/contact_us" style="text-transform: uppercase;">Hubungi Kami</a></h4>
+              <h4><a href="/hubungi_kami" style="text-transform: uppercase;">Hubungi Kami</a></h4>
               <p class="text1">
                 Hubungi kami disini
               </p>

@@ -77,7 +77,7 @@
                         @csrf
                         <div class="" id="perizin">
                             <div class="row mb-1">
-                                <div class="col-md-4">
+                                <div class="col-md-12">
                                     <h6 class="ms-5">Surat Izin OrangTua / Suami / Istri / Wali</h6> 
                                 </div>
                             </div>

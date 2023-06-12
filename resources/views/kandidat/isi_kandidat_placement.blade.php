@@ -75,7 +75,7 @@
                     </h6>
                     <div class="" id="perizin">
                         <div class="row mb-1">
-                            <div class="col-md-4">
+                            <div class="col-md-12">
                                 <h6 class="ms-5">Data Penempatan Kerja</h6> 
                             </div>
                         </div>

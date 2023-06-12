@@ -120,7 +120,7 @@
                                                             </td>
                                                             <td>
                                                                 <a class="btn btn-warning mb-1" href="/edit_kandidat_pengalaman_kerja/{{$item->pengalaman_kerja_id}}"><i class=""></i>Edit</a>
-                                                                <a class="btn btn-danger mb-1" href="/hapus_kandidat_pengalaman_kerja/{{$item->pengalaman_kerja_id}}" onclick="return confirm('apakah anda ingin menghapus data ini?')"><i class=""></i>Hapus</a>
+                                                                <a class="btn btn-danger mb-1" href="/hapus_kandidat_pengalaman_kerja/{{$item->pengalaman_kerja_id}}" onclick="hapusData(event)"><i class=""></i>Hapus</a>
                                                                 {{-- <button onclick="destroy({{$item->pengalaman_kerja_id}})">Hapus</button> --}}
                                                             </td>
                                                         </tr>                                    
@@ -214,7 +214,7 @@
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script>
+    {{-- <script>
         $(document).ready(function(){
             // function show(id) {
             //     $,get("{{url('create')}}/" + id, {}, function(data, status) {
@@ -270,19 +270,5 @@
                 }
             });
         }
-    </script>
-    <script>
-        function Kerja2(){
-            document.getElementById('kerja2').style.display = "block";
-        }
-        function Kerja3(){
-            document.getElementById('kerja3').style.display = "block";
-        }
-        function cancelKerja2(){
-            document.getElementById('kerja2').style.display = "none";
-        }
-        function cancelKerja3(){
-            document.getElementById('kerja3').style.display = "none";
-        }
-    </script>
+    </script> --}}
 @endsection

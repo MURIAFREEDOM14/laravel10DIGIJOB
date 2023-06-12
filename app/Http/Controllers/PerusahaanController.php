@@ -214,9 +214,9 @@ class PerusahaanController extends Controller
         if ($perusahaan->tmp_negara == "Dalam negeri") {
             $kandidat = Kandidat::
             join(
-                'pengalaman_kerja','kandidat.id_kandidat','=','pengalaman_kerja.id_kandidat'
+                'prt_pengalaman_kerja','kandidat.id_kandidat','=','prt_pengalaman_kerja.id_kandidat'
             )
-            ->where('kandidat.penempatan',"dalam negeri")
+            // ->where('kandidat.penempatan',"dalam negeri")
             ->where('kandidat.jenis_kelamin','like',"%".$jk."%")
             ->where('kandidat.usia','>=',$usia)
             ->where('kandidat.pendidikan','like',"%".$pendidikan."%")
@@ -224,12 +224,12 @@ class PerusahaanController extends Controller
             ->where('kandidat.berat','>=',"%".$berat."%")
             ->where('kandidat.kabupaten','like',"%".$kabupaten."%")
             ->where('kandidat.provinsi','like',"%".$provinsi."%")
-            ->where('pengalaman_kerja.lama_kerja','like',"%".$lama_kerja."%")
+            ->where('prt_pengalaman_kerja.lama_kerja','like',"%".$lama_kerja."%")
             ->limit(15)->get();
         } else {
             $kandidat = Kandidat::
             join(
-                'pengalaman_kerja','kandidat.id_kandidat','=','pengalaman_kerja.id_kandidat'
+                'prt_pengalaman_kerja','kandidat.id_kandidat','=','prt_pengalaman_kerja.id_kandidat'
             )
             ->where('kandidat.penempatan',"luar negeri")
             ->where('kandidat.jenis_kelamin','like',"%".$jk."%")
@@ -239,7 +239,7 @@ class PerusahaanController extends Controller
             ->where('kandidat.berat','>=',"%".$berat."%")
             ->where('kandidat.kabupaten','like',"%".$kabupaten."%")
             ->where('kandidat.provinsi','like',"%".$provinsi."%")
-            ->where('pengalaman_kerja.lama_kerja','like',"%".$lama_kerja."%")
+            ->where('prt_pengalaman_kerja.lama_kerja','like',"%".$lama_kerja."%")
             ->limit(15)->get();
         }
         $isi = $kandidat->count();
@@ -268,7 +268,7 @@ class PerusahaanController extends Controller
         if ($perusahaan->tmp_negara == "Dalam negeri") {
             $kandidat = Kandidat::
             join(
-                'pengalaman_kerja','kandidat.id_kandidat','=','pengalaman_kerja.id_kandidat'
+                'prt_pengalaman_kerja','kandidat.id_kandidat','=','prt_pengalaman_kerja.id_kandidat'
             )
             ->where('kandidat.penempatan',"dalam negeri")
             ->where('kandidat.jenis_kelamin','like',"%".$jk."%")
@@ -278,12 +278,12 @@ class PerusahaanController extends Controller
             ->where('kandidat.berat','>=',"%".$berat."%")
             // ->where('kandidat.kabupaten','like',"%".$kabupaten."%")
             // ->where('kandidat.provinsi','like',"%".$provinsi->provinsi."%")
-            ->where('pengalaman_kerja.lama_kerja','like',"%".$lama_kerja."%")
+            ->where('prt_pengalaman_kerja.lama_kerja','like',"%".$lama_kerja."%")
             ->limit(15)->get();
         } else {
             $kandidat = Kandidat::
             join(
-                'pengalaman_kerja','kandidat.id_kandidat','=','pengalaman_kerja.id_kandidat'
+                'prt_pengalaman_kerja','kandidat.id_kandidat','=','prt_pengalaman_kerja.id_kandidat'
             )
             ->where('kandidat.penempatan',"luar negeri")
             ->where('kandidat.jenis_kelamin','like',"%".$jk."%")
@@ -293,7 +293,7 @@ class PerusahaanController extends Controller
             ->where('kandidat.berat','<=',"%".$berat."%")
             ->where('kandidat.kabupaten','like',"%".$kabupaten."%")
             ->where('kandidat.provinsi','like',"%".$provinsi."%")
-            ->where('pengalaman_kerja.lama_kerja',"%".$lama_kerja."%")
+            ->where('prt_pengalaman_kerja.lama_kerja',"%".$lama_kerja."%")
             ->limit(15)->get();
         }
         $isi = $kandidat->count();

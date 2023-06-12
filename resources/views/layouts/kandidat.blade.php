@@ -31,6 +31,7 @@
                 }
             });
         </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
         <!-- CSS Files -->
         <link rel="stylesheet" href="/Atlantis/examples/assets/css/bootstrap.min.css">
@@ -173,11 +174,12 @@
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="/contact_us_kandidat">Contact Us</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" onclick="return confirm('Apakah anda yakin ingin keluar?')" href="{{ route('logout') }}"
+                                            <a href="{{ route('logout') }}" class="dropdown-item" onclick="confirmation(event)">keluar</a>
+                                            {{-- <a class="dropdown-item" onclick="return confirm('Apakah anda yakin ingin keluar?')" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
                                                 Keluar
-                                            </a>
+                                            </a> --}}
                                             <form id="logout-form" action="{{ route('logout') }}" method="get" class="d-none">
                                                 @csrf
                                             </form>
@@ -224,7 +226,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="/logout" onclick="return confirm('apakah anda yakin ingin Keluar?')" class="dropdown-item">
+                                            <a href="{{route('logout')}}" onclick="confirmation(event)" class="dropdown-item">
                                                 <span class="link-collapse">Keluar</span>
                                             </a>
                                         </li>
@@ -472,7 +474,7 @@
         </script>
 
         <!-- sweetalert -->
-        <script>
+        {{-- <script>
             //== Class definition
             var SweetAlert2Demo = function() {
 
@@ -684,6 +686,35 @@
             jQuery(document).ready(function() {
                 SweetAlert2Demo.init();
             });
-	</script>
+	    </script> --}}
+        <script type="text/javascript">
+            function confirmation(ev)
+                {
+                ev.preventDefault();
+                var url = ev.currentTarget.getAttribute('href');
+                console.log(url);
+                swal({
+                    title: 'Apakah anda yakin ingin keluar?',
+                    type: 'warning',
+                    icon: 'warning',
+                    buttons:{
+                        confirm: {
+                            text : 'Iya',
+                            className : 'btn btn-success'
+                        },
+                        cancel: {
+                            visible: true,
+                            className: 'btn btn-danger'
+                        }
+                    }
+                }).then((Delete) => {
+                    if (Delete) {
+                        window.location.href = url;
+                    } else {
+                        swal.close();
+                    }
+                });    
+            }
+        </script>
     </body>
 </html>

@@ -32,7 +32,7 @@
                     </div>
                     <div class="row">
                         <div class="mx-auto">
-                            <a class="btn btn-danger" href="/kandidat">Kembali</a>
+                            <a class="btn btn-danger" href="/akademi">Kembali</a>
                             <button type="submit" class="btn btn-primary">Kirim</button>        
                         </div>
                     </div>    

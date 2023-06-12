@@ -61,27 +61,6 @@ class KandidatController extends Controller
         $usia = Carbon::parse($kandidat->tgl_lahir)->age;
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
         $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
-        // if ($kandidat->periode_awal1 !== null) {
-        //     $periode_awal1 = Carbon::create($kandidat->periode_awal1)->isoFormat('D MMM Y');
-        //     $periode_akhir1 = Carbon::create($kandidat->periode_akhir1)->isoFormat('D MMM Y');
-        // } else {
-        //     $periode_awal1 = null;
-        //     $periode_akhir1 = null;
-        // }
-        // if ($kandidat->periode_awal2 !== null) {
-        //     $periode_awal2 = Carbon::create($kandidat->periode_awal2)->isoFormat('D MMM Y');
-        //     $periode_akhir2 = Carbon::create($kandidat->periode_akhir2)->isoFormat('D MMM Y');
-        // } else {
-        //     $periode_awal2 = null;
-        //     $periode_akhir2 = null;
-        // }
-        // if ($kandidat->periode_awal3 !== null){
-        //     $periode_awal3 = Carbon::create($kandidat->periode_awal3)->isoFormat('D MMM Y');
-        //     $periode_akhir3 = Carbon::create($kandidat->periode_akhir3)->isoFormat('D MMM Y');    
-        // } else {
-        //     $periode_awal3 = null;
-        //     $periode_akhir3 = null;
-        // }
         $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->limit(3)->get();
         $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->get();
         $pesan = Kandidat::join(
@@ -112,17 +91,25 @@ class KandidatController extends Controller
                     'pesan',
                     'pembayaran',
                     'pengalaman_kerja',
-                    // 'periode_awal1',
-                    // 'periode_awal2',
-                    // 'periode_awal3',
-                    // 'periode_akhir1',
-                    // 'periode_akhir2',
-                    // 'periode_akhir3',
                 ));
             // }
         }                   
     }
 
+    public function lihatVideo($id)
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->get();
+        $pesan = Kandidat::join(
+            'message_kandidat', 'kandidat.id_kandidat','=','message_kandidat.id_kandidat'
+        )
+        ->where('kandidat.id_kandidat',$kandidat->id_kandidat)
+        ->limit(3)->get();
+        $kandidat_pengalaman_kerja = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
+        $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->get();
+        return view('kandidat/modalKandidat/lihat_video',compact('kandidat','notif','pesan','pengalaman_kerja','kandidat_pengalaman_kerja'));
+    }
     public function edit()
     {
         return redirect()->route('personal');
@@ -700,14 +687,15 @@ class KandidatController extends Controller
     {
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        $jabatan = $request->jabatan;
         $video_kandidat = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->first('video_pengalaman_kerja');
         if($request->file('video') !== null){
             $validated = $request->validate([
                 'video' => 'mimes:mp4,mov,ogg,qt | max:3000',
             ]);
             $video_kerja = $request->file('video');
-            $video_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.$video_kerja->getClientOriginalName());
-            $simpan_kerja = $kandidat->nama.$video_kerja->getClientOriginalName();
+            $video_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.$jabatan.$video_kerja->getClientOriginalName());
+            $simpan_kerja = $kandidat->nama.$jabatan.$video_kerja->getClientOriginalName();
         } else {
             $simpan_kerja = null;
         }
@@ -796,7 +784,14 @@ class KandidatController extends Controller
 
     public function hapusPengalamanKerja($id)
     {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        $video_kandidat = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
         PengalamanKerja::where('pengalaman_kerja_id',$id)->delete();
+        $hapus_video_kerja = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$video_kandidat->video_pengalaman_kerja;
+            if(file_exists($hapus_video_kerja)){
+                @unlink($hapus_video_kerja);
+            }
         return redirect()->route('company');
     }
 

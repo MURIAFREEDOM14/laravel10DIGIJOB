@@ -124,9 +124,10 @@
                                                             <td><b class="bold">{{$item->alasan_berhenti}}</b></td>
                                                             @if ($item->video_pengalaman_kerja !== null)
                                                                 <td>
-                                                                    <button type="button" style="font-size: 10px; font-weight:bold;" id="" class="btn" data-bs-toggle="modal" onclick="Video({{$item->pengalaman_kerja_id}})" data-bs-target="#video_kerja">
+                                                                    <a href="/lihat_video_pengalaman_kerja/{{$item->pengalaman_kerja_id}}" class="btn btn-primary">Lihat Video</a>
+                                                                    {{-- <button type="button" style="font-size: 10px; font-weight:bold;" id="" class="btn" data-bs-toggle="modal" onclick="Video({{$item->pengalaman_kerja_id}})" data-bs-target="#video_kerja">
                                                                         Lihat Video
-                                                                    </button>
+                                                                    </button> --}}
                                                                 </td>                                                    
                                                             @else
                                                                 <td></td>

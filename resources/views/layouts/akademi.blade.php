@@ -28,6 +28,7 @@
                 }
             });
         </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
         <!-- CSS Files -->
         <link rel="stylesheet" href="/Atlantis/examples/assets/css/bootstrap.min.css">
@@ -91,7 +92,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <a class="see-all" href="/semua_pesan">Lihat Semua Pesan<i class="fa fa-angle-right"></i> </a>
+                                        <a class="see-all" href="/akademi/semua_pesan">Lihat Semua Pesan<i class="fa fa-angle-right"></i> </a>
                                     </li>
                                 </ul>
                             </li>
@@ -120,7 +121,7 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <a class="see-all" href="/semua_notif">Lihat Semua Notifikasi<i class="fa fa-angle-right"></i> </a>
+                                        <a class="see-all" href="/akademi/semua_notif">Lihat Semua Notifikasi<i class="fa fa-angle-right"></i> </a>
                                     </li>
                                 </ul>
                             </li>
@@ -128,7 +129,7 @@
                                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                                     <div class="avatar-sm">
                                         @if ($akademi->logo_akademi !== null)
-                                            <img src="/gambar/Akademi/Logo/{{$akademi->logo_akademi}}" alt="/Atlantis/examples." class="avatar-img rounded-circle">
+                                            <img src="/gambar/Akademi/{{$akademi->nama_akademi}}/Logo/{{$akademi->logo_akademi}}" alt="/Atlantis/examples." class="avatar-img rounded-circle">
                                         @else
                                             <img src="/gambar/default_user.png" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                            
                                         @endif
@@ -140,14 +141,14 @@
                                             <div class="user-box">
                                                 <div class="avatar-lg">
                                                     @if ($akademi->logo_akademi !== null)
-                                                        <img src="/gambar/Akademi/Logo/{{$akademi->logo_akademi}}" alt="image profile" class="avatar-img rounded">
+                                                        <img src="/gambar/Akademi/{{$akademi->nama_akademi}}/Logo/{{$akademi->logo_akademi}}" alt="image profile" class="avatar-img rounded">
                                                     @else
                                                         <img src="/gambar/default_user.png" alt="image profile" class="avatar-img rounded">                                                        
                                                     @endif
-                                                    <div class="u-text">
-                                                        {{-- <b class="bold">{{$akademi->nama}}</b> --}}
-                                                        {{-- <p class="text-muted">{{$akademi->email}}</p> --}}
-                                                    </div>
+                                                </div>
+                                                <div class="u-text">
+                                                    <b class="bold">{{$akademi->nama_akademi}}</b>
+                                                    <p class="text-muted">{{$akademi->email}}</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -159,14 +160,15 @@
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="/contact_us_akademi">Contact Us</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" onclick="return confirm('apakah anda yakin ingin keluar?')" href="{{ route('logout') }}"
+                                            <a href="{{route('logout')}}" class="dropdown-item" onclick="confirmation(event)">Keluar</a>
+                                            {{-- <a class="dropdown-item" onclick="return confirm('apakah anda yakin ingin keluar?')" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
                                                 Keluar
                                             </a>
                                             <form id="logout-form" action="{{ route('logout') }}" method="get" class="d-none">
                                                 @csrf
-                                            </form>
+                                            </form> --}}
                                         </li>
                                     </div>
                                 </ul>
@@ -206,8 +208,13 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="akademi/isi_akademi_data" class="dropdown-item">
+                                            <a href="/akademi/edit/profil" class="dropdown-item">
                                                 <span class="link-collapse">Edit Profil</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{route('logout')}}" class="dropdown-item" onclick="confirmation(event)">
+                                                <span class="link-collapse">Keluar</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -216,7 +223,7 @@
                         </div>
                         <ul class="nav nav-primary">
                             <li class="nav-item active">
-                                <a href="" class="btn" aria-expanded="false">
+                                <a href="/akademi" class="btn" aria-expanded="false">
                                     <i class="fas fa-home"></i>
                                     <p>Dashboard</p>
                                 </a>
@@ -360,6 +367,35 @@
     
                 });
             });
+        </script>
+
+        <script type="text/javascript">
+            function confirmation(ev)
+                {
+                ev.preventDefault();
+                var url = ev.currentTarget.getAttribute('href');
+                console.log(url);
+                swal({
+                    title: 'Apakah anda yakin ingin keluar?',
+                    type: 'warning',
+                    buttons:{
+                        confirm: {
+                            text : 'Iya',
+                            className : 'btn btn-success'
+                        },
+                        cancel: {
+                            visible: true,
+                            className: 'btn btn-danger'
+                        }
+                    }
+                }).then((Delete) => {
+                    if (Delete) {
+                        window.location.href = url;
+                    } else {
+                        swal.close();
+                    }
+                });    
+            }
         </script>
     </body>
 </html>

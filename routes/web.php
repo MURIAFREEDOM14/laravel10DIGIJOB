@@ -141,19 +141,23 @@ Route::controller(AkademiController::class)->group(function() {
     Route::get('/akademi', 'index')->name('akademi')->middleware(('akademi'));
     Route::get('/akademi/lihat/profil','lihatProfilAkademi');
     Route::get('/contact_us_akademi','contactUsAkademi');
+    Route::get('/akademi/edit/profil', 'editProfilAkademi');
 
-    Route::get('/akademi/isi_akademi_data','isi_akademi_data')->middleware('akademi');
+    Route::get('/akademi/isi_akademi_data','isi_akademi_data')->middleware('akademi')->name('akademi.data');
     Route::post('/akademi/isi_akademi_data','simpan_akademi_data');
 
-    Route::get('/akademi/isi_akademi_operator','isi_akademi_operator')->middleware('akademi');
+    Route::get('/akademi/isi_akademi_operator','isi_akademi_operator')->middleware('akademi')->name('akademi.operator');
     Route::post('/akademi/isi_akademi_operator','simpan_akademi_operator');
 
     // DATA KANDIDAT //
     Route::get('/akademi/list_kandidat','listKandidat')->middleware('akademi');
     Route::get('/akademi/kandidat/lihat_profil/{nama}/{id}','lihatProfilKandidat')->middleware('akademi');
     {
-        Route::get('/akademi/isi_kandidat_personal', 'isi_personal')->middleware('akademi');
-        Route::post('/akademi/isi_kandidat_personal', 'simpan_personal');
+        Route::get('/akademi/tambah_kandidat', 'tambahKandidat');
+        Route::post('/akademi/tambah_kandidat', 'simpanKandidat');
+        
+        Route::get('/akademi/isi_kandidat_personal/{nama}/{id}', 'isi_personal')->middleware('akademi');
+        Route::post('/akademi/isi_kandidat_personal/{nama}/{id}', 'simpan_personal');
         
         Route::get('/akademi/isi_kandidat_document/{nama}/{id}', 'isi_document')->middleware('akademi');
         Route::post('/akademi/isi_kandidat_document/{nama}/{id}', 'simpan_document');
@@ -214,8 +218,9 @@ Route::controller(PerusahaanController::class)->group(function(){
 Route::controller(KandidatController::class)->group(function() {
     Route::get('/kandidat','index')->middleware('kandidat')->name('kandidat');
     Route::get('/profil_kandidat','profil')->middleware('kandidat');
-    Route::get('/edit_profil','edit')->name('edit_profil');
-    Route::get('/contact_us_kandidat','contactUsKandidat');
+    Route::get('/edit_profil','edit')->name('edit_profil')->middleware('kandidat');
+    Route::get('/lihat_video_pengalaman_kerja/{id}', 'lihatVideo')->middleware('kandidat');
+    Route::get('/contact_us_kandidat','contactUsKandidat')->middleware('kandidat');
 
     Route::get('/isi_kandidat_personal', 'isi_kandidat_personal')->middleware('kandidat')->name('personal');
     Route::post('/isi_kandidat_personal', 'simpan_kandidat_personal');

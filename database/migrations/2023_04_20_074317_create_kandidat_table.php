@@ -87,32 +87,7 @@ return new class extends Migration
             $table->string('foto_cerai')->nullable();
             $table->string('foto_kematian_pasangan')->nullable();
             $table->date('tgl_lahir_pasangan')->nullable();
-
-            //Company
-            $table->string('nama_perusahaan1')->nullable();
-            $table->text('alamat_perusahaan1')->nullable();
-            $table->string('jabatan1')->nullable();
-            $table->string('periode_awal1')->nullable();
-            $table->string('periode_akhir1')->nullable();
-            $table->string('alasan1')->nullable();
-            $table->string('video_kerja1')->nullable();
-
-            $table->string('nama_perusahaan2')->nullable();
-            $table->text('alamat_perusahaan2')->nullable();
-            $table->string('jabatan2')->nullable();
-            $table->string('periode_awal2')->nullable();
-            $table->string('periode_akhir2')->nullable();
-            $table->string('alasan2')->nullable();
-            $table->string('video_kerja2')->nullable();
-
-            $table->string('nama_perusahaan3')->nullable();
-            $table->text('alamat_perusahaan3')->nullable();
-            $table->string('jabatan3')->nullable();
-            $table->string('periode_awal3')->nullable();
-            $table->string('periode_akhir3')->nullable();
-            $table->string('alasan3')->nullable();
-            $table->string('video_kerja3')->nullable();
-
+            
             //Permission
             $table->string('nama_perizin')->nullable();
             $table->string('nik_perizin')->nullable();
@@ -142,6 +117,11 @@ return new class extends Migration
             $table->string('negara_id')->nullable();
             $table->string('kontrak')->nullable();
             $table->string('jabatan_kandidat')->nullable();
+
+            // connecting //
+            $table->integer('id_akademi')->nullable();
+            $table->integer('id_perusahaan')->nullable();
+            $table->text('pengalaman_kerja')->nullable();
 
             // $table->string('referral_token')->unique();
             // $table->rememberToken();

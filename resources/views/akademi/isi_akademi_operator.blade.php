@@ -1,13 +1,13 @@
-@extends('layouts.script')
+@extends('layouts.input')
 @section('content')
-    <div class="container">        
+    <div class="container mt-5">        
         <div class="card mb-4">
             <div class="card-header">
             </div>
             <div class="card-body">
                 <div class="row">
                     <h4 class="text-center">AKADEMI BIO DATA</h4>
-                    <form action="/isi_akademi_operator" method="POST">
+                    <form action="/akademi/isi_akademi_operator" method="POST">
                         @csrf
                         <div class="" id="personal_biodata">
                             <div class="row mb-1">
@@ -40,7 +40,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="/isi_akademi_data" class="btn btn-danger">Kembali</a>
+                        <a href="/akademi/isi_akademi_data" class="btn btn-danger">Kembali</a>
                         <button class="btn btn-primary my-3 float-end" type="submit">Lanjut</button>
                     </form>
                 </div>

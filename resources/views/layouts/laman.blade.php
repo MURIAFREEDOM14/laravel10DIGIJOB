@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -47,7 +46,7 @@
         <ul>
         <li><a class="nav-link scrollto active" style="color: black" href="/laman">Home</a></li>
         <li><a class="nav-link scrollto" style="color: black" href="/about_us">Tentang</a></li>
-        <li class="dropdown"><a><span style="color: black">Masuk</span> <i class="bi bi-chevron-down"></i></a>
+        <li class="dropdown"><a><span style="color: black">Daftar</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
                 <li><a href="/register/kandidat" style="color: black">Kandidat</a></li>
                 <li><a href="/register/akademi" style="color: black">Akademi</a></li>
@@ -55,7 +54,7 @@
             </ul>
         </li>
         <li><a class="nav-link scrollto" style="color: black" href="/perbaikan">Portfolio</a></li>
-        <li><a class="nav-link scrollto" style="color: black" href="/contact_us">Hubungi</a></li>
+        <li><a class="nav-link scrollto" style="color: black" href="/hubungi_kami">Hubungi</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
     </nav>

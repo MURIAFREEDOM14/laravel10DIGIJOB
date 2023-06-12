@@ -97,7 +97,7 @@
                                             </span>
                                         @enderror
                                     @elseif ($kandidat->foto_ktp_izin !== null)
-                                        <img src="/gambar/Akademi/{{$akademi->nama_akademi}}/Kandidat/{{$kandidat->nama}}/KTP Perizin/{{$kandidat->foto_ktp_izin}}" width="150" height="150" alt="">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/KTP Perizin/{{$kandidat->foto_ktp_izin}}" width="150" height="150" alt="">
                                         <input type="file" class="form-control @error('foto_ktp_izin') is-invalid @enderror"  name="foto_ktp_izin" value="{{$kandidat->foto_ktp_izin}}" id="inputPassword6" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                         @error('foto_ktp_izin')
                                             <span class="invalid-feedback" role="alert">
