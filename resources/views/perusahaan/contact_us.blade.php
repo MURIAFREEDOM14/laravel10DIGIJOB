@@ -30,18 +30,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-6">
-                            <b class="bold">Hai {{$perusahaan->nama_perusahaan}}, Apa yang bisa kami bantu?</b>
-                        </div>
-                        <div class="col-6">
-                            <div class="row">
-                                <div class="mx-auto">Jelaskan apa kendalamu</div>
-                                <input type="text" name="id_perusahaan" value="{{$perusahaan->id_perusahaan}}" id="">
-                                <textarea required name="isi" class="form-control" id=""></textarea>
-                            </div>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="mx-auto">
                             <a class="btn btn-danger" href="/kandidat">Kembali</a>

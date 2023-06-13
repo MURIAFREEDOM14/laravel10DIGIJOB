@@ -14,29 +14,19 @@
                                 <tr class="text-center">
                                     <th>No.</th>
                                     <th>Nama Akademi</th>
-                                    <th>ID Akademi</th>
+                                    <th>Alamat Akademi</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
-                            <tfoot>
-                                <tr class="text-center">
-                                    <th>No.</th>
-                                    <th>Nama Akademi</th>
-                                    <th>ID Akademi</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </tfoot>
                             <tbody>
                                 @foreach ($akademi as $item)
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
-                                        <td>{{$item->nama}}</td>
-                                        <td>{{$item->id_akademi}}</td>
+                                        <td>{{$item->nama_akademi}}</td>
+                                        <td>{{$item->alamat_akademi}}</td>
                                         <td>
                                             <div class="form-button-action float-right">
-                                                <a href="" class="btn btn-success mr-2">L<i></i></a>
-                                                <a href="" class="btn btn-warning mr-2">E<i></i></a>
-                                                <a href="" class="btn btn-danger">H<i></i></a>
+                                                <a href="" class="btn btn-success mr-2"><i class="far fa-eye"></i></a>
                                             </div>
                                         </td>
                                     </tr>    

@@ -65,7 +65,7 @@
                     <div class="container-fluid">
                         <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
                             <li class="nav-item dropdown hidden-caret">
-                                <a class="btn btn-outline-primary dropdown-toggle" href="/perbaikan" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="/perbaikan" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-envelope" style="color:white"></i>
                                 </a>
                                 <ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
@@ -79,14 +79,6 @@
                                             <div class="notif-center">
                                                 @foreach ($pesan as $item)
                                                     <a href="">
-                                                        <div class="notif-img">
-                                                            @if ($item->foto_4x6 !== null)
-                                                                <img src="/gambar/Kandidat/{{$item->nama}}/4x6/{{$item->foto_4x6}}" alt="/Atlantis/examples." class="avatar-img rounded-circle">
-                                                            @else
-                                                                <img src="/gambar/default_user.png" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                            
-                                                            @endif
-                                                            {{-- <img src="/Atlantis/examples/assets/img/jm_denis.jpg" alt="Img Profile"> --}}
-                                                        </div>
                                                         <div class="notif-content">
                                                             <span class="subject">{{$item->pengirim}}</span>
                                                             <span class="block">
@@ -105,8 +97,8 @@
                                 </ul>
                             </li>
                             <li class="nav-item dropdown hidden-caret">
-                                <a class="btn btn-outline-primary dropdown-toggle" href="" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-bell" style="color: orange"></i>
+                                <a class="nav-link dropdown-toggle" href="" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-bell"></i>
                                     {{-- <span class="notification"></span> --}}
                                 </a>
                                 <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
@@ -354,12 +346,12 @@
                         </div> --}}
                     </main>
                 </div>
-                <footer class="footer" style="background-color: #FFD966;">
+                <footer class="footer" style="background-color: #1269db">
                     <div class="container-fluid">
                         <nav class="pull-left">
                             <ul class="nav nav-primary">
                                 <li class="nav-item">
-                                    <div class="copyright" style="color:black;">
+                                    <div class="copyright" style="color:white;">
                                         &copy; Copyright <strong><span>ProyekPortal</span></strong>. All Rights Reserved
                                     </div>
                                 </li>
@@ -704,6 +696,7 @@
                         },
                         cancel: {
                             visible: true,
+                            text: 'Tidak',
                             className: 'btn btn-danger'
                         }
                     }

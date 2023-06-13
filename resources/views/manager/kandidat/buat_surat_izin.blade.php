@@ -13,7 +13,7 @@
                             <b class="bold">Nama Lengkap</b>
                         </div>
                         <div class="col-8">
-                            <input type="text" required name="nama" class="form-control" id="">
+                            <input type="text" required name="nama" value="{{old('nama')}}" class="form-control" id="">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -21,7 +21,7 @@
                             <b class="bold">Nama Panggilan</b>
                         </div>
                         <div class="col-8">
-                            <input type="text" required name="nama_panggilan" class="form-control" id="">
+                            <input type="text" required name="nama_panggilan" value="{{old('nama_panggilan')}}" class="form-control" id="">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -41,10 +41,10 @@
                             <b class="bold">Tempat / Tanggal Lahir</b>
                         </div>
                         <div class="col-4">
-                            <input type="text" required name="tmp_lahir" class="form-control" id="">
+                            <input type="text" required name="tmp_lahir" value="{{old('tmp_lahir')}}" class="form-control" id="">
                         </div>
                         <div class="col-4">
-                            <input type="date" required name="tgl_lahir" class="form-control" id="">
+                            <input type="date" required name="tgl_lahir" value="{{old('tgl_lahir')}}" class="form-control" id="">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -52,7 +52,7 @@
                             <b class="bold">No. Telp</b>
                         </div>
                         <div class="col-8">
-                            <input type="number" required name="no_telp" class="form-control" id="">
+                            <input type="number" name="no_telp" value="{{old('no_telp')}}" class="form-control" id="">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -77,7 +77,7 @@
                             <b class="bold">Email</b>
                         </div>
                         <div class="col-8">
-                            <input type="text" required name="email" class="form-control" id="">
+                            <input type="text" required name="email" value="{{old('email')}}" class="form-control" id="">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -111,7 +111,7 @@
                             <b class="bold">NIK</b>
                         </div>
                         <div class="col-8">
-                            <input type="number" name="nik" class="form-control" id="">
+                            <input type="number" name="nik" value="{{old('nik')}}" class="form-control" id="">
                         </div>
                     </div>
                     @livewire('permission')
@@ -120,10 +120,10 @@
                             <b class="bold">RT / RW</b>
                         </div>
                         <div class="col-4">
-                            <input type="number" placeholder="Masukkan RT" name="rt" class="form-control" id="">
+                            <input type="number" placeholder="Masukkan RT" name="rt" value="{{old('rt')}}" class="form-control" id="">
                         </div>
                         <div class="col-4">
-                            <input type="number" placeholder="Masukkan RW" name="rw" class="form-control" id="">
+                            <input type="number" placeholder="Masukkan RW" name="rw" value="{{old('rw')}}" class="form-control" id="">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -131,7 +131,7 @@
                             <b class="bold">Nama Pemberi Izin</b>
                         </div>
                         <div class="col-8">
-                            <input type="text" name="nama_perizin" class="form-control" id="">
+                            <input type="text" name="nama_perizin" value="{{old('nama_perizin')}}" class="form-control" id="">
                         </div>
                     </div>
                     <div class="row mb-3 g-3 align-items-center">
@@ -139,7 +139,7 @@
                             <label for="inputPassword6" class="col-form-label">NIK Perizin</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="text" name="nik_perizin" id="inputPassword6" class="form-control @error('nik_perizin') is-invalid @enderror" aria-labelledby="passwordHelpInline">
+                            <input type="text" name="nik_perizin" value="{{old('nik_perizin')}}" id="inputPassword6" class="form-control @error('nik_perizin') is-invalid @enderror" aria-labelledby="passwordHelpInline">
                             @error('nik_perizin')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>Harap isi no. nik 16 digit</strong>
@@ -152,7 +152,7 @@
                             <label for="inputPassword6" class="col-form-label">No. Telp / HP</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="text" name="no_telp_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                            <input type="text" name="no_telp_perizin" value="{{old('no_telp_perizin')}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                             @error('no_telp_perizin')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>Harap isi no. telp min 10 digit dan max 13 digit</strong>
@@ -165,10 +165,10 @@
                             <label for="inputPassword6" class="col-form-label">Tempat / Tanggal Lahir Perizin</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" name="tmp_lahir_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                            <input type="text" name="tmp_lahir_perizin" value="{{old('tmp_lahir_perizin')}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                         </div>
                         <div class="col-md-4">
-                            <input type="date" name="tgl_lahir_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">                                        
+                            <input type="date" name="tgl_lahir_perizin" value="{{old('tgl_lahir_perizin')}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">                                        
                         </div>
                     </div>
                     <div class="row g-3 align-items-center">
@@ -182,10 +182,10 @@
                             <label for="inputPassword6" class="col-form-label">RT / RW</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="number" required placeholder="Masukkan RT" name="rt_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                            <input type="number" required placeholder="Masukkan RT" name="rt_perizin" value="{{old('rt_perizin')}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                         </div>
                         <div class="col-md-4">
-                            <input type="number" required placeholder="Masukkan RW" name="rw_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                            <input type="number" required placeholder="Masukkan RW" name="rw_perizin" value="{{old('rw_perizin')}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                         </div>
                     </div>
                     <div class="row mb-3 g-3 align-items-center">
@@ -193,7 +193,7 @@
                             <label for="inputPassword6" class="col-form-label">Hubungan Pemberi Izin</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" name="hubungan_perizin" placeholder="Masukkan hubungan. contoh: ayah, ibu, suami, anak, dll." id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">
+                            <input type="text" class="form-control" name="hubungan_perizin" value="{{old('hubungan_perizin')}}" placeholder="Masukkan hubungan. contoh: ayah, ibu, suami, anak, dll." id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">
                         </div>
                     </div>
                     <a class="btn btn-danger" href="/manager/surat_izin">Kembali</a>

@@ -30,7 +30,7 @@
                             <label for="">Email Perusahaan</label>
                         </div>
                         <div class="col-8">
-                            <input type="email" class="form-control" name="email_perusahaan" id="">
+                            <input type="email" disabled value="{{$perusahaan->email_perusahaan}}" class="form-control" name="email_perusahaan" id="">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -38,7 +38,7 @@
                             <label for="">No. Telp Perusahaan</label>
                         </div>
                         <div class="col-8">
-                            <input type="number" class="form-control" name="no_telp_perusahaan" id="">
+                            <input type="number" disabled value="{{$perusahaan->no_telp_perusahaan}}" class="form-control" name="no_telp_perusahaan" id="">
                         </div>
                     </div>
                     <a class="btn btn-danger" href="/perusahaan/isi_perusahaan_data">Kembali</a>

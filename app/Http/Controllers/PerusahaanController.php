@@ -18,6 +18,8 @@ use App\models\PengalamanKerja;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Pembayaran;
 use App\Models\Notification;
+use App\Models\notifyPerusahaan;
+use App\Models\messagePerusahaan;
 use App\Mail\Payment;
 
 class PerusahaanController extends Controller
@@ -27,18 +29,19 @@ class PerusahaanController extends Controller
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
-        $notif = Notification::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        $interview = Interview::where('status',"terjadwal")->get();
-        
-        return view('perusahaan/index',compact('perusahaan','notif','interview'));
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $interview = Interview::where('status',"terjadwal")->get();        
+        return view('perusahaan/index',compact('perusahaan','notif','interview','pesan'));
     }
 
     public function profil()
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
-        $notif = Notification::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        return view('perusahaan/profil_perusahaan',compact('perusahaan','notif'));
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        return view('perusahaan/profil_perusahaan',compact('perusahaan','notif','pesan'));
     }
 
     public function isi_perusahaan_data()
@@ -186,15 +189,28 @@ class PerusahaanController extends Controller
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
-        $notif = Notification::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        return view('/perusahaan/profil_perusahaan',compact('perusahaan','notif'));
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        return view('/perusahaan/profil_perusahaan',compact('perusahaan','notif','pesan'));
     }
 
     public function contactUsPerusahaan()
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
-        return view('perusahaan/contact_us',compact('perusahaan'));
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        return view('perusahaan/contact_us',compact('perusahaan','notif','pesan'));
+    }
+
+    public function akademi()
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('referral_code',$user->referral_code)->first();
+        $akademi = Akademi::all();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        return view('perusahaan/akademi/list_akademi', compact('perusahaan','akademi','notif','pesan'));
     }
 
     // DATA KANDIDAT //
@@ -210,7 +226,6 @@ class PerusahaanController extends Controller
         $provinsi = "";
         $id = Auth::user();
         $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
-        $notif = Notification::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         if ($perusahaan->tmp_negara == "Dalam negeri") {
             $kandidat = Kandidat::
             join(
@@ -243,7 +258,9 @@ class PerusahaanController extends Controller
             ->limit(15)->get();
         }
         $isi = $kandidat->count();
-        return view('perusahaan/kandidat/kandidat',compact('kandidat','perusahaan','isi','notif'));
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        return view('perusahaan/kandidat/kandidat',compact('kandidat','perusahaan','isi','notif','pesan'));
     }
 
     public function cariKandidat(Request $request)
@@ -264,7 +281,8 @@ class PerusahaanController extends Controller
         // }
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('referral_code',$auth->referral_code)->first();
-        $notif = Notification::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         if ($perusahaan->tmp_negara == "Dalam negeri") {
             $kandidat = Kandidat::
             join(
@@ -297,7 +315,7 @@ class PerusahaanController extends Controller
             ->limit(15)->get();
         }
         $isi = $kandidat->count();
-        return view('perusahaan/kandidat/pilih_kandidat',compact('jk','perusahaan','kandidat','isi','notif'));
+        return view('perusahaan/kandidat/pilih_kandidat',compact('jk','perusahaan','kandidat','isi','notif','pesan'));
     }
 
     public function lihatProfilKandidat($id)
@@ -305,7 +323,8 @@ class PerusahaanController extends Controller
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('referral_code',$auth->referral_code)->first();
         $kandidat = Kandidat::where('id_kandidat',$id)->first();
-        $notif = Notification::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pengalamanKerja = PengalamanKerja::join(
             'kandidat','pengalaman_kerja.id_kandidat','=','kandidat.id_kandidat'
         )->first();
@@ -358,6 +377,7 @@ class PerusahaanController extends Controller
             'interview',
             'pengalamanKerja',
             'notif',
+            'pesan',
         ));
     }
 
@@ -405,7 +425,8 @@ class PerusahaanController extends Controller
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('referral_code',$auth->referral_code)->first();
         $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('status',"pilih")->get();
-        $notif = Notification::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pilih = null;
         foreach($interview as $item){
             if($item->status == "pilih"){
@@ -428,6 +449,7 @@ class PerusahaanController extends Controller
             'jml_kandidat',
             'biaya','total',
             'pilih','notif',
+            'pesan',
         ));
     }
 
@@ -436,8 +458,9 @@ class PerusahaanController extends Controller
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('referral_code',$auth->referral_code)->first();
         $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('status',"pilih")->get();
-        $notif = Notification::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        return view('perusahaan/jadwal_interview',compact('perusahaan','interview','notif'));
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        return view('perusahaan/jadwal_interview',compact('perusahaan','interview','notif','pesan'));
     }
 
     public function simpanJadwal(Request $request)
@@ -482,7 +505,19 @@ class PerusahaanController extends Controller
         return redirect('/perusahaan/interview');
     }
 
-    public function Payment()
+    public function pembayaran()
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('referral_code',$user->referral_code)->first();
+        $pembayaran = Pembayaran::
+        where('pembayaran.id_perusahaan',$perusahaan->id_perusahaan)
+        ->where('pembayaran.stats_pembayaran',"belum dibayar")->get();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        return view('perusahaan/pembayaran/list_pembayaran', compact('perusahaan','pembayaran','notif','pesan'));
+    }
+
+    public function Payment($id)
     {
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('referral_code',$auth->referral_code)->first();
@@ -491,9 +526,10 @@ class PerusahaanController extends Controller
         $total = $interview->count();
         $ttlBayar = $total * 15000;
         $tgl = Carbon::create($tglInterview->jadwal_interview)->isoformat('D MMM Y');
-        $notif = Notification::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        $pembayaran = Pembayaran::where('id_perusahaan',$perusahaan->id_perusahaan)->first();
-        return view('perusahaan/pembayaran',compact('perusahaan','total','ttlBayar','notif','tgl','pembayaran'));
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $pembayaran = Pembayaran::where('id_pembayaran',$id)->first();
+        return view('perusahaan/pembayaran/pembayaran',compact('perusahaan','total','ttlBayar','notif','tgl','pembayaran','pesan'));
     }
 
     public function paymentCheck(Request $request)

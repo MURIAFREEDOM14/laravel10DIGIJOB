@@ -15,7 +15,7 @@
             .img{
                 border: 1px solid black;
                 border-radius: 2%;
-            }
+            }            
         </style>
         <!-- Fonts and icons -->
         <script src="/Atlantis/examples/assets/js/plugin/webfont/webfont.min.js"></script>
@@ -28,6 +28,8 @@
                 }
             });
         </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
         <!-- CSS Files -->
         <link rel="stylesheet" href="/Atlantis/examples/assets/css/bootstrap.min.css">
@@ -39,7 +41,7 @@
         <div class="wrapper">
             <div class="main-header">
                 <!-- Logo Header -->
-                <div class="logo-header" data-background-color="blue">
+                <div class="logo-header" style="background-image:linear-gradient(150deg,red,lightgreen,blue);">
 
                     <a href="/" class="logo">
                         <img src="/Atlantis/examples/assets/img/logo.svg" alt="navbar brand" class="navbar-brand">
@@ -59,7 +61,7 @@
                 <!-- End Logo Header -->
 
                 <!-- Navbar Header -->
-                <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
+                <nav class="navbar navbar-header navbar-expand-lg" style="background-image:linear-gradient(150deg,red,lightgreen,blue);">
 
                     <div class="container-fluid">
                         <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
@@ -146,14 +148,15 @@
                                         <li>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="/edit_profil">Edit Profil</a>
-                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                            <a href="{{route('logout')}}" class="dropdown-item" onclick="confirmation(event)">Keluar</a>
+                                            {{-- <a class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
                                                 Keluar
                                             </a>
                                             <form id="logout-form" action="{{ route('logout') }}" method="get" class="d-none">
                                                 @csrf
-                                            </form>
+                                            </form> --}}
                                         </li>
                                     </div>
                                 </ul>
@@ -218,9 +221,15 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="btn" href="/manager/list_akademi">
+                                <a class="btn" href="/manager/akademi/list_akademi">
                                     <i class="fas fa-th-list"></i>
                                     <p>Data Akademi</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn" href="/manager/perusahaan/list_perusahaan">
+                                    <i class="fas fa-th-list"></i>
+                                    <p>Data Perusahaan</p>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -243,6 +252,12 @@
                                         </li>
                                     </ul>
                                 </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn" href="/manager/contact_us">
+                                    <i class="fas fa-th-list"></i>
+                                    <p>Contact Us</p>
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -370,6 +385,37 @@
     
                 });
             });
+        </script>
+
+        <script type="text/javascript">
+            function confirmation(ev)
+                {
+                ev.preventDefault();
+                var url = ev.currentTarget.getAttribute('href');
+                console.log(url);
+                swal({
+                    title: 'Apakah anda yakin ingin keluar?',
+                    type: 'warning',
+                    icon: 'warning',
+                    buttons:{
+                        confirm: {
+                            text : 'Iya',
+                            className : 'btn btn-success'
+                        },
+                        cancel: {
+                            visible: true,
+                            text: 'Tidak',
+                            className: 'btn btn-danger'
+                        }
+                    }
+                }).then((Delete) => {
+                    if (Delete) {
+                        window.location.href = url;
+                    } else {
+                        swal.close();
+                    }
+                });    
+            }
         </script>
         @livewireScripts
     </body>

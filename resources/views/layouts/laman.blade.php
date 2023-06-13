@@ -46,13 +46,14 @@
         <ul>
         <li><a class="nav-link scrollto active" style="color: black" href="/laman">Home</a></li>
         <li><a class="nav-link scrollto" style="color: black" href="/about_us">Tentang</a></li>
-        <li class="dropdown"><a><span style="color: black">Daftar</span> <i class="bi bi-chevron-down"></i></a>
+        <li><a class="nav-link scrollto" style="color: black" href="/login">Login</a></li>
+        {{-- <li class="dropdown"><a><span style="color: black">Daftar</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
                 <li><a href="/register/kandidat" style="color: black">Kandidat</a></li>
                 <li><a href="/register/akademi" style="color: black">Akademi</a></li>
                 <li><a href="/register/perusahaan" style="color: black">Perusahaan</a></li>
             </ul>
-        </li>
+        </li> --}}
         <li><a class="nav-link scrollto" style="color: black" href="/perbaikan">Portfolio</a></li>
         <li><a class="nav-link scrollto" style="color: black" href="/hubungi_kami">Hubungi</a></li>
         </ul>

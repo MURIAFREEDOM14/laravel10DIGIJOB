@@ -42,6 +42,7 @@
                 }
             });
         </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
         @livewireStyles
         <!-- CSS Files -->
@@ -53,7 +54,7 @@
         <div class="wrapper">
             <div class="main-header">
                 <!-- Logo Header -->
-                <div class="logo-header" data-background-color="blue">
+                <div class="logo-header" data-background-color="green">
 
                     <a href="/" class="logo">
                         <img src="/Atlantis/examples/assets/img/logo.svg" alt="navbar brand" class="navbar-brand">
@@ -73,7 +74,7 @@
                 <!-- End Logo Header -->
 
                 <!-- Navbar Header -->
-                <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
+                <nav class="navbar navbar-header navbar-expand-lg" data-background-color="green2">
 
                     <div class="container-fluid">
                         <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
@@ -90,18 +91,17 @@
                                     <li>
                                         <div class="message-notif-scroll scrollbar-outer">
                                             <div class="notif-center">
-                                                <a href="">
-                                                    <div class="notif-img">
-                                                        <img src="/Atlantis/examples/assets/img/jm_denis.jpg" alt="Img Profile">
-                                                    </div>
-                                                    <div class="notif-content">
-                                                        <span class="subject">Jimmy Denis</span>
-                                                        <span class="block">
-                                                            How are you ?
-                                                        </span>
-                                                        <span class="time">5 minutes ago</span>
-                                                    </div>
-                                                </a>
+                                                @foreach ($pesan as $item)
+                                                    <a href="">
+                                                        <div class="notif-content">
+                                                            <span class="subject">{{$item->pengirim}}</span>
+                                                            <span class="block">
+                                                                {{$item->pesan}}
+                                                            </span>
+                                                            <span class="time">{{date('d-m-Y | h:m:sa',strtotime($item->created_at))}}</span>
+                                                        </div>
+                                                    </a>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </li>
@@ -123,18 +123,23 @@
                                         <div class="notif-scroll scrollbar-outer">
                                             <div class="notif-center">
                                                 @foreach ($notif as $item)
-                                                    <a href="#">
-                                                        <div class="notif-icon notif-primary"> 
-                                                            <i class="fa fa-bell"></i> 
-                                                        </div>
+                                                    <a>
+                                                        <div class="notif-icon notif-primary"> <i class="fa fa-user-plus"></i> </div>
                                                         <div class="notif-content">
-                                                            <span class="block">
-                                                                {{$item->isi}}
-                                                            </span>
+                                                            <div class="" style="">{{$item->isi}}</div>
                                                             <span class="time">{{date('d-m-Y | h:m:sa',strtotime($item->created_at))}}</span>
                                                         </div>
                                                     </a>    
                                                 @endforeach
+                                                <a href="">
+                                                    <div class="notif-icon notif-primary"> <i class="fa fa-user-plus"></i> </div>
+                                                    <div class="notif-content">
+                                                        <span class="block">
+                                                            New user registered
+                                                        </span>
+                                                        <span class="time">5 minutes ago</span>
+                                                    </div>
+                                                </a>
                                             </div>
                                         </div>
                                     </li>
@@ -174,7 +179,7 @@
                                                         <img src="/gambar/default_user.png" alt="image profile" class="avatar-img rounded"></div>                                                        
                                                 <div class="u-text">
                                                     <h4>{{$perusahaan->nama_perusahaan}}</h4>
-                                                    <p class="text-muted">{{$perusahaan->email}}</p>
+                                                    <p class="text-muted">{{$perusahaan->email_perusahaan}}</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -186,14 +191,15 @@
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="/contact_us_perusahaan">Contact Us</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" onclick="return confirm('apakah anda yakin ingin keluar?')" href="{{ route('logout') }}"
+                                            <a href="{{route('logout')}}" class="dropdown-item" onclick="confirmation(event)">Keluar</a>
+                                            {{-- <a class="dropdown-item" onclick="return confirm('apakah anda yakin ingin keluar?')" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
                                                 Keluar
                                             </a>
                                             <form id="logout-form" action="{{ route('logout') }}" method="get" class="d-none">
                                                 @csrf
-                                            </form>
+                                            </form> --}}
                                         </li>
                                     </div>
                                 </ul>
@@ -237,13 +243,18 @@
                                                 <span class="link-collapse">Edit Profil</span>
                                             </a>
                                         </li>
+                                        <li>
+                                            <a href="{{route('logout')}}" class="dropdown-item" onclick="confirmation(event)">
+                                                <span class="link-collapse">Keluar</span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <ul class="nav nav-primary">
                             <li class="nav-item active">
-                                <a href="" class="btn" aria-expanded="false">
+                                <a href="/perusahaan" class="btn" aria-expanded="false">
                                     <i class="fas fa-home"></i>
                                     <p>Dashboard</p>
                                 </a>
@@ -261,7 +272,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a  href="/perusahaan/list_akademi">
+                                <a  href="/perusahaan/list/akademi">
                                     <i class="fas fa-th-list"></i>
                                     <p>Data Akademi</p>
                                 </a>
@@ -273,9 +284,9 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a  href="/perusahaan/payment">
+                                <a  href="/perusahaan/list/pembayaran">
                                     <i class="fas fa-th-list"></i>
-                                    <p>Pembayaran</p>
+                                    <p>Data Pembayaran</p>
                                 </a>
                             </li>
                         </ul>
@@ -290,16 +301,16 @@
                         @yield('content')
                     </main>
                 </div>
-                <footer class="footer">
+                <footer class="footer" style="background-color: #2bb930">
                     <div class="container-fluid">
                         <nav class="pull-left">
-                            {{-- <ul class="nav">
+                            <ul class="nav nav-primary">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="https://www.themekita.com">
-                                        ThemeKita
-                                    </a>
+                                    <div class="copyright" style="color:white;">
+                                        &copy; Copyright <strong><span>ProyekPortal</span></strong>. All Rights Reserved
+                                    </div>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a class="nav-link" href="#">
                                         Help
                                     </a>
@@ -308,8 +319,8 @@
                                     <a class="nav-link" href="#">
                                         Licenses
                                     </a>
-                                </li>
-                            </ul> --}}
+                                </li> --}}
+                            </ul>
                         </nav>
                         <div class="copyright ml-auto">
                             &nbsp;
@@ -331,7 +342,6 @@
 
         <!-- jQuery Scrollbar -->
         <script src="/Atlantis/examples/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-
 
         <!-- Chart JS -->
         <script src="/Atlantis/examples/assets/js/plugin/chart.js/chart.min.js"></script>
@@ -408,219 +418,35 @@
             });
         </script>
 
-        <!-- SweetAlert -->
-        <script>
-            //== Class definition
-            var SweetAlert2Demo = function() {
-    
-                //== Demos
-                var initDemos = function() {
-                    //== Sweetalert Demo 1
-                    $('#alert_demo_1').click(function(e) {
-                        swal('Good job!', {
-                            buttons: {        			
-                                confirm: {
-                                    className : 'btn btn-success'
-                                }
-                            },
-                        });
-                    });
-    
-                    //== Sweetalert Demo 2
-                    $('#alert_demo_2').click(function(e) {
-                        swal("Here's the title!", "...and here's the text!", {
-                            buttons: {        			
-                                confirm: {
-                                    className : 'btn btn-success'
-                                }
-                            },
-                        });
-                    });
-    
-                    //== Sweetalert Demo 3
-                    $('#alert_demo_3_1').click(function(e) {
-                        swal("Good job!", "You clicked the button!", {
-                            icon : "warning",
-                            buttons: {        			
-                                confirm: {
-                                    className : 'btn btn-warning'
-                                }
-                            },
-                        });
-                    });
-    
-                    $('#alert_demo_3_2').click(function(e) {
-                        swal("Good job!", "You clicked the button!", {
-                            icon : "error",
-                            buttons: {        			
-                                confirm: {
-                                    className : 'btn btn-danger'
-                                }
-                            },
-                        });
-                    });
-    
-                    $('#alert_demo_3_3').click(function(e) {
-                        swal("Good job!", "You clicked the button!", {
-                            icon : "success",
-                            buttons: {        			
-                                confirm: {
-                                    className : 'btn btn-success'
-                                }
-                            },
-                        });
-                    });
-    
-                    $('#alert_demo_3_4').click(function(e) {
-                        swal("Good job!", "You clicked the button!", {
-                            icon : "info",
-                            buttons: {        			
-                                confirm: {
-                                    className : 'btn btn-info'
-                                }
-                            },
-                        });
-                    });
-    
-                    //== Sweetalert Demo 4
-                    $('#alert_demo_4').click(function(e) {
-                        swal({
-                            title: "Good job!",
-                            text: "You clicked the button!",
-                            icon: "success",
-                            buttons: {
-                                confirm: {
-                                    text: "Confirm Me",
-                                    value: true,
-                                    visible: true,
-                                    className: "btn btn-success",
-                                    closeModal: true
-                                }
-                            }
-                        });
-                    });
-    
-                    $('#alert_demo_5').click(function(e){
-                        swal({
-                            title: 'Input Something',
-                            html: '<br><input class="form-control" placeholder="Input Something" id="input-field">',
-                            content: {
-                                element: "input",
-                                attributes: {
-                                    placeholder: "Input Something",
-                                    type: "text",
-                                    id: "input-field",
-                                    className: "form-control"
-                                },
-                            },
-                            buttons: {
-                                cancel: {
-                                    visible: true,
-                                    className: 'btn btn-danger'
-                                },        			
-                                confirm: {
-                                    className : 'btn btn-success'
-                                }
-                            },
-                        }).then(
-                        function() {
-                            swal("", "You entered : " + $('#input-field').val(), "success");
+        <script type="text/javascript">
+            function confirmation(ev)
+                {
+                ev.preventDefault();
+                var url = ev.currentTarget.getAttribute('href');
+                console.log(url);
+                swal({
+                    title: 'Apakah anda yakin ingin keluar?',
+                    type: 'warning',
+                    icon: 'warning',
+                    buttons:{
+                        confirm: {
+                            text : 'Iya',
+                            className : 'btn btn-success'
+                        },
+                        cancel: {
+                            visible: true,
+                            text: 'Tidak',
+                            className: 'btn btn-danger'
                         }
-                        );
-                    });
-    
-                    $('#alert_demo_6').click(function(e) {
-                        swal("This modal will disappear soon!", {
-                            buttons: false,
-                            timer: 3000,
-                        });
-                    });
-    
-                    $('#alert_demo_7').click(function(e) {
-                        swal({
-                            title: 'Are you sure?',
-                            text: "You won't be able to revert this!",
-                            type: 'warning',
-                            buttons:{
-                                confirm: {
-                                    text : 'Yes, delete it!',
-                                    className : 'btn btn-success'
-                                },
-                                cancel: {
-                                    visible: true,
-                                    className: 'btn btn-danger'
-                                }
-                            }
-                        }).then((Delete) => {
-                            if (Delete) {
-                                swal({
-                                    title: 'Deleted!',
-                                    text: 'Your file has been deleted.',
-                                    type: 'success',
-                                    buttons : {
-                                        confirm: {
-                                            className : 'btn btn-success'
-                                        }
-                                    }
-                                });
-                            } else {
-                                swal.close();
-                            }
-                        });
-                    });
-    
-                    $('#alert_demo_8').click(function(e) {
-                        swal({
-                            title: 'Are you sure?',
-                            text: "You won't be able to revert this!",
-                            type: 'warning',
-                            buttons:{
-                                cancel: {
-                                    visible: true,
-                                    text : 'No, cancel!',
-                                    className: 'btn btn-danger'
-                                },        			
-                                confirm: {
-                                    text : 'Yes, delete it!',
-                                    className : 'btn btn-success'
-                                }
-                            }
-                        }).then((willDelete) => {
-                            if (willDelete) {
-                                swal("Poof! Your imaginary file has been deleted!", {
-                                    icon: "success",
-                                    buttons : {
-                                        confirm : {
-                                            className: 'btn btn-success'
-                                        }
-                                    }
-                                });
-                            } else {
-                                swal("Your imaginary file is safe!", {
-                                    buttons : {
-                                        confirm : {
-                                            className: 'btn btn-success'
-                                        }
-                                    }
-                                });
-                            }
-                        });
-                    })
-    
-                };
-    
-                return {
-                    //== Init
-                    init: function() {
-                        initDemos();
-                    },
-                };
-            }();
-    
-            //== Class Initialization
-            jQuery(document).ready(function() {
-                SweetAlert2Demo.init();
-            });
+                    }
+                }).then((Delete) => {
+                    if (Delete) {
+                        window.location.href = url;
+                    } else {
+                        swal.close();
+                    }
+                });    
+            }
         </script>
 
         @livewireScripts

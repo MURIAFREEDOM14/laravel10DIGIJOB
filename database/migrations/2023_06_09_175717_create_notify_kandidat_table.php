@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('id_kandidat')->nullable();
             $table->integer('id_perusahaan')->nullable();
             $table->text('isi')->nullable();
-            $table->string('pengirim_notifikasi')->nullable();
+            $table->string('pengirim')->nullable();
             $table->integer('id_interview')->nullable();
             $table->integer('id_akademi')->nullable();
             $table->timestamps();

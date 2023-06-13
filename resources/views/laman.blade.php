@@ -56,18 +56,15 @@
       <nav id="navbar" class="navbar" style="background-color: #FFD966;">
         <ul>
           <li><a class="nav-link scrollto active" style="color: black" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" style="color: black;" href="#services">Tentang</a></li>
-          {{-- <li><a class="nav-link scrollto" href="#services">Masuk</a></li> --}}
-          <li class="dropdown"><a href=""><span style="color: black">Daftar</span> <i class="bi bi-chevron-down"></i></a>
+          <li><a class="nav-link scrollto" style="color: black;" href="/about_us">Tentang</a></li>
+          <li><a class="nav-link scrollto" style="color: black;" href="/login">Login</a></li>
+          {{-- <li class="nav-link scroll"><a href=""><span style="color: black">Daftar</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              {{-- <li><a href="/login/kandidat" style="color: black">Kandidat</a></li>
-              <li><a href="/login/akademi" style="color: black">Akademi</a></li>
-              <li><a href="/login/perusahaan" style="color: black">Perusahaan</a></li> --}}
               <li><a href="/register/kandidat" style="color: black">Kandidat</a></li>
               <li><a href="/register/akademi" style="color: black">Akademi</a></li>
-              <li><a href="/register/perusahaan" style="color: black">Perusahaan</a></li>
+              < li><a href="/register/perusahaan" style="color: black">Perusahaan</a></li>
             </ul>
-          </li>
+          </li> --}}
           <li><a class="nav-link scrollto" style="color: black" href="/perbaikan">Portfolio</a></li>
           <li><a class="nav-link scrollto" style="color: black" href="/hubungi_kami">Hubungi</a></li>
         </ul>
@@ -189,7 +186,7 @@
         <div class="section-title">
           <!-- Button trigger modal -->
           <button type="button" class="btn btn-outline-primary" style="width: 15rem; height:3rem;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Masuk
+            Daftar
           </button>     
         </div>
         <div class="section-title">
@@ -239,7 +236,7 @@
         <div class="modal-dialog modal-xl modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel" style="font-family:poppins">Anda ingin login sebagai siapa?</h1>
+              <h1 class="modal-title fs-5" id="exampleModalLabel" style="font-family:poppins">Anda ingin daftar sebagai siapa?</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -247,19 +244,19 @@
                 <div class="col-md-4 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                   <div class="icon-box text-center" style="border-style: outset; background-color:#FFD966">
                     <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
-                    <h4><a href="/login" style="text-transform: uppercase;color:#0a3e52;">Pencari Kerja</a></h4>
+                    <h4><a href="/register/kandidat" style="text-transform: uppercase;color:#0a3e52;">Pencari Kerja</a></h4>
                   </div>
                 </div>
                 <div class="col-md-4 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                   <div class="icon-box text-center" style="border-style: outset;background-color:#B0DAFF">
                     <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
-                    <h4><a href="/login" style="text-transform: uppercase; color:#0a3e52">Akademi</a></h4>
+                    <h4><a href="/register/akademi" style="text-transform: uppercase; color:#0a3e52">Akademi</a></h4>
                   </div>
                 </div>
                 <div class="col-md-4 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                   <div class="icon-box text-center" style="border-style: outset;background-color:#19A7CE">
                     <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
-                    <h4><a href="/login" style="text-transform: uppercase; color:#0a3e52">Perusahaan</a></h4>
+                    <h4><a href="/register/perusahaan" style="text-transform: uppercase; color:#0a3e52">Perusahaan</a></h4>
                   </div>
                 </div>
               </div>

@@ -20,6 +20,7 @@ use App\Models\PengalamanKerja;
 use App\Models\ContactUs;
 use App\Models\MessageKandidat;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class KandidatController extends Controller
 {
@@ -153,10 +154,10 @@ class KandidatController extends Controller
             'penempatan' => $request->penempatan,
             'usia'=> $usia,
         ]);
-        if($kandidat->penempatan == "dalam negeri")
+        if($request->penempatan == "dalam negeri")
             {
                 Kandidat::where('referral_code',$id->referral_code)->update([
-                    'negara_id' => 2
+                    'negara_id' => 2,
                 ]);
             } else {
                 Kandidat::where('referral_code',$id->referral_code)->update([
@@ -170,7 +171,9 @@ class KandidatController extends Controller
             'no_telp' => $kandidat->no_telp,
             'email' => $kandidat->email
         ]);
-        return redirect('/isi_kandidat_document')->with('toast_success',"Data anda tersimpan");
+        Alert::toast('Data anda tersimpan','success');
+        return redirect('/isi_kandidat_document');
+        // ->with('toast_success',"Data anda tersimpan");
     }
 
     public function isi_kandidat_placement()
@@ -214,7 +217,7 @@ class KandidatController extends Controller
             // 'jabatan_kandidat' => $request->jabatan_kandidat,
             // 'kontrak' => $request->kontrak,
         ]);
-        return redirect()->route('kandidat')->with('success',"Data anda tersimpan");
+        return redirect()->route('kandidat')->with('toast_success',"Data anda tersimpan");
     }
 
     public function isi_kandidat_document()

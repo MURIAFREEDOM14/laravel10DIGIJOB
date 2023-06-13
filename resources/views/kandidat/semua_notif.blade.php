@@ -20,7 +20,7 @@
                         @foreach ($notif as $item)
                         <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td>{{$item->pengirim_notifikasi}}</td>
+                            <td>{{$item->pengirim}}</td>
                             <td>{{$item->isi}}</td>
                             <td>{{date('d-m-Y | h:m:sa',strtotime($item->created_at)) }}</td>
                         </tr>                                

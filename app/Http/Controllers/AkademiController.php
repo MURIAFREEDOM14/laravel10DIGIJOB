@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Perusahaan;
 use App\Models\Kandidat;
+use App\Models\messageAkademi;
+use App\Models\notifyAkademi;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -24,8 +26,10 @@ class AkademiController extends Controller
         $id = Auth::user();
         $akademi = Akademi::where('referral_code',$id->referral_code)->first();
         $perusahaan = Perusahaan::all();
+        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
+        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
         $akademi_kandidat = Kandidat::where('id_akademi',$akademi->id_akademi)->limit(10)->get();
-        return view('/akademi/akademi_index',compact('akademi','perusahaan','akademi_kandidat'));
+        return view('/akademi/akademi_index',compact('akademi','perusahaan','akademi_kandidat','pesan','notif'));
     } 
 
     public function isi_akademi_data()
@@ -129,14 +133,18 @@ class AkademiController extends Controller
     {
         $id = Auth::user();
         $akademi = Akademi::where('referral_code',$id->referral_code)->first();
-        return view('akademi/contact_us',compact('akademi'));
+        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
+        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
+        return view('akademi/contact_us',compact('akademi','pesan','notif'));
     }
 
     public function lihatProfilAkademi()
     {
         $user = Auth::user();
         $akademi = Akademi::where('referral_code',$user->referral_code)->first();
-        return view('akademi/lihat_profil_akademi',compact('akademi'));
+        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
+        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
+        return view('akademi/lihat_profil_akademi',compact('akademi','pesan','notif'));
     }
 
     public function editProfilAkademi()
@@ -144,12 +152,24 @@ class AkademiController extends Controller
         return redirect()->route('akademi.data');
     }
 
+    public function lihatProfilPerusahaan($id)
+    {
+        $user = Auth::user();
+        $akademi = Akademi::where('referral_code',$user->referral_code)->first();
+        $perusahaan = Perusahaan::where('id_perusahaan',$id)->first();
+        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
+        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
+        return view('akademi/lihat_profil_perusahaan',compact('akademi','perusahaan','pesan','notif'));
+    }
+
     public function listKandidat()
     {
         $auth = Auth::user();
         $akademi = Akademi::where('referral_code',$auth->referral_code)->first();
         $kandidat = Kandidat::where('id_akademi',$akademi->id_akademi)->get();
-        return view('akademi/list_kandidat',compact('akademi','kandidat'));
+        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
+        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
+        return view('akademi/list_kandidat',compact('akademi','kandidat','pesan','notif'));
     }
 
     public function lihatProfilKandidat($nama, $id)
@@ -158,11 +178,13 @@ class AkademiController extends Controller
         $akademi = Akademi::where('referral_code',$auth->referral_code)->first();
         $kandidat = Kandidat::where('id_kandidat',$id)->where('nama',$nama)->first();
         $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
+        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
+        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
         $negara = Negara::join(
             'akademi_kandidat','ref_negara.negara_id','=','akademi_kandidat.negara_id'
         )
         ->first();
-        return view('akademi/kandidat/profil_kandidat',compact('akademi','kandidat','negara','tgl_user'));
+        return view('akademi/kandidat/profil_kandidat',compact('akademi','kandidat','negara','tgl_user','pesan','notif'));
     }
 
     public function tambahKandidat()
@@ -622,7 +644,7 @@ class AkademiController extends Controller
 
     public function simpan_placement(Request $request, $nama, $id)
     {
-        dd($request);
+        // dd($request);
         $auth = Auth::user();
         $akademi = Akademi::where('referral_code',$auth->referral_code)->first();
         $kandidat = Kandidat::where('nama',$nama)->where('id',$id)->first();

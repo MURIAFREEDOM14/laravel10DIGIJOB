@@ -24,7 +24,7 @@
                                 </div>
                             </div>
                         </div>                        
-                        {{-- <div class="my-4">Belum punya akun? <a href="/register/kandidat">Register yuk!!</a></div> --}}
+                        <div class="my-4">Belum punya akun? <a href="/laman">Daftar yuk!!</a></div>
                         {{-- <a href="/laman" class="btn btn-secondary float-left ml-2">Kembali</a> --}}
                         <button type="submit" class="btn btn-primary float-right mr-2">Masuk</button>
                     </form> 

@@ -31,7 +31,7 @@
                                                 @endif
                                             </th>
                                             <th>
-                                                <a href="/akademi/lihat/profil_perusahaan" class="btn btn-info">Lihat</a>
+                                                <a href="/akademi/lihat/profil_perusahaan/{{$item->id_perusahaan}}" class="btn btn-info">Lihat</a>
                                             </th>
                                         </tr>                                        
                                     @endforeach

@@ -21,7 +21,7 @@
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{ $item->nama_pembayaran }}</td>
-                                <td>{{ $item->no_telp_perusahaan }}</td>
+                                <td>{{ $item->no_telp }}</td>
                                 <td>
                                     <a class="btn btn-success" href="/manager/cek_pembayaran/kandidat/{{$item->id_pembayaran}}">Cek Pembayaran</a>
                                 </td>

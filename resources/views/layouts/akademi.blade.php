@@ -39,7 +39,7 @@
         <div class="wrapper">
             <div class="main-header">
                 <!-- Logo Header -->
-                <div class="logo-header" data-background-color="orange2">
+                <div class="logo-header" data-background-color="orange">
 
                     <a href="/" class="logo">
                         <img src="/Atlantis/examples/assets/img/logo.svg" alt="navbar brand" class="navbar-brand">
@@ -64,9 +64,9 @@
                     <div class="container-fluid">
                         <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
                             <li class="nav-item dropdown hidden-caret">
-                                {{-- <a class="nav-link dropdown-toggle" href="/perbaikan" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="/perbaikan" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-envelope"></i>
-                                </a> --}}
+                                </a>
                                 <ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
                                     <li>
                                         <div class="dropdown-title d-flex justify-content-between align-items-center">
@@ -76,18 +76,17 @@
                                     <li>
                                         <div class="message-notif-scroll scrollbar-outer">
                                             <div class="notif-center">
-                                                <a href="">
-                                                    <div class="notif-img">
-                                                        <img src="/Atlantis/examples/assets/img/jm_denis.jpg" alt="Img Profile">
-                                                    </div>
-                                                    <div class="notif-content">
-                                                        <span class="subject">Jimmy Denis</span>
-                                                        <span class="block">
-                                                            How are you ?
-                                                        </span>
-                                                        <span class="time">5 minutes ago</span>
-                                                    </div>
-                                                </a>
+                                                @foreach ($pesan as $item)
+                                                    <a href="">
+                                                        <div class="notif-content">
+                                                            <span class="subject">{{$item->pengirim}}</span>
+                                                            <span class="block">
+                                                                {{$item->pesan}}
+                                                            </span>
+                                                            <span class="time">{{date('d-m-Y | h:m:sa',strtotime($item->created_at))}}</span>
+                                                        </div>
+                                                    </a>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </li>
@@ -97,10 +96,10 @@
                                 </ul>
                             </li>
                             <li class="nav-item dropdown hidden-caret">
-                                {{-- <a class="nav-link dropdown-toggle" href="/perbaikan" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="/perbaikan" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-bell"></i>
-                                    <span class="notification">4</span>
-                                </a> --}}
+                                    {{-- <span class="notification">4</span> --}}
+                                </a>
                                 <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
                                     <li>
                                         <div class="dropdown-title">Ada Notifikasi Baru</div>
@@ -108,7 +107,16 @@
                                     <li>
                                         <div class="notif-scroll scrollbar-outer">
                                             <div class="notif-center">
-                                                <a href="#">
+                                                @foreach ($notif as $item)
+                                                    <a>
+                                                        <div class="notif-icon notif-primary"> <i class="fa fa-user-plus"></i> </div>
+                                                        <div class="notif-content">
+                                                            <div class="" style="">{{$item->isi}}</div>
+                                                            <span class="time">{{date('d-m-Y | h:m:sa',strtotime($item->created_at))}}</span>
+                                                        </div>
+                                                    </a>    
+                                                @endforeach
+                                                <a href="">
                                                     <div class="notif-icon notif-primary"> <i class="fa fa-user-plus"></i> </div>
                                                     <div class="notif-content">
                                                         <span class="block">
@@ -252,16 +260,16 @@
                         @yield('content')
                     </main>
                 </div>
-                <footer class="footer">
+                <footer class="footer" style="background-color: #ff9e27">
                     <div class="container-fluid">
                         <nav class="pull-left">
-                            <ul class="nav">
-                                {{-- <li class="nav-item">
-                                    <a class="nav-link" href="https://www.themekita.com">
-                                        ThemeKita
-                                    </a>
-                                </li>
+                            <ul class="nav nav-primary">
                                 <li class="nav-item">
+                                    <div class="copyright" style="color:white;">
+                                        &copy; Copyright <strong><span>ProyekPortal</span></strong>. All Rights Reserved
+                                    </div>
+                                </li>
+                                {{-- <li class="nav-item">
                                     <a class="nav-link" href="#">
                                         Help
                                     </a>
@@ -280,6 +288,8 @@
                     </div>
                 </footer>
             </div>
+
+            
 
         </div>
         <!--   Core JS Files   -->
@@ -378,6 +388,7 @@
                 swal({
                     title: 'Apakah anda yakin ingin keluar?',
                     type: 'warning',
+                    icon: 'warning',
                     buttons:{
                         confirm: {
                             text : 'Iya',
@@ -385,6 +396,7 @@
                         },
                         cancel: {
                             visible: true,
+                            text: 'Tidak',
                             className: 'btn btn-danger'
                         }
                     }

@@ -58,6 +58,7 @@
         swal({
             title: 'Apakah anda yakin ingin keluar?',
             type: 'warning',
+            icon: 'warning',
             buttons:{
                 confirm: {
                     text : 'Iya',
@@ -65,6 +66,7 @@
                 },
                 cancel: {
                     visible: true,
+                    text: 'Tidak',
                     className: 'btn btn-danger'
                 }
             }

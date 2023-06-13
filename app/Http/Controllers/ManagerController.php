@@ -20,7 +20,11 @@ use App\Models\Notification;
 use App\Models\Perusahaan;
 use App\Models\Interview;
 use App\Models\notifyKandidat;
+use App\Models\notifyAkademi;
+use App\Models\notifyPerusahaan;
 use App\Models\messageKandidat;
+use App\Models\messageAkademi;
+use App\Models\messagePerusahaan;
 use App\Models\Pelatihan;
 use App\Models\ContactUs;
 use Carbon\Carbon;
@@ -83,10 +87,14 @@ class ManagerController extends Controller
         $kotaPerizin = Kota::where('id',$request->kota_perizin)->first();
         $kecamatanPerizin = Kecamatan::where('id',$request->kecamatan_perizin)->first();
         $kelurahanPerizin = Kelurahan::where('id',$request->kelurahan_perizin)->first();
+        
+        $password = Hash::make($request->nama);
+
         $user = User::create([
             'name' => $request->nama,
             'email' => $request->email,
-            'no_telp' => $request->no_telp
+            'no_telp' => $request->no_telp,
+            'password' => $password,
         ]);
 
         $id = $user->id;
@@ -140,7 +148,6 @@ class ManagerController extends Controller
             'negara_perizin'=>"Indonesia",
             'stats_negara'=>"Indonesia",
             'penempatan'=>$penempatan,
-            'password' => $password,
         ]);
 
         // dd($kandidat);
@@ -246,39 +253,92 @@ class ManagerController extends Controller
 
     public function contactUs()
     {
-        return view('contact_us');
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $contact_us = ContactUs::all();
+        return view('manager/contact_us',compact('manager','contact_us'));
     }
     
+    public function lihatContactUs($id)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $contact_us = ContactUs::where('id',$id)->first();
+        return view('manager/lihat_contact_us',compact('manager','contact_us'));
+    }
+
+    public function responseContactUs(Request $request, $id)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $contact_us = ContactUs::where('id',$id)->first();
+        if($contact_us->id_perusahaan !== null){
+            messagePerusahaan::create([
+                'id_perusahaan' => $contact_us->id_perusahaan,
+                'pesan' => $request->balas,
+                'pengirim' => "admin",
+            ]);
+            notifyPerusahaan::create([
+                'id_perusahaan' => $contact_us->id_perusahaan,
+                'isi' => "Anda mendapat pesan masuk",
+                'pengirim' => "admin",
+            ]);
+            ContactUs::where('id',$id)->update([
+                'balas' => "dibaca",
+            ]);
+        } elseif($contact_us->id_akademi !== null){
+            messageAkademi::create([
+                'id_akademi' => $contact_us->id_akademi,
+                'pesan' => $request->balas,
+                'pengirim' => "admin",
+            ]);
+            notifyAkademi::create([
+                'id_akademi' => $contact_us->id_akademi,
+                'isi' => "Anda mendapat pesan masuk",
+                'pengirim' => "admin",
+            ]);
+            ContactUs::where('id',$id)->update([
+                'balas' => "dibaca",
+            ]);
+        } elseif($contact_us->id_kandidat !== null){
+            messageKandidat::create([
+                'id_kandidat' => $contact_us->id_kandidat,
+                'pesan' => $request->balas,
+                'pengirim' => "admin",
+            ]);
+            notifyKandidat::create([
+                'id_kandidat' => $contact_us->id_kandidat,
+                'isi' => "Anda mendapat pesan masuk",
+                'pengirim' => "admin",
+            ]);
+            ContactUs::where('id',$id)->update([
+                'balas' => "dibaca",
+            ]);
+        } else {
+            dd($contact_us->email,$contact_us->no_telp);
+        }
+        return redirect('/manager/contact_us');
+    }
+
     public function sendContactUs(Request $request)
     {
         $dari = $request->dari;
-        $kepada = "Admin";
         $isi = $request->isi;
         $id_kandidat = $request->id_kandidat;
         $id_akademi = $request->id_akademi;
         $id_perusahaan = $request->id_perusahaan;
-        
-        if($request->file('gambar') !== null){
-            $gambar = $dari.time().'.'.$request->gambar->extension();  
-            $request->gambar->move(public_path('/gambar/Manager/Hubungi Kami/'), $gambar);    
-        } else {
-            $gambar = null;
-        }
-
-        if($gambar !== null){
-            $data = $gambar;
-        } else {
-            $data = null;
-        }
+        $email = $request->email;
+        $no_telp = $request->no_telp;
 
         ContactUs::create([
             'dari' => $dari,
-            'kepada' => $kepada,
             'isi' => $isi,
             'id_kandidat' => $id_kandidat,
             'id_akademi' => $id_akademi,
             'id_perusahaan' => $id_perusahaan,
-            'gambar' => $data,
+            'email' => $email,
+            'no_telp' => $no_telp,
+            'balas' => "belum dibaca",
         ]);
         if(Auth::user() == null)
         {
@@ -288,20 +348,41 @@ class ManagerController extends Controller
         }
     }
 
-    public function dalam_negeri()
+    // Perusahaan Data //
+    public function perusahaan()
     {
-        $manager = Auth::user();
-        $kandidat = Kandidat::where('penempatan',"dalam negeri")->get();
-        return view('manager/penempatan/dalam_negeri',compact('kandidat','manager'));
-    }
-    public function luar_negeri()
-    {
-        $manager = Auth::user();
-        $kandidat = Kandidat::where('penempatan',"luar negeri")->get();
-        return view('manager/penempatan/luar_negeri',compact('kandidat','manager'));
+        $id = Auth::user();
+        $manager = User::where('referral_code',$id->referral_code)->where('type',3)->first();
+        $perusahaan = Perusahaan::all();
+        return view('manager/perusahaan/list_perusahaan',compact('manager','perusahaan'));
     }
 
+    public function lihatProfilPerusahaan($id)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $perusahaan = Perusahaan::where('id_perusahaan',$id)->first();
+        return view('manager/perusahaan/lihat_profil_perusahaan',compact('perusahaan','manager'));
+    }
 
+    // Akademi Data //
+    public function akademi()
+    {
+        $id = Auth::user();
+        $manager = User::where('referral_code',$id->referral_code)->where('type',3)->first();
+        $akademi = Akademi::all();
+        return view('manager/akademi/list_akademi',compact('manager','akademi'));
+    }
+
+    public function lihatProfilAkademi($id)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $akademi = Akademi::where('id_akademi',$id)->first();
+        return view('manager/akademi/lihat_profil_akademi',compact('akademi','manager'));
+    }
+
+    // Kandidat Data //
     public function isi_personal($id)
     {
         $timeNow = Carbon::now();
@@ -1023,6 +1104,19 @@ class ManagerController extends Controller
         return redirect('/manager/kandidat/lihat_profil/'.$id);
     }
 
+    public function dalam_negeri()
+    {
+        $manager = Auth::user();
+        $kandidat = Kandidat::where('penempatan',"dalam negeri")->get();
+        return view('manager/penempatan/dalam_negeri',compact('kandidat','manager'));
+    }
+    public function luar_negeri()
+    {
+        $manager = Auth::user();
+        $kandidat = Kandidat::where('penempatan',"luar negeri")->get();
+        return view('manager/penempatan/luar_negeri',compact('kandidat','manager'));
+    }
+
     public function pelatihan()
     {
         $auth = Auth::user();
@@ -1161,6 +1255,7 @@ class ManagerController extends Controller
         return redirect('/manager/kandidat/pelatihan');
     }
 
+    // Pembayaran Data //
     public function pembayaranKandidat()
     {
         $id = Auth::user();
@@ -1208,7 +1303,7 @@ class ManagerController extends Controller
         $interview = Interview::join(
             'kandidat', 'interview.id_kandidat','=','kandidat.id_kandidat'
         )
-        ->where('id_perusahaan',$pembayaran->id_perusahaan)->get();
+        ->where('interview.id_perusahaan',$pembayaran->id_perusahaan)->get();
         return view('manager/perusahaan/cek_pembayaran',compact('manager','pembayaran','interview'));
     }
 
@@ -1294,11 +1389,5 @@ class ManagerController extends Controller
         return view('manager/riwayat_pembayaran_perusahaan',compact('manager','pembayaran'));        
     }
 
-    public function akademi()
-    {
-        $id = Auth::user();
-        $manager = User::where('referral_code',$id->referral_code)->where('type','like',3)->first();
-        $akademi = Akademi::all();
-        return view('manager/akademi/list_akademi',compact('manager','akademi'));
-    }
+    
 }

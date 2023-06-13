@@ -20,7 +20,7 @@
                         @if ($akademi->foto_akademi !== null)
                             <img src="/gambar/Akademi/{{$akademi->nama_akademi}}/Foto/{{$akademi->foto_akademi}}" class="img" width="180" height="180" alt="">
                         @else
-                            <img src="/gambar/default_user.png" class="img" width="180" height="200" alt="">
+                            <img src="/gambar/default_user.png" class="img" width="180" height="180" alt="">
                         @endif
                     </div>
                 </div>
