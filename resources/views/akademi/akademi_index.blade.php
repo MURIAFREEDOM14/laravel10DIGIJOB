@@ -1,5 +1,6 @@
 @extends('layouts.akademi')
 @section('content')
+@include('sweetalert::alert')
     <div class="container mt-5">
         <div class="row">
             <div class="col-7">

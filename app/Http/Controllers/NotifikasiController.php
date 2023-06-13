@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\messagePerusahaan;
 use App\Models\notifyKandidat;
+use App\Models\notifyAkademi;
+use App\Models\notifyPerusahaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Kandidat;
+use App\Models\Akademi;
 use App\Models\Notification;
 use App\Models\Pembayaran;
 use App\Models\Perusahaan;
@@ -35,12 +39,22 @@ class NotifikasiController extends Controller
         }
     }
 
+    public function notifyAkademi()
+    {
+        $id = Auth::user();
+        $akademi = Akademi::where('referral_code',$id->referral_code)->first();
+        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
+        $semua_notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->get();
+        return view('akademi/', compact('notif','pesan','akademi','semua_notif'));
+    }
+
     public function notifyPerusahaan()
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
-        $notif = Notification::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
-        $pesan = Message::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        return view('perusahaan/semua_notif',compact('perusahaan','notif','pesan'));
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $semua_pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        return view('perusahaan/semua_notif',compact('perusahaan','notif','pesan','semua_pesan'));
     }
 }

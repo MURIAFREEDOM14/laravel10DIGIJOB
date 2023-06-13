@@ -176,7 +176,7 @@
                                 </div>
                             </div>
                             <hr>
-                            <div class="row mb-3 g-3 align-items-center">
+                            {{-- <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Apakah Anda Pernah memiliki Pengalaman Kerja?</label>
                                 </div>
@@ -188,7 +188,7 @@
                                         @endif>Ya</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <button class="btn btn-primary my-3 float-end" type="submit">Simpan</button>
                     </form>

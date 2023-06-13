@@ -66,10 +66,10 @@ return new class extends Migration
 
             //Parent
             $table->string('nama_ayah')->default("-")->nullable();
-            $table->string('umur_ayah')->default("-")->nullable();
+            $table->string('umur_ayah')->nullable();
             $table->date('tgl_lahir_ayah')->nullable();
             $table->string('nama_ibu')->default("-")->nullable();
-            $table->string('umur_ibu')->default("-")->nullable();
+            $table->string('umur_ibu')->nullable();
             $table->date('tgl_lahir_ibu')->nullable();
             $table->integer('jml_sdr_lk')->default(0);
             $table->integer('jml_sdr_pr')->default(0);

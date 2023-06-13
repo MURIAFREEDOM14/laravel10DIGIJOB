@@ -108,7 +108,7 @@ class AkademiController extends Controller
             'no_nis' => $request->no_nis,
             'email' => $request->email,
         ]);
-        return redirect()->route('akademi.operator');
+        return redirect()->route('akademi.operator')->with('toast_success',"Data anda tersimpan");
     }
 
     public function isi_akademi_operator()
@@ -126,7 +126,7 @@ class AkademiController extends Controller
             'nama_operator' => $request->nama_operator,
             'email_operator' => $request->email_operator,
         ]);
-        return redirect('/');
+        return redirect('/akademi')->with('toast_success',"Data anda tersimpan");
     }
 
     public function contactUsAkademi()

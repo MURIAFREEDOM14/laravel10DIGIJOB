@@ -1,5 +1,6 @@
 @extends('layouts.input')
 @section('content')
+@include('sweetalert::alert')
     <div class="container mt-5">        
         <div class="card mb-4">
             <div class="card-header">
@@ -41,7 +42,7 @@
                             </div>
                         </div>
                         <a href="/akademi/isi_akademi_data" class="btn btn-danger">Kembali</a>
-                        <button class="btn btn-primary my-3 float-end" type="submit">Lanjut</button>
+                        <button class="btn btn-primary my-3 float-end" type="submit">Simpan</button>
                     </form>
                 </div>
                 <hr>

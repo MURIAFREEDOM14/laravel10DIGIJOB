@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('akademi', function (Blueprint $table) {
             $table->id('id_akademi');
             $table->string('referral_code')->nullable();
-            $table->string('nama');
+            $table->string('nama_akademi');
             $table->string('no_nis');
             $table->string('no_surat_izin')->nullable();
             $table->text('alamat_akademi')->nullable();

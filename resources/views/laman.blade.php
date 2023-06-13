@@ -242,21 +242,21 @@
             <div class="modal-body">
               <div class="row">
                 <div class="col-md-4 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-                  <div class="icon-box text-center" style="border-style: outset; background-color:#FFD966">
+                  <div class="icon-box text-center" style="border-style: outset; background-color: #19A7CE">
                     <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
-                    <h4><a href="/register/kandidat" style="text-transform: uppercase;color:#0a3e52;">Pencari Kerja</a></h4>
+                    <h4><a href="/register/kandidat" style="text-transform: uppercase;color: white">Pencari Kerja</a></h4>
                   </div>
                 </div>
                 <div class="col-md-4 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-                  <div class="icon-box text-center" style="border-style: outset;background-color:#B0DAFF">
+                  <div class="icon-box text-center" style="border-style: outset;background-color: #FFD966">
                     <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
-                    <h4><a href="/register/akademi" style="text-transform: uppercase; color:#0a3e52">Akademi</a></h4>
+                    <h4><a href="/register/akademi" style="text-transform: uppercase; color: white">Akademi</a></h4>
                   </div>
                 </div>
                 <div class="col-md-4 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-                  <div class="icon-box text-center" style="border-style: outset;background-color:#19A7CE">
+                  <div class="icon-box text-center" style="border-style: outset;background-color: #2bb930">
                     <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
-                    <h4><a href="/register/perusahaan" style="text-transform: uppercase; color:#0a3e52">Perusahaan</a></h4>
+                    <h4><a href="/register/perusahaan" style="text-transform: uppercase; color: white">Perusahaan</a></h4>
                   </div>
                 </div>
               </div>
