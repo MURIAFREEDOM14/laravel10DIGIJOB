@@ -264,8 +264,7 @@ Route::controller(KandidatController::class)->group(function() {
     Route::post('/isi_kandidat_paspor', 'simpan_kandidat_paspor');    
 
     Route::get('/isi_kandidat_placement', 'isi_kandidat_placement')->middleware('kandidat')->name('placement');
-    Route::get('/select_kandidat_job', 'selectKandidatJob');
-    Route::post('/select_negara_job','selectNegaraJob');
+    Route::get('/penempatan', 'placement');
     Route::post('/isi_kandidat_placement', 'simpan_kandidat_placement');
 
     Route::get('/isi_kandidat_job', 'isi_kandidat_job')->middleware('kandidat')->name('job');

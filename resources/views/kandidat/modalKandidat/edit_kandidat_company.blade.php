@@ -69,22 +69,6 @@
                                     </div>  
                                 </div>
                             </div>
-                            <div class="row my-3 g-3 align-items-center">
-                                <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Status Tempat Kerja</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <select name="penempatan" required class="form-select" id="">
-                                        <option value="">-- Pilih penempatan tempat kerja --</option>
-                                        <option value="dalam negeri" @if ($kandidat->penempatan == "dalam negeri")
-                                            selected
-                                        @endif>Dalam Negeri</option>
-                                        <option value="luar negeri" @if ($kandidat->penempatan == "luar negeri")
-                                            selected
-                                        @endif>Luar Negeri</option>
-                                    </select>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <hr>

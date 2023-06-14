@@ -718,19 +718,6 @@ class KandidatController extends Controller
             'pengalaman_kerja' => $jabatanValues,
             'penempatan' => $request->penempatan,
         ]);
-
-        if($request->penempatan == "dalam negeri")
-        {
-            Kandidat::where('referral_code',$id->referral_code)->update([
-                'negara_id' => 2,
-            ]);
-            return redirect()->route('permission')->with('toast_success',"Data anda tersimpan");
-        } else {
-            Kandidat::where('referral_code',$id->referral_code)->update([
-                'negara_id' => null,
-            ]);
-            return redirect('/isi_kandidat_placement')->with('toast_success',"Data anda tersimpan");
-        }
     }
 
     public function isi_kandidat_placement()
@@ -741,38 +728,21 @@ class KandidatController extends Controller
         $negara_name = Negara::where('negara_id',$kandidat->negara_id)->first('negara');
         $negara = Negara::where('negara_id','not like',2)->get();
         $pekerjaan = Pekerjaan::where('negara_id',$negara_id)->get();
-        if ($kandidat->penempatan == "luar negeri"){
-            return view('Kandidat/modalKandidat/edit_kandidat_placement',compact('negara','kandidat','pekerjaan','negara_id'));
-        }
-        return redirect()->route('permission')->with('toast_success',"Data anda tersimpan");
+        return view('Kandidat/modalKandidat/edit_kandidat_placement',compact('negara','kandidat','pekerjaan','negara_id'));
     }
 
-    // public function selectKandidatJob(Request $request)
-    // {
-    //     $pekerjaan = Pekerjaan::where('negara_id',$request->id)->get();
-    //     return response()->json($pekerjaan);
-    // }
-
-    // public function selectNegaraJob(Request $request)
-    // {
-    //     $negara_id = $request->negara_id;
-    //     $id = Auth::user();
-    //     $kandidat = Kandidat::where('referral_code', $id->referral_code)->first();
-    //     $negara = Negara::where('negara_id','not like',2)->get();
-    //     $pekerjaan = Pekerjaan::where('negara_id',$negara_id)->get();
-    //     Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
-    //         'negara_id'=>$negara_id,
-    //     ]);
-    //     return redirect()->with('toast_success',"Data anda tersimpan");
-    // }
+    public function placement(Request $request)
+    {
+        $data = Negara::where('negara_id','not like',2)->get();
+        return response()->json($data);
+    }
 
     public function simpan_kandidat_placement(Request $request)
     {
         $id = Auth::user();
         Kandidat::where('referral_code', $id->referral_code)->update([
+            'penempatan' => $request->penempatan,
             'negara_id' => $request->negara_id,
-            // 'jabatan_kandidat' => $request->jabatan_kandidat,
-            // 'kontrak' => $request->kontrak,
         ]);
         return redirect()->route('permission')->with('toast_success',"Data anda tersimpan");
     }
