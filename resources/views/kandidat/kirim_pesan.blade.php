@@ -26,7 +26,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Kirim Pesanmu disini</label>
-                        <textarea name="pesan" id="" class="form-control"></textarea>
+                        <textarea name="pesan" required id="" class="form-control"></textarea>
                     </div>
                     <a href="/semua_pesan" class="btn btn-danger">Kembali</a>
                     <button type="submit" class="btn btn-success">Kirim</button>

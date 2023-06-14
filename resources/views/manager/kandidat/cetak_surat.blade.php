@@ -22,13 +22,13 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <div class="text-center"><b class="" style="font-size: 25px; text-transform:uppercase; border-bottom:2px solid black">Surat Izin OrangTua / Suami / Istri / Wali</b></div>
+                    <div class="text-center"><b class="" style="font-size: 25px; text-transform:uppercase; border-bottom:2px solid black">Surat Izin Keluarga</b></div>
                     <div class="row">
                         <div class="col-4"></div>
-                        <div class="col">
+                        <div class="col-4">
                             <div class="" style="border-bottom:2px solid black"><b class="bold">No. Register : </b></div>
                         </div>
-                        <div class="col"></div>
+                        <div class="col-4"></div>
                     </div> 
                 </div>
             </div>
@@ -112,7 +112,8 @@
                     <b class="bold">: {{$kandidat->no_telp_perizin}}</b>
                 </div>
             </div>
-            <div class="my-2"><b class="bold">Dengan ini memberikan izin kepada Suami / Istri / Anak / Wali saya yang bernama :</b></div>
+            {{-- <div class="my-2"><b class="bold">Dengan ini memberikan izin kepada {{$kandidat->hubungan_perizin}} saya yang bernama :</b></div> --}}
+            <div class="my-2"><b class="bold">Saya sebagai {{$kandidat->hubungan_perizin}} Dengan ini memberikan izin kepada:</b></div>
             <div class="row" style="line-height: 20px;">
                 <div class="col-3">
                     <b class="bold">Nama</b>

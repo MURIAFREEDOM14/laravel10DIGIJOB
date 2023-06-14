@@ -109,7 +109,7 @@
                                         <div class="notif-scroll scrollbar-outer">
                                             <div class="notif-center">
                                                 @foreach ($notif as $item)
-                                                <a>
+                                                <a href="{{$item->url}}">
                                                     <div class="notif-icon notif-warning"> <i class="fas fa-bell"></i> </div>
                                                     <div class="notif-content">
                                                         <div class="" style="">{{$item->isi}}</div>
@@ -162,7 +162,11 @@
                                         <li>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="/profil_kandidat">Profilku</a>
-                                            <a class="dropdown-item" href="/isi_kandidat_personal">Edit Profil</a>
+                                            @if ($kandidat->negara_id == null)
+                                                <a class="dropdown-item" href="/isi_kandidat_personal">Lengkapi Profil</a>
+                                            @else
+                                                <a class="dropdown-item" href="/isi_kandidat_personal">Edit Profil</a>                                                
+                                            @endif
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="/contact_us_kandidat">Contact Us</a>
                                             <div class="dropdown-divider"></div>
@@ -214,7 +218,11 @@
                                         </li>
                                         <li>
                                             <a href="/isi_kandidat_personal" class="dropdown-item">
-                                                <span class="link-collapse">Edit Profil</span>
+                                                @if ($kandidat->negara_id == null)
+                                                    <span class="link-collapse">Lengkapi Profil</span>
+                                                @else
+                                                    <span class="link-collapse">Edit Profil</span>
+                                                @endif
                                             </a>
                                         </li>
                                         <li>

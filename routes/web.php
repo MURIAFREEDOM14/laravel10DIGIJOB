@@ -52,7 +52,7 @@ Route::controller(ManagerController::class)->group(function() {
     Route::post('/manager/buat_surat_izin','simpanSuratIzin');
     Route::get('/manager/kandidat/cetak_surat/{id}','cetakSurat')->middleware('manager');
     Route::get('/manager/contact_us','contactUs');
-    Route::get('/manager/balas_pesan/{id}','lihatContactUs');
+    Route::get('/manager/balas_pesan/{id}','lihatContactUs')->middleware('manager');
     Route::post('/manager/balas_pesan/{id}','responseContactUs');
 
     // DATA KANDIDAT // 
@@ -99,17 +99,17 @@ Route::controller(ManagerController::class)->group(function() {
 
     Route::get('/manager/pembayaran/kandidat','pembayaranKandidat')->middleware('manager');
     Route::get('/manager/cek_pembayaran/kandidat/{id}','cekPembayaranKandidat')->middleware('manager');
-    Route::post('/manager/cek_pembayaran/kandidat/{id}','cekConfirmKandidat')->middleware('manager');
+    Route::post('/manager/cek_pembayaran/kandidat/{id}','cekConfirmKandidat');
 
     // DATA AKADEMI //
     Route::get('/manager/akademi/list_akademi','akademi')->middleware('manager');
-    Route::get('/manager/akademi/lihat_profil/{id}','lihatProfilAkademi');
+    Route::get('/manager/akademi/lihat_profil/{id}','lihatProfilAkademi')->middleware('manager');
 
     // DATA PERUSAHAAN //
-    Route::get('/manager/perusahaan/list_perusahaan','perusahaan');
-    Route::get('/manager/perusahaan/lihat_profil/{id}','lihatProfilPerusahaan');
-    Route::get('/manager/pembayaran/perusahaan','pembayaranPerusahaan');
-    Route::get('/manager/cek_pembayaran/perusahaan/{id}','cekPembayaranPerusahaan');
+    Route::get('/manager/perusahaan/list_perusahaan','perusahaan')->middleware('manager');
+    Route::get('/manager/perusahaan/lihat_profil/{id}','lihatProfilPerusahaan')->middleware('manager');
+    Route::get('/manager/pembayaran/perusahaan','pembayaranPerusahaan')->middleware('manager');
+    Route::get('/manager/cek_pembayaran/perusahaan/{id}','cekPembayaranPerusahaan')->middleware('manager');
     Route::post('/manager/cek_pembayaran/perusahaan/{id}','cekConfirmPerusahaan');
 
     Route::post('/contact_us','sendContactUs');
@@ -142,10 +142,10 @@ Route::controller(LamanController::class)->group(function() {
 
 // DATA AKADEMI //
 Route::controller(AkademiController::class)->group(function() {
-    Route::get('/akademi', 'index')->name('akademi')->middleware(('akademi'));
-    Route::get('/akademi/lihat/profil','lihatProfilAkademi');
-    Route::get('/contact_us_akademi','contactUsAkademi');
-    Route::get('/akademi/edit/profil', 'editProfilAkademi');
+    Route::get('/akademi', 'index')->name('akademi')->middleware('akademi');
+    Route::get('/akademi/lihat/profil','lihatProfilAkademi')->middleware('akademi');
+    Route::get('/contact_us_akademi','contactUsAkademi')->middleware('akademi');
+    Route::get('/akademi/edit/profil', 'editProfilAkademi')->middleware('akademi');
 
     Route::get('/akademi/isi_akademi_data','isi_akademi_data')->middleware('akademi')->name('akademi.data');
     Route::post('/akademi/isi_akademi_data','simpan_akademi_data');
@@ -154,10 +154,10 @@ Route::controller(AkademiController::class)->group(function() {
     Route::post('/akademi/isi_akademi_operator','simpan_akademi_operator');
 
     // DATA KANDIDAT //
-    Route::get('/akademi/list_kandidat','listKandidat')->middleware('akademi');
+    Route::get('/akademi/list_kandidat','listKandidat')->middleware('akademi')->middleware('akademi');
     Route::get('/akademi/kandidat/lihat_profil/{nama}/{id}','lihatProfilKandidat')->middleware('akademi');
     {
-        Route::get('/akademi/tambah_kandidat', 'tambahKandidat');
+        Route::get('/akademi/tambah_kandidat', 'tambahKandidat')->middleware('akademi');
         Route::post('/akademi/tambah_kandidat', 'simpanKandidat');
         
         Route::get('/akademi/isi_kandidat_personal/{nama}/{id}', 'isi_personal')->middleware('akademi');
@@ -183,43 +183,43 @@ Route::controller(AkademiController::class)->group(function() {
     }
 
     // DATA PERUSAHAAN //
-    Route::get('/akademi/lihat/profil_perusahaan/{id}','lihatProfilPerusahaan');
+    Route::get('/akademi/lihat/profil_perusahaan/{id}','lihatProfilPerusahaan')->middleware('akademi');
 
 });
 
 // DATA PERUSAHAAN //
 Route::controller(PerusahaanController::class)->group(function(){
-    Route::get('/perusahaan','index')->name('perusahaan')->middleware('verify');
+    Route::get('/perusahaan','index')->name('perusahaan')->middleware('perusahaan');
     
-    Route::get('/perusahaan/isi_perusahaan_data','isi_perusahaan_data')->name('perusahaan.data');
+    Route::get('/perusahaan/isi_perusahaan_data','isi_perusahaan_data')->name('perusahaan.data')->middleware('perusahaan');
     Route::post('/perusahaan/isi_perusahaan_data','simpan_perusahaan_data');
     
-    Route::get('/perusahaan/isi_perusahaan_alamat','isi_perusahaan_alamat')->name('perusahaan.alamat');
+    Route::get('/perusahaan/isi_perusahaan_alamat','isi_perusahaan_alamat')->name('perusahaan.alamat')->middleware('perusahaan');
     Route::post('/perusahaan/isi_perusahaan_alamat','simpan_perusahaan_alamat');
     
-    Route::get('/perusahaan/isi_perusahaan_operator','isi_perusahaan_operator')->name('perusahaan.operator');
+    Route::get('/perusahaan/isi_perusahaan_operator','isi_perusahaan_operator')->name('perusahaan.operator')->middleware('perusahaan');
     Route::post('/perusahaan/isi_perusahaan_operator','simpan_perusahaan_operator');
     
-    Route::get('/perusahaan/lihat/perusahaan','lihatProfilPerusahaan');    
-    Route::get('/contact_us_perusahaan','contactUsPerusahaan');
-    Route::get('/perusahaan/list/pembayaran','pembayaran');
-    Route::get('/perusahaan/payment/{id}','payment');
+    Route::get('/perusahaan/lihat/perusahaan','lihatProfilPerusahaan')->middleware('perusahaan');    
+    Route::get('/contact_us_perusahaan','contactUsPerusahaan')->middleware('perusahaan');
+    Route::get('/perusahaan/list/pembayaran','pembayaran')->middleware('perusahaan');
+    Route::get('/perusahaan/payment/{id}','payment')->middleware('perusahaan');
     Route::post('/perusahaan/payment/{id}','paymentCheck');
 
     // DATA KANDIDAT //
-    Route::get('/perusahaan/list/kandidat','kandidat');
+    Route::get('/perusahaan/list/kandidat','kandidat')->middleware('perusahaan');
     Route::post('/perusahaan/list/kandidat','cariKandidat');
     Route::post('/perusahaan/pilih/kandidat','pilihKandidat');
-    Route::get('/perusahaan/lihat/kandidat/{id}','lihatProfilKandidat');
-    Route::get('/perusahaan/interview','JadwalInterview');
-    Route::get('/perusahaan/jadwal_interview','tentukanJadwal');
+    Route::get('/perusahaan/lihat/kandidat/{id}','lihatProfilKandidat')->middleware('perusahaan');
+    Route::get('/perusahaan/interview','JadwalInterview')->middleware('perusahaan');
+    Route::get('/perusahaan/jadwal_interview','tentukanJadwal')->middleware('perusahaan');
     Route::post('/perusahaan/jadwal_interview','simpanJadwal');
 
     //  DATA AKADEMI //
-    Route::get('/perusahaan/list/akademi','akademi');
+    Route::get('/perusahaan/list/akademi','akademi')->middleware('perusahaan');
     Route::post('/perusahaan/cari_akademi','cariAkademi');
     // Route::post('/perusahaan/cari_kandidat','temukanKandidat');
-    Route::get('/perusahaan/cari_kandidat/experience','cariKandidatExperience');
+    Route::get('/perusahaan/cari_kandidat/experience','cariKandidatExperience')->middleware('perusahaan');
     Route::post('/perusahaan/cari_kandidat/experience','temukanKandidatExperience');
         
     Route::post('/perusahaan/interview','TambahJadwal');
@@ -251,9 +251,9 @@ Route::controller(KandidatController::class)->group(function() {
 
     Route::get('/isi_kandidat_company', 'isi_kandidat_company')->middleware('kandidat')->name('company');
     Route::post('/isi_kandidat_company', 'simpan_kandidat_company');
-    Route::get('/tambah_kandidat_pengalaman_kerja', 'tambahPengalamanKerja');
+    Route::get('/tambah_kandidat_pengalaman_kerja', 'tambahPengalamanKerja')->middleware('kandidat');
     Route::post('/simpan_kandidat_pengalaman_kerja', 'simpanPengalamanKerja');
-    Route::get('/edit_kandidat_pengalaman_kerja/{id}','editPengalamanKerja');
+    Route::get('/edit_kandidat_pengalaman_kerja/{id}','editPengalamanKerja')->middleware('kandidat');
     Route::post('/update_kandidat_pengalaman_kerja/{id}','updatePengalamanKerja');
     Route::get('/hapus_kandidat_pengalaman_kerja/{id}','hapusPengalamanKerja');
 
@@ -274,7 +274,7 @@ Route::controller(KandidatController::class)->group(function() {
     // Route::get('/contact_us','contactUsKandidat');
     // Route::post('/contact_us','sendContactUsKandidat');
     // DATA PERUSAHAAN //
-    Route::get('/profil_perusahaan/{id}','perusahaan');
+    Route::get('/profil_perusahaan/{id}','perusahaan')->middleware('kandidat');
     
 });
 
@@ -288,8 +288,9 @@ Route::controller(PrioritasController::class)->group(function(){
 
 // data notifikasi
 Route::controller(NotifikasiController::class)->group(function() {
-    Route::get('/semua_notif','notifyKandidat')->middleware('verify');
-    Route::get('/perusahaan/semua_notif','notifyPerusahaan')->middleware('verify');
+    Route::get('/semua_notif','notifyKandidat')->middleware('kandidat');
+    Route::get('/akademi/semua_notif','notifyAkademi')->middleware('akademi');
+    Route::get('/perusahaan/semua_notif','notifyPerusahaan')->middleware('perusahaan');
 });
 
 // data login
@@ -361,14 +362,19 @@ Route::controller(GoogleController::class)->group(function(){
 
 Route::controller(MessagerController::class)->group(function() {
     // DATA KANDIDAT //
-    Route::get('/semua_pesan','messageKandidat');
-    Route::get('/kirim_balik/{id}','sendMessageKandidat');
+    Route::get('/semua_pesan','messageKandidat')->middleware('kandidat')->name('semuaPesan');
+    Route::get('/kirim_balik/{id}','sendMessageKandidat')->middleware('kandidat');
     Route::post('/kirim_balik/{id}','sendMessageConfirmKandidat');
 
+    // DATA AKADEMI //
+    Route::get('/akademi/semua_pesan','messageAkademi')->middleware('akademi')->name('akademi.semuaPesan');
+    Route::get('/akademi/kirim_balik/{id}','sendMessageAkademi')->middleware('akademi');
+    Route::post('/akademi/kirim_balik/{id}','sendMessageConfirmAkademi');
+
     // DATA PERUSAHAAN //
-    Route::get('perusahaan/semua_pesan','messagePerusahaan');
-    // Route::get('/kirim_pesan_perusahaan','sendMessagePerusahaan');
-    // Route::post('/kirim_pesan_perusahaan','sendMessageConfirmPerusahaan');
+    Route::get('/perusahaan/semua_pesan','messagePerusahaan')->middleware('perusahaan')->name('perusahaan.semuaPesan');
+    Route::get('/perusahaan/kirim_balik/{id}','sendMessagePerusahaan')->middleware('perusahaan');
+    Route::post('/perusahaan/kirim_balik/{id}','sendMessageConfirmPerusahaan');
 
     // DATA MANAGER //
 });

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('nama_kepala_akademi')->nullable();
             $table->string('nama_operator')->nullable();
             $table->string('email_operator')->nullable();
+            $table->string('no_telp_operator')->nullable();
             $table->timestamps();
         });
     }

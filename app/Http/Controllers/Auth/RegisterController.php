@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Mail\DemoMail;
 use App\Models\Kandidat;
+use App\Models\notifyAkademi;
+use App\Models\notifyKandidat;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -109,8 +111,10 @@ class RegisterController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|max:255',
+            'nik' => 'required|max:16|min:16|unique:kandidat',
             'email' => 'required|unique:users|max:255',
             'no_telp' => 'required|unique:users|min:10|max:13',
+            'nama_panggilan' => 'required|unique:kandidat|min:5|max:20',
             'password' => 'required|min:6|max:20',
         ]);
      
@@ -135,9 +139,7 @@ class RegisterController extends Controller
             'referral_code' => $userId
         ]);
 
-        $nama = $request->name;
-
-        $kandidat = Kandidat::create([
+        Kandidat::create([
             'id' => $id,
             'nama' => $request->name,
             'referral_code' => $userId,
@@ -145,10 +147,20 @@ class RegisterController extends Controller
             'no_telp' => $request->no_telp,
             'tgl_lahir' => $request->tgl,
             'usia' => $tgl,
+            'nama_panggilan' => $request->nama_panggilan,
+            'nik' => $request->nik,
         ]);
 
         Auth::login($user);
-        return redirect()->route('personal');
+
+        $kandidat = Kandidat::where('referral_code',$userId)->first(); 
+        $data['id_kandidat'] = $kandidat->id_kandidat;
+        $data['isi'] = "Data anda masih belum lengkap";
+        $data['pengirim'] = "Admin";
+        $data['url'] = ('/isi_kandidat_personal');
+        notifyKandidat::create($data);
+        
+        return redirect()->route('kandidat')->with('success',"Selamat Datang");
     }
 
     // $pengirim = [
@@ -166,12 +178,14 @@ class RegisterController extends Controller
             'password' => 'min:6|max:20',
         ]);
 
+        $password = Hash::make($request->password);
+
         $user = User::create([
             'name_akademi' => $request->name,
             'email' => $request->email,
             'no_nis' => $request->no_nis,
             'type' => 1,
-            'password' => $request->password,
+            'password' => $password,
         ]);
 
         $id = $user->id;
@@ -181,19 +195,22 @@ class RegisterController extends Controller
             'referral_code'=>$userId
         ]);
 
-        $akademi = Akademi::create([
+        Akademi::create([
             'nama_akademi' => $request->name,
             'referral_code' => $userId,
             'email' => $request->email,
             'no_nis' => $request->no_nis,
         ]);
+
         Auth::login($user);
-        // $pengirim = [
-        //     'pengirim' => $request->name,
-        //     'user_referral' => $userId
-        // ];
-        // Mail::to($request->email)->send(new DemoMail($pengirim));
-        return redirect()->route('akademi');
+        $akademi = Akademi::where('referral_code',$userId)->first(); 
+        $data['id_akademi'] = $akademi->id_akademi;
+        $data['isi'] = "Data anda masih belum lengkap";
+        $data['pengirim'] = "Admin";
+        $data['url'] = ('/akademi/isi_akademi_data');
+        notifyAkademi::create($data);
+
+        return redirect()->route('akademi')->with('success',"Selamat Datang");
     }
 
     protected function perusahaan(Request $request)

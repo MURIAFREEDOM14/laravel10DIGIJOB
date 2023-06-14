@@ -44,21 +44,6 @@
                             <a class="nav-link disabled" href="{{route('placement')}}">Penempatan</a>
                         </li>
                     @endif
-                    {{-- @if ($kandidat->negara_id == 2)
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="{{route('job')}}">Job</a>
-                        </li>                        
-                    @else
-                        @if ($kandidat->negara_id == null)
-                            <li class="nav-item">
-                                <a class="nav-link disabled" href="{{route('job')}}">Job</a>
-                            </li>    
-                        @else
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('job')}}">Job</a>
-                            </li>                            
-                        @endif
-                    @endif --}}
                     <li class="nav-item">
                         <a class="nav-link" href="/">Selesai</a>
                     </li>
@@ -169,24 +154,7 @@
                                     <input type="email" disabled required value="{{$user->email}}" name="email" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
-                            <div class="row mb-3 g-3 align-items-center">
-                                <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Status Tempat Kerja</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <select name="penempatan" required class="form-select" id="">
-                                        <option value="">-- Pilih penempatan tempat kerja --</option>
-                                        <option value="dalam negeri" @if ($kandidat->penempatan == "dalam negeri")
-                                            selected
-                                        @endif>Dalam Negeri</option>
-                                        <option value="luar negeri" @if ($kandidat->penempatan == "luar negeri")
-                                            selected
-                                        @endif>Luar Negeri</option>
-                                    </select>
-                                </div>
-                            </div>
                         </div>
-                        <div class="float-start">Catatan : Harap isi data ini dan simpan</div>
                         <button class="btn btn-primary my-3 float-end" type="submit">Simpan</button>
                     </form>
                 </div>

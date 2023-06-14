@@ -20,7 +20,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link" style="color:black" href="/laman">Laman <span class="sr-only"></span></a>
+                  <a class="nav-link" style="color:black" href="/" onclick="beranda(event)">Beranda<span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item">
                   {{-- <a class="nav-link" style="color:black" href="/hubungi_kami">Contact Us</a> --}}
@@ -50,6 +50,36 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
       @livewireScripts
       <script type="text/javascript">
+      
+      function beranda(ev)
+      {
+        ev.preventDefault();
+        var url = ev.currentTarget.getAttribute('href');
+        console.log(url);
+        swal({
+            title: 'Apakah anda yakin ingin kembali ke beranda?',
+            type: 'warning',
+            icon: 'warning',
+            buttons:{
+                confirm: {
+                    text : 'Iya',
+                    className : 'btn btn-success'
+                },
+                cancel: {
+                    visible: true,
+                    text: 'Tidak',
+                    className: 'btn btn-danger'
+                }
+            }
+        }).then((Delete) => {
+            if (Delete) {
+                window.location.href = url;
+            } else {
+                swal.close();
+            }
+        });
+      }
+      
       function confirmation(ev)
       {
         ev.preventDefault();

@@ -125,6 +125,7 @@ class AkademiController extends Controller
             'nama_kepala_akademi' => $request->nama_kepala_akademi,
             'nama_operator' => $request->nama_operator,
             'email_operator' => $request->email_operator,
+            'no_telp_operator' => $request->no_telp_operator,
         ]);
         return redirect('/akademi')->with('toast_success',"Data anda tersimpan");
     }

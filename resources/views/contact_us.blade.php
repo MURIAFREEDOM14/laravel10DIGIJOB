@@ -2,7 +2,7 @@
 @section('content')
 @include('sweetalert::alert')
     <div class="container">
-        <div class="card mb-5">
+        {{-- <div class="card mb-5">
             <div class="card-header">
                 <h5>Hubungi Kami</h5>
             </div>
@@ -37,7 +37,7 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="card">
             <div class="card-header">
                 <h5>Call Center</h5>
@@ -61,5 +61,6 @@
                 </div>
             </div>
         </div>
+        <div class="" style="height: 11rem;"></div>
     </div>
 @endsection

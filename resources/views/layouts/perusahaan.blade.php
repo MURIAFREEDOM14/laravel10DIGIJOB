@@ -123,8 +123,8 @@
                                         <div class="notif-scroll scrollbar-outer">
                                             <div class="notif-center">
                                                 @foreach ($notif as $item)
-                                                    <a>
-                                                        <div class="notif-icon notif-primary"> <i class="fa fa-user-plus"></i> </div>
+                                                    <a href="{{$item->url}}">
+                                                        <div class="notif-icon notif-warning"> <i class="fa fa-bell"></i> </div>
                                                         <div class="notif-content">
                                                             <div class="" style="">{{$item->isi}}</div>
                                                             <span class="time">{{date('d-m-Y | h:m:sa',strtotime($item->created_at))}}</span>

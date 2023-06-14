@@ -107,6 +107,7 @@ return new class extends Migration
 
             // paspor //
             $table->string('no_paspor')->nullable();
+            $table->string('pemilik_paspor')->nullable();
             $table->date('tgl_terbit_paspor')->nullable();
             $table->date('tgl_akhir_paspor')->nullable();
             $table->text('tmp_paspor')->nullable();

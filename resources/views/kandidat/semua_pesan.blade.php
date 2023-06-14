@@ -17,14 +17,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($semuaPesan as $item)
+                        @foreach ($semua_pesan as $item)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$item->pengirim}}</td>
                                 <td>{{date('d-m-Y | h:m:sa',strtotime($item->created_at))}}</td>
                                 <td>{{$item->pesan}}</td>
                                 <td>
-                                    <a href="/kirim_balik/{{$item->id}}" class="btn btn-primary">Balas</a>
+                                    @if ($item->pengirim == $kandidat->nama)
+                                    
+                                    @else
+                                        <a href="/kirim_balik/{{$item->id}}" class="btn btn-primary">Balas</a>
+                                    @endif
                                 </td>
                             </tr>    
                         @endforeach

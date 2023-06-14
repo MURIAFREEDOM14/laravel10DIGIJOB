@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('id_akademi')->nullable();
             $table->integer('id_kandidat')->nullable();
             $table->text('isi')->nullable();
+            $table->text('url')->nullable();
             $table->text('pengirim')->nullable();
             $table->timestamps();
         });

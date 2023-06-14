@@ -13,6 +13,7 @@
                             <th>No.</th>
                             <th>Dari</th>
                             <th>Isi Pesan</th>
+                            <th>URL</th>
                             <th>Waktu Pesan</th>
                         </tr>
                     </thead>
@@ -22,6 +23,13 @@
                             <td>{{$loop->iteration}}</td>
                             <td>{{$item->pengirim}}</td>
                             <td>{{$item->isi}}</td>
+                            <td>
+                                @if ($item->url == null)
+                                    <a>---</a>
+                                @else
+                                    <a href="{{$item->url}}" class="btn btn-primary">Shorcut</a>                                    
+                                @endif
+                            </td>
                             <td>{{date('d-m-Y | h:m:sa',strtotime($item->created_at)) }}</td>
                         </tr>                                
                         @endforeach

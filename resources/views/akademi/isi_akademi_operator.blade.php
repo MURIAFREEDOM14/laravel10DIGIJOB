@@ -40,6 +40,14 @@
                                     <input type="email" required value="{{$akademi->email_operator}}" name="email_operator" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <div class="row mb-3 g-3 align-items-center">
+                                <div class="col-md-4">
+                                    <label for="inputPassword6" class="col-form-label">No. Telp Operator</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="number" required value="{{$akademi->no_telp_operator}}" name="no_telp_operator" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                </div>
+                            </div>
                         </div>
                         <a href="/akademi/isi_akademi_data" class="btn btn-danger">Kembali</a>
                         <button class="btn btn-primary my-3 float-end" type="submit">Simpan</button>

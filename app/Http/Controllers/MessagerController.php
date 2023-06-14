@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kandidat;
+use App\Models\Akademi;
+use App\Models\messageAkademi;
 use App\Models\messageKandidat;
+use App\Models\messagePerusahaan;
+use App\Models\notifyAkademi;
 use App\Models\notifyKandidat;
+use App\Models\notifyPerusahaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Notification;
@@ -19,28 +24,19 @@ class MessagerController extends Controller
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        $semuaPesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)
-        ->get();
-        $pesan = Kandidat::join(
-            'message_kandidat', 'kandidat.id_kandidat','=','message_kandidat.id_kandidat'
-        )
-        ->where('kandidat.id_kandidat',$kandidat->id_kandidat)
-        ->limit(3)->get();
-        $notif = notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->get();
-        return view('/kandidat/semua_pesan',compact('kandidat','pesan','semuaPesan','notif'));
+        $semua_pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->limit(3)->get();
+        $notif = notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
+        return view('kandidat/semua_pesan',compact('kandidat','pesan','semua_pesan','notif'));
     }
 
     public function sendMessageKandidat($id)
     {
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
-        $notif = Notification::where('id_kandidat',$kandidat->id_kandidat)->get();
-        $pengirim = MessageKandidat::where('id',$id)->first();
-        $pesan = Kandidat::join(
-            'message_kandidat', 'kandidat.id_kandidat','=','message_kandidat.id_kandidat'
-        )
-        ->where('kandidat.id_kandidat',$kandidat->id_kandidat)
-        ->limit(3)->get();
+        $notif = Notification::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->limit(3)->get();
+        $pengirim = messageKandidat::where('id',$id)->first();
         return view('kandidat/kirim_pesan',compact('kandidat','pesan','notif','pengirim'));
     }
 
@@ -48,24 +44,59 @@ class MessagerController extends Controller
     {
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
-        $pesan = Message::where('id',$id)->first();
-        Message::create([
+        $pesan = messageKandidat::where('id',$id)->first();
+        messageKandidat::create([
             'id_kandidat'=>$kandidat->id_kandidat,
             'pesan'=>$request->pesan,
             'kepada'=>$pesan->pengirim,
             'pengirim'=>$kandidat->nama,
-            'type'=>"0",
         ]);
         return redirect('/semua_pesan')->with('toast_success',"pesan berhasil dikirim");
+    }
+
+    public function messageAkademi()
+    {
+        $user = Auth::user();
+        $akademi = Akademi::where('referral_code',$user->referral_code)->first();
+        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
+        $semua_pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->get();
+        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
+        return view('akademi/semua_pesan',compact('akademi','pesan','semua_pesan','notif'));
+    }
+
+    public function sendMessageAkademi($id)
+    {
+        $auth = Auth::user();
+        $akademi = akademi::where('referral_code',$auth->referral_code)->first();
+        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
+        $pengirim = messageakademi::where('id',$id)->first();
+        return view('akademi/kirim_pesan',compact('akademi','pesan','notif','pengirim'));
     }
 
     public function messagePerusahaan()
     {
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('referral_code',$auth->referral_code)->first();
-        $notif = Notification::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        $semuaPesan = Message::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
-        $pesan = Message::where('id_perusahaan',$perusahaan->id_Perusahaan)->limit(3)->get();
-        return view('perusahaan/semua_pesan',compact('perusahaan','notif','pesan','semuaPesan'));
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $semua_pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_Perusahaan)->limit(3)->get();
+        return view('perusahaan/semua_pesan',compact('perusahaan','notif','pesan','semua_pesan'));
+    }
+
+    public function sendMessagePerusahaan($id)
+    {
+        $auth = Auth::user();
+        $perusahaan = Perusahaan::where('referral_code',$auth->referral_code)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_Perusahaan)->limit(3)->get();
+        $pengirim = messagePerusahaan::where('id',$id)->first();
+        return view('perusahaan/kirim_pesan',compact('perusahaan','pesan','notif','pengirim'));
+    }
+
+    public function sendMessageConfirmPerusahaan()
+    {
+        
+        return redirect();
     }
 }

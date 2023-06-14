@@ -70,5 +70,6 @@ class Kernel extends HttpKernel
         'kandidat' => \App\Http\Middleware\Kandidat::class,
         'prioritas' => \App\Http\Middleware\prioritas::class,
         'akademi' => \App\Http\Middleware\Akademi::class,
+        'perusahaan' => \App\Http\Middleware\Perusahaan::class,
     ];
 }

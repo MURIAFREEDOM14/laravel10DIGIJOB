@@ -276,12 +276,13 @@ class ManagerController extends Controller
             messagePerusahaan::create([
                 'id_perusahaan' => $contact_us->id_perusahaan,
                 'pesan' => $request->balas,
-                'pengirim' => "admin",
+                'pengirim' => "Admin",
             ]);
             notifyPerusahaan::create([
                 'id_perusahaan' => $contact_us->id_perusahaan,
                 'isi' => "Anda mendapat pesan masuk",
-                'pengirim' => "admin",
+                'pengirim' => "Admin",
+                'url' => ('/perusahaan/semua_pesan'),
             ]);
             ContactUs::where('id',$id)->update([
                 'balas' => "dibaca",
@@ -290,12 +291,13 @@ class ManagerController extends Controller
             messageAkademi::create([
                 'id_akademi' => $contact_us->id_akademi,
                 'pesan' => $request->balas,
-                'pengirim' => "admin",
+                'pengirim' => "Admin",
             ]);
             notifyAkademi::create([
                 'id_akademi' => $contact_us->id_akademi,
                 'isi' => "Anda mendapat pesan masuk",
-                'pengirim' => "admin",
+                'pengirim' => "Admin",
+                'url' => ('/akademi/semua_pesan'),
             ]);
             ContactUs::where('id',$id)->update([
                 'balas' => "dibaca",
@@ -304,12 +306,13 @@ class ManagerController extends Controller
             messageKandidat::create([
                 'id_kandidat' => $contact_us->id_kandidat,
                 'pesan' => $request->balas,
-                'pengirim' => "admin",
+                'pengirim' => "Admin",
             ]);
             notifyKandidat::create([
                 'id_kandidat' => $contact_us->id_kandidat,
                 'isi' => "Anda mendapat pesan masuk",
-                'pengirim' => "admin",
+                'pengirim' => "Admin",
+                'url' => '/semua_pesan',
             ]);
             ContactUs::where('id',$id)->update([
                 'balas' => "dibaca",
