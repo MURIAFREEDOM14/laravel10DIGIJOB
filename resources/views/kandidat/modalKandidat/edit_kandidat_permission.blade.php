@@ -31,7 +31,7 @@
                                 <label for="inputPassword6" class="col-form-label">NIK Perizin</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" required value="{{$kandidat->nik_perizin}}" name="nik_perizin" id="inputPassword6" class="form-control @error('nik_perizin') is-invalid @enderror" aria-labelledby="passwordHelpInline">
+                                <input type="number" required value="{{$kandidat->nik_perizin}}" name="nik_perizin" id="inputPassword6" class="form-control @error('nik_perizin') is-invalid @enderror" aria-labelledby="passwordHelpInline">
                                 @error('nik_perizin')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>Harap isi no. nik 16 digit</strong>

@@ -109,7 +109,6 @@ class KandidatController extends Controller
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         Kandidat::where('referral_code',$id->referral_code)->update([
             'nama' => $kandidat->nama,
-            'nama_panggilan' => $request->nama_panggilan,
             'jenis_kelamin' => $request->jenis_kelamin,
             'tmp_lahir' => $request->tmp_lahir,
             'tgl_lahir' => $request->tgl_lahir,
@@ -743,6 +742,7 @@ class KandidatController extends Controller
             'pengalaman_kerja' => $jabatanValues,
             'penempatan' => $request->penempatan,
         ]);
+        return redirect()->route('placement')->with('toast_success',"Data anda tersimpan");
     }
 
     public function isi_kandidat_placement()
@@ -770,13 +770,14 @@ class KandidatController extends Controller
     public function simpan_kandidat_placement(Request $request)
     {
         $id = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         if($request->negara_id == 2)
         {
             $penempatan = "dalam negeri";
         } else {
             $penempatan = "luar negeri";
         }
-        Kandidat::where()->update([
+        Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
             'negara_id' => $request->negara_id,
             'penempatan' => $penempatan,
         ]);
@@ -845,7 +846,6 @@ class KandidatController extends Controller
             'no_telp_perizin' => $request->no_telp_perizin,
             'tmp_lahir_perizin' => $request->tmp_lahir_perizin,
             'tgl_lahir_perizin' => $request->tgl_lahir_perizin,
-            'alamat_perizin' => $request->alamat_perizin,
             'rt_perizin' => $request->rt_perizin,
             'rw_perizin' => $request->rw_perizin,
             'dusun_perizin' => $request->dusun_perizin,
@@ -859,6 +859,9 @@ class KandidatController extends Controller
             'hubungan_perizin' => $request->hubungan_perizin
         ]);
         if($request->confirm == "ya"){
+            Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
+                'no_paspor' => 000,
+            ]);
             return redirect()->route('paspor')->with('toast_success',"Data anda tersimpan");
         } else {
             return redirect()->route('kandidat')->with('success',"Data anda tersimpan");
