@@ -13,11 +13,23 @@
                 line-height:1px;
             }
             .img{
+                width: 100%;
+                height: auto;
                 border: 1px solid black;
                 border-radius: 2%;
             }
             .hidden{
                 display:none;
+            }
+            video{
+                width: 100%;
+                height: auto;
+            }
+            .text1 {
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
             }
         </style>
         <!-- Fonts and icons -->
@@ -99,7 +111,10 @@
                             <li class="nav-item dropdown hidden-caret">
                                 <a class="nav-link dropdown-toggle" href="" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-bell"></i>
-                                    {{-- <span class="notification"></span> --}}
+                                    @php
+                                        $ttl_notif = $notif->count();
+                                    @endphp
+                                    <span class="notification" style="background-color: red">{{$ttl_notif}}</span>
                                 </a>
                                 <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
                                     <li>
@@ -110,9 +125,11 @@
                                             <div class="notif-center">
                                                 @foreach ($notif as $item)
                                                 <a href="{{$item->url}}">
-                                                    <div class="notif-icon notif-warning"> <i class="fas fa-bell"></i> </div>
+                                                    <div class="notif-icon notif-warning">
+                                                        <i class="fas fa-bell"></i>
+                                                    </div>
                                                     <div class="notif-content">
-                                                        <div class="" style="">{{$item->isi}}</div>
+                                                        <div class="text1" style="">{{$item->isi}}</div>
                                                         <span class="time">{{date('d-m-Y | h:m:sa',strtotime($item->created_at))}}</span>
                                                     </div>
                                                 </a>    
@@ -213,21 +230,21 @@
                                     <ul class="nav">
                                         <li>
                                             <a href="/profil_kandidat" class="dropdown-item">
-                                                <span class="link-collapse">Profilku</span>
+                                                <div class="link-collapse">Profilku <i class="fas fa-user-circle float-right"></i> </div>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="/isi_kandidat_personal" class="dropdown-item">
                                                 @if ($kandidat->negara_id == null)
-                                                    <span class="link-collapse">Lengkapi Profil</span>
+                                                    <div class="link-collapse"> Lengkapi Profil <i class="fas fa-exclamation-circle float-right"></i></div>
                                                 @else
-                                                    <span class="link-collapse">Edit Profil</span>
+                                                    <div class="link-collapse"> Edit Profil <i class="fas fa-edit float-right"></i></div>
                                                 @endif
                                             </a>
                                         </li>
                                         <li>
                                             <a href="{{route('logout')}}" onclick="confirmation(event)" class="dropdown-item">
-                                                <span class="link-collapse">Keluar</span>
+                                                <div class="link-collapse"> Keluar <i class="fas fa-door-open float-right"></i></div>
                                             </a>
                                         </li>
                                     </ul>

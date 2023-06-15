@@ -6,6 +6,7 @@ use App\Mail\DemoMail;
 use App\Models\Kandidat;
 use App\Models\notifyAkademi;
 use App\Models\notifyKandidat;
+use App\Models\notifyPerusahaan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -155,7 +156,7 @@ class RegisterController extends Controller
 
         $kandidat = Kandidat::where('referral_code',$userId)->first(); 
         $data['id_kandidat'] = $kandidat->id_kandidat;
-        $data['isi'] = "Data anda masih belum lengkap";
+        $data['isi'] = "Harap lengkapi data profil anda";
         $data['pengirim'] = "Admin";
         $data['url'] = ('/isi_kandidat_personal');
         notifyKandidat::create($data);
@@ -205,11 +206,10 @@ class RegisterController extends Controller
         Auth::login($user);
         $akademi = Akademi::where('referral_code',$userId)->first(); 
         $data['id_akademi'] = $akademi->id_akademi;
-        $data['isi'] = "Data anda masih belum lengkap";
+        $data['isi'] = "Harap lengkapi data profil anda";
         $data['pengirim'] = "Admin";
         $data['url'] = ('/akademi/isi_akademi_data');
         notifyAkademi::create($data);
-
         return redirect()->route('akademi')->with('success',"Selamat Datang");
     }
 
@@ -237,19 +237,20 @@ class RegisterController extends Controller
             'referral_code' => $userId,
         ]);
 
-        $perusahaan = Perusahaan::create([
+        Perusahaan::create([
             'nama_perusahaan'=>$request->name,
             'no_nib'=>$request->nib,
             'referral_code'=>$userId,
             'email_perusahaan'=>$request->email,
         ]);
 
-        Auth::login($perusahaan);
-        // $pengirim = [
-        //     'pengirim' => $request->name,
-        //     'user_referral' => $userId
-        // ];
-        // Mail::to($request->email)->send(new DemoMail($pengirim));
-        return redirect('/isi_perusahaan_data');
+        Auth::login($user);
+        $perusahaan = Perusahaan::where('referral_code',$userId)->first(); 
+        $data['id_perusahaan'] = $perusahaan->id_perusahaan;
+        $data['isi'] = "Harap lengkapi data profil anda";
+        $data['pengirim'] = "Admin";
+        $data['url'] = ('/perusahaan/isi_perusahaan_data');
+        notifyPerusahaan::create($data);
+        return redirect()->route('perusahaan')->with('success',"Selamat Datang");
     }
 }

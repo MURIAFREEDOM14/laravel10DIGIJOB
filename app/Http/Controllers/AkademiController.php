@@ -145,7 +145,11 @@ class AkademiController extends Controller
         $akademi = Akademi::where('referral_code',$user->referral_code)->first();
         $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
         $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
-        return view('akademi/lihat_profil_akademi',compact('akademi','pesan','notif'));
+        if($akademi->nama_kepala_akademi == null){
+            return redirect()->route('akademi')->with('warning',"Harap lengkapi profil akademi terlebih dahulu");
+        } else {
+            return view('akademi/lihat_profil_akademi',compact('akademi','pesan','notif'));
+        }
     }
 
     public function editProfilAkademi()
@@ -214,7 +218,7 @@ class AkademiController extends Controller
 
         if($usia < 18)
         {
-            return redirect('/akademi/list_kandidat')->with('warning',"Maaf Umur anda masih belum cukup, syarat umur ialah 18 tahun++");
+            return redirect('/akademi/tambah_kandidat')->with('warning',"Maaf Umur anda masih belum cukup, syarat umur ialah 18 thn keatas");
         }
 
         $user = User::create([
@@ -242,7 +246,7 @@ class AkademiController extends Controller
             'id_akademi' => $akademi->id_akademi,
         ]);
 
-        return redirect('/akademi/isi_kandidat_personal/'.$nama.'/'.$id);
+        return redirect('/akademi/isi_kandidat_personal/'.$nama.'/'.$id)->with('toast_success',"Data anda tersimpan");
     }
 
     public function isi_personal($nama, $id)

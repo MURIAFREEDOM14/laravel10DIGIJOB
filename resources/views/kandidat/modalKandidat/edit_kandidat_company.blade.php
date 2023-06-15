@@ -7,10 +7,7 @@
             <div class="row">
                 <h4 class="text-center">PROFIL BIO DATA</h4>
                 <h6 class="text-center mb-5" style="text-transform: uppercase">
-                    @if ($kandidat->penempatan == null)
-                    @else
-                        {{$kandidat->penempatan}}
-                    @endif
+                    {{$negara}}
                 </h6>
                 <form action="/isi_kandidat_company" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -28,15 +25,14 @@
                                     <div class="table-responsive">
                                         <table class="table table-striped table-bordered">
                                             <thead>
-                                                <tr style="font-size:12px;">
-                                                    <th>No.</th>
-                                                    <th>Nama Perusahaan</th>
-                                                    <th>Alamat Perusahaan</th>
-                                                    <th>Jabatan</th>
-                                                    <th>Periode</th>
-                                                    <th>Alasan Berhenti</th>
-                                                    <th>Video</th>
-                                                    <th>Opsi</th>
+                                                <tr style="font-size:12;">
+                                                    <th style="width: 1">No.</th>
+                                                    <th style="width: 1">Nama Perusahaan</th>
+                                                    <th style="width: 1">Alamat Perusahaan</th>
+                                                    <th style="width: 1">Jabatan</th>
+                                                    <th style="width: 1">Periode</th>
+                                                    <th style="width: 1">Alasan Berhenti</th>
+                                                    <th style="width: 1">Opsi</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -49,17 +45,8 @@
                                                         <td>{{date('d-M-Y',strtotime($item->periode_awal))}} - {{date('d-M-Y',strtotime($item->periode_akhir))}}</td>
                                                         <td>{{$item->alasan_berhenti}}</td>
                                                         <td>
-                                                            @if ($item->video_pengalaman_kerja !== null)
-                                                                <video width="200" controls>
-                                                                    <source src="/gambar/Kandidat/{{$item->nama}}/Pengalaman Kerja/{{$item->video_pengalaman_kerja}}">
-                                                                </video>    
-                                                            @else
-                                                            ---
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            <a class="btn btn-warning mb-1" href="/edit_kandidat_pengalaman_kerja/{{$item->pengalaman_kerja_id}}"><i class=""></i>Edit</a>
-                                                            <a class="btn btn-danger mb-1" href="/hapus_kandidat_pengalaman_kerja/{{$item->pengalaman_kerja_id}}" onclick="hapusData(event)"><i class=""></i>Hapus</a>
+                                                            <a class="btn btn-warning mb-1" href="/edit_kandidat_pengalaman_kerja/{{$item->pengalaman_kerja_id}}">Edit</a>
+                                                            <a class="btn btn-danger mb-1" href="/hapus_kandidat_pengalaman_kerja/{{$item->pengalaman_kerja_id}}" onclick="hapusData(event)">Hapus</a>
                                                             {{-- <button onclick="destroy({{$item->pengalaman_kerja_id}})">Hapus</button> --}}
                                                         </td>
                                                     </tr>                                    

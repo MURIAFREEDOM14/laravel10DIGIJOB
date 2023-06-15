@@ -38,7 +38,7 @@
                             <label for="exampleInputEmail1" class="form-label">Video Kerja</label>
                             <div class="">
                                 @if ($pengalaman_kerja->video_pengalaman_kerja !== null)
-                                    <video width="400" controls>
+                                    <video width="400" class="" controls>
                                         <source src="/gambar/Kandidat/{{$pengalaman_kerja->nama}}/Pengalaman Kerja/{{$pengalaman_kerja->video_pengalaman_kerja}}">
                                     </video>
                                     <input type="file" name="video" class="form-control" id="video" aria-describedby="emailHelp" accept="video/*">

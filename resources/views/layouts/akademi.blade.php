@@ -98,7 +98,10 @@
                             <li class="nav-item dropdown hidden-caret">
                                 <a class="nav-link dropdown-toggle" href="/perbaikan" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-bell"></i>
-                                    {{-- <span class="notification">4</span> --}}
+                                    @php
+                                        $ttl_notif = $notif->count();
+                                    @endphp
+                                    <span class="notification" style="background-color: red">{{$ttl_notif}}</span>
                                 </a>
                                 <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
                                     <li>

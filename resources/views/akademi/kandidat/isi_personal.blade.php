@@ -25,7 +25,7 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Nama Panggilan</label>
+                                    <label for="inputPassword6" class="col-form-label">Username</label>
                                 </div>
                                 <div class="col-md-8">
                                     <input type="text" required value="{{$kandidat->nama_panggilan}}" placeholder="Maksimal 10 kata" name="nama_panggilan" id="inputPassword6" class="form-control @error('nama_panggilan') is-invalid @enderror" aria-labelledby="passwordHelpInline">
@@ -112,10 +112,10 @@
                                     <label for="inputPassword6" class="col-form-label">Berat & Tinggi Badan</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="number" value="{{$kandidat->berat}}" placeholder="Masukkan berat badan" name="berat" class="form-control">
+                                    <input type="number" required value="{{$kandidat->berat}}" placeholder="Masukkan berat badan" name="berat" class="form-control">
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="number" value="{{$kandidat->tinggi}}" placeholder="Masukkan tinggi badan" name="tinggi" class="form-control">
+                                    <input type="number" required value="{{$kandidat->tinggi}}" placeholder="Masukkan tinggi badan" name="tinggi" class="form-control">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
@@ -131,7 +131,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="row mb-3 g-3 align-items-center">
+                            {{-- <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Status Tempat Kerja</label>
                                 </div>
@@ -146,9 +146,11 @@
                                         @endif>Luar Negeri</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
-                        <button class="btn btn-primary my-3 float-end" type="submit">Simpan</button>
+                        <hr>
+                        <a class="" href="/akademi/isi_kandidat_document/username01/131">Lewati</a>
+                        <button class="btn btn-primary float-end" type="submit">Simpan</button>
                     </form>
                 </div>
                 <hr>

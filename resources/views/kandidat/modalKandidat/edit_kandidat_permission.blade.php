@@ -7,17 +7,15 @@
             <div class="row">
                 <h4 class="text-center">PROFIL BIO DATA</h4>
                 <h6 class="text-center mb-5" style="text-transform: uppercase">
-                    @if ($kandidat->penempatan == null)
-                    @else
-                        {{$kandidat->penempatan}}
-                    @endif
+                    {{$negara}}
                 </h6>
                 <form action="/isi_kandidat_permission" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="" id="perizin">
                         <div class="row mb-1">
                             <div class="col-md-12">
-                                <h6 class="ms-5">Surat Izin OrangTua / Suami / Istri / Wali</h6> 
+                                {{-- <h6 class="ms-5">Surat Izin OrangTua / Suami / Istri / Wali</h6>  --}}
+                                <h6 class="ms-5">Kontak Darurat</h6> 
                             </div>
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
@@ -95,7 +93,7 @@
                                         </span>
                                     @enderror
                                 @elseif ($kandidat->foto_ktp_izin !== null)
-                                    <img src="/gambar/Kandidat/{{$kandidat->nama}}/KTP Perizin/{{$kandidat->foto_ktp_izin}}" width="150" height="150" alt="">
+                                    <img src="/gambar/Kandidat/{{$kandidat->nama}}/KTP Perizin/{{$kandidat->foto_ktp_izin}}" width="150" height="150" alt="" class="img mb-1">
                                     <input type="file" class="form-control @error('foto_ktp_izin') is-invalid @enderror"  name="foto_ktp_izin" value="{{$kandidat->foto_ktp_izin}}" id="inputPassword6" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @error('foto_ktp_izin')
                                         <span class="invalid-feedback" role="alert">

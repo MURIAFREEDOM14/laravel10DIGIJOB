@@ -4,6 +4,7 @@
 use App\Http\Controllers\AkademiController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Manager\ContactUsController;
 use App\Http\Controllers\CaptureController;
 use App\Http\Controllers\OutputController;
 use App\Http\Controllers\PaymentController;
@@ -19,7 +20,7 @@ use App\Http\Livewire\LocationPermission;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KandidatController;
-use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\NegaraController;
 use App\Http\Controllers\ReferralController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\MailController;
@@ -51,9 +52,6 @@ Route::controller(ManagerController::class)->group(function() {
     Route::get('/manager/buat_surat_izin','buatSuratIzin')->middleware('manager');
     Route::post('/manager/buat_surat_izin','simpanSuratIzin');
     Route::get('/manager/kandidat/cetak_surat/{id}','cetakSurat')->middleware('manager');
-    Route::get('/manager/contact_us','contactUs');
-    Route::get('/manager/balas_pesan/{id}','lihatContactUs')->middleware('manager');
-    Route::post('/manager/balas_pesan/{id}','responseContactUs');
 
     // DATA KANDIDAT // 
     Route::get('/manager/kandidat/lihat_profil/{id}','lihatProfil')->middleware('manager');
@@ -112,7 +110,13 @@ Route::controller(ManagerController::class)->group(function() {
     Route::get('/manager/cek_pembayaran/perusahaan/{id}','cekPembayaranPerusahaan')->middleware('manager');
     Route::post('/manager/cek_pembayaran/perusahaan/{id}','cekConfirmPerusahaan');
 
-    Route::post('/contact_us','sendContactUs');
+});
+
+Route::controller(ContactUsController::class)->group(function() {
+    Route::get('/manager/contact_us','contactUs');
+    Route::post('/manager/contact_us','sendContactUs');
+    Route::get('/manager/balas_pesan/{id}','lihatContactUs')->middleware('manager');
+    Route::post('/manager/balas_pesan/{id}','responseContactUs');
 });
 
 // DATA LAMAN //
@@ -326,6 +330,15 @@ Route::controller(VerifikasiController::class)->group(function(){
     Route::get('/verifikasi','verifikasi')->name('verifikasi');
     Route::post('/verifikasi','masukVerifikasi');
     Route::get('/ulang_verifikasi','ulang_verifikasi');
+});
+
+Route::controller(NegaraController::class)->group(function() {
+    Route::get('/manager/negara_tujuan','index')->middleware('manager')->name('negara');
+    Route::get('/manager/tambah_negara','tambahNegara')->middleware('manager');
+    Route::post('/manager/tambah_negara','simpanNegara');
+    Route::get('/manager/edit_negara/{id}','editNegara')->middleware('manager');
+    Route::post('/manager/edit_negara/{id}','ubahNegara');
+    Route::get('/manager/hapus_negara/{id}','hapusNegara');
 });
 
 // data pekerjaan

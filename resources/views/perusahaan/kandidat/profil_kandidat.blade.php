@@ -11,14 +11,6 @@
             </div>
         </div>
         <div class="card-body">
-            {{-- <div class="row" style="line-height:20px">
-                <div class="col-sm-9">
-                    <div class="row">
-                        <div class="col-sm-4"><b class="bold">NO. REGISTER</b></div>
-                        <div class="col-sm-6"><b class="bold">: {{$kandidat->jenis_kelamin.$negara->kode_negara}}_{{$kandidat->id_kandidat+800}}</b></div>                
-                    </div>
-                </div>
-            </div> --}}
             <div class="row ml-5 mt-3 mb-3"><b class="bold">PERSONAL BIO DATA</b></div>
             <div class ="row" style="line-height:20px">
                 <div class="col-sm-9">
@@ -103,68 +95,36 @@
                                     <div class="table-responsive">
                                         <table class="table table-bordered-bd-default text-center">
                                             <thead>
-                                            <tr class="" style="font-size:10px;">
-                                                <th style="width: 1px;"><b class="bold">No</b></th>
-                                                <th style="width: 1px;"><b class="bold">Nama Majikan/Perusahaan</b></th>
-                                                <th style="width: 1px;"><b class="bold">Alamat Majikan/Perusahaan</b></th>
-                                                <th style="width: 1px;"><b class="bold">Jabatan</b></th>
-                                                <th><b class="bold">Periode</b></th>
-                                                <th style="width: 1px"><b class="bold">Alasan Berhenti</b></th>
-                                                <th><b class="bold">Pratinjau Video</b></th>
-                                            </tr>
+                                                <tr class="" style="font-size:10px;">
+                                                    <th style="width: 1px;"><b class="bold">No</b></th>
+                                                    <th style="width: 1px;"><b class="bold">Nama Perusahaan</b></th>
+                                                    <th style="width: 1px;"><b class="bold">Alamat Perusahaan</b></th>
+                                                    <th style="width: 1px;"><b class="bold">Jabatan</b></th>
+                                                    <th><b class="bold">Periode</b></th>
+                                                    <th style="width: 1px"><b class="bold">Alasan Berhenti</b></th>
+                                                    <th><b class="bold">Pratinjau Video</b></th>
+                                                </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <th><b class="bold">1st</b></th>
-                                                    <td><b class="bold">{{$kandidat->nama_perusahaan1}}</b></td>
-                                                    <td><b class="bold">{{$kandidat->alamat_perusahaan1}}</b></td>
-                                                    <td><b class="bold">{{$kandidat->jabatan1}}</b></td>
-                                                    <td><b class="bold">{{$periode_awal1}} - {{$periode_akhir1}}</b></td>
-                                                    <td><b class="bold">{{$kandidat->alasan1}}</b></td>
-                                                    @if ($kandidat->video_kerja1 !== null)
-                                                        <td>
-                                                            <button type="button" style="font-size: 10px; font-weight:bold;" class="btn" data-bs-toggle="modal" data-bs-target="#video_kerja1">
-                                                                See Video
-                                                            </button>
-                                                        </td>                                                    
-                                                    @else
-                                                        <td>---</td>
-                                                    @endif
-                                                </tr>
-                                                <tr>
-                                                    <th><b class="bold">2nd</b></th>
-                                                    <td><b class="bold">{{$kandidat->nama_perusahaan2}}</b></td>
-                                                    <td><b class="bold">{{$kandidat->alamat_perusahaan2}}</b></td>
-                                                    <td><b class="bold">{{$kandidat->jabatan2}}</b></td>
-                                                    <td><b class="bold">{{$periode_awal2}} - {{$periode_akhir2}}</b></td>
-                                                    <td><b class="bold">{{$kandidat->alasan2}}</b></td>
-                                                    @if ($kandidat->video_kerja2 !== null)
-                                                        <td>
-                                                            <button type="button" style="font-size: 10px; font-weight:bold; " class="btn" data-bs-toggle="modal" data-bs-target="#video_kerja2">
-                                                                See Video
-                                                            </button>
-                                                        </td>
-                                                    @else
-                                                        <td>---</td>
-                                                    @endif
-                                                </tr>
-                                                <tr>
-                                                    <th><b class="bold">3rd</b></th>
-                                                    <td><b class="bold">{{$kandidat->nama_perusahaan3}}</b></td>
-                                                    <td><b class="bold">{{$kandidat->alamat_perusahaan3}}</b></td>
-                                                    <td><b class="bold">{{$kandidat->jabatan3}}</b></td>
-                                                    <td><b class="bold">{{$periode_awal3}} - {{$periode_akhir3}}</b></td>
-                                                    <td><b class="bold">{{$kandidat->alasan3}}</b></td>
-                                                    @if ($kandidat->video_kerja3 !== null)
-                                                    <td>
-                                                        <button type="button" style="font-size: 10px; font-weight:bold; " class="btn" data-bs-toggle="modal" data-bs-target="#video_kerja3">
-                                                            See Video
-                                                        </button>
-                                                    </td>    
-                                                    @else
-                                                        <td>---</td>
-                                                    @endif
-                                                </tr>
+                                                @foreach ($info_kandidat as $item)
+                                                    <tr>
+                                                        <th><b class="bold">{{$loop->iteration}}</b></th>
+                                                        <td><b class="bold">{{$item->nama_perusahaan}}</b></td>
+                                                        <td><b class="bold">{{$item->alamat_perusahaan}}</b></td>
+                                                        <td><b class="bold">{{$item->jabatan}}</b></td>
+                                                        <td><b class="bold">{{date('d-M-Y',strtotime($item->periode_awal))}} - {{date('d-M-Y',strtotime($item->periode_akhir))}}</b></td>
+                                                        <td><b class="bold">{{$item->alasan_berhenti}}</b></td>
+                                                        @if ($item->video_kerja !== null)
+                                                            <td>
+                                                                <button type="button" style="font-size: 10px; font-weight:bold;" class="btn" data-bs-toggle="modal" data-bs-target="#video_kerja1">
+                                                                    See Video
+                                                                </button>
+                                                            </td>                                                    
+                                                        @else
+                                                            <td>---</td>
+                                                        @endif
+                                                    </tr>
+                                                @endforeach 
                                             </tbody>
                                         </table>
                                     </div>
@@ -172,23 +132,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="text-center">
-                        <p>
-                            <form action="/perusahaan/interview" method="POST">
-                                @csrf
-                                <input type="text" hidden name="id_kandidat" value="{{$kandidat->id_kandidat}}" id="">
-                                <input type="text" hidden name="nama_kandidat" value="{{$kandidat->nama}}" id="">
-                                <input type="text" hidden name="usia" value="{{$kandidat->usia}}" id="">
-                                <input type="text" hidden name="jenis_kelamin" value="{{$kandidat->jenis_kelamin}}" id="">
-                                <input type="text" hidden name="pengalaman_kerja" value="{{$pengalamanKerja->pengalaman_kerja}}" id="">
-                            </form>
-                        </p>
-                    </div>
                 </div>
             </div>
-            <div class="row">
-                <a href="/perusahaan/list/kandidat" class="btn btn-primary">Kembali</a>
-            </div>
+            <a href="/perusahaan/list/kandidat" class="btn btn-primary">Kembali</a>
         </div>        
     </div>
     <div class="row">
@@ -226,7 +172,7 @@
     </div>
 </div>        
 <!-- Modal -->
-<div class="modal fade" id="video_kerja1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+{{-- <div class="modal fade" id="video_kerja1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body text-center">
@@ -258,5 +204,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection

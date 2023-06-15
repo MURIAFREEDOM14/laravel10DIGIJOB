@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Bootstrap demo</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"> --}}
     </head>
     <body>
         <select name="" class="select1" id="select1">
@@ -37,8 +37,8 @@
                         for(var i = 0; i < data.length; i++){
                             op+='<option value="'+data[i].id+'">"'+data[i].kota+'"</option>';
                         }
-                        div.find('.select2').html(" ");
-                        div.find('.select2').append(op);
+                        div.find('#select2').html(" ");
+                        div.find('#select2').append(op);
                         console.log(op);
                     },
                     error:function() {

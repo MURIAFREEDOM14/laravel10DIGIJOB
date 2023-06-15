@@ -7,10 +7,7 @@
             <div class="row">
                 <h4 class="text-center">PROFIL BIO DATA</h4>
                 <h6 class="text-center mb-5" style="text-transform: uppercase">
-                    @if ($kandidat->penempatan == null)
-                    @else
-                        {{$kandidat->penempatan}}
-                    @endif
+                    {{$negara}}
                 </h6>
                 <form action="/isi_kandidat_family" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -100,7 +97,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     @if ($kandidat->foto_cerai)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Cerai/{{$kandidat->foto_cerai}}" width="150" height="150" alt="">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Cerai/{{$kandidat->foto_cerai}}" width="150" height="150" alt="" class="img mb-1">
                                         <input type="file" class="form-control" name="foto_cerai" accept="image/*">                                        
                                     @else
                                         <input type="file" class="form-control" name="foto_cerai" accept="image/*">
@@ -191,7 +188,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     @if ($kandidat->foto_kematian_pasangan !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Kematian Pasangan/{{$kandidat->foto_kematian_pasangan}}" width="150" height="150" alt="">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Kematian Pasangan/{{$kandidat->foto_kematian_pasangan}}" width="150" height="150" alt="" class="img mb-1">
                                         <input type="file" class="form-control" name="foto_kematian_pasangan" accept="image/*">
                                     @else
                                         <input type="file" required class="form-control" name="foto_kematian_pasangan" accept="image/*">
@@ -205,7 +202,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     @if ($kandidat->foto_buku_nikah !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Buku Nikah/{{$kandidat->foto_buku_nikah}}" width="150" height="150" alt="">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Buku Nikah/{{$kandidat->foto_buku_nikah}}" width="150" height="150" alt="" class="img mb-1">
                                         <input type="file" name="foto_buku_nikah" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">
                                     @else
                                         <input type="file" required name="foto_buku_nikah" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        

@@ -7,10 +7,7 @@
             <div class="row">
                 <h4 class="text-center">PROFIL BIO DATA</h4>
                 <h6 class="text-center mb-5" style="text-transform: uppercase">
-                    @if ($kandidat->penempatan == null)
-                    @else
-                        {{$kandidat->penempatan}}
-                    @endif
+                    {{$negara}}
                 </h6>
                 <form action="/isi_kandidat_paspor" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -68,7 +65,7 @@
                                 @if ($kandidat->foto_paspor == "")
                                     <input type="file" class="form-control"  name="foto_paspor" value="{{$kandidat->foto_paspor}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                 @elseif ($kandidat->foto_paspor !== null)
-                                    <img src="/gambar/Kandidat/{{$kandidat->nama}}/Paspor/{{$kandidat->foto_paspor}}" width="150" height="150" alt="">
+                                    <img src="/gambar/Kandidat/{{$kandidat->nama}}/Paspor/{{$kandidat->foto_paspor}}" width="150" height="150" alt="" class="img mb-1">
                                     <input type="file" class="form-control"  name="foto_paspor" value="{{$kandidat->foto_paspor}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                 @else
                                     <input type="file" required class="form-control"  name="foto_paspor" value="{{$kandidat->foto_paspor}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        

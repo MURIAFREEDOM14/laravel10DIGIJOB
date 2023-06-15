@@ -7,26 +7,32 @@
             Semua Notifikasi
         </div>
         <div class="card-body">
-            <table class="table table-bordered table-head-bg-primary table-bordered-bd-primary">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Dari</th>
-                        <th>Isi Pesan</th>
-                        <th>Waktu Pesan</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($notif as $item)
-                    <tr>
-                        <td>{{$loop->iteration}}</td>
-                        <td>{{$item->pengirim_notifikasi}}</td>
-                        <td>{{$item->isi}}</td>
-                        <td>{{date('d-m-Y | h:m:sa',strtotime($item->created_at)) }}</td>
-                    </tr>                                
-                    @endforeach
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-bordered table-head-bg-primary table-bordered-bd-primary">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Dari</th>
+                            <th>Isi Pesan</th>
+                            <th>URL</th>
+                            <th>Waktu Pesan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($notif as $item)
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$item->pengirim}}</td>
+                            <td>{{$item->isi}}</td>
+                            <td>
+                                <a class="btn btn-primary" href="{{$item->url}}">Shorcut</a>
+                            </td>
+                            <td>{{date('d-m-Y | h:m:sa',strtotime($item->created_at)) }}</td>
+                        </tr>                                
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
             <div class="">Notifikasi akan terhapus dalam 2 minggu</div>
         </div>
     </div>

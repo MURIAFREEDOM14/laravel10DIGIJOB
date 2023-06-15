@@ -93,18 +93,17 @@ class KandidatController extends Controller
         $id = Auth::user();
         $user = User::where('id',$id->id)->first();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        $negara = Kandidat::join(
-            'ref_negara', 'kandidat.negara_id','=','ref_negara.negara_id'
-        )
-        ->where('kandidat.negara_id',$kandidat->negara_id)->first('negara');
+        $show_negara = Negara::where('negara_id',$kandidat->negara_id)->first();
+        if($show_negara == null){
+            $negara = null;
+        } else {
+            $negara = $show_negara->negara;    
+        }
         return view('kandidat/modalKandidat/edit_kandidat_personal',compact('timeNow','user','kandidat','negara'));
     }
 
     public function simpan_kandidat_personal(Request $request)
     {
-        $validated = $request->validate([
-            'nama_panggilan' => 'required|max:10',
-        ]);
         $usia = Carbon::parse($request->tgl_lahir)->age;
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
@@ -142,7 +141,12 @@ class KandidatController extends Controller
         $kota = Kota::all();
         $provinsi = Provinsi::all();
         // $negara = Negara::all();
-        $negara = Negara::where('negara_id',$kandidat->negara_id)->first('negara');
+        $show_negara = Negara::where('negara_id',$kandidat->negara_id)->first();
+        if($show_negara == null){
+            $negara = null;
+        } else {
+            $negara = $show_negara->negara;    
+        }
         return view('Kandidat/modalKandidat/edit_kandidat_document',compact('kandidat','kelurahan','kecamatan','kota','provinsi','negara'));
     }
 
@@ -349,7 +353,13 @@ class KandidatController extends Controller
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        $negara = Negara::where('negara_id',$kandidat->negara_id)->first('negara');
+        $show_negara = Negara::where('negara_id',$kandidat->negara_id)->first();
+        if($show_negara == null){
+            $negara = null;
+        } else {
+            $negara = $show_negara->negara;    
+        }
+
         if ($kandidat->stats_nikah == null) {
             return redirect()->route('company');
         } elseif($kandidat->stats_nikah !== "Single") {
@@ -448,7 +458,12 @@ class KandidatController extends Controller
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code', $id->referral_code)->first(); 
-        $negara = Negara::where('negara_id',$kandidat->negara_id)->first('negara');
+        $show_negara = Negara::where('negara_id',$kandidat->negara_id)->first();
+        if($show_negara == null){
+            $negara = null;
+        } else {
+            $negara = $show_negara->negara;    
+        }
         return view('Kandidat/modalKandidat/edit_kandidat_vaksinasi',['kandidat'=>$kandidat,'negara'=>$negara]);
     }
 
@@ -548,7 +563,12 @@ class KandidatController extends Controller
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code', $id->referral_code)->first();
-        $negara = Negara::where('negara_id',$kandidat->negara_id)->first('negara');
+        $show_negara = Negara::where('negara_id',$kandidat->negara_id)->first();
+        if($show_negara == null){
+            $negara = null;
+        } else {
+            $negara = $show_negara->negara;    
+        }
         return view('Kandidat/modalKandidat/edit_kandidat_parent',['kandidat'=>$kandidat,'negara'=>$negara]);
     }
 
@@ -576,7 +596,12 @@ class KandidatController extends Controller
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code', $id->referral_code)->first();
-        $negara = Negara::where('negara_id',$kandidat->negara_id)->first('negara');
+        $show_negara = Negara::where('negara_id',$kandidat->negara_id)->first();
+        if($show_negara == null){
+            $negara = null;
+        } else {
+            $negara = $show_negara->negara;    
+        }
         $pengalaman_kerja = PengalamanKerja::join(
             'kandidat','prt_pengalaman_kerja.id_kandidat','=','kandidat.id_kandidat'
         )->where('prt_pengalaman_kerja.id_kandidat',$kandidat->id_kandidat)->get();
@@ -725,10 +750,15 @@ class KandidatController extends Controller
         $negara_id = "";
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code', $id->referral_code)->first();
-        $negara_name = Negara::where('negara_id',$kandidat->negara_id)->first('negara');
-        $negara = Negara::where('negara_id','not like',2)->get();
+        $show_negara = Negara::where('negara_id',$kandidat->negara_id)->first();
+        if($show_negara == null){
+            $negara = null;
+        } else {
+            $negara = $show_negara->negara;    
+        }
+        $semua_negara = Negara::all();
         $pekerjaan = Pekerjaan::where('negara_id',$negara_id)->get();
-        return view('Kandidat/modalKandidat/edit_kandidat_placement',compact('negara','kandidat','pekerjaan','negara_id'));
+        return view('Kandidat/modalKandidat/edit_kandidat_placement',compact('negara','semua_negara','kandidat','pekerjaan','negara_id'));
     }
 
     public function placement(Request $request)
@@ -740,9 +770,15 @@ class KandidatController extends Controller
     public function simpan_kandidat_placement(Request $request)
     {
         $id = Auth::user();
-        Kandidat::where('referral_code', $id->referral_code)->update([
-            'penempatan' => $request->penempatan,
+        if($request->negara_id == 2)
+        {
+            $penempatan = "dalam negeri";
+        } else {
+            $penempatan = "luar negeri";
+        }
+        Kandidat::where()->update([
             'negara_id' => $request->negara_id,
+            'penempatan' => $penempatan,
         ]);
         return redirect()->route('permission')->with('toast_success',"Data anda tersimpan");
     }
@@ -755,7 +791,12 @@ class KandidatController extends Controller
         $kota = Kota::all();
         $kecamatan = Kecamatan::all();
         $kelurahan = Kelurahan::all();
-        $negara = Negara::where('negara_id',$kandidat->negara_id)->first('negara');
+        $show_negara = Negara::where('negara_id',$kandidat->negara_id)->first();
+        if($show_negara == null){
+            $negara = null;
+        } else {
+            $negara = $show_negara->negara;    
+        }
         return view('Kandidat/modalKandidat/edit_kandidat_permission',compact('kandidat','provinsi','kecamatan','kelurahan','kota','negara'));
     }
 
@@ -820,7 +861,7 @@ class KandidatController extends Controller
         if($request->confirm == "ya"){
             return redirect()->route('paspor')->with('toast_success',"Data anda tersimpan");
         } else {
-            return redirect()->route('kandidat')->with('toast_success',"Data anda tersimpan");
+            return redirect()->route('kandidat')->with('success',"Data anda tersimpan");
         }
     }
 
@@ -828,8 +869,18 @@ class KandidatController extends Controller
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        $negara = Negara::where('negara_id',$kandidat->negara_id)->first('negara');
-        return view('kandidat/modalKandidat/edit_kandidat_paspor',compact('kandidat','negara'));
+        $show_negara = Negara::where('negara_id',$kandidat->negara_id)->first();
+        if($show_negara == null){
+            $negara = null;
+        } else {
+            $negara = $show_negara->negara;    
+        }
+
+        if($kandidat->no_paspor == null){
+            return redirect()->route('kandidat');
+        } else {
+            return view('kandidat/modalKandidat/edit_kandidat_paspor',compact('kandidat','negara'));
+        }
     }
 
     public function simpan_kandidat_paspor(Request $request)
@@ -868,7 +919,7 @@ class KandidatController extends Controller
             'tmp_paspor'=>$request->tmp_paspor,
             'foto_paspor'=>$foto_paspor,
         ]);
-        return redirect('/kandidat')->with('toast_success',"Data anda tersimpan");
+        return redirect('/kandidat')->with('success',"Data anda tersimpan");
     }
 
     public function isi_kandidat_job()

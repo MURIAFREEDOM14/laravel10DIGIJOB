@@ -41,7 +41,12 @@ class PerusahaanController extends Controller
         $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        return view('perusahaan/profil_perusahaan',compact('perusahaan','notif','pesan'));
+        if($perusahaan->nama_pemimpin == null)
+        {
+            return redirect()->route('perusahaan')->with('warning',"Harap lengkapi profil perusahaan terlebih dahulu");
+        } else {
+            return view('perusahaan/profil_perusahaan',compact('perusahaan','notif','pesan'));
+        }
     }
 
     public function isi_perusahaan_data()
@@ -216,45 +221,37 @@ class PerusahaanController extends Controller
     // DATA KANDIDAT //
     public function kandidat()
     {
-        $usia = "";
-        $jk = "";
-        $pendidikan = "";
-        $tinggi = "";
-        $berat = "";
-        $lama_kerja = "";
-        $kabupaten = "";
-        $provinsi = "";
+        // $usia = "";
+        // $jk = "";
+        // $pendidikan = "";
+        // $tinggi = "";
+        // $berat = "";
+        // $lama_kerja = "";
+        // $kabupaten = "";
+        // $provinsi = "";
         $id = Auth::user();
         $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
         if ($perusahaan->tmp_negara == "Dalam negeri") {
             $kandidat = Kandidat::
-            join(
-                'prt_pengalaman_kerja','kandidat.id_kandidat','=','prt_pengalaman_kerja.id_kandidat'
-            )
-            // ->where('kandidat.penempatan',"dalam negeri")
-            ->where('kandidat.jenis_kelamin','like',"%".$jk."%")
-            ->where('kandidat.usia','>=',$usia)
-            ->where('kandidat.pendidikan','like',"%".$pendidikan."%")
-            ->where('kandidat.tinggi','>=',"%".$tinggi."%")
-            ->where('kandidat.berat','>=',"%".$berat."%")
-            ->where('kandidat.kabupaten','like',"%".$kabupaten."%")
-            ->where('kandidat.provinsi','like',"%".$provinsi."%")
-            ->where('prt_pengalaman_kerja.lama_kerja','like',"%".$lama_kerja."%")
+            where('kandidat.penempatan',"dalam negeri")
+            // ->where('kandidat.jenis_kelamin','like',"%".$jk."%")
+            // ->where('kandidat.usia','>=',$usia)
+            // ->where('kandidat.pendidikan','like',"%".$pendidikan."%")
+            // ->where('kandidat.tinggi','>=',"%".$tinggi."%")
+            // ->where('kandidat.berat','>=',"%".$berat."%")
+            // ->where('kandidat.kabupaten','like',"%".$kabupaten."%")
+            // ->where('kandidat.provinsi','like',"%".$provinsi."%")
             ->limit(15)->get();
         } else {
             $kandidat = Kandidat::
-            join(
-                'prt_pengalaman_kerja','kandidat.id_kandidat','=','prt_pengalaman_kerja.id_kandidat'
-            )
-            ->where('kandidat.penempatan',"luar negeri")
-            ->where('kandidat.jenis_kelamin','like',"%".$jk."%")
-            ->where('kandidat.usia','>=',$usia)
-            ->where('kandidat.pendidikan','like',"%".$pendidikan."%")
-            ->where('kandidat.tinggi','>=',"%".$tinggi."%")
-            ->where('kandidat.berat','>=',"%".$berat."%")
-            ->where('kandidat.kabupaten','like',"%".$kabupaten."%")
-            ->where('kandidat.provinsi','like',"%".$provinsi."%")
-            ->where('prt_pengalaman_kerja.lama_kerja','like',"%".$lama_kerja."%")
+            where('kandidat.penempatan',"luar negeri")
+            // ->where('kandidat.jenis_kelamin','like',"%".$jk."%")
+            // ->where('kandidat.usia','>=',$usia)
+            // ->where('kandidat.pendidikan','like',"%".$pendidikan."%")
+            // ->where('kandidat.tinggi','>=',"%".$tinggi."%")
+            // ->where('kandidat.berat','>=',"%".$berat."%")
+            // ->where('kandidat.kabupaten','like',"%".$kabupaten."%")
+            // ->where('kandidat.provinsi','like',"%".$provinsi."%")
             ->limit(15)->get();
         }
         $isi = $kandidat->count();
@@ -274,11 +271,6 @@ class PerusahaanController extends Controller
         $lama_kerja = $request->pengalaman;
         $kabupaten = Kota::where('id',$request->kota_id)->first();
         $provinsi = Provinsi::where('id',$request->provinsi_id)->first();
-        // if($provinsi){
-        //     $provinsi = Provinsi::where('id',$request->provinsi_id)->first();            
-        // } else {
-        //     $provinsi = Provinsi::first();
-        // }
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('referral_code',$auth->referral_code)->first();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
@@ -323,59 +315,30 @@ class PerusahaanController extends Controller
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('referral_code',$auth->referral_code)->first();
         $kandidat = Kandidat::where('id_kandidat',$id)->first();
+        $info_kandidat = Kandidat::join(
+            'prt_pengalaman_kerja','kandidat.id_kandidat','=','prt_pengalaman_kerja.id_kandidat'
+        )
+        ->where('kandidat.id_kandidat',$id)->get();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        $pengalamanKerja = PengalamanKerja::join(
-            'kandidat','pengalaman_kerja.id_kandidat','=','kandidat.id_kandidat'
-        )->first();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         if($perusahaan->tmp_negara == "Dalam negeri"){
-            $semua_kandidat = Kandidat::
-            where('penempatan','dalam negeri')
-            ->where('id_kandidat','not like',$id)->get();
+            $semua_kandidat = Kandidat::where('kandidat.penempatan','dalam negeri')
+            ->where('kandidat.id_kandidat','not like',$id)->get();
         } else {
-            $semua_kandidat = Kandidat::
-            where('penempatan','luar negeri')
-            ->where('id_kandidat','not like',$id)->get();
+            $semua_kandidat = Kandidat::where('kandidat.penempatan','luar negeri')
+            ->where('kandidat.id_kandidat','not like',$id)->get();
         }
-        
         $usia = Carbon::parse($kandidat->tgl_lahir)->age;
         $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
         $interview = Interview::where('id_kandidat',$kandidat->id_kandidat)->first();
-        if ($kandidat->periode_awal1 !== null) {
-            $periode_awal1 = Carbon::create($kandidat->periode_awal1)->isoFormat('D MMM Y');
-            $periode_akhir1 = Carbon::create($kandidat->periode_akhir1)->isoFormat('D MMM Y');
-        } else {
-            $periode_awal1 = null;
-            $periode_akhir1 = null;
-        }
-        if ($kandidat->periode_awal2 !== null) {
-            $periode_awal2 = Carbon::create($kandidat->periode_awal2)->isoFormat('D MMM Y');
-            $periode_akhir2 = Carbon::create($kandidat->periode_akhir2)->isoFormat('D MMM Y');
-        } else {
-            $periode_awal2 = null;
-            $periode_akhir2 = null;
-        }
-        if ($kandidat->periode_awal3 !== null){
-            $periode_awal3 = Carbon::create($kandidat->periode_awal3)->isoFormat('D MMM Y');
-            $periode_akhir3 = Carbon::create($kandidat->periode_akhir3)->isoFormat('D MMM Y');    
-        } else {
-            $periode_awal3 = null;
-            $periode_akhir3 = null;
-        }
         return view('perusahaan/kandidat/profil_kandidat',compact(
             'kandidat',
+            'info_kandidat',
             'perusahaan',
             'usia',
             'tgl_user',
-            'periode_awal1',
-            'periode_akhir1',
-            'periode_awal2',
-            'periode_akhir2',
-            'periode_awal3',
-            'periode_akhir3',
             'semua_kandidat',
             'interview',
-            'pengalamanKerja',
             'notif',
             'pesan',
         ));

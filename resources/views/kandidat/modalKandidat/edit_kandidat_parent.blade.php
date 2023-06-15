@@ -7,10 +7,7 @@
             <div class="row">
                 <h4 class="text-center">PROFIL BIO DATA</h4>
                 <h6 class="text-center mb-5" style="text-transform: uppercase">
-                    @if ($kandidat->penempatan == null)
-                    @else
-                        {{$kandidat->penempatan}}
-                    @endif
+                    {{$negara}}
                 </h6>
                 <form action="/isi_kandidat_parent" method="POST">
                     @csrf

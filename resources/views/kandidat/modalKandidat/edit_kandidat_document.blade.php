@@ -7,10 +7,7 @@
                 <div class="row">
                     <h4 class="text-center">PROFIL BIO DATA</h4>
                     <h6 class="text-center mb-4" style="text-transform: uppercase">
-                        @if ($kandidat->penempatan == null)
-                        @else
-                            {{$kandidat->penempatan}}
-                        @endif
+                        {{$negara}}
                     </h6>
                     <form action="/isi_kandidat_document" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -38,7 +35,7 @@
                                     <label for="inputPassword6" class="col-form-label">Pendidikan Terakhir</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <select name="pendidikan" class="form-select" id="">
+                                    <select name="pendidikan" required class="form-select" id="">
                                         <option value="">-- Pilih Pendidikan --</option>
                                         <option value="SD" @if ($kandidat->pendidikan == "SD") selected @endif>SD</option>
                                         <option value="SMP" @if ($kandidat->pendidikan == "SMP") selected @endif>SMP</option>
@@ -75,22 +72,22 @@
                                 </div>
                                 <div class="col-md-8">
                                     @if ($kandidat->foto_ktp == "")
-                                        <input type="file" name="foto_ktp" id="inputPassword6" class="form-control @error('foto_ktp') is_invalid @enderror" accept="image/*">                                        
+                                        <input type="file" required name="foto_ktp" id="inputPassword6" class="form-control @error('foto_ktp') is_invalid @enderror" accept="image/*">                                        
                                         @error('foto_ktp')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     @elseif ($kandidat->foto_ktp !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/KTP/{{$kandidat->foto_ktp}}" width="150" height="150" alt="">
-                                        <input type="file" name="foto_ktp" id="inputPassword6" class="form-control @error('foto_ktp') is_invalid @enderror" accept="image/*">                                        
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/KTP/{{$kandidat->foto_ktp}}" width="150" height="150" alt="" class="img">
+                                        <input type="file" required name="foto_ktp" id="inputPassword6" class="form-control @error('foto_ktp') is_invalid @enderror" accept="image/*">                                        
                                         @error('foto_ktp')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     @else
-                                        <input type="file" name="foto_ktp" id="inputPassword6" class="form-control @error('foto_ktp') is_invalid @enderror" accept="image/*">                                        
+                                        <input type="file" required name="foto_ktp" id="inputPassword6" class="form-control @error('foto_ktp') is_invalid @enderror" accept="image/*">                                        
                                         @error('foto_ktp')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -105,22 +102,22 @@
                                 </div>
                                 <div class="col-md-8">
                                     @if ($kandidat->foto_kk == "")
-                                        <input type="file" name="foto_kk" id="inputPassword6" class="form-control @error('foto_kk') is_invalid @enderror" accept="image/*">                                        
+                                        <input type="file" required name="foto_kk" id="inputPassword6" class="form-control @error('foto_kk') is_invalid @enderror" accept="image/*">                                        
                                         @error('foto_kk')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     @elseif ($kandidat->foto_kk !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/KK/{{$kandidat->foto_kk}}" width="150" height="150" alt="">
-                                        <input type="file" name="foto_kk" id="inputPassword6" class="form-control @error('foto_kk') is_invalid @enderror" accept="image/*">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/KK/{{$kandidat->foto_kk}}" width="150" height="150" alt="" class="img">
+                                        <input type="file" required name="foto_kk" id="inputPassword6" class="form-control @error('foto_kk') is_invalid @enderror" accept="image/*">
                                         @error('foto_kk')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     @else
-                                        <input type="file" name="foto_kk" id="inputPassword6" class="form-control @error('foto_kk') is_invalid @enderror" accept="image/*">                                        
+                                        <input type="file" required name="foto_kk" id="inputPassword6" class="form-control @error('foto_kk') is_invalid @enderror" accept="image/*">                                        
                                         @error('foto_kk')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -135,22 +132,22 @@
                                 </div>
                                 <div class="col-md-8">
                                     @if ($kandidat->foto_set_badan == "")
-                                        <input type="file" name="foto_set_badan" id="inputPassword6" class="form-control @error('foto_set_badan') is_invalid @enderror" accept="image/*">                                        
+                                        <input type="file" required name="foto_set_badan" id="inputPassword6" class="form-control @error('foto_set_badan') is_invalid @enderror" accept="image/*">                                        
                                         @error('foto_set_badan')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     @elseif($kandidat->foto_set_badan !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" width="150" height="150" alt="">
-                                        <input type="file" name="foto_set_badan" id="inputPassword6" class="form-control @error('foto_set_badan') is_invalid @enderror" accept="image/*">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" width="150" height="150" alt="" class="img">
+                                        <input type="file" required name="foto_set_badan" id="inputPassword6" class="form-control @error('foto_set_badan') is_invalid @enderror" accept="image/*">
                                         @error('foto_set_badan')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     @else
-                                        <input type="file" name="foto_set_badan" id="inputPassword6" class="form-control @error('foto_set_badan') is_invalid @enderror" accept="image/*">                                        
+                                        <input type="file" required name="foto_set_badan" id="inputPassword6" class="form-control @error('foto_set_badan') is_invalid @enderror" accept="image/*">                                        
                                         @error('foto_set_badan')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -165,22 +162,22 @@
                                 </div>
                                 <div class="col-md-8">
                                     @if ($kandidat->foto_4x6 == "")
-                                        <input type="file" name="foto_4x6" id="inputPassword6" class="form-control @error('foto_4x6') is_invalid @enderror" accept="image/*">                                        
+                                        <input type="file" required name="foto_4x6" id="inputPassword6" class="form-control @error('foto_4x6') is_invalid @enderror" accept="image/*">                                        
                                         @error('foto_4x6')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     @elseif ($kandidat->foto_4x6 !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/4x6/{{$kandidat->foto_4x6}}" width="150" height="150" alt="">
-                                        <input type="file" name="foto_4x6" id="inputPassword6" class="form-control @error('foto_4x6') is_invalid @enderror" accept="image/*">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/4x6/{{$kandidat->foto_4x6}}" width="150" height="150" alt="" class="img">
+                                        <input type="file" required name="foto_4x6" id="inputPassword6" class="form-control @error('foto_4x6') is_invalid @enderror" accept="image/*">
                                         @error('foto_4x6')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     @else
-                                        <input type="file" name="foto_4x6" id="inputPassword6" class="form-control @error('foto_4x6') is_invalid @enderror" accept="image/*">                                        
+                                        <input type="file" required name="foto_4x6" id="inputPassword6" class="form-control @error('foto_4x6') is_invalid @enderror" accept="image/*">                                        
                                         @error('foto_4x6')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -195,22 +192,22 @@
                                 </div>
                                 <div class="col-md-8">
                                     @if ($kandidat->foto_ket_lahir == "")
-                                        <input type="file" name="foto_ket_lahir" id="inputPassword6" class="form-control @error('foto_ket_lahir') is_invalid @enderror" accept="image/*">                                        
+                                        <input type="file" required name="foto_ket_lahir" id="inputPassword6" class="form-control @error('foto_ket_lahir') is_invalid @enderror" accept="image/*">                                        
                                         @error('foto_ket_lahir')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     @elseif ($kandidat->foto_ket_lahir !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Ket_lahir/{{$kandidat->foto_ket_lahir}}" width="150" height="150" alt="">
-                                        <input type="file" name="foto_ket_lahir" id="inputPassword6" class="form-control @error('foto_ket_lahir') is_invalid @enderror" accept="image/*">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Ket_lahir/{{$kandidat->foto_ket_lahir}}" width="150" height="150" alt="" class="img">
+                                        <input type="file" required name="foto_ket_lahir" id="inputPassword6" class="form-control @error('foto_ket_lahir') is_invalid @enderror" accept="image/*">
                                         @error('foto_ket_lahir')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     @else
-                                        <input type="file" name="foto_ket_lahir" id="inputPassword6" class="form-control @error('foto_ket_lahir') is_invalid @enderror" accept="image/*">                                        
+                                        <input type="file" required name="foto_ket_lahir" id="inputPassword6" class="form-control @error('foto_ket_lahir') is_invalid @enderror" accept="image/*">                                        
                                         @error('foto_ket_lahir')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -225,22 +222,22 @@
                                 </div>
                                 <div class="col-md-8">
                                     @if ($kandidat->foto_ijazah == "")
-                                        <input type="file" name="foto_ijazah" id="inputPassword6" class="form-control @error('foto_ijazah') is_invalid @enderror" accept="image/*">                                        
+                                        <input type="file" required name="foto_ijazah" id="inputPassword6" class="form-control @error('foto_ijazah') is_invalid @enderror" accept="image/*">                                        
                                         @error('foto_ijazah')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     @elseif ($kandidat->foto_ijazah !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/ijazah/{{$kandidat->foto_ijazah}}" width="150" height="150" alt="">
-                                        <input type="file" name="foto_ijazah" id="inputPassword6" class="form-control @error('foto_ijazah') is_invalid @enderror" accept="image/*">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/ijazah/{{$kandidat->foto_ijazah}}" width="150" height="150" alt="" class="img">
+                                        <input type="file" required name="foto_ijazah" id="inputPassword6" class="form-control @error('foto_ijazah') is_invalid @enderror" accept="image/*">
                                         @error('foto_ijazah')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     @else
-                                        <input type="file" name="foto_ijazah" id="inputPassword6" class="form-control @error('foto_ijazah') is_invalid @enderror" accept="image/*">                                        
+                                        <input type="file" required name="foto_ijazah" id="inputPassword6" class="form-control @error('foto_ijazah') is_invalid @enderror" accept="image/*">                                        
                                         @error('foto_ijazah')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

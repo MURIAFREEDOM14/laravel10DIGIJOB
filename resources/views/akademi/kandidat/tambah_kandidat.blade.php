@@ -7,7 +7,6 @@
                 <div class="row">
                     <h4 class="text-center">PROFIL BIO DATA</h4>
                     <h6 class="text-center mb-4">
-
                     </h6>
                     <form action="" method="POST">
                         @csrf
@@ -54,7 +53,7 @@
                                     <label for="inputPassword6" class="col-form-label">Password</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" required name="password" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input type="password" required name="password" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
                         </div>

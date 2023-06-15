@@ -203,6 +203,11 @@
                                             </a>
                                         </li>
                                         <li>
+                                            <a class="btn" href="/manager/negara_tujuan">
+                                                <span class="sub-item">Data Negara Tujuan</span>
+                                            </a>
+                                        </li>
+                                        <li>
                                             <a class="btn" href="/manager/pekerjaan">
                                                 <span class="sub-item">Data Pekerjaan</span>
                                             </a>
@@ -395,6 +400,35 @@
                 console.log(url);
                 swal({
                     title: 'Apakah anda yakin ingin keluar?',
+                    type: 'warning',
+                    icon: 'warning',
+                    buttons:{
+                        confirm: {
+                            text : 'Iya',
+                            className : 'btn btn-success'
+                        },
+                        cancel: {
+                            visible: true,
+                            text: 'Tidak',
+                            className: 'btn btn-danger'
+                        }
+                    }
+                }).then((Delete) => {
+                    if (Delete) {
+                        window.location.href = url;
+                    } else {
+                        swal.close();
+                    }
+                });    
+            }
+
+            function hapusNegara(ev)
+                {
+                ev.preventDefault();
+                var url = ev.currentTarget.getAttribute('href');
+                console.log(url);
+                swal({
+                    title: 'Apakah anda yakin ingin menghapus data ini?',
                     type: 'warning',
                     icon: 'warning',
                     buttons:{

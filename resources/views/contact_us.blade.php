@@ -48,7 +48,7 @@
                         <div class="text-center">
                             <h6>WhatsApp</h6>
                             <hr>
-                            <div class="">08xxxxxxxxxx</div>
+                            <div class=""></div>
                         </div>
                     </div>
                     <div class="col">

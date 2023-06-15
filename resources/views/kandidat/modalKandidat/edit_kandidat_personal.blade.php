@@ -7,9 +7,9 @@
                 <div class="row">
                     <h4 class="text-center">PROFIL BIO DATA</h4>
                     <h6 class="text-center mb-4" style="text-transform: uppercase">
-                        @if ($kandidat->penempatan == null)
+                        @if ($negara == null)
                         @else
-                            {{$kandidat->penempatan}}
+                            {{$negara}}
                         @endif
                     </h6>
                     <form action="/isi_kandidat_personal" method="POST">
@@ -25,7 +25,7 @@
                                     <label for="inputPassword6" class="col-form-label">Nama Lengkap</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" required value="{{$user->name}}" name="nama" id="inputPassword6" class="form-control" disabled aria-labelledby="passwordHelpInline">
+                                    <input type="text" value="{{$user->name}}" name="nama" id="inputPassword6" class="form-control" disabled aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
@@ -33,7 +33,7 @@
                                     <label for="inputPassword6" class="col-form-label">Nama Panggilan</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" required value="{{$kandidat->nama_panggilan}}" placeholder="Maksimal 10 kata" name="nama_panggilan" id="inputPassword6" class="form-control @error('nama_panggilan') is-invalid @enderror" aria-labelledby="passwordHelpInline">
+                                    <input type="text" disabled value="{{$kandidat->nama_panggilan}}" placeholder="Maksimal 10 kata" name="nama_panggilan" id="inputPassword6" class="form-control @error('nama_panggilan') is-invalid @enderror" aria-labelledby="passwordHelpInline">
                                     @error('nama_panggilan')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -94,10 +94,10 @@
                                     <label for="inputPassword6" class="col-form-label">Berat & Tinggi Badan</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="number" value="{{$kandidat->berat}}" placeholder="Masukkan berat badan" name="berat" class="form-control">
+                                    <input type="number" required value="{{$kandidat->berat}}" placeholder="Masukkan berat badan" name="berat" class="form-control">
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="number" value="{{$kandidat->tinggi}}" placeholder="Masukkan tinggi badan" name="tinggi" class="form-control">
+                                    <input type="number" required value="{{$kandidat->tinggi}}" placeholder="Masukkan tinggi badan" name="tinggi" class="form-control">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">

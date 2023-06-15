@@ -7,10 +7,7 @@
             <div class="row">
                 <h4 class="text-center">PROFIL BIO DATA</h4>
                 <h6 class="text-center mb-5" style="text-transform: uppercase">
-                    @if ($kandidat->penempatan == null)
-                    @else
-                        {{$kandidat->penempatan}}
-                    @endif
+                    {{$negara}}
                 </h6>
                 <form action="/isi_kandidat_vaksin" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -43,7 +40,7 @@
                                     <label for="inputPassword6" class="col-form-label">Batch ID Pertama</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <label for="">Berikut contoh nomor Batch ID yang terdapat di sertifikat vaksin anda : </label><img class="mb-1" src="/gambar/batch_id.jpg" alt="">
+                                    <label for="">Berikut contoh nomor Batch ID yang terdapat di sertifikat vaksin anda : </label><img class="mb-1 img" src="/gambar/batch_id.jpg" alt="">
                                     <input type="text" required value="{{$kandidat->no_batch_v1}}" name="no_batch_v1" class="form-control">
                                 </div>
                             </div>
@@ -63,7 +60,7 @@
                                     @if ($kandidat->sertifikat_vaksin1 == "")
                                         <input type="file" required value="{{$kandidat->sertifikat_vaksin1}}" name="sertifikat_vaksin1" class="form-control" accept="image/*">                                            
                                     @elseif ($kandidat->sertifikat_vaksin1 !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Vaksin Pertama/{{$kandidat->sertifikat_vaksin1}}" width="150" height="150" alt="">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Vaksin Pertama/{{$kandidat->sertifikat_vaksin1}}" width="150" height="150" alt="" class="img mb-1">
                                         <input type="file" value="{{$kandidat->sertifikat_vaksin1}}" name="sertifikat_vaksin1" class="form-control" accept="image/*">                                            
                                     @else
                                         <input type="file" required value="{{$kandidat->sertifikat_vaksin1}}" name="sertifikat_vaksin1" class="form-control" accept="image/*">                                            
@@ -95,7 +92,7 @@
                                     <label for="inputPassword6" class="col-form-label">Batch ID Kedua</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <label for="">Berikut contoh nomor Batch ID yang terdapat di sertifikat vaksin anda : </label><img class="mb-1" src="/gambar/batch_id.jpg" alt="">
+                                    <label for="">Berikut contoh nomor Batch ID yang terdapat di sertifikat vaksin anda : </label><img class="mb-1 img" src="/gambar/batch_id.jpg" alt="">
                                     <input type="text" required value="{{$kandidat->no_batch_v2}}" name="no_batch_v2" class="form-control">
                                 </div>
                             </div>
@@ -115,7 +112,7 @@
                                     @if ($kandidat->sertifikat_vaksin2 == "")
                                         <input type="file" required name="sertifikat_vaksin2" class="form-control" accept="image/*">                                            
                                     @elseif ($kandidat->sertifikat_vaksin2 !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Vaksin Kedua/{{$kandidat->sertifikat_vaksin2}}" width="150" height="150" alt="">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Vaksin Kedua/{{$kandidat->sertifikat_vaksin2}}" width="150" height="150" alt="" class="img mb-1">
                                         <input type="file" name="sertifikat_vaksin2" class="form-control" accept="image/*">                                            
                                     @else
                                         <input type="file" required name="sertifikat_vaksin2" class="form-control" accept="image/*">                                            
@@ -147,7 +144,7 @@
                                     <label for="inputPassword6" class="col-form-label">Batch ID Ketiga</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <label for="">Berikut contoh nomor Batch ID yang terdapat di sertifikat vaksin anda : </label><img class="mb-1" src="/gambar/batch_id.jpg" alt="">
+                                    <label for="">Berikut contoh nomor Batch ID yang terdapat di sertifikat vaksin anda : </label><img class="mb-1 img" src="/gambar/batch_id.jpg" alt="">
                                     <input type="text" value="{{$kandidat->no_batch_v3}}" name="no_batch_v3" class="form-control">
                                 </div>
                             </div>
@@ -167,7 +164,7 @@
                                     @if ($kandidat->sertifikat_vaksin3 == "")
                                         <input type="file" name="sertifikat_vaksin3" class="form-control" accept="image/*">                                            
                                     @elseif ($kandidat->sertifikat_vaksin3 !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Vaksin Ketiga/{{$kandidat->sertifikat_vaksin3}}" width="150" height="150" alt="">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Vaksin Ketiga/{{$kandidat->sertifikat_vaksin3}}" width="150" height="150" alt="" class="img mb-1">
                                         <input type="file" name="sertifikat_vaksin3" class="form-control" accept="image/*">                                            
                                     @else
                                         <input type="file" name="sertifikat_vaksin3" class="form-control" accept="image/*">                                            
