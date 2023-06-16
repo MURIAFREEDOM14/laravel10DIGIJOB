@@ -123,7 +123,7 @@
                         </div> --}}
                     </div>
                     <a class="btn btn-warning" href="{{route('company')}}">Lewati</a>
-                    <button class="btn btn-primary float-end" type="submit">Simpan</button>
+                    <button class="btn btn-primary float-end" type="submit">Selanjutnya</button>
                 </form>
             </div>
             <hr>

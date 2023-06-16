@@ -93,9 +93,6 @@ class AkademiController extends Controller
         }
 
         $akademi = Akademi::where('referral_code',$id->referral_code)->update([
-            'nama_akademi' => $request->nama_akademi,
-            'no_nis' => $request->no_nis,
-            'email' => $request->email,
             'no_surat_izin' => $request->no_surat_izin,
             'alamat_akademi' => $request->alamat_akademi,
             'no_telp_akademi' => $request->no_telp_akademi,
@@ -103,11 +100,6 @@ class AkademiController extends Controller
             'logo_akademi' => $logos_akademi,
         ]);
 
-        User::where('referral_code',$id->referral_code)->update([
-            'name_akademi'=>$request->nama,
-            'no_nis' => $request->no_nis,
-            'email' => $request->email,
-        ]);
         return redirect()->route('akademi.operator')->with('toast_success',"Data anda tersimpan");
     }
 

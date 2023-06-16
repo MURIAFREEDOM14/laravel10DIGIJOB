@@ -304,7 +304,7 @@ class KandidatController extends Controller
             'kecamatan' => $kecamatan->kecamatan,
             'kabupaten' => $kota->kota,
             'provinsi' => $provinsi->provinsi,
-            'stats_negara' => "Indonesia",
+            // 'stats_negara' => "Indonesia",
             'foto_ktp' => $foto_ktp,
             'foto_kk' => $foto_kk,
             'foto_set_badan' => $foto_set_badan,
@@ -812,7 +812,7 @@ class KandidatController extends Controller
 
     public function deskripsiNegara(Request $request)
     {
-        $data = Negara::where('negara_id',$request->data)->first();
+        $data = Negara::where('negara_id',$request->dks)->first();
         return response()->json($data);
     }
 

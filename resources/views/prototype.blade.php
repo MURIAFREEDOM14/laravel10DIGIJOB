@@ -30,7 +30,9 @@
             <option value="dalam negeri">Dalam Negeri</option>
             <option value="luar negeri">Luar Negeri</option>
         </select>
+        <div class="" id="deskripsi_show">
 
+        </div>
         
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -83,7 +85,7 @@
                                 console.log(data.length);
                                 op+='<option value="" selected> Pilih </option>';
                                 for(var i = 0; i < data.length; i++){
-                                    op+='<option value="'+data[i].negara_id+'">"'+data[i].negara+'"</option>';
+                                    op+='<option value="'+data[i].negara_id+'">'+data[i].negara+'</option>';
                                 }
                                 div.find('#negara_tujuan').html(" ");
                                 div.find('#negara_tujuan').append(op);
@@ -99,6 +101,24 @@
                         div.find('#negara_tujuan').append(op);
                         console.log(op);
                     }
+                })
+                $(document).on('change','#negara_tujuan', function() {
+                    var getNegara = $(this).val();
+                    console.log(getNegara);
+                    var div = $(this).parent();
+                    var dks = "";
+                    $.ajax({
+                        type:'get',
+                        url:'{!!URL::to('/deskripsi')!!}',
+                        data: {'dks':getNegara},
+                        success:function(data) {
+                            console.log(data);
+                            dks+='<textarea name="" id="deskripsi" class="form-control">'+data.deskripsi+'</textarea>'
+                            div.find('#deskripsi_show').html(" ");
+                            div.find('#deskripsi_show').append(dks);
+                            console.log(dks);
+                        }
+                    })
                 })
             });
         </script>

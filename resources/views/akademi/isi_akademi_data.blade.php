@@ -21,7 +21,7 @@
                                     <label for="inputPassword6" class="col-form-label">Nama Akademi</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" value="{{$akademi->nama_akademi}}" required name="nama_akademi" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input type="text" value="{{$akademi->nama_akademi}}" disabled name="nama_akademi" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
@@ -29,7 +29,7 @@
                                     <label for="inputPassword6" class="col-form-label">No. NIS</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="number" required value="{{$akademi->no_nis}}" name="no_nis" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input type="number" disabled value="{{$akademi->no_nis}}" name="no_nis" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
@@ -53,7 +53,7 @@
                                     <label for="inputPassword6" class="col-form-label">Email</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="email" required value="{{$akademi->email}}" name="email" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input type="email" disabled value="{{$akademi->email}}" name="email" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
