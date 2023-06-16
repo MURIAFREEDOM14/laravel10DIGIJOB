@@ -96,7 +96,7 @@
                                                             <span class="block">
                                                                 {{$item->pesan}}
                                                             </span>
-                                                            <span class="time">{{date('d-m-Y | h:m:sa',strtotime($item->created_at))}}</span>
+                                                            <span class="time">{{date('d-M-Y | h:m',strtotime($item->created_at))}}</span>
                                                         </div>
                                                     </a>
                                                 @endforeach
@@ -125,22 +125,21 @@
                                             <div class="notif-center">
                                                 @foreach ($notif as $item)
                                                 <a href="{{$item->url}}">
-                                                    <div class="notif-icon notif-warning">
-                                                        <i class="fas fa-bell"></i>
-                                                    </div>
-                                                    <div class="notif-content">
-                                                        <div class="text1" style="">{{$item->isi}}</div>
-                                                        <span class="time">{{date('d-m-Y | h:m:sa',strtotime($item->created_at))}}</span>
+                                                    <div class="row">
+                                                        <div class="col-2 mr-1">
+                                                            <div class="notif-icon notif-warning">
+                                                                <i class="fas fa-bell"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="notif-content">
+                                                                <div class="text1" style="">{{$item->isi}}</div>
+                                                                <span class="time">{{date('d-M-Y | H:m',strtotime($item->created_at))}}</span>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </a>    
                                                 @endforeach
-                                                <a>
-                                                    <div class="notif-icon notif-primary"> <i class="fa fa-user-plus"></i> </div>
-                                                    <div class="notif-content">
-                                                        <div class="">Selamat Datang</div>
-                                                        <span class="time"></span>
-                                                    </div>
-                                                </a>
                                             </div>
                                         </div>
                                     </li>
@@ -287,25 +286,7 @@
                                         <li>
                                             <div class="card mx-2 bg-primary">
                                                 <div class="card-body">
-                                                    <div class="" style="font-weight:bold">Maaf fitur ini masih dalam pengembangan</div>
-                                                    {{-- @if ($pembayaran == null)
-                                                        <div class="text-center" style="font-size: 15px;font-weight:bold">Upgrade Akunmu ke Prioritas dan dapatkan</div>
-                                                        <hr style="background-color:white">
-                                                        <p style="font-size: 13px;font-weight:bold;"><i class="fas fa-check-circle" style="color: yellow;"></i>&nbsp;Nama Anda Akan muncul paling atas pada pencarian Calon kandidat perusahaan</p>
-                                                        <p style="color: gray;font-size: 13px;font-weight:bold"><i class="fas fa-check-circle" style="color:gray;"></i>&nbsp;Anda akan mendapat fitur pelatihan interview online gratis</p>
-                                                        <hr style="background-color:white">
-                                                        <a href="/payment" class="btn btn-info text-white" style="text-transform: uppercase;font-weight:bold;">Upgrade</a>
-                                                    @elseif($pembayaran->foto_pembayaran !== null)
-                                                        <p style="font-size: 13px;font-weight:bold;" class="text-center">Verifikasi Pembayaran anda sedang dalam proses</p>
-                                                        <p style="font-size: 13px;font-weight:bold;" class="text-center">Mohon Tunggu</p> 
-                                                    @else
-                                                        <div class="text-center" style="font-size: 15px;font-weight:bold">Upgrade Akunmu ke Prioritas dan dapatkan</div>
-                                                        <hr style="background-color:white">
-                                                        <p style="font-size: 13px;font-weight:bold;"><i class="fas fa-check-circle" style="color: yellow;"></i>&nbsp;Nama Anda Akan muncul paling atas pada pencarian Calon kandidat perusahaan</p>
-                                                        <p style="color: gray;font-size: 13px;font-weight:bold"><i class="fas fa-check-circle" style="color:gray;"></i>&nbsp;Anda akan mendapat fitur pelatihan interview online gratis</p>
-                                                        <hr style="background-color:white">
-                                                        <a href="/payment" class="btn btn-info text-white" style="text-transform: uppercase;font-weight:bold;">Upgrade</a>
-                                                    @endif --}}
+                                                    <div class="" style="font-weight:bold">Maaf fitur ini masih dalam Pembangunan</div>
                                                 </div>
                                             </div>
                                         </li>

@@ -24,10 +24,10 @@ class Kandidat
                 //     return redirect('/verifikasi');
                 // }
             } else {
-                return redirect('/login/kandidat');
+                return redirect()->route('laman');
             }
         } else {
-            return redirect('/laman');
+            return redirect()->route('laman');
         }
     }
 }

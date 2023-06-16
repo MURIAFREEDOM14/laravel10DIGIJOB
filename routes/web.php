@@ -22,7 +22,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KandidatController;
 use App\Http\Controllers\NegaraController;
 use App\Http\Controllers\ReferralController;
-use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\Manager\ManagerController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\MessagerController;
@@ -45,7 +45,7 @@ Route::get('/', function () {
 
 // DATA MANAGER //
 Route::controller(ManagerController::class)->group(function() {
-    Route::get('/manager_access', 'login')->name('manager_access');
+    Route::get('/manager_access', 'login')->name('manager_access')->middleware('guest');
     Route::post('/manager_access', 'authenticate');
     Route::get('/manager', 'index')->middleware('manager')->name('manager');
     Route::get('/manager/surat_izin','suratIzin')->middleware('manager');
@@ -121,27 +121,27 @@ Route::controller(ContactUsController::class)->group(function() {
 
 // DATA LAMAN //
 Route::controller(LamanController::class)->group(function() {
-    Route::get('/laman', 'index')->name('laman');    
+    Route::get('/laman', 'index')->name('laman')->middleware('guest');    
     
-    Route::get('/login','loginSemua');
-    Route::get('/login/kandidat', 'login_kandidat');
-    Route::get('/login/akademi', 'login_akademi');
-    Route::get('/login/perusahaan', 'login_perusahaan');
+    Route::get('/login','loginSemua')->middleware('guest');
+    Route::get('/login/kandidat', 'login_kandidat')->middleware('guest');
+    Route::get('/login/akademi', 'login_akademi')->middleware('guest');
+    Route::get('/login/perusahaan', 'login_perusahaan')->middleware('guest');
 
-    Route::get('/register/kandidat',  'register_kandidat')->name('register_kandidat');
-    Route::get('/register/akademi',  'register_akademi')->name('register_akademi');
-    Route::get('/register/perusahaan',  'register_perusahaan')->name('register_perusahaan');
+    Route::get('/register/kandidat',  'register_kandidat')->name('register_kandidat')->middleware('guest');
+    Route::get('/register/akademi',  'register_akademi')->name('register_akademi')->middleware('guest');
+    Route::get('/register/perusahaan',  'register_perusahaan')->name('register_perusahaan')->middleware('guest');
 
-    Route::get('/login_gmail',  'login_gmail')->name('login_gmail');
-    Route::get('/login_referral',  'login_referral');
-    Route::get('/login_info',  'login_info');
+    Route::get('/login_gmail',  'login_gmail')->name('login_gmail')->middleware('guest');
+    Route::get('/login_referral',  'login_referral')->middleware('guest');
+    Route::get('/login_info',  'login_info')->middleware('guest');
     Route::post('/login_info',  'info');
 
-    Route::get('/digijob_system','digijobSystem');
-    Route::get('/benefits','benefits');
-    Route::get('/features','features');
-    Route::get('/hubungi_kami','contact');
-    Route::get('/about_us','about');
+    Route::get('/digijob_system','digijobSystem')->middleware('guest');
+    Route::get('/benefits','benefits')->middleware('guest');
+    Route::get('/features','features')->middleware('guest');
+    Route::get('/hubungi_kami','contact')->middleware('guest');
+    Route::get('/about_us','about')->middleware('guest');
 });
 
 // DATA AKADEMI //
@@ -204,7 +204,7 @@ Route::controller(PerusahaanController::class)->group(function(){
     Route::get('/perusahaan/isi_perusahaan_operator','isi_perusahaan_operator')->name('perusahaan.operator')->middleware('perusahaan');
     Route::post('/perusahaan/isi_perusahaan_operator','simpan_perusahaan_operator');
     
-    Route::get('/perusahaan/lihat/perusahaan','lihatProfilPerusahaan')->middleware('perusahaan');    
+    Route::get('/perusahaan/lihat/perusahaan','profil')->middleware('perusahaan');    
     Route::get('/contact_us_perusahaan','contactUsPerusahaan')->middleware('perusahaan');
     Route::get('/perusahaan/list/pembayaran','pembayaran')->middleware('perusahaan');
     Route::get('/perusahaan/payment/{id}','payment')->middleware('perusahaan');
@@ -269,6 +269,7 @@ Route::controller(KandidatController::class)->group(function() {
 
     Route::get('/isi_kandidat_placement', 'isi_kandidat_placement')->middleware('kandidat')->name('placement');
     Route::get('/penempatan', 'placement');
+    Route::get('/deskripsi','deskripsiNegara');
     Route::post('/isi_kandidat_placement', 'simpan_kandidat_placement');
 
     Route::get('/isi_kandidat_job', 'isi_kandidat_job')->middleware('kandidat')->name('job');
@@ -298,11 +299,11 @@ Route::controller(NotifikasiController::class)->group(function() {
 
 // data login
 Route::controller(LoginController::class)->group(function() {
-    Route::get('/login','loginSemua');
+    Route::get('/login','loginSemua')->middleware('guest');
     Route::post('/login','AuthenticateLogin');
-    Route::get('/login/kandidat','loginKandidat');
-    Route::get('/login/akademi','loginAkademi');
-    Route::get('/login/perusahaan','loginPerusahaan');
+    Route::get('/login/kandidat','loginKandidat')->middleware('guest');
+    Route::get('/login/akademi','loginAkademi')->middleware('guest');
+    Route::get('/login/perusahaan','loginPerusahaan')->middleware('guest');
     Route::post('/login/kandidat','AuthenticateKandidat');
     Route::post('/login/akademi','AuthenticateAkademi');
     Route::post('/login/perusahaan','AuthenticatePerusahaan');
@@ -312,7 +313,7 @@ Route::controller(LoginController::class)->group(function() {
 // data registrasi
 Route::controller(RegisterController::class)->group(function() {
     Route::post('/register/kandidat', 'kandidat');
-    Route::get('/kandidat_umur/{nama}','umurKandidat');
+    // Route::get('/kandidat_umur/{nama}','umurKandidat')->middleware('guest');
     Route::post('/kandidat_umur/{nama}','syaratUmur');
     Route::post('/register/akademi', 'akademi');
     Route::post('/register/perusahaan', 'perusahaan');
@@ -334,22 +335,23 @@ Route::controller(VerifikasiController::class)->group(function(){
 
 Route::controller(NegaraController::class)->group(function() {
     Route::get('/manager/negara_tujuan','index')->middleware('manager')->name('negara');
+    Route::get('/manager/lihat_negara/{id}','lihatNegara')->middleware('manager');
     Route::get('/manager/tambah_negara','tambahNegara')->middleware('manager');
     Route::post('/manager/tambah_negara','simpanNegara');
     Route::get('/manager/edit_negara/{id}','editNegara')->middleware('manager');
     Route::post('/manager/edit_negara/{id}','ubahNegara');
-    Route::get('/manager/hapus_negara/{id}','hapusNegara');
+    Route::get('/manager/hapus_negara/{id}','hapusNegara')->middleware('manager');
 });
 
 // data pekerjaan
 Route::controller(PekerjaanController::class)->group(function() {
-    Route::get('/manager/pekerjaan','index')->middleware('verify');
+    Route::get('/manager/pekerjaan','index')->middleware('manager');
     Route::post('/manager/pekerjaan','pencarian');
-    Route::get('/manager/tambah_pekerjaan', 'create')->middleware('verify');
+    Route::get('/manager/tambah_pekerjaan', 'create')->middleware('manager');
     Route::post('/manager/tambah_pekerjaan', 'store');
-    Route::get('/manager/edit_pekerjaan/{id}', 'edit')->middleware('verify');
+    Route::get('/manager/edit_pekerjaan/{id}', 'edit')->middleware('manager');
     Route::post('/manager/edit_pekerjaan/{id}', 'update');
-    Route::get('/manager/hapus_pekerjaan/{id}', 'delete')->middleware('verify');
+    Route::get('/manager/hapus_pekerjaan/{id}', 'delete')->middleware('manager');
 });
 
 // data pembayaran

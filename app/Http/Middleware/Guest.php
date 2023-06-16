@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserAccess
+class Guest
 {
     /**
      * Handle an incoming request.
@@ -15,10 +15,16 @@ class UserAccess
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // dd($request);
-        if (auth()->user()->type !== null) {
-            return $next($request);            
+        if(auth()->user()){
+            if(auth()->user()->type == 2){
+                return redirect()->route('perusahaan');
+            } elseif(auth()->user()->type == 1){
+                return redirect()->route('akademi');
+            } else {
+                return redirect()->route('kandidat');
+            }
+        } else {
+            return $next($request);
         }
-        return response()->redirect('/laman');
     }
 }

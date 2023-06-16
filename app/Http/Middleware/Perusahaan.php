@@ -19,10 +19,10 @@ class Perusahaan
             if(auth()->user()->type == 2){
                 return $next($request);
             } else {
-                return response()->redirect('/laman');
+                return redirect()->route('laman');
             }
         } else {
-            return response()->redirect('/laman');
+            return redirect()->route('laman');
         }
     }
 }

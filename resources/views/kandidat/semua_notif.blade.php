@@ -31,7 +31,7 @@
                                         <a href="{{$item->url}}" class="btn btn-primary">Shorcut</a>                                    
                                     @endif
                                 </td>
-                                <td>{{date('d-m-Y | h:m:sa',strtotime($item->created_at)) }}</td>
+                                <td>{{date('d-M-Y | h:m',strtotime($item->created_at)) }}</td>
                             </tr>                                
                             @endforeach
                         </tbody>

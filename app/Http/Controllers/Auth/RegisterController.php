@@ -225,7 +225,7 @@ class RegisterController extends Controller
         $user = User::create([
             'name_perusahaan' => $request->name,
             'email' => $request->email,
-            'no_nib' => $request->nib,
+            'no_nib' => $request->no_nib,
             'type' => 2,
             'password' => $request->password,
         ]);
@@ -239,7 +239,7 @@ class RegisterController extends Controller
 
         Perusahaan::create([
             'nama_perusahaan'=>$request->name,
-            'no_nib'=>$request->nib,
+            'no_nib'=>$request->no_nib,
             'referral_code'=>$userId,
             'email_perusahaan'=>$request->email,
         ]);

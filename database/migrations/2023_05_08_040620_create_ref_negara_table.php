@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id('negara_id');
             $table->string('negara');
             $table->string('kode_negara');
-            $table->integer('syarat_umur');
+            $table->integer('syarat_umur')->nullable();
+            $table->text('deskripsi')->nullable();
+            $table->text('gambar')->nullable();
             // $table->timestamps();
         });
     }

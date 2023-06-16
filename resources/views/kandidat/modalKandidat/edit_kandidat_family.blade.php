@@ -70,7 +70,7 @@
                                     </div>
                                     <div class="col-md-8">
                                         <small class="col">Tuliskan umur anak dari paling besar sampai paling kecil, Contoh: 15, 12, 10, dst</small>
-                                        <input type="text" value="{{$kandidat->umur_angka_lk}}" name="umur_anak_lk" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                        <input type="text" value="{{$kandidat->umur_anak_lk}}" name="umur_anak_lk" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                     </div>
                                 </div>
                                 <div class="row mb-3 g-3 align-items-center">
@@ -161,7 +161,7 @@
                                     </div>
                                     <div class="col-md-8">
                                         <small class="col">Tuliskan umur anak dari paling besar sampai paling kecil, Contoh: 15, 12, 10, dst</small>
-                                        <input type="text" value="{{$kandidat->umur_angka_lk}}" name="umur_anak_lk" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                        <input type="text" value="{{$kandidat->umur_anak_lk}}" name="umur_anak_lk" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                     </div>
                                 </div>
                                 <div class="row mb-3 g-3 align-items-center">
@@ -248,7 +248,7 @@
                                     </div>
                                     <div class="col-md-8">
                                         <small class="col">Tuliskan umur anak dari paling besar sampai paling kecil, Contoh: 15, 12, 10, dst</small>
-                                        <input type="text" value="{{$kandidat->umur_angka_lk}}" name="umur_anak_lk" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                        <input type="text" value="{{$kandidat->umur_anak_lk}}" name="umur_anak_lk" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                     </div>
                                 </div>
                                 <div class="row mb-3 g-3 align-items-center">

@@ -124,8 +124,12 @@
                             </div>
                             <div class="col-md-3">
                                 <select name="confirm" class="form-select" id="">
-                                    <option value="tidak">Tidak</option>
-                                    <option value="ya">Ya</option>
+                                    <option value="tidak" @if ($kandidat->no_paspor == null)
+                                        selected
+                                    @endif>Tidak</option>
+                                    <option value="ya" @if ($kandidat->no_paspor !== null)
+                                        selected
+                                    @endif>Ya</option>
                                 </select>
                             </div>
                         </div>

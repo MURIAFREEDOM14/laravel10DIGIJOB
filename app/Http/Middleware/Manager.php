@@ -19,10 +19,10 @@ class Manager
             if (auth()->user()->type == 3) {
                 return $next($request);            
             } else {
-                return response()->redirect('/laman');
+                return redirect()->route('laman');
             }
         } else {
-            return response()->redirect('/laman');
+            return redirect()->route('laman');
         }
          
     }

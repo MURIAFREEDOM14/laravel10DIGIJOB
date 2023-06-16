@@ -15,6 +15,14 @@
             .img{
                 border: 1px solid black;
                 border-radius: 2%;
+                width: 20%;
+                height: auto;
+            }
+            .text1 {
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
             }            
         </style>
         <!-- Fonts and icons -->

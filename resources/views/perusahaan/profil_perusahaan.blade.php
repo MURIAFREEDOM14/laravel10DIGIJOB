@@ -24,7 +24,7 @@
                                         @if ($perusahaan->logo_perusahaan == null)
                                             <img src="/gambar/default_user.png" class="avatar-img rounded-circle" alt="">
                                         @else
-                                            <img src="/gambar/Perusahaan/Logo/{{$perusahaan->logo_perusahaan}}" alt="..." class="avatar-img rounded-circle">                                        
+                                            <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Logo Perusahaan/{{$perusahaan->logo_perusahaan}}" alt="..." class="avatar-img rounded-circle">                                        
                                         @endif
                                     </div>
                                 </div>

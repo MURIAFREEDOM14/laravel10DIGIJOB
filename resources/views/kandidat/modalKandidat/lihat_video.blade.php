@@ -19,7 +19,7 @@
                         <hr>
                         <b class="bold">Jabatan : {{$kandidat_pengalaman_kerja->jabatan}}</b>
                         <hr>
-                        <b class="bold">Periode : {{date('d-M-Y',strtotime($kandidat_pengalaman_kerja->periode_awal))}} - {{date('d-M-Y',strtotime($kandidat_pengalaman_kerja->periode_akhir))}}</b>
+                        <b class="bold">Periode : {{date('d-M-Y',strtotime($kandidat_pengalaman_kerja->periode_awal))}} Sampai {{date('d-M-Y',strtotime($kandidat_pengalaman_kerja->periode_akhir))}}</b>
                         <hr>
                         <b class="bold">Alasan Berhenti : {{$kandidat_pengalaman_kerja->alasan_berhenti}}</b>
                     </div>

@@ -8,7 +8,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-head-bg-primary table-bordered-bd-primary">
+                <table class="table table-bordered table-head-bg-info table-bordered-bd-primary">
                     <thead>
                         <tr>
                             <th>No.</th>
@@ -31,7 +31,7 @@
                                     <a href="{{$item->url}}" class="btn btn-primary">Shorcut</a>                                    
                                 @endif
                             </td>
-                            <td>{{date('d-m-Y | h:m:sa',strtotime($item->created_at)) }}</td>
+                            <td>{{date('d-M-Y | H:m',strtotime($item->created_at)) }}</td>
                         </tr>                                
                         @endforeach
                     </tbody>

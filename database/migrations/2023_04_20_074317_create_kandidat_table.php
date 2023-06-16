@@ -40,7 +40,6 @@ return new class extends Migration
             $table->enum('stat_pemilik',['diambil'])->nullable();
 
             //address
-            $table->text('alamat')->nullable();
             $table->integer('rt')->nullable();
             $table->integer('rw')->nullable();
             $table->string('dusun')->nullable();
@@ -48,7 +47,7 @@ return new class extends Migration
             $table->string('kecamatan')->nullable();
             $table->string('kabupaten')->nullable();
             $table->string('provinsi')->nullable();
-            $table->string('stats_negara')->nullable();
+            // $table->string('stats_negara')->nullable();
 
             //vaksin
             $table->enum('vaksin1',['ASTRA ZENECA', 'PFIZER', 'SINOVAC', 'SINOPHARM', 'CORONAVAC', 'MODERNA', 'JOHNSONS & JOHNSONS'])->nullable();

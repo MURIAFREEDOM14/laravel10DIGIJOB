@@ -22,7 +22,7 @@
                             <tr>
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$item->pengirim}}</td>
-                                <td>{{date('d-m-Y | h:m:sa',strtotime($item->created_at))}}</td>
+                                <td>{{date('d-M-Y | H:m',strtotime($item->created_at))}}</td>
                                 <td>{{$item->pesan}}</td>
                                 <td>
                                     <a href="/perusahaan/kirim_balik/{{$item->id}}" class="btn btn-primary">Balas</a>

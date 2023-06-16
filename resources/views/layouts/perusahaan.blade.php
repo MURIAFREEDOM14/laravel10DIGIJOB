@@ -30,6 +30,12 @@
                 background-color: red;
                 display: inline-block;
             }
+            .text1 {
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+            }
         </style>
         <!-- Fonts and icons -->
         <script src="/Atlantis/examples/assets/js/plugin/webfont/webfont.min.js"></script>
@@ -98,7 +104,7 @@
                                                             <span class="block">
                                                                 {{$item->pesan}}
                                                             </span>
-                                                            <span class="time">{{date('d-m-Y | h:m:sa',strtotime($item->created_at))}}</span>
+                                                            <span class="time">{{date('d-M-Y | H:m',strtotime($item->created_at))}}</span>
                                                         </div>
                                                     </a>
                                                 @endforeach
@@ -113,7 +119,10 @@
                             <li class="nav-item dropdown hidden-caret">
                                 <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-bell"></i>
-                                    {{-- <span class="notification">4</span> --}}
+                                    @php
+                                        $ttl_notif = $notif->count();
+                                    @endphp
+                                    <span class="notification" style="background-color: red;">{{$ttl_notif}}</span>
                                 </a>
                                 <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
                                     <li>
@@ -124,22 +133,21 @@
                                             <div class="notif-center">
                                                 @foreach ($notif as $item)
                                                     <a href="{{$item->url}}">
-                                                        <div class="notif-icon notif-warning"> <i class="fa fa-bell"></i> </div>
-                                                        <div class="notif-content">
-                                                            <div class="" style="">{{$item->isi}}</div>
-                                                            <span class="time">{{date('d-m-Y | h:m:sa',strtotime($item->created_at))}}</span>
+                                                        <div class="row">
+                                                            <div class="col-2 mr-1">
+                                                                <div class="notif-icon notif-warning"> 
+                                                                    <i class="fa fa-bell"></i> 
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="notif-content">
+                                                                    <div class="text1" style="">{{$item->isi}}</div>
+                                                                    <span class="time">{{date('d-M-Y | H:m',strtotime($item->created_at))}}</span>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </a>    
                                                 @endforeach
-                                                <a href="">
-                                                    <div class="notif-icon notif-primary"> <i class="fa fa-user-plus"></i> </div>
-                                                    <div class="notif-content">
-                                                        <span class="block">
-                                                            New user registered
-                                                        </span>
-                                                        <span class="time">5 minutes ago</span>
-                                                    </div>
-                                                </a>
                                             </div>
                                         </div>
                                     </li>
@@ -168,7 +176,11 @@
                             <li class="nav-item dropdown hidden-caret">
                                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                                     <div class="avatar-sm">
-                                        <img src="/gambar/default_user.png" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                            
+                                        @if ($perusahaan->logo_perusahaan !== null)
+                                            <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Logo Perusahaan/{{$perusahaan->logo_perusahaan}}" alt="/Atlantis/examples." class="avatar-img rounded-circle">
+                                        @else
+                                            <img src="/gambar/default_user.png" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                                                                        
+                                        @endif
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -176,7 +188,12 @@
                                         <li>
                                             <div class="user-box">
                                                 <div class="avatar-lg">
-                                                        <img src="/gambar/default_user.png" alt="image profile" class="avatar-img rounded"></div>                                                        
+                                                    @if ($perusahaan->logo_perusahaan !== null)
+                                                       <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Logo Perusahaan/{{$perusahaan->logo_perusahaan}}" alt="image profile" class="avatar-img rounded"> 
+                                                    @else
+                                                        <img src="/gambar/default_user.png" alt="image profile" class="avatar-img rounded">
+                                                    @endif
+                                                </div>                                                        
                                                 <div class="u-text">
                                                     <h4>{{$perusahaan->nama_perusahaan}}</h4>
                                                     <p class="text-muted">{{$perusahaan->email_perusahaan}}</p>
@@ -217,7 +234,7 @@
                         <div class="user">
                             <div class="avatar-sm float-left mr-2">
                                 @if ($perusahaan->logo_perusahaan !== null)
-                                    <img src="/gambar/Perusahaan/Logo/{{$perusahaan->logo_perusahaan}}" alt="" class="avatar-img rounded-circle">                                    
+                                    <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Logo Perusahaan/{{$perusahaan->logo_perusahaan}}" alt="" class="avatar-img rounded-circle">                                    
                                 @else
                                     <img src="/gambar/default_user.png" alt="" class="avatar-img rounded-circle">
                                 @endif

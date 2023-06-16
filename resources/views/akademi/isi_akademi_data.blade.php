@@ -61,7 +61,7 @@
                                     <label for="inputPassword6" class="col-form-label">Alamat Akademi</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" required value="{{$akademi->alamat_akademi}}" name="alamat_akademi" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <textarea name="alamat_akademi" id="" class="form-control">{{$akademi->alamat_akademi}}</textarea>
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">

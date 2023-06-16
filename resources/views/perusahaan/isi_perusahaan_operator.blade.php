@@ -45,12 +45,12 @@
                                 </div>
                                 <div class="col-md-8">
                                     @if ($perusahaan->foto_operator == "")
-                                        <input type="file" class="form-control"  name="foto_operator" value="{{$perusahaan->foto_operator}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                        <input type="file" required class="form-control"  name="foto_operator" value="{{$perusahaan->foto_operator}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @elseif ($perusahaan->foto_operator !== null)
-                                        <img src="/gambar/Perusahaan/Operator/{{$perusahaan->foto_operator}}" width="120" height="150" alt="">
+                                        <img src="/gambar/Perusahaan/Operator/{{$perusahaan->foto_operator}}" width="150" class="img" height="150" alt="">
                                         <input type="file" class="form-control"  name="foto_operator" value="{{$perusahaan->foto_operator}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @else
-                                        <input type="file" class="form-control"  name="foto_operator" value="{{$perusahaan->foto_operator}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                        <input type="file" required class="form-control"  name="foto_operator" value="{{$perusahaan->foto_operator}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @endif
                                 </div>
                             </div>

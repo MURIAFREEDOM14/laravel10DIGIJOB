@@ -15,6 +15,7 @@
                                 <th><b class="bold">Nama Negara</b></th>
                                 <th><b class="bold">Kode Negara</b></th>
                                 <th><b class="bold">Syarat Umur</b></th>
+                                <th><b class="bold">Deskripsi</b></th>
                                 <th><b class="bold">Aksi</b></th>
                             </tr>
                         </thead>
@@ -25,9 +26,11 @@
                                     <td><b class="bold">{{$item->negara}}</b></td>
                                     <td><b class="bold">{{$item->kode_negara}}</b></td>
                                     <td><b class="bold">{{$item->syarat_umur}}</b></td>
+                                    <td class="text1"><b class="bold">{{$item->deskripsi}}</b></td>
                                     <td>
-                                        <a class="btn btn-warning" href="/manager/edit_negara/{{$item->negara_id}}"><i class="fa fa-edit"></i></a>
-                                        <a class="btn btn-danger" href="/manager/hapus_negara/{{$item->negara_id}}" onclick="hapusNegara(event)"><i class="fa fa-times"></i></a>
+                                        <a class="" href="/manager/lihat_negara/{{$item->negara_id}}"><i class="fas fa-eye" style="color:green"></i></a>
+                                        <a class="mx-3" href="/manager/edit_negara/{{$item->negara_id}}"><i class="fa fa-edit" style="color:#ffad46"></i></a>
+                                        <a class="" href="/manager/hapus_negara/{{$item->negara_id}}" onclick="hapusNegara(event)"><i class="fa fa-times" style="color:red"></i></a>
                                     </td>
                                 </tr>                                        
                             @endforeach

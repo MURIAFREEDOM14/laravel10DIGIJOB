@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Manager;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -204,6 +205,11 @@ class ManagerController extends Controller
         ));
     }
 
+    public function barcode()
+    {
+        return view('barcode');
+    }
+
     public function lihatProfil($id)
     {
         $manager = Auth::user();
@@ -285,6 +291,8 @@ class ManagerController extends Controller
         return view('manager/akademi/lihat_profil_akademi',compact('akademi','manager'));
     }
 
+
+
     // Kandidat Data //
     public function isi_personal($id)
     {
@@ -362,7 +370,7 @@ class ManagerController extends Controller
                 @unlink($hapus_ktp);
             }
             $ktp = $kandidat->nama.time().'.'.$request->foto_ktp->extension();  
-            $request->foto_ktp->move(public_path('/gambar/Kandidat/KTP'), $ktp);
+            $request->foto_ktp->move(public_path('/gambar/Kandidat/'.$kandidat->nama.'/KTP/'), $ktp);
         } else {
             if($kandidat->foto_ktp !== null){
                 $ktp = $kandidat->foto_ktp;

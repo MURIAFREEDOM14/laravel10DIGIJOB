@@ -129,13 +129,13 @@
                                 <div class="col-md-8">
                                     <select name="vaksin3" class="form-select" id="">
                                         <option value="">-- Pilih Nama Vaksin --</option>
-                                        <option value="ASTRA ZENECA" @if ($kandidat->vaksin2 == "ASTRA ZENECA") selected @endif>ASTRA ZENECA</option>
-                                        <option value="PFIZER" @if ($kandidat->vaksin2 == "PFIZER") selected @endif>PFIZER</option>
-                                        <option value="SINOVAC" @if ($kandidat->vaksin2 == "SINOVAC") selected @endif>SINOVAC</option>
-                                        <option value="SINOPHARM" @if ($kandidat->vaksin2 == "SINOPHARM") selected @endif>SINOPHARM</option>
-                                        <option value="CORONAVAC" @if ($kandidat->vaksin2 == "CORONAVAC") selected @endif>CORONAVAC</option>
-                                        <option value="MODERNA" @if ($kandidat->vaksin2 == "MODERNA") selected @endif>MODERNA</option>
-                                        <option value="JOHNSONS & JOHNSONS" @if ($kandidat->vaksin2 == "JOHNSONS & JOHNSONS") selected @endif>JOHNSONS & JOHNSONS</option>
+                                        <option value="ASTRA ZENECA" @if ($kandidat->vaksin3 == "ASTRA ZENECA") selected @endif>ASTRA ZENECA</option>
+                                        <option value="PFIZER" @if ($kandidat->vaksin3 == "PFIZER") selected @endif>PFIZER</option>
+                                        <option value="SINOVAC" @if ($kandidat->vaksin3 == "SINOVAC") selected @endif>SINOVAC</option>
+                                        <option value="SINOPHARM" @if ($kandidat->vaksin3 == "SINOPHARM") selected @endif>SINOPHARM</option>
+                                        <option value="CORONAVAC" @if ($kandidat->vaksin3 == "CORONAVAC") selected @endif>CORONAVAC</option>
+                                        <option value="MODERNA" @if ($kandidat->vaksin3 == "MODERNA") selected @endif>MODERNA</option>
+                                        <option value="JOHNSONS & JOHNSONS" @if ($kandidat->vaksin3 == "JOHNSONS & JOHNSONS") selected @endif>JOHNSONS & JOHNSONS</option>
                                     </select>
                                 </div>
                             </div>

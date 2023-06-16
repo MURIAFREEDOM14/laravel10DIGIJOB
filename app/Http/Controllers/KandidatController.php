@@ -32,7 +32,7 @@ class KandidatController extends Controller
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->limit(3)->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
         $perusahaan = Perusahaan::limit(5)->get();
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
         return view('kandidat/index',compact('kandidat','notif','perusahaan','pembayaran','pesan'));
@@ -52,7 +52,7 @@ class KandidatController extends Controller
         $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
         $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->limit(3)->get();
         $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->limit(3)->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
         if($kandidat->negara_id == null){
             return redirect()->route('kandidat')->with('warning',"Harap lengkapi profil anda terlebih dahulu");
         } else {
@@ -74,7 +74,7 @@ class KandidatController extends Controller
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->limit(3)->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
         $kandidat_pengalaman_kerja = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
         $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->get();
         return view('kandidat/modalKandidat/lihat_video',compact('kandidat','notif','pesan','pengalaman_kerja','kandidat_pengalaman_kerja'));
@@ -297,7 +297,6 @@ class KandidatController extends Controller
 
         Kandidat::where('referral_code',$id->referral_code)->update([
             'pendidikan' => $request->pendidikan,
-            'alamat' => $request->alamat,
             'rt' => $request->rt,
             'rw' => $request->rw,
             'dusun' => $request->dusun,
@@ -314,6 +313,7 @@ class KandidatController extends Controller
             'foto_ijazah' => $foto_ijazah,
             'stats_nikah' => $request->stats_nikah
         ]);
+
         if ($request->stats_nikah == "Menikah") {
             return redirect()->route('family')->with('toast_success',"Data anda tersimpan");
         } elseif($request->stats_nikah == "Cerai hidup"){
@@ -321,18 +321,13 @@ class KandidatController extends Controller
             if(file_exists($hapus_buku_nikah)){
                 @unlink($hapus_buku_nikah);
             }
-            Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
-                'nama_pasangan'=> null,
-                'tgl_lahir_pasangan'=> null,
-                'umur_pasangan'=> null,
-                'pekerjaan_pasangan'=> null,
-                'foto_buku_nikah' => null,
-            ]);
-            return redirect()->route('family')->with('toast_success',"Data anda tersimpan");
-        } elseif($request->stats_nikah == "Cerai mati"){
-            $hapus_buku_nikah = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/').$kandidat->foto_buku_nikah;
-            if(file_exists($hapus_buku_nikah)){
-                @unlink($hapus_buku_nikah);
+            $hapus_cerai = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Cerai/').$kandidat->foto_cerai;
+            if(file_exists($hapus_cerai)){
+                @unlink($hapus_cerai);
+            }
+            $hapus_kematian_pasangan = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Kematian Pasangan/').$kandidat->foto_kematian_pasangan;
+            if(file_exists($hapus_kematian_pasangan)){
+                @unlink($hapus_kematian_pasangan);
             }
             Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
                 'nama_pasangan'=> null,
@@ -340,11 +335,60 @@ class KandidatController extends Controller
                 'umur_pasangan'=> null,
                 'pekerjaan_pasangan'=> null,
                 'foto_buku_nikah' => null,
+                'foto_cerai' =>null,
+                'foto_kematian_pasangan' => null,
+            ]);
+            return redirect()->route('family')->with('toast_success',"Data anda tersimpan");
+        } elseif($request->stats_nikah == "Cerai mati"){
+            $hapus_buku_nikah = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/').$kandidat->foto_buku_nikah;
+            if(file_exists($hapus_buku_nikah)){
+                @unlink($hapus_buku_nikah);
+            }
+            $hapus_cerai = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Cerai/').$kandidat->foto_cerai;
+            if(file_exists($hapus_cerai)){
+                @unlink($hapus_cerai);
+            }
+            $hapus_kematian_pasangan = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Kematian Pasangan/').$kandidat->foto_kematian_pasangan;
+            if(file_exists($hapus_kematian_pasangan)){
+                @unlink($hapus_kematian_pasangan);
+            }
+            Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
+                'nama_pasangan'=> null,
+                'tgl_lahir_pasangan'=> null,
+                'umur_pasangan'=> null,
+                'pekerjaan_pasangan'=> null,
+                'foto_buku_nikah' => null,
+                'foto_cerai' =>null,
+                'foto_kematian_pasangan' => null,
             ]);
             return redirect()->route('family')->with('toast_success',"Data anda tersimpan");
         } else {
+            $hapus_buku_nikah = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/').$kandidat->foto_buku_nikah;
+            if(file_exists($hapus_buku_nikah)){
+                @unlink($hapus_buku_nikah);
+            }
+            $hapus_cerai = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Cerai/').$kandidat->foto_cerai;
+            if(file_exists($hapus_cerai)){
+                @unlink($hapus_cerai);
+            }
+            $hapus_kematian_pasangan = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Kematian Pasangan/').$kandidat->foto_kematian_pasangan;
+            if(file_exists($hapus_kematian_pasangan)){
+                @unlink($hapus_kematian_pasangan);
+            }
+            Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
+                'nama_pasangan'=> null,
+                'tgl_lahir_pasangan'=> null,
+                'umur_pasangan'=> null,
+                'pekerjaan_pasangan'=> null,
+                'jml_anak_lk' => null,
+                'umur_anak_lk' => null,
+                'jml_anak_pr' => null,
+                'umur_anak_pr' => null,
+                'foto_buku_nikah' => null,
+                'foto_cerai' =>null,
+                'foto_kematian_pasangan' => null,
+            ]);
             return redirect('/isi_kandidat_vaksin')->with('toast_success',"Data anda tersimpan");
-
         }        
     }
 
@@ -740,7 +784,6 @@ class KandidatController extends Controller
         }
         Kandidat::where('id_kandidat', $kandidat->id_kandidat)->update([
             'pengalaman_kerja' => $jabatanValues,
-            'penempatan' => $request->penempatan,
         ]);
         return redirect()->route('placement')->with('toast_success',"Data anda tersimpan");
     }
@@ -767,19 +810,19 @@ class KandidatController extends Controller
         return response()->json($data);
     }
 
+    public function deskripsiNegara(Request $request)
+    {
+        $data = Negara::where('negara_id',$request->data)->first();
+        return response()->json($data);
+    }
+
     public function simpan_kandidat_placement(Request $request)
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        if($request->negara_id == 2)
-        {
-            $penempatan = "dalam negeri";
-        } else {
-            $penempatan = "luar negeri";
-        }
         Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
             'negara_id' => $request->negara_id,
-            'penempatan' => $penempatan,
+            'penempatan' => $request->penempatan,
         ]);
         return redirect()->route('permission')->with('toast_success',"Data anda tersimpan");
     }
@@ -860,7 +903,7 @@ class KandidatController extends Controller
         ]);
         if($request->confirm == "ya"){
             Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
-                'no_paspor' => 000,
+                'no_paspor' => 0,
             ]);
             return redirect()->route('paspor')->with('toast_success',"Data anda tersimpan");
         } else {
@@ -954,7 +997,7 @@ class KandidatController extends Controller
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->limit(3)->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
         return view('kandidat/contact_us',compact('kandidat','notif','pembayaran','pesan'));
     }
@@ -965,7 +1008,7 @@ class KandidatController extends Controller
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $perusahaan = Perusahaan::where('id_perusahaan',$id)->first();
         $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->limit(3)->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
         return view('kandidat/profil_perusahaan',compact('kandidat','perusahaan','notif','pembayaran','pesan'));
     }

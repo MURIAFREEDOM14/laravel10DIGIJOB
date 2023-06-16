@@ -38,7 +38,7 @@
                             <label for="">No. Telp Perusahaan</label>
                         </div>
                         <div class="col-8">
-                            <input type="number" disabled value="{{$perusahaan->no_telp_perusahaan}}" class="form-control" name="no_telp_perusahaan" id="">
+                            <input type="number" required value="{{$perusahaan->no_telp_perusahaan}}" class="form-control" name="no_telp_perusahaan" id="">
                         </div>
                     </div>
                     <a class="btn btn-danger" href="/perusahaan/isi_perusahaan_data">Kembali</a>

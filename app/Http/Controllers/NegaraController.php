@@ -17,6 +17,14 @@ class NegaraController extends Controller
         return view('manager/negara/negara',compact('negara','manager'));
     }
 
+    public function lihatNegara($id)
+    {
+        $auth = Auth::user();
+        $manager = User::where('type',3)->first();
+        $negara = Negara::where('negara_id',$id)->first();
+        return view('manager/negara/lihat_negara',compact('negara','manager'));
+    }
+
     public function tambahNegara()
     {
         $auth = Auth::user();
@@ -28,10 +36,19 @@ class NegaraController extends Controller
     {
         $auth = Auth::user();
         $manager = User::where('type',3)->first();
+        if($request->file('gambar') == null){
+            $foto = $request->negara.time().'.'.$request->gambar->extension();  
+            $request->gambar->move(public_path('/gambar/Manager/Foto/Icon'), $foto); 
+        } else {
+            $foto = null;
+        }
+
         Negara::create([
             'negara' => $request->negara,
             'kode_negara' => $request->kode_negara,
             'syarat_umur' => $request->syarat_umur,
+            'deskripsi' => $request->deskripsi,
+            'gambar' => $foto,
         ]);
         return redirect('/manager/negara_tujuan')->with('success',"Data berhasil ditambahkan");
     }
@@ -48,10 +65,35 @@ class NegaraController extends Controller
     {
         $auth = Auth::user();
         $manager = User::where('type',3)->first();
+        $negara = Negara::where('negara_id',$id)->first();
+
+        if($request->file('gambar') !== null){
+            $hapus_icon = public_path('/gambar/Manager/Foto/Icon').$negara->gambar;
+            if(file_exists($hapus_icon)){
+                @unlink($hapus_icon);
+            }
+            $gambar = $request->negara.time().'.'.$request->gambar->extension();  
+            $request->gambar->move(public_path('/gambar/Manager/Foto/Icon/'), $gambar);
+        } else {
+            if($negara->gambar !== null){
+                $gambar = $negara->gambar;
+            } else {
+                $gambar = null;
+            }
+        }
+
+        if ($gambar !== null) {
+            $foto = $gambar;
+        } else {
+            $foto = null;
+        }
+
         Negara::where('negara_id',$id)->update([
             'negara' => $request->negara,
             'kode_negara' => $request->kode_negara,
             'syarat_umur' => $request->syarat_umur,
+            'deskripsi' => $request->deskripsi,
+            'gambar' => $foto,
         ]);
         return redirect('/manager/negara_tujuan')->with('success',"Data berhasil diubah");
     }

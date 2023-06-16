@@ -29,7 +29,7 @@ class PerusahaanController extends Controller
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $interview = Interview::where('status',"terjadwal")->get();        
         return view('perusahaan/index',compact('perusahaan','notif','interview','pesan'));
@@ -83,8 +83,8 @@ class PerusahaanController extends Controller
             //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
             // ]);
             $hapus_logo_perusahaan = public_path('/gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Logo Perusahaan/').$perusahaan->logo_perusahaan;
-            if(file_exists($hapus_foto_perusahaan)){
-                @unlink($hapus_foto_perusahaan);
+            if(file_exists($hapus_logo_perusahaan)){
+                @unlink($hapus_logo_perusahaan);
             }
             $logo = time().'.'.$request->logo_perusahaan->extension();  
             $request->logo_perusahaan->move(public_path('/gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Logo Perusahaan'), $logo);
@@ -139,7 +139,6 @@ class PerusahaanController extends Controller
         $kecamatan = Kecamatan::where('id',$request->kecamatan_id)->first();
         $kelurahan = kelurahan::where('id',$request->kelurahan_id)->first();
         Perusahaan::where('referral_code',$id->referral_code)->update([
-            'email_perusahaan'=>$request->email_perusahaan,
             'provinsi'=>$provinsi->provinsi,
             'kota'=>$kota->kota,
             'kecamatan'=>$kecamatan->kecamatan,
@@ -188,15 +187,6 @@ class PerusahaanController extends Controller
             'company_profile'=>$request->company_profile
         ]);
         return redirect()->route('perusahaan');
-    }
-
-    public function lihatProfilPerusahaan()
-    {
-        $id = Auth::user();
-        $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        return view('/perusahaan/profil_perusahaan',compact('perusahaan','notif','pesan'));
     }
 
     public function contactUsPerusahaan()
@@ -315,10 +305,7 @@ class PerusahaanController extends Controller
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('referral_code',$auth->referral_code)->first();
         $kandidat = Kandidat::where('id_kandidat',$id)->first();
-        $info_kandidat = Kandidat::join(
-            'prt_pengalaman_kerja','kandidat.id_kandidat','=','prt_pengalaman_kerja.id_kandidat'
-        )
-        ->where('kandidat.id_kandidat',$id)->get();
+        $info_kandidat = PengalamanKerja::where('id_kandidat',$id)->get();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         if($perusahaan->tmp_negara == "Dalam negeri"){
@@ -342,6 +329,15 @@ class PerusahaanController extends Controller
             'notif',
             'pesan',
         ));
+    }
+
+    public function lihatVideoKandidat($id)
+    {
+        $auth = Auth::user();
+        $perusahaan = Perusahaan::where('referral_code',$auth->referral_code)->first();
+        $kandidat = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
+        $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->get();
+        return view('perusahaan/kandidat/video_kandidat',compact('perusahaan','kandidat','pengalaman_kerja'));
     }
 
     public function pilihKandidat(Request $request)

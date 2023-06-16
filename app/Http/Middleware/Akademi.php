@@ -19,10 +19,10 @@ class Akademi
             if(auth()->user()->type == 1){
                 return $next($request);
             } else {
-                return response()->redirect('/laman');
+                return redirect()->route('laman');
             }
         } else {
-            return response()->redirect('/laman');
+            return redirect()->route('laman');
         }
     }
 }

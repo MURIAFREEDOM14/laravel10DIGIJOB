@@ -24,8 +24,8 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="nib" class="">{{ __('No. NIB') }}</label>
-                                    <input id="nib" type="text" class="form-control @error('nib') is-invalid @enderror" name="nib" value="{{ old('nib') }}" required autocomplete="nib" autofocus>
-                                    @error('nib')
+                                    <input id="nib" type="text" class="form-control @error('no_nib') is-invalid @enderror" name="no_nib" value="{{ old('no_nib') }}" required autocomplete="nib" autofocus>
+                                    @error('no_nib')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

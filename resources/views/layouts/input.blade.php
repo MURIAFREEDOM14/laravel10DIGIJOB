@@ -125,6 +125,7 @@
         swal({
             title: 'Apakah anda yakin ingin Menghapus data ini?',
             type: 'warning',
+            icon: 'warning',
             buttons:{
                 confirm: {
                     text : 'Iya',

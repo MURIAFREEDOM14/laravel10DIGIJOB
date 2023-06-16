@@ -60,12 +60,12 @@
                                 </div>
                                 <div class="col-md-8">
                                     @if ($perusahaan->foto_perusahaan == "")
-                                        <input type="file" class="form-control"  name="foto_perusahaan" value="{{$perusahaan->foto_perusahaan}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                        <input type="file" required class="form-control"  name="foto_perusahaan" value="{{$perusahaan->foto_perusahaan}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @elseif ($perusahaan->foto_perusahaan !== null)
                                         <img src="/gambar/Perusahaan/Perusahaan/{{$perusahaan->foto_perusahaan}}" width="120" height="150" alt="">
                                         <input type="file" class="form-control"  name="foto_perusahaan" value="{{$perusahaan->foto_perusahaan}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @else
-                                        <input type="file" class="form-control"  name="foto_perusahaan" value="{{$perusahaan->foto_perusahaan}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                        <input type="file" required class="form-control"  name="foto_perusahaan" value="{{$perusahaan->foto_perusahaan}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @endif
                                 </div>
                             </div>
@@ -75,12 +75,12 @@
                                 </div>
                                 <div class="col-md-8">
                                     @if ($perusahaan->logo_perusahaan == "")
-                                        <input type="file" class="form-control"  name="logo_perusahaan" value="{{$perusahaan->logo_perusahaan}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                        <input type="file" required class="form-control"  name="logo_perusahaan" value="{{$perusahaan->logo_perusahaan}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @elseif ($perusahaan->logo_perusahaan !== null)
                                         <img src="/gambar/Perusahaan/Logo/{{$perusahaan->logo_perusahaan}}" width="120" height="150" alt="">
                                         <input type="file" class="form-control"  name="logo_perusahaan" value="{{$perusahaan->logo_perusahaan}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @else
-                                        <input type="file" class="form-control"  name="logo_perusahaan" value="{{$perusahaan->logo_perusahaan}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                        <input type="file" required class="form-control"  name="logo_perusahaan" value="{{$perusahaan->logo_perusahaan}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @endif
                                 </div>
                             </div>

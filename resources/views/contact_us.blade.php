@@ -48,14 +48,14 @@
                         <div class="text-center">
                             <h6>WhatsApp</h6>
                             <hr>
-                            <div class=""></div>
+                            <div class="">0815-5573-7859</div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="text-center">
                             <h6>Email</h6>
                             <hr>
-                            <div class="">xxxxxxxxxxxxxxxgmail.com</div>
+                            <div class="">Segera Hadir</div>
                         </div>
                     </div>
                 </div>

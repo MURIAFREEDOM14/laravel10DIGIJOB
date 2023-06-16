@@ -16,6 +16,23 @@
         <select class="select2" name="select2" id="select2">
             <option value=""></option>
         </select>
+
+        
+        <div class="row">
+            <div class="col">
+                <select name="negara_id" class="form-select" id="negara_tujuan">
+                    <option value="">-- Pilih negara tujuan --</option>
+                </select>
+            </div>
+        </div>
+        <select name="penempatan" required class="form-select" id="placement">
+            <option value="">-- Pilih penempatan tempat kerja --</option>
+            <option value="dalam negeri">Dalam Negeri</option>
+            <option value="luar negeri">Luar Negeri</option>
+        </select>
+
+        
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script type="text/javascript">
         $(document).ready(function(){
@@ -47,6 +64,43 @@
                 });
             });
         });
+        </script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $(document).on('change','#placement',function() {
+                    console.log("ditekan");
+                    var getID = $(this).val();
+                    console.log(getID);
+                    var div = $(this).parent();
+                    var op = "";
+                    if (getID == "luar negeri") {
+                        $.ajax({
+                            type:'get',
+                            url:'{!!URL::to('/penempatan')!!}',
+                            data:{'stats':getID},
+                            success:function (data) {
+                                console.log(data.length);
+                                op+='<option value="" selected> Pilih </option>';
+                                for(var i = 0; i < data.length; i++){
+                                    op+='<option value="'+data[i].negara_id+'">"'+data[i].negara+'"</option>';
+                                }
+                                div.find('#negara_tujuan').html(" ");
+                                div.find('#negara_tujuan').append(op);
+                                console.log(op);
+                            },
+                            error:function() {
+
+                            }
+                        });
+                    } else {
+                        op+='<option value="2" selected> Indonesia </option>';
+                        div.find('#negara_tujuan').html(" ");
+                        div.find('#negara_tujuan').append(op);
+                        console.log(op);
+                    }
+                })
+            });
         </script>
     </body>
 </html>

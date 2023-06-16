@@ -114,11 +114,9 @@
                                                         <td><b class="bold">{{$item->jabatan}}</b></td>
                                                         <td><b class="bold">{{date('d-M-Y',strtotime($item->periode_awal))}} - {{date('d-M-Y',strtotime($item->periode_akhir))}}</b></td>
                                                         <td><b class="bold">{{$item->alasan_berhenti}}</b></td>
-                                                        @if ($item->video_kerja !== null)
+                                                        @if ($item->video_pengalaman_kerja !== null)
                                                             <td>
-                                                                <button type="button" style="font-size: 10px; font-weight:bold;" class="btn" data-bs-toggle="modal" data-bs-target="#video_kerja1">
-                                                                    See Video
-                                                                </button>
+                                                                <a class="btn btn-primary" href="/perusahaan/lihat/video_kandidat/{{$item->pengalaman_kerja_id}}">Lihat</a>
                                                             </td>                                                    
                                                         @else
                                                             <td>---</td>

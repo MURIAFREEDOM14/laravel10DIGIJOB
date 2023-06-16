@@ -15,7 +15,10 @@
         "laravel/ui": "^4.2",
         "livewire/livewire": "^2.12",
         "mckenziearts/laravel-notify": "^2.4",
+        "milon/barcode": "^10.0",
+        "picqer/php-barcode-generator": "^2.2",
         "realrashid/sweet-alert": "^7.0",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "stevebauman/location": "^6.6",
         "stripe/stripe-php": "^10.13",
         "vinkla/hashids": "^11.0"

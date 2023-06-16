@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Facade;
+use Milon\Barcode\DNS1D;
 
 return [
 
@@ -183,6 +184,10 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         Stevebauman\Location\LocationServiceProvider::class,
+
+        //Barcode
+        Milon\Barcode\BarcodeServiceProvider::class,
+
         /*
          * Package Service Providers...
          */
@@ -213,6 +218,10 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
 
         'Location' => 'Stevebauman\Location\Facades\Location',
+
+        //Barcode
+        'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
+        'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
 
     ])->toArray(),
 
