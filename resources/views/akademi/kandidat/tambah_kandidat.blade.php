@@ -10,54 +10,99 @@
                     </h6>
                     <form action="" method="POST">
                         @csrf
-                        <div class="" id="personal_biodata">
-                            <div class="row mb-1">
+                            <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <h6 class="ms-5">PROFIL BIO DATA</h6> 
-                                </div>
-                            </div>
-                            <div class="row mb-3 g-3 align-items-center">
-                                <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Nama Lengkap</label>
+                                    <label for="name" class="">{{ __('Nama') }}</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" required name="nama" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
-                                </div>
+                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>  
                             </div>
-                            <div class="row mb-3 g-3 align-items-center">
+                            <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Tanggal Lahir</label>
+                                    <label for="nik" class="">{{ __('No. NIK') }}</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="date" required name="tgl" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input id="nik" type="number" class="form-control @error('nik') is-invalid @enderror" name="nik" value="{{ old('nik') }}" required autocomplete="nik" autofocus>
+                                    @error('nik')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
-                            <div class="row mb-3 g-3 align-items-center">
+                            <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Email</label>
+                                    <label for="tgl" class="">{{ __('Tanggal Lahir') }}</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="email" required name="email" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input id="tgl" type="date" class="form-control @error('tgl') is-invalid @enderror" name="tgl" value="{{ old('tgl') }}" required autocomplete="tgl" autofocus>
+                                    @error('tgl')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
-                            <div class="row mb-3 g-3 align-items-center">
+                            <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">No. Telp</label>
+                                    <label for="no_telp" class="">{{ __('No Telp') }}</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="number" required name="no_telp" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input id="no_telp" type="number" class="form-control @error('no_telp') is-invalid @enderror" name="no_telp" value="{{ old('no_telp') }}" required autocomplete="no_telp" autofocus>
+                                    @error('no_telp')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
-                            <div class="row mb-3 g-3 align-items-center">
+                            <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Password</label>
+                                    <label for="nama_panggilan" class="">{{ __('Username') }}</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="password" required name="password" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input id="nama_panggilan" type="text" class="form-control @error('username') is-invalid @enderror" name="nama_panggilan" value="{{ old('nama_panggilan') }}" required autocomplete="nama_panggilan">
+                                    @error('nama_panggilan')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>Username sudah digunakan</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
-                        </div>
-                        <button class="btn btn-primary my-3 float-end" type="submit">Simpan</button>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="email" class="">{{ __('Email Address') }}</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>Email sudah digunakan</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="email" class="">{{ __('Password') }}</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" required autocomplete="password">
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>password harus berisi min 6 digit dan max 20 digit</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        <a href="/akademi/list_kandidat" class="btn btn-danger">Kembali</a>
+                        <button class="btn btn-primary my-3 float-end" type="submit">Tambah</button>
                     </form>
                 </div>
                 <hr>

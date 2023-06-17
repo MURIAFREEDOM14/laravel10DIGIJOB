@@ -37,7 +37,7 @@
                                         <label for="inputPassword6" class="col-form-label">Batch ID Pertama</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <label for="">Berikut contoh nomor Batch ID yang terdapat di sertifikat vaksin anda : </label><img class="mb-1" src="/gambar/batch_id.jpg" alt="">
+                                        <label for="">Berikut contoh nomor Batch ID yang terdapat di sertifikat vaksin anda : </label><img class="mb-1 img" src="/gambar/batch_id.jpg" alt="">
                                         <input type="text" required value="{{$kandidat->no_batch_v1}}" name="no_batch_v1" class="form-control">
                                     </div>
                                 </div>
@@ -57,7 +57,7 @@
                                         @if ($kandidat->sertifikat_vaksin1 == "")
                                             <input type="file" required value="{{$kandidat->sertifikat_vaksin1}}" name="sertifikat_vaksin1" class="form-control" accept="image/*">                                            
                                         @elseif ($kandidat->sertifikat_vaksin1 !== null)
-                                            <img src="/gambar/Kandidat/{{$kandidat->nama}}/Vaksin Pertama/{{$kandidat->sertifikat_vaksin1}}" width="150" height="150" alt="">
+                                            <img src="/gambar/Kandidat/{{$kandidat->nama}}/Vaksin Pertama/{{$kandidat->sertifikat_vaksin1}}" width="150" height="150" alt="" class="img mb-1">
                                             <input type="file" value="{{$kandidat->sertifikat_vaksin1}}" name="sertifikat_vaksin1" class="form-control" accept="image/*">                                            
                                         @else
                                             <input type="file" required value="{{$kandidat->sertifikat_vaksin1}}" name="sertifikat_vaksin1" class="form-control" accept="image/*">                                            
@@ -89,7 +89,7 @@
                                         <label for="inputPassword6" class="col-form-label">Batch ID Kedua</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <label for="">Berikut contoh nomor Batch ID yang terdapat di sertifikat vaksin anda : </label><img class="mb-1" src="/gambar/batch_id.jpg" alt="">
+                                        <label for="">Berikut contoh nomor Batch ID yang terdapat di sertifikat vaksin anda : </label><img class="mb-1 img" src="/gambar/batch_id.jpg" alt="">
                                         <input type="text" required value="{{$kandidat->no_batch_v2}}" name="no_batch_v2" class="form-control">
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@
                                         @if ($kandidat->sertifikat_vaksin2 == "")
                                             <input type="file" required name="sertifikat_vaksin2" class="form-control" accept="image/*">                                            
                                         @elseif ($kandidat->sertifikat_vaksin2 !== null)
-                                            <img src="/gambar/Kandidat/{{$kandidat->nama}}/Vaksin Kedua/{{$kandidat->sertifikat_vaksin2}}" width="150" height="150" alt="">
+                                            <img src="/gambar/Kandidat/{{$kandidat->nama}}/Vaksin Kedua/{{$kandidat->sertifikat_vaksin2}}" width="150" height="150" alt="" class="img mb-1">
                                             <input type="file" name="sertifikat_vaksin2" class="form-control" accept="image/*">                                            
                                         @else
                                             <input type="file" required name="sertifikat_vaksin2" class="form-control" accept="image/*">                                            
@@ -126,13 +126,13 @@
                                     <div class="col-md-8">
                                         <select name="vaksin3" class="form-select" id="">
                                             <option value="">-- Pilih Nama Vaksin --</option>
-                                            <option value="ASTRA ZENECA" @if ($kandidat->vaksin2 == "ASTRA ZENECA") selected @endif>ASTRA ZENECA</option>
-                                            <option value="PFIZER" @if ($kandidat->vaksin2 == "PFIZER") selected @endif>PFIZER</option>
-                                            <option value="SINOVAC" @if ($kandidat->vaksin2 == "SINOVAC") selected @endif>SINOVAC</option>
-                                            <option value="SINOPHARM" @if ($kandidat->vaksin2 == "SINOPHARM") selected @endif>SINOPHARM</option>
-                                            <option value="CORONAVAC" @if ($kandidat->vaksin2 == "CORONAVAC") selected @endif>CORONAVAC</option>
-                                            <option value="MODERNA" @if ($kandidat->vaksin2 == "MODERNA") selected @endif>MODERNA</option>
-                                            <option value="JOHNSONS & JOHNSONS" @if ($kandidat->vaksin2 == "JOHNSONS & JOHNSONS") selected @endif>JOHNSONS & JOHNSONS</option>
+                                            <option value="ASTRA ZENECA" @if ($kandidat->vaksin3 == "ASTRA ZENECA") selected @endif>ASTRA ZENECA</option>
+                                            <option value="PFIZER" @if ($kandidat->vaksin3 == "PFIZER") selected @endif>PFIZER</option>
+                                            <option value="SINOVAC" @if ($kandidat->vaksin3 == "SINOVAC") selected @endif>SINOVAC</option>
+                                            <option value="SINOPHARM" @if ($kandidat->vaksin3 == "SINOPHARM") selected @endif>SINOPHARM</option>
+                                            <option value="CORONAVAC" @if ($kandidat->vaksin3 == "CORONAVAC") selected @endif>CORONAVAC</option>
+                                            <option value="MODERNA" @if ($kandidat->vaksin3 == "MODERNA") selected @endif>MODERNA</option>
+                                            <option value="JOHNSONS & JOHNSONS" @if ($kandidat->vaksin3 == "JOHNSONS & JOHNSONS") selected @endif>JOHNSONS & JOHNSONS</option>
                                         </select>
                                     </div>
                                 </div>
@@ -141,7 +141,7 @@
                                         <label for="inputPassword6" class="col-form-label">Batch ID Ketiga</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <label for="">Berikut contoh nomor Batch ID yang terdapat di sertifikat vaksin anda : </label><img class="mb-1" src="/gambar/batch_id.jpg" alt="">
+                                        <label for="">Berikut contoh nomor Batch ID yang terdapat di sertifikat vaksin anda : </label><img class="mb-1 img" src="/gambar/batch_id.jpg" alt="">
                                         <input type="text" value="{{$kandidat->no_batch_v3}}" name="no_batch_v3" class="form-control">
                                     </div>
                                 </div>
@@ -161,7 +161,7 @@
                                         @if ($kandidat->sertifikat_vaksin3 == "")
                                             <input type="file" name="sertifikat_vaksin3" class="form-control" accept="image/*">                                            
                                         @elseif ($kandidat->sertifikat_vaksin3 !== null)
-                                            <img src="/gambar/Kandidat/{{$kandidat->nama}}/Vaksin Ketiga/{{$kandidat->sertifikat_vaksin3}}" width="150" height="150" alt="">
+                                            <img src="/gambar/Kandidat/{{$kandidat->nama}}/Vaksin Ketiga/{{$kandidat->sertifikat_vaksin3}}" width="150" height="150" alt="" class="img mb-1">
                                             <input type="file" name="sertifikat_vaksin3" class="form-control" accept="image/*">                                            
                                         @else
                                             <input type="file" name="sertifikat_vaksin3" class="form-control" accept="image/*">                                            
@@ -171,7 +171,9 @@
                             </div>
                         </div>
                         <small>Catatan : Pastikan sudah vaksin minimal 2 kali</small>
-                        <button class="btn btn-primary my-3 float-end" type="submit">Simpan</button>
+                        <hr>
+                        <a class="btn btn-warning" href="/akademi/isi_kandidat_parent/{{$kandidat->nama}}/{{$kandidat->id}}">Lewati</a>
+                        <button class="btn btn-primary float-end" type="submit">Selanjutnya</button>
                     </form>
                 </div>
                 <hr>

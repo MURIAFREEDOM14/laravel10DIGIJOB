@@ -95,7 +95,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-primary my-3 float-end" type="submit">Simpan</button>
+                        <button class="btn btn-primary my-3 float-end" type="submit">Selanjutnya</button>
                     </form>
                 </div>
                 <hr>

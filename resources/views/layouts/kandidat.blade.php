@@ -12,11 +12,20 @@
                 font-weight: bold;
                 line-height:1px;
             }
+            .word{
+                text-transform: uppercase;
+                font-weight: bold;
+                line-height:1px;
+            }
             .img{
                 width: 100%;
                 height: auto;
                 border: 1px solid black;
                 border-radius: 2%;
+            }
+            .img2{
+                width: 30%;
+                height: auto;
             }
             .hidden{
                 display:none;
@@ -218,7 +227,7 @@
                                 @endif
                             </div>
                             <div class="info">
-                                <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+                                <a data-toggle="collapse" href="#collapseExample" class="btn" aria-expanded="true">
                                     <span>
                                         <span class="" style="text-transform: uppercase;"><b class="bold">{{$kandidat->nama_panggilan}}</b></span>
                                         <span class="caret"></span>

@@ -15,25 +15,25 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Perusahaan</th>
-                                        <th>Logo Perusahaan</th>
+                                        {{-- <th>Logo Perusahaan</th> --}}
                                         <th>Lihat Profil Perusahaan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($perusahaan as $item)
                                         <tr>
-                                            <th>{{$loop->iteration}}</th>
-                                            <th style="text-transform: uppercase">{{$item->nama_perusahaan}}</th>
-                                            <th>
+                                            <td>{{$loop->iteration}}</td>
+                                            <td style="text-transform: uppercase">{{$item->nama_perusahaan}}</td>
+                                            {{-- <th>
                                                 @if ($item->logo_perusahaan == null)
                                                     <img src="/gambar/default_user.png" width="150" height="150" alt="">
                                                 @else
-                                                    <img src="/gambar/Perusahaan/{{$item->nama_perusahaan}}/Logo/{{$item->logo_perusahaan}}" width="150" height="150" alt="">
+                                                    <img src="/gambar/Perusahaan/{{$item->nama_perusahaan}}/Logo Perusahaan/{{$item->logo_perusahaan}}" width="150" height="150" alt="">
                                                 @endif
-                                            </th>
-                                            <th>
+                                            </th> --}}
+                                            <td>
                                                 <a href="/akademi/lihat/profil_perusahaan/{{$item->id_perusahaan}}" class="btn btn-info">Lihat</a>
-                                            </th>
+                                            </td>
                                         </tr>                                        
                                     @endforeach
                                 </tbody>
@@ -63,7 +63,7 @@
                                             <td>{{$loop->iteration}}</td>
                                             <td>{{$item->nama}}</td>
                                             <td>
-                                                <a href="/akademi/kandidat/lihat_profil/{{$item->nama}}/{{$item->id_kandidat}}" class="btn btn-info">Lihat</a>
+                                                <a href="/akademi/kandidat/lihat_profil/{{$item->nama}}/{{$item->id}}" class="btn btn-info">Lihat</a>
                                             </td>
                                         </tr>    
                                     @endforeach

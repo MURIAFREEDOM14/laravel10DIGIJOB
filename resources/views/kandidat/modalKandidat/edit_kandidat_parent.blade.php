@@ -107,7 +107,6 @@
                                 <input type="number" required value="{{$kandidat->anak_ke}}" name="anak_ke" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">                                        
                             </div>
                         </div>
-                        <hr>
                         {{-- <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="inputPassword6" class="col-form-label">Apakah Anda Pernah memiliki Pengalaman Kerja?</label>
@@ -122,6 +121,7 @@
                             </div>
                         </div> --}}
                     </div>
+                    <hr>
                     <a class="btn btn-warning" href="{{route('company')}}">Lewati</a>
                     <button class="btn btn-primary float-end" type="submit">Selanjutnya</button>
                 </form>

@@ -55,7 +55,7 @@
                                     <input id="nama_panggilan" type="text" class="form-control @error('username') is-invalid @enderror" name="nama_panggilan" value="{{ old('nama_panggilan') }}" required autocomplete="nama_panggilan">
                                     @error('nama_panggilan')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <strong>Username sudah digunakan</strong>
                                         </span>
                                     @enderror
                                 </div>

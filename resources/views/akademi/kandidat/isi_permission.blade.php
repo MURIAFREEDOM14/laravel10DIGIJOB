@@ -10,8 +10,9 @@
                         @csrf
                         <div class="" id="perizin">
                             <div class="row mb-1">
-                                <div class="col-md-4">
-                                    <h6 class="ms-5">Surat Izin OrangTua / Suami / Istri / Wali</h6> 
+                                <div class="col-md-12">
+                                    {{-- <h6 class="ms-5">Surat Izin OrangTua / Suami / Istri / Wali</h6>  --}}
+                                    <h6 class="ms-5">Kontak Darurat</h6> 
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
@@ -27,7 +28,7 @@
                                     <label for="inputPassword6" class="col-form-label">NIK Perizin</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" required value="{{$kandidat->nik_perizin}}" name="nik_perizin" id="inputPassword6" class="form-control @error('nik_perizin') is-invalid @enderror" aria-labelledby="passwordHelpInline">
+                                    <input type="number" required value="{{$kandidat->nik_perizin}}" name="nik_perizin" id="inputPassword6" class="form-control @error('nik_perizin') is-invalid @enderror" aria-labelledby="passwordHelpInline">
                                     @error('nik_perizin')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>Harap isi no. nik 16 digit</strong>
@@ -67,12 +68,12 @@
                             @livewire('akademi.location-permission')
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Dusun</label>
+                                    <label for="inputPassword6" class="col-form-label">Dusun Perizin</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" value="{{$kandidat->dusun_perizin}}" name="dusun_perizin" required placeholder="Masukkan Alamat Dusun">
+                                    <input type="text" required name="dusun_perizin" class="form-control" value="{{$kandidat->dusun_perizin}}" id="">
                                 </div>
-                            </div>                        
+                            </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">RT / RW</label>
@@ -90,14 +91,14 @@
                                 </div>
                                 <div class="col-md-8">
                                     @if ($kandidat->foto_ktp_izin == "")
-                                        <input type="file"  class="form-control @error('foto_ktp_izin') is-invalid @enderror"  name="foto_ktp_izin" value="{{$kandidat->foto_ktp_izin}}" id="inputPassword6" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                        <input type="file" required class="form-control @error('foto_ktp_izin') is-invalid @enderror"  name="foto_ktp_izin" value="{{$kandidat->foto_ktp_izin}}" id="inputPassword6" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                         @error('foto_ktp_izin')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     @elseif ($kandidat->foto_ktp_izin !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/KTP Perizin/{{$kandidat->foto_ktp_izin}}" width="150" height="150" alt="">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/KTP Perizin/{{$kandidat->foto_ktp_izin}}" width="150" height="150" alt="" class="img mb-1">
                                         <input type="file" class="form-control @error('foto_ktp_izin') is-invalid @enderror"  name="foto_ktp_izin" value="{{$kandidat->foto_ktp_izin}}" id="inputPassword6" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                         @error('foto_ktp_izin')
                                             <span class="invalid-feedback" role="alert">
@@ -105,7 +106,7 @@
                                             </span>
                                         @enderror
                                     @else
-                                        <input type="file"  class="form-control @error('foto_ktp_izin') is-invalid @enderror"  name="foto_ktp_izin" value="{{$kandidat->foto_ktp_izin}}" id="inputPassword6" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                        <input type="file" class="form-control @error('foto_ktp_izin') is-invalid @enderror" required name="foto_ktp_izin" value="{{$kandidat->foto_ktp_izin}}" id="inputPassword6" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                         @error('foto_ktp_izin')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -123,7 +124,9 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-primary my-3 float-end" type="submit">Simpan</button>
+                        <hr>
+                        <a class="btn btn-warning" href="/akademi/list_kandidat">Lewati</a>
+                        <button class="btn btn-primary float-end" type="submit">Selanjutnya</button>
                     </form>
                 </div>
                 <hr>

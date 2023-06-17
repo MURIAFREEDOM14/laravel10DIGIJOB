@@ -38,9 +38,10 @@
                             <label for="exampleInputEmail1" class="form-label">Video Kerja</label>
                             <div class="">
                                 @if ($pengalaman_kerja->video_pengalaman_kerja !== null)
-                                    <video width="400" class="" controls>
+                                    <video width="400" class="" id="video">
                                         <source src="/gambar/Kandidat/{{$pengalaman_kerja->nama}}/Pengalaman Kerja/{{$pengalaman_kerja->video_pengalaman_kerja}}">
                                     </video>
+                                    <button class="btn btn-success mb-2" type="button" onclick="playPause()">Mulai/Jeda</button>
                                     <input type="file" name="video" class="form-control" id="video" aria-describedby="emailHelp" accept="video/*">
                                     <small>Usahakan untuk ukuran video 3mb</small>                                
                                 @else
@@ -51,11 +52,22 @@
                         </div>
                         <div class="mb-2">
                             <a href="/isi_kandidat_company" class="btn btn-danger">Kembali</a>
-                            <button type="submit" class="btn btn-warning"{{--onclick="store()"--}}>Ubah</button>
+                            <button type="submit" class="btn btn-warning">Ubah</button>
                         </div>    
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
+    <script>
+        var video = document.getElementById("video");
+        function playPause() {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        }
+    </script>
 @endsection
