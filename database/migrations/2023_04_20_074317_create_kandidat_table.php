@@ -34,7 +34,7 @@ return new class extends Migration
             $table->string('foto_4x6')->nullable();
             $table->string('foto_ket_lahir')->nullable();
             $table->string('foto_ijazah')->nullable();
-            $table->enum('stats_nikah',['Menikah', 'Single', 'Cerai_hidup', 'Cerai_mati'])->nullable();
+            $table->enum('stats_nikah',['Menikah', 'Single', 'Cerai hidup', 'Cerai mati'])->nullable();
             $table->string('nama_panggilan')->nullable();
             $table->integer('usia')->nullable();
             $table->enum('stat_pemilik',['diambil'])->nullable();
@@ -64,10 +64,10 @@ return new class extends Migration
             $table->string('sertifikat_vaksin3')->nullable();
 
             //Parent
-            $table->string('nama_ayah')->default("-")->nullable();
+            $table->string('nama_ayah')->nullable();
             $table->string('umur_ayah')->nullable();
             $table->date('tgl_lahir_ayah')->nullable();
-            $table->string('nama_ibu')->default("-")->nullable();
+            $table->string('nama_ibu')->nullable();
             $table->string('umur_ibu')->nullable();
             $table->date('tgl_lahir_ibu')->nullable();
             $table->integer('jml_sdr_lk')->default(0);

@@ -4,6 +4,11 @@
 <div class="container mt-5 my-3">
     <div class="row mt-2">
         <div class="col-md-7">
+            {{-- <div class="card mb-3" style="background-color: #1269db">
+                <div class="card-body">
+                    <div class="text-white" style="border-bottom:2px solid white"><b class="word" style="font-size: 13px;">Hai, apakah kamu penasaran ingin melihat informasi perusahaan?</b></div>
+                </div>
+            </div> --}}
             <div class="card">
                 <div class="card-header">
                     <b class="bold">Data Perusahaan</b>
@@ -23,11 +28,12 @@
                                     <tr class="text-center">
                                         <td>{{$loop->iteration}}</td>
                                         <td>
-                                            @if ($item->logo_perusahaan == null)
-                                                <img src="/gambar/default_user.png" width="150" alt="">    
+                                            {{-- @if ($item->logo_perusahaan == null)
+                                                <img src="/gambar/default_user.png" width="150" height="150" alt="">    
                                             @else
-                                                <img src="/gambar/Perusahaan/Logo/{{$item->logo_perusahaan}}" alt="">
-                                            @endif
+                                                <img src="/gambar/Perusahaan/{{$item->nama_perusahaan}}/Logo Perusahaan/{{$item->logo_perusahaan}}" alt="" width="150" height="150">
+                                            @endif --}}
+                                            {{$item->nama_perusahaan}}
                                         </td>
                                         <td>
                                             <a class="btn btn-info" href="/profil_perusahaan/{{$item->id_perusahaan}}">Lihat Profil</a>

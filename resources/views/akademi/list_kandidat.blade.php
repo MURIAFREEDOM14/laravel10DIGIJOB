@@ -28,9 +28,9 @@
                                     <td>{{$item->jenis_kelamin}}</td>
                                     <td>
                                         @if ($item->negara_id == null)
-                                            <a class="btn btn-warning" href="/akademi/isi_kandidat_document/{{$item->nama}}/{{$item->id_kandidat}}">Harap lengkapi profil anda</a>
+                                            <a class="btn btn-warning" href="/akademi/isi_kandidat_document/{{$item->nama}}/{{$item->id}}">Harap lengkapi profil anda</a>
                                         @else
-                                            <a class="btn btn-info" href="/akademi/kandidat/lihat_profil/{{$item->nama}}/{{$item->id_kandidat}}">Lihat Profil</a>
+                                            <a class="btn btn-info" href="/akademi/kandidat/lihat_profil/{{$item->nama}}/{{$item->id}}">Lihat Profil</a>
                                         @endif
                                     </td>
                                 </tr>    

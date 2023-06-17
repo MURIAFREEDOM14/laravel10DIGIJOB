@@ -6,7 +6,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="text-center text-light"><b class="bold" style="font-size: 25px; text-transform:uppercase; border-bottom:2px solid white">bio data Profil</b></div>
-                        <h6 class="text-center text-light" style="line-height:20px; text-transform:uppercase;">{{$negara->negara}}</h6>
+                        <div class="text-center text-light mt-1"><b class="bold" style="font-size: 15px;">{{$negara->negara}}</b></div>
                     </div>
                 </div>
             </div>

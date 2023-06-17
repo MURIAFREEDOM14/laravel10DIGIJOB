@@ -8,9 +8,10 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <video width="330" controls>
+                        <video width="330" id="video">
                             <source src="/gambar/Kandidat/{{$kandidat->nama}}/Pengalaman Kerja/{{$kandidat_pengalaman_kerja->video_pengalaman_kerja}}" type="video/mp4">
                         </video>
+                        <button type="button" class="btn btn-success" onclick="playPause()">Mulai / Jeda</button>
                     </div>
                     <div class="col-md-6">
                         <b class="bold">Nama Pengalaman Kerja : {{$kandidat_pengalaman_kerja->nama_perusahaan}}</b>
@@ -65,4 +66,14 @@
             </div>
         </div>
     </div>
+    <script>
+        var video = document.getElementById("video");
+        function playPause() {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        }
+    </script>
 @endsection

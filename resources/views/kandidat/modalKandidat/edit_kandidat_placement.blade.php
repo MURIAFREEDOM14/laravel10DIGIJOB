@@ -34,23 +34,17 @@
                         </div> --}}
                         <label for="" class="col-form-label">Penempatan</label>
                         <select name="penempatan" required class="form-select" id="placement">
-                            <option value="">-- Pilih penempatan tempat kerja --</option>
+                            <option value="">-- Pilih Penempatan Tempat Kerja --</option>
                             <option value="dalam negeri">Dalam Negeri</option>
                             <option value="luar negeri">Luar Negeri</option>
                         </select>
-                        <div class="row my-3">
-                            <div class="col-md-2">
-                                <label for="" class="col-form-label">Status Negara Tujuan</label>
-                            </div>
-                            <div class="col-md-4">
-                                <select name="negara_id" class="form-select" id="negara_tujuan">
-                                    <option value="">-- Pilih negara tujuan --</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <textarea name="" id="deskripsi" class="form-control"></textarea>
-                            </div>
-                        </div>
+                        <label for="" class="col-form-label">Status Negara Tujuan</label>
+                        <select name="negara_id" class="form-select" id="negara_tujuan">
+                            <option value="">-- Harap Tentukan Penempatan Tempat Kerja --</option>
+                        </select>
+                        {{-- <div class="col-md-6">
+                            <textarea name="" id="deskripsi" class="form-control"></textarea>
+                        </div> --}}
                         <hr>
                         <a class="btn btn-warning" href="{{route('permission')}}">Lewati</a>
                         <button type="submit" class="btn btn-primary float-end">Selanjutnya</button>
@@ -108,6 +102,10 @@
                         data: {'dks':getNegara},
                         success:function(data) {
                             console.log(data);
+                            dks+='<textarea name="" id="deskripsi" class="form-control">'+data.deskripsi+'</textarea>'
+                            div.find('#deskripsi').html(" ");
+                            div.find('#deskripsi').append(dks);
+                            console.log(dks);
                         }
                     })
                 })

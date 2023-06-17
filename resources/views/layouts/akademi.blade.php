@@ -16,6 +16,12 @@
                 border: 1px solid black;
                 border-radius: 2%;
             }
+            .text1{
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+            }
         </style>
         <!-- Fonts and icons -->
         <script src="/Atlantis/examples/assets/js/plugin/webfont/webfont.min.js"></script>
@@ -112,10 +118,18 @@
                                             <div class="notif-center">
                                                 @foreach ($notif as $item)
                                                     <a href="{{$item->url}}">
-                                                        <div class="notif-icon notif-warning"> <i class="fas fa-bell"></i> </div>
-                                                        <div class="notif-content">
-                                                            <div class="" style="">{{$item->isi}}</div>
-                                                            <span class="time">{{date('d-m-Y | h:m:sa',strtotime($item->created_at))}}</span>
+                                                        <div class="row">
+                                                            <div class="col-2 mr-1">
+                                                                <div class="notif-icon notif-warning"> 
+                                                                    <i class="fas fa-bell"></i> 
+                                                                </div>
+                                                            </div>
+                                                            <div class="col">
+                                                                <div class="notif-content">
+                                                                    <div class="text1" style="">{{$item->isi}}</div>
+                                                                    <span class="time">{{date('d-m-Y | h:m:sa',strtotime($item->created_at))}}</span>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </a>    
                                                 @endforeach
@@ -204,26 +218,25 @@
                                     </span>
                                 </a>
                                 <div class="clearfix"></div>
-    
                                 <div class="collapse in" id="collapseExample">
                                     <ul class="nav">
                                         <li>
                                             <a href="/akademi/lihat/profil" class="dropdown-item">
-                                                <span class="link-collapse">Profil Akademi</span>
+                                                <div class="link-collapse">Profil Akademi<i class="fas fa-user-circle float-right"></i></div>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="/akademi/edit/profil" class="dropdown-item">
                                                 @if ($akademi->nama_kepala_akademi == null)
-                                                    <span class="link-collapse">Lengkapi Profil</span>
+                                                    <div class="link-collapse"> Lengkapi Profil <i class="fas fa-exclamation-circle float-right"></i></div>
                                                 @else
-                                                    <span class="link-collapse">Edit Profil</span>
+                                                    <div class="link-collapse"> Edit Profil <i class="fas fa-edit float-right"></i></div>
                                                 @endif
                                             </a>
                                         </li>
                                         <li>
                                             <a href="{{route('logout')}}" class="dropdown-item" onclick="confirmation(event)">
-                                                <span class="link-collapse">Keluar</span>
+                                                <div class="link-collapse"> Keluar <i class="fas fa-door-open float-right"></i></div>
                                             </a>
                                         </li>
                                     </ul>

@@ -404,11 +404,11 @@ class KandidatController extends Controller
         }
 
         if ($kandidat->stats_nikah == null) {
-            return redirect()->route('company');
+            return redirect()->route('vaksin');
         } elseif($kandidat->stats_nikah !== "Single") {
             return view('Kandidat/modalKandidat/edit_kandidat_family',compact('kandidat','negara'));    
         } else {
-            return redirect('/isi_kandidat_vaksin')->with('toast_success',"Data anda tersimpan");
+            return redirect('/isi_kandidat_vaksin');
         }
     }
 
@@ -812,7 +812,7 @@ class KandidatController extends Controller
 
     public function deskripsiNegara(Request $request)
     {
-        $data = Negara::where('negara_id',$request->data)->first();
+        $data = Negara::where('negara_id',$request->dks)->first();
         return response()->json($data);
     }
 
@@ -902,8 +902,13 @@ class KandidatController extends Controller
             'hubungan_perizin' => $request->hubungan_perizin
         ]);
         if($request->confirm == "ya"){
+            if($kandidat->no_paspor == null){
+                $paspor = 0;
+            } else {
+                $paspor = $kandidat->no_paspor;
+            }
             Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
-                'no_paspor' => 0,
+                'no_paspor' => $paspor,
             ]);
             return redirect()->route('paspor')->with('toast_success',"Data anda tersimpan");
         } else {

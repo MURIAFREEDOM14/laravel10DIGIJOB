@@ -1,197 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Akademi;
 
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Akademi;
-use App\Models\AkademiKandidat;
+use App\Models\Kandidat;
+use App\Models\User;
+use App\Models\Provinsi;
+use App\Models\Kota;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
-use App\Models\Kota;
 use App\Models\Negara;
-use App\Models\Provinsi;
-use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Perusahaan;
-use App\Models\Kandidat;
-use App\Models\messageAkademi;
 use App\Models\notifyAkademi;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class AkademiController extends Controller
+class AkademiKandidatController extends Controller
 {
-    public function index()
-    {
-        $id = Auth::user();
-        $akademi = Akademi::where('referral_code',$id->referral_code)->first();
-        $perusahaan = Perusahaan::all();
-        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
-        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
-        $akademi_kandidat = Kandidat::where('id_akademi',$akademi->id_akademi)->limit(10)->get();
-        return view('/akademi/akademi_index',compact('akademi','perusahaan','akademi_kandidat','pesan','notif'));
-    } 
-
-    public function isi_akademi_data()
-    {
-        $id = Auth::user();
-        $akademi = Akademi::where('referral_code',$id->referral_code)->first();
-        return view('akademi/isi_akademi_data',compact('akademi'));
-    }
-
-    public function simpan_akademi_data(Request $request)
-    {
-        // dd($request);
-        $id = Auth::user();
-        $akademi = Akademi::where('referral_code',$id->referral_code)->first();
-        if($request->file('foto_akademi') !== null){
-            // $this->validate($request, [
-            //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
-            // ]);
-            $hapus_foto_akademi = public_path('/gambar/Akademi/'.$akademi->nama_akademi.'/Foto/').$akademi->foto_akademi;
-            if(file_exists($hapus_foto_akademi)){
-                @unlink($hapus_foto_akademi);
-            }
-            $foto_akademi = $akademi->nama_akademi.time().'.'.$request->foto_akademi->extension();  
-            $request->foto_akademi->move(public_path('/gambar/Akademi/'.$akademi->nama_akademi.'/Foto/'), $foto_akademi);
-        } else {
-            if($akademi->foto_akademi !== null){
-                $foto_akademi = $akademi->foto_akademi;                
-            } else {
-                $foto_akademi = null;                        
-            }
-        }
-        
-        if($request->file('logo_akademi') !== null){
-            // $this->validate($request, [
-            //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
-            // ]);
-            $hapus_logo_akademi = public_path('/gambar/Akademi/'.$akademi->nama_akademi.'/Logo/').$akademi->logo_akademi;
-            if(file_exists($hapus_logo_akademi)){
-                @unlink($hapus_logo_akademi);
-            }
-            $logo_akademi = $akademi->nama_akademi.time().'.'.$request->logo_akademi->extension();  
-            $request->logo_akademi->move(public_path('/gambar/Akademi/'.$akademi->nama_akademi.'/Logo/'), $logo_akademi);
-        } else {
-            if($akademi->logo_akademi !== null){
-                $logo_akademi = $akademi->logo_akademi;                
-            } else {
-                $logo_akademi = null;                        
-            }
-        }
-
-        if ($foto_akademi !== null) {
-            $photo_akademi = $foto_akademi;
-        } else {
-            $photo_akademi = null;
-        }
-
-        if ($logo_akademi !== null) {
-            $logos_akademi = $logo_akademi;
-        } else {
-            $logos_akademi = null;
-        }
-
-        $akademi = Akademi::where('referral_code',$id->referral_code)->update([
-            'nama_akademi' => $request->nama_akademi,
-            'no_nis' => $request->no_nis,
-            'email' => $request->email,
-            'no_surat_izin' => $request->no_surat_izin,
-            'alamat_akademi' => $request->alamat_akademi,
-            'no_telp_akademi' => $request->no_telp_akademi,
-            'foto_akademi' => $photo_akademi,
-            'logo_akademi' => $logos_akademi,
-        ]);
-
-        User::where('referral_code',$id->referral_code)->update([
-            'name_akademi'=>$request->nama,
-            'no_nis' => $request->no_nis,
-            'email' => $request->email,
-        ]);
-        return redirect()->route('akademi.operator')->with('toast_success',"Data anda tersimpan");
-    }
-
-    public function isi_akademi_operator()
-    {
-        $id = Auth::user();
-        $akademi = Akademi::where('referral_code',$id->referral_code)->first();
-        return view('akademi/isi_akademi_operator',compact('akademi'));
-    }
-
-    public function simpan_akademi_operator(Request $request)
-    {
-        $id = Auth::user();
-        $akademi = Akademi::where('referral_code',$id->referral_code)->update([
-            'nama_kepala_akademi' => $request->nama_kepala_akademi,
-            'nama_operator' => $request->nama_operator,
-            'email_operator' => $request->email_operator,
-            'no_telp_operator' => $request->no_telp_operator,
-        ]);
-        return redirect('/akademi')->with('toast_success',"Data anda tersimpan");
-    }
-
-    public function contactUsAkademi()
-    {
-        $id = Auth::user();
-        $akademi = Akademi::where('referral_code',$id->referral_code)->first();
-        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
-        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
-        return view('akademi/contact_us',compact('akademi','pesan','notif'));
-    }
-
-    public function lihatProfilAkademi()
-    {
-        $user = Auth::user();
-        $akademi = Akademi::where('referral_code',$user->referral_code)->first();
-        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
-        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
-        if($akademi->nama_kepala_akademi == null){
-            return redirect()->route('akademi')->with('warning',"Harap lengkapi profil akademi terlebih dahulu");
-        } else {
-            return view('akademi/lihat_profil_akademi',compact('akademi','pesan','notif'));
-        }
-    }
-
-    public function editProfilAkademi()
-    {
-        return redirect()->route('akademi.data');
-    }
-
-    public function lihatProfilPerusahaan($id)
-    {
-        $user = Auth::user();
-        $akademi = Akademi::where('referral_code',$user->referral_code)->first();
-        $perusahaan = Perusahaan::where('id_perusahaan',$id)->first();
-        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
-        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
-        return view('akademi/lihat_profil_perusahaan',compact('akademi','perusahaan','pesan','notif'));
-    }
-
-    public function listKandidat()
-    {
-        $auth = Auth::user();
-        $akademi = Akademi::where('referral_code',$auth->referral_code)->first();
-        $kandidat = Kandidat::where('id_akademi',$akademi->id_akademi)->get();
-        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
-        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
-        return view('akademi/list_kandidat',compact('akademi','kandidat','pesan','notif'));
-    }
-
-    public function lihatProfilKandidat($nama, $id)
-    {
-        $auth = Auth::user();
-        $akademi = Akademi::where('referral_code',$auth->referral_code)->first();
-        $kandidat = Kandidat::where('id_kandidat',$id)->where('nama',$nama)->first();
-        $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
-        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
-        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->limit(3)->get();
-        $negara = Negara::join(
-            'akademi_kandidat','ref_negara.negara_id','=','akademi_kandidat.negara_id'
-        )
-        ->first();
-        return view('akademi/kandidat/profil_kandidat',compact('akademi','kandidat','negara','tgl_user','pesan','notif'));
-    }
-
     public function tambahKandidat()
     {
         $user = Auth::user();
@@ -204,13 +31,15 @@ class AkademiController extends Controller
         $user = Auth::user();
         $akademi = Akademi::where('referral_code',$user->referral_code)->first();
         $validated = $request->validate([
-            'nama' => 'required|max:255',
+            'name' => 'required|max:255',
+            'nik' => 'required|max:16|min:16|unique:kandidat',
             'email' => 'required|unique:users|max:255',
-            'no_telp' => 'required|unique:users|max:255',
+            'no_telp' => 'required|unique:users|max:13|min:10',
+            'nama_panggilan' => 'required|unique:kandidat|min:5|max:20',
             'password' => 'required|min:6|max:20',
         ]);
 
-        $nama = $request->nama;
+        $nama = $request->name;
         $email = $request->email;
         $no_telp = $request->no_telp;
         $password = hash::make($request->password);
@@ -244,7 +73,15 @@ class AkademiController extends Controller
             'tgl_lahir' => $request->tgl,
             'usia' => $usia,
             'id_akademi' => $akademi->id_akademi,
+            'nik' => $request->nik,
+            'nama_panggilan' => $request->nama_panggilan,
         ]);
+
+        $data['id_akademi'] = $akademi->id_akademi;
+        $data['isi'] = "Kandidat Baru Telah Ditambahkan";
+        $data['pengirim'] = "Admin";
+        $data['url'] = ('/akademi/kandidat/lihat_profil/'.$nama.'/'.$id);
+        notifyAkademi::create($data);
 
         return redirect('/akademi/isi_kandidat_personal/'.$nama.'/'.$id)->with('toast_success',"Data anda tersimpan");
     }
@@ -273,17 +110,14 @@ class AkademiController extends Controller
         }
         
         Kandidat::where('nama',$nama)->where('id',$id)->update([
-            'nama_panggilan'=>$request->nama_panggilan,
             'jenis_kelamin'=>$request->jenis_kelamin,
             'tmp_lahir'=>$request->tmp_lahir,
             'tgl_lahir'=>$request->tgl_lahir,
             'agama'=>$request->agama,
             'berat'=>$request->berat,
             'tinggi'=>$request->tinggi,
-            'penempatan'=>$request->penempatan,
-            'negara_id'=>$negara_id,
         ]);
-        return redirect('/akademi/isi_kandidat_document/'.$nama.'/'.$id);
+        return redirect('/akademi/isi_kandidat_document/'.$nama.'/'.$id)->with('toast_success',"Data anda tersimpan");
     }
 
     public function isi_document($nama,$id)
@@ -297,7 +131,6 @@ class AkademiController extends Controller
     public function simpan_document(Request $request,$nama,$id)
     {
         $validated = $request->validate([
-            'nik' => 'required|max:16|min:16',
             'foto_ktp' => 'mimes:png,jpg,jpeg|max:2048',
             'foto_set_badan' => 'mimes:png,jpg,jpeg|max:2048',
             'foto_4x6' => 'mimes:png,jpg,jpeg|max:2048',
@@ -316,7 +149,6 @@ class AkademiController extends Controller
             }
             $ktp = $kandidat->nama.time().'.'.$request->foto_ktp->extension();  
             $request->foto_ktp->move(public_path('/gambar/Kandidat/'.$kandidat->nama.'/KTP/'), $ktp);
-            
         } else {
             if($kandidat->foto_ktp !== null){
                 $ktp = $kandidat->foto_ktp;
@@ -419,7 +251,6 @@ class AkademiController extends Controller
         $kecamatan = Kecamatan::where('id',$request->kecamatan_id)->first();
         $kelurahan = Kelurahan::where('id',$request->kelurahan_id)->first();
         Kandidat::where('nama',$nama)->where('id',$id)->update([
-            'nik'=>$request->nik,
             'pendidikan'=>$request->pendidikan,
             'rt'=>$request->rt,
             'rw'=>$request->rw,
@@ -428,14 +259,14 @@ class AkademiController extends Controller
             'kecamatan'=>$kecamatan->kecamatan,
             'kabupaten'=>$kota->kota,
             'provinsi'=>$provinsi->provinsi,
-            'stats_negara'=>"Indonesia",
+            // 'stats_negara'=>"Indonesia",
             'foto_ktp' => $foto_ktp,
             'foto_set_badan' => $foto_set_badan,
             'foto_4x6' => $photo_4x6,
             'foto_ket_lahir' =>$foto_ket_lahir,
             'foto_ijazah' => $foto_ijazah,
         ]);
-        return redirect('/akademi/isi_kandidat_vaksin/'.$nama.'/'.$id);
+        return redirect('/akademi/isi_kandidat_vaksin/'.$nama.'/'.$id)->with('toast_success',"Data anda tersimpan");
     }
 
     public function isi_vaksin($nama, $id)
@@ -530,7 +361,7 @@ class AkademiController extends Controller
             'tgl_vaksin3'=>$request->tgl_vaksin3,
             'sertifikat_vaksin3'=>$foto_sertifikat_vaksin3,
         ]);
-        return redirect('/akademi/isi_kandidat_parent/'.$nama.'/'.$id);
+        return redirect('/akademi/isi_kandidat_parent/'.$nama.'/'.$id)->with('toast_success',"Data anda tersimpan");
     }
 
     public function isi_parent($nama,$id)
@@ -559,7 +390,29 @@ class AkademiController extends Controller
             'jml_sdr_pr'=>$request->jml_sdr_pr,
             'anak_ke'=>$request->anak_ke,
         ]);
-        return redirect('/akademi/isi_kandidat_permission/'.$nama.'/'.$id);
+        return redirect('/akademi/isi_kandidat_placement/'.$nama.'/'.$id)->with('toast_success',"Data anda tersimpan");
+    }
+
+    public function isi_placement($nama,$id)
+    {
+        $auth = Auth::user();
+        $akademi = Akademi::where('referral_code',$auth->referral_code)->first();
+        $negara = Negara::where('negara_id','not like',2)->get();
+        $kandidat = Kandidat::where('nama',$nama)->where('id',$id)->first();
+        return view('/akademi/kandidat/isi_placement',compact('kandidat','akademi'));
+    }
+
+    public function simpan_placement(Request $request, $nama, $id)
+    {
+        // dd($request);
+        $auth = Auth::user();
+        $akademi = Akademi::where('referral_code',$auth->referral_code)->first();
+        $kandidat = Kandidat::where('nama',$nama)->where('id',$id)->first();
+        Kandidat::where('nama',$nama)->where('id',$id)->update([
+            'negara_id' => $request->negara_id,
+            'penempatan' => $request->penempatan,
+        ]);
+        return redirect('/akademi/isi_kandidat_permission/'.$nama.'/'.$id)->with('toast_success',"Data anda tersimpan");
     }
 
     public function isi_permission($nama,$id)
@@ -627,34 +480,6 @@ class AkademiController extends Controller
             'hubungan_perizin'=>$request->hubungan_perizin,
             'negara_perizin'=>"Indonesia",
         ]);
-        if ($kandidat->penempatan == "dalam negeri") {
-            return redirect('/akademi/list_kandidat')->with('success',"data anda telah kami terima");
-        } else {
-            return redirect('/akademi/isi_kandidat_placement/'.$nama.'/'.$id);
-        }        
-    }
-
-    public function isi_placement($nama,$id)
-    {
-        $auth = Auth::user();
-        $akademi = Akademi::where('referral_code',$auth->referral_code)->first();
-        $negara = Negara::where('negara_id','not like',2)->get();
-        $kandidat = Kandidat::where('nama',$nama)->where('id',$id)->first();
-        if ($kandidat->penempatan == "dalam negeri") {
-            return redirect('/akademi/list_kandidat')->with('success',"data anda telah kami terima");
-        } else {
-            return view('akademi/kandidat/isi_placement',compact('akademi','kandidat','negara'));
-        }
-    }
-
-    public function simpan_placement(Request $request, $nama, $id)
-    {
-        // dd($request);
-        $auth = Auth::user();
-        $akademi = Akademi::where('referral_code',$auth->referral_code)->first();
-        $kandidat = Kandidat::where('nama',$nama)->where('id',$id)->first();
-        Kandidat::where('nama',$nama)->where('id',$id)->update([
-            'negara_id' => $request->negara_id,
-        ]);
+        return redirect('/akademi/list_kandidat')->with('success',"Data anda tersimpan");
     }
 }

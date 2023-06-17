@@ -20,15 +20,15 @@
                                     <label for="inputPassword6" class="col-form-label">Nama Lengkap</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" disabled value="{{$kandidat->nama}}"  id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input type="text" value="{{$kandidat->nama}}" name="nama" id="inputPassword6" class="form-control" disabled aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Username</label>
+                                    <label for="inputPassword6" class="col-form-label">Nama Panggilan</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" required value="{{$kandidat->nama_panggilan}}" placeholder="Maksimal 10 kata" name="nama_panggilan" id="inputPassword6" class="form-control @error('nama_panggilan') is-invalid @enderror" aria-labelledby="passwordHelpInline">
+                                    <input type="text" disabled value="{{$kandidat->nama_panggilan}}" placeholder="Maksimal 10 kata" name="nama_panggilan" id="inputPassword6" class="form-control @error('nama_panggilan') is-invalid @enderror" aria-labelledby="passwordHelpInline">
                                     @error('nama_panggilan')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -43,12 +43,8 @@
                                 <div class="col-md-8">
                                     <select name="jenis_kelamin" required class="form-select" id="">
                                         <option value="">-- Pilih Jenis Kelamin --</option>
-                                        <option value="M" @if ($kandidat->jenis_kelamin == "M")
-                                            selected
-                                        @endif>Laki-laki</option>
-                                        <option value="F" @if ($kandidat->jenis_kelamin == "F")
-                                            selected
-                                        @endif>perempuan</option>
+                                        <option value="M" @if ($kandidat->jenis_kelamin == "M") selected @endif>Laki-laki</option>
+                                        <option value="F" @if ($kandidat->jenis_kelamin == "F") selected @endif>perempuan</option>
                                     </select>
                                 </div>
                             </div>
@@ -68,12 +64,7 @@
                                     <label for="inputPassword6" class="col-form-label">No Telepon</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="number" disabled value="{{$kandidat->no_telp}}" name="no_telp" id="inputPassword6" class="form-control @error('no_telp') is-invalid @enderror" aria-labelledby="passwordHelpInline">
-                                    @error('no_telp')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>Maaf, No. telp tersebut telah digunakan</strong>
-                                        </span>
-                                    @enderror
+                                    <input type="number" disabled required value="{{$kandidat->no_telp}}" name="no_telp" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
@@ -83,27 +74,13 @@
                                 <div class="col-md-8">
                                     <select name="agama" required class="form-select" id="">
                                         <option value="">-- Pilih Agama --</option>
-                                        <option value="islam" @if ($kandidat->agama == "islam")
-                                            selected
-                                        @endif>Islam</option>
-                                        <option value="kristen" @if ($kandidat->agama == "kristen")
-                                            selected
-                                        @endif>Kristen</option>
-                                        <option value="katolik" @if ($kandidat->agama == "katolik")
-                                            selected
-                                        @endif>Katolik</option>
-                                        <option value="hindu" @if ($kandidat->agama == "hindu")
-                                            selected
-                                        @endif>Hindu</option>
-                                        <option value="buddha" @if ($kandidat->agama == "buddha")
-                                            selected
-                                        @endif>Buddha</option>
-                                        <option value="konghucu" @if ($kandidat->agama == "konghucu")
-                                            selected
-                                        @endif>Konghucu</option>
-                                        <option value="aliran_kepercayaan" @if ($kandidat->agama == "aliran_kepercayaan")
-                                            selected
-                                        @endif>Aliran Kepercayaan</option>
+                                        <option value="islam" @if ($kandidat->agama == "islam") selected @endif>Islam</option>
+                                        <option value="kristen" @if ($kandidat->agama == "kristen") selected @endif>Kristen</option>
+                                        <option value="katolik" @if ($kandidat->agama == "katolik") selected @endif>Katolik</option>
+                                        <option value="hindu" @if ($kandidat->agama == "hindu") selected @endif>Hindu</option>
+                                        <option value="buddha" @if ($kandidat->agama == "buddha") selected @endif>Buddha</option>
+                                        <option value="konghucu" @if ($kandidat->agama == "konghucu") selected @endif>Konghucu</option>
+                                        <option value="aliran_kepercayaan" @if ($kandidat->agama == "aliran_kepercayaan") selected @endif>Aliran Kepercayaan</option>
                                     </select>
                                 </div>
                             </div>
@@ -123,34 +100,13 @@
                                     <label for="inputPassword6" class="col-form-label">Email</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="email" value="{{$kandidat->email}}" disabled name="email" id="inputPassword6" class="form-control @error('email') is-invalid @enderror" aria-labelledby="passwordHelpInline">
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>Maaf, Email tersebut telah digunakan</strong>
-                                        </span>
-                                    @enderror
+                                    <input type="email" disabled required value="{{$kandidat->email}}" name="email" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
-                            {{-- <div class="row mb-3 g-3 align-items-center">
-                                <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Status Tempat Kerja</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <select name="penempatan" required class="form-select" id="">
-                                        <option value="">-- Pilih penempatan tempat kerja --</option>
-                                        <option value="dalam negeri" @if ($kandidat->penempatan == "dalam negeri")
-                                            selected
-                                        @endif>Dalam Negeri</option>
-                                        <option value="luar negeri" @if ($kandidat->penempatan == "luar negeri")
-                                            
-                                        @endif>Luar Negeri</option>
-                                    </select>
-                                </div>
-                            </div> --}}
                         </div>
                         <hr>
-                        <a class="" href="/akademi/isi_kandidat_document/username01/131">Lewati</a>
-                        <button class="btn btn-primary float-end" type="submit">Simpan</button>
+                        <a class="btn btn-warning" href="/akademi/isi_kandidat_document/{{$kandidat->nama}}/{{$kandidat->id}}">Lewati</a>
+                        <button class="btn btn-primary float-end" type="submit">Selanjutnya</button>
                     </form>
                 </div>
                 <hr>

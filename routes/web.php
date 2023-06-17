@@ -1,7 +1,8 @@
 <?php
 
 // use App\Http\Controllers\Auth\GoogleController;
-use App\Http\Controllers\AkademiController;
+use App\Http\Controllers\Akademi\AkademiController;
+use App\Http\Controllers\Akademi\AkademiKandidatController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Manager\ContactUsController;
@@ -160,35 +161,36 @@ Route::controller(AkademiController::class)->group(function() {
     // DATA KANDIDAT //
     Route::get('/akademi/list_kandidat','listKandidat')->middleware('akademi')->middleware('akademi');
     Route::get('/akademi/kandidat/lihat_profil/{nama}/{id}','lihatProfilKandidat')->middleware('akademi');
-    {
-        Route::get('/akademi/tambah_kandidat', 'tambahKandidat')->middleware('akademi');
-        Route::post('/akademi/tambah_kandidat', 'simpanKandidat');
-        
-        Route::get('/akademi/isi_kandidat_personal/{nama}/{id}', 'isi_personal')->middleware('akademi');
-        Route::post('/akademi/isi_kandidat_personal/{nama}/{id}', 'simpan_personal');
-        
-        Route::get('/akademi/isi_kandidat_document/{nama}/{id}', 'isi_document')->middleware('akademi');
-        Route::post('/akademi/isi_kandidat_document/{nama}/{id}', 'simpan_document');
-
-        Route::get('/akademi/isi_kandidat_vaksin/{nama}/{id}', 'isi_vaksin')->middleware('akademi');
-        Route::post('/akademi/isi_kandidat_vaksin/{nama}/{id}', 'simpan_vaksin');
-
-        Route::get('/akademi/isi_kandidat_parent/{nama}/{id}', 'isi_parent')->middleware('akademi');
-        Route::post('/akademi/isi_kandidat_parent/{nama}/{id}', 'simpan_parent');
-
-        Route::get('/akademi/isi_kandidat_permission/{nama}/{id}', 'isi_permission')->middleware('akademi');
-        Route::post('/akademi/isi_kandidat_permission/{nama}/{id}', 'simpan_permission');
-
-        Route::get('/akademi/isi_kandidat_placement/{nama}/{id}', 'isi_placement')->middleware('akademi');
-        Route::post('/akademi/isi_kandidat_placement/{nama}/{id}', 'simpan_placement');
-
-        Route::get('/akademi/isi_kandidat_job/{nama}/{id}', 'isi_job')->middleware('akademi');
-        Route::post('/akademi/isi_kandidat_job/{nama}/{id}', 'simpan_job');
-    }
 
     // DATA PERUSAHAAN //
     Route::get('/akademi/lihat/profil_perusahaan/{id}','lihatProfilPerusahaan')->middleware('akademi');
 
+});
+
+Route::controller(AkademiKandidatController::class)->group(function() {
+    Route::get('/akademi/tambah_kandidat', 'tambahKandidat')->middleware('akademi');
+    Route::post('/akademi/tambah_kandidat', 'simpanKandidat');
+    
+    Route::get('/akademi/isi_kandidat_personal/{nama}/{id}', 'isi_personal')->middleware('akademi');
+    Route::post('/akademi/isi_kandidat_personal/{nama}/{id}', 'simpan_personal');
+    
+    Route::get('/akademi/isi_kandidat_document/{nama}/{id}', 'isi_document')->middleware('akademi');
+    Route::post('/akademi/isi_kandidat_document/{nama}/{id}', 'simpan_document');
+
+    Route::get('/akademi/isi_kandidat_vaksin/{nama}/{id}', 'isi_vaksin')->middleware('akademi');
+    Route::post('/akademi/isi_kandidat_vaksin/{nama}/{id}', 'simpan_vaksin');
+
+    Route::get('/akademi/isi_kandidat_parent/{nama}/{id}', 'isi_parent')->middleware('akademi');
+    Route::post('/akademi/isi_kandidat_parent/{nama}/{id}', 'simpan_parent');
+
+    Route::get('/akademi/isi_kandidat_permission/{nama}/{id}', 'isi_permission')->middleware('akademi');
+    Route::post('/akademi/isi_kandidat_permission/{nama}/{id}', 'simpan_permission');
+
+    Route::get('/akademi/isi_kandidat_placement/{nama}/{id}', 'isi_placement')->middleware('akademi');
+    Route::post('/akademi/isi_kandidat_placement/{nama}/{id}', 'simpan_placement');
+
+    Route::get('/akademi/isi_kandidat_job/{nama}/{id}', 'isi_job')->middleware('akademi');
+    Route::post('/akademi/isi_kandidat_job/{nama}/{id}', 'simpan_job');
 });
 
 // DATA PERUSAHAAN //
