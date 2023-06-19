@@ -101,10 +101,10 @@
         $(window).on('load',function() {
             console.log(negara);
             if ($('#negara_id') !== null) {
-                console.log("kosong");
+                console.log("0");
                 $('#staticBackdrop').modal('show');                                                
             } else {
-                console.log("ada");
+                console.log("1");
             }   
         });
     </script>
