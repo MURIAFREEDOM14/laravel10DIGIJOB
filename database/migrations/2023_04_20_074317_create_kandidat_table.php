@@ -122,6 +122,7 @@ return new class extends Migration
             $table->integer('id_akademi')->nullable();
             $table->integer('id_perusahaan')->nullable();
             $table->text('pengalaman_kerja')->nullable();
+            $table->text('info')->nullable();
 
             // $table->string('referral_token')->unique();
             // $table->rememberToken();

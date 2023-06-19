@@ -970,6 +970,7 @@ class KandidatController extends Controller
             'tmp_paspor'=>$request->tmp_paspor,
             'foto_paspor'=>$foto_paspor,
         ]);
+        // Alert::success('');
         return redirect('/kandidat')->with('success',"Data anda tersimpan");
     }
 
@@ -995,6 +996,16 @@ class KandidatController extends Controller
             'id_pekerjaan'=> $request->id_pekerjaan
         ]);
         return redirect('/');
+    }
+
+    public function simpanInfoConnect(Request $request, $nama, $id)
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
+            'info' => $request->info,
+        ]);
+        return redirect()->route('kandidat')->with('success',"Data anda tersimpan");
     }
 
     public function contactUsKandidat()
