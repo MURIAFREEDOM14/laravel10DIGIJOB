@@ -49,12 +49,12 @@ class AkademiController extends Controller
             // $this->validate($request, [
             //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
             // ]);
-            $hapus_foto_akademi = public_path('/gambar/Akademi/'.$akademi->nama_akademi.'/Foto/').$akademi->foto_akademi;
+            $hapus_foto_akademi = public_path('/gambar/Akademi/'.$akademi->nama_akademi.'/Foto Akademi/').$akademi->foto_akademi;
             if(file_exists($hapus_foto_akademi)){
                 @unlink($hapus_foto_akademi);
             }
             $foto_akademi = $akademi->nama_akademi.time().'.'.$request->foto_akademi->extension();  
-            $request->foto_akademi->move(public_path('/gambar/Akademi/'.$akademi->nama_akademi.'/Foto/'), $foto_akademi);
+            $request->foto_akademi->move(public_path('/gambar/Akademi/'.$akademi->nama_akademi.'/Foto Akademi/'), $foto_akademi);
         } else {
             if($akademi->foto_akademi !== null){
                 $foto_akademi = $akademi->foto_akademi;                
@@ -67,12 +67,12 @@ class AkademiController extends Controller
             // $this->validate($request, [
             //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
             // ]);
-            $hapus_logo_akademi = public_path('/gambar/Akademi/'.$akademi->nama_akademi.'/Logo/').$akademi->logo_akademi;
+            $hapus_logo_akademi = public_path('/gambar/Akademi/'.$akademi->nama_akademi.'/Logo Akademi/').$akademi->logo_akademi;
             if(file_exists($hapus_logo_akademi)){
                 @unlink($hapus_logo_akademi);
             }
             $logo_akademi = $akademi->nama_akademi.time().'.'.$request->logo_akademi->extension();  
-            $request->logo_akademi->move(public_path('/gambar/Akademi/'.$akademi->nama_akademi.'/Logo/'), $logo_akademi);
+            $request->logo_akademi->move(public_path('/gambar/Akademi/'.$akademi->nama_akademi.'/Logo Akademi/'), $logo_akademi);
         } else {
             if($akademi->logo_akademi !== null){
                 $logo_akademi = $akademi->logo_akademi;                
@@ -96,7 +96,7 @@ class AkademiController extends Controller
         $akademi = Akademi::where('referral_code',$id->referral_code)->update([
             'nama_akademi' => $request->nama_akademi,
             'no_nis' => $request->no_nis,
-            'email' => $request->email,
+            'email_akademi' => $request->email,
             'no_surat_izin' => $request->no_surat_izin,
             'alamat_akademi' => $request->alamat_akademi,
             'no_telp_akademi' => $request->no_telp_akademi,
@@ -192,6 +192,4 @@ class AkademiController extends Controller
         ->first();
         return view('akademi/kandidat/profil_kandidat',compact('akademi','kandidat','negara','tgl_user','pesan','notif'));
     }
-
-    
 }

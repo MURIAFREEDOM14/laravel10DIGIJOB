@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('no_nis');
             $table->string('no_surat_izin')->nullable();
             $table->text('alamat_akademi')->nullable();
-            $table->string('email akademi');
+            $table->string('email_akademi');
             $table->string('no_telp_akademi')->nullable();
             $table->string('nama_kepala_akademi')->nullable();
             $table->string('nama_operator')->nullable();
