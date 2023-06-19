@@ -350,7 +350,7 @@
         <script src="/Atlantis/examples/assets/js/core/jquery.3.2.1.min.js"></script>
         <script src="/Atlantis/examples/assets/js/core/popper.min.js"></script>
         <script src="/Atlantis/examples/assets/js/core/bootstrap.min.js"></script>
-        <script src="/cardSlide/script.js"></script>
+        {{-- <script src="/cardSlide/script.js"></script> --}}
 
         <!-- jQuery UI -->
         <script src="/Atlantis/examples/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
