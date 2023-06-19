@@ -13,9 +13,16 @@ return new class extends Migration
     {
         Schema::create('pengalaman_kerja', function (Blueprint $table) {
             $table->id('pengalaman_kerja_id');
-            $table->string('id_kandidat');
-            $table->text('pengalaman_kerja');
-            // $table->timestamps();
+            $table->string('nama_perusahaan')->nullable();
+            $table->text('alamat_perusahaan')->nullable();
+            $table->string('jabatan')->nullable();
+            $table->date('periode_awal')->nullable();
+            $table->date('periode_akhir')->nullable();
+            $table->text('alasan_berhenti')->nullable();
+            $table->text('video_pengalaman_kerja')->nullable();
+            $table->integer('id_kandidat')->nullable();
+            $table->string('nama_kandidat')->nullable();
+            $table->integer('lama_kerja')->nullable();
         });
     }
 

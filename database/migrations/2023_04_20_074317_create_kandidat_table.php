@@ -14,32 +14,24 @@ return new class extends Migration
         Schema::create('kandidat', function (Blueprint $table) {
             $table->id('id_kandidat');
             $table->bigInteger('id');
+            $table->string('referral_code');
+            $table->string('email')->unique()->nullable();
 
-            //personal
+            //Personal
             $table->string('nama')->nullable();
+            $table->string('nama_panggilan')->nullable();
             $table->enum('jenis_kelamin',['M','F'])->nullable();
             $table->string('tmp_lahir')->nullable();
             $table->date('tgl_lahir')->nullable();
-            $table->string('referral_code');
+            $table->integer('usia')->nullable();
             $table->string('no_telp')->unique()->nullable();
             $table->enum('agama',['islam','kristen','katolik','hindu','buddha','konghucu', 'aliran_kepercayaan'])->nullable();
-            $table->bigInteger('nik')->nullable();
             $table->integer('berat')->nullable();
             $table->integer('tinggi')->nullable();
-            $table->string('email')->unique()->nullable();
-            $table->enum('pendidikan',['SD', 'SMP', 'SMA', 'Diploma', 'Sarjana', 'Tidak_sekolah'])->nullable();
-            $table->string('foto_ktp')->nullable();
-            $table->string('foto_kk')->nullable();
-            $table->string('foto_set_badan')->nullable();
-            $table->string('foto_4x6')->nullable();
-            $table->string('foto_ket_lahir')->nullable();
-            $table->string('foto_ijazah')->nullable();
-            $table->enum('stats_nikah',['Menikah', 'Single', 'Cerai hidup', 'Cerai mati'])->nullable();
-            $table->string('nama_panggilan')->nullable();
-            $table->integer('usia')->nullable();
-            $table->enum('stat_pemilik',['diambil'])->nullable();
 
-            //address
+            //Document
+            $table->bigInteger('nik')->nullable();
+            $table->enum('pendidikan',['SD', 'SMP', 'SMA', 'Diploma', 'Sarjana', 'Tidak_sekolah'])->nullable();
             $table->integer('rt')->nullable();
             $table->integer('rw')->nullable();
             $table->string('dusun')->nullable();
@@ -47,9 +39,29 @@ return new class extends Migration
             $table->string('kecamatan')->nullable();
             $table->string('kabupaten')->nullable();
             $table->string('provinsi')->nullable();
+            $table->string('foto_ktp')->nullable();
+            $table->string('foto_kk')->nullable();
+            $table->string('foto_set_badan')->nullable();
+            $table->string('foto_4x6')->nullable();
+            $table->string('foto_ket_lahir')->nullable();
+            $table->string('foto_ijazah')->nullable();
             // $table->string('stats_negara')->nullable();
 
-            //vaksin
+            //Family
+            $table->enum('stats_nikah',['Menikah', 'Single', 'Cerai hidup', 'Cerai mati'])->nullable();
+            $table->string('foto_buku_nikah')->nullable();
+            $table->string('nama_pasangan')->nullable();
+            $table->string('umur_pasangan')->nullable();
+            $table->date('tgl_lahir_pasangan')->nullable();
+            $table->string('pekerjaan_pasangan')->nullable();
+            $table->integer('jml_anak_lk')->nullable();
+            $table->integer('umur_anak_lk')->nullable();
+            $table->integer('jml_anak_pr')->nullable();
+            $table->integer('umur_anak_pr')->nullable();
+            $table->string('foto_cerai')->nullable();
+            $table->string('foto_kematian_pasangan')->nullable();
+
+            //Vaksin
             $table->enum('vaksin1',['ASTRA ZENECA', 'PFIZER', 'SINOVAC', 'SINOPHARM', 'CORONAVAC', 'MODERNA', 'JOHNSONS & JOHNSONS'])->nullable();
             $table->integer('no_batch_v1')->nullable();
             $table->date('tgl_vaksin1')->nullable();
@@ -73,20 +85,10 @@ return new class extends Migration
             $table->integer('jml_sdr_lk')->default(0);
             $table->integer('jml_sdr_pr')->default(0);
             $table->integer('anak_ke')->default(1);
-
-            //Family
-            $table->string('foto_buku_nikah')->nullable();
-            $table->string('nama_pasangan')->nullable();
-            $table->string('umur_pasangan')->nullable();
-            $table->string('pekerjaan_pasangan')->nullable();
-            $table->integer('jml_anak_lk')->nullable();
-            $table->integer('umur_anak_lk')->nullable();
-            $table->integer('jml_anak_pr')->nullable();
-            $table->integer('umur_anak_pr')->nullable();
-            $table->string('foto_cerai')->nullable();
-            $table->string('foto_kematian_pasangan')->nullable();
-            $table->date('tgl_lahir_pasangan')->nullable();
             
+            //Company
+            $table->text('pengalaman_kerja')->nullable();
+
             //Permission
             $table->string('nama_perizin')->nullable();
             $table->string('nik_perizin')->nullable();
@@ -121,7 +123,7 @@ return new class extends Migration
             // connecting //
             $table->integer('id_akademi')->nullable();
             $table->integer('id_perusahaan')->nullable();
-            $table->text('pengalaman_kerja')->nullable();
+            $table->enum('stat_pemilik',['belum diambil','diambil'])->nullable();
             $table->text('info')->nullable();
 
             // $table->string('referral_token')->unique();

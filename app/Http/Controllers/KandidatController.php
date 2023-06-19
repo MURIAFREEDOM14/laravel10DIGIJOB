@@ -304,7 +304,7 @@ class KandidatController extends Controller
             'kecamatan' => $kecamatan->kecamatan,
             'kabupaten' => $kota->kota,
             'provinsi' => $provinsi->provinsi,
-            'stats_negara' => "Indonesia",
+            // 'stats_negara' => "Indonesia",
             'foto_ktp' => $foto_ktp,
             'foto_kk' => $foto_kk,
             'foto_set_badan' => $foto_set_badan,
@@ -646,8 +646,8 @@ class KandidatController extends Controller
             $negara = $show_negara->negara;    
         }
         $pengalaman_kerja = PengalamanKerja::join(
-            'kandidat','prt_pengalaman_kerja.id_kandidat','=','kandidat.id_kandidat'
-        )->where('prt_pengalaman_kerja.id_kandidat',$kandidat->id_kandidat)->get();
+            'kandidat','pengalaman_kerja.id_kandidat','=','kandidat.id_kandidat'
+        )->where('pengalaman_kerja.id_kandidat',$kandidat->id_kandidat)->get();
         return view('Kandidat/modalKandidat/edit_kandidat_company', [
             'kandidat'=>$kandidat,
             'pengalaman_kerja'=>$pengalaman_kerja,
@@ -704,9 +704,9 @@ class KandidatController extends Controller
     public function editPengalamanKerja($id)
     {
         $pengalaman_kerja = PengalamanKerja::join(
-            'kandidat', 'prt_pengalaman_kerja.id_kandidat','=','kandidat.id_kandidat'
+            'kandidat', 'pengalaman_kerja.id_kandidat','=','kandidat.id_kandidat'
         )
-        ->where('prt_pengalaman_kerja.pengalaman_kerja_id',$id)->first();
+        ->where('pengalaman_kerja.pengalaman_kerja_id',$id)->first();
         return view('kandidat/edit_kandidat_company', compact('pengalaman_kerja'));
     }
 

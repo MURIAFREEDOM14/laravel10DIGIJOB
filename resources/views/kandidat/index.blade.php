@@ -99,13 +99,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript">
         $(window).on('load',function() {
-            console.log(negara);
-            if ($('#negara_id') !== null) {
-                console.log("0");
-                $('#staticBackdrop').modal('show');                                                
-            } else {
-                console.log("1");
-            }   
+            $('#staticBackdrop').modal('show');                                                   
         });
     </script>
 @endsection
