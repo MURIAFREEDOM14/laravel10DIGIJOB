@@ -72,5 +72,7 @@ class Kernel extends HttpKernel
         'akademi' => \App\Http\Middleware\Akademi::class,
         'perusahaan' => \App\Http\Middleware\Perusahaan::class,
         'guest' => \App\Http\Middleware\Guest::class,
+        'contact.service' => \App\Http\Middleware\contactServise::class,
+        'noreply' => \App\Http\Middleware\noreply::class,
     ];
 }

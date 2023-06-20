@@ -277,6 +277,8 @@ Route::controller(KandidatController::class)->group(function() {
     Route::get('/isi_kandidat_job', 'isi_kandidat_job')->middleware('kandidat')->name('job');
     Route::post('/isi_kandidat_job', 'simpan_kandidat_job');
 
+    Route::post('/info_connect/{nama}/{id}','simpanInfoConnect');
+
     // Route::get('/contact_us','contactUsKandidat');
     // Route::post('/contact_us','sendContactUsKandidat');
     // DATA PERUSAHAAN //

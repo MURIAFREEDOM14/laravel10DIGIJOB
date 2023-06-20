@@ -100,7 +100,7 @@
                                         <img src="/gambar/Kandidat/{{$kandidat->nama}}/Cerai/{{$kandidat->foto_cerai}}" width="150" height="150" alt="" class="img mb-1">
                                         <input type="file" class="form-control" name="foto_cerai" accept="image/*">                                        
                                     @else
-                                        <input type="file" class="form-control" name="foto_cerai" accept="image/*">
+                                        <input type="file" required class="form-control" name="foto_cerai" accept="image/*">
                                     @endif
                                 </div>
                             </div>

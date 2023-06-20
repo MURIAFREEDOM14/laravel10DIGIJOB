@@ -24,7 +24,7 @@
                 border-radius: 2%;
             }
             .img2{
-                width: 30%;
+                width: 50%;
                 height: auto;
             }
             .hidden{
@@ -314,51 +314,7 @@
             <div class="main-panel">
                 <div class="content">
                     <main class="px-3">
-                        @include('sweetalert::alert')
                         @yield('content')
-                        {{-- <div class="modal fade" id="prioritas" tabindex="-1" aria-labelledby="prioritas" aria-hidden="true">
-                            @if ($pembayaran == null)
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content" style="background-color:#088395">
-                                        <div class="modal-header">
-                                            <div class="card" style="background-color:blue">
-                                                <div class="card-body">
-                                                    <b class="text-white" style="text-transform: uppercase;">Akun Prioritas &nbsp;<i class="fas fa-crown" style="color: yellow"></i></b>                                                
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-body">
-                                            <b class="bold text-white" style="font-size: 17px;">Yang Akan anda dapatkan di akun Prioritas :</b>
-                                            <p><i class="fas fa-check-circle" style="color: yellow;"></i>&nbsp;<b class="text-white" style="font-size: 15px; text-transform:uppercase">Nama Anda Akan muncul paling atas pada pencarian Calon kandidat perusahaan</b></p>
-                                            <p><i class="fas fa-check-circle" style="color:gray;"></i>&nbsp;<b class="" style="text-decoration-color: gray; font-size:15px; text-transform:uppercase">anda akan mendapat fitur pelatihan interview online gratis</b></p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn text-white" style="background-color: gray;" data-dismiss="modal">Lewati</button>
-                                            <a class="btn" href="/pembayaran" style="background-color: yellow">Upgrade</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            @else
-                                <div class="modal-dialog modal-lg border border-primary">
-                                    <div class="modal-content" style="background-color:#0A4D68">
-                                        <div class="modal-header">
-                                            <div class="card" style="background-color:blue;">
-                                                <div class="card-body">
-                                                    <b class="text-white" style="text-transform: uppercase;">Akun Prioritas &nbsp;<i class="fas fa-crown" style="color: yellow"></i></b>                                                
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-body text-center">
-                                            <b class="text-white" style="text-transform: uppercase;">Verifikasi Pembayaran anda sedang dalam proses</b>
-                                            <p><b class="text-white" style="text-transform: uppercase;">Mohon Tunggu</b></p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
-                                        </div>
-                                    </div>
-                                </div>    
-                            @endif
-                        </div> --}}
                     </main>
                 </div>
                 <footer class="footer" style="background-color: #1269db">
@@ -389,13 +345,12 @@
                     </div>
                 </footer>
             </div>
-
         </div>
         <!--   Core JS Files   -->
         <script src="/Atlantis/examples/assets/js/core/jquery.3.2.1.min.js"></script>
         <script src="/Atlantis/examples/assets/js/core/popper.min.js"></script>
         <script src="/Atlantis/examples/assets/js/core/bootstrap.min.js"></script>
-        <script src="/cardSlide/script.js"></script>
+        {{-- <script src="/cardSlide/script.js"></script> --}}
 
         <!-- jQuery UI -->
         <script src="/Atlantis/examples/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
