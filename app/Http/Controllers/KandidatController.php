@@ -163,13 +163,13 @@ class KandidatController extends Controller
         $kandidat = Kandidat::where('referral_code', $id->referral_code)->first();  
         // cek foto ktp
         if($request->file('foto_ktp') !== null){
-            $hapus_ktp = public_path('/gambar/Kandidat/'.$kandidat->nama.'/KTP/').$kandidat->foto_ktp;
+            $hapus_ktp = public_path('gambar/Kandidat/'.$kandidat->nama.'/KTP/').$kandidat->foto_ktp;
             if(file_exists($hapus_ktp)){
                 @unlink($hapus_ktp);
             }
-            $ktp = $kandidat->nama.time().'.'.$request->foto_ktp->extension();  
-            $request->foto_ktp->move(public_path('/gambar/Kandidat/'.$kandidat->nama.'/KTP'), $ktp);
-            
+            $ktp = $kandidat->nama.time().'.'.$request->foto_ktp->extension();
+            $simpan_ktp = $request->file('foto_ktp');  
+            $simpan_ktp->move('gambar/Kandidat/'.$kandidat->nama.'/KTP/',$kandidat->nama.time().'.'.$simpan_ktp->extension());           
         } else {
             if($kandidat->foto_ktp !== null){
                 $ktp = $kandidat->foto_ktp;
@@ -179,12 +179,13 @@ class KandidatController extends Controller
         }
         // cek foto kk
         if ($request->file('foto_kk') !== null) {    
-            $hapus_kk = public_path('/gambar/Kandidat/'.$kandidat->nama.'/KK/').$kandidat->foto_kk;
+            $hapus_kk = public_path('gambar/Kandidat/'.$kandidat->nama.'/KK/').$kandidat->foto_kk;
             if(file_exists($hapus_kk)){
                 @unlink($hapus_kk);
             }
             $kk = $kandidat->nama.time().'.'.$request->foto_kk->extension();  
-            $request->foto_kk->move(public_path('/gambar/Kandidat/'.$kandidat->nama.'/KK'), $kk);
+            $simpan_kk = $request->file('foto_kk');
+            $simpan_kk->move('gambar/Kandidat/'.$kandidat->nama.'/KK/',$kandidat->nama.time().'.'.$simpan_kk->extension());
         } else {
             if ($kandidat->foto_kk !== null) {
                 $kk = $kandidat->foto_kk;
@@ -194,12 +195,13 @@ class KandidatController extends Controller
         }
         // cek foto set badan
         if($request->file('foto_set_badan') !== null){
-            $hapus_set_badan = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Set_badan/').$kandidat->foto_set_badan;
+            $hapus_set_badan = public_path('gambar/Kandidat/'.$kandidat->nama.'/Set_badan/').$kandidat->foto_set_badan;
             if(file_exists($hapus_set_badan)){
                 @unlink($hapus_set_badan);
             }
-            $set_badan = $kandidat->nama.time().'.'.$request->foto_set_badan->extension();  
-            $request->foto_set_badan->move(public_path('/gambar/Kandidat/'.$kandidat->nama.'/Set_badan'), $set_badan);
+            $set_badan = $kandidat->nama.time().'.'.$request->foto_set_badan->extension();
+            $simpan_set_badan = $request->file('foto_set_badan');
+            $simpan_set_badan->move('gambar/Kandidat/'.$kandidat->nama.'/Set_badan/',$kandidat->nama.time().'.'.$simpan_set_badan->extension());
         } else {
             if ($kandidat->foto_set_badan !== null) {
                 $set_badan = $kandidat->foto_set_badan;   
@@ -209,12 +211,13 @@ class KandidatController extends Controller
         }
         // cek foto 4x6
         if($request->file('foto_4x6') !== null){
-            $hapus_4x6 = public_path('/gambar/Kandidat/'.$kandidat->nama.'/4x6/').$kandidat->foto_4x6;
+            $hapus_4x6 = public_path('gambar/Kandidat/'.$kandidat->nama.'/4x6/').$kandidat->foto_4x6;
             if(file_exists($hapus_4x6)){
                 @unlink($hapus_4x6);
             }
             $foto_4x6 = $kandidat->nama.time().'.'.$request->foto_4x6->extension();  
-            $request->foto_4x6->move(public_path('/gambar/Kandidat/'.$kandidat->nama.'/4x6'), $foto_4x6);
+            $simpan_foto_4x6 = $request->file('foto_4x6');
+            $simpan_foto_4x6->move('gambar/Kandidat/'.$kandidat->nama.'/4x6/',$kandidat->nama.time().'.'.$simpan_foto_4x6->extension());
         } else {
             if ($kandidat->foto_4x6 !== null) {
                 $foto_4x6 = $kandidat->foto_4x6;
@@ -224,12 +227,13 @@ class KandidatController extends Controller
         }
         // cek foto ket lahir
         if($request->file('foto_ket_lahir') !== null){
-            $hapus_ket_lahir = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Ket_lahir/').$kandidat->foto_ket_lahir;
+            $hapus_ket_lahir = public_path('gambar/Kandidat/'.$kandidat->nama.'/Ket_lahir/').$kandidat->foto_ket_lahir;
             if(file_exists($hapus_ket_lahir)){
                 @unlink($hapus_ket_lahir);
             }
             $ket_lahir = $kandidat->nama.time().'.'.$request->foto_ket_lahir->extension();  
-            $request->foto_ket_lahir->move(public_path('/gambar/Kandidat/'.$kandidat->nama.'/Ket_lahir'), $ket_lahir);
+            $simpan_ket_lahir = $request->file('foto_ket_lahir');
+            $simpan_ket_lahir->move('gambar/Kandidat/'.$kandidat->nama.'/Ket_lahir',$kandidat->nama.time().'.'.$simpan_ket_lahir->extension());
         } else {
             if ($kandidat->foto_ket_lahir !== null) {
                 $ket_lahir = $kandidat->foto_ket_lahir;    
@@ -239,12 +243,13 @@ class KandidatController extends Controller
         }
         // cek foto ijazah
         if($request->file('foto_ijazah') !== null){
-            $hapus_ijazah = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Ijazah/').$kandidat->foto_ijazah;
+            $hapus_ijazah = public_path('gambar/Kandidat/'.$kandidat->nama.'/Ijazah/').$kandidat->foto_ijazah;
             if(file_exists($hapus_ijazah)){
                 @unlink($hapus_ijazah);
             }
-            $ijazah = $kandidat->nama.time().'.'.$request->foto_ijazah->extension();  
-            $request->foto_ijazah->move(public_path('/gambar/Kandidat/'.$kandidat->nama.'/Ijazah'), $ijazah);            
+            $ijazah = $kandidat->nama.time().'.'.$request->foto_ijazah->extension();
+            $simpan_ijazah = $request->file('foto_ijazah');  
+            $simpan_ijazah->move('gambar/Kandidat/'.$kandidat->nama.'/Ijazah',$kandidat->nama.time().'.'.$simpan_ijazah->extension());            
         } else {
             if ($kandidat->foto_ijazah !== null) {
                 $ijazah = $kandidat->foto_ijazah;
@@ -418,7 +423,7 @@ class KandidatController extends Controller
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         // cek buku nikah
         if($request->file('foto_buku_nikah') !== null){
-            $hapus_buku_nikah = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/').$kandidat->foto_buku_nikah;
+            $hapus_buku_nikah = public_path('gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/').$kandidat->foto_buku_nikah;
             if(file_exists($hapus_buku_nikah)){
                 @unlink($hapus_buku_nikah);
             }

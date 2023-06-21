@@ -81,8 +81,8 @@
                     <input id="Name" name="email" type="text" required class="form-control" placeholder="Masukkan Email">
                 </div>            
                 <div class="form-group form-group-default">
-                    <label>Masukkan No.Telp</label>
-                    <input id="Name" name="no_telp" type="text" required class="form-control" placeholder="Masukkan No.Telp">
+                    <label>Masukkan Password</label>
+                    <input id="Name" name="password" type="text" required class="form-control" placeholder="Masukkan Password">
                 </div>            
                 <div class="d-flex justify-content-center justify-content-lg-start mb-5">
                     <button type="submit" class="btn-get-started scrollto">Masuk</button>

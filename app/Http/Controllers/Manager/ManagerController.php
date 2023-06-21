@@ -41,10 +41,9 @@ class ManagerController extends Controller
     {
         $this->validate($request, [
             'email' => 'required|email',
-            'no_telp' => 'required'
+            'password' => 'required'
         ]);
-
-        $manager = User::where(['email'=>$request->email, 'no_telp'=>$request->no_telp, 'type'=>3])->first();
+        $manager = User::where(['email'=>$request->email, 'password'=>$request->password])->first();
         if($manager){
             Auth::login($manager);
             return redirect()->route('manager');

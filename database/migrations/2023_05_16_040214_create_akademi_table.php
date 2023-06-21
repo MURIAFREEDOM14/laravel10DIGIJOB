@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('nama_operator')->nullable();
             $table->string('email_operator')->nullable();
             $table->string('no_telp_operator')->nullable();
+            $table->text('foto_akademi')->nullable();
+            $table->text('logo_akademi')->nullable();
             $table->timestamps();
         });
     }
