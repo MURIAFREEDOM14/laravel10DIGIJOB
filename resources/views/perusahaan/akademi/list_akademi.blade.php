@@ -26,7 +26,7 @@
                                         <td>{{$item->alamat_akademi}}</td>
                                         <td>
                                             <div class="form-button-action float-right">
-                                                <a href="" class="btn btn-success mr-2"><i class="far fa-eye"></i></a>
+                                                <a href="/perusahaan/lihat/akademi/{{$item->id_akademi}}" class="btn btn-success mr-2"><i class="far fa-eye"></i></a>
                                             </div>
                                         </td>
                                     </tr>    

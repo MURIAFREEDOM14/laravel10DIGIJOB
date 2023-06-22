@@ -208,6 +208,15 @@ Route::controller(PerusahaanController::class)->group(function(){
     
     Route::get('/perusahaan/lihat/perusahaan','profil')->middleware('perusahaan');    
     Route::get('/contact_us_perusahaan','contactUsPerusahaan')->middleware('perusahaan');
+    
+    Route::get('/perusahaan/list/lowongan','lowonganPekerjaan')->middleware('perusahaan');
+    Route::get('/perusahaan/buat_lowongan','tambahLowongan')->middleware('perusahaan');
+    Route::post('/perusahaan/buat_lowongan','simpanLowongan');
+    Route::get('/perusahaan/lihat_lowongan/{id}','lihatLowongan')->middleware('perusahaan');
+    Route::get('/perusahaan/edit_lowongan/{id}','editLowongan')->middleware('perusahaan');
+    Route::post('/perusahaan/edit_lowongan/{id}','updateLowongan');
+    Route::get('/perusahaan/hapus_lowongan/{id}','hapusLowongan')->middleware('perusahaan');
+    
     Route::get('/perusahaan/list/pembayaran','pembayaran')->middleware('perusahaan');
     Route::get('/perusahaan/payment/{id}','payment')->middleware('perusahaan');
     Route::post('/perusahaan/payment/{id}','paymentCheck');
@@ -224,6 +233,7 @@ Route::controller(PerusahaanController::class)->group(function(){
     //  DATA AKADEMI //
     Route::get('/perusahaan/list/akademi','akademi')->middleware('perusahaan');
     Route::post('/perusahaan/cari_akademi','cariAkademi');
+    Route::get('/perusahaan/lihat/akademi/{id}','lihatProfilAkademi')->middleware('perusahaan');
     // Route::post('/perusahaan/cari_kandidat','temukanKandidat');
     Route::get('/perusahaan/cari_kandidat/experience','cariKandidatExperience')->middleware('perusahaan');
     Route::post('/perusahaan/cari_kandidat/experience','temukanKandidatExperience');

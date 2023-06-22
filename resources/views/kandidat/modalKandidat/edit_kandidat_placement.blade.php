@@ -91,24 +91,24 @@
                     }
                 })
 
-                $(document).on('change','#negara_tujuan', function() {
-                    var getNegara = $(this).val();
-                    console.log(getNegara);
-                    var div = $(this).parent();
-                    var dks = "";
-                    $.ajax({
-                        type:'get',
-                        url:'{!!URL::to('/deskripsi')!!}',
-                        data: {'dks':getNegara},
-                        success:function(data) {
-                            console.log(data);
-                            dks+='<textarea name="" id="deskripsi" class="form-control">'+data.deskripsi+'</textarea>'
-                            div.find('#deskripsi').html(" ");
-                            div.find('#deskripsi').append(dks);
-                            console.log(dks);
-                        }
-                    })
-                })
+                // $(document).on('change','#negara_tujuan', function() {
+                //     var getNegara = $(this).val();
+                //     console.log(getNegara);
+                //     var div = $(this).parent();
+                //     var dks = "";
+                //     $.ajax({
+                //         type:'get',
+                //         url:'{!!URL::to('/deskripsi')!!}',
+                //         data: {'dks':getNegara},
+                //         success:function(data) {
+                //             console.log(data);
+                //             dks+='<textarea name="" id="deskripsi" class="form-control">'+data.deskripsi+'</textarea>'
+                //             div.find('#deskripsi').html(" ");
+                //             div.find('#deskripsi').append(dks);
+                //             console.log(dks);
+                //         }
+                //     })
+                // })
             });
         </script>
 @endsection

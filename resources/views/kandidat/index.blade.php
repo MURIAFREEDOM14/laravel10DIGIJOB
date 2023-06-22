@@ -14,7 +14,7 @@
             {{-- <input type="text" value="{{$kandidat->negara_id}}" name="negara_id" id="negara_id"> --}}
             <div class="card">
                 <div class="card-header">
-                    <b class="bold">Data Perusahaan</b>
+                    <b class="bold">Informasi Perusahaan</b>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -52,10 +52,14 @@
         <div class="col-md-5">
             <div class="card">
                 <div class="card-header">
-                    <b class="bold"></b>
+                    <b class="bold">List Lowongan Pekerjaan</b>
                 </div>
-                <div class="card-body text-center">
-                    <b>Dalam pembangunan</b>
+                <div class="card-body">
+                    @foreach ($lowongan as $item)
+                        <a href="/lihat_lowongan_pekerjaan">
+                            <div class="btn">{{$item->nama_lowongan}}</div>
+                        </a>
+                    @endforeach
                 </div>
             </div>
         </div>

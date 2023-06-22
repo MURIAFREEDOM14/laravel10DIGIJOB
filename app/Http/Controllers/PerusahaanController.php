@@ -20,6 +20,7 @@ use App\Models\Pembayaran;
 use App\Models\Notification;
 use App\Models\notifyPerusahaan;
 use App\Models\messagePerusahaan;
+use App\Models\LowonganPekerjaan;
 use App\Mail\Payment;
 
 class PerusahaanController extends Controller
@@ -28,7 +29,7 @@ class PerusahaanController extends Controller
     public function index()
     {
         $id = Auth::user();
-        $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
+        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $interview = Interview::where('status',"terjadwal")->get();        
@@ -38,7 +39,7 @@ class PerusahaanController extends Controller
     public function profil()
     {
         $id = Auth::user();
-        $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
+        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         if($perusahaan->nama_pemimpin == null)
@@ -52,14 +53,14 @@ class PerusahaanController extends Controller
     public function isi_perusahaan_data()
     {
         $id = Auth::user();
-        $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
+        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
         return view('perusahaan/isi_perusahaan_data',compact('perusahaan'));
     }
 
     public function simpan_perusahaan_data(Request $request)
     {
         $id = Auth::user();
-        $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
+        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
         if($request->file('foto_perusahaan') !== null){
             // $this->validate($request, [
             //     'foto_perusahaan' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
@@ -112,7 +113,7 @@ class PerusahaanController extends Controller
         $kota = Kota::where('id',$request->kota_id)->first();
         $kecamatan = Kecamatan::where('id',$request->kecamatan_id)->first();
         $kelurahan = kelurahan::where('id',$request->kelurahan_id)->first();
-        Perusahaan::where('referral_code',$id->referral_code)->update([
+        Perusahaan::where('no_nib',$id->no_nib)->update([
             'nama_perusahaan'=> $request->nama_perusahaan,
             'no_nib'=>$request->no_nib,
             'nama_pemimpin'=>$request->nama_pemimpin,
@@ -126,19 +127,19 @@ class PerusahaanController extends Controller
     public function isi_perusahaan_alamat()
     {
         $id = Auth::user();
-        $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
+        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
         return view('perusahaan/isi_perusahaan_alamat',compact('perusahaan'));
     }
 
     public function simpan_perusahaan_alamat(Request $request)
     {
         $id = Auth::user();
-        $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
+        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
         $provinsi = Provinsi::where('id',$request->provinsi_id)->first();
         $kota = Kota::where('id',$request->kota_id)->first();
         $kecamatan = Kecamatan::where('id',$request->kecamatan_id)->first();
         $kelurahan = kelurahan::where('id',$request->kelurahan_id)->first();
-        Perusahaan::where('referral_code',$id->referral_code)->update([
+        Perusahaan::where('no_nib',$id->no_nib)->update([
             'provinsi'=>$provinsi->provinsi,
             'kota'=>$kota->kota,
             'kecamatan'=>$kecamatan->kecamatan,
@@ -151,14 +152,14 @@ class PerusahaanController extends Controller
     public function isi_perusahaan_operator()
     {
         $id = Auth::user();
-        $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
+        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
         return view('perusahaan/isi_perusahaan_operator',compact('perusahaan'));
     }
 
     public function simpan_perusahaan_operator(Request $request)
     {
         $id = Auth::user();
-        $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
+        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
         if($request->file('foto_operator') !== null){
             // $this->validate($request, [
             //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
@@ -179,7 +180,7 @@ class PerusahaanController extends Controller
             $foto_operetor = null;
         }
 
-        Perusahaan::where('referral_code',$id->referral_code)->update([
+        Perusahaan::where('no_nib',$id->no_nib)->update([
             'nama_operator'=>$request->nama_operator,
             'no_telp_operator'=>$request->no_telp_operator,
             'email_operator'=>$request->email_operator,
@@ -192,20 +193,115 @@ class PerusahaanController extends Controller
     public function contactUsPerusahaan()
     {
         $id = Auth::user();
-        $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         return view('perusahaan/contact_us',compact('perusahaan','notif','pesan'));
+    }
+
+    public function lowonganPekerjaan()
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        return view('perusahaan/lowongan_pekerjaan',compact('perusahaan','notif','pesan','lowongan'));
+    }
+
+    public function tambahLowongan()
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        return view('perusahaan/tambah_lowongan',compact('perusahaan','notif','pesan',));
+    }
+
+    public function simpanLowongan(Request $request)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        LowonganPekerjaan::create([
+            'nama_lowongan' => $request->nama_lowongan,
+            'usia' => $request->usia,
+            'jabatan' => $request->jabatan,
+            'pendidikan' => $request->pendidikan,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'pengalaman_kerja' => $request->pengalaman_kerja,
+            'berat' => $request->berat,
+            'tinggi' => $request->tinggi,
+            'pencarian_tmp' => $request->pencarian_tmp,
+            'id_perusahaan' => $perusahaan->id_perusahaan,
+            'isi' => $request->isi,
+        ]);
+        return redirect('perusahaan/list/lowongan')->with('success');
+    }
+
+    public function lihatLowongan($id)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        return view('perusahaan/lihat_lowongan',compact('perusahaan','lowongan','pesan','notif'));
+    }
+
+    public function editLowongan($id)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
+        return view('perusahaan/edit_lowongan',compact('perusahaan','pesan','notif','lowongan'));
+    }
+
+    public function updateLowongan(Request $request, $id)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        LowonganPekerjaan::where('id_lowongan',$id)->update([
+            'nama_lowongan' => $request->nama_lowongan,
+            'usia' => $request->usia,
+            'jabatan' => $request->jabatan,
+            'pendidikan' => $request->pendidikan,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'pengalaman_kerja' => $request->pengalaman_kerja,
+            'berat' => $request->berat,
+            'tinggi' => $request->tinggi,
+            'pencarian_tmp' => $request->pencarian_tmp,
+            'id_perusahaan' => $perusahaan->id_perusahaan,
+            'isi' => $request->isi,
+        ]);
+        return redirect('/perusahaan/list/lowongan')->with('success');
+    }
+
+    public function hapusLowongan($id)
+    {
+        LowonganPekerjaan::where('id_lowongan',$id)->delete();
+        return redirect('/perusahaan/list/lowongan')->with('success');
     }
 
     public function akademi()
     {
         $user = Auth::user();
-        $perusahaan = Perusahaan::where('referral_code',$user->referral_code)->first();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
         $akademi = Akademi::all();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         return view('perusahaan/akademi/list_akademi', compact('perusahaan','akademi','notif','pesan'));
+    }
+
+    public function lihatProfilAkademi($id)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $akademi = Akademi::where('id_akademi',$id)->first();
+        return view('perusahaan/akademi/profil_akademi',compact('perusahaan','akademi','notif','pesan'));
     }
 
     // DATA KANDIDAT //
@@ -220,7 +316,7 @@ class PerusahaanController extends Controller
         // $kabupaten = "";
         // $provinsi = "";
         $id = Auth::user();
-        $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
+        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
         if ($perusahaan->tmp_negara == "Dalam negeri") {
             $kandidat = Kandidat::
             where('kandidat.penempatan',"dalam negeri")
@@ -262,7 +358,7 @@ class PerusahaanController extends Controller
         $kabupaten = Kota::where('id',$request->kota_id)->first();
         $provinsi = Provinsi::where('id',$request->provinsi_id)->first();
         $auth = Auth::user();
-        $perusahaan = Perusahaan::where('referral_code',$auth->referral_code)->first();
+        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         if ($perusahaan->tmp_negara == "Dalam negeri") {
@@ -303,7 +399,7 @@ class PerusahaanController extends Controller
     public function lihatProfilKandidat($id)
     {
         $auth = Auth::user();
-        $perusahaan = Perusahaan::where('referral_code',$auth->referral_code)->first();
+        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
         $kandidat = Kandidat::where('id_kandidat',$id)->first();
         $info_kandidat = PengalamanKerja::where('id_kandidat',$id)->get();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
@@ -334,7 +430,7 @@ class PerusahaanController extends Controller
     public function lihatVideoKandidat($id)
     {
         $auth = Auth::user();
-        $perusahaan = Perusahaan::where('referral_code',$auth->referral_code)->first();
+        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
         $kandidat = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
         $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->get();
         return view('perusahaan/kandidat/video_kandidat',compact('perusahaan','kandidat','pengalaman_kerja'));
@@ -348,7 +444,7 @@ class PerusahaanController extends Controller
         $jk = $request->jk;
         $nama = $request->nama;
         $pengalaman_kerja = $request->pengalaman_kerja;
-        $perusahaan = Perusahaan::where('referral_code',$auth->referral_code)->first();
+        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
         
         if($id_kandidat == null){
             return redirect('/perusahaan/list/kandidat')->with('error','anda harus memilih minimal 1 kandidat');
@@ -382,7 +478,7 @@ class PerusahaanController extends Controller
     public function JadwalInterview()
     {
         $auth = Auth::user();
-        $perusahaan = Perusahaan::where('referral_code',$auth->referral_code)->first();
+        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
         $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('status',"pilih")->get();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
@@ -415,7 +511,7 @@ class PerusahaanController extends Controller
     public function tentukanJadwal()
     {
         $auth = Auth::user();
-        $perusahaan = Perusahaan::where('referral_code',$auth->referral_code)->first();
+        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
         $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('status',"pilih")->get();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
@@ -426,7 +522,7 @@ class PerusahaanController extends Controller
     {
         $jadwal = $request->jadwal_interview;
         $auth = Auth::user();
-        $perusahaan = Perusahaan::where('referral_code',$auth->referral_code)->first();        
+        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();        
         $time = date('Y-m-d h:m:sa');
         $timeBefore = date('Y-m-d', strtotime('-2 days', strtotime($time)));
         for($i = 0; $i < count($jadwal); $i++){
@@ -467,7 +563,7 @@ class PerusahaanController extends Controller
     public function pembayaran()
     {
         $user = Auth::user();
-        $perusahaan = Perusahaan::where('referral_code',$user->referral_code)->first();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
         $pembayaran = Pembayaran::
         where('pembayaran.id_perusahaan',$perusahaan->id_perusahaan)
         ->where('pembayaran.stats_pembayaran',"belum dibayar")->get();
@@ -479,7 +575,7 @@ class PerusahaanController extends Controller
     public function Payment($id)
     {
         $auth = Auth::user();
-        $perusahaan = Perusahaan::where('referral_code',$auth->referral_code)->first();
+        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
         $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $tglInterview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->first();
         $total = $interview->count();
@@ -494,7 +590,7 @@ class PerusahaanController extends Controller
     public function paymentCheck(Request $request)
     {
         $auth = Auth::user();
-        $perusahaan = Perusahaan::where('referral_code',$auth->referral_code)->first();
+        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
         // $this->validate($request, [
         //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
         // ]);

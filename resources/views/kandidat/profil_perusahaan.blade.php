@@ -19,7 +19,7 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-12 text-center" style="background-color: #31ce36">
+                            <div class="col text-center" style="background-color: #31ce36">
                                 <div class="avatar avatar-xxl my-3">
                                     @if ($perusahaan->logo_perusahaan == null)
                                         <img src="/gambar/default_user.png" class="avatar-img rounded-circle img2" alt="">

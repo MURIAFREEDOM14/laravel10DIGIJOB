@@ -116,7 +116,7 @@ class RegisterController extends Controller
             'email' => 'required|unique:users|max:255',
             'no_telp' => 'required|unique:users|min:10|max:13',
             'nama_panggilan' => 'required|unique:kandidat|min:5|max:20',
-            'password' => 'required|min:6|max:20',
+            'password' => 'required|min:8',
         ]);
      
         $tgl = Carbon::parse($request->tgl)->age;
@@ -176,7 +176,7 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|unique:users|max:255',
             'no_nis' => 'required|unique:users|max:40',
-            'password' => 'min:6|max:20',
+            'password' => 'required|min:8',
         ]);
 
         $password = Hash::make($request->password);
@@ -219,15 +219,17 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|unique:users|max:255',
             'no_nib' => 'required|unique:users|max:40',
-            'password' => 'min:6|max:20',
+            'password' => 'required|min:8',
         ]);
+
+        $password = hash::make($request->password);
 
         $user = User::create([
             'name_perusahaan' => $request->name,
             'email' => $request->email,
             'no_nib' => $request->no_nib,
             'type' => 2,
-            'password' => $request->password,
+            'password' => $password,
         ]);
 
         $id = $user->id;
