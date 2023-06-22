@@ -24,7 +24,7 @@
                 border-radius: 2%;
             }
             .img2{
-                width: 50%;
+                width: 100%;
                 height: auto;
             }
             .hidden{
@@ -39,6 +39,15 @@
                 display: -webkit-box;
                 -webkit-line-clamp: 1;
                 -webkit-box-orient: vertical;
+            }
+            #hidetext{
+                display: none;
+            }
+            #negara_tujuan{
+                display: none;
+            }
+            #hidebtn{
+                display: none;
             }
         </style>
         <!-- Fonts and icons -->
@@ -272,6 +281,81 @@
                                 </span>
                                 <h4 class="text-section">Menu</h4>
                             </li>
+                            @php
+                                $personal = $kandidat->tinggi;
+                                $document = $kandidat->foto_ijazah;
+                                $vaksin = $kandidat->sertifikat_vaksin2;
+                                $parent = $kandidat->tgl_lahir_ibu;
+                                $permission = $kandidat->hubungan_perizin;                                
+                            @endphp
+                            @if ($personal == null)
+                                <li class="nav-item">
+                                    <a href="/isi_kandidat_personal">
+                                        <i class="fas fa-pen-square"></i>
+                                        <p>Lengkapi Data Personal</p>
+                                    </a>
+                                </li> 
+                            @elseif($document == null)
+                            <li class="nav-item">
+                                <a href="/isi_kandidat_document">
+                                    <i class="fas fa-pen-square"></i>
+                                    <p>Lengkapi Data Document</p>
+                                </a>
+                            </li>
+                            @elseif($vaksin == null)
+                                <li class="nav-item">
+                                    <a href="/isi_kandidat_vaksin">
+                                        <i class="fas fa-pen-square"></i>
+                                        <p>Lengkapi Data Vaksin</p>
+                                    </a>
+                                </li>
+                            @elseif($parent == null)
+                                <li class="nav-item">
+                                    <a href="/isi_kandidat_parent">
+                                        <i class="fas fa-pen-square"></i>
+                                        <p>Lengkapi Data Orang Tua / Wali</p>
+                                    </a>
+                                </li>
+                            @elseif($permission == null)
+                                <li class="nav-item">
+                                    <a href="/isi_kandidat_permission">
+                                        <i class="fas fa-pen-square"></i>
+                                        <p>Lengkapi Data Kontak Darurat</p>
+                                    </a>
+                                </li>
+                            @else
+                                <li class="nav-item">
+                                    <a data-toggle="collapse" href="#forms">
+                                        <i class="fas fa-flag"></i>
+                                        <p>Tujuan Bekerja</p>
+                                        <span class="caret"></span>
+                                    </a>
+                                    <div class="collapse" id="forms">
+                                        <ul class="nav nav-collapse">
+                                            <li class="nav-section">
+                                                <h4 class="text-section">Tujuan Bekerja</h4>
+                                            </li>
+                                            <form action="/isi_kandidat_placement" method="POST">
+                                                @csrf
+                                                <select name="penempatan" id="placement" class="form-control">
+                                                    <option value="">-- Pilih Tujuan Bekerja --</option>
+                                                    <option value="dalam negeri">Dalam Negeri</option>
+                                                    <option value="luar negeri">Luar Negeri</option>
+                                                </select>
+                                                <li class="nav-section" id="hidetext">
+                                                    <h4 class="text-section">Negara Tujuan</h4>
+                                                </li>
+                                                <select name="negara_id" class="form-control" id="negara_tujuan">
+                                                    <option value="">-- Pilih Negara Tujuan --</option>
+                                                </select>
+                                                <li class="nav-section">
+                                                    <button type="submit" class="btn btn-primary" id="hidebtn">Simpan</button>
+                                                </li>
+                                            </form>
+                                        </ul>
+                                    </div>
+                                </li>
+                            @endif
                             <li class="nav-item">
                                 <a class="btn  disabled" href="/pelatihan_interview">
                                     <i class="fas fa-clipboard-list"></i>
@@ -435,220 +519,6 @@
             });
         </script>
 
-        <!-- sweetalert -->
-        {{-- <script>
-            //== Class definition
-            var SweetAlert2Demo = function() {
-
-                //== Demos
-                var initDemos = function() {
-                    //== Sweetalert Demo 1
-                    $('#alert_demo_1').click(function(e) {
-                        swal('Good job!', {
-                            buttons: {        			
-                                confirm: {
-                                    className : 'btn btn-success'
-                                }
-                            },
-                        });
-                    });
-
-                    //== Sweetalert Demo 2
-                    $('#alert_demo_2').click(function(e) {
-                        swal("Here's the title!", "...and here's the text!", {
-                            buttons: {        			
-                                confirm: {
-                                    className : 'btn btn-success'
-                                }
-                            },
-                        });
-                    });
-
-                    //== Sweetalert Demo 3
-                    $('#alert_demo_3_1').click(function(e) {
-                        swal("Good job!", "You clicked the button!", {
-                            icon : "warning",
-                            buttons: {        			
-                                confirm: {
-                                    className : 'btn btn-warning'
-                                }
-                            },
-                        });
-                    });
-
-                    $('#alert_demo_3_2').click(function(e) {
-                        swal("Good job!", "You clicked the button!", {
-                            icon : "error",
-                            buttons: {        			
-                                confirm: {
-                                    className : 'btn btn-danger'
-                                }
-                            },
-                        });
-                    });
-
-                    $('#alert_demo_3_3').click(function(e) {
-                        swal("Good job!", "You clicked the button!", {
-                            icon : "success",
-                            buttons: {        			
-                                confirm: {
-                                    className : 'btn btn-success'
-                                }
-                            },
-                        });
-                    });
-
-                    $('#alert_demo_3_4').click(function(e) {
-                        swal("Good job!", "You clicked the button!", {
-                            icon : "info",
-                            buttons: {        			
-                                confirm: {
-                                    className : 'btn btn-info'
-                                }
-                            },
-                        });
-                    });
-
-                    //== Sweetalert Demo 4
-                    $('#alert_demo_4').click(function(e) {
-                        swal({
-                            title: "Good job!",
-                            text: "You clicked the button!",
-                            icon: "success",
-                            buttons: {
-                                confirm: {
-                                    text: "Confirm Me",
-                                    value: true,
-                                    visible: true,
-                                    className: "btn btn-success",
-                                    closeModal: true
-                                }
-                            }
-                        });
-                    });
-
-                    $('#alert_demo_5').click(function(e){
-                        swal({
-                            title: 'Input Something',
-                            html: '<br><input class="form-control" placeholder="Input Something" id="input-field">',
-                            content: {
-                                element: "input",
-                                attributes: {
-                                    placeholder: "Input Something",
-                                    type: "text",
-                                    id: "input-field",
-                                    className: "form-control"
-                                },
-                            },
-                            buttons: {
-                                cancel: {
-                                    visible: true,
-                                    className: 'btn btn-danger'
-                                },        			
-                                confirm: {
-                                    className : 'btn btn-success'
-                                }
-                            },
-                        }).then(
-                        function() {
-                            swal("", "You entered : " + $('#input-field').val(), "success");
-                        }
-                        );
-                    });
-
-                    $('#alert_demo_6').click(function(e) {
-                        swal("This modal will disappear soon!", {
-                            buttons: false,
-                            timer: 3000,
-                        });
-                    });
-
-                    $('#alert_demo_7').click(function(e) {
-                        swal({
-                            title: 'Are you sure?',
-                            text: "You won't be able to revert this!",
-                            type: 'warning',
-                            buttons:{
-                                confirm: {
-                                    text : 'Yes, delete it!',
-                                    className : 'btn btn-success'
-                                },
-                                cancel: {
-                                    visible: true,
-                                    className: 'btn btn-danger'
-                                }
-                            }
-                        }).then((Delete) => {
-                            if (Delete) {
-                                swal({
-                                    title: 'Deleted!',
-                                    text: 'Your file has been deleted.',
-                                    type: 'success',
-                                    buttons : {
-                                        confirm: {
-                                            className : 'btn btn-success'
-                                        }
-                                    }
-                                });
-                            } else {
-                                swal.close();
-                            }
-                        });
-                    });
-
-                    $('#alert_demo_8').click(function(e) {
-                        swal({
-                            title: 'Are you sure?',
-                            text: "You won't be able to revert this!",
-                            type: 'warning',
-                            buttons:{
-                                cancel: {
-                                    visible: true,
-                                    text : 'No, cancel!',
-                                    className: 'btn btn-danger'
-                                },        			
-                                confirm: {
-                                    text : 'Yes, delete it!',
-                                    className : 'btn btn-success'
-                                }
-                            }
-                        }).then((willDelete) => {
-                            if (willDelete) {
-                                swal("Poof! Your imaginary file has been deleted!", {
-                                    icon: "success",
-                                    buttons : {
-                                        confirm : {
-                                            className: 'btn btn-success'
-                                        }
-                                    }
-                                });
-                            } else {
-                                swal("Your imaginary file is safe!", {
-                                    buttons : {
-                                        confirm : {
-                                            className: 'btn btn-success'
-                                        }
-                                    }
-                                });
-                            }
-                        });
-                    })
-
-                };
-
-                return {
-                    //== Init
-                    init: function() {
-                        initDemos();
-                    },
-                };
-            }();
-
-            //== Class Initialization
-            jQuery(document).ready(function() {
-                SweetAlert2Demo.init();
-            });
-	    </script> --}}
         <script type="text/javascript">
             function confirmation(ev)
                 {
@@ -678,6 +548,52 @@
                     }
                 });    
             }
+        </script>
+        {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> --}}
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $(document).on('change','#placement',function() {
+                    console.log("ditekan");
+                    var getID = $(this).val();
+                    console.log(getID);
+                    var div = $(this).parent();
+                    var op = "";
+                    var x = document.getElementById('hidetext');
+                    var y = document.getElementById('negara_tujuan');
+                    var btn = document.getElementById('hidebtn');
+                    if (getID == "luar negeri") {
+                        $.ajax({
+                            type:'get',
+                            url:'{!!URL::to('/penempatan')!!}',
+                            data:{'stats':getID},
+                            success:function (data) {
+                                console.log(data.length);
+                                x.style.display = 'block';
+                                y.style.display = 'block';
+                                btn.style.display = 'block';
+                                op+='<option value="" selected> -- Pilih Negara Tujuan -- </option>';
+                                for(var i = 0; i < data.length; i++){
+                                    op+='<option value="'+data[i].negara_id+'">'+data[i].negara+'</option>';
+                                }
+                                div.find('#negara_tujuan').html(" ");
+                                div.find('#negara_tujuan').append(op);
+                                console.log(op);
+                            },
+                            error:function() {
+
+                            }
+                        });
+                    } else {
+                        x.style.display = 'block';
+                        y.style.display = 'block';
+                        btn.style.display = 'block';
+                        op+='<option value="2" selected> Indonesia </option>';
+                        div.find('#negara_tujuan').html(" ");
+                        div.find('#negara_tujuan').append(op);
+                        console.log(op);
+                    }
+                })
+            });
         </script>
     </body>
 </html>

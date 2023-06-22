@@ -401,7 +401,7 @@
                 </div>
             </div>
             <p class="my-2"><b class="bold">Sebagai pihak ke II (dua) yang selanjutnya diberi kuasa</b></p>
-            <div class=""><b class="bold">pihak ke I (satu) akan bekerja ke luar negeri dengan negara tujuan {{$kandidat->negara}} selama kontrak...{{$kandidat->kontrak}}...(..........) tahun melalui PT. Sukses Mandiri Utama.</b></div>
+            <div class=""><b class="bold">pihak ke I (satu) akan bekerja ke luar negeri dengan negara tujuan {{$kandidat->negara}} selama kontrak...{{$kandidat->kontrak}}...(..........) tahun melalui ............................</b></div>
             <div><b class="bold">apabila selama masa kontrak kerja terjadi kecelakaan/ sakit/ meninggal dunia, maka untuk selanjutnya segala urusan tentang hak dan kewajiban saya berikan kepada pihak ke II (dua) untuk mengurus, menerima hak dan kewajiban saya sesuai dengan aturan yang berlaku</b></div>
             <div class="my-2"><b class="bold">demikian surat pernyataan keterangan ahli waris ini saya buat dengan sadar tanpa paksaan dari pihak manapun dan dipergunakan sebagaimana mestinya.</b></div>
             <div class="row">

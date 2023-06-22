@@ -169,38 +169,4 @@
         </div>
     </div>
 </div>        
-<!-- Modal -->
-{{-- <div class="modal fade" id="video_kerja1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body text-center">
-                <div class="ratio ratio-4x3">
-                    <iframe class="object-fit-contain border rounded" src="video/Pengalaman Kerja1/{{$kandidat->video_kerja1}}" frameborder="0"></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="video_kerja2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body text-center">
-                <div class="ratio ratio-4x3">
-                    <iframe class="object-fit-contain border rounded" src="video/Pengalaman Kerja2/{{$kandidat->video_kerja2}}" frameborder="0"></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="video_kerja3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body text-center">
-                <div class="ratio ratio-4x3">
-                    <iframe class="object-fit-contain border rounded" src="video/Pengalaman Kerja3/{{$kandidat->video_kerja3}}" frameborder="0"></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
 @endsection

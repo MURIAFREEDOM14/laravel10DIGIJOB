@@ -247,7 +247,6 @@
                                     </span>
                                 </a>
                                 <div class="clearfix"></div>
-    
                                 <div class="collapse in" id="collapseExample">
                                     <ul class="nav">
                                         <li>
@@ -281,6 +280,12 @@
                                     <i class="fa fa-ellipsis-h"></i>
                                 </span>
                                 <h4 class="text-section">Komponen</h4>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/perusahaan/list/lowongan">
+                                    <i class="fas fa-layer-group"></i>
+                                    <p>Lowongan Pekerjaan</p>
+                                </a>
                             </li>
                             <li class="nav-item">
                                 <a href="/perusahaan/list/kandidat">
@@ -464,8 +469,35 @@
                     }
                 });    
             }
-        </script>
 
+            function hapusData(ev)
+            {
+                ev.preventDefault();
+                var url = ev.currentTarget.getAttribute('href');
+                console.log(url);
+                swal({
+                    title: 'Apakah anda yakin ingin Menghapus data ini?',
+                    type: 'warning',
+                    icon: 'warning',
+                    buttons:{
+                        confirm: {
+                            text : 'Iya',
+                            className : 'btn btn-success'
+                        },
+                        cancel: {
+                            visible: true,
+                            className: 'btn btn-danger'
+                        }
+                    }
+                }).then((Delete) => {
+                    if (Delete) {
+                        window.location.href = url;
+                    } else {
+                        swal.close();
+                    }
+                });
+            }
+        </script>
         @livewireScripts
     </body>
 </html>
