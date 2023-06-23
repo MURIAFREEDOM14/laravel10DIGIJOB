@@ -304,7 +304,6 @@ Route::controller(KandidatController::class)->group(function() {
     // DATA PERUSAHAAN //
     Route::get('/profil_perusahaan/{id}','perusahaan')->middleware('kandidat');
     Route::get('/lihat_lowongan_pekerjaan/{id}','lowonganPekerjaan')->middleware('kandidat'); 
-
 });
 
 // data akun prioritas
@@ -448,6 +447,11 @@ Route::controller(PrototypeController::class)->group(function(){
     Route::get('/prototype','test');
     Route::get('/select1','select');
     Route::post('/prototype','cek');
+    Route::get('/proto_create','create');
+    Route::get('/proto_store','store');
+    Route::get('/proto_edit','edit');
+    Route::get('/proto_update','update');
+    Route::get('/proto_delete','delete');
 });
 
 Route::get('/linewire',Location::class)->middleware('verify');

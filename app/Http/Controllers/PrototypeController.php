@@ -30,4 +30,19 @@ class PrototypeController extends Controller
     //     $data = Kota::where('provinsi_id',$request->id)->get();
     //     return response()->json($data);
     // }
+
+    public function create()
+    {
+        return view('prototype/proto_create');
+    }
+
+    public function edit($id)
+    {
+        return view('prototype/proto_edit');
+    }
+
+    public function delete()
+    {
+
+    }
 }
