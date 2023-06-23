@@ -902,7 +902,6 @@ class ManagerController extends Controller
             'no_telp_perizin' => $request->no_telp_perizin,
             'tmp_lahir_perizin' => $request->tmp_lahir_perizin,
             'tgl_lahir_perizin' => $request->tgl_lahir_perizin,
-            'alamat_perizin' => $request->alamat_perizin,
             'rt_perizin' => $request->rt_perizin,
             'rw_perizin' => $request->rw_perizin,
             'dusun_perizin' => $request->dusun_perizin,

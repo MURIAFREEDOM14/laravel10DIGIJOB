@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('syarat_umur')->nullable();
             $table->text('deskripsi')->nullable();
             $table->text('gambar')->nullable();
+            $table->string('mata_uang')->nullable();
             // $table->timestamps();
         });
     }

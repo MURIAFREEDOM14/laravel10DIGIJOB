@@ -56,9 +56,16 @@
                 </div>
                 <div class="card-body">
                     @foreach ($lowongan as $item)
-                        <a href="/lihat_lowongan_pekerjaan">
-                            <div class="btn">{{$item->nama_lowongan}}</div>
-                        </a>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <div class="input-group mb-3">
+                                <marquee behavior="" class="form-control" direction="">{{$item->nama_lowongan}}</marquee>
+                                <div class="input-group-append">
+                                    <a class="btn btn-outline-primary" href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
                     @endforeach
                 </div>
             </div>

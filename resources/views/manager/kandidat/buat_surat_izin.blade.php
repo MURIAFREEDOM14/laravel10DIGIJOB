@@ -98,7 +98,7 @@
                             <b class="bold">Penempatan Kerja</b>
                         </div>
                         <div class="col-8">
-                            <select name="negara_id" class="form-control" id="">
+                            <select name="negara_id" required class="form-control" id="">
                                 <option value="">-- Pilih Negara --</option>
                                 @foreach ($negara as $item)
                                     <option value="{{$item->negara_id}}">{{$item->negara}}</option>                                    

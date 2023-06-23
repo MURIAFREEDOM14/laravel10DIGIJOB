@@ -158,12 +158,12 @@ class KandidatController extends Controller
     public function simpan_kandidat_document(Request $request)
     {
         $validated = $request->validate([
-            'foto_ktp' => 'mimes:png,jpg,jpeg|max:2048',
-            'foto_kk' => 'mimes:png,jpg,jpeg|max:2048',
-            'foto_set_badan' => 'mimes:png,jpg,jpeg|max:2048',
-            'foto_4x6' => 'mimes:png,jpg,jpeg|max:2048',
-            'foto_ket_lahir' => 'mimes:png,jpg,jpeg|max:2048',
-            'foto_ijazah' => 'mimes:png,jpg,jpeg|max:2048',
+            'foto_ktp' => 'mimes:png,jpg,jpeg',
+            'foto_kk' => 'mimes:png,jpg,jpeg',
+            'foto_set_badan' => 'mimes:png,jpg,jpeg',
+            'foto_4x6' => 'mimes:png,jpg,jpeg',
+            'foto_ket_lahir' => 'mimes:png,jpg,jpeg',
+            'foto_ijazah' => 'mimes:png,jpg,jpeg',
         ]);
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code', $id->referral_code)->first();  
@@ -300,7 +300,6 @@ class KandidatController extends Controller
             $foto_ijazah = null;
         }
         
-
         $provinsi = Provinsi::where('id',$request->provinsi_id)->first();
         $kota = Kota::where('id',$request->kota_id)->first();
         $kecamatan = Kecamatan::where('id',$request->kecamatan_id)->first();
@@ -638,6 +637,12 @@ class KandidatController extends Controller
         $umurIbu = Carbon::parse($request->tgl_lahir_ibu)->age;
         // dd($umur);
         $id = Auth::user();
+        
+        $provinsi = Provinsi::where('id',$request->provinsi_id)->first();
+        $kota = Kota::where('id',$request->kota_id)->first();
+        $kecamatan = Kecamatan::where('id',$request->kecamatan_id)->first();
+        $kelurahan = kelurahan::where('id',$request->kelurahan_id)->first();
+        
         Kandidat::where('referral_code', $id->referral_code)->update([
             'nama_ayah' => $request->nama_ayah,
             'umur_ayah' => $umurAyah,
@@ -645,6 +650,13 @@ class KandidatController extends Controller
             'nama_ibu' => $request->nama_ibu,
             'umur_ibu' => $umurIbu,
             'tgl_lahir_ibu' => $request->tgl_lahir_ibu,
+            'rt_parent' => $request->rt,
+            'rw_parent' => $request->rw,
+            'dusun_parent' => $request->dusun_parent,
+            'kelurahan_parent' => $kelurahan->kelurahan,
+            'kecamatan_parent' => $kecamatan->kecamatan,
+            'kabupaten_parent' => $kota->kota,
+            'provinsi_parent' => $provinsi->provinsi,
             'jml_sdr_lk' => $request->jml_sdr_lk,
             'jml_sdr_pr' => $request->jml_sdr_pr,
             'anak_ke' => $request->anak_ke
@@ -685,7 +697,7 @@ class KandidatController extends Controller
         $video_kandidat = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->first('video_pengalaman_kerja');
         if($request->file('video') !== null){
             $validated = $request->validate([
-                'video' => 'mimes:mp4,mov,ogg,qt | max:3000',
+                'video' => 'mimes:mp4,mov,ogg,qt',
             ]);
             $video_kerja = $request->file('video');
             $video_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.$jabatan.$video_kerja->getClientOriginalName());
@@ -734,7 +746,7 @@ class KandidatController extends Controller
         $video_kandidat = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->first('video_pengalaman_kerja');
         if($request->file('video') !== null){
             $validated = $request->validate([
-                'video' => 'mimes:mp4,mov,ogg,qt | max:3000',
+                'video' => 'mimes:mp4,mov,ogg,qt',
             ]);
             $hapus_video_kerja = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$video_kandidat;
             if(file_exists($hapus_video_kerja)){
@@ -1046,5 +1058,15 @@ class KandidatController extends Controller
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
         return view('kandidat/profil_perusahaan',compact('kandidat','perusahaan','notif','pembayaran','pesan'));
+    }
+
+    public function LowonganPekerjaan($id)
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
+        $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
+        return view('kandidat/modalKandidat/lihat_lowongan_pekerjaan',compact('kandidat','pesan','notif','lowongan'));
     }
 }

@@ -130,6 +130,7 @@
                                     <input type="date" value="{{$kandidat->tgl_lahir_ibu}}" name="tgl_lahir_ibu" class="form-control" id="">
                                 </div>
                             </div>
+                            @livewire('kandidat.parent-location')
                             {{-- <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Umur Ibu</label>

@@ -22,7 +22,7 @@
                                 <div class="col-md-12 text-center" style="background-color:#31ce36">
                                     <div class="avatar avatar-xxl my-3">
                                         @if ($perusahaan->logo_perusahaan == null)
-                                            <img src="/gambar/default_user.png" class="avatar-img rounded-circle" style="width: 50%; height:auto;" alt="">
+                                            <img src="/gambar/default_user.png" class="avatar-img rounded-circle" alt="">
                                         @else
                                             <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Logo Perusahaan/{{$perusahaan->logo_perusahaan}}" alt="..." class="avatar-img rounded-circle">                                        
                                         @endif
