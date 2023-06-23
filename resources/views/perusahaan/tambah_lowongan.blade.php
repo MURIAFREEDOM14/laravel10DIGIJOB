@@ -32,11 +32,13 @@
                             <input type="text" required name="jabatan" class="form-control" id="">
                         </div>
                     </div>
+                    <hr>
                     <div class="row">
                         <div class="col">
                             <h5 style="font-weight:bold">Persyaratan</h5>
                         </div>
                     </div>
+                    <hr>
                     <div class="row mb-3">
                         <div class="col-md-4">
                             <label for="" class="col-form-label">Jenis Kelamin</label>

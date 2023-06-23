@@ -21,6 +21,7 @@ use App\Models\Notification;
 use App\Models\notifyPerusahaan;
 use App\Models\messagePerusahaan;
 use App\Models\LowonganPekerjaan;
+use App\Models\PMIID;
 use App\Mail\Payment;
 
 class PerusahaanController extends Controller
@@ -282,6 +283,138 @@ class PerusahaanController extends Controller
     {
         LowonganPekerjaan::where('id_lowongan',$id)->delete();
         return redirect('/perusahaan/list/lowongan')->with('success');
+    }
+
+    public function listPmiID()
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pmi_id = PMIID::join(
+            'kandidat', 'perusahaan_kebutuhan.id_kandidat','=','kandidat.id_kandidat'
+        )->where('perusahaan_kebutuhan.id_perusahaan',$perusahaan->id_perusahaan)->get();
+        return view('perusahaan/list_pmi_id',compact('perusahaan','pmi_id','pesan','notif'));
+    }
+
+    public function pembuatanPmiID(Request $request)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $kandidat = Kandidat::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $id_kandidat = null;
+        return view('perusahaan/pembuatan_pmi_id',compact('perusahaan','kandidat','pesan','notif','id_kandidat'));
+    }
+
+    public function selectKandidatID(Request $request)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $id_kandidat = Kandidat::where('id_kandidat',$request->id_kandidat)->first();
+        $kandidat = Kandidat::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $tgl = Carbon::create($id_kandidat->tgl_lahir)->isoformat('d MMM Y');
+        $negara = Negara::all();
+        return view('perusahaan/pembuatan_pmi_id',compact('perusahaan','kandidat','pesan','notif','id_kandidat','tgl','negara'));
+    }
+
+    public function simpanPembuatanPmiID(Request $request)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        PMIID::create([
+            'isi' => $request->isi,
+            'agency' => $request->agency,
+            'jabatan' => $request->jabatan,
+            'sektor_usaha' => $request->sektor_usaha,
+            'nominal' => $request->nominal,
+            'berlaku' => $request->berlaku,
+            'habis_berlaku' => $request->habis_berlaku,
+            'id_perusahaan' => $perusahaan->id_perusahaan,
+            'id_kandidat' => $request->id_kandidat,
+            'negara_id' => $request->negara_id,
+        ]);
+
+        Kandidat::where('id_kandidat',$request->id_kandidat)->update([
+            'negara_id' => $request->negara_id,
+        ]);
+        return redirect('/perusahaan/list/pmi_id')->with('success',"Data anda tersimpan");
+    }
+
+    public function lihatPmiID($id)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $pmi_id = PMIID::join(
+            'kandidat', 'perusahaan_kebutuhan.id_kandidat','=','kandidat.id_kandidat'
+        )
+        ->join(
+            'ref_negara', 'perusahaan_kebutuhan.negara_id','=','ref_negara.negara_id'
+        )
+        ->where('perusahaan_kebutuhan.pmi_id',$id)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $berlaku = Carbon::create($pmi_id->berlaku)->isoformat('d MMM Y');
+        $habis_berlaku = Carbon::create($pmi_id->habis_berlaku)->isoformat('d MMM Y');
+        return view('perusahaan/lihat_pmi_id',compact('perusahaan','pmi_id','notif','pesan','berlaku','habis_berlaku'));
+    }
+
+    public function cetakPmiID($id)
+    {
+        $pmi_id = PMIID::join(
+            'kandidat', 'perusahaan_kebutuhan.id_kandidat','kandidat.id_kandidat'
+        )
+        ->join(
+            'ref_negara', 'perusahaan_kebutuhan.negara_id','ref_negara.negara_id'
+        )
+        ->where('perusahaan_kebutuhan.pmi_id',$id)->first();
+        $berlaku = Carbon::create($pmi_id->berlaku)->isoformat('d MMM Y');
+        $habis_berlaku = Carbon::create($pmi_id->habis_berlaku)->isoformat('d MMM Y');
+        return view('Output/cetak_pmi_id',compact('pmi_id','berlaku','habis_berlaku'));
+    }
+
+    public function editPmiID($id)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $pmi_id = PMIID::join(
+            'kandidat', 'perusahaan_kebutuhan.id_kandidat','=','kandidat.id_kandidat'
+        )
+        ->where('pmi_id',$id)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $tgl = Carbon::create($pmi_id->tgl_lahir)->isoformat('d MMM Y');
+        $negara = Negara::all();
+        return view('perusahaan/edit_pmi_id',compact('perusahaan','pmi_id','pesan','notif','tgl','negara'));
+    }
+
+    public function updatePmiID(Request $request, $id)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $pmi_id = PMIID::where('pmi_id',$id)->update([
+            'isi' => $request->isi,
+            'agency' => $request->agency,
+            'jabatan' => $request->jabatan,
+            'sektor_usaha' => $request->sektor_usaha,
+            'nominal' => $request->nominal,
+            'berlaku' => $request->berlaku,
+            'habis_berlaku' => $request->habis_berlaku,
+            'negara_id' => $request->negara_id,
+        ]);
+        Kandidat::where('id_kandidat',$request->id_kandidat)->update([
+            'negara_id' => $request->negara_id,
+        ]);
+        return redirect('/perusahaan/list/pmi_id')->with('success',"Data anda tersimpan");
+    }
+
+    public function hapusPmiID($id)
+    {
+        PMIID::where('pmi_id',$id)->delete();
+        return redirect('/perusahaan/list/pmi_id')->with('success',"Data telah dihapus");
     }
 
     public function akademi()

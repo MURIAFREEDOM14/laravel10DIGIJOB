@@ -288,6 +288,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="/perusahaan/list/pmi_id">
+                                    <i class="fas fa-layer-group"></i>
+                                    <p>Pembuatan PMI ID</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="/perusahaan/list/kandidat">
                                     <i class="fas fa-layer-group"></i>
                                     <p>Data Kandidat</p>
@@ -476,7 +482,7 @@
                 var url = ev.currentTarget.getAttribute('href');
                 console.log(url);
                 swal({
-                    title: 'Apakah anda yakin ingin Menghapus data ini?',
+                    title: 'Apakah anda yakin ingin menghapus data ini?',
                     type: 'warning',
                     icon: 'warning',
                     buttons:{

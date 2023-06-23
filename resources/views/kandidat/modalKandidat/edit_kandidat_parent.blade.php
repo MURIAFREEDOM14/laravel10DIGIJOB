@@ -66,6 +66,7 @@
                                 <input type="date" required value="{{$kandidat->tgl_lahir_ibu}}" name="tgl_lahir_ibu" class="form-control" id="">
                             </div>
                         </div>
+                        @livewire('kandidat.parent-location')
                         {{-- <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="inputPassword6" class="col-form-label">Umur Ibu</label>
@@ -83,6 +84,17 @@
                                 </div>
                             </div>
                         </div> --}}
+                        <div class="row mb-3 g-3 align-items-center">
+                            <div class="col-md-4">
+                                <label for="inputPassword6" class="col-form-label">RT / RW</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="number" required value="{{$kandidat->rt_parent}}" placeholder="Masukkan RT" name="rt" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="number" required value="{{$kandidat->rw_parent}}" placeholder="Masukkan RW" name="rw" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                            </div>
+                        </div>
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="inputPassword6" class="col-form-label">Jumlah Saudara Laki-laki</label>

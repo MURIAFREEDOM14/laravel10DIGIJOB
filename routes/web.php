@@ -217,6 +217,16 @@ Route::controller(PerusahaanController::class)->group(function(){
     Route::post('/perusahaan/edit_lowongan/{id}','updateLowongan');
     Route::get('/perusahaan/hapus_lowongan/{id}','hapusLowongan')->middleware('perusahaan');
     
+    Route::get('/perusahaan/list/pmi_id','listPmiID')->middleware('perusahaan');
+    Route::get('/perusahaan/pembuatan_pmi_id','pembuatanPmiID')->middleware('perusahaan');
+    Route::post('/perusahaan/pembuatan_pmi_id','selectKandidatID')->middleware('perusahaan');
+    Route::post('/perusahaan/simpan_pembuatan_pmi_id','simpanPembuatanPmiID')->middleware('perusahaan');
+    Route::get('/perusahaan/lihat_pmi_id/{id}','lihatPmiID')->middleware('perusahaan');
+    Route::get('/perusahaan/cetak_pmi_id/{id}','cetakPmiID')->middleware('perusahaan');
+    Route::get('/perusahaan/edit_pmi_id/{id}','editPmiID')->middleware('perusahaan');
+    Route::post('/perusahaan/edit_pmi_id/{id}','updatePmiID')->middleware('perusahaan');
+    Route::get('/perusahaan/hapus_pmi_id/{id}','hapusPmiID')->middleware('perusahaan');
+
     Route::get('/perusahaan/list/pembayaran','pembayaran')->middleware('perusahaan');
     Route::get('/perusahaan/payment/{id}','payment')->middleware('perusahaan');
     Route::post('/perusahaan/payment/{id}','paymentCheck');
@@ -293,7 +303,8 @@ Route::controller(KandidatController::class)->group(function() {
     // Route::post('/contact_us','sendContactUsKandidat');
     // DATA PERUSAHAAN //
     Route::get('/profil_perusahaan/{id}','perusahaan')->middleware('kandidat');
-    
+    Route::get('/lihat_lowongan_pekerjaan/{id}','lowonganPekerjaan')->middleware('kandidat'); 
+
 });
 
 // data akun prioritas

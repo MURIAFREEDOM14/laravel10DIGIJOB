@@ -84,6 +84,13 @@ return new class extends Migration
             $table->date('tgl_lahir_ibu')->nullable();
             $table->integer('jml_sdr_lk')->default(0);
             $table->integer('jml_sdr_pr')->default(0);
+            $table->integer('rt_parent')->nullable();
+            $table->integer('rw_parent')->nullable();
+            $table->string('dusun_parent')->nullable();
+            $table->string('kelurahan_parent')->nullable();
+            $table->string('kecamatan_parent')->nullable();
+            $table->string('kabupaten_parent')->nullable();
+            $table->string('provinsi_parent')->nullable();
             $table->integer('anak_ke')->default(1);
             
             //Company
