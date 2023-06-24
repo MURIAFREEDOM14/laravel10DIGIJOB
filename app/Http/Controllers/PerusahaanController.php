@@ -15,14 +15,12 @@ use App\models\Kecamatan;
 use App\models\Kelurahan;
 use App\models\Interview;
 use App\models\PengalamanKerja;
-use Illuminate\Support\Facades\Mail;
 use App\Models\Pembayaran;
-use App\Models\Notification;
 use App\Models\notifyPerusahaan;
 use App\Models\messagePerusahaan;
 use App\Models\LowonganPekerjaan;
 use App\Models\PMIID;
-use App\Mail\Payment;
+use App\Models\PermohonanLowongan;
 
 class PerusahaanController extends Controller
 {
@@ -283,6 +281,26 @@ class PerusahaanController extends Controller
     {
         LowonganPekerjaan::where('id_lowongan',$id)->delete();
         return redirect('/perusahaan/list/lowongan')->with('success');
+    }
+
+    public function listPermohonanLowongan()
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $permohonan = PermohonanLowongan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        return view('perusahaan/list_permohonan_lowongan',compact('perusahaan','permohonan','pesan','notif'));
+    }
+
+    public function permohonanLowonganPekerjaan()
+    {
+
+    }
+
+    public function confirmLowonganPekerjaan()
+    {
+
     }
 
     public function listPmiID()

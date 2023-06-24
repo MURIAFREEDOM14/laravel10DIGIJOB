@@ -1,4 +1,4 @@
-@extends('layouts.manager')
+@extends('layouts.contact_service')
 @section('content')
     <div class="container mt-5">
         <div class="card">

@@ -272,6 +272,12 @@
                                     <p>Contact Us</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="btn" href="/manager/beta_tester">
+                                    <i class="fas fa-th-list"></i>
+                                    <p>Beta Tester</p>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>

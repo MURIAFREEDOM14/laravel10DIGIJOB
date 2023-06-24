@@ -74,5 +74,6 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\Guest::class,
         'contact.service' => \App\Http\Middleware\contactServise::class,
         'noreply' => \App\Http\Middleware\noreply::class,
+        'beta' => \App\Http\Middleware\Beta::class,
     ];
 }

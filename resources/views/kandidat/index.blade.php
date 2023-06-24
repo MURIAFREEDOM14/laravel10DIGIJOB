@@ -23,7 +23,6 @@
                                 <tr class="text-center">
                                     <th style="width: 1px">No.</th>
                                     <th>Nama Perusahaan</th>
-                                    <th>Lihat Profil Perusahaan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -37,9 +36,6 @@
                                                 <img src="/gambar/Perusahaan/{{$item->nama_perusahaan}}/Logo Perusahaan/{{$item->logo_perusahaan}}" alt="" width="150" height="150">
                                             @endif --}}
                                             {{$item->nama_perusahaan}}
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-info" href="/profil_perusahaan/{{$item->id_perusahaan}}">Lihat Profil</a>
                                         </td>
                                     </tr>    
                                 @endforeach
@@ -59,10 +55,7 @@
                     <div class="row mb-3">
                         <div class="col-md-12">
                             <div class="input-group mb-3">
-                                <marquee behavior="" class="form-control" direction="">{{$item->nama_lowongan}}</marquee>
-                                <div class="input-group-append">
-                                    <a class="btn btn-outline-primary" href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat</a>
-                                </div>
+                                <marquee behavior="" class="form-control" direction="">{{$item->nama_perusahaan}}, Lowongan: {{$item->nama_lowongan}}</marquee>
                             </div>
                         </div>
                     </div>    

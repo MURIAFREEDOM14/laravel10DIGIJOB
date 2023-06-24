@@ -20,6 +20,7 @@ use App\Models\PengalamanKerja;
 use App\Models\ContactUs;
 use App\Models\MessageKandidat;
 use App\Models\LowonganPekerjaan;
+use App\Models\PermohonanLowongan;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -35,13 +36,17 @@ class KandidatController extends Controller
         $notif = notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
-        $lowongan = LowonganPekerjaan::all();
+        $lowongan = LowonganPekerjaan::join(
+            'perusahaan','lowongan_pekerjaan.id_perusahaan','=','perusahaan.id_perusahaan'
+        )
+        ->get();
+        $cari_perusahaan = null;
         if($kandidat->negara_id == null){
             $perusahaan = Perusahaan::where('tmp_negara','Dalam negeri')->limit(5)->get();    
         } else {
             $perusahaan = Perusahaan::where('tmp_negara','like',"%".$kandidat->penempatan."%")->limit(5)->get();
         }
-        return view('kandidat/index',compact('kandidat','notif','perusahaan','pembayaran','pesan','lowongan'));
+        return view('kandidat/index',compact('kandidat','notif','perusahaan','pembayaran','pesan','lowongan','cari_perusahaan'));
     }
     
     public function profil()
@@ -59,7 +64,7 @@ class KandidatController extends Controller
         $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->limit(3)->get();
         $notif = notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
-        if($kandidat->negara_id == null){
+        if($kandidat->hubungan_perizin == null){
             return redirect()->route('kandidat')->with('warning',"Harap lengkapi profil anda terlebih dahulu");
         } else {
             return view('kandidat/profil_kandidat',compact(
@@ -1047,26 +1052,5 @@ class KandidatController extends Controller
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
         return view('kandidat/contact_us',compact('kandidat','notif','pembayaran','pesan'));
-    }
-
-    public function Perusahaan($id)
-    {
-        $user = Auth::user();
-        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
-        $perusahaan = Perusahaan::where('id_perusahaan',$id)->first();
-        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
-        $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
-        return view('kandidat/profil_perusahaan',compact('kandidat','perusahaan','notif','pembayaran','pesan'));
-    }
-
-    public function LowonganPekerjaan($id)
-    {
-        $user = Auth::user();
-        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
-        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
-        $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
-        return view('kandidat/modalKandidat/lihat_lowongan_pekerjaan',compact('kandidat','pesan','notif','lowongan'));
     }
 }

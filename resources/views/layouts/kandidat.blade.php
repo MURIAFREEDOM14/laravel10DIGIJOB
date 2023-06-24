@@ -355,6 +355,27 @@
                                         </ul>
                                     </div>
                                 </li>
+                                <li class="nav-item">
+                                    <a data-toggle="collapse" href="#perusahaan">
+                                        <i class="fas fa-flag"></i>
+                                        <p>Informasi Perusahaan</p>
+                                        <span class="caret"></span>
+                                    </a>
+                                    <div class="collapse" id="perusahaan">
+                                        <ul class="nav nav-collapse">
+                                            <li>
+                                                <a href="/list_informasi_perusahaan">
+                                                    <span>List Perusahaan</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/list_lowongan_pekerjaan">
+                                                    <span>List Lowongan</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
                             @endif
                             <li class="nav-item">
                                 <a class="btn  disabled" href="/pelatihan_interview">
@@ -369,12 +390,12 @@
                             </li>
                             
                             <li class="nav-item active">
-                                <a data-toggle="collapse" href="#forms">
+                                <a data-toggle="collapse" href="#prioritas">
                                     <i class="fas fa-crown"></i>
                                     <p style="text-transform: uppercase;">Akun Prioritas</p>
                                     <span class="caret"></span>
                                 </a>
-                                <div class="collapse" id="forms">
+                                <div class="collapse" id="prioritas">
                                     <ul class="nav nav-collapse">
                                         <li>
                                             <div class="card mx-2 bg-primary">

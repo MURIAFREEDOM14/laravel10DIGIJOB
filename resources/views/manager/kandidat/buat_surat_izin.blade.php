@@ -52,8 +52,13 @@
                             <b class="bold">No. Telp</b>
                         </div>
                         <div class="col-8">
-                            <input type="number" name="no_telp" value="{{old('no_telp')}}" class="form-control" id="">
+                            <input type="number" name="no_telp" value="{{old('no_telp')}}" class="form-control @error('no_telp') is-invalid @enderror" id="">
                         </div>
+                        @error('no_telp')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{$message}}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="row mb-3">
                         <div class="col-4">
@@ -77,8 +82,13 @@
                             <b class="bold">Email</b>
                         </div>
                         <div class="col-8">
-                            <input type="text" required name="email" value="{{old('email')}}" class="form-control" id="">
+                            <input type="text" required name="email" value="{{old('email')}}" class="form-control @error('email') is-invalid @enderror" id="">
                         </div>
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{$message}}</strong>
+                            </span>
+                        @enderror
                     </div>
                     <div class="row mb-3">
                         <div class="col-4">
@@ -111,8 +121,13 @@
                             <b class="bold">NIK</b>
                         </div>
                         <div class="col-8">
-                            <input type="number" name="nik" value="{{old('nik')}}" class="form-control" id="">
+                            <input type="number" name="nik" value="{{old('nik')}}" class="form-control @error('nik') is-invalid @enderror" id="">
                         </div>
+                        @error('nik')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{$message}}</strong>
+                            </span>
+                        @enderror
                     </div>
                     @livewire('permission')
                     <div class="row mb-3">

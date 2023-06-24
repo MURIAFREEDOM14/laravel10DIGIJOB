@@ -22,7 +22,7 @@ class ContactUsController extends Controller
         $user = Auth::user();
         $manager = User::where('referral_code',$user->referral_code)->first();
         $contact_us = ContactUs::all();
-        return view('manager/contact_us',compact('manager','contact_us'));
+        return view('manager/contactService/contact_us',compact('manager','contact_us'));
     }
     
     public function lihatContactUs($id)
@@ -30,7 +30,7 @@ class ContactUsController extends Controller
         $user = Auth::user();
         $manager = User::where('referral_code',$user->referral_code)->first();
         $contact_us = ContactUs::where('id',$id)->first();
-        return view('manager/lihat_contact_us',compact('manager','contact_us'));
+        return view('manager/contactService/lihat_contact_us',compact('manager','contact_us'));
     }
 
     public function responseContactUs(Request $request, $id)
@@ -119,12 +119,12 @@ class ContactUsController extends Controller
 
     public function contactUsKandidatList()
     {
-
+        return view('manager/contactService/kandidat_list');
     }
 
-    public function contactUsKandidatlihat()
+    public function contactUsKandidatLihat($id)
     {
-
+        return view('manager/contactService/kandidat_lihat');
     }
 
     public function contactUsKandidatJawab(Request $request)
@@ -133,12 +133,12 @@ class ContactUsController extends Controller
     }
     public function contactUsAkademiList()
     {
-
+        return view('manager/contactService/akademi_list');
     }
 
-    public function contactUsAkademilihat()
+    public function contactUsAkademiLihat($id)
     {
-
+        return view('manager/contactService/akademi_lihat');
     }
 
     public function contactUsAkademiJawab(Request $request)
@@ -147,12 +147,12 @@ class ContactUsController extends Controller
     }
     public function contactUsPerusahaanList()
     {
-
+        return view('manager/contactService/perusahaan_list');
     }
 
-    public function contactUsPerusahaanlihat()
+    public function contactUsPerusahaanLihat($id)
     {
-
+        return view('manager/contactService/perusahaan_lihat');
     }
 
     public function contactUsPerusahaanJawab(Request $request)

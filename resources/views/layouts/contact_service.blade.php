@@ -15,27 +15,15 @@
             .img{
                 border: 1px solid black;
                 border-radius: 2%;
-            }
-            .cicrlegreen{
-                height: 15px;
-                width: 15px;
-                border-radius: 50%;
-                background-color: green;
-                display: inline-block;
-            }
-            .cicrlered{
-                height: 15px;
-                width: 15px;
-                border-radius: 50%;
-                background-color: red;
-                display: inline-block;
+                width: 20%;
+                height: auto;
             }
             .text1 {
                 overflow: hidden;
                 display: -webkit-box;
                 -webkit-line-clamp: 1;
                 -webkit-box-orient: vertical;
-            }
+            }            
         </style>
         <!-- Fonts and icons -->
         <script src="/Atlantis/examples/assets/js/plugin/webfont/webfont.min.js"></script>
@@ -50,17 +38,18 @@
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-        @livewireStyles
+
         <!-- CSS Files -->
         <link rel="stylesheet" href="/Atlantis/examples/assets/css/bootstrap.min.css">
         <link rel="stylesheet" href="/Atlantis/examples/assets/css/atlantis.min.css">
-    
+        
+        @livewireStyles
     </head>
     <body>
         <div class="wrapper">
             <div class="main-header">
                 <!-- Logo Header -->
-                <div class="logo-header" data-background-color="green">
+                <div class="logo-header" style="background-image:linear-gradient(150deg,red,lightgreen,blue);">
 
                     <a href="/" class="logo">
                         <img src="/Atlantis/examples/assets/img/logo.svg" alt="navbar brand" class="navbar-brand">
@@ -80,14 +69,14 @@
                 <!-- End Logo Header -->
 
                 <!-- Navbar Header -->
-                <nav class="navbar navbar-header navbar-expand-lg" data-background-color="green2">
+                <nav class="navbar navbar-header navbar-expand-lg" style="background-image:linear-gradient(150deg,red,lightgreen,blue);">
 
                     <div class="container-fluid">
                         <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
                             <li class="nav-item dropdown hidden-caret">
-                                <a class="nav-link dropdown-toggle" href="#" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{-- <a class="nav-link dropdown-toggle" href="#" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-envelope"></i>
-                                </a>
+                                </a> --}}
                                 <ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
                                     <li>
                                         <div class="dropdown-title d-flex justify-content-between align-items-center">
@@ -97,90 +86,59 @@
                                     <li>
                                         <div class="message-notif-scroll scrollbar-outer">
                                             <div class="notif-center">
-                                                @foreach ($pesan as $item)
-                                                    <a href="">
-                                                        <div class="notif-content">
-                                                            <span class="subject">{{$item->pengirim}}</span>
-                                                            <span class="block">
-                                                                {{$item->pesan}}
-                                                            </span>
-                                                            <span class="time">{{date('d-M-Y | H:m',strtotime($item->created_at))}}</span>
-                                                        </div>
-                                                    </a>
-                                                @endforeach
+                                                <a href="">
+                                                    <div class="notif-img">
+                                                        <img src="/Atlantis/examples/assets/img/jm_denis.jpg" alt="Img Profile">
+                                                    </div>
+                                                    <div class="notif-content">
+                                                        <span class="subject">Jimmy Denis</span>
+                                                        <span class="block">
+                                                            How are you ?
+                                                        </span>
+                                                        <span class="time">5 minutes ago</span>
+                                                    </div>
+                                                </a>
                                             </div>
                                         </div>
                                     </li>
                                     <li>
-                                        <a class="see-all" href="/perusahaan/semua_pesan">Lihat Semua Pesan<i class="fa fa-angle-right"></i> </a>
+                                        <a class="see-all" href="/semua_pesan">Lihat Semua Pesan<i class="fa fa-angle-right"></i> </a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown hidden-caret">
-                                <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{-- <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-bell"></i>
-                                    @php
-                                        $ttl_notif = $notif->count();
-                                    @endphp
-                                    <span class="notification" style="background-color: red;">{{$ttl_notif}}</span>
-                                </a>
+                                    <span class="notification">4</span>
+                                </a> --}}
                                 <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
                                     <li>
-                                        <div class="dropdown-title">Notifikasi</div>
+                                        <div class="dropdown-title">Ada Notifikasi Baru</div>
                                     </li>
                                     <li>
                                         <div class="notif-scroll scrollbar-outer">
                                             <div class="notif-center">
-                                                @foreach ($notif as $item)
-                                                    <a href="{{$item->url}}">
-                                                        <div class="row">
-                                                            <div class="col-2 mr-1">
-                                                                <div class="notif-icon notif-warning"> 
-                                                                    <i class="fa fa-bell"></i> 
-                                                                </div>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="notif-content">
-                                                                    <div class="text1" style="">{{$item->isi}}</div>
-                                                                    <span class="time">{{date('d-M-Y | H:m',strtotime($item->created_at))}}</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>    
-                                                @endforeach
+                                                <a href="#">
+                                                    <div class="notif-icon notif-primary"> <i class="fa fa-user-plus"></i> </div>
+                                                    <div class="notif-content">
+                                                        <span class="block">
+                                                            New user registered
+                                                        </span>
+                                                        <span class="time">5 minutes ago</span>
+                                                    </div>
+                                                </a>
                                             </div>
                                         </div>
                                     </li>
                                     <li>
-                                        <a class="see-all" href="/perusahaan/semua_notif">Lihat Semua Notifikasi<i class="fa fa-angle-right"></i> </a>
+                                        <a class="see-all" href="/semua_notif">Lihat Semua Notifikasi<i class="fa fa-angle-right"></i> </a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown hidden-caret">
-                                <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class=""></i>Credit
-                                </a>
-                                <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
-                                    <li>
-                                        <div class="dropdown-title">Credit</div>
-                                    </li>
-                                    <li>
-                                        <div class="notif-scroll scrollbar-outer">
-                                            <div class="notif-center">
-                                                <div class="ml-2">Your credit</div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item dropdown hidden-caret">
-                                <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
+                                <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="" aria-expanded="false">
                                     <div class="avatar-sm">
-                                        @if ($perusahaan->logo_perusahaan !== null)
-                                            <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Logo Perusahaan/{{$perusahaan->logo_perusahaan}}" alt="/Atlantis/examples." class="avatar-img rounded-circle">
-                                        @else
-                                            <img src="/gambar/default_user.png" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                                                                        
-                                        @endif
+                                        <img src="/gambar/default_user.png" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                            
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -188,35 +146,17 @@
                                         <li>
                                             <div class="user-box">
                                                 <div class="avatar-lg">
-                                                    @if ($perusahaan->logo_perusahaan !== null)
-                                                       <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Logo Perusahaan/{{$perusahaan->logo_perusahaan}}" alt="image profile" class="avatar-img rounded"> 
-                                                    @else
-                                                        <img src="/gambar/default_user.png" alt="image profile" class="avatar-img rounded">
-                                                    @endif
-                                                </div>                                                        
+                                                        <img src="/gambar/default_user.png" alt="image profile" class="avatar-img rounded"></div>                                                        
                                                 <div class="u-text">
-                                                    <h4>{{$perusahaan->nama_perusahaan}}</h4>
-                                                    <p class="text-muted">{{$perusahaan->email_perusahaan}}</p>
+                                                    <h4>{{$manager->name}}</h4>
+                                                    <p class="text-muted">{{$manager->email}}</p>
                                                 </div>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="/perusahaan/lihat/perusahaan">Profil</a>
-                                            <a class="dropdown-item" href="/perusahaan/isi_perusahaan_data">Edit Profil</a>
-                                            {{-- <a class="dropdown-item" href="#">Kotak Masuk</a> --}}
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="/contact_us_perusahaan">Contact Us</a>
-                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="/edit_profil">Edit Profil</a>
                                             <a href="{{route('logout')}}" class="dropdown-item" onclick="confirmation(event)">Keluar</a>
-                                            {{-- <a class="dropdown-item" onclick="return confirm('apakah anda yakin ingin keluar?')" href="{{ route('logout') }}"
-                                                onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">
-                                                Keluar
-                                            </a>
-                                            <form id="logout-form" action="{{ route('logout') }}" method="get" class="d-none">
-                                                @csrf
-                                            </form> --}}
                                         </li>
                                     </div>
                                 </ul>
@@ -231,46 +171,9 @@
             <div class="sidebar sidebar-style-2">
                 <div class="sidebar-wrapper scrollbar scrollbar-inner">
                     <div class="sidebar-content">
-                        <div class="user">
-                            <div class="avatar-sm float-left mr-2">
-                                @if ($perusahaan->logo_perusahaan !== null)
-                                    <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Logo Perusahaan/{{$perusahaan->logo_perusahaan}}" alt="" class="avatar-img rounded-circle">                                    
-                                @else
-                                    <img src="/gambar/default_user.png" alt="" class="avatar-img rounded-circle">
-                                @endif
-                            </div>
-                            <div class="info">
-                                <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
-                                    <span>
-                                        <span class="" style="text-transform: uppercase;"><b class="bold">{{$perusahaan->nama_perusahaan}}</b></span>
-                                        <span class="caret"></span>
-                                    </span>
-                                </a>
-                                <div class="clearfix"></div>
-                                <div class="collapse in" id="collapseExample">
-                                    <ul class="nav">
-                                        <li>
-                                            <a href="/perusahaan/lihat/perusahaan" class="dropdown-item">
-                                                <span class="link-collapse">Profil Perusahaan</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="perusahaan/isi_perusahaan_data" class="dropdown-item">
-                                                <span class="link-collapse">Edit Profil</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{route('logout')}}" class="dropdown-item" onclick="confirmation(event)">
-                                                <span class="link-collapse">Keluar</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
                         <ul class="nav nav-primary">
                             <li class="nav-item active">
-                                <a href="/perusahaan" class="btn" aria-expanded="false">
+                                <a href="" class="btn" aria-expanded="false">
                                     <i class="fas fa-home"></i>
                                     <p>Dashboard</p>
                                 </a>
@@ -282,55 +185,35 @@
                                 <h4 class="text-section">Komponen</h4>
                             </li>
                             <li class="nav-item">
-                                <a data-toggle="collapse" href="#lowongan">
-                                    <i class="fas fa-flag"></i>
-                                    <p>Lowongan Pekerjaan</p>
+                                <a class="btn" data-toggle="collapse" href="#contact_us">
+                                    <i class="fas fa-layer-group"></i>
+                                    <p>Contact Us</p>
                                     <span class="caret"></span>
                                 </a>
-                                <div class="collapse" id="lowongan">
+                                <div class="collapse" id="contact_us">
                                     <ul class="nav nav-collapse">
                                         <li>
-                                            <a href="/perusahaan/list/lowongan">
-                                                <span>List Lowongan Pekerjaan</span>
+                                            <a class="btn" href="/manager/contact_us_kandidat">
+                                                <span class="sub-item">Contact Us Kandidat</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="/perusahaan/list_permohonan_lowongan">
-                                                <span>Permohonan Lowongan</span>
+                                            <a class="btn" href="/manager/contact_us_akademi">
+                                                <span class="sub-item">Contact Us Akademi</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="btn" href="/manager/contact_us_perusahaan">
+                                                <span class="sub-item">Contact Us Perusahaan</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="btn" href="/manager/pekerjaan">
+                                                <span class="sub-item">Contact Us Guest / Tamu</span>
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/perusahaan/list/pmi_id">
-                                    <i class="fas fa-layer-group"></i>
-                                    <p>Pembuatan PMI ID</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/perusahaan/list/kandidat">
-                                    <i class="fas fa-layer-group"></i>
-                                    <p>Data Kandidat</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a  href="/perusahaan/list/akademi">
-                                    <i class="fas fa-th-list"></i>
-                                    <p>Data Akademi</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a  href="/perusahaan/interview">
-                                    <i class="fas fa-th-list"></i>
-                                    <p>Data Interview</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a  href="/perusahaan/list/pembayaran">
-                                    <i class="fas fa-th-list"></i>
-                                    <p>Data Pembayaran</p>
-                                </a>
                             </li>
                         </ul>
                     </div>
@@ -340,20 +223,20 @@
 
             <div class="main-panel">
                 <div class="content">
-                    <main class="px-1">
+                    <main class="">
                         @yield('content')
                     </main>
                 </div>
-                <footer class="footer" style="background-color: #2bb930">
+                <footer class="footer">
                     <div class="container-fluid">
                         <nav class="pull-left">
-                            <ul class="nav nav-primary">
+                            {{-- <ul class="nav">
                                 <li class="nav-item">
-                                    <div class="copyright" style="color:white;">
-                                        &copy; Copyright <strong><span>ProyekPortal</span></strong>. All Rights Reserved
-                                    </div>
+                                    <a class="nav-link" href="https://www.themekita.com">
+                                        ThemeKita
+                                    </a>
                                 </li>
-                                {{-- <li class="nav-item">
+                                <li class="nav-item">
                                     <a class="nav-link" href="#">
                                         Help
                                     </a>
@@ -362,8 +245,8 @@
                                     <a class="nav-link" href="#">
                                         Licenses
                                     </a>
-                                </li> --}}
-                            </ul>
+                                </li>
+                            </ul> --}}
                         </nav>
                         <div class="copyright ml-auto">
                             &nbsp;
@@ -372,7 +255,6 @@
                     </div>
                 </footer>
             </div>
-
         </div>
         <!--   Core JS Files   -->
         <script src="/Atlantis/examples/assets/js/core/jquery.3.2.1.min.js"></script>
@@ -385,6 +267,7 @@
 
         <!-- jQuery Scrollbar -->
         <script src="/Atlantis/examples/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
 
         <!-- Chart JS -->
         <script src="/Atlantis/examples/assets/js/plugin/chart.js/chart.min.js"></script>
@@ -410,8 +293,7 @@
 
         <!-- Atlantis JS -->
         <script src="/Atlantis/examples/assets/js/atlantis.min.js"></script>
-        
-        <!-- Datatables -->
+
         <script >
             $(document).ready(function() {
                 $('#basic-datatables').DataTable({
@@ -491,8 +373,8 @@
                 });    
             }
 
-            function hapusData(ev)
-            {
+            function hapusNegara(ev)
+                {
                 ev.preventDefault();
                 var url = ev.currentTarget.getAttribute('href');
                 console.log(url);
@@ -507,6 +389,7 @@
                         },
                         cancel: {
                             visible: true,
+                            text: 'Tidak',
                             className: 'btn btn-danger'
                         }
                     }
@@ -516,7 +399,7 @@
                     } else {
                         swal.close();
                     }
-                });
+                });    
             }
         </script>
         @livewireScripts
