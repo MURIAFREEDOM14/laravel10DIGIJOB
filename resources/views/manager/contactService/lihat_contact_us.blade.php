@@ -13,7 +13,7 @@
                             Nama Pengirim
                         </div>
                         <div class="col-8">
-                            <input type="text" disabled class="form-control" value="{{$contact_us->dari}}" id="">
+                            <input type="text" disabled class="form-control" value="{{$kandidat->dari}}" id="">
                         </div>
                     </div>
                     <div class="row mb-3">

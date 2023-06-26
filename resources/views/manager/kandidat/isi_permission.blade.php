@@ -30,7 +30,7 @@
                                     <label for="inputPassword6" class="col-form-label">NIK Perizin</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" required  value="{{$kandidat->nik_perizin}}" name="nik_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input type="text"   value="{{$kandidat->nik_perizin}}" name="nik_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
@@ -71,7 +71,7 @@
                                     <label for="inputPassword6" class="col-form-label">Dusun</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" class="form-control" value="{{$kandidat->dusun_perizin}}" name="dusun_perizin" required placeholder="Masukkan Alamat Dusun">
+                                    <input type="text" class="form-control" value="{{$kandidat->dusun_perizin}}" name="dusun_perizin"  placeholder="Masukkan Alamat Dusun">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
@@ -79,10 +79,10 @@
                                     <label for="inputPassword6" class="col-form-label">RT / RW</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="number" required value="{{$kandidat->rt_perizin}}" placeholder="Masukkan RT" name="rt_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input type="number"  value="{{$kandidat->rt_perizin}}" placeholder="Masukkan RT" name="rt_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="number" required value="{{$kandidat->rw_perizin}}" placeholder="Masukkan RW" name="rw_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input type="number"  value="{{$kandidat->rw_perizin}}" placeholder="Masukkan RW" name="rw_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">

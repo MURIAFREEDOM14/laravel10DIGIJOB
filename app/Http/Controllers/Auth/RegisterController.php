@@ -116,7 +116,7 @@ class RegisterController extends Controller
             'email' => 'required|unique:users|max:255',
             'no_telp' => 'required|unique:users|min:10|max:13',
             'nama_panggilan' => 'required|unique:kandidat|min:5|max:20',
-            'password' => 'required|min:8',
+            'password' => 'required',
         ]);
      
         $tgl = Carbon::parse($request->tgl)->age;

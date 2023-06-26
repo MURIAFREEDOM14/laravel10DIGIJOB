@@ -230,6 +230,11 @@
                                                 <span class="sub-item">Data Pelatihan</span>
                                             </a>
                                         </li>
+                                        <li>
+                                            <a class="btn" href="/manager/reset_kandidat">
+                                                <span class="sub-item">Reset Data Kandidat</span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -267,15 +272,21 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="btn" href="/manager/contact_us">
+                                <a class="btn" href="/manager/contact_us_admin">
                                     <i class="fas fa-th-list"></i>
                                     <p>Contact Us</p>
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="btn" href="/manager/noreply">
+                                    <i class="fas fa-th-list"></i>
+                                    <p>Noreply</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="btn" href="/manager/beta_tester">
                                     <i class="fas fa-th-list"></i>
-                                    <p>Beta Tester</p>
+                                    <p>Penguji</p>
                                 </a>
                             </li>
                         </ul>

@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Manager\ManagerController;
 use App\Http\Controllers\Manager\Kandidat\ManagerKandidatController;
 use App\Http\Controllers\Manager\ContactUsController;
+use App\Http\Controllers\Manager\NoreplyController;
 use App\Http\Controllers\Kandidat\KandidatPerusahaanController;
 use App\Http\Controllers\CaptureController;
 use App\Http\Controllers\OutputController;
@@ -119,25 +120,40 @@ Route::controller(ManagerKandidatController::class)->group(function() {
     
     Route::get('/manager/edit/kandidat/job/{id}','isi_job')->middleware('manager');
     Route::post('/manager/edit/kandidat/job/{id}','simpan_job');
+
+    Route::get('/manager/reset_kandidat','resetKandidat');
+    Route::post('/manager/reset_kandidat','resetDataKandidat');
 });
 
 Route::controller(ContactUsController::class)->group(function() {
     Route::get('/manager/contact_us','contactUs')->middleware('manager');
+    Route::get('/manager/contact_us_admin','contactUsAdmin')->middleware('manager');
+    Route::post('/manager/contact_us_admin','tambahContactUsAdmin');
+    Route::get('/manager/hapus_contact_us_admin','hapusContactUsAdmin');
+
     Route::post('/manager/contact_us','sendContactUs');
     Route::get('/manager/balas_pesan/{id}','lihatContactUs')->middleware('manager');
     Route::post('/manager/balas_pesan/{id}','responseContactUs');
     
+    Route::get('/manager/contact_us_guest','contactUsGuestList')->middleware('manager');
+    Route::get('/manager/lihat/contact_guest/{id}','contactUsGuestLihat')->middleware('manager');
+    Route::post('/manager/contact_jawab_guest/{id}','contactUsGuestJawab');
+
     Route::get('/manager/contact_us_kandidat','contactUsKandidatList')->middleware('manager');
-    Route::get('/manager/lihat/contact_kandidat','contactUsKandidatLihat')->middleware('manager');
-    Route::post('/manager/contact_jawab_kandidat','contactUsKandidatJawab');
+    Route::get('/manager/lihat/contact_kandidat/{id}','contactUsKandidatLihat')->middleware('manager');
+    Route::post('/manager/contact_jawab_kandidat/{id}','contactUsKandidatJawab');
     
     Route::get('/manager/contact_us_akademi','contactUsAkademiList')->middleware('manager');
-    Route::get('/manager/lihat/contact_akademi','contactUsAkademiLihat')->middleware('manager');
-    Route::post('/manager/contact_jawab_akademi','contactUsAkademiJawab');
+    Route::get('/manager/lihat/contact_akademi/{id}','contactUsAkademiLihat')->middleware('manager');
+    Route::post('/manager/contact_jawab_akademi/{id}','contactUsAkademiJawab');
     
     Route::get('/manager/contact_us_perusahaan','contactUsPerusahaanList')->middleware('manager');
-    Route::get('/manager/lihat/contact_perusahaan','contactUsPerusahaanLihat')->middleware('manager');
-    Route::post('/manager/contact_jawab_perusahaan','contactUsPerusahaanJawab');
+    Route::get('/manager/lihat/contact_perusahaan/{id}','contactUsPerusahaanLihat')->middleware('manager');
+    Route::post('/manager/contact_jawab_perusahaan/{id}','contactUsPerusahaanJawab');
+});
+
+Route::controller(NoreplyController::class)->group(function(){
+    Route::get('/manager/noreply','noreply');
 });
 
 // DATA LAMAN //

@@ -40,7 +40,7 @@
                                                     <tr>
                                                         <td>{{$loop->iteration}}</td>
                                                         <td>{{$item->nama_perusahaan}}</td>
-                                                        <td>{{$item->alamat_perusahaan}}</td>
+                                                        <td>{{$item->alamat_perusahaan}}<input hidden name="lama_kerja[]" value="{{$item->lama_kerja}}" id=""></td>
                                                         <td>{{$item->jabatan}}<input hidden name="jabatan[]" value="{{$item->jabatan}}" id=""></td>
                                                         <td>{{date('d-M-Y',strtotime($item->periode_awal))}} - {{date('d-M-Y',strtotime($item->periode_akhir))}}</td>
                                                         <td>{{$item->alasan_berhenti}}</td>

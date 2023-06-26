@@ -3,7 +3,7 @@
     <div class="container mt-5">
         <div class="card">
             <div class="card-header">
-                <h4><b class="bold">List Akademi</b></h4>
+                <h4><b class="bold">Contact Us</b></h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -11,22 +11,14 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Pengirim</th>
-                                <th>Tanggal Kirim</th>
-                                <th>Isi</th>
-                                <th>Aksi</th>
+                                <th>Nama</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($semua_akademi as $item)
+                            @foreach ($admin as $item)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{$item->dari}}</td>
-                                    <td>{{date('d-M-Y',strtotime($item->created_at))}}</td>
-                                    <td>{{$item->isi}}</td>
-                                    <td>
-                                        <a href="/manager/balas_pesan/{{$item->id}}" class="btn btn-success"><i class="fab fa-rocketchat"></i></a>
-                                    </td>
+                                    <td>{{$item->name}}</td>
                                 </tr>
                             @endforeach
                         </tbody>

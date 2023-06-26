@@ -458,39 +458,10 @@ class PerusahaanController extends Controller
     // DATA KANDIDAT //
     public function kandidat()
     {
-        // $usia = "";
-        // $jk = "";
-        // $pendidikan = "";
-        // $tinggi = "";
-        // $berat = "";
-        // $lama_kerja = "";
-        // $kabupaten = "";
-        // $provinsi = "";
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        if ($perusahaan->tmp_negara == "Dalam negeri") {
-            $kandidat = Kandidat::
-            where('kandidat.penempatan',"dalam negeri")
-            // ->where('kandidat.jenis_kelamin','like',"%".$jk."%")
-            // ->where('kandidat.usia','>=',$usia)
-            // ->where('kandidat.pendidikan','like',"%".$pendidikan."%")
-            // ->where('kandidat.tinggi','>=',"%".$tinggi."%")
-            // ->where('kandidat.berat','>=',"%".$berat."%")
-            // ->where('kandidat.kabupaten','like',"%".$kabupaten."%")
-            // ->where('kandidat.provinsi','like',"%".$provinsi."%")
-            ->limit(15)->get();
-        } else {
-            $kandidat = Kandidat::
-            where('kandidat.penempatan',"luar negeri")
-            // ->where('kandidat.jenis_kelamin','like',"%".$jk."%")
-            // ->where('kandidat.usia','>=',$usia)
-            // ->where('kandidat.pendidikan','like',"%".$pendidikan."%")
-            // ->where('kandidat.tinggi','>=',"%".$tinggi."%")
-            // ->where('kandidat.berat','>=',"%".$berat."%")
-            // ->where('kandidat.kabupaten','like',"%".$kabupaten."%")
-            // ->where('kandidat.provinsi','like',"%".$provinsi."%")
-            ->limit(15)->get();
-        }
+        $kandidat = Kandidat::where('penempatan','like','%'.$perusahaan->tmp_negara.'%')
+        ->get();        
         $isi = $kandidat->count();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
@@ -508,41 +479,60 @@ class PerusahaanController extends Controller
         $lama_kerja = $request->pengalaman;
         $kabupaten = Kota::where('id',$request->kota_id)->first();
         $provinsi = Provinsi::where('id',$request->provinsi_id)->first();
+        if($provinsi !== null){
+            $prov = $provinsi->provinsi;
+            $kab = $kabupaten->kota;
+        } else {
+            $prov = null;
+            $kab = null;
+        }
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        if ($perusahaan->tmp_negara == "Dalam negeri") {
-            $kandidat = Kandidat::
-            join(
-                'prt_pengalaman_kerja','kandidat.id_kandidat','=','prt_pengalaman_kerja.id_kandidat'
-            )
-            ->where('kandidat.penempatan',"dalam negeri")
-            ->where('kandidat.jenis_kelamin','like',"%".$jk."%")
-            ->where('kandidat.usia','>=',"%".$usia."%")
-            ->where('kandidat.pendidikan','like',"%".$pendidikan."%")
-            ->where('kandidat.tinggi','>=',"%".$tinggi."%")
-            ->where('kandidat.berat','>=',"%".$berat."%")
-            // ->where('kandidat.kabupaten','like',"%".$kabupaten."%")
-            // ->where('kandidat.provinsi','like',"%".$provinsi->provinsi."%")
-            ->where('prt_pengalaman_kerja.lama_kerja','like',"%".$lama_kerja."%")
-            ->limit(15)->get();
-        } else {
-            $kandidat = Kandidat::
-            join(
-                'prt_pengalaman_kerja','kandidat.id_kandidat','=','prt_pengalaman_kerja.id_kandidat'
-            )
-            ->where('kandidat.penempatan',"luar negeri")
-            ->where('kandidat.jenis_kelamin','like',"%".$jk."%")
-            ->where('kandidat.usia','>=',"%".$usia."%")
-            ->where('kandidat.pendidikan','like',"%".$pendidikan."%")
-            ->where('kandidat.tinggi','>=',"%".$tinggi."%")
-            ->where('kandidat.berat','<=',"%".$berat."%")
-            ->where('kandidat.kabupaten','like',"%".$kabupaten."%")
-            ->where('kandidat.provinsi','like',"%".$provinsi."%")
-            ->where('prt_pengalaman_kerja.lama_kerja',"%".$lama_kerja."%")
-            ->limit(15)->get();
-        }
+        $kandidat = Kandidat::
+        where('penempatan','like','%'.$perusahaan->tmp_negara.'%')
+        ->where('kandidat.jenis_kelamin','like',"%".$jk."%")
+        ->where('kandidat.usia','>=',"%".$usia."%")
+        ->where('kandidat.pendidikan','like',"%".$pendidikan."%")
+        ->where('kandidat.tinggi','>=',"%".$tinggi."%")
+        ->where('kandidat.berat','>=',"%".$berat."%")
+        ->where('kandidat.kabupaten','like',"%".$kab."%")
+        ->where('kandidat.provinsi','like',"%".$prov."%")
+        ->where('kandidat.lama_kerja','like',"%".$lama_kerja."%")
+        ->limit(15)->get();
+
+        // if ($perusahaan->tmp_negara == "Dalam negeri") {
+        //     $kandidat = Kandidat::
+        //     join(
+        //         'prt_pengalaman_kerja','kandidat.id_kandidat','=','prt_pengalaman_kerja.id_kandidat'
+        //     )
+        //     ->where('kandidat.penempatan',"dalam negeri")
+        //     ->where('kandidat.jenis_kelamin','like',"%".$jk."%")
+        //     ->where('kandidat.usia','>=',"%".$usia."%")
+        //     ->where('kandidat.pendidikan','like',"%".$pendidikan."%")
+        //     ->where('kandidat.tinggi','>=',"%".$tinggi."%")
+        //     ->where('kandidat.berat','>=',"%".$berat."%")
+        //     // ->where('kandidat.kabupaten','like',"%".$kabupaten."%")
+        //     // ->where('kandidat.provinsi','like',"%".$provinsi->provinsi."%")
+        //     ->where('prt_pengalaman_kerja.lama_kerja','like',"%".$lama_kerja."%")
+        //     ->limit(15)->get();
+        // } else {
+        //     $kandidat = Kandidat::
+        //     join(
+        //         'prt_pengalaman_kerja','kandidat.id_kandidat','=','prt_pengalaman_kerja.id_kandidat'
+        //     )
+        //     ->where('kandidat.penempatan',"luar negeri")
+        //     ->where('kandidat.jenis_kelamin','like',"%".$jk."%")
+        //     ->where('kandidat.usia','>=',"%".$usia."%")
+        //     ->where('kandidat.pendidikan','like',"%".$pendidikan."%")
+        //     ->where('kandidat.tinggi','>=',"%".$tinggi."%")
+        //     ->where('kandidat.berat','<=',"%".$berat."%")
+        //     ->where('kandidat.kabupaten','like',"%".$kabupaten."%")
+        //     ->where('kandidat.provinsi','like',"%".$provinsi."%")
+        //     ->where('prt_pengalaman_kerja.lama_kerja',"%".$lama_kerja."%")
+        //     ->limit(15)->get();
+        // }
         $isi = $kandidat->count();
         return view('perusahaan/kandidat/pilih_kandidat',compact('jk','perusahaan','kandidat','isi','notif','pesan'));
     }

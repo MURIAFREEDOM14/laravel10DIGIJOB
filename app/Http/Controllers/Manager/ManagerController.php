@@ -80,7 +80,7 @@ class ManagerController extends Controller
         $validated = $request->validate([
             'no_telp' => 'unique:users',
             'nik' => 'unique:kandidat',
-            'email' => 'unique:email',
+            'email' => 'unique:users',
         ]);
         // dd($request);
         $provinsi = Provinsi::where('id',$request->provinsi_id)->first('provinsi');

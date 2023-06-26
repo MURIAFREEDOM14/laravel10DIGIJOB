@@ -679,9 +679,7 @@ class KandidatController extends Controller
         } else {
             $negara = $show_negara->negara;    
         }
-        $pengalaman_kerja = PengalamanKerja::join(
-            'kandidat','pengalaman_kerja.id_kandidat','=','kandidat.id_kandidat'
-        )->where('pengalaman_kerja.id_kandidat',$kandidat->id_kandidat)->get();
+        $pengalaman_kerja = PengalamanKerja::where('pengalaman_kerja.id_kandidat',$kandidat->id_kandidat)->get();
         return view('Kandidat/modalKandidat/edit_kandidat_company', [
             'kandidat'=>$kandidat,
             'pengalaman_kerja'=>$pengalaman_kerja,
@@ -737,10 +735,7 @@ class KandidatController extends Controller
 
     public function editPengalamanKerja($id)
     {
-        $pengalaman_kerja = PengalamanKerja::join(
-            'kandidat', 'pengalaman_kerja.id_kandidat','=','kandidat.id_kandidat'
-        )
-        ->where('pengalaman_kerja.pengalaman_kerja_id',$id)->first();
+        $pengalaman_kerja = PengalamanKerja::where('pengalaman_kerja.pengalaman_kerja_id',$id)->first();
         return view('kandidat/edit_kandidat_company', compact('pengalaman_kerja'));
     }
 
@@ -811,13 +806,18 @@ class KandidatController extends Controller
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         $jabatan = $request->jabatan;
+        $lama_kerja = $request->lama_kerja;
         if($jabatan !== null){
             $jabatanValues = implode(",",$jabatan);
+            $lamaKerjaValues = array_sum($lama_kerja);
         } else {
             $jabatanValues = null;
+            $lamaKerjaValues = null;
         }
+
         Kandidat::where('id_kandidat', $kandidat->id_kandidat)->update([
             'pengalaman_kerja' => $jabatanValues,
+            'lama_kerja' => $lamaKerjaValues,
         ]);
         return redirect()->route('permission')->with('toast_success',"Data anda tersimpan");
     }

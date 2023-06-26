@@ -739,6 +739,35 @@ class ManagerKandidatController extends Controller
         return redirect('/manager/kandidat/lihat_profil/'.$id);
     }
 
+    public function resetKandidat()
+    {
+        $user = Auth::user();
+        $manager = User::where('type',3)->first();
+        $kandidat = Kandidat::all();
+        return view('manager/kandidat/reset_kandidat',compact('manager','kandidat'));
+    }
+
+    public function resetDataKandidat(Request $request)
+    {
+        Kandidat::where('id_kandidat',$request->id_kandidat)->update([
+            'foto_ktp' => null,
+            'foto_kk' => null,
+            'foto_set_badan' => null,
+            'foto_4x6' => null,
+            'foto_ket_lahir' => null,
+            'foto_ijazah' => null,
+            'foto_buku_nikah' => null,
+            'foto_cerai' => null,
+            'foto_kematian_pasangan' => null,
+            'sertifikat_vaksin1' => null,
+            'sertifikat_vaksin2' => null,
+            'sertifikat_vaksin3' => null,
+            'foto_ktp_izin' => null,
+            'foto_paspor' => null,
+        ]);
+        return redirect('/manager/reset_kandidat');
+    }
+
     public function dalam_negeri()
     {
         $manager = Auth::user();

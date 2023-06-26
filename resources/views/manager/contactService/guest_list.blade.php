@@ -3,7 +3,7 @@
     <div class="container mt-5">
         <div class="card">
             <div class="card-header">
-                <h4><b class="bold">List Akademi</b></h4>
+                <h4><b class="bold">List Guest</b></h4>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -18,7 +18,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($semua_akademi as $item)
+                            @foreach ($semua_guest as $item)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$item->dari}}</td>

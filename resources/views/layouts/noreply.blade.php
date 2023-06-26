@@ -187,29 +187,14 @@
                             <li class="nav-item">
                                 <a class="btn" data-toggle="collapse" href="#contact_us">
                                     <i class="fas fa-layer-group"></i>
-                                    <p>Contact Us</p>
+                                    <p>Noreply</p>
                                     <span class="caret"></span>
                                 </a>
                                 <div class="collapse" id="contact_us">
                                     <ul class="nav nav-collapse">
                                         <li>
-                                            <a class="btn" href="/manager/contact_us_kandidat">
-                                                <span class="sub-item">Contact Us Kandidat</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="btn" href="/manager/contact_us_akademi">
-                                                <span class="sub-item">Contact Us Akademi</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="btn" href="/manager/contact_us_perusahaan">
-                                                <span class="sub-item">Contact Us Perusahaan</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="btn" href="/manager/contact_us_guest">
-                                                <span class="sub-item">Contact Us Guest / Tamu</span>
+                                            <a class="btn" href="/manager/noreply">
+                                                <span class="sub-item">Noreply</span>
                                             </a>
                                         </li>
                                     </ul>
