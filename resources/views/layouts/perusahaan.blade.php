@@ -240,9 +240,9 @@
                                 @endif
                             </div>
                             <div class="info">
-                                <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+                                <a data-toggle="collapse" class="btn" href="#collapseExample" aria-expanded="true">
                                     <span>
-                                        <span class="" style="text-transform: uppercase;"><b class="bold">{{$perusahaan->nama_perusahaan}}</b></span>
+                                        <span class="text1" style="text-transform: uppercase;"><b class="bold">{{$perusahaan->nama_perusahaan}}</b></span>
                                         <span class="caret"></span>
                                     </span>
                                 </a>
@@ -255,7 +255,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="perusahaan/isi_perusahaan_data" class="dropdown-item">
+                                            <a href="/perusahaan/isi_perusahaan_data" class="dropdown-item">
                                                 <span class="link-collapse">Edit Profil</span>
                                             </a>
                                         </li>

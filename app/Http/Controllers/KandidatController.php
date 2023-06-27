@@ -42,9 +42,9 @@ class KandidatController extends Controller
         ->get();
         $cari_perusahaan = null;
         if($kandidat->negara_id == null){
-            $perusahaan = Perusahaan::where('tmp_negara','Dalam negeri')->limit(5)->get();    
+            $perusahaan = Perusahaan::where('tmp_negara','Dalam negeri')->limit(5)->get();
         } else {
-            $perusahaan = Perusahaan::where('tmp_negara','like',"%".$kandidat->penempatan."%")->limit(5)->get();
+            $perusahaan = Perusahaan::whereNotNull('email_operator')->get();
         }
         return view('kandidat/index',compact('kandidat','notif','perusahaan','pembayaran','pesan','lowongan','cari_perusahaan'));
     }
@@ -858,7 +858,7 @@ class KandidatController extends Controller
             'negara_id' => $request->negara_id,
             'penempatan' => $request->penempatan,
         ]);
-        return redirect()->route('kandidat');
+        return redirect()->route('kandidat')->with('success',"Data anda tersimpan");
     }
 
     public function isi_kandidat_permission()

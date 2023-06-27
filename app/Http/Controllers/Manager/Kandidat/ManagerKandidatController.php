@@ -224,7 +224,6 @@ class ManagerKandidatController extends Controller
         Kandidat::where('id_kandidat',$id)->update([
             'nik' => $request->nik,
             'pendidikan' => $request->pendidikan,
-            'alamat' => $request->alamat,
             'rt' => $request->rt,
             'rw' => $request->rw,
             'dusun' => $request->dusun,

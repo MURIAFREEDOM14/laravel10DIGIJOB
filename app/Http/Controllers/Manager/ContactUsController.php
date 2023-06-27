@@ -165,9 +165,10 @@ class ContactUsController extends Controller
             'pengirim' => "Admin",
             'url' => '/semua_pesan',
         ]);
-        ContactUs::where('id',$id)->update([
+        ContactUsKandidat::where('id',$id)->update([
             'balas' => "dibaca",
         ]);
+        return redirect('/manager/lihat/contact_kandidat/'.$id)->with('success',"Pesan Terkirim");
     }
     public function contactUsAkademiList()
     {
@@ -199,9 +200,10 @@ class ContactUsController extends Controller
             'pengirim' => "Admin",
             'url' => ('/akademi/semua_pesan'),
         ]);
-        ContactUs::where('id',$id)->update([
+        ContactUsAkademi::where('id_contact_akadmei',$id)->update([
             'balas' => "dibaca",
         ]);
+        return redirect('/manager/lihat/contact_akademi/'.$id)->with('success',"Pesan Terkirim");
     }
     public function contactUsPerusahaanList()
     {
@@ -233,8 +235,9 @@ class ContactUsController extends Controller
             'pengirim' => "Admin",
             'url' => ('/perusahaan/semua_pesan'),
         ]);
-        ContactUs::where('id',$id)->update([
+        ContactUsPerusahaan::where('id_contact_perusahaan',$id)->update([
             'balas' => "dibaca",
         ]);
+        return redirect('/manager/lihat/contact_perusahaan/'.$id)->with('success',"Pesan Terkirim");
     }
 }

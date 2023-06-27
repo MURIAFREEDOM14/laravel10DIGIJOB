@@ -16,7 +16,7 @@ class contactServise
     public function handle(Request $request, Closure $next): Response
     {
         if(auth()->user()){
-            if(auth()->user()->type == 5){
+            if(auth()->user()->type == 4){
                 return $next($request);
             } else {
                 return redirect()->route('laman');

@@ -48,14 +48,14 @@
         <div class="col-md-5">
             <div class="card">
                 <div class="card-header">
-                    <b class="bold">List Lowongan Pekerjaan</b>
+                    <b class="bold">Informasi Lowongan Pekerjaan</b>
                 </div>
                 <div class="card-body">
                     @foreach ($lowongan as $item)
                     <div class="row mb-3">
-                        <div class="col-md-12">
-                            <div class="input-group mb-3">
-                                <marquee behavior="" class="form-control" direction="">{{$item->nama_perusahaan}}, Lowongan: {{$item->nama_lowongan}}</marquee>
+                        <div class="col-md-12 ">
+                            <div class="form-control mb-3">      
+                                <marquee behavior="" direction="">{{$item->nama_perusahaan}}, Lowongan: {{$item->nama_lowongan}}, Kuota: </marquee>
                             </div>
                         </div>
                     </div>    

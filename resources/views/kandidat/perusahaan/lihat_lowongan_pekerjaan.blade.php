@@ -129,6 +129,15 @@
                     </div>
                 </div>
                 <hr>
+                <div  class="row">
+                    <div class="col-md-3">
+                        <label for="" class="">Kode Undangan Perusahaan</label>
+                    </div>
+                    <div class="col-md-8">
+                        <div class=""><b class="bold">: {{$perusahaan->referral_code}}</b></div>
+                    </div>
+                </div>
+                <hr>
                 <a href="/kandidat" class="btn btn-danger">Kembali</a>
                 <a href="/permohonan_lowongan/{{$lowongan->id_lowongan}}" class="btn btn-primary float-right">Terima Lowongan</a>
             </div>

@@ -5,6 +5,7 @@
         <title>proyekPortal</title>
         <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
         <link rel="icon" href="/Atlantis/examples/assets/img/icon.ico" type="image/x-icon"/>
+        <link rel="stylesheet" href="/moving.css">
         <style>
             .bold{
                 font-size: 11px;
@@ -345,7 +346,7 @@
                                                 <li class="nav-section" id="hidetext">
                                                     <h4 class="text-section">Negara Tujuan</h4>
                                                 </li>
-                                                <select name="negara_id" class="form-control" id="negara_tujuan">
+                                                <select name="negara_id" required class="form-control" id="negara_tujuan">
                                                     <option value="">-- Pilih Negara Tujuan --</option>
                                                 </select>
                                                 <li class="nav-section">

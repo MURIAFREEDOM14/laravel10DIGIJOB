@@ -145,7 +145,7 @@
                                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                                     <div class="avatar-sm">
                                         @if ($akademi->logo_akademi !== null)
-                                            <img src="/gambar/Akademi/{{$akademi->nama_akademi}}/Logo/{{$akademi->logo_akademi}}" alt="/Atlantis/examples." class="avatar-img rounded-circle">
+                                            <img src="/gambar/Akademi/{{$akademi->nama_akademi}}/Logo Akademi/{{$akademi->logo_akademi}}" alt="/Atlantis/examples." class="avatar-img rounded-circle">
                                         @else
                                             <img src="/gambar/default_user.png" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                            
                                         @endif
@@ -157,7 +157,7 @@
                                             <div class="user-box">
                                                 <div class="avatar-lg">
                                                     @if ($akademi->logo_akademi !== null)
-                                                        <img src="/gambar/Akademi/{{$akademi->nama_akademi}}/Logo/{{$akademi->logo_akademi}}" alt="image profile" class="avatar-img rounded">
+                                                        <img src="/gambar/Akademi/{{$akademi->nama_akademi}}/Logo Akademi/{{$akademi->logo_akademi}}" alt="image profile" class="avatar-img rounded">
                                                     @else
                                                         <img src="/gambar/default_user.png" alt="image profile" class="avatar-img rounded">                                                        
                                                     @endif
@@ -205,7 +205,7 @@
                         <div class="user">
                             <div class="avatar-sm float-left mr-2">
                                 @if ($akademi->logo_akademi !== null)
-                                    <img src="/gambar/Akademi/{{$akademi->nama_akademi}}/Logo/{{$akademi->logo_akademi}}" alt="" class="avatar-img rounded-circle">                                    
+                                    <img src="/gambar/Akademi/{{$akademi->nama_akademi}}/Logo Akademi/{{$akademi->logo_akademi}}" alt="" class="avatar-img rounded-circle">                                    
                                 @else
                                     <img src="/gambar/default_user.png" alt="" class="avatar-img rounded-circle">
                                 @endif

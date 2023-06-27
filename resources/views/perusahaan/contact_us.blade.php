@@ -7,7 +7,7 @@
                 Contact Us
             </div>
             <div class="card-body">
-                <form action="/contact_us" method="POST">
+                <form action="/manager/contact_us" method="POST">
                     @csrf       
                     <div class="row mb-3">
                         <div class="col-6">

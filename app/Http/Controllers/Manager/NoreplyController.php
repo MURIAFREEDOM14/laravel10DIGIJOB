@@ -27,6 +27,6 @@ class NoreplyController extends Controller
     {
         $user = Auth::user();
         $manager = User::where('type',3)->first();
-        return view('manager/noreply/index',compact('manager'));
+        return view('manager/noreply/noreply',compact('manager'));
     }
 }

@@ -25,7 +25,7 @@
                                     <td>{{date('d-M-Y',strtotime($item->created_at))}}</td>
                                     <td>{{$item->isi}}</td>
                                     <td>
-                                        <a href="/manager/balas_pesan/{{$item->id}}" class="btn btn-success"><i class="fab fa-rocketchat"></i></a>
+                                        <a href="/manager/lihat/contact_perusahaan/{{$item->id_contact_perusahaan}}" class="btn btn-success"><i class="fab fa-rocketchat"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

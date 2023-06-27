@@ -43,13 +43,22 @@ class ManagerController extends Controller
             'email' => 'required|email',
             'password' => 'required'
         ]);
-        $manager = User::where(['email'=>$request->email, 'password'=>$request->password])->first();
-        if($manager){
-            Auth::login($manager);
-            return redirect()->route('manager');
+        $data = User::where(['email'=>$request->email, 'password'=>$request->password])->first();
+        if($data == null){
+            return redirect()->back()->with('error',"maaf Email atau Password anda salah");
         } else {
-            return redirect()->back()->with('error', 'Email atau no telp salah');
-        }
+            if($data->type == 3){
+                $user = User::where('type',3)->first();
+                Auth::login($user);
+                return redirect()->route('manager');
+            } elseif($data->type == 4) {
+                $user = User::where('type',4)->first();
+                Auth::login($user);
+                return redirect()->route('cs');
+            } else {
+                return redirect()->back()->with('error', 'Email atau no telp salah');
+            }
+        }   
     }
 
     public function index()

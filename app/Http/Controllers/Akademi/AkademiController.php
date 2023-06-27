@@ -54,7 +54,8 @@ class AkademiController extends Controller
                 @unlink($hapus_foto_akademi);
             }
             $foto_akademi = $akademi->nama_akademi.time().'.'.$request->foto_akademi->extension();  
-            $request->foto_akademi->move(public_path('/gambar/Akademi/'.$akademi->nama_akademi.'/Foto Akademi/'), $foto_akademi);
+            $simpan_foto_akademi = $request->file('foto_akademi');
+            $simpan_foto_akademi->move('gambar/Akademi/'.$akademi->nama_akademi.'/Foto Akademi/',$akademi->nama_akademi.time().'.'.$simpan_foto_akademi->extension());
         } else {
             if($akademi->foto_akademi !== null){
                 $foto_akademi = $akademi->foto_akademi;                
@@ -72,7 +73,8 @@ class AkademiController extends Controller
                 @unlink($hapus_logo_akademi);
             }
             $logo_akademi = $akademi->nama_akademi.time().'.'.$request->logo_akademi->extension();  
-            $request->logo_akademi->move(public_path('/gambar/Akademi/'.$akademi->nama_akademi.'/Logo Akademi/'), $logo_akademi);
+            $simpan_logo_akademi = $request->file('logo_akademi');
+            $simpan_logo_akademi->move('gambar/Akademi/'.$akademi->nama_akademi.'/Logo Akademi/',$akademi->nama_akademi.time().'.'.$simpan_logo_akademi->extension());
         } else {
             if($akademi->logo_akademi !== null){
                 $logo_akademi = $akademi->logo_akademi;                
@@ -94,9 +96,6 @@ class AkademiController extends Controller
         }
 
         $akademi = Akademi::where('referral_code',$id->referral_code)->update([
-            'nama_akademi' => $request->nama_akademi,
-            'no_nis' => $request->no_nis,
-            'email_akademi' => $request->email,
             'no_surat_izin' => $request->no_surat_izin,
             'alamat_akademi' => $request->alamat_akademi,
             'no_telp_akademi' => $request->no_telp_akademi,
@@ -104,11 +103,11 @@ class AkademiController extends Controller
             'logo_akademi' => $logos_akademi,
         ]);
 
-        User::where('referral_code',$id->referral_code)->update([
-            'name_akademi'=>$request->nama,
-            'no_nis' => $request->no_nis,
-            'email' => $request->email,
-        ]);
+        // User::where('referral_code',$id->referral_code)->update([
+        //     'name_akademi'=>$request->nama,
+        //     'no_nis' => $request->no_nis,
+        //     'email' => $request->email,
+        // ]);
         return redirect()->route('akademi.operator')->with('toast_success',"Data anda tersimpan");
     }
 
@@ -128,7 +127,7 @@ class AkademiController extends Controller
             'email_operator' => $request->email_operator,
             'no_telp_operator' => $request->no_telp_operator,
         ]);
-        return redirect('/akademi')->with('toast_success',"Data anda tersimpan");
+        return redirect('/akademi')->with('success',"Data anda tersimpan");
     }
 
     public function contactUsAkademi()
