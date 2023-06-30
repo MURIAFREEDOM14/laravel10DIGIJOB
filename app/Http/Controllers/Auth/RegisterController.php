@@ -70,17 +70,16 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    // protected function validator(array $data)
-    // {
-    //     return Validator::make($data, [
-    //         'name' => ['required', 'string', 'max:255'],
-    //         // 'username' => ['required', 'string', 'unique:users', 'alpha_dash', 'min:3', 'max:30'],
-    //         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-    //         // 'password' => ['required', 'string']
-    //         // 'ic_number' => ['required'],
-    //         'no_telp' => ['required', 'unique:users', 'max:12']
-    //     ]);
-    // }
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            // 'name' => ['required', 'string', 'max:255'],
+            // // 'username' => ['required', 'string', 'unique:users', 'alpha_dash', 'min:5', 'max:30'],
+            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            // 'password' => ['required', 'string'],
+            // 'no_telp' => ['required', 'unique:users', 'max:12']
+        ]);
+    }
 
     /**
      * Create a new user instance after a valid registration.
@@ -88,9 +87,8 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    // protected function create(array $data)
-    // {
-    //     // dd($data);
+    protected function create(array $data)
+    {
     //     $no_telp = $data['no_telp'];
     //     $userId = \Hashids::encode($no_telp);
 
@@ -99,14 +97,12 @@ class RegisterController extends Controller
     //         'user_referral' => $userId
     //     ];
     //     Mail::to($data['email'])->send(new DemoMail($pengirim));
-
-    //     return User::create([
-    //         'name' => $data['name'],
-    //         'email' => $data['email'],
-    //         'referral_code' => $userId,
-    //         'no_telp' => $data['no_telp']
-    //     ]);
-    // }
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'no_telp' => $data['no_telp']
+        ]);
+    }
 
     public function kandidat(Request $request)
     {

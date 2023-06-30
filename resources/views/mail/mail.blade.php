@@ -14,27 +14,6 @@
                 font-weight: 400;
                 src: local('Poppins Regular'), local('Poppins-Regular'), url(https://fonts.gstatic.com/s/lato/v11/qIIYRU-oROkIk8vfvxw6QvesZW2xOQ-xsNqO47m55DA.woff) format('woff');
             }
-
-            @font-face {
-                font-family: 'Poppins';
-                font-style: normal;
-                font-weight: 700;
-                src: local('Poppins Bold'), local('Poppins-Bold'), url(https://fonts.gstatic.com/s/lato/v11/qdgUG4U09HnJwhYI-uK18wLUuEpTyoUstqEm5AMlJo4.woff) format('woff');
-            }
-
-            @font-face {
-                font-family: 'Poppins';
-                font-style: italic;
-                font-weight: 400;
-                src: local('Poppins Italic'), local('Poppins-Italic'), url(https://fonts.gstatic.com/s/lato/v11/RYyZNoeFgb0l7W3Vu1aSWOvvDin1pK8aKteLpeZ5c0A.woff) format('woff');
-            }
-
-            @font-face {
-                font-family: 'Poppins';
-                font-style: italic;
-                font-weight: 700;
-                src: local('Poppins Bold Italic'), local('Poppins-BoldItalic'), url(https://fonts.gstatic.com/s/lato/v11/HkF_qI1x_noxlxhrhMQYELO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
-            }
         }
 
         /* CLIENT-SPECIFIC STYLES */
@@ -42,8 +21,8 @@
         table,
         td,
         a {
-            -webkit-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 50%;
+            -ms-text-size-adjust: 50%;
         }
 
         table,
@@ -81,7 +60,7 @@
             color: inherit !important;
             text-decoration: none !important;
             font-size: inherit !important;
-            font-family: iPoppinsit !important;
+            font-family: Poppin !important;
             font-weight: inherit !important;
             line-height: inherit !important;
         }
@@ -144,25 +123,30 @@
                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 30px 30px;">
-                                    <div class="" style="font-family: poppins;">Masukkan kode verifikasi berikut ini untuk melanjutkan</div>
-                                    <div class="" style="padding: 0px 30px 20px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">Kode Verifikasi</div>
+                                    {{-- <div class="" style="font-family: poppins;">Silahkan tuju link untuk verifikasi diri anda</div> --}}
+                                    <div class="" style="padding: 0px 30px 20px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">Silahkan tuju link berikut untuk verifikasi diri anda</div>
 									<table border="0" cellspacing="0" cellpadding="0">
                                         <tr>
                                             <td align="center" style="border-radius: 3px;" bgcolor="red">
                                                 <a 
-												{{-- href="https://bbbootstrap.com/snippets/bootstrap-5-email-confirmation-66401343"  --}}
 												target="_blank" style="font-size: 20px; font-family: HPoppinstica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid red; display: inline-block;">
 												{{isset($pengirim['user_referral']) ? $pengirim['user_referral']: ''}}
 												</a>
 											</td>
                                         </tr>
+                                        <tr>
+                                            <form action="/prototype" method="POST">
+                                                @csrf
+                                                <button type="submit" name="btn" value="hello">Tangkap</button>
+                                            </form>
+                                        </tr>
                                     </table>
-                                    <div class="" style="background-color:gray; margin-top:20px;">
+                                    {{-- <div class="" style="background-color:gray; margin-top:20px;">
                                         <div class="" style="font-family: poppins;">Ketuk Link dibawah ini untuk shortcut</div>
                                         <a href="" style="font-family: poppins;">Maaf Link belum siap</a>    
                                     </div>
                                     <br>
-                                    <div class="" style="font-family: poppins; text-transform:uppercase;">Ingat!! Jangan bagikan kode verifikasi ini kepada orang lain</div>
+                                    <div class="" style="font-family: poppins; text-transform:uppercase;">Ingat!! Jangan bagikan kode verifikasi ini kepada orang lain</div> --}}
                                 </td>
                             </tr>
                         </table>

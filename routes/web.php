@@ -40,12 +40,12 @@ use App\Http\Controllers\MessagerController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 // Auth::routes();
-// Auth::routes(['verify' => true]);
+Auth::routes(['verify' => true]);
 
 // DATA MANAGER //
 Route::controller(ManagerController::class)->group(function() {
@@ -378,7 +378,7 @@ Route::controller(LoginController::class)->group(function() {
     Route::post('/login/kandidat','AuthenticateKandidat');
     Route::post('/login/akademi','AuthenticateAkademi');
     Route::post('/login/perusahaan','AuthenticatePerusahaan');
-    Route::get('/logout','logout')->name('logout');
+    Route::get('/logout','logout');
 });
 
 // data registrasi
@@ -478,13 +478,11 @@ Route::middleware(['auth', 'user-access:1'])->group(function () {
 });
 
 // // manager routes
-Route::middleware(['auth', 'verified',])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/tulis_pesan', [HomeController::class, 'tulis_pesan']);
-    Route::get('/', [HomeController::class, 'managerHome'])->name('manager_home');
 });
 
-
-
+Route::get('/', [HomeController::class, 'managerHome'])->name('manager_home');
 
 
 Route::get('webcam', [CaptureController::class, 'index']);
@@ -499,11 +497,13 @@ Route::controller(PrototypeController::class)->group(function(){
     Route::get('/proto_edit','edit');
     Route::get('/proto_update','update');
     Route::get('/proto_delete','delete');
+
+    Route::post('/proto_mail','email');
+
 });
 
 Route::get('/linewire',Location::class)->middleware('verify');
 Route::get('/linewire_permission',LocationPermission::class)->middleware('verify');
 
-
 Route::view('/perbaikan','dalam_proses');
-Route::view('/mail', 'mail');
+Route::view('/mail', 'mail/mail');
