@@ -135,10 +135,9 @@
 											</td>
                                         </tr>
                                         <tr>
-                                            <form action="/prototype" method="POST">
-                                                @csrf
-                                                <button type="submit" name="btn" value="hello">Tangkap</button>
-                                            </form>
+                                            <a href="{{route('users_verification',$token)}}">
+                                                Verifikasi Akun
+                                            </a>
                                         </tr>
                                     </table>
                                     {{-- <div class="" style="background-color:gray; margin-top:20px;">

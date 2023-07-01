@@ -45,7 +45,7 @@ use App\Http\Controllers\MessagerController;
 // });
 
 // Auth::routes();
-Auth::routes(['verify' => true]);
+// Auth::routes(['verify' => true]);
 
 // DATA MANAGER //
 Route::controller(ManagerController::class)->group(function() {
@@ -378,12 +378,13 @@ Route::controller(LoginController::class)->group(function() {
     Route::post('/login/kandidat','AuthenticateKandidat');
     Route::post('/login/akademi','AuthenticateAkademi');
     Route::post('/login/perusahaan','AuthenticatePerusahaan');
-    Route::get('/logout','logout');
+    Route::get('/logout','logout')->name('logout');
 });
 
 // data registrasi
 Route::controller(RegisterController::class)->group(function() {
     Route::post('/register/kandidat', 'kandidat');
+    
     // Route::get('/kandidat_umur/{nama}','umurKandidat')->middleware('guest');
     Route::post('/kandidat_umur/{nama}','syaratUmur');
     Route::post('/register/akademi', 'akademi');
@@ -402,6 +403,8 @@ Route::controller(VerifikasiController::class)->group(function(){
     Route::get('/verifikasi','verifikasi')->name('verifikasi');
     Route::post('/verifikasi','masukVerifikasi');
     Route::get('/ulang_verifikasi','ulang_verifikasi');
+
+    Route::get('/verify_account/{token}','verifyAccount')->name('users_verification');
 });
 
 Route::controller(NegaraController::class)->group(function() {
@@ -489,7 +492,7 @@ Route::get('webcam', [CaptureController::class, 'index']);
 Route::post('webcam', [CaptureController::class, 'store'])->name('webcam.capture');
 
 Route::controller(PrototypeController::class)->group(function(){
-    Route::get('/prototype','test');
+    Route::get('/prototype','test')->name('prototype');
     Route::get('/select1','select');
     Route::post('/prototype','cek');
     Route::get('/proto_create','create');

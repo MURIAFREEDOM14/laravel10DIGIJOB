@@ -10,8 +10,7 @@
                     <h4 class="text-center">{{ __('Register') }}</h4>
                 </div>
                 <div class="card-body">
-                    {{-- <form method="POST" action="/register/kandidat"> --}}
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="/register/kandidat">
                         @csrf
                         <div class="row">
                             <div class="col-md-12">

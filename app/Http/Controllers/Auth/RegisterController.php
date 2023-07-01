@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 // use Illuminate\Support\Facades\Notification;
 use App\Models\Notification;
-use App\Models\PengalamanKerja;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
@@ -89,19 +89,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-    //     $no_telp = $data['no_telp'];
-    //     $userId = \Hashids::encode($no_telp);
-
-    //     $pengirim = [
-    //         'pengirim' => $data['name'],
-    //         'user_referral' => $userId
-    //     ];
-    //     Mail::to($data['email'])->send(new DemoMail($pengirim));
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'no_telp' => $data['no_telp']
-        ]);
+        $password = Hash::make($data['password']);
+        if($data !== null)
+        {
+            return User::create([
+                'name_perusahaan' => $data['name'],
+                'email' => $data['email'],
+                'no_nib' => $data['no_nib'],
+                'type' => 2,
+                'password' => $password,
+            ]);
+        } else {
+            return redirect('/laman');
+        }
     }
 
     public function kandidat(Request $request)
@@ -114,19 +114,21 @@ class RegisterController extends Controller
             'nama_panggilan' => 'required|unique:kandidat|min:5|max:20',
             'password' => 'required',
         ]);
-     
+        
         $tgl = Carbon::parse($request->tgl)->age;
         if($tgl < 18){
             return redirect('/register/kandidat')->with('warning',"Maaf umur anda belum cukup, syarat umur ialah 18 thn keatas");
         }
 
+        $token = Str::random(64);
         $password = Hash::make($request->password);
-
+        
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'no_telp' => $request->no_telp,
             'password' => $password,
+            'token' => $token,
         ]);
 
         $id = $user->id;
@@ -148,23 +150,13 @@ class RegisterController extends Controller
             'nik' => $request->nik,
         ]);
 
-        Auth::login($user);
-
-        $kandidat = Kandidat::where('referral_code',$userId)->first(); 
-        $data['id_kandidat'] = $kandidat->id_kandidat;
-        $data['isi'] = "Harap lengkapi data profil anda";
-        $data['pengirim'] = "Admin";
-        $data['url'] = ('/isi_kandidat_personal');
-        notifyKandidat::create($data);
-        
-        return redirect()->route('kandidat')->with('success',"Selamat Datang");
+        Mail::send('mail.mail', ['token' => $token], function($message) use($request){
+            $message->to($request->email);
+            $message->subject('Email Verification Mail');
+        });
+        Auth::login($user);       
+        return redirect()->route('verifikasi')->with('success',"Selamat Datang");
     }
-
-    // $pengirim = [
-        //     'name' => $request->name,
-        //     'user_referral' => $userId
-        // ];
-        // Mail::to($request->email)->send(new DemoMail($pengirim));
 
     protected function akademi(Request $request)
     {
@@ -175,6 +167,7 @@ class RegisterController extends Controller
             'password' => 'required|min:8',
         ]);
 
+        $token = Str::random(64);
         $password = Hash::make($request->password);
 
         $user = User::create([
@@ -183,6 +176,7 @@ class RegisterController extends Controller
             'no_nis' => $request->no_nis,
             'type' => 1,
             'password' => $password,
+            'token' => $token,
         ]);
 
         $id = $user->id;
@@ -199,25 +193,24 @@ class RegisterController extends Controller
             'no_nis' => $request->no_nis,
         ]);
 
+        Mail::send('mail.mail', ['token' => $token], function($message) use($request){
+            $message->to($request->email);
+            $message->subject('Email Verification Mail');
+        });
         Auth::login($user);
-        $akademi = Akademi::where('referral_code',$userId)->first(); 
-        $data['id_akademi'] = $akademi->id_akademi;
-        $data['isi'] = "Harap lengkapi data profil anda";
-        $data['pengirim'] = "Admin";
-        $data['url'] = ('/akademi/isi_akademi_data');
-        notifyAkademi::create($data);
-        return redirect()->route('akademi')->with('success',"Selamat Datang");
+        return redirect()->route('verifikasi')->with('success',"Selamat Datang");
     }
 
     protected function perusahaan(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|max:255',
+            'name_perusahaan' => 'required|max:255',
             'email' => 'required|unique:users|max:255',
             'no_nib' => 'required|unique:users|max:40',
             'password' => 'required|min:8',
         ]);
 
+        $token = Str::random(64);
         $password = hash::make($request->password);
 
         $user = User::create([
@@ -242,13 +235,11 @@ class RegisterController extends Controller
             'email_perusahaan'=>$request->email,
         ]);
 
+        Mail::send('mail.mail', ['token' => $token], function($message) use($request){
+            $message->to($request->email);
+            $message->subject('Email Verification Mail');
+        });
         Auth::login($user);
-        $perusahaan = Perusahaan::where('referral_code',$userId)->first(); 
-        $data['id_perusahaan'] = $perusahaan->id_perusahaan;
-        $data['isi'] = "Harap lengkapi data profil anda";
-        $data['pengirim'] = "Admin";
-        $data['url'] = ('/perusahaan/isi_perusahaan_data');
-        notifyPerusahaan::create($data);
-        return redirect()->route('perusahaan')->with('success',"Selamat Datang");
+        return redirect()->route('verifikasi')->with('success',"Selamat Datang");
     }
 }

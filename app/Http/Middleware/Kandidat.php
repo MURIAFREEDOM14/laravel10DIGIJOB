@@ -18,11 +18,11 @@ class Kandidat
         if(auth()->user()) 
         {
             if(auth()->user()->type == 0){
-                // if(auth()->user()->verify_confirmed !== null){
+                if(auth()->user()->verify_confirmed !== null){
                     return $next($request);
-                // } else {
-                //     return redirect('/verifikasi');
-                // }
+                } else {
+                    return redirect('/verifikasi');
+                }
             } else {
                 return redirect()->route('laman');
             }

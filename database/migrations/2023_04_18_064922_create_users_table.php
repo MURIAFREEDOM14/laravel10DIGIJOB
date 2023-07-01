@@ -26,6 +26,7 @@ return new class extends Migration
             $table->tinyInteger('type')->default(0);
             // users: 0 => User, 1 => Admin, 2 => Manager 
             $table->string('verify_confirmed')->nullable();
+            $table->string('token')->nullable();
             // $table->rememberToken();
             $table->timestamps();
         });
