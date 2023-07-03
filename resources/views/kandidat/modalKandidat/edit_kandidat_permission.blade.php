@@ -44,7 +44,7 @@
                                 <label for="inputPassword6" class="col-form-label">No. Telp / HP</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" value="{{$kandidat->no_telp_perizin}}" name="no_telp_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                <input type="number" value="{{$kandidat->no_telp_perizin}}" name="no_telp_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 @error('no_telp_perizin')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>Harap isi no. telp min 10 digit dan max 13 digit</strong>

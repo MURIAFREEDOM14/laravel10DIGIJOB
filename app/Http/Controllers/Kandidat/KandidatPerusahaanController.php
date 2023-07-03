@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Perusahaan;
+namespace App\Http\Controllers\Kandidat;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ class KandidatPerusahaanController extends Controller
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         $notif = notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
-        $perusahaan = Perusahaan::where('tmp_negara','like','%'.$kandidat->penempatan.'%')->whereNotNull('email_operator')->get();
+        $perusahaan = Perusahaan::where('negara_id','like','%'.$kandidat->negara_id.'%')->whereNotNull('email_operator')->get();
         $cari_perusahaan = null;
         return view('kandidat/perusahaan/list_informasi_perusahaan',compact('kandidat','perusahaan','notif','pesan','cari_perusahaan'));
     }
@@ -38,7 +38,7 @@ class KandidatPerusahaanController extends Controller
         if($kandidat->negara_id == null){
             $perusahaan = Perusahaan::where('tmp_negara','Dalam negeri')->limit(5)->get();    
         } else {
-            $perusahaan = Perusahaan::where('tmp_negara','like',"%".$kandidat->penempatan."%")->limit(5)->get();
+            $perusahaan = Perusahaan::where('negara_id','like',"%".$kandidat->negara_id."%")->limit(5)->get();
         }
         return view('kandidat/perusahaan/list_informasi_perusahaan',compact('kandidat','notif','perusahaan','pembayaran','pesan','lowongan','cari_perusahaan'));
     }
@@ -51,7 +51,8 @@ class KandidatPerusahaanController extends Controller
         $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
-        return view('kandidat/perusahaan/profil_perusahaan',compact('kandidat','perusahaan','notif','pembayaran','pesan'));
+        $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        return view('kandidat/perusahaan/profil_perusahaan',compact('kandidat','perusahaan','notif','pembayaran','pesan','lowongan'));
     }
 
     public function listLowonganPekerjaan()

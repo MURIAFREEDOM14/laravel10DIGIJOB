@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Payment;
+use App\Models\messageKandidat;
+use App\Models\notifyKandidat;
 use Illuminate\Http\Request;
 use App\Models\Kandidat;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Notification;
 use App\Models\Pembayaran;
 use App\Models\Perusahaan;
@@ -17,18 +21,28 @@ class PaymentController extends Controller
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
-        $notif = Notification::where('id_kandidat',$kandidat->id_kandidat)->get();
-        if($pembayaran == null){
-            Pembayaran::create([
-                'id_kandidat'=>$kandidat->id_kandidat,
-                'nama_pembayaran'=>$kandidat->nama,
-                'nominal_pembayaran'=>15000,
-                'stats_pembayaran'=>"belum dibayar",
-                'nik'=>$kandidat->nik,
-            ]);    
-        } else {
-        }
-        return view('kandidat/pembayaran',compact('kandidat','notif','pembayaran'));
+        $notif = notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('pengirim','not like',$kandidat->nama)->limit(3)->get();
+        return view('kandidat/pembayaran',compact('kandidat','notif','pesan','pembayaran'));
+    }
+
+    public function kandidatConfirm(Request $request)
+    {   
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        $payment = 15000;
+        $namarec = "Hamepa";
+        $nomorec = 4399997272;
+        Mail::mailer('payment')->to($kandidat->email)->send(new Payment($kandidat->nama,$payment,'Pembayaran','digijobaccounting@ugiport.com',$payment,$namarec,$nomorec));
+
+        Pembayaran::create([
+            'id_kandidat' => $kandidat->id_kandidat,
+            'nama_pembayaran' => $kandidat->nama,
+            'nominal_pembayaran' => $payment,
+            'stats_pembayaran' => "belum dibayar",
+            'nik' => $kandidat->nik,
+        ]);
+        return redirect()->back()->with('success',"Terkonfirmasi");
     }
 
     public function paymentKandidatCheck(Request $request)
@@ -36,7 +50,7 @@ class PaymentController extends Controller
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         $pembayaran = $kandidat->nama.time().'.'.$request->foto_pembayaran->extension();
-        $request->foto_pembayaran->move(public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pembayaran'), $pembayaran);
+        $request->foto_pembayaran->move('gambar/Kandidat/'.$kandidat->nama.'/Pembayaran/',$pembayaran);
         
         Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->update([
             'foto_pembayaran'=>$pembayaran,

@@ -52,7 +52,7 @@
                 <div class="logo-header" style="background-image:linear-gradient(150deg,red,lightgreen,blue);">
 
                     <a href="/" class="logo">
-                        <img src="/Atlantis/examples/assets/img/logo.svg" alt="navbar brand" class="navbar-brand">
+                        <b class="" style="color: white">DIGIJOB-UGIPORT</b>
                     </a>
                     <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon">
@@ -283,12 +283,6 @@
                                     <p>Noreply</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="btn" href="/manager/beta_tester">
-                                    <i class="fas fa-th-list"></i>
-                                    <p>Penguji</p>
-                                </a>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -304,8 +298,13 @@
                 <footer class="footer">
                     <div class="container-fluid">
                         <nav class="pull-left">
-                            {{-- <ul class="nav">
+                            <ul class="nav">
                                 <li class="nav-item">
+                                    <div class="copyright" style="color:white;">
+                                        &copy; Copyright <strong><span>DIGIJOB-UGIPORT</span></strong>. All Rights Reserved
+                                    </div>
+                                </li>
+                                {{-- <li class="nav-item">
                                     <a class="nav-link" href="https://www.themekita.com">
                                         ThemeKita
                                     </a>
@@ -319,8 +318,8 @@
                                     <a class="nav-link" href="#">
                                         Licenses
                                     </a>
-                                </li>
-                            </ul> --}}
+                                </li> --}}
+                            </ul>
                         </nav>
                         <div class="copyright ml-auto">
                             &nbsp;

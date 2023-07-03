@@ -63,7 +63,7 @@
                 <div class="logo-header" data-background-color="green">
 
                     <a href="/" class="logo">
-                        <img src="/Atlantis/examples/assets/img/logo.svg" alt="navbar brand" class="navbar-brand">
+                        <b class="" style="color: white">DIGIJOB-UGIPORT</b>
                     </a>
                     <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon">
@@ -197,13 +197,23 @@
                                                 <div class="u-text">
                                                     <h4>{{$perusahaan->nama_perusahaan}}</h4>
                                                     <p class="text-muted">{{$perusahaan->email_perusahaan}}</p>
+                                                    @if (auth()->user()->verify_confirmed !== null)
+                                                        <span class="badge badge-pill badge-info">Verified</span>
+                                                    @endif
+                                                    @if ($perusahaan->email_operator !== null)
+                                                        <span class="badge badge-pill badge-success">Profile</span>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="/perusahaan/lihat/perusahaan">Profil</a>
-                                            <a class="dropdown-item" href="/perusahaan/isi_perusahaan_data">Edit Profil</a>
+                                            @if ($perusahaan->email_operator == null)
+                                                <a class="dropdown-item" href="/perusahaan/isi_perusahaan_data">Lengkapi Profil</a>
+                                            @else
+                                                <a class="dropdown-item" href="/perusahaan/isi_perusahaan_data">Edit Profil</a>
+                                            @endif
                                             {{-- <a class="dropdown-item" href="#">Kotak Masuk</a> --}}
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="/contact_us_perusahaan">Contact Us</a>
@@ -251,17 +261,21 @@
                                     <ul class="nav">
                                         <li>
                                             <a href="/perusahaan/lihat/perusahaan" class="dropdown-item">
-                                                <span class="link-collapse">Profil Perusahaan</span>
+                                                <div class="link-collapse">Profil Perusahaan <i class="fas fa-user-circle float-right"></i></div>
                                             </a>
                                         </li>
                                         <li>
                                             <a href="/perusahaan/isi_perusahaan_data" class="dropdown-item">
-                                                <span class="link-collapse">Edit Profil</span>
+                                                @if ($perusahaan->email_operator == null)
+                                                    <div class="link-collapse"> Lengkapi Profil Perusahaan<i class="fas fa-exclamation-circle float-right"></i></div>
+                                                @else
+                                                    <div class="link-collapse"> Edit Profil <i class="fas fa-edit float-right"></i></div>
+                                                @endif
                                             </a>
                                         </li>
                                         <li>
                                             <a href="{{route('logout')}}" class="dropdown-item" onclick="confirmation(event)">
-                                                <span class="link-collapse">Keluar</span>
+                                                <div class="link-collapse">Keluar <i class="fas fa-door-open float-right"></i></div>
                                             </a>
                                         </li>
                                     </ul>

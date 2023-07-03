@@ -71,7 +71,7 @@ class PerusahaanController extends Controller
             }
             $photo_perusahaan = $perusahaan->nama_perusahaan.time().'.'.$request->foto_perusahaan->extension();  
             $simpan_photo_perusahaan = $request->file('foto_perusahaan');
-            $simpan_photo_perusahaan->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Foto Perusahaan',$perusahaan->nama_perusahaan.time().'.'.$simpan_photo_perusahaan->extension());
+            $simpan_photo_perusahaan->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Foto Perusahaan/',$perusahaan->nama_perusahaan.time().'.'.$simpan_photo_perusahaan->extension());
         } else {
             if($perusahaan->foto_perusahaan !== null){
                 $photo_perusahaan = $perusahaan->foto_perusahaan;                
@@ -90,7 +90,7 @@ class PerusahaanController extends Controller
             }
             $logo = $perusahaan->nama_perusahaan.time().'.'.$request->logo_perusahaan->extension();  
             $simpan_logo = $request->file('logo_perusahaan');
-            $simpan_logo->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Logo Perusahaan',$perusahaan->nama_perusahaan.time().'.'.$simpan_logo->extension());
+            $simpan_logo->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Logo Perusahaan/',$perusahaan->nama_perusahaan.time().'.'.$simpan_logo->extension());
         } else {
             if($perusahaan->logo_perusahaan !== null){
                 $logo = $perusahaan->logo_perusahaan;                
@@ -111,17 +111,20 @@ class PerusahaanController extends Controller
             $logo_perusahaan = null;
         }
 
-        $provinsi = Provinsi::where('id',$request->provinsi_id)->first();
-        $kota = Kota::where('id',$request->kota_id)->first();
-        $kecamatan = Kecamatan::where('id',$request->kecamatan_id)->first();
-        $kelurahan = kelurahan::where('id',$request->kelurahan_id)->first();
+        if($request->tmp_negara == "Dalam negeri"){
+            $negara_id = 2;
+        } else {
+            $negara_id = null;
+        }
+
         Perusahaan::where('no_nib',$id->no_nib)->update([
-            'nama_perusahaan'=> $request->nama_perusahaan,
-            'no_nib'=>$request->no_nib,
-            'nama_pemimpin'=>$request->nama_pemimpin,
-            'foto_perusahaan'=>$foto_perusahaan,
-            'logo_perusahaan'=>$logo_perusahaan,
-            'tmp_negara'=>$request->tmp_negara,
+            'nama_perusahaan' => $request->nama_perusahaan,
+            'no_nib' => $request->no_nib,
+            'nama_pemimpin' => $request->nama_pemimpin,
+            'foto_perusahaan' => $foto_perusahaan,
+            'logo_perusahaan' => $logo_perusahaan,
+            'tmp_negara' => $request->tmp_negara,
+            'negara_id' => $negara_id,
         ]);
         return redirect()->route('perusahaan.alamat');
     }
@@ -130,23 +133,40 @@ class PerusahaanController extends Controller
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        return view('perusahaan/isi_perusahaan_alamat',compact('perusahaan'));
+        $negara = Negara::where('negara_id','not like',2)->get();
+        return view('perusahaan/isi_perusahaan_alamat',compact('perusahaan','negara'));
     }
 
     public function simpan_perusahaan_alamat(Request $request)
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        $provinsi = Provinsi::where('id',$request->provinsi_id)->first();
-        $kota = Kota::where('id',$request->kota_id)->first();
-        $kecamatan = Kecamatan::where('id',$request->kecamatan_id)->first();
-        $kelurahan = kelurahan::where('id',$request->kelurahan_id)->first();
+        
+        if($perusahaan->tmp_negara == "Dalam negeri"){
+            $cari_provinsi = Provinsi::where('id',$request->provinsi_id)->first();
+            $cari_kota = Kota::where('id',$request->kota_id)->first();
+            $cari_kecamatan = Kecamatan::where('id',$request->kecamatan_id)->first();
+            $cari_kelurahan = kelurahan::where('id',$request->kelurahan_id)->first();    
+
+            $provinsi = $cari_provinsi;
+            $kota = $cari_kota;
+            $kecamatan = $cari_kecamatan;
+            $kelurahan = $cari_kelurahan;
+        } else {
+            $provinsi = null;
+            $kota = null;
+            $kecamatan = null;
+            $kelurahan = null;
+        }
+
         Perusahaan::where('no_nib',$id->no_nib)->update([
-            'provinsi'=>$provinsi->provinsi,
-            'kota'=>$kota->kota,
-            'kecamatan'=>$kecamatan->kecamatan,
-            'kelurahan'=>$kelurahan->kelurahan,
+            'provinsi'=>$provinsi,
+            'kota'=>$kota,
+            'kecamatan'=>$kecamatan,
+            'kelurahan'=>$kelurahan,
             'no_telp_perusahaan'=>$request->no_telp_perusahaan,
+            'negara_id' => $request->negara_id,
+            'alamat' => $request->alamat,
         ]);
         return redirect()->route('perusahaan.operator');
     }

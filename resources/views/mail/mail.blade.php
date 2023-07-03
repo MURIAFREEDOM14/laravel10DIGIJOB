@@ -98,7 +98,7 @@
         <td bgcolor="red" align="center" style="padding: 0px 10px 0px 10px;">
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                 <tr>
-                    <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
+                    <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 4px; color: #111111; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
                         <h1 style="font-size: 48px; font-weight: 400; margin: 2;">Selamat Datang</h1> <img src="https://1000logos.net/wp-content/uploads/2016/11/google-logo.jpg" width="125" height="120" style="display: block; border: 0px;" />
                     </td>
                 </tr>
@@ -122,9 +122,27 @@
                     <td bgcolor="#ffffff" align="left">
                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tr>
-                                <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 30px 30px;">
+                                <td bgcolor="#ffffff" align="center" style="padding: 10px 30px 10px 30px;">
+                                    <div class="" style="padding: 0px 30px 10px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
+                                        Halo 
+                                    </div>
+                                    <div class="" style="padding: 0px 30px 20px 30px; color: black; font-family: 'Poppins', Helvetica, Arial, sans-serif; text-transform:uppercase; font-size: 18px; font-weight: 400; line-height: 25px;">
+                                        {{$nama}}
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td bgcolor="#ffffff" align="left">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td bgcolor="#ffffff" align="center" style="padding: 10px 30px 30px 30px;">
                                     {{-- <div class="" style="font-family: poppins;">Silahkan tuju link untuk verifikasi diri anda</div> --}}
-                                    <div class="" style="padding: 0px 30px 20px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">Silahkan tuju link berikut untuk verifikasi diri anda</div>
+                                    <div class="" style="padding: 0px 30px 20px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
+                                        Silahkan tuju link berikut untuk verifikasi diri anda
+                                    </div>
 									<table border="0" cellspacing="0" cellpadding="0">
                                         {{-- <tr>
                                             <td align="center" style="border-radius: 3px;" bgcolor="red">
@@ -136,7 +154,9 @@
                                         </tr> --}}
                                         <tr>
                                             <td align="center" style="border-radius: 3px;" bgcolor="red">
-                                                <a href="{{route('users_verification',$token)}}" class="btn" style="margin:20px; font-size:20px; line-height:50px; color:white">
+                                                <a 
+                                                href="{{route('users_verification',$token)}}" 
+                                                style="margin:20px; font-size:20px; line-height:50px; text-decoration:none; color:white">
                                                     Verifikasi Akun
                                                 </a>
                                             </td>

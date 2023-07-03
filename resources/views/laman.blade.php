@@ -55,7 +55,7 @@
       <h1 class="logo me-auto"><a href="/laman" style="text-transform: uppercase; font-family:poppins; color:black">DIGIJOB</a></h1>
       <nav id="navbar" class="navbar" style="background-color: #FFD966;">
         <ul>
-          <li><a class="nav-link scrollto active" style="color: black" href="#hero">Home</a></li>
+          <li><a class="nav-link scrollto active" style="color: black" href="#hero">Beranda</a></li>
           <li><a class="nav-link scrollto disabled" style="color: gray;" href="/about_us">Tentang</a></li>
           <li><a class="nav-link scrollto" style="color: black;" href="/login">Login</a></li>
           {{-- <li class="nav-link scroll"><a href=""><span style="color: black">Daftar</span> <i class="bi bi-chevron-down"></i></a>
@@ -189,7 +189,7 @@
           </button>     
         </div>
         <div class="section-title">
-          <img src="/gambar/default_user.png" width="100" height="100" alt="">
+          <img src="/gambar/icon.ico" width="100" height="100" alt="">
         </div>
         <div class="row">
           <div class="col-md-3 align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
@@ -225,6 +225,7 @@
               <h4><a href="/hubungi_kami" style="text-transform: uppercase;">Hubungi Kami</a></h4>
               <p class="text1">
                 Hubungi kami disini
+                <br>&nbsp;
               </p>
             </div>
           </div>

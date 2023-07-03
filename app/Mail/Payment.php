@@ -13,19 +13,45 @@ class Payment extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $pembayaran;
+    public $name;
+    public $message;
+    public $subject;
+    public $fromEmail;
+    public $fromName;
+    public $payment;
+    public $namarec;
+    public $nomorec;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($pembayaran)
+    public function __construct($name, $message, $subject, $fromEmail,$payment,$namarec,$nomorec)
     {
-        $this->pembayaran = $pembayaran;
+        $this->name = $name;
+        $this->message = $message;
+        $this->subject = $subject;
+        $this->fromEmail = $fromEmail;
+        $this->payment = $payment;
+        $this->namarec = $namarec;
+        $this->nomorec = $nomorec;
+        $this->fromName = env('MAIL_FROM_NAME');
     }
 
     /**
      * Get the message envelope.
      */
+    
+    public function build()
+    {
+        return $this->from($this->fromEmail,$this->fromName)
+        ->subject($this->subject)
+        ->markdown('mail.pembayaran') 
+        ->with([
+            'userName' => $this->name,
+            'themessage' => $this->message,
+        ]);
+    }
+    
     public function envelope(): Envelope
     {
         return new Envelope(
@@ -41,7 +67,7 @@ class Payment extends Mailable
         return new Content(
             view: 'mail/pembayaran',
             with: [
-                'pembayaran' =>$this->pembayaran
+                'pembayaran' =>$this->message
             ]
         );
     }

@@ -18,10 +18,23 @@
                     @else
                         <div class="row mb-3">
                             <div class="col-4">
+                                <label for="">Pilih Nama Negara</label>
+                            </div>
+                            <div class="col-8">
+                                <select name="negara_id" class="form-control" required id="">
+                                    <option value="">-- Pilih Negara --</option>
+                                    @foreach ($negara as $item)
+                                        <option value="{{$item->negara_id}}">{{$item->negara}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>    
+                        <div class="row mb-3">
+                            <div class="col-4">
                                 <label for="">Masukkan alamat</label>
                             </div>
                             <div class="col-8">
-                                <textarea name="" id="" class="form-control"></textarea>
+                                <textarea name="alamat" id="" class="form-control"></textarea>
                             </div>
                         </div>    
                     @endif

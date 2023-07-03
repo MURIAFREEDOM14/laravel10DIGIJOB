@@ -9,27 +9,46 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class Noreply extends Mailable
+class GeneralEmail extends Mailable
 {
     use Queueable, SerializesModels;
-
-    public $mailData;
+    public $name;
+    public $message;
+    public $subject;
+    public $fromEmail;
+    public $fromName;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($pengirim)
+    public function __construct($name, $message, $subject, $fromEmail)
     {
-        $this->emailData = $pengirim;
+        $this->name = $name;
+        $this->message = $message;
+        $this->subject = $subject;
+        $this->fromEmail = $fromEmail;
+        $this->fromName = env('MAIL_FROM_NAME');
     }
 
     /**
      * Get the message envelope.
      */
-    public function envelope(): Envelope
+
+    public function build()
+    {
+        return $this->from($this->fromEmail,$this->fromName)
+        ->subject($this->subject)
+        ->markdown('mail.general-mail') 
+        ->with([
+            'userName' => $this->name,
+            'themessage' => $this->message,
+        ]);
+    }
+
+     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Email',
+            subject: 'General Email',
         );
     }
 
@@ -39,10 +58,7 @@ class Noreply extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail/mail',
-            with: [
-                'pengirim' =>$this->emailData
-            ]
+            view: 'view.name',
         );
     }
 

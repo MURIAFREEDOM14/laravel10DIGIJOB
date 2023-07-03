@@ -215,8 +215,8 @@
                 <footer class="footer">
                     <div class="container-fluid">
                         <nav class="pull-left">
-                            {{-- <ul class="nav">
-                                <li class="nav-item">
+                            <ul class="nav">
+                                {{-- <li class="nav-item">
                                     <a class="nav-link" href="https://www.themekita.com">
                                         ThemeKita
                                     </a>
@@ -230,8 +230,8 @@
                                     <a class="nav-link" href="#">
                                         Licenses
                                     </a>
-                                </li>
-                            </ul> --}}
+                                </li> --}}
+                            </ul>
                         </nav>
                         <div class="copyright ml-auto">
                             &nbsp;

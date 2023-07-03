@@ -57,7 +57,17 @@ class VerifikasiController extends Controller
     public function ulang_verifikasi()
     {
         $user = Auth::user();
-        Mail::send('mail.mail', ['token' => $user->token], function($message) use($user){
+        if($user->type == 0){
+            $nama = $user->name;
+        } elseif($user->type == 1){
+            $nama = $user->name_perusahaan;
+        } elseif($user->type == 2){
+            $nama = $user->name_perusahaan;
+        } else {
+            $nama = null;
+        }
+
+        Mail::send('mail.mail', ['token' => $user->token, 'nama' => $nama], function($message) use($user){
             $message->to($user->email);
             $message->subject('Email Verification Mail');
         });

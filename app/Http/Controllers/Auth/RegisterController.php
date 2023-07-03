@@ -106,13 +106,20 @@ class RegisterController extends Controller
 
     public function kandidat(Request $request)
     {
+        // $user = User::all();
+        // foreach ($user as $key) {
+        //     if($key->email == $request->email && $key->password == null){
+        //         return redirect('register/kandidat/pindahan');       
+        //     }
+        // }
+
         $validated = $request->validate([
             'name' => 'required|max:255',
             'nik' => 'required|max:16|min:16|unique:kandidat',
             'email' => 'required|unique:users|max:255',
             'no_telp' => 'required|unique:users|min:10|max:13',
             'nama_panggilan' => 'required|unique:kandidat|min:5|max:20',
-            'password' => 'required',
+            'password' => 'required|min:8',
         ]);
         
         $tgl = Carbon::parse($request->tgl)->age;
@@ -150,7 +157,7 @@ class RegisterController extends Controller
             'nik' => $request->nik,
         ]);
 
-        Mail::send('mail.mail', ['token' => $token], function($message) use($request){
+        Mail::send('mail.mail', ['token' => $token,'nama' => $request->name], function($message) use($request){
             $message->to($request->email);
             $message->subject('Email Verification Mail');
         });
@@ -207,7 +214,7 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|unique:users|max:255',
             'no_nib' => 'required|unique:users|max:40',
-            'password' => 'required|min:6',
+            'password' => 'required|min:8',
         ]);
 
         $token = Str::random(64).$request->no_nib;

@@ -9,7 +9,8 @@ use App\Http\Controllers\Manager\ManagerController;
 use App\Http\Controllers\Manager\Kandidat\ManagerKandidatController;
 use App\Http\Controllers\Manager\ContactUsController;
 use App\Http\Controllers\Manager\NoreplyController;
-use App\Http\Controllers\Perusahaan\KandidatPerusahaanController;
+use App\Http\Controllers\Kandidat\KandidatPerusahaanController;
+use App\Http\Controllers\Kandidat\KandidatController;
 use App\Http\Controllers\Perusahaan\PerusahaanController;
 use App\Http\Controllers\CaptureController;
 use App\Http\Controllers\OutputController;
@@ -25,7 +26,6 @@ use App\Http\Livewire\Location;
 use App\Http\Livewire\LocationPermission;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\KandidatController;
 use App\Http\Controllers\NegaraController;
 use App\Http\Controllers\ReferralController;
 use App\Http\Controllers\MailController;
@@ -56,9 +56,6 @@ Route::controller(ManagerController::class)->group(function() {
     Route::get('/manager/buat_surat_izin','buatSuratIzin')->middleware('manager');
     Route::post('/manager/buat_surat_izin','simpanSuratIzin');
     Route::get('/manager/kandidat/cetak_surat/{id}','cetakSurat')->middleware('manager');
-
-    Route::get('/manager/beta_tester','betaTester')->middleware('manager');
-    Route::post('/manager/beta_tester','simpanBetaTester');
 
     // DATA KANDIDAT // 
     Route::get('/manager/kandidat/lihat_profil/{id}','lihatProfil')->middleware('manager');
@@ -431,8 +428,9 @@ Route::controller(PekerjaanController::class)->group(function() {
 Route::controller(PaymentController::class)->group(function(){
     // USER KANDIDAT //
     Route::get('/payment','paymentKandidat')->middleware('kandidat');
-    Route::post('/payment', 'paymentKandidatCheck')->middleware('kandidat');
+    Route::post('/payment', 'kandidatConfirm')->middleware('kandidat');
 
+    Route::view('/pembayaran','mail/pembayaran');
     // USER AKADEMI //
     
     // USER PERUSAHAAN //
@@ -464,6 +462,10 @@ Route::controller(MessagerController::class)->group(function() {
     Route::post('/perusahaan/kirim_balik/{id}','sendMessageConfirmPerusahaan');
 
     // DATA MANAGER //
+});
+
+Route::controller(MailController::class)->group(function() {
+    Route::get('send_email','sendEmail');
 });
 
 Route::post('/kirim_email', [MailController::class, 'index']);

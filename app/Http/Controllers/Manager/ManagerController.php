@@ -303,48 +303,6 @@ class ManagerController extends Controller
         return view('manager/akademi/lihat_profil_akademi',compact('akademi','manager'));
     }
 
-
-    public function betaTester()
-    {
-        $user = Auth::user();
-        $manager = User::where('referral_code',$user->referral_code)->first();
-        $beta = User::join(
-            'kandidat', 'users.referral_code','=','kandidat.referral_code'
-        )
-        ->where('users.type',6)->get();
-        return view('manager/beta_tester',compact('manager','beta'));
-    }
-
-    public function simpanBetaTester(Request $request)
-    {
-        $password = Hash::make($request->password);
-        $user = User::create([
-            'name' => $request->nama,
-            'no_telp' => $request->no_telp,
-            'email' => $request->email,
-            'password' => $password,
-            'type' => 6,
-        ]);
-
-        $id = $user->id;
-        $userId = \Hashids::encode($id.$request->no_telp);
-
-        User::where('id',$id)->update([
-            'referral_code' =>$userId,
-        ]);
-        Kandidat::create([
-            'id' => $id,
-            'nama' => $request->nama,
-            'no_telp' => $request->no_telp,
-            'nik' => $request->nik,
-            'tgl_lahir' => $request->tgl_lahir,
-            'nama_panggilan' => $request->nama_panggilan,
-            'email' => $request->email,
-            'referral_code' => $userId,
-        ]);
-        return redirect('/manager/beta_tester');
-    }
-    
     public function pelatihan()
     {
         $auth = Auth::user();

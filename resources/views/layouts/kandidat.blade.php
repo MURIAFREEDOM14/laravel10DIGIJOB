@@ -75,7 +75,7 @@
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="blue2">
                     <a href="/" class="logo">
-                        <img src="/Atlantis/examples/assets/img/logo.svg" alt="navbar brand" class="navbar-brand">
+                        <b class="" style="color: white">DIGIJOB-UGIPORT</b>
                     </a>
                     <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon">
@@ -191,13 +191,19 @@
                                                 <div class="u-text">
                                                     <b class="bold">{{$kandidat->nama}}</b>
                                                     <p class="text-muted">{{$kandidat->email}}</p>
+                                                    @if (auth()->user()->verify_confirmed !== null)
+                                                        <span class="badge badge-pill badge-info">Verified</span>
+                                                    @endif
+                                                    @if ($kandidat->hubungan_perizin !== null)
+                                                        <span class="badge badge-pill badge-success">Profile</span>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="/profil_kandidat">Profilku</a>
-                                            @if ($kandidat->negara_id == null)
+                                            @if ($kandidat->hubungan_perizin == null)
                                                 <a class="dropdown-item" href="/isi_kandidat_personal">Lengkapi Profil</a>
                                             @else
                                                 <a class="dropdown-item" href="/isi_kandidat_personal">Edit Profil</a>                                                
@@ -253,7 +259,7 @@
                                         </li>
                                         <li>
                                             <a href="/isi_kandidat_personal" class="dropdown-item">
-                                                @if ($kandidat->negara_id == null)
+                                                @if ($kandidat->hubungan_perizin == null)
                                                     <div class="link-collapse"> Lengkapi Profil <i class="fas fa-exclamation-circle float-right"></i></div>
                                                 @else
                                                     <div class="link-collapse"> Edit Profil <i class="fas fa-edit float-right"></i></div>
@@ -401,7 +407,16 @@
                                         <li>
                                             <div class="card mx-2 bg-primary">
                                                 <div class="card-body">
-                                                    <div class="" style="font-weight:bold">Maaf fitur ini masih dalam Pembangunan</div>
+                                                    <div class="" style="font-weight:bold;">
+                                                        Maaf fitur ini masih dalam Pembangunan.
+                                                        {{-- Halo {{$kandidat->nama_panggilan}}, Kami ada penawaran menarik nih buat kamu. 
+                                                        Yup yaitu Akun Prioritas,apakah kamu penasaran dengan fitur ini? 
+                                                        Di fitur ini kamu akan dapat : --}}
+                                                    </div>
+                                                    {{-- <div class="mb-2" style="font-weight:bold;"><i class="fas fa-check-circle"></i> Dapat Video Pelatihan</div>
+                                                    <div class="mb-2" style="font-weight:bold;"><i class="fas fa-check-circle"></i> Dapat Video Pelatihan</div>
+                                                    <div class="mb-2" style="font-weight:bold;"><i class="fas fa-check-circle"></i> Dapat Video Pelatihan</div> --}}
+                                                    {{-- <a href="/payment" class="btn btn-info" style="color:white; font-weight:bold;">Upgrade</a> --}}
                                                 </div>
                                             </div>
                                         </li>

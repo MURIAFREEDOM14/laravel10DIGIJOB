@@ -230,8 +230,13 @@
                 <footer class="footer">
                     <div class="container-fluid">
                         <nav class="pull-left">
-                            {{-- <ul class="nav">
+                            <ul class="nav">
                                 <li class="nav-item">
+                                    <div class="copyright" style="color:white;">
+                                        &copy; Copyright <strong><span>DIGIJOB-UGIPORT</span></strong>. All Rights Reserved
+                                    </div>
+                                </li>
+                                {{-- <li class="nav-item">
                                     <a class="nav-link" href="https://www.themekita.com">
                                         ThemeKita
                                     </a>
@@ -245,8 +250,8 @@
                                     <a class="nav-link" href="#">
                                         Licenses
                                     </a>
-                                </li>
-                            </ul> --}}
+                                </li> --}}
+                            </ul>
                         </nav>
                         <div class="copyright ml-auto">
                             &nbsp;

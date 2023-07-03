@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Kandidat;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Kandidat;
 use App\Models\User;
@@ -44,7 +45,7 @@ class KandidatController extends Controller
         if($kandidat->negara_id == null){
             $perusahaan = Perusahaan::where('tmp_negara','Dalam negeri')->limit(5)->get();
         } else {
-            $perusahaan = Perusahaan::whereNotNull('email_operator')->get();
+            $perusahaan = Perusahaan::whereNotNull('email_operator')->where('negara_id','like','%'.$kandidat->negara_id.'%')->get();
         }
         return view('kandidat/index',compact('kandidat','notif','perusahaan','pembayaran','pesan','lowongan','cari_perusahaan'));
     }

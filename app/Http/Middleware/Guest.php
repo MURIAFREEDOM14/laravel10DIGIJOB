@@ -16,12 +16,16 @@ class Guest
     public function handle(Request $request, Closure $next): Response
     {
         if(auth()->user()){
-            if(auth()->user()->type == 2){
+            if(auth()->user()->type == 3){
+                return redirect()->route('manager');
+            } elseif(auth()->user()->type == 2){
                 return redirect()->route('perusahaan');
             } elseif(auth()->user()->type == 1){
                 return redirect()->route('akademi');
-            } else {
+            } elseif(auth()->user()->type == 0) {
                 return redirect()->route('kandidat');
+            } else {
+                return redirect()->back();
             }
         } else {
             return $next($request);
