@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\notifyAkademi;
 use App\Models\notifyKandidat;
 use App\Models\notifyPerusahaan;
-
+use Illuminate\Support\Str;
 class VerifikasiController extends Controller
 {
     public function verifikasi()
@@ -57,6 +57,13 @@ class VerifikasiController extends Controller
     public function ulang_verifikasi()
     {
         $user = Auth::user();
+        $token = Str::random(64).$user->no_telp;
+
+        User::where('referral_code',$user->referral_code)->update([
+            'token' => $token,
+        ]);
+        $newToken = $user->token;
+
         if($user->type == 0){
             $nama = $user->name;
         } elseif($user->type == 1){
@@ -67,7 +74,7 @@ class VerifikasiController extends Controller
             $nama = null;
         }
 
-        Mail::send('mail.mail', ['token' => $user->token, 'nama' => $nama], function($message) use($user){
+        Mail::send('mail.mail', ['token' => $newToken, 'nama' => $nama], function($message) use($user){
             $message->to($user->email);
             $message->subject('Email Verification Mail');
         });
