@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>proyekPortal</title>
+        <title>DIGIJOB-UGIPORT</title>
         <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
         <link rel="icon" href="/Atlantis/examples/assets/img/icon.ico" type="image/x-icon"/>
         <style>
@@ -284,7 +284,7 @@
                             <ul class="nav nav-primary">
                                 <li class="nav-item">
                                     <div class="copyright" style="color:black;">
-                                        &copy; Copyright <strong><span>ProyekPortal</span></strong>. All Rights Reserved
+                                        &copy; Copyright <strong><span>DIGIJOB-UGIPORT</span></strong>. All Rights Reserved
                                     </div>
                                 </li>
                                 {{-- <li class="nav-item">

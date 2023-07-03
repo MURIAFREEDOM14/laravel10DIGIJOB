@@ -66,6 +66,8 @@ class KandidatController extends Controller
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
         if($kandidat->hubungan_perizin == null){
             return redirect()->route('kandidat')->with('warning',"Harap lengkapi profil anda terlebih dahulu");
+        } elseif($kandidat->negara_id == null) {
+            return redirect()->route('kandidat')->with('warning',"Harap tentukan tempat kerja anda");
         } else {
             return view('kandidat/profil_kandidat',compact(
                 'kandidat',
@@ -244,7 +246,7 @@ class KandidatController extends Controller
             }
             $ket_lahir = $kandidat->nama.time().'.'.$request->foto_ket_lahir->extension();  
             $simpan_ket_lahir = $request->file('foto_ket_lahir');
-            $simpan_ket_lahir->move('gambar/Kandidat/'.$kandidat->nama.'/Ket_lahir',$kandidat->nama.time().'.'.$simpan_ket_lahir->extension());
+            $simpan_ket_lahir->move('gambar/Kandidat/'.$kandidat->nama.'/Ket_lahir/',$kandidat->nama.time().'.'.$simpan_ket_lahir->extension());
         } else {
             if ($kandidat->foto_ket_lahir !== null) {
                 $ket_lahir = $kandidat->foto_ket_lahir;    

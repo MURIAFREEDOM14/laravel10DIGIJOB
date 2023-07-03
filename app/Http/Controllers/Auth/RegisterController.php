@@ -120,7 +120,7 @@ class RegisterController extends Controller
             return redirect('/register/kandidat')->with('warning',"Maaf umur anda belum cukup, syarat umur ialah 18 thn keatas");
         }
 
-        $token = Str::random(64);
+        $token = Str::random(64).$request->no_telp;
         $password = Hash::make($request->password);
         
         $user = User::create([
@@ -167,7 +167,7 @@ class RegisterController extends Controller
             'password' => 'required|min:8',
         ]);
 
-        $token = Str::random(64);
+        $token = Str::random(64).$request->no_nis;
         $password = Hash::make($request->password);
 
         $user = User::create([
@@ -204,13 +204,13 @@ class RegisterController extends Controller
     protected function perusahaan(Request $request)
     {
         $validated = $request->validate([
-            'name_perusahaan' => 'required|max:255',
+            'name' => 'required|max:255',
             'email' => 'required|unique:users|max:255',
             'no_nib' => 'required|unique:users|max:40',
-            'password' => 'required|min:8',
+            'password' => 'required|min:6',
         ]);
 
-        $token = Str::random(64);
+        $token = Str::random(64).$request->no_nib;
         $password = hash::make($request->password);
 
         $user = User::create([
@@ -219,6 +219,7 @@ class RegisterController extends Controller
             'no_nib' => $request->no_nib,
             'type' => 2,
             'password' => $password,
+            'token' => $token,
         ]);
 
         $id = $user->id;

@@ -1,5 +1,6 @@
 @extends('layouts.laman')
 @section('content')
+@include('sweetalert::alert')
 <div class="container">
     <div class="row">
         <div class="col-md-3"></div>

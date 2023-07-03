@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Perusahaan;
 
+use App\Http\Controllers\Controller;
 use App\Models\Kandidat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -64,12 +65,13 @@ class PerusahaanController extends Controller
             // $this->validate($request, [
             //     'foto_perusahaan' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
             // ]);
-            $hapus_foto_perusahaan = public_path('/gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Foto Perusahaan/').$perusahaan->foto_perusahaan;
+            $hapus_foto_perusahaan = public_path('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Foto Perusahaan/').$perusahaan->foto_perusahaan;
             if(file_exists($hapus_foto_perusahaan)){
                 @unlink($hapus_foto_perusahaan);
             }
-            $photo_perusahaan = time().'.'.$request->foto_perusahaan->extension();  
-            $request->foto_perusahaan->move(public_path('/gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Foto Perusahaan'),$photo_perusahaan);
+            $photo_perusahaan = $perusahaan->nama_perusahaan.time().'.'.$request->foto_perusahaan->extension();  
+            $simpan_photo_perusahaan = $request->file('foto_perusahaan');
+            $simpan_photo_perusahaan->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Foto Perusahaan',$perusahaan->nama_perusahaan.time().'.'.$simpan_photo_perusahaan->extension());
         } else {
             if($perusahaan->foto_perusahaan !== null){
                 $photo_perusahaan = $perusahaan->foto_perusahaan;                
@@ -82,12 +84,13 @@ class PerusahaanController extends Controller
             // $this->validate($request, [
             //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
             // ]);
-            $hapus_logo_perusahaan = public_path('/gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Logo Perusahaan/').$perusahaan->logo_perusahaan;
+            $hapus_logo_perusahaan = public_path('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Logo Perusahaan/').$perusahaan->logo_perusahaan;
             if(file_exists($hapus_logo_perusahaan)){
                 @unlink($hapus_logo_perusahaan);
             }
-            $logo = time().'.'.$request->logo_perusahaan->extension();  
-            $request->logo_perusahaan->move(public_path('/gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Logo Perusahaan'), $logo);
+            $logo = $perusahaan->nama_perusahaan.time().'.'.$request->logo_perusahaan->extension();  
+            $simpan_logo = $request->file('logo_perusahaan');
+            $simpan_logo->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Logo Perusahaan',$perusahaan->nama_perusahaan.time().'.'.$simpan_logo->extension());
         } else {
             if($perusahaan->logo_perusahaan !== null){
                 $logo = $perusahaan->logo_perusahaan;                

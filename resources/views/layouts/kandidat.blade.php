@@ -429,7 +429,7 @@
                             <ul class="nav nav-primary">
                                 <li class="nav-item">
                                     <div class="copyright" style="color:white;">
-                                        &copy; Copyright <strong><span>ProyekPortal</span></strong>. All Rights Reserved
+                                        &copy; Copyright <strong><span>DIGIJOB-UGIPORT</span></strong>. All Rights Reserved
                                     </div>
                                 </li>
                                 {{-- <li class="nav-item">

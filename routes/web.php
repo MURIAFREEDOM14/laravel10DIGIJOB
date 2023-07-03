@@ -9,7 +9,8 @@ use App\Http\Controllers\Manager\ManagerController;
 use App\Http\Controllers\Manager\Kandidat\ManagerKandidatController;
 use App\Http\Controllers\Manager\ContactUsController;
 use App\Http\Controllers\Manager\NoreplyController;
-use App\Http\Controllers\Kandidat\KandidatPerusahaanController;
+use App\Http\Controllers\Perusahaan\KandidatPerusahaanController;
+use App\Http\Controllers\Perusahaan\PerusahaanController;
 use App\Http\Controllers\CaptureController;
 use App\Http\Controllers\OutputController;
 use App\Http\Controllers\PaymentController;
@@ -28,7 +29,6 @@ use App\Http\Controllers\KandidatController;
 use App\Http\Controllers\NegaraController;
 use App\Http\Controllers\ReferralController;
 use App\Http\Controllers\MailController;
-use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\MessagerController;
 /*
 |--------------------------------------------------------------------------

@@ -13,16 +13,16 @@ return new class extends Migration
     {
         Schema::create('lowongan_pekerjaan', function (Blueprint $table) {
             $table->id('id_lowongan');
-            $table->string('nama_lowongan');
+            $table->string('nama_lowongan')->nullable();
             $table->string('usia')->nullable();
             $table->string('jabatan')->nullable();
             $table->string('pendidikan')->nullable();
-            $table->string('jenis_kelamin');
-            $table->string('pengalaman_kerja')->nullable();
-            $table->string('berat')->nullable();
-            $table->string('tinggi')->nullable();
+            $table->enum('jenis_kelamin',['M','F','MF'])->nullable();
+            $table->text('pengalaman_kerja')->nullable();
+            $table->integer('berat')->nullable();
+            $table->integer('tinggi')->nullable();
             $table->string('pencarian_tmp')->nullable();
-            $table->integer('id_perusahaan');
+            $table->integer('id_perusahaan')->nullable();
             $table->text('isi')->nullable();
             $table->timestamps();
         });

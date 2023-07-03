@@ -17,7 +17,11 @@ class Akademi
     {
         if(auth()->user()){
             if(auth()->user()->type == 1){
-                return $next($request);
+                if(auth()->user()->verify_confirmed !== null){
+                    return $next($request);
+                } else {
+                    return redirect('/verifikasi');
+                }
             } else {
                 return redirect()->route('laman');
             }

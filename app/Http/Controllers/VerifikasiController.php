@@ -69,11 +69,9 @@ class VerifikasiController extends Controller
     {
         $verifyUser = User::where('token',$token)->first();
         if(!is_null($verifyUser) ){
-            $user = $verifyUser->id;
-            if($user) {
-                dd($user);
+            if($verifyUser->type == 0) {
                 User::where('token',$token)->update([
-                    'verify_confirmed' => 'Terverifikasi',
+                    'verify_confirmed' => $verifyUser->referral_code,
                 ]);
                 $kandidat = Kandidat::where('referral_code',$verifyUser->referral_code)->first(); 
                 $data['id_kandidat'] = $kandidat->id_kandidat;
@@ -82,8 +80,33 @@ class VerifikasiController extends Controller
                 $data['url'] = ('/isi_kandidat_personal');
                 notifyKandidat::create($data);
                 return redirect()->route('kandidat')->with('success',"Selamat Datang");
+            
+            } elseif($verifyUser->type == 1) {
+                User::where('token',$token)->update([
+                    'verify_confirmed' => $verifyUser->referral_code,
+                ]);
+                $akademi = Akademi::where('referral_code',$verifyUser->referral_code)->first(); 
+                $data['id_akademi'] = $akademi->id_akademi;
+                $data['isi'] = "Harap lengkapi data profil akademi";
+                $data['pengirim'] = "Admin";
+                $data['url'] = ('/isi_akademi_data');
+                notifyAkademi::create($data);
+                return redirect()->route('akademi')->with('success',"Selamat Datang");
+            
+            } elseif($verifyUser->type == 2){    
+                User::where('token',$token)->update([
+                    'verify_confirmed' => $verifyUser->referral_code,
+                ]);
+                $perusahaan = Perusahaan::where('referral_code',$verifyUser->referral_code)->first(); 
+                $data['id_perusahaan'] = $perusahaan->id_perusahaan;
+                $data['isi'] = "Harap lengkapi data profil perusahaan";
+                $data['pengirim'] = "Admin";
+                $data['url'] = ('/isi_perusahaan_data');
+                notifyperusahaan::create($data);
+                return redirect()->route('perusahaan')->with('success',"Selamat Datang");
+            
             } else {
-                $message = "Your e-mail is already verified. You can now login.";
+                return redirect()->route('verifikasi')->with('warning',"Maaf Email Anda Belum Terverifikasi, Harap Hubungi Admin");
             }
         } else {
             return redirect('/laman');

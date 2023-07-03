@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>proyekPortal</title>
+  <title>DIGIJOB-UGIPORT</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -56,7 +56,7 @@
       <nav id="navbar" class="navbar" style="background-color: #FFD966;">
         <ul>
           <li><a class="nav-link scrollto active" style="color: black" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto disabled" style="color: black;" href="/about_us">Tentang</a></li>
+          <li><a class="nav-link scrollto disabled" style="color: gray;" href="/about_us">Tentang</a></li>
           <li><a class="nav-link scrollto" style="color: black;" href="/login">Login</a></li>
           {{-- <li class="nav-link scroll"><a href=""><span style="color: black">Daftar</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
@@ -65,7 +65,7 @@
               < li><a href="/register/perusahaan" style="color: black">Perusahaan</a></li>
             </ul>
           </li> --}}
-          <li><a class="nav-link scrollto disabled" style="color: black" href="/perbaikan">Portfolio</a></li>
+          <li><a class="nav-link scrollto disabled" style="color: gray" href="/perbaikan">Portfolio</a></li>
           <li><a class="nav-link scrollto" style="color: black" href="/hubungi_kami">Hubungi</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -273,7 +273,7 @@
   <footer id="footer" style="background-color: #FFD966;" class="">
     <div class="container footer-bottom clearfix">
       <div class="copyright" style="color:black;">
-        &copy; Copyright <strong><span>ProyekPortal</span></strong>. All Rights Reserved
+        &copy; Copyright <strong><span>DIGIJOB-UGIPORT</span></strong>. All Rights Reserved
       </div>
       <div class="credits">
         <!-- All the links in the footer should remain intact. -->
