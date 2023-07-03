@@ -126,18 +126,20 @@
                                     {{-- <div class="" style="font-family: poppins;">Silahkan tuju link untuk verifikasi diri anda</div> --}}
                                     <div class="" style="padding: 0px 30px 20px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">Silahkan tuju link berikut untuk verifikasi diri anda</div>
 									<table border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
+                                        {{-- <tr>
                                             <td align="center" style="border-radius: 3px;" bgcolor="red">
                                                 <a 
 												target="_blank" style="font-size: 20px; font-family: HPoppinstica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid red; display: inline-block;">
-												{{isset($pengirim['user_referral']) ? $pengirim['user_referral']: ''}}
+                                                {{isset($pengirim['user_referral']) ? $pengirim['user_referral']: ''}}
 												</a>
 											</td>
-                                        </tr>
+                                        </tr> --}}
                                         <tr>
-                                            <a href="{{route('users_verification',$token)}}">
-                                                Verifikasi Akun
-                                            </a>
+                                            <td align="center" style="border-radius: 3px;" bgcolor="red">
+                                                <a href="{{route('users_verification',$token)}}" class="btn" style="margin:20px; font-size:20px; line-height:50px; color:white">
+                                                    Verifikasi Akun
+                                                </a>
+                                            </td>
                                         </tr>
                                     </table>
                                     {{-- <div class="" style="background-color:gray; margin-top:20px;">

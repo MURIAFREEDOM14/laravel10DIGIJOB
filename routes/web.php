@@ -400,11 +400,10 @@ Route::controller(OutputController::class)->group(function() {
 
 // data verifikasi
 Route::controller(VerifikasiController::class)->group(function(){
-    Route::get('/verifikasi','verifikasi')->name('verifikasi');
+    Route::get('/verifikasi','verifikasi')->name('verifikasi')->middleware('verify');
     Route::post('/verifikasi','masukVerifikasi');
-    Route::get('/ulang_verifikasi','ulang_verifikasi');
-
-    Route::get('/verify_account/{token}','verifyAccount')->name('users_verification');
+    Route::get('/ulang_verifikasi','ulang_verifikasi')->middleware('verify');
+    Route::get('/verify_account/{token}','verifyAccount')->name('users_verification')->middleware('verify');
 });
 
 Route::controller(NegaraController::class)->group(function() {

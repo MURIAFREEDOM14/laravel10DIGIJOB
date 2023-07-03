@@ -17,11 +17,11 @@ class verifyConfirm
     {
         if(auth()->user()) 
         {
-            // if(auth()->user()->verify_confirmed !== null){
+            if(auth()->user()->verify_confirmed == null){
                 return $next($request);
-            // } else {
-            //     return redirect('/verifikasi');
-            // }
+            } else {
+                return redirect('/');
+            }
         } else {
             return redirect('/laman');
         }
