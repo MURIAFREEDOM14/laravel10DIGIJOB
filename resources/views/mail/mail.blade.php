@@ -110,16 +110,6 @@
     <tr>
         <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-               <!-- <tr>
-                    <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 20px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <p style="margin: 0; text-align:center">YOUR OPT : *****</p>
-                    </td>
-                </tr>-->
-				{{-- <tr>
-                    <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 20px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <p style="margin: 0;">Selamat Datang</p>
-                    </td>
-                </tr> --}}
                 <tr>
                     <td bgcolor="#ffffff" align="left">
                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -141,19 +131,10 @@
                         <table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tr>
                                 <td bgcolor="#ffffff" align="center" style="padding: 10px 30px 30px 30px;">
-                                    {{-- <div class="" style="font-family: poppins;">Silahkan tuju link untuk verifikasi diri anda</div> --}}
                                     <div class="" style="padding: 0px 30px 20px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
                                         Silahkan tuju link berikut untuk verifikasi diri anda
                                     </div>
 									<table border="0" cellspacing="0" cellpadding="0">
-                                        {{-- <tr>
-                                            <td align="center" style="border-radius: 3px;" bgcolor="red">
-                                                <a 
-												target="_blank" style="font-size: 20px; font-family: HPoppinstica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid red; display: inline-block;">
-                                                {{isset($pengirim['user_referral']) ? $pengirim['user_referral']: ''}}
-												</a>
-											</td>
-                                        </tr> --}}
                                         <tr>
                                             <td align="center" style="border-radius: 3px;" bgcolor="red">
                                                 <a 
@@ -164,12 +145,6 @@
                                             </td>
                                         </tr>
                                     </table>
-                                    {{-- <div class="" style="background-color:gray; margin-top:20px;">
-                                        <div class="" style="font-family: poppins;">Ketuk Link dibawah ini untuk shortcut</div>
-                                        <a href="" style="font-family: poppins;">Maaf Link belum siap</a>    
-                                    </div>
-                                    <br>
-                                    <div class="" style="font-family: poppins; text-transform:uppercase;">Ingat!! Jangan bagikan kode verifikasi ini kepada orang lain</div> --}}
                                 </td>
                             </tr>
                         </table>
