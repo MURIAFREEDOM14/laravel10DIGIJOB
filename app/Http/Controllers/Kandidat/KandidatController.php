@@ -861,7 +861,13 @@ class KandidatController extends Controller
             'negara_id' => $request->negara_id,
             'penempatan' => $request->penempatan,
         ]);
-        return redirect()->route('kandidat')->with('success',"Data anda tersimpan");
+        if($kandidat->negara_id == null)
+        {
+            Alert::success('success','Selamat semua data profil anda sudah lengkap');
+        } else {
+            Alert::success('toast_success','Data anda tersimpan');
+        }
+        return redirect()->route('kandidat');
     }
 
     public function isi_kandidat_permission()
