@@ -863,9 +863,9 @@ class KandidatController extends Controller
         ]);
         if($kandidat->negara_id == null)
         {
-            Alert::success('success','Selamat semua data profil anda sudah lengkap');
+            Alert::success('Selamat','Semua data profil anda sudah lengkap');
         } else {
-            Alert::success('toast_success','Data anda tersimpan');
+            Alert::toast_success('Data anda tersimpan');
         }
         return redirect()->route('kandidat');
     }
