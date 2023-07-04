@@ -885,7 +885,7 @@ class KandidatController extends Controller
     {
         $validated = $request->validate([
             'nik_perizin' => 'required|max:16|min:16',
-            'foto_ktp_izin' => 'mimes:png,jpg,jpeg|max:2048',
+            'foto_ktp_izin' => 'mimes:png,jpg,jpeg',
             'no_telp_perizin' => 'min:10|max:13'
         ]);
         $id = Auth::user();
