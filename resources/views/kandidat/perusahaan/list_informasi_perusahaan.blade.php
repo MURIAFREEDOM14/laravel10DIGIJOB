@@ -9,7 +9,7 @@
                 <form action="" method="POST">
                     @csrf
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Masukkan Kode Undangan" name="referral_code" id="">                            
+                        <input type="text" class="form-control" required placeholder="Masukkan Kode Undangan" name="referral_code" id="">                            
                         <div class="input-group-append">
                             <button class="btn btn-outline-primary" type="submit" id="button-addon2">Cari</button>
                         </div>
