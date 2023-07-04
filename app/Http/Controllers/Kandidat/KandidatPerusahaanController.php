@@ -38,7 +38,7 @@ class KandidatPerusahaanController extends Controller
         if($kandidat->negara_id == null){
             $perusahaan = Perusahaan::where('tmp_negara','Dalam negeri')->limit(5)->get();    
         } else {
-            $perusahaan = Perusahaan::where('negara_id','like',"%".$kandidat->negara_id."%")->limit(5)->get();
+            $perusahaan = Perusahaan::where('negara_id','like',"%".$kandidat->negara_id."%")->whereNotNull('email_operator')->limit(5)->get();
         }
         return view('kandidat/perusahaan/list_informasi_perusahaan',compact('kandidat','notif','perusahaan','pembayaran','pesan','lowongan','cari_perusahaan'));
     }
