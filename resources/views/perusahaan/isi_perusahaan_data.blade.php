@@ -41,14 +41,31 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Tempat Perusahaan</label>
+                                    <label for="inputPassword6" class="col-form-label">Penempatan Kerja</label>
                                 </div>
-                                <div class="col-md-3">
-                                    <select name="tmp_negara" required class="form-select" id="">
-                                        <option value="Dalam negeri" @if ($perusahaan->tmp_negara == "Dalam negeri")
-                                            selected                                            
+                                <div class="col-md-8">
+                                    <select name="penempatan_kerja" class="form-select" required id="">
+                                        <option value="">-- Pilih Penempatan Kerja--</option>
+                                        <option value="Dalam negeri" @if ($perusahaan->penempatan_kerja == "Dalam negeri")
+                                            selected
                                         @endif>Dalam Negeri</option>
-                                        <option value="Luar negeri" @if ($perusahaan->tmp_negara == "Luar negeri")
+                                        <option value="Luar Negeri" @if ($perusahaan->penempatan_kerja == "Luar negara")                                            
+                                            selected
+                                        @endif>Luar Negeri</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3 g-3 align-items-center">
+                                <div class="col-md-4">
+                                    <label for="inputPassword6" class="col-form-label">Alamat Perusahaan</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <select name="tmp_perusahaan" class="form-select" required id="">
+                                        <option value="">-- Tentukan Alamat--</option>
+                                        <option value="Dalam negeri" @if ($perusahaan->tmp_perusahaan == "Dalam negeri")
+                                            selected
+                                        @endif>Dalam Negeri</option>
+                                        <option value="Luar Negeri" @if ($perusahaan->tmp_perusahaan == "Luar negara")                                            
                                             selected
                                         @endif>Luar Negeri</option>
                                     </select>
@@ -62,7 +79,7 @@
                                     @if ($perusahaan->foto_perusahaan == "")
                                         <input type="file" required class="form-control"  name="foto_perusahaan" value="{{$perusahaan->foto_perusahaan}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @elseif ($perusahaan->foto_perusahaan !== null)
-                                        <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Foto Perusahaan/{{$perusahaan->foto_perusahaan}}" width="150" height="150" alt="" class="">
+                                        <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Foto Perusahaan/{{$perusahaan->foto_perusahaan}}" width="150" height="150" alt="" class="mb-1">
                                         <input type="file" class="form-control"  name="foto_perusahaan" value="{{$perusahaan->foto_perusahaan}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @else
                                         <input type="file" required class="form-control"  name="foto_perusahaan" value="{{$perusahaan->foto_perusahaan}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
@@ -77,7 +94,7 @@
                                     @if ($perusahaan->logo_perusahaan == "")
                                         <input type="file" required class="form-control"  name="logo_perusahaan" value="{{$perusahaan->logo_perusahaan}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @elseif ($perusahaan->logo_perusahaan !== null)
-                                        <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Logo Perusahaan/{{$perusahaan->logo_perusahaan}}" width="150" height="150" alt="" class="">
+                                        <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Logo Perusahaan/{{$perusahaan->logo_perusahaan}}" width="150" height="150" alt="" class="mb-1">
                                         <input type="file" class="form-control"  name="logo_perusahaan" value="{{$perusahaan->logo_perusahaan}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @else
                                         <input type="file" required class="form-control"  name="logo_perusahaan" value="{{$perusahaan->logo_perusahaan}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        

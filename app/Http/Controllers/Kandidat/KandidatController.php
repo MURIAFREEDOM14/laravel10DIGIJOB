@@ -160,7 +160,7 @@ class KandidatController extends Controller
         } else {
             $negara = $show_negara->negara;    
         }
-        return view('Kandidat/modalKandidat/edit_kandidat_document',compact('kandidat','kelurahan','kecamatan','kota','provinsi','negara'));
+        return view('kandidat/modalKandidat/edit_kandidat_document',compact('kandidat','kelurahan','kecamatan','kota','provinsi','negara'));
     }
 
     public function simpan_kandidat_document(Request $request)
@@ -424,7 +424,7 @@ class KandidatController extends Controller
         if ($kandidat->stats_nikah == null) {
             return redirect()->route('vaksin');
         } elseif($kandidat->stats_nikah !== "Single") {
-            return view('Kandidat/modalKandidat/edit_kandidat_family',compact('kandidat','negara'));    
+            return view('kandidat/modalKandidat/edit_kandidat_family',compact('kandidat','negara'));    
         } else {
             return redirect('/isi_kandidat_vaksin');
         }
@@ -528,7 +528,7 @@ class KandidatController extends Controller
         } else {
             $negara = $show_negara->negara;    
         }
-        return view('Kandidat/modalKandidat/edit_kandidat_vaksinasi',['kandidat'=>$kandidat,'negara'=>$negara]);
+        return view('kandidat/modalKandidat/edit_kandidat_vaksinasi',['kandidat'=>$kandidat,'negara'=>$negara]);
     }
 
     public function simpan_kandidat_vaksin(Request $request)
@@ -636,7 +636,7 @@ class KandidatController extends Controller
         } else {
             $negara = $show_negara->negara;    
         }
-        return view('Kandidat/modalKandidat/edit_kandidat_parent',['kandidat'=>$kandidat,'negara'=>$negara]);
+        return view('kandidat/modalKandidat/edit_kandidat_parent',['kandidat'=>$kandidat,'negara'=>$negara]);
     }
 
     public function simpan_kandidat_parent(Request $request)
@@ -683,7 +683,7 @@ class KandidatController extends Controller
             $negara = $show_negara->negara;    
         }
         $pengalaman_kerja = PengalamanKerja::where('pengalaman_kerja.id_kandidat',$kandidat->id_kandidat)->get();
-        return view('Kandidat/modalKandidat/edit_kandidat_company', [
+        return view('kandidat/modalKandidat/edit_kandidat_company', [
             'kandidat'=>$kandidat,
             'pengalaman_kerja'=>$pengalaman_kerja,
             'negara'=>$negara,
@@ -838,7 +838,7 @@ class KandidatController extends Controller
         }
         $semua_negara = Negara::all();
         $pekerjaan = Pekerjaan::where('negara_id',$negara_id)->get();
-        return view('Kandidat/modalKandidat/edit_kandidat_placement',compact('negara','semua_negara','kandidat','pekerjaan','negara_id'));
+        return view('kandidat/modalKandidat/edit_kandidat_placement',compact('negara','semua_negara','kandidat','pekerjaan','negara_id'));
     }
 
     public function placement(Request $request)
@@ -878,7 +878,7 @@ class KandidatController extends Controller
         } else {
             $negara = $show_negara->negara;    
         }
-        return view('Kandidat/modalKandidat/edit_kandidat_permission',compact('kandidat','provinsi','kecamatan','kelurahan','kota','negara'));
+        return view('kandidat/modalKandidat/edit_kandidat_permission',compact('kandidat','provinsi','kecamatan','kelurahan','kota','negara'));
     }
 
     public function simpan_kandidat_permission(Request $request)

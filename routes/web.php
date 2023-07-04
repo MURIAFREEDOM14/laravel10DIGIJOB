@@ -12,6 +12,7 @@ use App\Http\Controllers\Manager\NoreplyController;
 use App\Http\Controllers\Kandidat\KandidatPerusahaanController;
 use App\Http\Controllers\Kandidat\KandidatController;
 use App\Http\Controllers\Perusahaan\PerusahaanController;
+use App\Http\Controllers\Perusahaan\PerusahaanRecruitmentController;
 use App\Http\Controllers\CaptureController;
 use App\Http\Controllers\OutputController;
 use App\Http\Controllers\PaymentController;
@@ -285,6 +286,15 @@ Route::controller(PerusahaanController::class)->group(function(){
         
     Route::post('/perusahaan/interview','TambahJadwal');
     Route::get('/perusahaan/hapus/kandidat/interview/{id}','deleteKandidatInterview');
+});
+
+Route::controller(PerusahaanRecruitmentController::class)->group(function() {
+    Route::get('/perusahaan/negara_tujuan','negaraTujuan');
+    Route::get('/perusahaan/tambah_negara','tambahNegaraTujuan');
+    Route::post('/perusahaan/tambah_negara','simpanNegaraTujuan');
+    
+    Route::get('/perusahaan/tambah_pekerjaan','tambahPerusahaanJob');
+    Route::post('/perusahaan/tambah_pekerjaan','simpanPerusahaanJob');
 });
 
 // DATA KANDIDAT //

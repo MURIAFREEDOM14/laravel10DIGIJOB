@@ -322,6 +322,16 @@
                                     <p>Pembuatan PMI ID</p>
                                 </a>
                             </li>
+                            @if ($perusahaan->penempatan_kerja == "Luar negeri")
+                                <li class="nav-item">
+                                    <a href="/perusahaan/negara_tujuan">
+                                        <i class="fas fa-layer-group"></i>
+                                        <p>Penempatan Luar Negeri</p>
+                                    </a>
+                                </li>
+                            @else
+                                
+                            @endif
                             <li class="nav-item">
                                 <a href="/perusahaan/list/kandidat">
                                     <i class="fas fa-layer-group"></i>

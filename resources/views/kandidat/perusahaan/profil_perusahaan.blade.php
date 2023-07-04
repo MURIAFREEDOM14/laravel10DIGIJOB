@@ -70,6 +70,9 @@
                                         <b class="bold">Company Profile :</b>
                                         <p><b class="bold">{{$perusahaan->company_profile}}</b></p>
                                         <hr>
+                                        <b class="bold">Penempatan Kerja :</b>
+                                        <p><b class="bold">{{$perusahaan->penempatan_kerja}}</b></p>
+                                        <hr>
                                     </div>
                                 </div>
                                 <div class="row">
