@@ -864,10 +864,10 @@ class KandidatController extends Controller
         if($kandidat->negara_id == null)
         {
             Alert::success('Selamat','Semua data profil anda sudah lengkap');
+            return redirect()->route('kandidat');
         } else {
-            Alert::toast_success('Data anda tersimpan');
+            return redirect()->route('kandidat')->with('toast_success','Data anda tersimpan');
         }
-        return redirect()->route('kandidat');
     }
 
     public function isi_kandidat_permission()
