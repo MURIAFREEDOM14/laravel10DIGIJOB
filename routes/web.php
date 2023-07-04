@@ -368,6 +368,9 @@ Route::controller(NotifikasiController::class)->group(function() {
 // data login
 Route::controller(LoginController::class)->group(function() {
     Route::get('/login','loginSemua')->middleware('guest');
+    Route::get('/login/migration','loginMigration')->middleware('guest');
+    Route::post('/login/migration','checkLoginMigration');
+    Route::post('/login/migration/confirm', 'confirmLoginMigration');
     Route::post('/login','AuthenticateLogin');
     Route::get('/login/kandidat','loginKandidat')->middleware('guest');
     Route::get('/login/akademi','loginAkademi')->middleware('guest');

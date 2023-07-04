@@ -19,7 +19,7 @@ use App\Models\Pembayaran;
 use App\Models\Perusahaan;
 use App\Models\PengalamanKerja;
 use App\Models\ContactUs;
-use App\Models\MessageKandidat;
+use App\Models\messageKandidat;
 use App\Models\LowonganPekerjaan;
 use App\Models\PermohonanLowongan;
 use Illuminate\Support\Facades\Storage;

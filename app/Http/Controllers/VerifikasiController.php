@@ -57,12 +57,16 @@ class VerifikasiController extends Controller
     public function ulang_verifikasi()
     {
         $user = Auth::user();
-        $token = Str::random(64).$user->no_telp;
-
-        User::where('referral_code',$user->referral_code)->update([
-            'token' => $token,
-        ]);
-        $newToken = $user->token;
+        if($user->token == null){
+            $token = Str::random(64).$user->no_telp;
+            User::where('referral_code',$user->referral_code)->update([
+                'token' => $token,
+            ]);
+            $newUser = User::where('referral_code',$user->referral_code)->first();
+            $newToken = $newUser->token;
+        } else {
+            $newToken = $user->token;   
+        }
 
         if($user->type == 0){
             $nama = $user->name;
@@ -78,7 +82,6 @@ class VerifikasiController extends Controller
             $message->to($user->email);
             $message->subject('Email Verification Mail');
         });
-
         return redirect()->route('verifikasi');
     }
 

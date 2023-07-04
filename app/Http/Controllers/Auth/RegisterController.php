@@ -106,13 +106,6 @@ class RegisterController extends Controller
 
     public function kandidat(Request $request)
     {
-        // $user = User::all();
-        // foreach ($user as $key) {
-        //     if($key->email == $request->email && $key->password == null){
-        //         return redirect('register/kandidat/pindahan');       
-        //     }
-        // }
-
         $validated = $request->validate([
             'name' => 'required|max:255',
             'nik' => 'required|max:16|min:16|unique:kandidat',
@@ -121,7 +114,7 @@ class RegisterController extends Controller
             'nama_panggilan' => 'required|unique:kandidat|min:5|max:20',
             'password' => 'required|min:8',
         ]);
-        
+
         $tgl = Carbon::parse($request->tgl)->age;
         if($tgl < 18){
             return redirect('/register/kandidat')->with('warning',"Maaf umur anda belum cukup, syarat umur ialah 18 thn keatas");

@@ -9,15 +9,15 @@
                         <h5 class="text-center">Verifikasi</h5>
                     </div>
                     <div class="card-body">
-                        <div class="mb-3">cek email anda untuk verifikasi</div>
-                        {{-- <form action="/verifikasi" method="POST">
-                            @csrf
-                            <div class="input-group mb-3">
-                                <input type="text" name="verification_code" class="form-control" placeholder="Masukkan Kode verifikasi" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                <button class="input-group-text" type="submit" id="basic-addon2">Masuk</button>
+                        @if(auth()->user()->token == null)
+                            <div class="text-center">
+                                <div class="mb-3"> verifikasi diri anda</div>
+                                <a href="/ulang_verifikasi">kirim email verifikasi</a>
                             </div>
-                        </form> --}}
-                        <div class="">apakah anda belum mendapatkan pesan verifikasi? <a href="/ulang_verifikasi">tekan untuk kirim ulang</a></div>
+                        @else
+                            <div class="mb-3">cek email anda untuk verifikasi</div>
+                            <div class="">apakah anda belum mendapatkan pesan verifikasi? <a href="/ulang_verifikasi">tekan untuk kirim ulang</a></div>
+                        @endif
                     </div>
                 </div>
             </div>

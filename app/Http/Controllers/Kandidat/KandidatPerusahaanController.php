@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\notifyKandidat;
 use App\Models\Pembayaran;
 use App\Models\Perusahaan;
-use App\Models\MessageKandidat;
+use App\Models\messageKandidat;
 use App\Models\LowonganPekerjaan;
 use App\Models\PermohonanLowongan;
 

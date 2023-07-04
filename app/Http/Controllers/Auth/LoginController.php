@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Kandidat;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -75,6 +77,55 @@ class LoginController extends Controller
         } else {
             return redirect('/login')->with('error',"maaf email atau password salah");
         }
+    }
+
+    public function loginMigration()
+    {
+        $data = null;
+        return view('/auth/login_migration',compact('data'));
+    }
+
+    public function checkLoginMigration(Request $request)
+    {
+        $user = User::where('type',0)->whereNull('password')->get();
+        foreach($user as $key)
+        {
+            if($request->nik == $key->nik && $request->email == $key->email){
+                $data = Kandidat::where('nik',$request->nik)->first();
+            } else {
+                $data = null;
+            }
+        }
+        if($data !== null){
+            return view('/auth/login_find_migration',compact('data'));
+        } else {
+            return redirect('/login/migration')->with('error',"Maaf anda belum terdaftar. Harap Register");
+        }
+    }
+
+    public function confirmLoginMigration(Request $request)
+    {
+        $kandidat = Kandidat::where('no_telp',$request->no_telp)->first();
+        $token = Str::random(64).$request->no_telp;
+        $user = User::create([
+            'name' => $kandidat->nama,
+            'no_telp' => $kandidat->no_telp,
+            'email' => $kandidat->email,
+            'password' => $request->password,
+            'token' => $token,
+        ]);
+
+        $id = $user->id;
+        $userId = \Hashids::encode($id.$request->no_telp);
+        
+        User::where('id',$id)->update([
+            'referral_code' => $userId,
+        ]);
+
+        Kandidat::where()->update([
+            'id' => $id,
+            'referral_code' => $userId,
+        ]);
     }
 
     public function AuthenticateKandidat(Request $request)

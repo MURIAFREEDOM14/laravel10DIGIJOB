@@ -23,8 +23,16 @@
                                     <input name="password" type="password" class="form-control" value="{{old('password')}}" required id="exampleInputPassword1">
                                 </div>
                             </div>
-                        </div>                        
-                        <div class="my-4">Belum punya akun?<button type="button" class="btn btn-link mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Daftar yuk!!</button></div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            
+                          </div>
+                          <div class="">Sudah Pernah Terdaftar?<a class="btn btn-link" href="/login/migration">Aktifkan Akun</a></div>                        
+                          <div class="mx-2">Belum punya akun?
+                            <button type="button" class="btn btn-link mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Daftar yuk!!</button>
+                          </div>  
+                        </div>
                         {{-- <a href="/laman" class="btn btn-secondary float-left ml-2">Kembali</a> --}}
                         <button type="submit" class="btn btn-primary float-right mr-2">Masuk</button>
                     </form> 
