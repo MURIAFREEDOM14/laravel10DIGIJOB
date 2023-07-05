@@ -69,11 +69,6 @@ class LoginController extends Controller
         $email = $request->email;
         $password = $request->password;
         $user = User::where('email',$email)->where('password',$password)->first();
-        if($user->type == 2){
-            Alert::error('Harap Tunggu',"Mohon maaf Perusahaan saat ini sedang dalam perbaikan.");
-            return redirect('/laman');
-        }
-        
         if(Auth::attempt(['email'=>$request->email,'password'=>$request->password]))
         {
             return redirect('/')->with('success',"selamat datang");
