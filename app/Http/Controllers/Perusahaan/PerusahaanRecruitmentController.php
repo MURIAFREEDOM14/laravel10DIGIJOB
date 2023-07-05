@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Perusahaan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\perusahaan;
+use App\Models\Perusahaan;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Negara;
 use App\Models\PerusahaanNegara;
