@@ -16,11 +16,12 @@
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1">Masukkan Email</label>
-                                    <input name="email" type="email" class="form-control" value="{{$user->email}}" required id="exampleInputPassword1">
+                                    <input name="email" disabled type="email" class="form-control" value="{{$user->email}}" required id="exampleInputPassword1">
+                                    <input name="email" hidden type="email" class="form-control" value="{{$user->email}}" required id="exampleInputPassword1">
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1">Masukkan Password Baru</label>
-                                    <input name="password" type="password" placeholder="Harap ingat password anda" class="form-control" value="{{old('email')}}" required id="exampleInputPassword1">
+                                    <input name="password" type="text" placeholder="Harap ingat password anda" class="form-control" value="{{old('email')}}" required id="exampleInputPassword1">
                                 </div>
                             </div>
                         </div>

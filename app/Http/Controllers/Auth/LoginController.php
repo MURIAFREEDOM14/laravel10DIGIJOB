@@ -75,7 +75,7 @@ class LoginController extends Controller
         ]);
         $userLogin = User::where('email',$request->email)->first();
         Auth::login($userLogin);
-        return redirect('/');
+        return redirect('/')->with('success',"Selamat Datang");
     }
 
     // public function loginKandidat()

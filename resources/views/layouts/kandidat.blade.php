@@ -434,7 +434,7 @@
 
             <div class="main-panel">
                 <div class="content">
-                    <main class="px-3">
+                    <main class="px-1">
                         @yield('content')
                     </main>
                 </div>

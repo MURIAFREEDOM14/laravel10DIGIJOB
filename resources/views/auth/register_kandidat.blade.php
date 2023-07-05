@@ -70,7 +70,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="">{{ __('Masukkan Password') }}</label>
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" required autocomplete="password">
+                                    <input id="password" type="text" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" required autocomplete="password">
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>password harus berisi min 6 digit dan max 20 digit</strong>

@@ -155,7 +155,7 @@ class RegisterController extends Controller
             $message->subject('Email Verification Mail');
         });
         Auth::login($user);       
-        return redirect()->route('verifikasi')->with('success',"Selamat Datang");
+        return redirect()->route('verifikasi')->with('success',"Cek email anda untuk verifikasi");
     }
 
     protected function akademi(Request $request)
@@ -193,12 +193,12 @@ class RegisterController extends Controller
             'no_nis' => $request->no_nis,
         ]);
 
-        Mail::send('mail.mail', ['token' => $token], function($message) use($request){
+        Mail::send('mail.mail', ['token' => $token, 'nama' => $request->name], function($message) use($request){
             $message->to($request->email);
             $message->subject('Email Verification Mail');
         });
         Auth::login($user);
-        return redirect()->route('verifikasi')->with('success',"Selamat Datang");
+        return redirect()->route('verifikasi')->with('success',"Cek email anda untuk verifikasi");
     }
 
     protected function perusahaan(Request $request)
@@ -236,11 +236,11 @@ class RegisterController extends Controller
             'email_perusahaan'=>$request->email,
         ]);
 
-        Mail::send('mail.mail', ['token' => $token], function($message) use($request){
+        Mail::send('mail.mail', ['token' => $token, 'nama' => $request->name], function($message) use($request){
             $message->to($request->email);
             $message->subject('Email Verification Mail');
         });
         Auth::login($user);
-        return redirect()->route('verifikasi')->with('success',"Selamat Datang");
+        return redirect()->route('verifikasi')->with('success',"Cek email anda untuk verifikasi");
     }
 }
