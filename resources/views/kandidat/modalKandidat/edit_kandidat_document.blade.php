@@ -229,7 +229,7 @@
                                             </span>
                                         @enderror
                                     @elseif ($kandidat->foto_ijazah !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/ijazah/{{$kandidat->foto_ijazah}}" width="150" height="150" alt="" class="img mb-1">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Ijazah/{{$kandidat->foto_ijazah}}" width="150" height="150" alt="" class="img mb-1">
                                         <input type="file" name="foto_ijazah" id="inputPassword6" class="form-control @error('foto_ijazah') is_invalid @enderror" accept="image/*">
                                         @error('foto_ijazah')
                                             <span class="invalid-feedback" role="alert">
