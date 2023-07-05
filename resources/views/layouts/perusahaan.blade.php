@@ -4,7 +4,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <title>DIGIJOB-UGIPORT</title>
         <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-        <link rel="icon" href="/Atlantis/examples/assets/img/icon.ico" type="image/x-icon"/>
+        <link rel="icon" href="/gambar/icon.ico" type="image/x-icon"/>
         <style>
             .bold{
                 font-size: 11px;
@@ -267,7 +267,7 @@
                                         <li>
                                             <a href="/perusahaan/isi_perusahaan_data" class="dropdown-item">
                                                 @if ($perusahaan->email_operator == null)
-                                                    <div class="link-collapse"> Lengkapi Profil Perusahaan<i class="fas fa-exclamation-circle float-right"></i></div>
+                                                    <div class="link-collapse"> Lengkapi Profil<i class="fas fa-exclamation-circle float-right"></i></div>
                                                 @else
                                                     <div class="link-collapse"> Edit Profil <i class="fas fa-edit float-right"></i></div>
                                                 @endif
