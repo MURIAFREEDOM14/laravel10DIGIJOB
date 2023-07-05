@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Kandidat;
 use Illuminate\Support\Str;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class LoginController extends Controller
 {
@@ -70,6 +71,10 @@ class LoginController extends Controller
         $user = User::where('email',$email)->where('password',$password)->first();
         if(Auth::attempt(['email'=>$request->email,'password'=>$request->password]))
         {
+            if($user->type == 2){
+                Alert::error('Harap Tunggu',"Mohon maaf Perusahaan saat ini sedang dalam perbaikan.");
+                return redirect('/laman');
+            }
             return redirect('/')->with('success',"selamat datang");
         } elseif($user !== null) {
             Auth::login($user);
