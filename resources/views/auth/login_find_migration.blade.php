@@ -10,28 +10,33 @@
                     <h4 class="text-center">Login</h4>
                 </div>
                 <div class="card-body">
-                    <form action="/login/migration/confirm">
+                    <form action="/login/migration/confirm" method="POST">
                         @csrf
-                        <div class="row">
-                            <div class="col-12">
-                                <b class="bold">Apakah Nama Anda {{$data->nama}}?</b>                                        
+                        <div class="row my-3">
+                            <div class="col-12 text-center">
+                                <b class="bold">Apakah Nama Anda </b>
+                                    <p><b class="" style="text-transform: uppercase;">{{$kandidat->nama}}</b></p>                                        
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12">
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1">No. NIK Anda</label>
-                                    <input name="email" type="email" class="form-control" value="{{$data->nik}}" id="exampleInputPassword1">
+                                    <input name="" disabled type="number" class="form-control" value="{{$kandidat->nik}}" id="exampleInputPassword1">
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1">Email Anda</label>
-                                    <input name="email" type="email" class="form-control" value="{{$data->email}}" id="exampleInputPassword1">
+                                    <input name="email" type="email" class="form-control" value="{{$kandidat->email}}" id="exampleInputPassword1">
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1">Masukkan Password</label>
-                                    <input name="password" type="password" class="form-control" id="exampleInputPassword1">
+                                    <input name="password" placeholder="Buat Password Aplikasi" type="password" class="form-control" id="exampleInputPassword1">
                                 </div>
                             </div>
+                        </div>
+                        <div class="">
+                            <a class="btn btn-danger" href="/laman">Kembali</a>
+                            <button class="btn btn-primary float-end" type="submit">Simpan & Masuk</button>
                         </div>
                     </form>                        
                 </div>

@@ -43,9 +43,9 @@ class KandidatController extends Controller
         ->get();
         $cari_perusahaan = null;
         if($kandidat->negara_id == null){
-            $perusahaan = Perusahaan::where('tmp_negara','Dalam negeri')->limit(5)->get();
+            $perusahaan = Perusahaan::where('penempatan_kerja','Dalam negeri')->limit(5)->get();
         } else {
-            $perusahaan = Perusahaan::whereNotNull('email_operator')->where('negara_id','like','%'.$kandidat->negara_id.'%')->get();
+            $perusahaan = Perusahaan::whereNotNull('email_operator')->where('penempatan_kerja','like','%'.$kandidat->penempatan.'%')->get();
         }
         return view('kandidat/index',compact('kandidat','notif','perusahaan','pembayaran','pesan','lowongan','cari_perusahaan'));
     }
@@ -121,6 +121,11 @@ class KandidatController extends Controller
         $usia = Carbon::parse($request->tgl_lahir)->age;
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
+        if($request->password !== null){
+            $password = $request->password;
+        } else {
+            $password = $id->password;
+        }
         Kandidat::where('referral_code',$id->referral_code)->update([
             'nama' => $kandidat->nama,
             'jenis_kelamin' => $request->jenis_kelamin,
@@ -138,7 +143,8 @@ class KandidatController extends Controller
         User::where('referral_code', $userId->referral_code)->update([
             'name' => $kandidat->nama,
             'no_telp' => $kandidat->no_telp,
-            'email' => $kandidat->email
+            'email' => $kandidat->email,
+            'password' => $password,
         ]);
         Alert::toast('Data anda tersimpan','success');
         return redirect('/isi_kandidat_document');

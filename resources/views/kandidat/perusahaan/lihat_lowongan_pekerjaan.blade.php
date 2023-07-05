@@ -122,7 +122,7 @@
                 <hr>
                 <div  class="row">
                     <div class="col-md-3">
-                        <label for="" class="">Kriteria Lokasi</label>
+                        <label for="" class="">Lokasi Pencarian Kandidat</label>
                     </div>
                     <div class="col-md-8">
                         <div class=""><b class="bold">: {{$lowongan->pencarian_tmp}}</b></div>

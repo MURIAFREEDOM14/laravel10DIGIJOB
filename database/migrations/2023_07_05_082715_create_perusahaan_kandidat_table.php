@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('perusahaan_negara', function (Blueprint $table) {
-            $table->id('id_negara_perusahaan');
-            $table->string('nama_negara')->nullable();
+        Schema::create('perusahaan_kandidat', function (Blueprint $table) {
+            $table->id('id_pekerja_perusahaan');
+            $table->integer('id_kandidat')->nullable();
             $table->integer('id_perusahaan')->nullable();
-            $table->integer('negara_id')->nullable();
-            $table->string('mata_uang')->nullable();
+            $table->string('nama_pekerjaan')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('perusahaan_negara');
+        Schema::dropIfExists('perusahaan_kandidat');
     }
 };

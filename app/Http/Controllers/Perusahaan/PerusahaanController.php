@@ -34,7 +34,7 @@ class PerusahaanController extends Controller
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        $interview = Interview::where('status',"terjadwal")->get();        
+        $interview = Interview::where('status',"terjadwal")->where('id_perusahaan',$perusahaan->id_perusahaan)->get();        
         return view('perusahaan/index',compact('perusahaan','notif','interview','pesan'));
     }
 
@@ -489,12 +489,22 @@ class PerusahaanController extends Controller
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        $kandidat = Kandidat::where('penempatan','like','%'.$perusahaan->tmp_negara.'%')
-        ->get();        
+        $kandidat = Kandidat::where('id_perusahaan',$perusahaan->id_perusahaan)->get();        
         $isi = $kandidat->count();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         return view('perusahaan/kandidat/kandidat',compact('kandidat','perusahaan','isi','notif','pesan'));
+    }
+
+    public function pencarianKandidat()
+    {
+        $id = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
+        $kandidat = Kandidat::where('penempatan','like','%'.$perusahaan->penempatan_kerja.'%')->whereNull('id_perusahaan')->get();        
+        $isi = $kandidat->count();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        return view('perusahaan/kandidat/pencarian_kandidat',compact('kandidat','perusahaan','isi','notif','pesan'));
     }
 
     public function cariKandidat(Request $request)
@@ -574,13 +584,8 @@ class PerusahaanController extends Controller
         $info_kandidat = PengalamanKerja::where('id_kandidat',$id)->get();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        if($perusahaan->tmp_negara == "Dalam negeri"){
-            $semua_kandidat = Kandidat::where('kandidat.penempatan','dalam negeri')
-            ->where('kandidat.id_kandidat','not like',$id)->get();
-        } else {
-            $semua_kandidat = Kandidat::where('kandidat.penempatan','luar negeri')
-            ->where('kandidat.id_kandidat','not like',$id)->get();
-        }
+        $semua_kandidat = Kandidat::where('kandidat.penempatan','like','%'.$perusahaan->penempatan_kerja.'%')
+        ->where('kandidat.id_kandidat','not like',$id)->limit(12)->get();
         $usia = Carbon::parse($kandidat->tgl_lahir)->age;
         $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
         $interview = Interview::where('id_kandidat',$kandidat->id_kandidat)->first();

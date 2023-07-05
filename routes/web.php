@@ -268,7 +268,9 @@ Route::controller(PerusahaanController::class)->group(function(){
 
     // DATA KANDIDAT //
     Route::get('/perusahaan/list/kandidat','kandidat')->middleware('perusahaan');
-    Route::post('/perusahaan/list/kandidat','cariKandidat');
+    // Route::post('/perusahaan/list/kandidat','cariKandidat');
+    Route::get('/perusahaan/cari/kandidat','pencarianKandidat')->middleware('perusahaan');
+    Route::post('/perusahaan/cari/kandidat','cariKandidat');
     Route::post('/perusahaan/pilih/kandidat','pilihKandidat');
     Route::get('/perusahaan/lihat/kandidat/{id}','lihatProfilKandidat')->middleware('perusahaan');
     Route::get('/perusahaan/lihat/video_kandidat/{id}','lihatVideoKandidat')->middleware('perusahaan');
@@ -289,12 +291,16 @@ Route::controller(PerusahaanController::class)->group(function(){
 });
 
 Route::controller(PerusahaanRecruitmentController::class)->group(function() {
-    Route::get('/perusahaan/negara_tujuan','negaraTujuan');
-    Route::get('/perusahaan/tambah_negara','tambahNegaraTujuan');
-    Route::post('/perusahaan/tambah_negara','simpanNegaraTujuan');
+    Route::get('/perusahaan/negara_tujuan','negaraTujuan')->name('perusahaan.negara')->middleware('perusahaan');
+    Route::get('/perusahaan/tambah/negara','tambahNegaraTujuan');
+    Route::post('/perusahaan/tambah/negara','simpanNegaraTujuan');
     
-    Route::get('/perusahaan/tambah_pekerjaan','tambahPerusahaanJob');
-    Route::post('/perusahaan/tambah_pekerjaan','simpanPerusahaanJob');
+    Route::get('/perusahaan/pekerjaan/{id}/{nama}','lihatPerusahaanJob')->name('perusahaan.pekerjaan')->middleware('perusahaan');
+    Route::get('/perusahaan/tambah/pekerjaan/{id}/{nama}','tambahPerusahaanJob');
+    Route::post('/perusahaan/tambah/pekerjaan/{id}/{nama}','simpanPerusahaanJob');
+    Route::get('/perusahaan/edit/pekerjaan/{kerjaid}/{id}','editPerusahaanJob');
+    Route::post('/perusahaan/edit/pekerjaan/{kerjaid}/{id}','ubahPerusahaanJob');
+    Route::get('/perusahaan/hapus/pekerjaan/{kerjaid}','hapusPerusahaanJob');
 });
 
 // DATA KANDIDAT //
@@ -354,10 +360,16 @@ Route::controller(KandidatPerusahaanController::class)->group(function() {
     Route::post('/list_informasi_perusahaan','cari_perusahaan');
     Route::get('/profil_perusahaan/{id}','perusahaan')->middleware('kandidat');
     
+    Route::get('/lihat/perusahaan/pekerjaan/{negaraid}/{nama}','lihatPekerjaanPerusahaan');
+    Route::get('/detail_pekerjaan_perusahaan/{kerjaid}/{nama}','detailPekerjaanPerusahaan');
+    Route::post('/detail_pekerjaan_perusahaan/{kerjaid}/{nama}','terimaPekerjaanPerusahaan');
+    
     Route::get('/list_lowongan_pekerjaan','listLowonganPekerjaan')->middleware('kandidat');
     Route::get('/lihat_lowongan_pekerjaan/{id}','lowonganPekerjaan')->middleware('kandidat'); 
     Route::get('/permohonan_lowongan/{id}','permohonanLowongan')->middleware('kandidat');
     Route::post('/permohonan_lowongan/{id}','kirimPermohonan');
+
+
 });
 
 // data akun prioritas
@@ -378,10 +390,18 @@ Route::controller(NotifikasiController::class)->group(function() {
 // data login
 Route::controller(LoginController::class)->group(function() {
     Route::get('/login','loginSemua')->middleware('guest');
+    Route::post('/login','AuthenticateLogin');
+    
+    Route::get('/forgot_password','forgotPassword')->middleware('guest');
+    Route::post('/forgot_password','confirmAccountKandidat');
+    Route::get('/new_password','newPassword')->middleware('guest');
+    Route::post('/new_password','confirmPassword');
+
     Route::get('/login/migration','loginMigration')->middleware('guest');
     Route::post('/login/migration','checkLoginMigration');
+    Route::get('/login/migration/confirm', 'tambahLoginMigration');
     Route::post('/login/migration/confirm', 'confirmLoginMigration');
-    Route::post('/login','AuthenticateLogin');
+    
     Route::get('/login/kandidat','loginKandidat')->middleware('guest');
     Route::get('/login/akademi','loginAkademi')->middleware('guest');
     Route::get('/login/perusahaan','loginPerusahaan')->middleware('guest');

@@ -13,7 +13,7 @@
                                 <th style="width: 1px">No.</th>
                                 <th>Nama Perusahaan</th>
                                 <th>Lowongan Pekerjaan</th>
-                                <th>Tempat Perusahaan</th>
+                                <th>Tempat Kerja</th>
                                 <th>Lihat Lowongan</th>
                             </tr>
                         </thead>
@@ -25,7 +25,7 @@
                                         {{$item->nama_perusahaan}}
                                     </td>
                                     <td>{{$item->nama_lowongan}}</td>
-                                    <td>{{$item->tmp_negara}}</td>
+                                    <td>{{$item->penempatan_kerja}}</td>
                                     <td>
                                         <a class="btn btn-outline-primary" href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat Lowongan</a>
                                     </td>

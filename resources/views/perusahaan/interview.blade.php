@@ -5,7 +5,7 @@
         <div class="card">
             <div class="card-header">
                 <b style="text-transform:uppercase;">Jadwal Interview</b>
-                <a href="/perusahaan/list/kandidat" class="btn btn-primary float-right">Cari Kandidat</a>    
+                <a href="/perusahaan/cari/kandidat" class="btn btn-primary float-right">Cari Kandidat</a>    
             </div>
             <div class="card-body">
                 <div class="table-responsive">

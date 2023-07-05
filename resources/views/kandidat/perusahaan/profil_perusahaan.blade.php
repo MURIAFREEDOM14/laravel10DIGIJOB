@@ -1,5 +1,6 @@
 @extends('layouts.kandidat')
 @section('content')
+@include('sweetalert::alert')
 <div class="container mt-5">
     <div class="row">
         <div class="col-12">
@@ -72,6 +73,21 @@
                                         <hr>
                                         <b class="bold">Penempatan Kerja :</b>
                                         <p><b class="bold">{{$perusahaan->penempatan_kerja}}</b></p>
+                                        <hr>
+                                        <b class="bold">Negara Tujuan :</b>
+                                        <div class="row">
+                                        @foreach ($penempatan as $item)
+                                        <div class="col-4 text-center">
+                                            <a class="" href="/lihat/perusahaan/pekerjaan/{{$item->negara_id}}/{{$perusahaan->nama_perusahaan}}">
+                                                <div class="card">
+                                                    <div class="card-body btn btn-outline-success">
+                                                        <div class="btn">{{$item->nama_negara}}</div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>    
+                                        @endforeach
+                                        </div>
                                         <hr>
                                     </div>
                                 </div>

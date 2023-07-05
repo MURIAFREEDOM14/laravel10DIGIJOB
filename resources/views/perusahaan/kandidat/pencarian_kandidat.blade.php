@@ -4,7 +4,7 @@
 <div class="container mt-5">
     <div class="card">
         <div class="card-header">
-            <h4 class="float-left"><b class="bold">List Kandidat</b></h4>
+            <b class="bold">Pencarian Kandidat</b>
             <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#cari_kandidat">
                 <i class="fas fa-search"></i> Apa yang anda butuhkan?
             </button>    

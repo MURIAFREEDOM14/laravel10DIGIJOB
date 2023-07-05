@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id('id_pekerjaan');
             $table->string('nama_pekerjaan');
             $table->string('syarat_umur');
-            $table->enum('syarat_kelamin',[1,2,3]);
+            $table->enum('syarat_kelamin',['M','F','MF']);
             // 1 = laki, 2 = perempuan, 3 = laki dan perempuan
+            $table->integer('id_perusahaan')->nullable();
             $table->integer('negara_id');
             // $table->timestamps();
         });

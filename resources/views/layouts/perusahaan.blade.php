@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <title>DIGIJOB-UGIPORT</title>
@@ -326,17 +326,34 @@
                                 <li class="nav-item">
                                     <a href="/perusahaan/negara_tujuan">
                                         <i class="fas fa-layer-group"></i>
-                                        <p>Penempatan Luar Negeri</p>
+                                        <p>Penempatan Kerja</p>
                                     </a>
                                 </li>
                             @else
                                 
                             @endif
                             <li class="nav-item">
-                                <a href="/perusahaan/list/kandidat">
-                                    <i class="fas fa-layer-group"></i>
+                                <a data-toggle="collapse" href="#kandidat">
+                                    <i class="fas fa-flag"></i>
                                     <p>Data Kandidat</p>
+                                    <span class="caret"></span>
                                 </a>
+                                <div class="collapse" id="kandidat">
+                                    <ul class="nav nav-collapse">
+                                        <li>
+                                            <a href="/perusahaan/list/kandidat">
+                                                <i class="fas fa-layer-group"></i>
+                                                <p>Data Kandidat</p>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/perusahaan/cari/kandidat">
+                                                <i class="fas fa-layer-group"></i>
+                                                <p>Cari Kandidat</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
                             <li class="nav-item">
                                 <a  href="/perusahaan/list/akademi">

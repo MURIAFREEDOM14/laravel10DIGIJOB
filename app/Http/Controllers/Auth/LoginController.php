@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Kandidat;
 use Illuminate\Support\Str;
-use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -50,18 +50,46 @@ class LoginController extends Controller
         return view('auth/login_semua');
     }
 
-    public function loginKandidat()
+    public function forgotPassword()
     {
-        return view('/auth/login_kandidat');
+        return view('auth/forgot_password');
     }
-    public function loginAkademi()
+
+    public function confirmAccountKandidat(Request $request)
     {
-        return view('/auth/login_akademi');
+        $user = User::where('name',$request->name)
+        ->where('no_telp',$request->no_telp)
+        ->where('email',$request->email)->first();
+        if($user !== null){
+            return view('auth/new_password',compact('user'));
+        } else {
+            return redirect()->back()->with('error',"Maaf data anda belum ada. Harap register");
+        }
     }
-    public function loginPerusahaan()
+
+    public function confirmPassword(Request $request)
     {
-        return view('/auth/login_perusahaan');
+        $password = Hash::make($request->password); 
+        $user = User::where('email',$request->email)->update([
+            'password' => $password,
+        ]);
+        $userLogin = User::where('email',$request->email)->first();
+        Auth::login($userLogin);
+        return redirect('/');
     }
+
+    // public function loginKandidat()
+    // {
+    //     return view('/auth/login_kandidat');
+    // }
+    // public function loginAkademi()
+    // {
+    //     return view('/auth/login_akademi');
+    // }
+    // public function loginPerusahaan()
+    // {
+    //     return view('/auth/login_perusahaan');
+    // }
 
     public function AuthenticateLogin(Request $request)
     {
@@ -82,31 +110,33 @@ class LoginController extends Controller
 
     public function loginMigration()
     {
-        $data = null;
-        return view('/auth/login_migration',compact('data'));
+        $user = null;
+        return view('/auth/login_migration',compact('user'));
     }
 
     public function checkLoginMigration(Request $request)
     {
-        $user = User::where('type',0)->whereNull('password')->get();
-        foreach($user as $key)
-        {
-            if($request->nik == $key->nik && $request->email == $key->email){
-                $data = Kandidat::where('nik',$request->nik)->first();
+        $kandidat = Kandidat::where('email',$request->email)->where('nik',$request->nik)->first();
+        if($kandidat !== null){
+            $user = User::where('email',$request->email)->first();
+            if($user == null){
+                return view('/auth/login_find_migration',compact('kandidat'));
             } else {
-                $data = null;
+                return redirect('/login/migration')->with('error',"Maaf Data anda sudah ada. Harap Login");
             }
-        }
-        if($data !== null){
-            return view('/auth/login_find_migration',compact('data'));
         } else {
             return redirect('/login/migration')->with('error',"Maaf anda belum terdaftar. Harap Register");
         }
     }
 
+    public function tambahLoginMigration()
+    {
+        return redirect()->back();
+    }
+
     public function confirmLoginMigration(Request $request)
     {
-        $kandidat = Kandidat::where('no_telp',$request->no_telp)->first();
+        $kandidat = Kandidat::where('email',$request->email)->first();
         $token = Str::random(64).$request->no_telp;
         $user = User::create([
             'name' => $kandidat->nama,

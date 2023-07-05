@@ -12,6 +12,11 @@ use App\Models\Perusahaan;
 use App\Models\messageKandidat;
 use App\Models\LowonganPekerjaan;
 use App\Models\PermohonanLowongan;
+use App\Models\PerusahaanNegara;
+use App\Models\Pekerjaan;
+use App\Models\Negara;
+use App\Models\PekerjaPerusahaan;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class KandidatPerusahaanController extends Controller
 {
@@ -21,7 +26,7 @@ class KandidatPerusahaanController extends Controller
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         $notif = notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
-        $perusahaan = Perusahaan::where('negara_id','like','%'.$kandidat->negara_id.'%')->whereNotNull('email_operator')->get();
+        $perusahaan = Perusahaan::where('penempatan_kerja','like','%'.$kandidat->penempatan.'%')->whereNotNull('email_operator')->get();
         $cari_perusahaan = null;
         return view('kandidat/perusahaan/list_informasi_perusahaan',compact('kandidat','perusahaan','notif','pesan','cari_perusahaan'));
     }
@@ -36,9 +41,9 @@ class KandidatPerusahaanController extends Controller
         $lowongan = LowonganPekerjaan::all();
         $cari_perusahaan = Perusahaan::where('referral_code',$request->referral_code)->whereNotNull('email_operator')->first();
         if($kandidat->negara_id == null){
-            $perusahaan = Perusahaan::where('tmp_negara','Dalam negeri')->limit(5)->get();    
+            $perusahaan = Perusahaan::where('penempatan_kerja','Dalam negeri')->limit(5)->get();    
         } else {
-            $perusahaan = Perusahaan::where('negara_id','like',"%".$kandidat->negara_id."%")->whereNotNull('email_operator')->limit(5)->get();
+            $perusahaan = Perusahaan::where('penempatan_kerja','like',"%".$kandidat->penempatan."%")->whereNotNull('email_operator')->limit(5)->get();
         }
         return view('kandidat/perusahaan/list_informasi_perusahaan',compact('kandidat','notif','perusahaan','pembayaran','pesan','lowongan','cari_perusahaan'));
     }
@@ -52,7 +57,51 @@ class KandidatPerusahaanController extends Controller
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
         $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
-        return view('kandidat/perusahaan/profil_perusahaan',compact('kandidat','perusahaan','notif','pembayaran','pesan','lowongan'));
+        $penempatan = PerusahaanNegara::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        return view('kandidat/perusahaan/profil_perusahaan',compact('kandidat','perusahaan','notif','pembayaran','pesan','lowongan','penempatan'));
+    }
+
+    public function lihatPekerjaanPerusahaan($negaraid,$nama)
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        $perusahaan = Perusahaan::where('nama_perusahaan',$nama)->first();
+        $pekerjaan = Pekerjaan::where('negara_id',$negaraid)->where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        $negara = Negara::where('negara_id',$negaraid)->first();
+        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
+        return view('kandidat/perusahaan/perusahaan_pekerjaan',compact('kandidat','perusahaan','pekerjaan','notif','pesan','negara','nama'));
+    }
+
+    public function detailPekerjaanPerusahaan($kerjaid,$nama)
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        $pekerjaan = Pekerjaan::where('id_pekerjaan',$kerjaid)->first();
+        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
+        return view('kandidat/perusahaan/detail_pekerjaan',compact('kandidat','pekerjaan','notif','pesan'));
+    }
+
+    public function terimaPekerjaanPerusahaan(Request $request, $kerjaid, $nama)
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        $perusahaan = Perusahaan::where('nama_perusahaan',$nama)->first();
+        $pekerjaan = Pekerjaan::where('id_pekerjaan',$kerjaid)->first();
+        
+        PekerjaPerusahaan::create([
+            'id_kandidat' => $kandidat->id_kandidat,
+            'id_perusahaan' => $perusahaan->id_perusahaan,
+            'nama_pekerjaan' => $pekerjaan->nama_pekerjaan,
+        ]);
+
+        Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
+            'id_perusahaan' => $perusahaan->id_perusahaan,
+            'jabatan_kandidat' => $pekerjaan->nama_pekerjaan,
+        ]);
+        Alert::success('Selamat',"Anda telah masuk dalam Perusahaan ".$nama);
+        return redirect('/profil_perusahaan/'.$perusahaan->id_perusahaan);
     }
 
     public function listLowonganPekerjaan()

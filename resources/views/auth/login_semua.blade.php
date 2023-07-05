@@ -24,9 +24,9 @@
                                 </div>
                             </div>
                         </div>
+                        <div class=""><a href="/forgot_password" class="btn btn-link mb-5">Lupa Password</a></div>
                         <div class="">Sudah Pernah Terdaftar?<a class="btn btn-link" href="/login/migration">Aktifkan Akun</a></div>                        
-                        <div class="mb-3">Belum punya akun?<button type="button" class="btn btn-link mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Daftar yuk!!</button></div>
-                        {{-- <a href="/laman" class="btn btn-secondary float-left ml-2">Kembali</a> --}}
+                        <div class="">Belum punya akun?<button type="button" class="btn btn-link mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Daftar yuk!!</button></div>
                         <button type="submit" class="btn btn-primary float-right mr-2">Masuk</button>
                     </form> 
                 </div>

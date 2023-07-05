@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Kandidat;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class HomeController extends Controller
 {
