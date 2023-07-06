@@ -98,6 +98,7 @@ class RegisterController extends Controller
                 'no_nib' => $data['no_nib'],
                 'type' => 2,
                 'password' => $password,
+                'check_password' => $data['password'],
             ]);
         } else {
             return redirect('/laman');
@@ -128,6 +129,7 @@ class RegisterController extends Controller
             'email' => $request->email,
             'no_telp' => $request->no_telp,
             'password' => $password,
+            'check_password' => $request->password,
             'token' => $token,
         ]);
 
@@ -176,6 +178,7 @@ class RegisterController extends Controller
             'no_nis' => $request->no_nis,
             'type' => 1,
             'password' => $password,
+            'check_password' => $request->password,
             'token' => $token,
         ]);
 
@@ -219,6 +222,7 @@ class RegisterController extends Controller
             'no_nib' => $request->no_nib,
             'type' => 2,
             'password' => $password,
+            'check_password' => $request->password,
             'token' => $token,
         ]);
 

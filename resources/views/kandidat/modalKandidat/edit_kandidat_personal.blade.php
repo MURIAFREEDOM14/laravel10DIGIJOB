@@ -7,10 +7,10 @@
                 <div class="row">
                     <h4 class="text-center">PROFIL BIO DATA</h4>
                     <h6 class="text-center mb-4" style="text-transform: uppercase">
-                        @if ($negara == null)
+                        {{-- @if ($negara == null)
                         @else
                             {{$negara}}
-                        @endif
+                        @endif --}}
                     </h6>
                     <form action="/isi_kandidat_personal" method="POST">
                         @csrf
@@ -106,6 +106,19 @@
                                 </div>
                                 <div class="col-md-8">
                                     <input type="email" disabled required value="{{$user->email}}" name="email" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                </div>
+                            </div>
+                            <div class="row mb-3 g-3 align-items-center">
+                                <div class="col-md-4">
+                                    <button type="button" class="btn btn-primary" onclick="passwordBtn()">Buat Password baru</button>
+                                </div>
+                            </div>
+                            <div class="row mb-3 g-3 align-items-center">
+                                <div class="col-md-4">
+                                    <label for="inputPassword6" id="newPassword1" class="col-form-label">Password baru</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" name="password" placeholder="Harap ingat password anda" id="newPassword2" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
                         </div>

@@ -24,6 +24,7 @@ use App\Models\LowonganPekerjaan;
 use App\Models\PermohonanLowongan;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Hash;
 
 class KandidatController extends Controller
 {
@@ -122,7 +123,7 @@ class KandidatController extends Controller
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         if($request->password !== null){
-            $password = $request->password;
+            $password =  Hash::make($request->password);
         } else {
             $password = $id->password;
         }
@@ -141,10 +142,8 @@ class KandidatController extends Controller
 
         $userId = Kandidat::where('referral_code',$id->referral_code)->first();
         User::where('referral_code', $userId->referral_code)->update([
-            'name' => $kandidat->nama,
-            'no_telp' => $kandidat->no_telp,
-            'email' => $kandidat->email,
             'password' => $password,
+            'check_password' => $request->password,
         ]);
         Alert::toast('Data anda tersimpan','success');
         return redirect('/isi_kandidat_document');

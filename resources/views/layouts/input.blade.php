@@ -16,6 +16,12 @@
           width: 100%;
           height: auto;
         }
+        #newPassword1{
+          display: none;
+        }
+        #newPassword2{
+          display: none;
+        }
       </style>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     </head>
@@ -146,6 +152,18 @@
                 swal.close();
             }
         });
+      }
+
+      function passwordBtn(){
+        var x = document.getElementById('newPassword1');
+        var y = document.getElementById('newPassword2')
+        if (x.style.display === 'block' && y.style.display === 'block') {
+          x.style.display = 'none';
+          y.style.display = 'none';
+        } else {
+          x.style.display = 'block';
+          y.style.display = 'block';
+        }
       }
       </script>
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>

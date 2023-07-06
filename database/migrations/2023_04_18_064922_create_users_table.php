@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('name_perusahaan')->nullable();
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('check_password');
             $table->string('referral_code')->nullable()->unique();
             // $table->timestamp('email_verified_at')->nullable();
             $table->tinyInteger('type')->default(0);

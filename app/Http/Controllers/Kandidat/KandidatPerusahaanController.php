@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Kandidat;
 use Illuminate\Support\Facades\Auth;
 use App\Models\notifyKandidat;
+use App\Models\notifyPerusahaan;
 use App\Models\Pembayaran;
 use App\Models\Perusahaan;
 use App\Models\messageKandidat;
@@ -99,6 +100,13 @@ class KandidatPerusahaanController extends Controller
         Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
             'id_perusahaan' => $perusahaan->id_perusahaan,
             'jabatan_kandidat' => $pekerjaan->nama_pekerjaan,
+        ]);
+        notifyPerusahaan::create([
+            'id_perusahaan' => $perusahaan->id_perusahaan,
+            'id_kandidat' => $kandidat->id_kandidat,
+            'isi' => "Kandidat baru telah masuk kedalam perusahaan anda",
+            'pengirim' => "System",
+            'url' => '/perusahaan/lihat/kandidat/'.$kandidat->id_kandidat,
         ]);
         Alert::success('Selamat',"Anda telah masuk dalam Perusahaan ".$nama);
         return redirect('/profil_perusahaan/'.$perusahaan->id_perusahaan);
