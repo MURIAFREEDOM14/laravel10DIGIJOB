@@ -51,7 +51,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="nama_panggilan" class="">{{ __('Username') }}</label>
+                                    <label for="nama_panggilan" class="">{{ __('Username / Nama Panggilan') }}</label>
                                     <input id="nama_panggilan" type="text" class="form-control @error('username') is-invalid @enderror" name="nama_panggilan" value="{{ old('nama_panggilan') }}" required autocomplete="nama_panggilan">
                                     @error('nama_panggilan')
                                         <span class="invalid-feedback" role="alert">
@@ -69,7 +69,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="email" class="">{{ __('Masukkan Password') }}</label>
+                                    <label for="email" class="">{{ __('Buat Password') }}</label>
                                     <input id="password" type="text" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" required autocomplete="password">
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
