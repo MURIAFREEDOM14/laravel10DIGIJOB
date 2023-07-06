@@ -252,7 +252,7 @@
                             <div class="info">
                                 <a data-toggle="collapse" class="btn" href="#collapseExample" aria-expanded="true">
                                     <span>
-                                        <span class="text1" style="text-transform: uppercase;"><b class="bold">{{$perusahaan->nama_perusahaan}}</b></span>
+                                        <span class="text1" style="text-transform: uppercase;"><b class="bold">{{$perusahaan->nama_perusahaan.' '.$perusahaan->penempatan_kerja}}</b></span>
                                         <span class="caret"></span>
                                     </span>
                                 </a>
@@ -278,6 +278,23 @@
                                                 <div class="link-collapse">Keluar <i class="fas fa-door-open float-right"></i></div>
                                             </a>
                                         </li>
+                                        <hr>
+                                        <li>
+                                            <a href="/perusahaan/tambah/cabang_data" class="dropdown-item">
+                                                <div class="link-collapse">Tambah Perusahaan <i class="fas fa-user-circle float-right"></i></div>
+                                            </a>
+                                        </li>
+                                        {{-- <li>
+                                            @foreach ($cabang as $item)
+                                                <a href="/perusahaan/ganti/cabang_perusahaan/{{$item->id_perusahaan_cabang}}" class="dropdown-item">
+                                                    <div class="link-collapse">
+                                                        <b class="bold">
+                                                            {{$item->nama_perusahaan.' '.$item->penempatan_kerja}}
+                                                        </b>  
+                                                    </div>
+                                                </a>
+                                            @endforeach
+                                        </li> --}}
                                     </ul>
                                 </div>
                             </div>
@@ -372,6 +389,14 @@
                                     <i class="fas fa-th-list"></i>
                                     <p>Data Pembayaran</p>
                                 </a>
+                            </li>
+                            <li class="nav-item">
+                                <div class="card" style="background-color: #1572e8">
+                                    <div class="card-body">
+                                        <b class="">Jika anda membutuhkan karyawan / staff pegawai</b>
+                                        <a class="btn btn-white" style="color: white" href="/perusaahan/">Klik Disini</a>
+                                    </div>
+                                </div>
                             </li>
                         </ul>
                     </div>

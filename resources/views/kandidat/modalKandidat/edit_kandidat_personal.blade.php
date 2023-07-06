@@ -110,7 +110,7 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <button type="button" class="btn btn-primary" onclick="passwordBtn()">Buat Password baru</button>
+                                    <button type="button" class="btn btn-primary" onclick="passwordBtn()">Ganti Password Baru</button>
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">

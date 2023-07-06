@@ -33,6 +33,21 @@
                                     @enderror    
                                 </div>
                                 <div class="mb-3">
+                                    <label for="inputPassword6" class="col-form-label">{{ __('Perusahaan Anda menempatkan pekerja di:') }}</label>
+                                    <select name="penempatan_kerja" class="form-select" required id="">
+                                        <option value="">-- Pilih Penempatan Kerja --</option>
+                                        <option value="Dalam negeri">Dalam Negeri</option>
+                                        <option value="Luar Negeri">Luar Negeri</option>
+                                    </select>
+                                </div>
+                                {{-- <div class="row mb-3 g-3 align-items-center">
+                                    <div class="col-md-4">
+                                    </div>
+                                    <div class="col-md-8">
+                                        
+                                    </div>
+                                </div> --}}
+                                <div class="mb-3">
                                     <label for="email" class="">{{ __('Email Address') }}</label>
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
                                     @error('email')
@@ -42,8 +57,17 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="password" class="">{{ __('Masukkan Password') }}</label>
+                                    <label for="password" class="">{{ __('Buat Password') }}</label>
                                     <input id="password" type="text" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" required autocomplete="password">
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="">{{ __('Konfirmasi Password') }}</label>
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="passwordConfirm" value="{{ old('password') }}" required autocomplete="password">
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

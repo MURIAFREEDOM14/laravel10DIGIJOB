@@ -14,6 +14,7 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\Akademi;
 use App\Models\Perusahaan;
+use App\Models\PerusahaanCabang;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -107,6 +108,10 @@ class RegisterController extends Controller
 
     public function kandidat(Request $request)
     {
+        if($request->password !== $request->passwordConfirm){
+            return back()->with('error',"Maaf konfirmasi password anda salah");
+        }
+
         $validated = $request->validate([
             'name' => 'required|max:255',
             'nik' => 'required|max:16|min:16|unique:kandidat',
@@ -162,6 +167,10 @@ class RegisterController extends Controller
 
     protected function akademi(Request $request)
     {
+        if($request->password !== $request->passwordConfirm){
+            return back()->with('error',"Maaf konfirmasi password anda salah");
+        }
+
         $validated = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|unique:users|max:255',
@@ -206,6 +215,10 @@ class RegisterController extends Controller
 
     protected function perusahaan(Request $request)
     {
+        if($request->password !== $request->passwordConfirm){
+            return back()->with('error',"Maaf konfirmasi password anda salah");
+        }
+
         $validated = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|unique:users|max:255',
@@ -224,6 +237,7 @@ class RegisterController extends Controller
             'password' => $password,
             'check_password' => $request->password,
             'token' => $token,
+            'penempatan_kerja' => $request->penempatan_kerja,
         ]);
 
         $id = $user->id;
@@ -234,10 +248,19 @@ class RegisterController extends Controller
         ]);
 
         Perusahaan::create([
-            'nama_perusahaan'=>$request->name,
-            'no_nib'=>$request->no_nib,
-            'referral_code'=>$userId,
-            'email_perusahaan'=>$request->email,
+            'nama_perusahaan' => $request->name,
+            'no_nib' => $request->no_nib,
+            'referral_code' => $userId,
+            'email_perusahaan' => $request->email,
+            'penempatan_kerja' => $request->penempatan_kerja,
+        ]);
+
+        PerusahaanCabang::create([
+            'nama_perusahaan' => $request->name,
+            'no_nib' => $request->no_nib,
+            'referral_code' => $userId,
+            'email_perusahaan' => $request->email,
+            'penempatan_kerja' => $request->penempatan_kerja,
         ]);
 
         Mail::send('mail.mail', ['token' => $token, 'nama' => $request->name], function($message) use($request){

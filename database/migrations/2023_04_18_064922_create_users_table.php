@@ -28,6 +28,7 @@ return new class extends Migration
             // users: 0 => User, 1 => Admin, 2 => Manager 
             $table->string('verify_confirmed')->nullable();
             $table->string('token')->nullable();
+            $table->enum('penempatan_kerja',['Dalam negeri','Luar negeri'])->nullable();
             // $table->rememberToken();
             $table->timestamps();
         });

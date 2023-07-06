@@ -228,7 +228,8 @@ Route::controller(AkademiKandidatController::class)->group(function() {
 // DATA PERUSAHAAN //
 Route::controller(PerusahaanController::class)->group(function(){
     Route::get('/perusahaan','index')->name('perusahaan')->middleware('perusahaan');
-    
+    Route::get('/perusahaan/ganti/cabang_perusahaan/{id}','gantiPerusahaan')->middleware('perusahaan');
+
     Route::get('/perusahaan/isi_perusahaan_data','isi_perusahaan_data')->name('perusahaan.data')->middleware('perusahaan');
     Route::post('/perusahaan/isi_perusahaan_data','simpan_perusahaan_data');
     
@@ -237,7 +238,16 @@ Route::controller(PerusahaanController::class)->group(function(){
     
     Route::get('/perusahaan/isi_perusahaan_operator','isi_perusahaan_operator')->name('perusahaan.operator')->middleware('perusahaan');
     Route::post('/perusahaan/isi_perusahaan_operator','simpan_perusahaan_operator');
+
+    Route::get('/perusahaan/tambah/cabang_data','tambahCabangData')->name('cabang.data');
+    Route::post('/perusahaan/tambah/cabang_data','simpanCabangData');
     
+    Route::get('/perusahaan/tambah/cabang_alamat','tambahCabangAlamat')->name('cabang.alamat');
+    Route::post('/perusahaan/tambah/cabang_alamat','simpanCabangAlamat');
+    
+    Route::get('/perusahaan/tambah/cabang_operator','tambahCabangOperator')->name('cabang.operator');
+    Route::post('/perusahaan/tambah/cabang_operator','simpanCabangOperator');
+
     Route::get('/perusahaan/lihat/perusahaan','profil')->middleware('perusahaan');    
     Route::get('/contact_us_perusahaan','contactUsPerusahaan')->middleware('perusahaan');
     
