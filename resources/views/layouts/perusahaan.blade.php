@@ -252,7 +252,7 @@
                             <div class="info">
                                 <a data-toggle="collapse" class="btn" href="#collapseExample" aria-expanded="true">
                                     <span>
-                                        <span class="text1" style="text-transform: uppercase;"><b class="bold">{{$perusahaan->nama_perusahaan.' '.$perusahaan->penempatan_kerja}}</b></span>
+                                        <span class="text1" style="text-transform: uppercase;"><b class="bold">{{$perusahaan->nama_perusahaan}}</b></span>
                                         <span class="caret"></span>
                                     </span>
                                 </a>
@@ -284,17 +284,17 @@
                                                 <div class="link-collapse">Tambah Perusahaan <i class="fas fa-user-circle float-right"></i></div>
                                             </a>
                                         </li>
-                                        {{-- <li>
+                                        <li>
                                             @foreach ($cabang as $item)
                                                 <a href="/perusahaan/ganti/cabang_perusahaan/{{$item->id_perusahaan_cabang}}" class="dropdown-item">
                                                     <div class="link-collapse">
                                                         <b class="bold">
-                                                            {{$item->nama_perusahaan.' '.$item->penempatan_kerja}}
+                                                            {{$item->nama_perusahaan}} <span class="badge badge-pill badge-primary">{{$item->penempatan_kerja}}</span>
                                                         </b>  
                                                     </div>
                                                 </a>
                                             @endforeach
-                                        </li> --}}
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

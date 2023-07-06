@@ -237,7 +237,6 @@ class RegisterController extends Controller
             'password' => $password,
             'check_password' => $request->password,
             'token' => $token,
-            'penempatan_kerja' => $request->penempatan_kerja,
         ]);
 
         $id = $user->id;

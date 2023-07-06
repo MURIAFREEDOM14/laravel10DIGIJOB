@@ -20,7 +20,7 @@
                                     <label for="inputPassword6" class="col-form-label">Nama Perusahaan</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" disabled required value="{{$perusahaan->nama_perusahaan}}" name="nama_perusahaan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input type="text" required value="{{$perusahaan->nama_perusahaan}}" name="nama_perusahaan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">

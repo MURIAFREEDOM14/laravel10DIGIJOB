@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('perusahaan_cabang', function (Blueprint $table) {
             $table->id('id_perusahaan_cabang');
-            $table->id('id_perusahaan')->nullable();
+            $table->integer('id_perusahaan')->nullable();
             $table->string('nama_perusahaan');
             $table->integer('no_nib');
             $table->string('email_perusahaan');

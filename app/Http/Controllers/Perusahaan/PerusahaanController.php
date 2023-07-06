@@ -77,6 +77,19 @@ class PerusahaanController extends Controller
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->first();
+        // if ($cabang->penempatan_kerja !== $perusahaan->penempatan_kerja) {
+        //     if($cabang->penempatan_kerja == $perusahaan->penempatan_kerja){
+        //         PerusahaanCabang::create([
+        //             'id_perusahaan' => $perusahaan->id_perusahaan,
+        //             'nama_perusahaan' => $perusahaan->nama_perusahaan,
+        //             'no_nib' => $perusahaan->no_nib,
+        //             'referral_code' => $perusahaan->referral_code,
+        //             'email_perusahaan' => $perusahaan->email_perusahaan,
+        //             'penempatan_kerja' => $perusahaan->penempatan_kerja,
+        //         ]);
+        //     }
+        // }
         return view('perusahaan/isi_perusahaan_data',compact('perusahaan'));
     }
 
@@ -339,7 +352,7 @@ class PerusahaanController extends Controller
         
         PerusahaanCabang::create([
             'id_perusahaan' => $perusahaan->id_perusahaan,
-            'nama_perusahaan' => $perusahaan->nama_perusahaan,
+            'nama_perusahaan' => $request->nama_perusahaan,
             'no_nib' => $perusahaan->no_nib,
             'referral_code' => $perusahaan->referral_code,
             'email_perusahaan' => $perusahaan->email_perusahaan,

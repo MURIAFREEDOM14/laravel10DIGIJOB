@@ -11,12 +11,14 @@
                     <div class="card-body">
                         @if(auth()->user()->token == null)
                             <div class="text-center">
-                                <div class="mb-3"> verifikasi diri anda</div>
-                                <a href="/ulang_verifikasi">kirim email verifikasi</a>
+                                <div class="mb-3"> Verifikasi diri anda</div>
+                                <a href="/ulang_verifikasi">Kirim email verifikasi</a>
                             </div>
                         @else
                             <div class="mb-3">cek email anda untuk verifikasi</div>
-                            <div class="">apakah anda belum mendapatkan pesan verifikasi? <a href="/ulang_verifikasi">tekan untuk kirim ulang</a></div>
+                            <div class="mb-1">Email Anda : {{auth()->user()->email}}</div>
+                            <div class="mb-3">Apakah alamat email anda salah? Harap untuk hubungi admin</div>
+                            <div class="">Apakah anda belum mendapatkan pesan verifikasi? <a href="/ulang_verifikasi">tekan untuk kirim ulang</a></div>
                         @endif
                     </div>
                 </div>
