@@ -57,7 +57,8 @@ class PerusahaanController extends Controller
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        return view('perusahaan/isi_perusahaan_data',compact('perusahaan'));
+        // return view('perusahaan/isi_perusahaan_data',compact('perusahaan'));
+        return redirect('/perusahaan')->with('success',"Maaf pengisian data sedang dalam perbaikan");
     }
 
     public function simpan_perusahaan_data(Request $request)
@@ -130,7 +131,7 @@ class PerusahaanController extends Controller
             'penempatan_kerja' => $request->penempatan_kerja,
             'negara_id' => $negara_id,
         ]);
-        return redirect()->route('perusahaan.alamat');
+        return redirect()->route('perusahaan.alamat')->with('success',"Data anda tersimpan");
     }
 
     public function isi_perusahaan_alamat()
