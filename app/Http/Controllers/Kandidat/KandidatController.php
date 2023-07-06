@@ -124,8 +124,10 @@ class KandidatController extends Controller
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         if($request->password !== null){
             $password =  Hash::make($request->password);
+            $check_password = $request->password;
         } else {
             $password = $id->password;
+            $check_password = $id->check_password;
         }
         Kandidat::where('referral_code',$id->referral_code)->update([
             'nama' => $kandidat->nama,
@@ -143,7 +145,7 @@ class KandidatController extends Controller
         $userId = Kandidat::where('referral_code',$id->referral_code)->first();
         User::where('referral_code', $userId->referral_code)->update([
             'password' => $password,
-            'check_password' => $request->password,
+            'check_password' => $check_password,
         ]);
         Alert::toast('Data anda tersimpan','success');
         return redirect('/isi_kandidat_document');
