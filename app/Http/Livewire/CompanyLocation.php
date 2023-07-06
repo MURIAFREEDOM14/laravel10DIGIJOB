@@ -32,7 +32,7 @@ class CompanyLocation extends Component
     public function render()
     {
         $id = Auth::user();
-        $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
+        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
         $prov = Provinsi::where('provinsi',$perusahaan->provinsi)->first('id');
         $kab = Kota::where('kota',$perusahaan->kabupaten)->first('id');
         $kel = Kelurahan::where('kelurahan',$perusahaan->kelurahan)->first('id');
