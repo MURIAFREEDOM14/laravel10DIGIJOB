@@ -391,13 +391,25 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <div class="card" style="background-color: #1572e8">
-                                    <div class="card-body">
-                                        <b class="">Jika anda membutuhkan karyawan / staff pegawai</b>
-                                        <a class="btn btn-white" style="color: white" href="/perusaahan/">Klik Disini</a>
-                                    </div>
-                                </div>
+                                <a  href="/perusahaan/pencarian/staff">
+                                    <i class="fas fa-th-list"></i>
+                                    <p>Pencarian Staff</p>
+                                </a>
                             </li>
+                            @if($perusahaan->no_nib !== 45786453)
+                                <li class="nav-item my-3">
+                                    <div class="card" style="background-color: #1572e8">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <b class="">Jika anda membutuhkan karyawan / staff pegawai</b>
+                                                    <a href="/perusahaan/cari_kandidat_staff" style="color: white; font-weight:600"><i class="fas fa-search" style="color: white"></i> Klik disini </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                 </div>

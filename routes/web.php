@@ -311,6 +311,11 @@ Route::controller(PerusahaanRecruitmentController::class)->group(function() {
     Route::get('/perusahaan/edit/pekerjaan/{kerjaid}/{id}','editPerusahaanJob');
     Route::post('/perusahaan/edit/pekerjaan/{kerjaid}/{id}','ubahPerusahaanJob');
     Route::get('/perusahaan/hapus/pekerjaan/{kerjaid}','hapusPerusahaanJob');
+
+    Route::get('/perusahaan/cari_kandidat_staff','cariKandidatStaff');
+    Route::post('/perusahaan/cari_kandidat_staff','pencarianKandidatStaff');
+
+    Route::get('/perusahaan/permohonan_pencarian_staff','permohonanPencarianStaff');
 });
 
 // DATA KANDIDAT //

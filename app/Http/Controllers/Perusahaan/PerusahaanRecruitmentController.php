@@ -13,7 +13,9 @@ use App\Models\notifyPerusahaan;
 use App\Models\messagePerusahaan;
 use App\Models\LowonganPekerjaan;
 use App\Models\PMIID;
-use App\Models\PermohonanLowongan;
+use App\Models\PencarianStaff;
+use App\Models\Provinsi;
+use App\Models\Kota;
 
 class PerusahaanRecruitmentController extends Controller
 {
@@ -111,5 +113,46 @@ class PerusahaanRecruitmentController extends Controller
     {
         Pekerjaan::where('id_pekerjaan',$kerjaid)->delete();
         return back()->with('toast_success','Pekerjaan Berhasil Dihapus');
+    }
+
+    public function cariKandidatStaff()
+    {
+        $id = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        return view('perusahaan/kandidat/cari_staff',compact('perusahaan','notif','pesan'));
+    }
+
+    public function pencarianKandidatStaff(Request $request)
+    {
+        $id = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
+        $provinsi = Provinsi::where('provinsi_id',$request->provinsi_id)->first();
+        $kota = Kota::where('kota_id',$request->kota_id)->first();
+        $domisili = $kota->kota.','.$provinsi->provinsi;
+        PencarianStaff::create([
+            'id_perusahaan' => $perusahaan->id_perusahaan,
+            'usia' => $request->usia,
+            'syarat_kelamin' => $request->jenis_kelamin,
+            'pendidikan' => $request->pendidikan,
+            'tinggi' => $request->tinggi,
+            'berat' => $request->berat,
+            'domisili' => $domisili,
+            'lama_pengalaman' => $request->pengalaman,
+            'jml_kebutuhan' => $request->jml_kebutuhan,
+        ]);
+        notifyPerusahaan::create([
+            'id_perusahaan' => $perusahaan->id_perusahaan,
+            'isi' => "Anda mendapat permintaan dari Perusahaan".$perusahaan->nama_perusahaan,
+            'pengirim' => $perusahaan->nama_perusahaan,
+            'url' => null,
+        ]);
+        return redirect()->with('success',"Permintaan anda telah Terkirim. Harap tunggu");
+    }
+
+    public function permohonanPencarianStaff()
+    {
+        return view('perusahaan/kandidat/permohonan_pencarian');
     }
 }
