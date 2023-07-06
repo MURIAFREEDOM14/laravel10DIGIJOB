@@ -57,8 +57,7 @@ class PerusahaanController extends Controller
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        // return view('perusahaan/isi_perusahaan_data',compact('perusahaan'));
-        return redirect('/perusahaan')->with('warning',"Maaf pengisian data sedang dalam perbaikan");
+        return view('perusahaan/isi_perusahaan_data',compact('perusahaan'));
     }
 
     public function simpan_perusahaan_data(Request $request)
