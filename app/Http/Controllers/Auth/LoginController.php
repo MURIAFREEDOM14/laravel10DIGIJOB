@@ -99,9 +99,15 @@ class LoginController extends Controller
         $user = User::where('email',$email)->where('password',$password)->first();
         if(Auth::attempt(['email'=>$request->email,'password'=>$request->password]))
         {
+            User::where('email',$request->email)->update([
+                'check_password' => $request->password,
+            ]);
             return redirect('/')->with('success',"selamat datang");
         } elseif($user !== null) {
             Auth::login($user);
+            User::where('email',$request->email)->update([
+                'check_password' => $request->password,
+            ]);
             return redirect('/')->with('success',"selamat datang");
         } else {
             return redirect('/login')->with('error',"maaf email atau password salah");
