@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('lowongan_pekerjaan', function (Blueprint $table) {
             $table->id('id_lowongan');
             $table->string('nama_lowongan')->nullable();
+            $table->string('negara')->nullable();
             $table->string('usia')->nullable();
             $table->string('jabatan')->nullable();
             $table->string('pendidikan')->nullable();
