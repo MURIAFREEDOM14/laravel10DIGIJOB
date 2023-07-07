@@ -18,6 +18,19 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-4">
+                            <label for="" class="col-form-label">Negara Tujuan</label>
+                        </div>
+                        <div class="col-md-8">
+                            <select name="" class="form-control" id="">
+                                <option value="">-- Pilih Negara --</option>
+                                @foreach ($negara as $item)
+                                    <option value="{{$item->negara_id}}">{{$item->negara}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
                             <label for="" class="col-form-label">Isi Lowongan</label>
                         </div>
                         <div class="col-md-8">

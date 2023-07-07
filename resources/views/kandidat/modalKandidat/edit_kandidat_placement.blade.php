@@ -6,9 +6,9 @@
         <div class="card-body">
             <div class="row">
                 <h4 class="text-center">PROFIL BIO DATA</h4>
-                <h6 class="text-center mb-5" style="text-transform: uppercase">
+                {{-- <h6 class="text-center mb-5" style="text-transform: uppercase">
                     {{$negara}}
-                </h6>
+                </h6> --}}
                 <div class="" id="perizin">
                     <div class="row mb-1">
                         <div class="col-md-12">

@@ -6,9 +6,9 @@
         <div class="card-body">
             <div class="row">
                 <h4 class="text-center">PROFIL BIO DATA</h4>
-                <h6 class="text-center mb-5" style="text-transform: uppercase">
+                {{-- <h6 class="text-center mb-5" style="text-transform: uppercase">
                     {{$negara}}
-                </h6>
+                </h6> --}}
                 <form action="/isi_kandidat_parent" method="POST">
                     @csrf
                     <div class="" id="parent">
@@ -27,7 +27,10 @@
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="inputPassword6" class="col-form-label">Tanggal Lahir Ayah</label>
+                                <label for="inputPassword6" class="col-form-label">Tempat / Tanggal Lahir Ayah</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" placeholder="Masukkan Tempat Lahir" required value="{{$kandidat->tmp_lahir_ayah}}" name="tmp_lahir_ayah" class="form-control" id="">
                             </div>
                             <div class="col-md-4">
                                 <input type="date" required value="{{$kandidat->tgl_lahir_ayah}}" name="tgl_lahir_ayah" class="form-control" id="">
@@ -60,7 +63,10 @@
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="inputPassword6" class="col-form-label">Tanggal Lahir Ibu</label>
+                                <label for="inputPassword6" class="col-form-label">Tempat / Tanggal Lahir Ibu</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" placeholder="Masukkan Tempat Lahir" required value="{{$kandidat->tmp_lahir_ibu}}" name="tmp_lahir_ibu" class="form-control" id="">
                             </div>
                             <div class="col-md-4">
                                 <input type="date" required value="{{$kandidat->tgl_lahir_ibu}}" name="tgl_lahir_ibu" class="form-control" id="">

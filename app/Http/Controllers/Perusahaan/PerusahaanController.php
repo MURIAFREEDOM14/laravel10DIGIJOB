@@ -449,7 +449,8 @@ class PerusahaanController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        return view('perusahaan/tambah_lowongan',compact('perusahaan','notif','pesan','cabang'));
+        $negara = Negara::where('negara_id','not like',2)->get();
+        return view('perusahaan/tambah_lowongan',compact('perusahaan','notif','pesan','cabang','negara'));
     }
 
     public function simpanLowongan(Request $request)

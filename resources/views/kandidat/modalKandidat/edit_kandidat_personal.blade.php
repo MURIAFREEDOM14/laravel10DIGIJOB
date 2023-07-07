@@ -6,12 +6,12 @@
             <div class="card-body">
                 <div class="row">
                     <h4 class="text-center">PROFIL BIO DATA</h4>
-                    <h6 class="text-center mb-4" style="text-transform: uppercase">
-                        {{-- @if ($negara == null)
+                    {{-- <h6 class="text-center mb-4" style="text-transform: uppercase">
+                        @if ($negara == null)
                         @else
                             {{$negara}}
-                        @endif --}}
-                    </h6>
+                        @endif
+                    </h6> --}}
                     <form action="/isi_kandidat_personal" method="POST">
                         @csrf
                         <div class="" id="personal_biodata">

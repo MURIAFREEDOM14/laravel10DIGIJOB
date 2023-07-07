@@ -163,7 +163,7 @@
                     <b class="bold">: Dusun</b>
                 </div>
                 <div class="col-8">
-                    <b class="bold">: {{$kandidat->dusun_perizin}}</b>
+                    <b class="bold">: {{$kandidat->dusun}}</b>
                 </div>
             </div>
             <div class="row" style="line-height: 20px;">

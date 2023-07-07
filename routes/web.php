@@ -8,7 +8,6 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Manager\ManagerController;
 use App\Http\Controllers\Manager\Kandidat\ManagerKandidatController;
 use App\Http\Controllers\Manager\ContactUsController;
-use App\Http\Controllers\Manager\NoreplyController;
 use App\Http\Controllers\Kandidat\KandidatPerusahaanController;
 use App\Http\Controllers\Kandidat\KandidatController;
 use App\Http\Controllers\Perusahaan\PerusahaanController;
@@ -72,6 +71,13 @@ Route::controller(ManagerController::class)->group(function() {
     Route::get('/manager/cek_pembayaran/kandidat/{id}','cekPembayaranKandidat')->middleware('manager');
     Route::post('/manager/cek_pembayaran/kandidat/{id}','cekConfirmKandidat');
 
+    Route::get('/manager/permohonan_staff','permohonanStaff');
+    Route::get('/manager/lihat/permohonan_staff/{id}','lihatPermohonanStaff');
+    Route::post('/manager/lihat/permohonan_staff/{id}','simpanPermohonanStaff');
+
+    Route::get('/manager/pilih/permohonan_staff','pilihPermohonanStaff');
+    Route::post('/manager/pilih/permohonan_staff','kirimPermohonanStaff');
+
     // DATA AKADEMI //
     Route::get('/manager/akademi/list_akademi','akademi')->middleware('manager');
     Route::get('/manager/akademi/lihat_profil/{id}','lihatProfilAkademi')->middleware('manager');
@@ -118,9 +124,6 @@ Route::controller(ManagerKandidatController::class)->group(function() {
     
     Route::get('/manager/edit/kandidat/job/{id}','isi_job')->middleware('manager');
     Route::post('/manager/edit/kandidat/job/{id}','simpan_job');
-
-    Route::get('/manager/reset_kandidat','resetKandidat');
-    Route::post('/manager/reset_kandidat','resetDataKandidat');
 });
 
 Route::controller(ContactUsController::class)->group(function() {
@@ -146,10 +149,6 @@ Route::controller(ContactUsController::class)->group(function() {
     Route::get('/manager/contact_us_perusahaan','contactUsPerusahaanList')->middleware('contact.service');
     Route::get('/manager/lihat/contact_perusahaan/{id}','contactUsPerusahaanLihat')->middleware('contact.service');
     Route::post('/manager/lihat/contact_perusahaan/{id}','contactUsPerusahaanJawab');
-});
-
-Route::controller(NoreplyController::class)->group(function(){
-    Route::get('/manager/noreply','noreply');
 });
 
 // DATA LAMAN //
@@ -314,8 +313,6 @@ Route::controller(PerusahaanRecruitmentController::class)->group(function() {
 
     Route::get('/perusahaan/cari_kandidat_staff','cariKandidatStaff');
     Route::post('/perusahaan/cari_kandidat_staff','pencarianKandidatStaff');
-
-    Route::get('/perusahaan/permohonan_pencarian_staff','permohonanPencarianStaff');
 });
 
 // DATA KANDIDAT //

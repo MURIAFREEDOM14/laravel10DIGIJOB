@@ -17,6 +17,7 @@ use App\Models\PencarianStaff;
 use App\Models\Provinsi;
 use App\Models\Kota;
 use App\Models\PerusahaanCabang;
+use App\Models\Kandidat;
 
 class PerusahaanRecruitmentController extends Controller
 {
@@ -128,38 +129,33 @@ class PerusahaanRecruitmentController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        return view('perusahaan/kandidat/cari_staff',compact('perusahaan','notif','pesan','cabang'));
+        $isi = 0;
+        return view('perusahaan/kandidat/cari_staff',compact('perusahaan','notif','pesan','cabang','isi'));
     }
 
     public function pencarianKandidatStaff(Request $request)
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        $provinsi = Provinsi::where('provinsi_id',$request->provinsi_id)->first();
-        $kota = Kota::where('kota_id',$request->kota_id)->first();
-        $domisili = $kota->kota.','.$provinsi->provinsi;
-        PencarianStaff::create([
-            'id_perusahaan' => $perusahaan->id_perusahaan,
-            'usia' => $request->usia,
-            'syarat_kelamin' => $request->jenis_kelamin,
-            'pendidikan' => $request->pendidikan,
-            'tinggi' => $request->tinggi,
-            'berat' => $request->berat,
-            'domisili' => $domisili,
-            'lama_pengalaman' => $request->pengalaman,
-            'jml_kebutuhan' => $request->jml_kebutuhan,
-        ]);
-        notifyPerusahaan::create([
-            'id_perusahaan' => $perusahaan->id_perusahaan,
-            'isi' => "Anda mendapat permintaan dari Perusahaan".$perusahaan->nama_perusahaan,
-            'pengirim' => $perusahaan->nama_perusahaan,
-            'url' => null,
-        ]);
-        return redirect()->with('success',"Permintaan anda telah Terkirim. Harap tunggu");
-    }
+        $provinsi = Provinsi::where('id',$request->provinsi_id)->first();
+        $kota = Kota::where('id',$request->kota_id)->first();
+        $prov = $provinsi->provinsi;
+        $kab = $kota->kota;
 
-    public function permohonanPencarianStaff()
-    {
-        return view('perusahaan/kandidat/permohonan_pencarian');
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        $kandidat = Kandidat::
+        where('usia','>=',$request->usia)
+        ->where('jenis_kelamin','like','%'.$request->jenis_kelamin.'%')
+        ->where('pendidikan','like','%'.$request->pendidikan.'%')
+        ->where('tinggi','like','%'.$request->tinggi.'%')
+        ->where('berat','like','%'.$request->berat.'%')
+        ->where('provinsi','like','%'.$prov.'%')
+        ->where('kabupaten','like','%'.$kab.'%')
+        ->where('lama_kerja','like','%'.$request->pengalaman.'%')
+        ->get();
+        $isi = $kandidat->count();
+        return view('perusahaan/kandidat/cari_staff',compact('perusahaan','notif','pesan','cabang','isi'));
     }
 }

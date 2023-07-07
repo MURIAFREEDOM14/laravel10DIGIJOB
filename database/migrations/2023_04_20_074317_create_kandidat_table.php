@@ -79,9 +79,11 @@ return new class extends Migration
             $table->string('nama_ayah')->nullable();
             $table->string('umur_ayah')->nullable();
             $table->date('tgl_lahir_ayah')->nullable();
+            $table->tetx('tmp_lahir_ayah')->nullable();
             $table->string('nama_ibu')->nullable();
             $table->string('umur_ibu')->nullable();
             $table->date('tgl_lahir_ibu')->nullable();
+            $table->text('tmp_lahir_ibu')->nullable();
             $table->integer('jml_sdr_lk')->default(0);
             $table->integer('jml_sdr_pr')->default(0);
             $table->integer('rt_parent')->nullable();

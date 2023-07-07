@@ -14,13 +14,14 @@ return new class extends Migration
         Schema::create('pencarian_staff', function (Blueprint $table) {
             $table->id('pencarian_staff_id');
             $table->integer('id_perusahaan')->nullable();
+            $table->string('pekerjaan')->nullable();
             $table->integer('usia')->nullable();
             $table->enum('syarat_kelamin',['M','F','MF'])->nullable();
             $table->string('pendidikan')->nullable();
             $table->integer('tinggi')->nullable();
             $table->integer('berat')->nullable();
             $table->text('domisili')->nullable();
-            $table->integer('lama_pengalaman')->nullable();
+            $table->string('lama_pengalaman')->nullable();
             $table->integer('jml_kebutuhan')->nullable();
             $table->timestamps();
         });

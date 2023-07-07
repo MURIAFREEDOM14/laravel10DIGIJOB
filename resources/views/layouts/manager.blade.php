@@ -215,11 +215,11 @@
                                                 <span class="sub-item">Data Negara Tujuan</span>
                                             </a>
                                         </li>
-                                        <li>
+                                        {{-- <li>
                                             <a class="btn" href="/manager/pekerjaan">
                                                 <span class="sub-item">Data Pekerjaan</span>
                                             </a>
-                                        </li>
+                                        </li> --}}
                                         <li>
                                             <a class="btn" href="/manager/surat_izin">
                                                 <span class="sub-item">Data Surat izin</span>
@@ -231,10 +231,15 @@
                                             </a>
                                         </li>
                                         <li>
+                                            <a class="btn" href="/manager/permohonan_staff">
+                                                <span class="sub-item">Pencarian Kerja Staff</span>
+                                            </a>
+                                        </li>
+                                        {{-- <li>
                                             <a class="btn" href="/manager/reset_kandidat">
                                                 <span class="sub-item">Reset Data Kandidat</span>
                                             </a>
-                                        </li>
+                                        </li> --}}
                                     </ul>
                                 </div>
                             </li>
@@ -275,12 +280,6 @@
                                 <a class="btn" href="/manager/contact_us_admin">
                                     <i class="fas fa-th-list"></i>
                                     <p>Contact Us</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn" href="/manager/noreply">
-                                    <i class="fas fa-th-list"></i>
-                                    <p>Noreply</p>
                                 </a>
                             </li>
                         </ul>

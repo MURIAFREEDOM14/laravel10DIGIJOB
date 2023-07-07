@@ -28,6 +28,8 @@ use App\Models\messageAkademi;
 use App\Models\messagePerusahaan;
 use App\Models\Pelatihan;
 use App\Models\ContactUs;
+use App\Models\PencarianStaff;
+use App\Models\PerusahaanStaff;
 use Carbon\Carbon;
 
 class ManagerController extends Controller
@@ -187,28 +189,6 @@ class ManagerController extends Controller
         }
         $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
         $tgl_perizin = Carbon::create($kandidat->tgl_lahir_perizin)->isoFormat('D MMM Y');
-        // dd($tmp_user->cityName);
-        // if ($kandidat->periode_awal1 !== null) {
-        //     $periode_awal1 = Carbon::create($kandidat->periode_awal1)->isoFormat('D MMM Y');
-        //     $periode_akhir1 = Carbon::create($kandidat->periode_akhir1)->isoFormat('D MMM Y');
-        // } else {
-        //     $periode_awal1 = null;
-        //     $periode_akhir1 = null;
-        // }
-        // if ($kandidat->periode_awal2 !== null) {
-        //     $periode_awal2 = Carbon::create($kandidat->periode_awal2)->isoFormat('D MMM Y');
-        //     $periode_akhir2 = Carbon::create($kandidat->periode_akhir2)->isoFormat('D MMM Y');
-        // } else {
-        //     $periode_awal2 = null;
-        //     $periode_akhir2 = null;
-        // }
-        // if ($kandidat->periode_awal3 !== null){
-        //     $periode_awal3 = Carbon::create($kandidat->periode_awal3)->isoFormat('D MMM Y');
-        //     $periode_akhir3 = Carbon::create($kandidat->periode_akhir3)->isoFormat('D MMM Y');    
-        // } else {
-        //     $periode_awal3 = null;
-        //     $periode_akhir3 = null;
-        // }
         return view('manager/kandidat/cetak_surat', compact(
             'kandidat',
             'tgl_print',
@@ -231,39 +211,12 @@ class ManagerController extends Controller
         $kandidat = Kandidat::where('id_kandidat',$id)->first();
         $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
         $usia = Carbon::parse($kandidat->tgl_lahir)->age;
-        if ($kandidat->periode_awal1 !== null) {
-            $periode_awal1 = Carbon::create($kandidat->periode_awal1)->isoFormat('D MMM Y');
-            $periode_akhir1 = Carbon::create($kandidat->periode_akhir1)->isoFormat('D MMM Y');
-        } else {
-            $periode_awal1 = null;
-            $periode_akhir1 = null;
-        }
-        if ($kandidat->periode_awal2 !== null) {
-            $periode_awal2 = Carbon::create($kandidat->periode_awal2)->isoFormat('D MMM Y');
-            $periode_akhir2 = Carbon::create($kandidat->periode_akhir2)->isoFormat('D MMM Y');
-        } else {
-            $periode_awal2 = null;
-            $periode_akhir2 = null;
-        }
-        if ($kandidat->periode_awal3 !== null){
-            $periode_awal3 = Carbon::create($kandidat->periode_awal3)->isoFormat('D MMM Y');
-            $periode_akhir3 = Carbon::create($kandidat->periode_akhir3)->isoFormat('D MMM Y');    
-        } else {
-            $periode_awal3 = null;
-            $periode_akhir3 = null;
-        }
-        $pengalamanKerja = PengalamanKerja::where('id_kandidat',$id)->first();
+        $pengalamanKerja = PengalamanKerja::where('id_kandidat',$id)->get();
         return view('manager/kandidat/lihat_profil',compact(
             'kandidat',
             'negara',
             'tgl_user',
             'usia',
-            'periode_awal1',
-            'periode_akhir1',
-            'periode_awal2',
-            'periode_akhir2',
-            'periode_awal3',
-            'periode_akhir3',
             'manager',
             'pengalamanKerja',
         ));
@@ -441,6 +394,42 @@ class ManagerController extends Controller
         return redirect('/manager/kandidat/pelatihan');
     }
 
+    public function permohonanStaff()
+    {
+        $id = Auth::user();
+        $manager = User::where('type',3)->first();
+        $permohonan = PencarianStaff::join(
+            'perusahaan', 'pencarian_staff.id_perusahaan','=','perusahaan.id_perusahaan',
+        )->get();
+        return view('manager/kandidat/permohonan_staff',compact('manager','permohonan'));
+    }
+
+    public function lihatPermohonanStaff($id)
+    {
+        $user = Auth::user();
+        $manager = User::where('type',3)->first();
+        $permohonan = PencarianStaff::where('pencarian_staff_id',$id)->first();
+        $staff = Kandidat::where('penempatan','like',"dalam negeri")->get();
+        return view('manager/kandidat/lihat_permohonan_staff',compact('manager','permohonan','staff'));
+    }
+
+    public function simpanPermohonanStaff($id)
+    {
+        $kandidat = Kandidat::where('id_kandidat',$id)->first();
+        dd($kandidat);
+        return redirect('/perusahaan/permohonan_pencarian_staff')->with('success',"Staff Terkirim");
+    }
+
+    public function pilihPermohonanStaff()
+    {
+        return view();
+    }
+
+    public function kirimPermohonanStaff()
+    {
+        return redirect();
+    }
+    
     // Pembayaran Data //
     public function pembayaranKandidat()
     {

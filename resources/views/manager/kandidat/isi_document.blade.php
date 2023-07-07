@@ -46,12 +46,9 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="row mb-3 g-3 align-items-center">
-                                <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Alamat Lengkap</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input name="alamat" value="{{$kandidat->alamat}}" class="form-control" id="" cols="" rows="">
+                            <div class="row my-3 g-3 align-items-center">
+                                <div class="col">
+                                    <label for="" aria-colcount="col-form-label">Alamat</label>
                                 </div>
                             </div>
                             @livewire('manager.location')

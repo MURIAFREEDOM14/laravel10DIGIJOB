@@ -59,7 +59,7 @@
                         <div class="modal-header">
                             <h5 class="modal-title" id="staticBackdropLabel">Cari Kandidat</h5>
                         </div>
-                        <form action="/perusahaan/list/kandidat" method="POST">
+                        <form action="/perusahaan/cari/kandidat" method="POST">
                             @csrf
                             <div class="modal-body">
                                 <div class="row mb-3">

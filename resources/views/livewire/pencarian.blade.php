@@ -4,7 +4,7 @@
             <label for="inputPassword6" class="col-form-label">Provinsi</label>
         </div>
         <div class="col-md-8">
-            <select wire:model="kota" class="form-control" name="provinsi_id">
+            <select wire:model="kota" required class="form-control" name="provinsi_id">
                 <option value="">-- Pilih Provinsi --</option>
                 @foreach($provinsis as $item)
                     <option value="{{ $item->id }}">{{ $item->provinsi }}</option>
@@ -18,7 +18,7 @@
             <label for="inputPassword6" class="col-form-label">Kabupaten / Kota</label>
         </div>
         <div class="col-md-8">
-            <select class="form-control" wire:model="" name="kota_id">
+            <select class="form-control" required wire:model="" name="kota_id">
                 @if (!is_null($kota))
                     <option value="">-- Pilih Kabupaten / Kota --</option>
                     @foreach($kotas as $item)

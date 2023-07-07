@@ -109,7 +109,7 @@ class VerifikasiController extends Controller
                 $data['id_akademi'] = $akademi->id_akademi;
                 $data['isi'] = "Harap lengkapi data profil akademi";
                 $data['pengirim'] = "Admin";
-                $data['url'] = ('/isi_akademi_data');
+                $data['url'] = ('/akademi/isi_akademi_data');
                 notifyAkademi::create($data);
                 return redirect()->route('akademi')->with('success',"Selamat Datang");
             
@@ -121,7 +121,7 @@ class VerifikasiController extends Controller
                 $data['id_perusahaan'] = $perusahaan->id_perusahaan;
                 $data['isi'] = "Harap lengkapi data profil perusahaan";
                 $data['pengirim'] = "Admin";
-                $data['url'] = ('/isi_perusahaan_data');
+                $data['url'] = ('/perusahaan/isi_perusahaan_data');
                 notifyperusahaan::create($data);
                 return redirect()->route('perusahaan')->with('success',"Selamat Datang");
             
