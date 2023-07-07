@@ -140,7 +140,9 @@
                                     </div>
                                 </div>
                                 <a class="btn btn-success" href="/manager/kandidat/cetak_surat/{{$kandidat->id_kandidat}}">Cetak Surat Izin & Ahli waris</a>
-                                <a href=""></a>
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit_kandidat">
+                                    Edit Kandidat
+                                </button>
                                 <a class="float-right" href="/manager/pilih/permohonan_staff">Kirim Kandidat</a>
                             </div>
                         </div>
@@ -189,6 +191,36 @@
             </div>
         </div>
     </div>         --}}
+    <div class="modal fade" id="edit_kandidat" tabindex="-1" aria-labelledby="edit_kandidat" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Pilih Bagian Edit</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <a href="/manager/edit/kandidat/personal/{{$kandidat->id_kandidat}}" class="btn btn-warning">Edit Personal</a>
+                        <a href="/manager/edit/kandidat/document/{{$kandidat->id_kandidat}}" class="btn btn-warning">Edit Document</a>
+                        <a href="/manager/edit/kandidat/vaksin/{{$kandidat->id_kandidat}}" class="btn btn-warning">Edit Vaksin</a>
+                        <a href="/manager/edit/kandidat/family/{{$kandidat->id_kandidat}}" class="btn btn-warning">Edit Family</a>        
+                    </p>
+                    <p>
+                        <a href="/manager/edit/kandidat/parent/{{$kandidat->id_kandidat}}" class="btn btn-warning">Edit Parent</a>
+                        <a href="/manager/edit/kandidat/permission/{{$kandidat->id_kandidat}}" class="btn btn-warning">Edit Permission</a>
+                        <a href="/manager/edit/kandidat/placement/{{$kandidat->id_kandidat}}" class="btn btn-warning">Edit Placement</a>
+                        <a href="/manager/edit/kandidat/job/{{$kandidat->id_kandidat}}" class="btn btn-warning">Edit Job</a>        
+                    </p>
+                    <p>
+                        <a href="/manager/edit/kandidat/company/{{$kandidat->id_kandidat}}" class="btn btn-warning">Edit Company</a>
+                        <a href="/manager/edit/kandidat/paspor/{{$kandidat->id_kandidat}}" class="btn btn-warning">Edit Paspor</a>        
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         
     </script>

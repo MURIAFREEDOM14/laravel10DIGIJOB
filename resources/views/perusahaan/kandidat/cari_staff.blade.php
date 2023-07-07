@@ -14,7 +14,7 @@
                             <div class="">Usia Minimum</div>
                         </div>
                         <div class="col-md-2">
-                            <input type="number" required name="usia" class="form-control" id="">
+                            <input type="number" value="{{18}}" required name="usia" class="form-control" id="">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -130,14 +130,20 @@
                 <b class="bold">Pencarian Staff</b>
             </div>
             <div class="card-body">
-                <form action="">
+                <form action="/perusahaan/pilih/kandidat" method="POST">
                     @csrf
-                    <div class="row">
-                        @if ($isi == 0)
-                        <div class="col-md-12 text-center">
-                            <b>Maaf Staff yang anda minta masih belum tersedia</b>
-                            <p>Sedang dalam pencarian</p>
+                    <div class="row mb-2">
+                        <div class="">
+                            <button class="btn btn-success" type="submit">Pilih</button>
                         </div>
+                    </div>
+                    <div class="row">
+                        @if ($isi == "")
+                        @elseif($isi == 0)
+                            <div class="col-md-12 text-center">
+                                <b>Maaf Staff yang anda minta masih belum tersedia</b>
+                                <p>Sedang dalam pencarian</p>
+                            </div>
                         @else
                             @foreach ($kandidat as $item)
                                 <div class="col-md-4">

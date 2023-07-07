@@ -19,8 +19,8 @@
         </div>
         <div class="col-md-8">
             <select class="form-control" required wire:model="" name="kota_id">
+                <option value="">-- Pilih Kabupaten / Kota --</option>
                 @if (!is_null($kota))
-                    <option value="">-- Pilih Kabupaten / Kota --</option>
                     @foreach($kotas as $item)
                         <option value="{{ $item->id }}" >{{ $item->kota }}</option>
                     @endforeach
