@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\Kandidat;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class LoginController extends Controller
 {
@@ -165,6 +166,12 @@ class LoginController extends Controller
             'id' => $id,
             'referral_code' => $userId,
         ]);
+        Mail::send('mail.mail',['token' => $token, 'nama' => $kandidat->nama], function($message) use($request){
+            $message->to($request->email);
+            $message->subject('Email Verification Mail');
+        });
+        Auth::login($user);
+        return redirect()->route('verifikasi')->with('success',"Cek email anda untuk verifikasi");
     }
 
     public function AuthenticateKandidat(Request $request)
