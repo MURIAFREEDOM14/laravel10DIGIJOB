@@ -8,14 +8,14 @@
             <div class="card-body">
                 <form action="" method="POST">
                     @csrf
-                    <div class="row mb-3">
+                    {{-- <div class="row mb-3">
                         <div class="col-md-4">
                             <label for="" class="col-form-label">Tema Lowongan</label>
                         </div>
                         <div class="col-md-8">
                             <input type="text" required name="nama_lowongan" class="form-control" id="">
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="row mb-3">
                         <div class="col-md-4">
                             <label for="" class="col-form-label">Negara Tujuan</label>
@@ -29,14 +29,14 @@
                             </select>
                         </div>
                     </div>
-                    <div class="row mb-3">
+                    {{-- <div class="row mb-3">
                         <div class="col-md-4">
                             <label for="" class="col-form-label">Isi Lowongan</label>
                         </div>
                         <div class="col-md-8">
                             <textarea name="isi" required id="" class="form-control"></textarea>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="row mb-3">
                         <div class="col-md-4">
                             <label for="" class="col-form-label">Jabatan</label>

@@ -14,7 +14,7 @@
                             <div class="">Usia Minimum</div>
                         </div>
                         <div class="col-md-2">
-                            <input type="number" name="usia" class="form-control" id="">
+                            <input type="number" required name="usia" class="form-control" id="">
                         </div>
                     </div>
                     <div class="row mb-3">
