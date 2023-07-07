@@ -21,7 +21,7 @@
                             <label for="" class="col-form-label">Negara Tujuan</label>
                         </div>
                         <div class="col-md-8">
-                            <select name="" class="form-control" id="">
+                            <select name="negara_id" class="form-control" id="">
                                 <option value="">-- Pilih Negara --</option>
                                 @foreach ($negara as $item)
                                     <option value="{{$item->negara_id}}">{{$item->negara}}</option>

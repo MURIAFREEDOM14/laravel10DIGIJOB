@@ -457,6 +457,7 @@ class PerusahaanController extends Controller
     {
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $negara = Negara::where('negara_id',$request->negara_id)->first();
         LowonganPekerjaan::create([
             'nama_lowongan' => $request->nama_lowongan,
             'usia' => $request->usia,
@@ -469,6 +470,7 @@ class PerusahaanController extends Controller
             'pencarian_tmp' => $request->pencarian_tmp,
             'id_perusahaan' => $perusahaan->id_perusahaan,
             'isi' => $request->isi,
+            'negara' => $negara->negara,
         ]);
         return redirect('perusahaan/list/lowongan')->with('success');
     }
