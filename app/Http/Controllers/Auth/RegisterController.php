@@ -108,6 +108,7 @@ class RegisterController extends Controller
 
     public function kandidat(Request $request)
     {
+        
         if($request->password !== $request->passwordConfirm){
             return back()->with('error',"Maaf konfirmasi password anda salah");
         }

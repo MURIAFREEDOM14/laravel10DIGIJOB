@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1">Masukkan Password</label>
-                                    <input name="password" placeholder="Buat Password Aplikasi" type="password" class="form-control" id="exampleInputPassword1">
+                                    <input name="password" placeholder="Buat Password Aplikasi" type="text" class="form-control" id="exampleInputPassword1">
                                 </div>
                             </div>
                         </div>
