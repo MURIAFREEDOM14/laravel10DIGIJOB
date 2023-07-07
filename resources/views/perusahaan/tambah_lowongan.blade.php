@@ -122,7 +122,7 @@
                                 <span class="form-radio-sign">Provinsi</span>
                             </label>
                             <label class="form-radio-label ml-3">
-                                <input class="form-radio-input" type="radio" name="pencarian_tmp" value="">
+                                <input class="form-radio-input" type="radio" name="pencarian_tmp" value="Se-indonesia">
                                 <span class="form-radio-sign">Se-Indonesia</span>
                             </label>
                         </div>

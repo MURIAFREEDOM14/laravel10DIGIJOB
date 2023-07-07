@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Notification;
 use App\Models\Message;
 use App\Models\Perusahaan;
+use App\Models\PerusahaanCabang;
 use App\Models\Pembayaran;
 use Carbon\Carbon;
 
@@ -81,7 +82,8 @@ class MessagerController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $semua_pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_Perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        return view('perusahaan/semua_pesan',compact('perusahaan','notif','pesan','semua_pesan'));
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        return view('perusahaan/semua_pesan',compact('perusahaan','notif','pesan','semua_pesan','cabang'));
     }
 
     public function sendMessagePerusahaan($id)
@@ -91,7 +93,8 @@ class MessagerController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_Perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pengirim = messagePerusahaan::where('id',$id)->first();
-        return view('perusahaan/kirim_pesan',compact('perusahaan','pesan','notif','pengirim'));
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        return view('perusahaan/kirim_pesan',compact('perusahaan','pesan','notif','pengirim','cabang'));
     }
 
     public function sendMessageConfirmPerusahaan()

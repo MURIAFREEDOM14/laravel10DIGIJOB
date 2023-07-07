@@ -55,7 +55,7 @@
                     <div class="row mb-3">
                         <div class="col-md-12 ">
                             <div class="form-control mb-3">      
-                                <marquee behavior="" direction="">{{$item->nama_perusahaan}}, Lowongan: {{$item->nama_lowongan}}, Kuota: </marquee>
+                                <marquee behavior="" direction="">{{$item->nama_perusahaan}}, Lowongan: {{$item->nama_lowongan}} </marquee>
                             </div>
                         </div>
                     </div>    
