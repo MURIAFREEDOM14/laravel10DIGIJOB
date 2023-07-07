@@ -25,7 +25,7 @@
                             </div>
                         </div>                        
                         <a href="/laman" class="btn btn-secondary float-left ml-2">Kembali</a>
-                        <button type="submit" class="btn btn-primary float-right mr-2">Kirim</button>
+                        <button type="submit" class="btn btn-primary float-right mr-2">Lanjut</button>
                     </form>
                 </div>
             </div>

@@ -109,7 +109,7 @@ class RegisterController extends Controller
     public function kandidat(Request $request)
     {
         $kandidat = Kandidat::where('email',$request->email)->where('nik',$request->nik)->first();
-        if($kandidat == null){
+        if($kandidat !== null){
             return redirect('/login/migration')->with('warning',"Data anda sudah ada, Harap aktifkan akun");
         }
         if($request->password !== $request->passwordConfirm){

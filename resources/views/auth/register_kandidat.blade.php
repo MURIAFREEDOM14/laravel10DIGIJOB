@@ -83,8 +83,8 @@
                                 </div>
                             </div>
                         </div>
-                        {{-- <a href="/login/kandidat" class="btn btn-secondary">Kembali</a> --}}
-                        <div class="">Sudah punya akun?<a href="/login" class="ms-1">Login</a></div>
+                        <div class="">Sudah Pernah Terdaftar?<a class="btn btn-link" href="/login/migration">Aktifkan Akun</a></div>                        
+                        <div class="">Sudah punya akun?<a href="/login" class="ms-1 btn btn-link">Login</a></div>
                         <button type="submit" class="btn btn-primary mt-3">
                             {{ __('Register') }}
                         </button>

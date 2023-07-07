@@ -129,10 +129,10 @@ class LoginController extends Controller
             if($user == null){
                 return view('/auth/login_find_migration',compact('kandidat'));
             } else {
-                return redirect('/login/migration')->with('error',"Maaf Data anda sudah ada. Harap Login");
+                return redirect('/login')->with('warning',"Maaf Data anda sudah ada. Harap Login");
             }
         } else {
-            return redirect('/login/migration')->with('error',"Maaf anda belum terdaftar. Harap Register");
+            return redirect('/register/kandidat')->with('error',"Maaf anda belum terdaftar. Harap Register");
         }
     }
 
