@@ -144,11 +144,13 @@ class LoginController extends Controller
     {
         $kandidat = Kandidat::where('email',$request->email)->first();
         $token = Str::random(64).$request->no_telp;
+        $password = Hash::make($request->password);
         $user = User::create([
             'name' => $kandidat->nama,
             'no_telp' => $kandidat->no_telp,
             'email' => $kandidat->email,
-            'password' => $request->password,
+            'password' => $password,
+            'check_password' => $request->password,
             'token' => $token,
         ]);
 
@@ -159,7 +161,7 @@ class LoginController extends Controller
             'referral_code' => $userId,
         ]);
 
-        Kandidat::where()->update([
+        Kandidat::where('email',$kandidat->email)->update([
             'id' => $id,
             'referral_code' => $userId,
         ]);
