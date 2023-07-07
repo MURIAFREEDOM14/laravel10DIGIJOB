@@ -65,11 +65,11 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-4">
-                            <div class="">Tinggi / Berat</div>
+                            <div class="">Tinggi / Berat Badan</div>
                         </div>
                         <div class="col-md-4">
                             <div class="input-group">
-                                <input type="number" name="tinggi" required class="form-control" placeholder="Tinggi" aria-label="Tinggi" aria-describedby="basic-addon1">
+                                <input type="number" name="tinggi" class="form-control" placeholder="Tinggi" aria-label="Tinggi" aria-describedby="basic-addon1">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1">Cm</span>
                                 </div>
@@ -77,7 +77,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="input-group">
-                                <input type="number" name="berat" required class="form-control" placeholder="Berat" aria-label="Berat" aria-describedby="basic-addon1">
+                                <input type="number" name="berat" class="form-control" placeholder="Berat" aria-label="Berat" aria-describedby="basic-addon1">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1">Kg</span>
                                 </div>
@@ -113,15 +113,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-3">
+                    {{-- <div class="row mb-3">
                         <div class="col-md-4">
                             <div class="">Jumlah Kebutuhan Staff</div>
                         </div>
                         <div class="col-md-2">
                             <input type="number" required name="jml_kebutuhan" class="form-control" id="">
                         </div>
-                    </div>
-                    <button class="btn btn-primary float-right" type="submit">Kirim Pencarian</button>
+                    </div> --}}
+                    <button class="btn btn-primary float-right" type="submit">Cari</button>
                 </form>
             </div>
         </div>
@@ -132,11 +132,13 @@
             <div class="card-body">
                 <form action="/perusahaan/pilih/kandidat" method="POST">
                     @csrf
-                    <div class="row mb-2">
-                        <div class="">
-                            <button class="btn btn-success" type="submit">Pilih</button>
+                    @if ($isi !== 0 && $isi !== "")
+                        <div class="row mb-2">
+                            <div class="">
+                                <button class="btn btn-success" type="submit">Pilih</button>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                     <div class="row">
                         @if ($isi == "")
                         @elseif($isi == 0)

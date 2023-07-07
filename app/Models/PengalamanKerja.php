@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PengalamanKerja extends Model
 {
     use HasFactory;
-    protected $table = 'pengalaman_kerja';
+    protected $table = 'prt_pengalaman_kerja';
     protected $guarded = [];
     public $timestamps = false;
 }

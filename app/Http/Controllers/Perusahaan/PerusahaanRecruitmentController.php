@@ -135,12 +135,22 @@ class PerusahaanRecruitmentController extends Controller
 
     public function pencarianKandidatStaff(Request $request)
     {
+        dd($request);
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
         $provinsi = Provinsi::where('id',$request->provinsi_id)->first();
         $kota = Kota::where('id',$request->kota_id)->first();
-        $prov = $provinsi->provinsi;
-        $kab = $kota->kota;
+        if($provinsi !== null){
+            $prov = $provinsi->provinsi;
+            if ($kota !== null) {
+                $kab = $kota->kota;
+            } else {
+                $kab = "";
+            }
+        } else {
+            $prov = "";
+        }
+
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
@@ -148,11 +158,11 @@ class PerusahaanRecruitmentController extends Controller
         where('usia','>=',$request->usia)
         ->where('jenis_kelamin','like','%'.$request->jenis_kelamin.'%')
         ->where('pendidikan','like','%'.$request->pendidikan.'%')
-        ->where('tinggi','like','%'.$request->tinggi.'%')
-        ->where('berat','like','%'.$request->berat.'%')
+        ->where('tinggi','>=','%'.$request->tinggi.'%')
+        ->where('berat','>=','%'.$request->berat.'%')
         ->where('provinsi','like','%'.$prov.'%')
         ->where('kabupaten','like','%'.$kab.'%')
-        ->where('lama_kerja','like','%'.$request->pengalaman.'%')
+        ->where('lama_kerja','>=','%'.$request->pengalaman.'%')
         ->get();
         $isi = $kandidat->count();
         return view('perusahaan/kandidat/cari_staff',compact('perusahaan','notif','pesan','cabang','isi'));

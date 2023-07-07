@@ -691,7 +691,7 @@ class KandidatController extends Controller
         } else {
             $negara = $show_negara->negara;    
         }
-        $pengalaman_kerja = PengalamanKerja::where('pengalaman_kerja.id_kandidat',$kandidat->id_kandidat)->get();
+        $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->get();
         return view('kandidat/modalKandidat/edit_kandidat_company', [
             'kandidat'=>$kandidat,
             'pengalaman_kerja'=>$pengalaman_kerja,
@@ -747,7 +747,7 @@ class KandidatController extends Controller
 
     public function editPengalamanKerja($id)
     {
-        $pengalaman_kerja = PengalamanKerja::where('pengalaman_kerja.pengalaman_kerja_id',$id)->first();
+        $pengalaman_kerja = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
         return view('kandidat/edit_kandidat_company', compact('pengalaman_kerja'));
     }
 
