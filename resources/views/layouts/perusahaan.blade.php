@@ -279,22 +279,24 @@
                                             </a>
                                         </li>
                                         <hr>
-                                        <li>
-                                            <a href="/perusahaan/tambah/cabang_data" class="dropdown-item">
-                                                <div class="link-collapse">Tambah Perusahaan <i class="fas fa-user-circle float-right"></i></div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            @foreach ($cabang as $item)
-                                                <a href="/perusahaan/ganti/cabang_perusahaan/{{$item->id_perusahaan_cabang}}" class="dropdown-item">
-                                                    <div class="link-collapse">
-                                                        <b class="bold">
-                                                            {{$item->nama_perusahaan}} <span class="badge badge-pill badge-primary">{{$item->penempatan_kerja}}</span>
-                                                        </b>  
-                                                    </div>
+                                        @if ($perusahaan->email_operator !== null)
+                                            <li>
+                                                <a href="/perusahaan/tambah/cabang_data" class="dropdown-item">
+                                                    <div class="link-collapse">Tambah Perusahaan <i class="fas fa-user-circle float-right"></i></div>
                                                 </a>
-                                            @endforeach
-                                        </li>
+                                            </li>
+                                            <li>
+                                                @foreach ($cabang as $item)
+                                                    <a href="/perusahaan/ganti/cabang_perusahaan/{{$item->id_perusahaan_cabang}}" class="dropdown-item">
+                                                        <div class="link-collapse">
+                                                            <b class="bold">
+                                                                {{$item->nama_perusahaan}} <span class="badge badge-pill badge-primary">{{$item->penempatan_kerja}}</span>
+                                                            </b>  
+                                                        </div>
+                                                    </a>
+                                                @endforeach
+                                            </li>
+                                        @endif
                                     </ul>
                                 </div>
                             </div>
