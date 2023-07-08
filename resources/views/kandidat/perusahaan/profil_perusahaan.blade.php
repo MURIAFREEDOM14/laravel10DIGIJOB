@@ -51,13 +51,15 @@
                         <hr>
                     </div>
                 </div>
-                {{-- <div class="card">
-                    <div class="card-body">
-                        <div class="">Anda sekarang Tergabung dalam Perusahaan Ini</div>
-                        <hr>
-                        <a href="/keluar_perusahaan/{{$perusahaan->id_perusahaan}}" class="btn btn-outline-danger mx-auto" onclick="return confirm('apakah anda yakin ingin keluar perusahaan ini?')">Keluar Perusahaan</a>
+                @if ($kandidat->id_perusahaan == $perusahaan->id_perusahaan)
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="">Anda sekarang Tergabung dalam Perusahaan Ini</div>
+                            <hr>
+                            <a href="/keluar_perusahaan/{{$perusahaan->id_perusahaan}}" class="btn btn-outline-danger mx-auto" onclick="return confirm('apakah anda yakin ingin keluar perusahaan ini?')">Keluar Perusahaan</a>
+                        </div>
                     </div>
-                </div> --}}
+                @endif
             </div>
             <div class="col-md-9">
                 <div class="row">
