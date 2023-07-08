@@ -362,7 +362,7 @@
                                         </ul>
                                     </div>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a data-toggle="collapse" href="#perusahaan">
                                         <i class="fas fa-flag"></i>
                                         <p>Informasi Perusahaan</p>
@@ -382,7 +382,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                </li>
+                                </li> --}}
                             @endif
                             <li class="nav-item">
                                 <a class="btn  disabled" href="/pelatihan_interview">

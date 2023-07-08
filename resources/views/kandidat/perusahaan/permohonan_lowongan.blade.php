@@ -24,10 +24,6 @@
                             <input type="text" name="" class="form-control" disabled value="{{$kandidat->nama}}" id="">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="">Tambahkan Pesan kepada Perusahaan</label>
-                        <textarea name="pesan" id="" class="form-control"></textarea>
-                    </div>
                     <a href="/kandidat" class="btn btn-danger float-left">Kembali</a>
                     <button type="submit" class="btn btn-primary float-right">Kirim</button>
                 </form>

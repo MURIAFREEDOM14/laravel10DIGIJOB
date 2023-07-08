@@ -23,6 +23,7 @@
                                 <tr class="text-center">
                                     <th style="width: 1px">No.</th>
                                     <th>Nama Perusahaan</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -30,12 +31,10 @@
                                     <tr class="text-center">
                                         <td>{{$loop->iteration}}</td>
                                         <td>
-                                            {{-- @if ($item->logo_perusahaan == null)
-                                                <img src="/gambar/default_user.png" width="150" height="150" alt="">    
-                                            @else
-                                                <img src="/gambar/Perusahaan/{{$item->nama_perusahaan}}/Logo Perusahaan/{{$item->logo_perusahaan}}" alt="" width="150" height="150">
-                                            @endif --}}
                                             {{$item->nama_perusahaan}}
+                                        </td>
+                                        <td>
+                                            <a href="/profil_perusahaan/{{$item->id_perusahaan}}">Lihat</a>
                                         </td>
                                     </tr>    
                                 @endforeach

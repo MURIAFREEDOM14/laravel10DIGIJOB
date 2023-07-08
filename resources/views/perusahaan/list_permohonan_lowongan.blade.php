@@ -11,9 +11,9 @@
                         <thead>
                             <tr class="text-center">
                                 <th>No.</th>
-                                <th>Tema Lowongan</th>
+                                <th>Nama Jabatan</th>
                                 <th>Nama Kandidat</th>
-                                <th>Tanggal</th>
+                                <th>Negara</th>
                                 <th>Lihat</th>
                             </tr>
                         </thead>
@@ -21,8 +21,9 @@
                             @foreach ($permohonan as $item)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{$item->nama_lowongan}}</td>
+                                    <td>{{$item->jabatan}}</td>
                                     <td>{{$item->nama_kandidat}}</td>
+                                    <td>{{}}</td>
                                     <td>{{date('d-M-Y',strtotime($item->created_at))}}</td>
                                     <td class="text-center">
                                         <a class="btn btn-success" href="/perusahaan/lihat/kandidat/{{$item->id_kandidat}}">Lihat</a>

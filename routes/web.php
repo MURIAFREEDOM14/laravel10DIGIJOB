@@ -380,8 +380,6 @@ Route::controller(KandidatPerusahaanController::class)->group(function() {
     Route::get('/lihat_lowongan_pekerjaan/{id}','lowonganPekerjaan')->middleware('kandidat'); 
     Route::get('/permohonan_lowongan/{id}','permohonanLowongan')->middleware('kandidat');
     Route::post('/permohonan_lowongan/{id}','kirimPermohonan');
-
-
 });
 
 // data akun prioritas

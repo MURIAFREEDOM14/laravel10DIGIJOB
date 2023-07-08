@@ -53,7 +53,7 @@
                     <hr>
                     <a href="/kandidat" class="btn btn-danger">Kembali</a>
                     @if ($kandidat->id_perusahaan == null)
-                        <button type="submit" class="btn btn-primary float-right" onclick="return confirm('apakah anda ingin masuk pekerjaan ini?')">Terima Pekerjaan</button>                        
+                        <button type="submit" class="btn btn-primary float-right" onclick="return confirm('apakah anda ingin masuk pekerjaan ini?')">Melamar</button>                        
                     @endif
                 </form>
             </div>
