@@ -23,7 +23,7 @@
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$item->jabatan}}</td>
                                     <td>{{$item->nama_kandidat}}</td>
-                                    <td>{{}}</td>
+                                    <td>{{$item->negara}}</td>
                                     <td>{{date('d-M-Y',strtotime($item->created_at))}}</td>
                                     <td class="text-center">
                                         <a class="btn btn-success" href="/perusahaan/lihat/kandidat/{{$item->id_kandidat}}">Lihat</a>

@@ -102,17 +102,17 @@
                                                     <table class="table table-bordered">
                                                         <thead>
                                                             <tr class="text-center">
-                                                                <th scope="col" style="">Tema Lowongan</th>
-                                                                <th scope="col">Isi</th>
-                                                                <th scope="col" style="">Lokasi Perusahaan</th>
+                                                                <th scope="col" style="">Nama Jabatan</th>
+                                                                <th scope="col">Negara</th>
+                                                                <th scope="col" style="">Pencarian Kandidat</th>
                                                                 <th scope="col" style="width: 0px;">Lihat Detail</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             @foreach ($lowongan as $item)
                                                                 <tr class="text-center">
-                                                                    <td>{{$item->nama_lowongan}}</td>
-                                                                    <td>{{$item->isi}}</td>
+                                                                    <td>{{$item->jabatan}}</td>
+                                                                    <td>{{$item->negara}}</td>
                                                                     <td>{{$item->pencarian_tmp}}</td>
                                                                     <td>
                                                                         <a class="btn btn-outline-primary" href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat Lowongan</a>

@@ -67,21 +67,22 @@ class KandidatPerusahaanController extends Controller
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $perusahaan = Perusahaan::where('nama_perusahaan',$nama)->first();
-        $pekerjaan = Pekerjaan::where('negara_id',$negaraid)->where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        $lowongan = LowonganPekerjaan::where('negara_id',$negaraid)->where('id_perusahaan',$perusahaan->id_perusahaan)->get();
         $negara = Negara::where('negara_id',$negaraid)->first();
         $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
         return view('kandidat/perusahaan/perusahaan_pekerjaan',compact('kandidat','perusahaan','pekerjaan','notif','pesan','negara','nama'));
     }
 
-    public function detailPekerjaanPerusahaan($kerjaid,$nama)
+    public function detailPekerjaanPerusahaan($id,$nama)
     {
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
-        $pekerjaan = Pekerjaan::where('id_pekerjaan',$kerjaid)->first();
+        $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
+        dd($lowongan);
         $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
-        return view('kandidat/perusahaan/detail_pekerjaan',compact('kandidat','pekerjaan','notif','pesan'));
+        return view('kandidat/perusahaan/detail_pekerjaan',compact('kandidat','lowongan','notif','pesan'));
     }
 
     public function terimaPekerjaanPerusahaan(Request $request, $kerjaid, $nama)
@@ -90,7 +91,6 @@ class KandidatPerusahaanController extends Controller
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $perusahaan = Perusahaan::where('nama_perusahaan',$nama)->first();
         $pekerjaan = Pekerjaan::where('id_pekerjaan',$kerjaid)->first();
-        
         PekerjaPerusahaan::create([
             'id_kandidat' => $kandidat->id_kandidat,
             'id_perusahaan' => $perusahaan->id_perusahaan,
@@ -153,11 +153,14 @@ class KandidatPerusahaanController extends Controller
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
         PermohonanLowongan::create([
-            'nama_lowongan' => $lowongan->nama_lowongan,
+            'negara' => $lowongan->negara,
             'nama_kandidat' => $kandidat->nama,
             'id_kandidat' => $kandidat->id_kandidat,
             'id_perusahaan' => $lowongan->id_perusahaan,
-            'pesan' => $request->pesan,
+            'jabatan' => $lowongan->jabatan,
+        ]);
+        Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
+            'id_perusahaan' => $lowongan->id_perusahaan,
         ]);
         return redirect('/kandidat')->with('success',"Permohonan anda terkirim");
     }

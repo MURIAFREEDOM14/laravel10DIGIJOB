@@ -762,6 +762,7 @@ class PerusahaanController extends Controller
         ->where('kandidat.kabupaten','like',"%".$kab."%")
         ->where('kandidat.provinsi','like',"%".$prov."%")
         ->where('kandidat.lama_kerja','like',"%".$lama_kerja."%")
+        ->whereNull('id_perusahaan')
         ->limit(15)->get();
         $isi = $kandidat->count();
         return view('perusahaan/kandidat/pilih_kandidat',compact('jk','perusahaan','kandidat','isi','notif','pesan','cabang'));
@@ -814,8 +815,9 @@ class PerusahaanController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        $semua_kandidat = Kandidat::where('kandidat.penempatan','like','%'.$perusahaan->penempatan_kerja.'%')
-        ->where('kandidat.id_kandidat','not like',$id)->limit(12)->get();
+        $semua_kandidat = Kandidat::
+        where('kandidat.penempatan','like','%'.$perusahaan->penempatan_kerja.'%')
+        ->where('kandidat.id_kandidat','not like',$id)->whereNull('id_perusahaan')->limit(12)->get();
         $usia = Carbon::parse($kandidat->tgl_lahir)->age;
         $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
         $interview = Interview::where('id_kandidat',$kandidat->id_kandidat)->first();

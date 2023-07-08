@@ -8,19 +8,10 @@
             <div class="card-body">
                 <div  class="row">
                     <div class="col-md-3">
-                        <label for="" class="">Tema Lowongan</label>
+                        <label for="" class="">Negara</label>
                     </div>
                     <div class="col-md-8">
-                        <div class=""><b class="bold">: {{($lowongan->nama_lowongan)}}</b></div>
-                    </div>
-                </div>
-                <hr>
-                <div  class="row">
-                    <div class="col-md-3">
-                        <label for="" class="">Isi Lowongan</label>
-                    </div>
-                    <div class="col-md-8">
-                        <div class=""><b class="bold">: {{($lowongan->isi)}}</b></div>
+                        <div class=""><b class="bold">: {{($lowongan->negara)}}</b></div>
                     </div>
                 </div>
                 <hr>
@@ -126,6 +117,15 @@
                     </div>
                     <div class="col-md-8">
                         <div class=""><b class="bold">: {{$lowongan->pencarian_tmp}}</b></div>
+                    </div>
+                </div>
+                <hr>
+                <div  class="row">
+                    <div class="col-md-3">
+                        <label for="" class="">Tanggal Tutup Lowongan</label>
+                    </div>
+                    <div class="col-md-8">
+                        <div class=""><b class="bold">: {{date('d-M-Y',strtotime($lowongan->ttp_lowongan))}}</b></div>
                     </div>
                 </div>
                 <hr>
