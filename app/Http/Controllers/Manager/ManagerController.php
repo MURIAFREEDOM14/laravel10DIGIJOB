@@ -162,7 +162,6 @@ class ManagerController extends Controller
             'rw_perizin'=>$request->rw_perizin,
             'hubungan_perizin'=>$request->hubungan_perizin,
             'negara_perizin'=>"Indonesia",
-            'stats_negara'=>"Indonesia",
             'penempatan'=>$penempatan,
         ]);
 
