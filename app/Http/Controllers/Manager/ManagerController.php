@@ -212,6 +212,12 @@ class ManagerController extends Controller
         $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
         $usia = Carbon::parse($kandidat->tgl_lahir)->age;
         $pengalamanKerja = PengalamanKerja::where('id_kandidat',$id)->get();
+        if($kandidat->negara_id == null){
+            Kandidat::where('id_kandidat',$id)->update([
+                'penempatan' => "dalam negeri",
+                'negara_id' => 2,
+            ]);
+        }
         return view('manager/kandidat/lihat_profil',compact(
             'kandidat',
             'negara',

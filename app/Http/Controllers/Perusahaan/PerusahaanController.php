@@ -736,7 +736,7 @@ class PerusahaanController extends Controller
         $tinggi = $request->tinggi;
         $berat = $request->berat;
         $usia = $request->usia;
-        $lama_kerja = $request->pengalaman;
+        $lama_kerja = $request->lama_kerja;
         $kabupaten = Kota::where('id',$request->kota_id)->first();
         $provinsi = Provinsi::where('id',$request->provinsi_id)->first();
         if($provinsi !== null){
@@ -752,7 +752,7 @@ class PerusahaanController extends Controller
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $kandidat = Kandidat::
-        where('penempatan','like','%Dalam negeri%')
+        where('penempatan','like','%Luar negeri%')
         ->where('kandidat.jenis_kelamin','like',"%".$jk."%")
         ->where('kandidat.usia','>=',"%".$usia."%")
         ->where('kandidat.pendidikan','like',"%".$pendidikan."%")

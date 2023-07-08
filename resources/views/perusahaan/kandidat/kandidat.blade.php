@@ -67,7 +67,7 @@
                                         <div class="">Usia</div>
                                     </div>
                                     <div class="col-md-2">
-                                        <input type="number" name="usia" value="{{18}}" class="form-control" id="">
+                                        <input type="number" required name="usia" value="{{18}}" class="form-control" id="">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -152,15 +152,15 @@
                                     <div class="col-md-8">
                                         <div class="form-check">
                                             <label class="form-radio-label">
-                                                <input class="form-radio-input" type="radio" name="pengalaman" checked="" value="">
+                                                <input class="form-radio-input" type="radio" name="lama_kerja" checked="" value="">
                                                 <span class="form-radio-sign">Fresh Graduate</span>
                                             </label>
                                             <label class="form-radio-label ml-2">
-                                                <input class="form-radio-input" type="radio" name="pengalaman" value="1,2,3,4">
+                                                <input class="form-radio-input" type="radio" name="lama_kerja" value="1,2,3,4">
                                                 <span class="form-radio-sign">1 - 4thn</span>
                                             </label>
                                             <label class="form-radio-label ml-2">
-                                                <input class="form-radio-input" type="radio" name="pengalaman" value="5">
+                                                <input class="form-radio-input" type="radio" name="lama_kerja" value="5">
                                                 <span class="form-radio-sign">5thn++</span>
                                             </label>
                                         </div>

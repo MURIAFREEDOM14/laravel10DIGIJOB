@@ -706,10 +706,16 @@ class ManagerKandidatController extends Controller
 
     public function simpan_placement(Request $request,$id)
     {
+        if($request->negara_id == 2){
+            $penempatan = "dalam negeri";
+        } else {
+            $penempatan = "luar negeri";
+        }
         Kandidat::where('id_kandidat', $id)->update([
+            'penempatan' => $penempatan,
             'negara_id' => $request->negara_id,
-            'jabatan_kandidat' => $request->jabatan_kandidat,
-            'kontrak' => $request->kontrak,
+            // 'jabatan_kandidat' => $request->jabatan_kandidat,
+            // 'kontrak' => $request->kontrak,
         ]);
         return redirect('/manager/kandidat/lihat_profil/'.$id);
     }
