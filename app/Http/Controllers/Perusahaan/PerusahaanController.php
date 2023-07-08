@@ -743,8 +743,8 @@ class PerusahaanController extends Controller
             $prov = $provinsi->provinsi;
             $kab = $kabupaten->kota;
         } else {
-            $prov = null;
-            $kab = null;
+            $prov = "";
+            $kab = "";
         }
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
@@ -752,7 +752,7 @@ class PerusahaanController extends Controller
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $kandidat = Kandidat::
-        where('penempatan','like','%'.$perusahaan->tmp_negara.'%')
+        where('penempatan','like','%Dalam negeri%')
         ->where('kandidat.jenis_kelamin','like',"%".$jk."%")
         ->where('kandidat.usia','>=',"%".$usia."%")
         ->where('kandidat.pendidikan','like',"%".$pendidikan."%")
@@ -762,78 +762,8 @@ class PerusahaanController extends Controller
         ->where('kandidat.provinsi','like',"%".$prov."%")
         ->where('kandidat.lama_kerja','like',"%".$lama_kerja."%")
         ->limit(15)->get();
-
-        // if ($perusahaan->tmp_negara == "Dalam negeri") {
-        //     $kandidat = Kandidat::
-        //     join(
-        //         'prt_pengalaman_kerja','kandidat.id_kandidat','=','prt_pengalaman_kerja.id_kandidat'
-        //     )
-        //     ->where('kandidat.penempatan',"dalam negeri")
-        //     ->where('kandidat.jenis_kelamin','like',"%".$jk."%")
-        //     ->where('kandidat.usia','>=',"%".$usia."%")
-        //     ->where('kandidat.pendidikan','like',"%".$pendidikan."%")
-        //     ->where('kandidat.tinggi','>=',"%".$tinggi."%")
-        //     ->where('kandidat.berat','>=',"%".$berat."%")
-        //     // ->where('kandidat.kabupaten','like',"%".$kabupaten."%")
-        //     // ->where('kandidat.provinsi','like',"%".$provinsi->provinsi."%")
-        //     ->where('prt_pengalaman_kerja.lama_kerja','like',"%".$lama_kerja."%")
-        //     ->limit(15)->get();
-        // } else {
-        //     $kandidat = Kandidat::
-        //     join(
-        //         'prt_pengalaman_kerja','kandidat.id_kandidat','=','prt_pengalaman_kerja.id_kandidat'
-        //     )
-        //     ->where('kandidat.penempatan',"luar negeri")
-        //     ->where('kandidat.jenis_kelamin','like',"%".$jk."%")
-        //     ->where('kandidat.usia','>=',"%".$usia."%")
-        //     ->where('kandidat.pendidikan','like',"%".$pendidikan."%")
-        //     ->where('kandidat.tinggi','>=',"%".$tinggi."%")
-        //     ->where('kandidat.berat','<=',"%".$berat."%")
-        //     ->where('kandidat.kabupaten','like',"%".$kabupaten."%")
-        //     ->where('kandidat.provinsi','like',"%".$provinsi."%")
-        //     ->where('prt_pengalaman_kerja.lama_kerja',"%".$lama_kerja."%")
-        //     ->limit(15)->get();
-        // }
         $isi = $kandidat->count();
         return view('perusahaan/kandidat/pilih_kandidat',compact('jk','perusahaan','kandidat','isi','notif','pesan','cabang'));
-    }
-
-    public function lihatProfilKandidat($id)
-    {
-        $auth = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
-        $kandidat = Kandidat::where('id_kandidat',$id)->first();
-        $info_kandidat = PengalamanKerja::where('id_kandidat',$id)->get();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        $semua_kandidat = Kandidat::where('kandidat.penempatan','like','%'.$perusahaan->penempatan_kerja.'%')
-        ->where('kandidat.id_kandidat','not like',$id)->limit(12)->get();
-        $usia = Carbon::parse($kandidat->tgl_lahir)->age;
-        $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
-        $interview = Interview::where('id_kandidat',$kandidat->id_kandidat)->first();
-        return view('perusahaan/kandidat/profil_kandidat',compact(
-            'kandidat',
-            'info_kandidat',
-            'perusahaan',
-            'usia',
-            'tgl_user',
-            'semua_kandidat',
-            'interview',
-            'notif',
-            'pesan',
-            'cabang',
-        ));
-    }
-
-    public function lihatVideoKandidat($id)
-    {
-        $auth = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
-        $kandidat = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
-        $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->get();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        return view('perusahaan/kandidat/video_kandidat',compact('perusahaan','kandidat','pengalaman_kerja','cabang'));
     }
 
     public function pilihKandidat(Request $request)
@@ -872,6 +802,44 @@ class PerusahaanController extends Controller
         }
         
         return redirect('/perusahaan/interview');
+    }
+
+    public function lihatProfilKandidat($id)
+    {
+        $auth = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
+        $kandidat = Kandidat::where('id_kandidat',$id)->first();
+        $info_kandidat = PengalamanKerja::where('id_kandidat',$id)->get();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        $semua_kandidat = Kandidat::where('kandidat.penempatan','like','%'.$perusahaan->penempatan_kerja.'%')
+        ->where('kandidat.id_kandidat','not like',$id)->limit(12)->get();
+        $usia = Carbon::parse($kandidat->tgl_lahir)->age;
+        $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
+        $interview = Interview::where('id_kandidat',$kandidat->id_kandidat)->first();
+        return view('perusahaan/kandidat/profil_kandidat',compact(
+            'kandidat',
+            'info_kandidat',
+            'perusahaan',
+            'usia',
+            'tgl_user',
+            'semua_kandidat',
+            'interview',
+            'notif',
+            'pesan',
+            'cabang',
+        ));
+    }
+
+    public function lihatVideoKandidat($id)
+    {
+        $auth = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
+        $kandidat = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
+        $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->get();
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        return view('perusahaan/kandidat/video_kandidat',compact('perusahaan','kandidat','pengalaman_kerja','cabang'));
     }
 
     // DATA INTERVIEW //

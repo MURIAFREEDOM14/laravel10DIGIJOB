@@ -103,7 +103,7 @@
                                     <span class="form-radio-sign">Fresh Graduate</span>
                                 </label>
                                 <label class="form-radio-label ml-2">
-                                    <input class="form-radio-input" type="radio" name="pengalaman" value="1234">
+                                    <input class="form-radio-input" type="radio" name="pengalaman" value="1,2,3,4">
                                     <span class="form-radio-sign">1 - 4thn</span>
                                 </label>
                                 <label class="form-radio-label ml-2">

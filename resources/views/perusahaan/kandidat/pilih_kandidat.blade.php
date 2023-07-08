@@ -75,7 +75,7 @@
                                             <div class="">Usia</div>
                                         </div>
                                         <div class="col-md-8">
-                                            <input type="number" name="usia" class="form-control" id="">
+                                            <input type="number" name="usia" class="form-control" value="{{18}}" id="">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -85,7 +85,7 @@
                                         <div class="col-md-8">
                                             <div class="form-check">
                                                 <label class="form-radio-label">
-                                                    <input class="form-radio-input" type="radio" name="jenis_kelamin" value="M">
+                                                    <input class="form-radio-input" type="radio" name="jenis_kelamin" checked="" value="M">
                                                     <span class="form-radio-sign">Laki-laki</span>
                                                 </label>
                                                 <label class="form-radio-label ml-3">
@@ -93,7 +93,7 @@
                                                     <span class="form-radio-sign">Perempuan</span>
                                                 </label>
                                                 <label class="form-radio-label ml-3">
-                                                    <input class="form-radio-input" type="radio" name="jenis_kelamin" value="">
+                                                    <input class="form-radio-input" type="radio" name="jenis_kelamin" value="MF">
                                                     <span class="form-radio-sign">Laki-laki & Perempuan</span>
                                                 </label>
                                             </div>
@@ -106,7 +106,7 @@
                                         <div class="col-md-8">
                                             <div class="form-check">
                                                 <label class="form-radio-label">
-                                                    <input class="form-radio-input" type="radio" name="pendidikan" value="Tidak_sekolah,SD,SMP">
+                                                    <input class="form-radio-input" type="radio" name="pendidikan" checked="" value="Tidak_sekolah,SD,SMP">
                                                     <span class="form-radio-sign">< SMP</span>
                                                 </label>
                                                 <label class="form-radio-label ml-2">
@@ -160,11 +160,11 @@
                                         <div class="col-md-8">
                                             <div class="form-check">
                                                 <label class="form-radio-label">
-                                                    <input class="form-radio-input" type="radio" name="pengalaman" value="baru">
+                                                    <input class="form-radio-input" type="radio" name="pengalaman" checked="" value="">
                                                     <span class="form-radio-sign">Fresh Graduate</span>
                                                 </label>
                                                 <label class="form-radio-label ml-2">
-                                                    <input class="form-radio-input" type="radio" name="pengalaman" value="1-4">
+                                                    <input class="form-radio-input" type="radio" name="pengalaman" value="1,2,3,4">
                                                     <span class="form-radio-sign">1 - 4thn</span>
                                                 </label>
                                                 <label class="form-radio-label ml-2">

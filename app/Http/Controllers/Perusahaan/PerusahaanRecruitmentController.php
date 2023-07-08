@@ -135,7 +135,6 @@ class PerusahaanRecruitmentController extends Controller
 
     public function pencarianKandidatStaff(Request $request)
     {
-        dd($request);
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
         $provinsi = Provinsi::where('id',$request->provinsi_id)->first();
@@ -149,6 +148,7 @@ class PerusahaanRecruitmentController extends Controller
             }
         } else {
             $prov = "";
+            $kab ="";
         }
 
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
