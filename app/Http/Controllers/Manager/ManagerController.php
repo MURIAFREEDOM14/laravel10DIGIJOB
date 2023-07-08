@@ -111,7 +111,7 @@ class ManagerController extends Controller
             'email' => $request->email,
             'no_telp' => $request->no_telp,
             'password' => $password,
-            'check_password' => $password
+            'check_password' => $request->nama
         ]);
 
         $id = $user->id;
