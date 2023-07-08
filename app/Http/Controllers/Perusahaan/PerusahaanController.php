@@ -520,6 +520,12 @@ class PerusahaanController extends Controller
 
     public function hapusLowongan($id)
     {
+        $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
+        $datetime  = date('d-M-Y');
+        if($lowongan->ttp_lowongan == $datetime){
+            
+        }
+        
         LowonganPekerjaan::where('id_lowongan',$id)->delete();
         return redirect('/perusahaan/list/lowongan')->with('success');
     }

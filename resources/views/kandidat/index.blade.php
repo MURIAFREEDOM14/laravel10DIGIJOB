@@ -13,7 +13,6 @@
             <input type="text" name="" value="{{$kandidat->id_kandidat}}" id="id"> --}}
             {{-- <input type="text" value="{{$kandidat->negara_id}}" name="negara_id" id="negara_id"> --}}
             <div class="card">
-                if
                 <div class="card-header">
                     <b class="bold">Informasi Perusahaan</b>
                 </div>
@@ -30,7 +29,11 @@
                             <tbody>
                                 @if ($kandidat->id_perusahaan !== null)
                                     <tr>
-                                        <td></td>
+                                        <td>1</td>
+                                        <td>{{$perusahaan->nama_perusahaan}}</td>
+                                        <td>
+                                            <a href="/profil_perusahaan/{{$perusahaan->id_perusahaan}}">Lihat</a>
+                                        </td>
                                     </tr>
                                 @else
                                     @foreach ($perusahaan_semua as $item)

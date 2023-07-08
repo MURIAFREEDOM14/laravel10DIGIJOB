@@ -376,10 +376,11 @@ Route::controller(KandidatPerusahaanController::class)->group(function() {
     Route::get('/detail_pekerjaan_perusahaan/{kerjaid}/{nama}','detailPekerjaanPerusahaan');
     Route::post('/detail_pekerjaan_perusahaan/{kerjaid}/{nama}','terimaPekerjaanPerusahaan');
     
-    Route::get('/list_lowongan_pekerjaan','listLowonganPekerjaan')->middleware('kandidat');
     Route::get('/lihat_lowongan_pekerjaan/{id}','lowonganPekerjaan')->middleware('kandidat'); 
     Route::get('/permohonan_lowongan/{id}','permohonanLowongan')->middleware('kandidat');
     Route::post('/permohonan_lowongan/{id}','kirimPermohonan');
+
+    Route::get('/keluar_perusahaan/{id}','keluarPerusahaan')->middleware('kandidat');
 });
 
 // data akun prioritas

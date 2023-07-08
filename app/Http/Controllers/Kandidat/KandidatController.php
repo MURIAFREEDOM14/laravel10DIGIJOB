@@ -48,12 +48,12 @@ class KandidatController extends Controller
         } else {
             $perusahaan_semua = Perusahaan::whereNotNull('email_operator')->where('penempatan_kerja','like','%'.$kandidat->penempatan.'%')->get();
         }
-        // if($kandidat->id_perusahaan !== null){
-        //     $pe
-        // } else {
-
-        // }
-        return view('kandidat/index',compact('kandidat','notif','perusahaan_semua','pembayaran','pesan','lowongan','cari_perusahaan'));
+        if($kandidat->id_perusahaan !== null){
+            $perusahaan = Perusahaan::where('id_perusahaan',$kandidat->id_perusahaan)->first();
+        } else {
+            $perusahaan = null;
+        }
+        return view('kandidat/index',compact('kandidat','notif','perusahaan_semua','perusahaan','pembayaran','pesan','lowongan','cari_perusahaan'));
     }
     
     public function profil()

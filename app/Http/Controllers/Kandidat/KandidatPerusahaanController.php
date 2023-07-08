@@ -112,20 +112,6 @@ class KandidatPerusahaanController extends Controller
         return redirect('/profil_perusahaan/'.$perusahaan->id_perusahaan);
     }
 
-    public function listLowonganPekerjaan()
-    {
-        $user = Auth::user();
-        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
-        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
-        $lowongan = LowonganPekerjaan::join(
-            'perusahaan', 'lowongan_pekerjaan.id_perusahaan','=','perusahaan.id_perusahaan'
-        )
-        // ->where('perusahaan.tmp_negara','like','%'.$kandidat->penempatan.'%')
-        ->get();
-        return view('kandidat/perusahaan/list_lowongan_pekerjaan',compact('kandidat','lowongan','pesan','notif'));
-    }
-
     public function LowonganPekerjaan($id)
     {
         $user = Auth::user();
@@ -133,8 +119,14 @@ class KandidatPerusahaanController extends Controller
         $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
+        $permohonan = PermohonanLowongan::where('id_kandidat',$kandidat->id_kandidat)->first();
+        if($permohonan == null){
+            $jabatan = null;
+        } else {
+            $jabatan = $permohonan->jabatan;
+        }
         $perusahaan = Perusahaan::where('id_perusahaan',$lowongan->id_perusahaan)->first();
-        return view('kandidat/perusahaan/lihat_lowongan_pekerjaan',compact('kandidat','pesan','notif','lowongan','perusahaan'));
+        return view('kandidat/perusahaan/lihat_lowongan_pekerjaan',compact('kandidat','pesan','notif','lowongan','jabatan','perusahaan'));
     }
 
     public function permohonanLowongan($id)
@@ -152,16 +144,39 @@ class KandidatPerusahaanController extends Controller
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
-        PermohonanLowongan::create([
-            'negara' => $lowongan->negara,
-            'nama_kandidat' => $kandidat->nama,
-            'id_kandidat' => $kandidat->id_kandidat,
-            'id_perusahaan' => $lowongan->id_perusahaan,
-            'jabatan' => $lowongan->jabatan,
-        ]);
+        $permohonan = PermohonanLowongan::where('id_kandidat',$kandidat->id_kandidat)->first();
+        if($permohonan !== null){
+            PermohonanLowongan::where('jabatan',$permohonan->jabatan)->where('id_perusahaan',$lowongan->id_perusahaan)->update([
+                'jabatan' => $lowongan->jabatan,
+                'nama_kandidat' => $kandidat->nama,
+                'id_kandidat' => $kandidat->id_kandidat,
+                'id_perusahaan' => $lowongan->id_perusahaan,
+                'negara' => $lowongan->negara,
+            ]);
+        } else {
+            PermohonanLowongan::create([
+                'negara' => $lowongan->negara,
+                'nama_kandidat' => $kandidat->nama,
+                'id_kandidat' => $kandidat->id_kandidat,
+                'id_perusahaan' => $lowongan->id_perusahaan,
+                'jabatan' => $lowongan->jabatan,
+            ]);
+        }
         Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
             'id_perusahaan' => $lowongan->id_perusahaan,
         ]);
         return redirect('/kandidat')->with('success',"Permohonan anda terkirim");
+    }
+
+    public function keluarPerusahaan($id)
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        $perusahaan = Perusahaan::where('id_perusahaan',$id)->first();
+        Kandidat::where('id_perusahaan',$id)->where('id_kandidat',$kandidat->id_kandidat)->update([
+            'id_perusahaan' => null,
+        ]);
+        PermohonanLowongan::where('id_kandidat',$kandidat->id_kandidat)->delete();
+        return redirect('/kandidat')->with('success',"Anda telah keluar dari ".$perusahaan->nama_perusahaan);
     }
 }

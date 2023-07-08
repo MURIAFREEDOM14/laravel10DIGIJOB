@@ -139,7 +139,11 @@
                 </div>
                 <hr>
                 <a href="/kandidat" class="btn btn-danger">Kembali</a>
-                <a href="/permohonan_lowongan/{{$lowongan->id_lowongan}}" class="btn btn-primary float-right">Terima Lowongan</a>
+                @if ($lowongan->jabatan == $jabatan)
+                    <a href="/permohonan_lowongan/{{$lowongan->id_lowongan}}" class="btn btn-primary float-right" onclick="return confirm('apakah anda ingin menganti lamaran sebelumnya?')">Melamar</a>                    
+                @else
+                    <a href="/permohonan_lowongan/{{$lowongan->id_lowongan}}" class="btn btn-primary float-right">Melamar</a>
+                @endif                
             </div>
         </div>
     </div>
