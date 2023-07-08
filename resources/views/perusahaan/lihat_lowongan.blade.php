@@ -133,6 +133,15 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-4">
+                        <label for="" class="col-form-label">Tanggal Tutup Lowongan</label>
+                    </div>
+                    <div class="col-8">
+                        <div class=""><b class="bold">: {{date('d-M-Y',strtotime($lowongan->ttp_lowongan))}}</b></div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mb-3">
+                    <div class="col-4">
                         <label for="" class="col-form-label">Kode Undangan</label>
                     </div>
                     <div class="col-8">
