@@ -27,7 +27,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if ($kandidat->id_perusahaan !== null)
+                                {{-- @if ($kandidat->id_perusahaan !== null)
                                     <tr>
                                         <td>1</td>
                                         <td>{{$perusahaan->nama_perusahaan}}</td>
@@ -35,7 +35,7 @@
                                             <a href="/profil_perusahaan/{{$perusahaan->id_perusahaan}}">Lihat</a>
                                         </td>
                                     </tr>
-                                @else
+                                @else --}}
                                     @foreach ($perusahaan_semua as $item)
                                         <tr class="text-center">
                                             <td>{{$loop->iteration}}</td>
@@ -47,7 +47,7 @@
                                             </td>
                                         </tr>    
                                     @endforeach    
-                                @endif
+                                {{-- @endif --}}
                             </tbody>
                         </table>
                     </div>
