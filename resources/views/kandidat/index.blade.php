@@ -13,6 +13,7 @@
             <input type="text" name="" value="{{$kandidat->id_kandidat}}" id="id"> --}}
             {{-- <input type="text" value="{{$kandidat->negara_id}}" name="negara_id" id="negara_id"> --}}
             <div class="card">
+                if
                 <div class="card-header">
                     <b class="bold">Informasi Perusahaan</b>
                 </div>
@@ -27,17 +28,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($perusahaan as $item)
-                                    <tr class="text-center">
-                                        <td>{{$loop->iteration}}</td>
-                                        <td>
-                                            {{$item->nama_perusahaan}}
-                                        </td>
-                                        <td>
-                                            <a href="/profil_perusahaan/{{$item->id_perusahaan}}">Lihat</a>
-                                        </td>
-                                    </tr>    
-                                @endforeach
+                                @if ($kandidat->id_perusahaan !== null)
+                                    <tr>
+                                        <td></td>
+                                    </tr>
+                                @else
+                                    @foreach ($perusahaan_semua as $item)
+                                        <tr class="text-center">
+                                            <td>{{$loop->iteration}}</td>
+                                            <td>
+                                                {{$item->nama_perusahaan}}
+                                            </td>
+                                            <td>
+                                                <a href="/profil_perusahaan/{{$item->id_perusahaan}}">Lihat</a>
+                                            </td>
+                                        </tr>    
+                                    @endforeach    
+                                @endif
                             </tbody>
                         </table>
                     </div>

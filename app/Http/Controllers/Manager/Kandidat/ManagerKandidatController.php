@@ -231,7 +231,6 @@ class ManagerKandidatController extends Controller
             'kecamatan' => $kecamatan->kecamatan,
             'kabupaten' => $kota->kota,
             'provinsi' => $provinsi->provinsi,
-            'stats_negara' => "Indonesia",
             'foto_ktp' => 
             $foto_ktp,
             'foto_kk' => 
