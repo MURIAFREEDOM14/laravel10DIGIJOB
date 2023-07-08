@@ -32,7 +32,7 @@
                         </div>
                         <hr>
                         <b class="bold">Email Perusahaan</b>
-                        <p><b class="bold">{{$perusahaan->email_perusahaan}}</b></p>
+                        <p><b class="">{{$perusahaan->email_perusahaan}}</b></p>
                         <hr>
                         <b class="bold">No. Telp Perusahaan</b>
                         <p><b class="bold">{{$perusahaan->no_telp_perusahaan}}</b></p>
@@ -47,7 +47,7 @@
                         <p><b class="bold">{{$perusahaan->no_telp_operator}}</b></p>
                         <hr>
                         <b class="bold">Email Operator</b>
-                        <p><b class="bold">{{$perusahaan->email_operator}}</b></p>
+                        <p><b class="">{{$perusahaan->email_operator}}</b></p>
                         <hr>
                     </div>
                 </div>
