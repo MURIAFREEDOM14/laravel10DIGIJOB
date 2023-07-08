@@ -459,7 +459,6 @@ class PerusahaanController extends Controller
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
         $negara = Negara::where('negara_id',$request->negara_id)->first();
         LowonganPekerjaan::create([
-            'nama_lowongan' => $request->nama_lowongan,
             'usia' => $request->usia,
             'jabatan' => $request->jabatan,
             'pendidikan' => $request->pendidikan,
@@ -471,6 +470,7 @@ class PerusahaanController extends Controller
             'id_perusahaan' => $perusahaan->id_perusahaan,
             'isi' => $request->isi,
             'negara' => $negara->negara,
+            'ttp_lowongan' => $request->ttp_lowongan,
         ]);
         return redirect('perusahaan/list/lowongan')->with('success');
     }
@@ -494,7 +494,8 @@ class PerusahaanController extends Controller
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        return view('perusahaan/edit_lowongan',compact('perusahaan','pesan','notif','lowongan','cabang'));
+        $negara = Negara::where('negara_id','not like',2)->get();
+        return view('perusahaan/edit_lowongan',compact('perusahaan','pesan','notif','lowongan','cabang','negara'));
     }
 
     public function updateLowongan(Request $request, $id)
@@ -502,7 +503,6 @@ class PerusahaanController extends Controller
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
         LowonganPekerjaan::where('id_lowongan',$id)->update([
-            'nama_lowongan' => $request->nama_lowongan,
             'usia' => $request->usia,
             'jabatan' => $request->jabatan,
             'pendidikan' => $request->pendidikan,
@@ -513,6 +513,7 @@ class PerusahaanController extends Controller
             'pencarian_tmp' => $request->pencarian_tmp,
             'id_perusahaan' => $perusahaan->id_perusahaan,
             'isi' => $request->isi,
+            'ttp_lowongan' => $request->ttp_lowongan,
         ]);
         return redirect('/perusahaan/list/lowongan')->with('success');
     }

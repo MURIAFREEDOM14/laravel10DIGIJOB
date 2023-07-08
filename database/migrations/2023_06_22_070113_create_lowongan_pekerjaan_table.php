@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('lowongan_pekerjaan', function (Blueprint $table) {
             $table->id('id_lowongan');
-            $table->string('nama_lowongan')->nullable();
             $table->string('negara')->nullable();
             $table->string('usia')->nullable();
             $table->string('jabatan')->nullable();
@@ -25,6 +24,7 @@ return new class extends Migration
             $table->string('pencarian_tmp')->nullable();
             $table->integer('id_perusahaan')->nullable();
             $table->text('isi')->nullable();
+            $table->string('ttp_lowongan')->nullable();
             $table->timestamps();
         });
     }

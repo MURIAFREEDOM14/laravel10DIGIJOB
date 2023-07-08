@@ -10,18 +10,17 @@
                     @csrf
                     <div class="row mb-3">
                         <div class="col-md-4">
-                            <label for="" class="col-form-label">Tema Lowongan</label>
+                            <label for="" class="col-form-label">Negara Tujuan</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="text" required name="nama_lowongan" class="form-control" id="" value="{{$lowongan->nama_lowongan}}">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label for="" class="col-form-label">Isi Lowongan</label>
-                        </div>
-                        <div class="col-md-8">
-                            <textarea name="isi" required id="" class="form-control">{{$lowongan->isi}}</textarea>
+                            <select name="negara_id" class="form-control" id="">
+                                <option value="">-- Pilih Negara --</option>
+                                @foreach ($negara as $item)
+                                    <option value="{{$item->negara_id}}" @if ($lowongan->negara == $item->negara)
+                                        selected
+                                    @endif>{{$item->negara}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -29,14 +28,16 @@
                             <label for="" class="col-form-label">Jabatan</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" required name="jabatan" class="form-control" id="" value="{{$lowongan->jabatan}}">
+                            <input type="text" required name="jabatan" class="form-control" value="{{$lowongan->jabatan}}" id="">
                         </div>
                     </div>
+                    <hr>
                     <div class="row">
                         <div class="col">
                             <h5 style="font-weight:bold">Persyaratan</h5>
                         </div>
                     </div>
+                    <hr>
                     <div class="row mb-3">
                         <div class="col-md-4">
                             <label for="" class="col-form-label">Jenis Kelamin</label>
@@ -48,7 +49,7 @@
                                     selected
                                 @endif>Laki-laki</option>
                                 <option value="F" @if ($lowongan->jenis_kelamin == "F")
-                                    selected
+                                    selected                                    
                                 @endif>Perempuan</option>
                                 <option value="MF" @if ($lowongan->jenis_kelamin == "MF")
                                     selected
@@ -58,7 +59,7 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-4">
-                            <label for="" class="col-form-label">Pendidikan</label>
+                            <label for="" class="col-form-label">Pendidikan Minimal</label>
                         </div>
                         <div class="col-md-4">
                             <select name="pendidikan" required class="form-control" id="">
@@ -67,13 +68,13 @@
                                     selected
                                 @endif>SD</option>
                                 <option value="SMP" @if ($lowongan->pendidikan == "SMP")
-                                    selected                                    
+                                    selected
                                 @endif>SMP</option>
                                 <option value="SMA" @if ($lowongan->pendidikan == "SMA")
-                                    selected                                    
+                                    selected
                                 @endif>SMA</option>
                                 <option value="Diploma" @if ($lowongan->pendidikan == "Diploma")
-                                    selected                                    
+                                    selected
                                 @endif>Diploma</option>
                                 <option value="Sarjana" @if ($lowongan->pendidikan == "Sarjana")
                                     selected                                    
@@ -86,10 +87,10 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-4">
-                            <label for="" class="col-form-label">Usia</label>
+                            <label for="" class="col-form-label">Usia Minimal</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="number" name="usia" class="form-control" id="" value="{{$lowongan->usia}}">
+                            <input type="number" name="usia" value="{{$lowongan->usia}}" class="form-control" id="">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -102,13 +103,18 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-4">
-                            <label for="" class="col-form-label">Berat / Tinggi Badan</label>
+                            <label for="" class="col-form-label">Berat Badan Minimal</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="number" name="berat" placeholder="Masukkan Berat" class="form-control" id="" value="{{$lowongan->berat}}">
+                            <input type="number" name="berat" placeholder="Masukkan Berat" value="{{$lowongan->berat}}" class="form-control" id="">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="" class="col-form-label">Tinggi Badan Minimal</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="number" name="tinggi" placeholder="Masukkan Tinggi" class="form-control" id="" value="{{$lowongan->tinggi}}">
+                            <input type="number" name="tinggi" placeholder="Masukkan Tinggi" value="{{$lowongan->tinggi}}" class="form-control" id="">
                         </div>
                     </div>
                     <div class="form-check">
@@ -125,11 +131,20 @@
                                 <span class="form-radio-sign">Provinsi</span>
                             </label>
                             <label class="form-radio-label ml-3">
-                                <input class="form-radio-input" type="radio" name="pencarian_tmp" value="">
+                                <input class="form-radio-input" type="radio" name="pencarian_tmp" value="Se-indonesia">
                                 <span class="form-radio-sign">Se-Indonesia</span>
                             </label>
                         </div>
                     </div>
+                    <div class="row mb-3">
+                        <div class="col-4">
+                            <label for="" class="col-form-label">Tanggal Tutup Lowongan</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="date" name="ttp_lowongan" value="{{$lowongan->ttp_lowongan}}" class="form-control" id="">
+                        </div>
+                    </div>
+                    <hr>
                     <div class="row mb-3">
                         <div class="col-4">
                             <label for="" class="col-form-label">Kode Undangan</label>

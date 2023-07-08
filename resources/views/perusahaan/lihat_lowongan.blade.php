@@ -6,14 +6,14 @@
                 <h5 style="font-weight: bold">Lihat Lowongan</h5>
             </div>
             <div class="card-body">
-                <div class="row mb-3">
+                {{-- <div class="row mb-3">
                     <div class="col-md-4">
                         <label for="" class="col-form-label">Tema Lowongan</label>
                     </div>
                     <div class="col-md-8">
                         <div class=""><b class="bold">: {{$lowongan->nama_lowongan}}</b></div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <label for="" class="col-form-label">Isi Lowongan</label>

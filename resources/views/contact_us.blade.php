@@ -55,7 +55,7 @@
                         <div class="text-center">
                             <h6>Email</h6>
                             <hr>
-                            <div class="">Segera Hadir</div>
+                            <div class="">cs@ugiport.com</div>
                         </div>
                     </div>
                 </div>

@@ -67,7 +67,7 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-4">
-                            <label for="" class="col-form-label">Pendidikan</label>
+                            <label for="" class="col-form-label">Pendidikan Minimal</label>
                         </div>
                         <div class="col-md-4">
                             <select name="pendidikan" required class="form-control" id="">
@@ -83,7 +83,7 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-4">
-                            <label for="" class="col-form-label">Usia</label>
+                            <label for="" class="col-form-label">Usia Minimal</label>
                         </div>
                         <div class="col-md-4">
                             <input type="number" name="usia" class="form-control" id="">
@@ -99,10 +99,15 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-4">
-                            <label for="" class="col-form-label">Berat / Tinggi Badan</label>
+                            <label for="" class="col-form-label">Berat Badan Minimal</label>
                         </div>
                         <div class="col-md-4">
                             <input type="number" name="berat" placeholder="Masukkan Berat" class="form-control" id="">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="" class="col-form-label">Tinggi Badan Minimal</label>
                         </div>
                         <div class="col-md-4">
                             <input type="number" name="tinggi" placeholder="Masukkan Tinggi" class="form-control" id="">
@@ -127,6 +132,15 @@
                             </label>
                         </div>
                     </div>
+                    <div class="row mb-3">
+                        <div class="col-4">
+                            <label for="" class="col-form-label">Tanggal Tutup Lowongan</label>
+                        </div>
+                        <div class="col-4">
+                            <input type="date" name="ttp_lowongan" class="form-control" id="">
+                        </div>
+                    </div>
+                    <hr>
                     <div class="row mb-3">
                         <div class="col-4">
                             <label for="" class="col-form-label">Kode Undangan</label>
