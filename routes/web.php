@@ -8,8 +8,10 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Manager\ManagerController;
 use App\Http\Controllers\Manager\Kandidat\ManagerKandidatController;
 use App\Http\Controllers\Manager\ContactUsController;
+use App\Http\Controllers\Manager\NegaraController;
 use App\Http\Controllers\Kandidat\KandidatPerusahaanController;
 use App\Http\Controllers\Kandidat\KandidatController;
+use App\Http\Controllers\Kandidat\FileUploadController;
 use App\Http\Controllers\Perusahaan\PerusahaanController;
 use App\Http\Controllers\Perusahaan\PerusahaanRecruitmentController;
 use App\Http\Controllers\CaptureController;
@@ -26,10 +28,10 @@ use App\Http\Livewire\Location;
 use App\Http\Livewire\LocationPermission;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\NegaraController;
 use App\Http\Controllers\ReferralController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\MessagerController;
+use PHPUnit\TextUI\Configuration\Group;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -390,6 +392,7 @@ Route::controller(PrioritasController::class)->group(function(){
     Route::get('/pelatihan_interview','interview')->middleware('prioritas');
 });
 
+Route::get('/download_file',[FileUploadController::class]);
 
 // data notifikasi
 Route::controller(NotifikasiController::class)->group(function() {
