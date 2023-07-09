@@ -871,6 +871,9 @@ class KandidatController extends Controller
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
+        if($kandidat->id_perusahaan !== null){
+            return redirect()->route()->with('toast_error',"Maaf anda tidak bisa berganti penempatan kerja karena sudah masuk dalam lowonngan perusahaan")
+        }
         Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
             'negara_id' => $request->negara_id,
             'penempatan' => $request->penempatan,
