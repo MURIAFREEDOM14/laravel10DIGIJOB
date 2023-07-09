@@ -54,9 +54,9 @@
                 @if ($kandidat->id_perusahaan == $perusahaan->id_perusahaan)
                     <div class="card">
                         <div class="card-body">
-                            <div class="">Anda sekarang Tergabung dalam Perusahaan Ini</div>
+                            <div class="">Permohonan Lowongan sudah dikirimkan</div>
                             <hr>
-                            <a href="/keluar_perusahaan/{{$perusahaan->id_perusahaan}}" class="btn btn-outline-danger mx-auto" onclick="return confirm('apakah anda yakin ingin keluar perusahaan ini?')">Keluar Perusahaan</a>
+                            <a href="/keluar_perusahaan/{{$perusahaan->id_perusahaan}}" class="btn btn-outline-danger mx-auto" onclick="return confirm('apakah anda yakin ingin membatalkan lowongan perusahaan?')">Batalkan Lowongan</a>
                         </div>
                     </div>
                 @endif
