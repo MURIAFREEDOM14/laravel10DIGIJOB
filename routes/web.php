@@ -58,6 +58,7 @@ Route::controller(ManagerController::class)->group(function() {
     Route::get('/manager/buat_surat_izin','buatSuratIzin')->middleware('manager');
     Route::post('/manager/buat_surat_izin','simpanSuratIzin');
     Route::get('/manager/kandidat/cetak_surat/{id}','cetakSurat')->middleware('manager');
+    Route::get('/manager/kandidat/surat_izin_waris','cetakSuratKosong');
 
     // DATA KANDIDAT // 
     Route::get('/manager/kandidat/lihat_profil/{id}','lihatProfil')->middleware('manager');
@@ -252,13 +253,6 @@ Route::controller(PerusahaanController::class)->group(function(){
     Route::get('/perusahaan/lihat/perusahaan','profil')->middleware('perusahaan');    
     Route::get('/contact_us_perusahaan','contactUsPerusahaan')->middleware('perusahaan');
     
-    Route::get('/perusahaan/list/lowongan','lowonganPekerjaan')->middleware('perusahaan');
-    Route::get('/perusahaan/buat_lowongan','tambahLowongan')->middleware('perusahaan');
-    Route::post('/perusahaan/buat_lowongan','simpanLowongan');
-    Route::get('/perusahaan/lihat_lowongan/{id}','lihatLowongan')->middleware('perusahaan');
-    Route::get('/perusahaan/edit_lowongan/{id}','editLowongan')->middleware('perusahaan');
-    Route::post('/perusahaan/edit_lowongan/{id}','updateLowongan');
-    Route::get('/perusahaan/hapus_lowongan/{id}','hapusLowongan')->middleware('perusahaan');
     Route::get('/perusahaan/list_permohonan_lowongan','listPermohonanLowongan');
     Route::get('/perusahaan/permohonan_lowongan_pekerjaan/{id}','permohonanLowonganPekerjaan');
     Route::post('/perusahaan/permohonan_lowongan_pekerjaan/{id}','confirmLowonganPekerjaan');
@@ -315,6 +309,14 @@ Route::controller(PerusahaanRecruitmentController::class)->group(function() {
 
     Route::get('/perusahaan/cari_kandidat_staff','cariKandidatStaff');
     Route::post('/perusahaan/cari_kandidat_staff','pencarianKandidatStaff');
+
+    Route::get('/perusahaan/list/lowongan','lowonganPekerjaan')->middleware('perusahaan');
+    Route::get('/perusahaan/buat_lowongan','tambahLowongan')->middleware('perusahaan');
+    Route::post('/perusahaan/buat_lowongan','simpanLowongan');
+    Route::get('/perusahaan/lihat_lowongan/{id}','lihatLowongan')->middleware('perusahaan');
+    Route::get('/perusahaan/edit_lowongan/{id}','editLowongan')->middleware('perusahaan');
+    Route::post('/perusahaan/edit_lowongan/{id}','updateLowongan');
+    Route::get('/perusahaan/hapus_lowongan/{id}','hapusLowongan')->middleware('perusahaan');
 });
 
 // DATA KANDIDAT //
@@ -370,8 +372,8 @@ Route::controller(KandidatController::class)->group(function() {
 });
 
 Route::controller(KandidatPerusahaanController::class)->group(function() {
-    Route::get('/list_informasi_perusahaan','listPerusahaan')->middleware('kandidat');
-    Route::post('/list_informasi_perusahaan','cari_perusahaan');
+    // Route::get('/list_informasi_perusahaan','listPerusahaan')->middleware('kandidat');
+    // Route::post('/list_informasi_perusahaan','cari_perusahaan');
     Route::get('/profil_perusahaan/{id}','perusahaan')->middleware('kandidat');
     
     Route::get('/lihat/perusahaan/pekerjaan/{negaraid}/{nama}','lihatPekerjaanPerusahaan');
@@ -392,7 +394,7 @@ Route::controller(PrioritasController::class)->group(function(){
     Route::get('/pelatihan_interview','interview')->middleware('prioritas');
 });
 
-Route::get('/download_file',[FileUploadController::class]);
+Route::get('/download_file',[FileUploadController::class,'downloadFile']);
 
 // data notifikasi
 Route::controller(NotifikasiController::class)->group(function() {
@@ -437,9 +439,10 @@ Route::controller(RegisterController::class)->group(function() {
 
 // data output
 Route::controller(OutputController::class)->group(function() {
-    Route::get('/output', 'index')->middleware('kandidat')->name('output');
-    Route::get('/output_izin_waris', 'izinWaris')->middleware('kandidat');
-    Route::get('/cetak/{id}', 'cetak')->middleware('manager')->name('cetak');
+    Route::get('/output', 'index')->name('output');
+    Route::get('/output_izin_waris', 'izinWaris');
+    Route::get('/surat_izin_waris', 'suratIzinWaris');
+    Route::get('/cetak/{id}', 'cetak')->name('cetak');
 });
 
 // data verifikasi

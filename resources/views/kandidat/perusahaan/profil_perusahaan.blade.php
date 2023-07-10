@@ -49,6 +49,12 @@
                         <b class="bold">Email Operator</b>
                         <p><b class="">{{$perusahaan->email_operator}}</b></p>
                         <hr>
+                        @if (auth()->user()->verify_confirmed !== null)
+                            <span class="badge badge-pill badge-info">Verified</span>
+                        @endif
+                        @if ($perusahaan->email_operator !== null)
+                            <span class="badge badge-pill badge-success">Profile</span>
+                        @endif
                     </div>
                 </div>
                 @if ($kandidat->id_perusahaan == $perusahaan->id_perusahaan)
@@ -56,7 +62,7 @@
                         <div class="card-body">
                             <div class="">Permohonan Lowongan sudah dikirimkan</div>
                             <hr>
-                            <a href="/keluar_perusahaan/{{$perusahaan->id_perusahaan}}" class="btn btn-outline-danger mx-auto" onclick="return confirm('apakah anda yakin ingin membatalkan lowongan perusahaan?')">Batalkan Lowongan</a>
+                            <a href="/keluar_perusahaan/{{$perusahaan->id_perusahaan}}" class="btn btn-outline-danger mx-auto" onclick="cancelLowongan(event)">Batalkan Lowongan</a>
                         </div>
                     </div>
                 @endif

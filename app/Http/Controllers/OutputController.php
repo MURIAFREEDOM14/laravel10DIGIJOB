@@ -220,4 +220,9 @@ class OutputController extends Controller
             'periode_akhir3',
         ));
     }
+
+    public function suratIzinWaris()
+    {
+        return view('output/surat_izin_waris');
+    }
 }

@@ -30,6 +30,7 @@ class AkademiController extends Controller
         $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
         $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
         $akademi_kandidat = Kandidat::where('id_akademi',$akademi->id_akademi)->limit(10)->get();
+        $notifiA = notifyAkademi::where('created_at','<',Carbon::now()->subDays(14))->delete();
         return view('/akademi/akademi_index',compact('akademi','perusahaan','akademi_kandidat','pesan','notif'));
     } 
 

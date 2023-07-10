@@ -1,33 +1,29 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Kandidat;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use File;
+use Symfony\Component\HttpFoundation\Response;
 use ZipArchive;
 
 
 class FileUploadController extends Controller
 {
-    public function __invoke()
+    public function downloadFile()
     {
-        $zip = new ZipArchive;
-    
-        $fileName = 'myNewFile.zip';
-     
-        if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE)
-        {
-            $files = File::files(public_path('myFiles'));
-     
-            foreach ($files as $key => $value) {
+        $file = new ZipArchive;
+        $fileName = time().'.zip';
+        if ($file->open(public_path($fileName),ZipArchive::CREATE) === true) {
+            $zip = File::files(public_path('gambar'));   
+            
+            foreach($zip as $key => $value) {
                 $relativeNameInZipFile = basename($value);
-                $zip->addFile($value, $relativeNameInZipFile);
+                $file->addFile($value,$relativeNameInZipFile);
             }
-               
-            $zip->close();
+            $file->close();
         }
-      
-        return response()->download(public_path($fileName));
+        return Response()->download(public_path($fileName));
     }
 }

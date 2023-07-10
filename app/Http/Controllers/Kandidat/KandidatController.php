@@ -38,6 +38,7 @@ class KandidatController extends Controller
         $notif = notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
+        $notifyK = notifyKandidat::where('created_at','<',Carbon::now()->subDays(14))->delete();
         $lowongan = LowonganPekerjaan::join(
             'perusahaan','lowongan_pekerjaan.id_perusahaan','=','perusahaan.id_perusahaan'
         )

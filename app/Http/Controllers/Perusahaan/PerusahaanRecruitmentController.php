@@ -167,4 +167,103 @@ class PerusahaanRecruitmentController extends Controller
         $isi = $kandidat->count();
         return view('perusahaan/kandidat/cari_staff',compact('perusahaan','notif','pesan','cabang','isi'));
     }
+
+    public function lowonganPekerjaan()
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        return view('perusahaan/lowongan_pekerjaan',compact('perusahaan','notif','pesan','lowongan','cabang'));
+    }
+
+    public function tambahLowongan()
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        $negara = Negara::where('negara_id','not like',2)->get();
+        return view('perusahaan/tambah_lowongan',compact('perusahaan','notif','pesan','cabang','negara'));
+    }
+
+    public function simpanLowongan(Request $request)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $negara = Negara::where('negara_id',$request->negara_id)->first();
+        LowonganPekerjaan::create([
+            'usia' => $request->usia,
+            'jabatan' => $request->jabatan,
+            'pendidikan' => $request->pendidikan,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'pengalaman_kerja' => $request->pengalaman_kerja,
+            'berat' => $request->berat,
+            'tinggi' => $request->tinggi,
+            'pencarian_tmp' => $request->pencarian_tmp,
+            'id_perusahaan' => $perusahaan->id_perusahaan,
+            'isi' => $request->isi,
+            'negara' => $negara->negara,
+            'ttp_lowongan' => $request->ttp_lowongan,
+        ]);
+        return redirect('perusahaan/list/lowongan')->with('success');
+    }
+
+    public function lihatLowongan($id)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        return view('perusahaan/lihat_lowongan',compact('perusahaan','lowongan','pesan','notif','cabang'));
+    }
+
+    public function editLowongan($id)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        $negara = Negara::where('negara_id','not like',2)->get();
+        return view('perusahaan/edit_lowongan',compact('perusahaan','pesan','notif','lowongan','cabang','negara'));
+    }
+
+    public function updateLowongan(Request $request, $id)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        LowonganPekerjaan::where('id_lowongan',$id)->update([
+            'usia' => $request->usia,
+            'jabatan' => $request->jabatan,
+            'pendidikan' => $request->pendidikan,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'pengalaman_kerja' => $request->pengalaman_kerja,
+            'berat' => $request->berat,
+            'tinggi' => $request->tinggi,
+            'pencarian_tmp' => $request->pencarian_tmp,
+            'id_perusahaan' => $perusahaan->id_perusahaan,
+            'isi' => $request->isi,
+            'ttp_lowongan' => $request->ttp_lowongan,
+        ]);
+        return redirect('/perusahaan/list/lowongan')->with('success');
+    }
+
+    public function hapusLowongan($id)
+    {
+        $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
+        $datetime  = date('d-M-Y');
+        if($lowongan->ttp_lowongan == $datetime){
+            
+        }
+        
+        LowonganPekerjaan::where('id_lowongan',$id)->delete();
+        return redirect('/perusahaan/list/lowongan')->with('success');
+    }
 }

@@ -6,7 +6,7 @@
                 <h4><b>Permohonan Lowongan Pekerjaan</b></h4>
             </div>
             <div class="card-body">
-                <form action="" method="POST">
+                <form action="/permohonan_lowongan/{{$lowongan->id_lowongan}}" method="POST">
                     @csrf
                     <div class="row mb-3">
                         <div class="col-md-4">
@@ -25,7 +25,10 @@
                         </div>
                     </div>
                     <a href="/kandidat" class="btn btn-danger float-left">Kembali</a>
-                    <button type="submit" class="btn btn-primary float-right">Kirim</button>
+                    <button type="submit" class="btn btn-primary float-right" 
+                    {{-- onclick="confirmLowongan(event)" --}}
+                    onclick="return confirm('apakah anda yakin ingin masuk lowongan ini?')"
+                    >Kirim</button>
                 </form>
             </div>
         </div>

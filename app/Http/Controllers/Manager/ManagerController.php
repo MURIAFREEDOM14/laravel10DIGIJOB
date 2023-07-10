@@ -197,6 +197,20 @@ class ManagerController extends Controller
         ));
     }
 
+    public function cetakSuratKosong()
+    {
+        
+        $tgl_print = Carbon::now()->isoFormat('D MMM Y');
+        // $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
+        // $tgl_perizin = Carbon::create($kandidat->tgl_lahir_perizin)->isoFormat('D MMM Y');
+        return view('manager/kandidat/surat_izin_waris', compact(
+            // 'kandidat',
+            'tgl_print',
+            // 'tgl_user',
+            // 'tgl_perizin',
+        ));
+    }
+
     public function barcode()
     {
         return view('barcode');
