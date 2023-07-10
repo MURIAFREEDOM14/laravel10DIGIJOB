@@ -437,34 +437,34 @@
                     <main class="px-1">
                         @yield('content')
                     </main>
-                </div>
-                <footer class="footer" style="background-color: #1269db">
-                    <div class="container-fluid">
-                        <nav class="pull-left">
-                            <ul class="nav nav-primary">
-                                <li class="nav-item">
-                                    <div class="copyright" style="color:white;">
-                                        &copy; Copyright <strong><span>DIGIJOB-UGIPORT</span></strong>. All Rights Reserved
-                                    </div>
-                                </li>
-                                {{-- <li class="nav-item">
-                                    <a class="nav-link" href="#">
-                                        Help
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">
-                                        Licenses
-                                    </a>
-                                </li> --}}
-                            </ul>
-                        </nav>
-                        <div class="copyright ml-auto">
-                            &nbsp;
-                            {{-- 2018, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">ThemeKita</a> --}}
+                    <footer class="footer" style="background-color: #1269db">
+                        <div class="container-fluid">
+                            <nav class="pull-left">
+                                <ul class="nav nav-primary">
+                                    <li class="nav-item">
+                                        <div class="copyright" style="color:white;">
+                                            &copy; Copyright <strong><span>DIGIJOB-UGIPORT</span></strong>. All Rights Reserved
+                                        </div>
+                                    </li>
+                                    {{-- <li class="nav-item">
+                                        <a class="nav-link" href="#">
+                                            Help
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">
+                                            Licenses
+                                        </a>
+                                    </li> --}}
+                                </ul>
+                            </nav>
+                            <div class="copyright ml-auto">
+                                &nbsp;
+                                {{-- 2018, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">ThemeKita</a> --}}
+                            </div>
                         </div>
-                    </div>
-                </footer>
+                    </footer>
+                </div>
             </div>
         </div>
         <!--   Core JS Files   -->
