@@ -45,7 +45,7 @@ class KandidatController extends Controller
         ->get();
         $cari_perusahaan = null;
         if($kandidat->negara_id == null){
-            $perusahaan_semua = Perusahaan::where('penempatan_kerja','Dalam negeri')->limit(5)->get();
+            $perusahaan_semua = Perusahaan::where('penempatan_kerja','Dalam negeri')->whereNotNull('email_operator')->limit(5)->get();
         } else {
             $perusahaan_semua = Perusahaan::whereNotNull('email_operator')->where('penempatan_kerja','like','%'.$kandidat->penempatan.'%')->get();
         }
