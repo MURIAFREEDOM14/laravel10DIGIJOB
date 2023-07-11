@@ -135,40 +135,6 @@
                                                             @endif    
                                                         </tr>
                                                     @endforeach
-                                                    {{-- <tr>
-                                                        <th><b class="bold">2nd</b></th>
-                                                        <td><b class="bold">{{$kandidat->nama_perusahaan2}}</b></td>
-                                                        <td><b class="bold">{{$kandidat->alamat_perusahaan2}}</b></td>
-                                                        <td><b class="bold">{{$kandidat->jabatan2}}</b></td>
-                                                        <td><b class="bold">{{$periode_awal2}} - {{$periode_akhir2}}</b></td>
-                                                        <td><b class="bold">{{$kandidat->alasan2}}</b></td>
-                                                        @if ($kandidat->video_kerja2 !== null)
-                                                            <td>
-                                                                <button type="button" style="font-size: 10px; font-weight:bold; " class="btn" data-bs-toggle="modal" data-bs-target="#video_kerja2">
-                                                                    See Video
-                                                                </button>
-                                                            </td>
-                                                        @else
-                                                            <td></td>
-                                                        @endif
-                                                    </tr>
-                                                    <tr>
-                                                        <th><b class="bold">3rd</b></th>
-                                                        <td><b class="bold">{{$kandidat->nama_perusahaan3}}</b></td>
-                                                        <td><b class="bold">{{$kandidat->alamat_perusahaan3}}</b></td>
-                                                        <td><b class="bold">{{$kandidat->jabatan3}}</b></td>
-                                                        <td><b class="bold">{{$periode_awal3}} - {{$periode_akhir3}}</b></td>
-                                                        <td><b class="bold">{{$kandidat->alasan3}}</b></td>
-                                                        @if ($kandidat->video_kerja3 !== null)
-                                                        <td>
-                                                            <button type="button" style="font-size: 10px; font-weight:bold; " class="btn" data-bs-toggle="modal" data-bs-target="#video_kerja3">
-                                                                See Video
-                                                            </button>
-                                                        </td>    
-                                                        @else
-                                                            <td></td>
-                                                        @endif
-                                                    </tr> --}}
                                                 </tbody>
                                             </table>
                                         </div>

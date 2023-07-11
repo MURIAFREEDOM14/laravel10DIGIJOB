@@ -22,13 +22,13 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <div class="text-center"><b class="" style="font-size: 25px; text-transform:uppercase; border-bottom:2px solid black">Surat Izin OrangTua / Suami / Istri / Wali</b></div>
+                    <div class="text-center"><b class="" style="font-size: 25px; text-transform:uppercase; border-bottom:2px solid black">Surat Izin Keluarga</b></div>
                     <div class="row">
                         <div class="col-4"></div>
-                        <div class="col">
+                        <div class="col-4">
                             <div class="" style="border-bottom:2px solid black"><b class="bold">No. Register : </b></div>
                         </div>
-                        <div class="col"></div>
+                        <div class="col-4"></div>
                     </div> 
                 </div>
             </div>
@@ -112,7 +112,8 @@
                     <b class="bold">: {{$kandidat->no_telp_perizin}}</b>
                 </div>
             </div>
-            <div class="my-2"><b class="bold">Dengan ini memberikan izin kepada Suami / Istri / Anak / Wali saya yang bernama :</b></div>
+            {{-- <div class="my-2"><b class="bold">Dengan ini memberikan izin kepada {{$kandidat->hubungan_perizin}} saya yang bernama :</b></div> --}}
+            <div class="my-2"><b class="bold">Saya sebagai {{$kandidat->hubungan_perizin}} Dengan ini memberikan izin kepada:</b></div>
             <div class="row" style="line-height: 20px;">
                 <div class="col-3">
                     <b class="bold">Nama</b>
@@ -136,9 +137,8 @@
                 <div class="col-8">
                     <b class="bold">: {{$kandidat->tmp_lahir}}, 
                         @if ($kandidat->tgl_lahir == null)
-                            
                         @else
-                            {{$tgl_user}}
+                        {{$tgl_user}}
                         @endif
                     </b>
                 </div>
@@ -163,7 +163,7 @@
                     <b class="bold">: Dusun</b>
                 </div>
                 <div class="col-8">
-                    <b class="bold">: {{$kandidat->dusun_perizin}}</b>
+                    <b class="bold">: {{$kandidat->dusun}}</b>
                 </div>
             </div>
             <div class="row" style="line-height: 20px;">
@@ -225,7 +225,7 @@
                 </div>
                 <div class="col-8">
                     <b class="bold">
-                        : {{$negara->negara}}
+                        : {{$kandidat->negara}}
                     </b>
                 </div>
             </div>
@@ -269,7 +269,12 @@
                 <div class="col-5 text-center"><b class="bold">( {{$kandidat->nama}} )</b></div>
                 <div class="col-2 text-center"><b class="bold">Mengetahui</b></div>
                 <div class="col-5 text-center">
-                    <b class="bold">( {{$kandidat->nama_perizin}} )</b>
+                    <b class="bold">( 
+                        @if ($kandidat->nama_perizin == null)
+                            ....................
+                        @else
+                            {{$kandidat->nama_perizin}}
+                        @endif )</b>
                 </div>
             </div>
             <div class="row mb-5">
@@ -295,7 +300,7 @@
             </div>
             <br>
             <div class="row">
-                <b class="bold my-2">Yang bertanda tangan di bawah ini saya: calon PMI dari PT. Sukses Mandiri Utama:</b>
+                <b class="bold my-2">Yang bertanda tangan di bawah ini saya: calon PMI dari .....................</b>
                 <div class="col-2">
                     <b class="bold">Nama</b>
                 </div>
@@ -318,9 +323,8 @@
                 <div class="col-8">
                     <b class="bold">: 
                         @if ($kandidat->tgl_lahir == null)
-                            
                         @else
-                            {{$tgl_user}}
+                        {{$tgl_user}}
                         @endif
                     </b>
                 </div>
@@ -372,13 +376,12 @@
                     <b class="bold">Tanggal Lahir</b>
                 </div>
                 <div class="col-8">
-                    @if ($kandidat->tgl_lahir_perizin == null)
-                        <b class="bold">:</b>
-                    @else
                     <b class="bold">: 
-                        {{$tgl_perizin}}</b>    
-                    @endif
-                    
+                        @if ($kandidat->tgl_lahir_perizin == null)
+                        @else
+                            {{$tgl_perizin}}
+                        @endif
+                    </b>
                 </div>
             </div>
             <div class="row">
@@ -398,7 +401,7 @@
                 </div>
             </div>
             <p class="my-2"><b class="bold">Sebagai pihak ke II (dua) yang selanjutnya diberi kuasa</b></p>
-            <div class=""><b class="bold">pihak ke I (satu) akan bekerja ke luar negeri dengan negara tujuan {{$negara->negara}} selama kontrak...{{$kandidat->kontrak}}...(..........) tahun melalui PT. Sukses Mandiri Utama.</b></div>
+            <div class=""><b class="bold">pihak ke I (satu) akan bekerja ke luar negeri dengan negara tujuan {{$kandidat->negara}} selama kontrak...{{$kandidat->kontrak}}...(..........) tahun melalui ............................</b></div>
             <div><b class="bold">apabila selama masa kontrak kerja terjadi kecelakaan/ sakit/ meninggal dunia, maka untuk selanjutnya segala urusan tentang hak dan kewajiban saya berikan kepada pihak ke II (dua) untuk mengurus, menerima hak dan kewajiban saya sesuai dengan aturan yang berlaku</b></div>
             <div class="my-2"><b class="bold">demikian surat pernyataan keterangan ahli waris ini saya buat dengan sadar tanpa paksaan dari pihak manapun dan dipergunakan sebagaimana mestinya.</b></div>
             <div class="row">
@@ -406,7 +409,6 @@
                 <div class="col-2"></div>
                 <div class="col-5 text-center"><b class="" style="font-size: 11px; font-weight:bold; text-transform:uppercase; font-family:serif"> 
                     {{$kandidat->kabupaten}}, 
-                    
                     {{$tgl_print}}</b></div>
             </div>
             <div class="row" style="height: 50px">
@@ -418,7 +420,12 @@
             </div>
             <br>
             <div class="row mt-4">
-                <div class="col-5 text-center"><b class="bold">( {{$kandidat->nama_perizin}} )</b></div>
+                <div class="col-5 text-center"><b class="bold">( 
+                    @if ($kandidat->nama_perizin == null)
+                        ....................
+                    @else
+                        {{$kandidat->nama_perizin}}
+                    @endif )</b></div>
                 <div class="col-2 text-center" style="border-bottom:1px solid black;"><b class="bold"></b></div>                
                 <div class="col-5 text-center"><b class="bold">( {{$kandidat->nama}} )</b></div>
             </div>

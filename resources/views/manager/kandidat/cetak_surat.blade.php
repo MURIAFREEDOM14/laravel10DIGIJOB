@@ -300,7 +300,7 @@
             </div>
             <br>
             <div class="row">
-                <b class="bold my-2">Yang bertanda tangan di bawah ini saya: calon PMI dari PT. Sukses Mandiri Utama:</b>
+                <b class="bold my-2">Yang bertanda tangan di bawah ini saya: calon PMI dari .................</b>
                 <div class="col-2">
                     <b class="bold">Nama</b>
                 </div>
