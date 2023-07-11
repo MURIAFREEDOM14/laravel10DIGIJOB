@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Akademi;
 
+use App\Http\Controllers\Controller;
 use App\Models\Akademi;
 use App\Models\AkademiKandidat;
 use App\Models\Kecamatan;
@@ -19,7 +20,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class AkademiController extends Controller
+class AkademiKandidatController extends Controller
 {
     public function index()
     {
