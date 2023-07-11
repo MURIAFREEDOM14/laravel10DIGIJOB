@@ -30,12 +30,12 @@
                                             </div>
                                         </div>                        
                                         <div class="card-header">
-                                            <b class="float-left">{{$kandidat->nama_panggilan}}</b>
+                                            <b class="float-left">{{$item->nama_panggilan}}</b>
                                             <input type="text" hidden name="nama[]" value="{{$item->nama_kandidat}}" id="">                                            
-                                            <b class="float-right">{{$kandidat->usia}}thn</b>
-                                            <input type="text" hidden name="usia[]" value="{{$kandidat->usia}}" id="">
-                                            <input type="text" hidden name="jk[]" value="{{$kandidat->jenis_kelamin}}" id="">
-                                            <input type="text" hidden name="pengalaman_kerja[]" value="{{$kandidat->pengalaman_kerja}}" id="">
+                                            <b class="float-right">{{$item->usia}}thn</b>
+                                            <input type="text" hidden name="usia[]" value="{{$item->usia}}" id="">
+                                            <input type="text" hidden name="jk[]" value="{{$item->jenis_kelamin}}" id="">
+                                            <input type="text" hidden name="pengalaman_kerja[]" value="{{$item->pengalaman_kerja}}" id="">
                                         </div>
                                         <div class="card-body">
                                             <div class="avatar-sm float-left">

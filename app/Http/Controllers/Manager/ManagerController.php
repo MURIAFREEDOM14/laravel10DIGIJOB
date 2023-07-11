@@ -179,21 +179,24 @@ class ManagerController extends Controller
 
     public function cetakSurat($id)
     {
-        $kandidat = Kandidat::join(
-            'ref_negara', 'kandidat.negara_id','=','ref_negara.negara_id'
-        )
-        ->where('kandidat.id_kandidat',$id)->first();
+        $kandidat = Kandidat::where('id_kandidat',$id)->first();
         $tgl_print = Carbon::now()->isoFormat('D MMM Y');
         if ($kandidat->negara == "loc") {
             $negara = "Indonesia";
         }
+        $negara = Negara::where('negara_id',$kandidat->negara_id)->first();
+        $perusahaan = Perusahaan::where('id_perusahaan',$kandidat->id_perusahaan)->first();
         $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
         $tgl_perizin = Carbon::create($kandidat->tgl_lahir_perizin)->isoFormat('D MMM Y');
+        if($kandidat->negara_id == null){
+            return redirect('/manager/edit/kandidat/placement/'.$kandidat->id_kandidat);
+        }
         return view('manager/kandidat/cetak_surat', compact(
             'kandidat',
             'tgl_print',
             'tgl_user',
             'tgl_perizin',
+            'negara','perusahaan',
         ));
     }
 

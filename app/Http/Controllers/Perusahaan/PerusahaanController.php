@@ -27,7 +27,8 @@ use App\Models\PerusahaanNegara;
 use App\Models\Pekerjaan;
 use App\Mail\Payment;
 use Illuminate\Support\Facades\Mail;
-
+use App\Models\notifyKandidat;
+use App\Models\messageKandidat;
 
 class PerusahaanController extends Controller
 {
@@ -441,13 +442,13 @@ class PerusahaanController extends Controller
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        $permohonan = PermohonanLowongan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
-        foreach($permohonan as $key){
-            $kandidat = Kandidat::where('id_kandidat',$key->id_kandidat)->first();
-        }
+        $permohonan = PermohonanLowongan::join(
+            'kandidat', 'permohonan_lowongan.id_kandidat','=','kandidat.id_kandidat'
+        )
+        ->where('kandidat.id_perusahaan',$perusahaan->id_perusahaan)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $isi = $permohonan->count();
-        return view('perusahaan/list_permohonan_lowongan',compact('perusahaan','permohonan','pesan','notif','cabang','isi','kandidat'));
+        return view('perusahaan/list_permohonan_lowongan',compact('perusahaan','permohonan','pesan','notif','cabang','isi'));
     }
 
     public function permohonanLowonganPekerjaan()
@@ -709,6 +710,20 @@ class PerusahaanController extends Controller
 
             $kandidat = Kandidat::where('id_perusahaan',$perusahaan->id_perusahaan)->update([
                 'stat_pemilik' => "diambil",
+            ]);
+
+            notifyKandidat::create([
+                'id_kandidat' => $kandidat->id_kandidat,
+                'isi' => "Anda mendapat pesan masuk",
+                'pengirim' => "Sistem",
+                'url' => '/semua_pesan',
+            ]);
+
+            messageKandidat::create([
+                'id_kandidat' => $kandidat->id_kandidat,
+                'pesan' => "Halo, Selamat anda telah diterima di ".$perusahaan->nama_perusaahaan.".Kini anda dapat mengambil surat izin dan kuasa waris di profil anda",
+                'pengirim' => "sistem",
+                'kepada' => $kandidat->nama,
             ]);
         }
         

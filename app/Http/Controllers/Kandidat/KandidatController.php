@@ -179,6 +179,8 @@ class KandidatController extends Controller
     public function simpan_kandidat_document(Request $request)
     {
         $validated = $request->validate([
+            'rt' => 'required|max:3|min:3',
+            'rw' => 'required|max:3|min:3',
             'foto_ktp' => 'mimes:png,jpg,jpeg',
             'foto_kk' => 'mimes:png,jpg,jpeg',
             'foto_set_badan' => 'mimes:png,jpg,jpeg',
@@ -881,23 +883,6 @@ class KandidatController extends Controller
             'penempatan' => $request->penempatan,
         ]);
 
-        if($kandidat->penempatan == "luar negeri")
-        {
-            notifyKandidat::create([
-                'id_kandidat' => $kandidat->id_kandidat,
-                'isi' => "Anda mendapat pesan masuk",
-                'pengirim' => "Sistem",
-                'url' => '/semua_pesan',
-            ]);
-
-            messageKandidat::create([
-                'id_kandidat' => $kandidat->id_kandidat,
-                'pesan' => "Halo, Terima kasih telah sudah melengkapi profil anda. Kini anda dapat mengambil surat izin dan kuasa waris di profil anda",
-                'pengirim' => "sistem",
-                'kepada' => $kandidat->nama,
-            ]);
-        }
-
         if($kandidat->negara_id == null)
         {
             Alert::success('Selamat','Semua data profil anda sudah lengkap');
@@ -927,6 +912,8 @@ class KandidatController extends Controller
     public function simpan_kandidat_permission(Request $request)
     {
         $validated = $request->validate([
+            'rt_perizin' => 'required|max:3|min:3',
+            'rw_perizin' => 'required|max:3|min:3',
             'nik_perizin' => 'required|max:16|min:16',
             'foto_ktp_izin' => 'mimes:png,jpg,jpeg',
             'no_telp_perizin' => 'min:10|max:13'
@@ -964,8 +951,14 @@ class KandidatController extends Controller
         $kecamatan = Kecamatan::where('id',$request->kecamatan_perizin)->first();
         $kelurahan = Kelurahan::where('id',$request->kelurahan_perizin)->first();
 
+        if($kandidat->stats_nikah == "Menikah"){
+            $perizin = $kandidat->nama_pasangan;
+        } else {
+            $perizin = $request->nama_perizin;
+        }
+        
         Kandidat::where('referral_code', $id->referral_code)->update([
-            'nama_perizin' => $request->nama_perizin,
+            'nama_perizin' => $perizin,
             'nik_perizin' => $request->nik_perizin,
             'no_telp_perizin' => $request->no_telp_perizin,
             'tmp_lahir_perizin' => $request->tmp_lahir_perizin,

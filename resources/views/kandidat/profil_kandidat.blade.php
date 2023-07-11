@@ -144,7 +144,9 @@
                         </div>
                     </div>
                 </div>
-                <a class="btn btn-success" href="/output_izin_waris">Cetak Surat Izin & Ahli waris</a>
+                @if ($kandidat->id_perusahaan !== null && $kandidat->stat_pemilik == "diambil")
+                    <a class="btn btn-success" href="/output_izin_waris">Cetak Surat Izin & Ahli waris</a>                    
+                @endif
             </div>        
         </div>
     </div>        

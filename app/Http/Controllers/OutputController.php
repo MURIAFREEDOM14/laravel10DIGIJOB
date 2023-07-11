@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Negara;
 use Illuminate\Http\Request;
 use App\Models\Kandidat;
+use App\Models\Perusahaan;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Stevebauman\Location\Facades\Location;
@@ -170,12 +171,10 @@ class OutputController extends Controller
         $tgl_print = Carbon::now()->isoFormat('D MMM Y');
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
+        $perusahaan = Perusahaan::where('id_perusahaan',$kandidat->id_perusahaan)->first();
         if($kandidat->penempatan == null)
         {
             return redirect('/kandidat');
-        }
-        if ($kandidat->negara == "loc") {
-            $negara = "Indonesia";
         }
         $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
         $tgl_perizin = Carbon::create($kandidat->tgl_lahir_perizin)->isoFormat('D MMM Y');
@@ -183,7 +182,7 @@ class OutputController extends Controller
         $negara = Negara::join(
             'kandidat', 'ref_negara.negara_id','=','kandidat.negara_id'
         )
-        ->where('referral_code',$id->referral_code)
+        ->where('kandidat.referral_code',$id->referral_code)
         ->first();
         return view('Output/output_izin_waris',compact(
             'kandidat',
@@ -191,6 +190,7 @@ class OutputController extends Controller
             'tgl_user',
             'tgl_perizin',
             'negara',
+            'perusahaan',
         ));
     }
 

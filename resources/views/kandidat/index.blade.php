@@ -17,25 +17,17 @@
                     <b class="bold">Informasi Perusahaan</b>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="add-row" class="display table table-striped table-hover" >
-                            <thead>
-                                <tr class="text-center">
-                                    <th style="width: 1px">No.</th>
-                                    <th>Nama Perusahaan</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{-- @if ($kandidat->id_perusahaan !== null)
-                                    <tr>
-                                        <td>1</td>
-                                        <td>{{$perusahaan->nama_perusahaan}}</td>
-                                        <td>
-                                            <a href="/profil_perusahaan/{{$perusahaan->id_perusahaan}}">Lihat</a>
-                                        </td>
+                    @if ($kandidat->negara_id !== null)
+                        <div class="table-responsive">
+                            <table id="add-row" class="display table table-striped table-hover" >
+                                <thead>
+                                    <tr class="text-center">
+                                        <th style="width: 1px">No.</th>
+                                        <th>Nama Perusahaan</th>
+                                        <th></th>
                                     </tr>
-                                @else --}}
+                                </thead>
+                                <tbody>
                                     @foreach ($perusahaan_semua as $item)
                                         <tr class="text-center">
                                             <td>{{$loop->iteration}}</td>
@@ -47,10 +39,13 @@
                                             </td>
                                         </tr>    
                                     @endforeach    
-                                {{-- @endif --}}
-                            </tbody>
-                        </table>
-                    </div>
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
+                        <h3 class="text-center">Harap Lengkapi Profil Anda</h3>
+                        <div class="text-center"><a class="btn btn-outline-primary" href="/isi_kandidat_personal">Lengkapi Profil</a></div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -102,8 +97,6 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <h3 class="text-center">Harap Lengkapi Profil Anda</h3>
-                            <div class="text-center"><a class="btn btn-outline-primary" href="/isi_kandidat_personal">Lengkapi Profil</a></div>
                         </div>
                         <div class="modal-footer">
                             <button type="submit" onclick="infoConfirm()" class="btn btn-primary" id="tekan">Selesai</button>

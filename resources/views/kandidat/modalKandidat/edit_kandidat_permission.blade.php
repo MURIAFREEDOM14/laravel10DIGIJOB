@@ -23,7 +23,11 @@
                                 <label for="inputPassword6" class="col-form-label">Nama Pemberi Izin</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" required value="{{$kandidat->nama_perizin}}" name="nama_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                @if ($kandidat->stats_nikah == "Menikah")
+                                    <input type="text" value="{{$kandidat->nama_pasangan}}" disabled name="nama_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">                                    
+                                @else
+                                    <input type="text" required value="{{$kandidat->nama_perizin}}" name="nama_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">  
+                                @endif
                             </div>
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
@@ -71,13 +75,26 @@
                         @livewire('location-permission')
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="inputPassword6" class="col-form-label">RT / RW</label>
+                                <label for="inputPassword6" class="col-form-label">RT</label>
                             </div>
-                            <div class="col-md-4">
-                                <input type="number" required value="{{$kandidat->rt_perizin}}" placeholder="Masukkan RT" name="rt_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                            <div class="col-md-2">
+                                <input type="number" required value="{{$kandidat->rt_perizin}}" placeholder="maks 3 digit" pattern="[0-3]{3}" name="rt_perizin" id="inputPassword6" class="form-control @error('rt_perizin') is-invalid @enderror" aria-labelledby="passwordHelpInline">
+                                @error('rt_perizin')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>No. RT harus berisi 3 digit</strong>
+                                    </span>
+                                @enderror
                             </div>
-                            <div class="col-md-4">
-                                <input type="number" required value="{{$kandidat->rw_perizin}}" placeholder="Masukkan RW" name="rw_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                            <div class="col-md-2">
+                                <label for="inputPassword6" class="col-form-label">RW</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" required value="{{$kandidat->rw_perizin}}" placeholder="maks 3 digit" pattern="[0-3]{3}" name="rw_perizin" id="inputPassword6" class="form-control @error('rw_perizin') is-invalid @enderror" aria-labelledby="passwordHelpInline">
+                                @error('rw_perizin')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>No. RW harus berisi 3 digit</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
@@ -114,8 +131,24 @@
                             <div class="col-md-4">
                                 <label for="inputPassword6" class="col-form-label">Hubungan Pemberi Izin</label>
                             </div>
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" required name="hubungan_perizin" placeholder="Masukkan hubungan. contoh: ayah, ibu, suami, anak, dll." value="{{$kandidat->hubungan_perizin}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">
+                            <div class="col-md-4">
+                                @if ($kandidat->stats_nikah == "Menikah")
+                                    <select name="hubungan_perizin" required class="form-select" id="">
+                                        <option value="">-- Masukkan Hubungan Pemberi Izin --</option>
+                                        <option value="suami" @if ($kandidat->hubungan_perizin == "suami")
+                                            selected
+                                        @endif>Suami</option>
+                                        <option value="istri" @if ($kandidat->hubungan_perizin == "istri")
+                                            selected
+                                        @endif>Istri</option>
+                                    </select>
+                                @else
+                                    <select name="hubungan_perizin" required class="form-select" id="">
+                                        <option value="">-- Masukkan Hubungan Pemberi Izin --</option>
+                                        <option value="ayah">Ayah</option>
+                                        <option value="ibu">Ibu</option>
+                                    </select>    
+                                @endif
                             </div>
                         </div>
                         <div class="row mb-3 g-3 align-items-center">

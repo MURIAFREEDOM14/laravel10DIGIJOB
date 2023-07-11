@@ -57,13 +57,26 @@
                             @livewire('location')
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">RT / RW</label>
+                                    <label for="inputPassword6" class="col-form-label">RT</label>
                                 </div>
-                                <div class="col-md-4">
-                                    <input type="number" required value="{{$kandidat->rt}}" placeholder="Masukkan RT" name="rt" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                <div class="col-md-2">
+                                    <input type="number" required value="{{$kandidat->rt}}" pattern="[0-3]{3}" placeholder="maks 3 digit" name="rt" id="inputPassword6" class="form-control @error('rt') is-invalid @enderror" aria-labelledby="passwordHelpInline">
+                                    @error('rt')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>No. RT harus berisi 3 digit</strong>
+                                        </span>
+                                    @enderror
                                 </div>
-                                <div class="col-md-4">
-                                    <input type="number" required value="{{$kandidat->rw}}" placeholder="Masukkan RW" name="rw" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                <div class="col-md-2">
+                                    <label for="inputPassword6" class="col-form-label">RW</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="number" required value="{{$kandidat->rw}}" pattern="[0-3]{3}" placeholder="maks 3 digit" name="rw" id="inputPassword6" class="form-control @error('rw') is-invalid @enderror" aria-labelledby="passwordHelpInline">
+                                    @error('rw')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>No. RW harus berisi 3 digit</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
@@ -188,7 +201,10 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Foto Akta Kelahiran / Keterangan Lahir</label>
+                                    <label for="inputPassword6" class="col-form-label">
+                                        Foto Akta Kelahiran / <br>
+                                        Keterangan Lahir
+                                    </label>
                                 </div>
                                 <div class="col-md-8">
                                     @if ($kandidat->foto_ket_lahir == "")

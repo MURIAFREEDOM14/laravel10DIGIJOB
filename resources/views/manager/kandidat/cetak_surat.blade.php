@@ -50,55 +50,45 @@
                 </div>
             </div>
             <div class="row" style="line-height: 20px;">
-                <div class="col-1">
-                    <b class="bold">Alamat</b>
+                <div class="col-12 ms-3 my-1">
+                    <b class="bold">Alamat Pemberi Izin</b>
                 </div>
-                <div class="col-2">
-                    <b class="bold">: Dusun</b>
+            </div>
+            <div class="row" style="line-height: 20px;">
+                <div class="col-3">
+                    <b class="bold">Dusun</b>
                 </div>
                 <div class="col-8">
                     <b class="bold">: {{$kandidat->dusun_perizin}}</b>
                 </div>
             </div>
             <div class="row" style="line-height: 20px;">
-                <div class="col-1">
-                    <b class="bold"></b>
-                </div>
-                <div class="col-2">
-                    <b class="bold">: RT/RW</b>
+                <div class="col-3">
+                    <b class="bold">RT / RW</b>
                 </div>
                 <div class="col-8">
-                    <b class="bold">: 0{{$kandidat->rt_perizin}} / 0{{$kandidat->rw_perizin}}</b>
+                    <b class="bold">: {{$kandidat->rt_perizin}} / {{$kandidat->rw_perizin}}</b>
                 </div>
             </div>
             <div class="row" style="line-height: 20px;">
-                <div class="col-1">
-                    <b class="bold"></b>
-                </div>
-                <div class="col-2">
-                    <b class="bold">: Desa</b>
+                <div class="col-3">
+                    <b class="bold">Desa</b>
                 </div>
                 <div class="col-8">
                     <b class="bold">: {{$kandidat->kelurahan_perizin}}</b>
                 </div>
             </div>
             <div class="row" style="line-height: 20px;">
-                <div class="col-1">
-                    <b class="bold"></b>
-                </div>
-                <div class="col-2">
-                    <b class="bold">: Kecamatan</b>
+                <div class="col-3">
+                    <b class="bold">Kecamatan</b>
                 </div>
                 <div class="col-8">
                     <b class="bold">: {{$kandidat->kecamatan_perizin}}</b>
                 </div>
             </div>
             <div class="row" style="line-height: 20px;">
-                <div class="col-1">
-                    <b class="bold"></b>
-                </div>
-                <div class="col-2">
-                    <b class="bold">: Kabupaten</b>
+                <div class="col-3">
+                    <b class="bold">Kabupaten</b>
                 </div>
                 <div class="col-8">
                     <b class="bold">: {{$kandidat->kabupaten_perizin}}</b>
@@ -113,7 +103,7 @@
                 </div>
             </div>
             {{-- <div class="my-2"><b class="bold">Dengan ini memberikan izin kepada {{$kandidat->hubungan_perizin}} saya yang bernama :</b></div> --}}
-            <div class="my-2"><b class="bold">Saya sebagai {{$kandidat->hubungan_perizin}} Dengan ini memberikan izin kepada:</b></div>
+            <div class="my-2"><b class="bold">Saya sebagai {{$kandidat->hubungan_perizin}}, Dengan ini memberikan izin kepada CPMI dibawah ini:</b></div>
             <div class="row" style="line-height: 20px;">
                 <div class="col-3">
                     <b class="bold">Nama</b>
@@ -156,55 +146,45 @@
                 </div>
             </div>
             <div class="row" style="line-height: 20px;">
-                <div class="col-1">
-                    <b class="bold">Alamat</b>
+                <div class="col-12 ms-3 my-1">
+                    <b class="bold">Alamat Penerima Izin</b>
                 </div>
-                <div class="col-2">
-                    <b class="bold">: Dusun</b>
+            </div>
+            <div class="row" style="line-height: 20px;">
+                <div class="col-3">
+                    <b class="bold">Dusun</b>
                 </div>
                 <div class="col-8">
                     <b class="bold">: {{$kandidat->dusun}}</b>
                 </div>
             </div>
             <div class="row" style="line-height: 20px;">
-                <div class="col-1">
-                    <b class="bold"></b>
-                </div>
-                <div class="col-2">
-                    <b class="bold">: RT/RW</b>
+                <div class="col-3">
+                    <b class="bold">RT/RW</b>
                 </div>
                 <div class="col-8">
-                    <b class="bold">: 0{{$kandidat->rt}} / 0{{$kandidat->rw}}</b>
+                    <b class="bold">: {{$kandidat->rt}} / {{$kandidat->rw}}</b>
                 </div>
             </div>
             <div class="row" style="line-height: 20px;">
-                <div class="col-1">
-                    <b class="bold"></b>
-                </div>
-                <div class="col-2">
-                    <b class="bold">: Desa</b>
+                <div class="col-3">
+                    <b class="bold">Desa</b>
                 </div>
                 <div class="col-8">
                     <b class="bold">: {{$kandidat->kelurahan}}</b>
                 </div>
             </div>
             <div class="row" style="line-height: 20px;">
-                <div class="col-1">
-                    <b class="bold"></b>
-                </div>
-                <div class="col-2">
-                    <b class="bold">: Kecamatan</b>
+                <div class="col-3">
+                    <b class="bold">Kecamatan</b>
                 </div>
                 <div class="col-8">
                     <b class="bold">: {{$kandidat->kecamatan}}</b>
                 </div>
             </div>
             <div class="row" style="line-height: 20px;">
-                <div class="col-1">
-                    <b class="bold"></b>
-                </div>
-                <div class="col-2">
-                    <b class="bold">: Kabupaten</b>
+                <div class="col-3">
+                    <b class="bold">Kabupaten</b>
                 </div>
                 <div class="col-8">
                     <b class="bold">: {{$kandidat->kabupaten}}</b>
@@ -225,7 +205,7 @@
                 </div>
                 <div class="col-8">
                     <b class="bold">
-                        : {{$kandidat->negara}}
+                        : {{$negara->negara}}
                     </b>
                 </div>
             </div>
@@ -266,15 +246,22 @@
                 </div>
             </div>
             <div class="row mt-4">
-                <div class="col-5 text-center"><b class="bold">( {{$kandidat->nama}} )</b></div>
+                <div class="col-5 text-center">
+                    <b class="bold" style="border-bottom:1px solid black">
+                        ( {{$kandidat->nama}} )
+                    </b>
+                    <p style="font-weight:600">CPMI</p>
+                </div>
                 <div class="col-2 text-center"><b class="bold">Mengetahui</b></div>
                 <div class="col-5 text-center">
-                    <b class="bold">( 
+                    <b class="bold" style="border-bottom:1px solid black">( 
                         @if ($kandidat->nama_perizin == null)
                             ....................
                         @else
                             {{$kandidat->nama_perizin}}
-                        @endif )</b>
+                        @endif )
+                    </b>
+                    <p style="font-weight:600">{{$kandidat->hubungan_perizin}}</p>
                 </div>
             </div>
             <div class="row mb-5">
@@ -290,7 +277,7 @@
                 <div class="col-4"></div>
             </div>
         </div>
-        <div class="" style="height: 60px;"></div>
+        <div class="" style="height: 40px;"></div>
 
         <div class="container">
             <div class="row">
@@ -300,7 +287,7 @@
             </div>
             <br>
             <div class="row">
-                <b class="bold my-2">Yang bertanda tangan di bawah ini saya: calon PMI dari .................</b>
+                <b class="bold my-2">Yang bertanda tangan di bawah ini saya:</b>
                 <div class="col-2">
                     <b class="bold">Nama</b>
                 </div>
@@ -342,11 +329,11 @@
                     <b class="bold">Alamat</b>
                 </div>
                 <div class="col-8">
-                    <b class="bold">: DSN {{$kandidat->dusun}}, RT/RW : 0{{$kandidat->rt}}/0{{$kandidat->rw}}, Kel/Desa : {{$kandidat->kelurahan}}, Kec. {{$kandidat->kecamatan}}, {{$kandidat->kabupaten}}, {{$kandidat->provinsi}}</b>
+                    <b class="bold">: DSN {{$kandidat->dusun}}, RT/RW : {{$kandidat->rt}} / {{$kandidat->rw}}, Kel/Desa : {{$kandidat->kelurahan}}, Kec. {{$kandidat->kecamatan}}, {{$kandidat->kabupaten}}, {{$kandidat->provinsi}}</b>
                 </div>
             </div>
             <br>
-            <b class="bold">Sebagai Pihak ke 1 (satu) memberikan kuasa kepada: Keluarga saya :</b>
+            <b class="bold">Sebagai CPMI, saya memberikan kuasa kepada {{$kandidat->hubungan_perizin}} saya :</b>
             <div class="row">
                 <div class="col-2">
                     <b class="bold">Nama</b>
@@ -397,13 +384,13 @@
                     <b class="bold">Alamat</b>
                 </div>
                 <div class="col-8">
-                    <b class="bold">: DSN {{$kandidat->dusun_perizin}}, RT/RW : 0{{$kandidat->rt_perizin}}/0{{$kandidat->rw_perizin}}, Kel/Desa : {{$kandidat->kelurahan_perizin}}, Kec. {{$kandidat->kecamatan_perizin}}, {{$kandidat->kabupaten_perizin}}, {{$kandidat->provinsi_perizin}}</b>
+                    <b class="bold">: DSN {{$kandidat->dusun_perizin}}, RT / RW : {{$kandidat->rt_perizin}} / {{$kandidat->rw_perizin}}, Kel/Desa : {{$kandidat->kelurahan_perizin}}, Kec. {{$kandidat->kecamatan_perizin}}, {{$kandidat->kabupaten_perizin}}, {{$kandidat->provinsi_perizin}}</b>
                 </div>
             </div>
-            <p class="my-2"><b class="bold">Sebagai pihak ke II (dua) yang selanjutnya diberi kuasa</b></p>
-            <div class=""><b class="bold">pihak ke I (satu) akan bekerja ke luar negeri dengan negara tujuan {{$kandidat->negara}} selama kontrak...{{$kandidat->kontrak}}...(..........) tahun melalui ............................</b></div>
-            <div><b class="bold">apabila selama masa kontrak kerja terjadi kecelakaan/ sakit/ meninggal dunia, maka untuk selanjutnya segala urusan tentang hak dan kewajiban saya berikan kepada pihak ke II (dua) untuk mengurus, menerima hak dan kewajiban saya sesuai dengan aturan yang berlaku</b></div>
-            <div class="my-2"><b class="bold">demikian surat pernyataan keterangan ahli waris ini saya buat dengan sadar tanpa paksaan dari pihak manapun dan dipergunakan sebagaimana mestinya.</b></div>
+            <p class="my-2"><b class="bold">Sebagai {{$kandidat->hubungan_perizin}} CPMI di atas yang selanjutnya sebagai penerima kuasa</b></p>
+            <div class=""><b class="bold">Saya (CPMI) akan bekerja ke luar negeri dengan negara tujuan {{$negara->negara}}, selama kontrak...{{$kandidat->kontrak}}...(..........) tahun melalui ................... </b></div>
+            <div><b class="bold">apabila selama masa kontrak kerja di negara {{$kandidat->negara}} terjadi kecelakaan/ sakit/ meninggal dunia atas saya pribadi, maka untuk selanjutnya segala urusan tentang hak dan kewajiban saya, saya berikan kepada {{$kandidat->hubungan_perizin}} untuk mengurus, menerima hak dan kewajiban saya sesuai dengan aturan perundang - undangan yang berlaku</b></div>
+            <div class="my-2"><b class="bold">demikian surat kuasa ahli waris ini saya buat dengan sadar tanpa paksaan dari pihak manapun dan dapat dipergunakan sebagaimana mestinya.</b></div>
             <div class="row">
                 <div class="col-5"></div>
                 <div class="col-2"></div>
@@ -420,14 +407,21 @@
             </div>
             <br>
             <div class="row mt-4">
-                <div class="col-5 text-center"><b class="bold">( 
-                    @if ($kandidat->nama_perizin == null)
-                        ....................
-                    @else
-                        {{$kandidat->nama_perizin}}
-                    @endif )</b></div>
+                <div class="col-5 text-center">
+                    <b class="bold" style="border-bottom:1px solid black;">( 
+                        @if ($kandidat->nama_perizin == null)
+                            ....................
+                        @else
+                            {{$kandidat->nama_perizin}}
+                        @endif )
+                    </b>
+                    <p class="" style="font-weight:600">{{$kandidat->hubungan_perizin}}</p>
+                </div>
                 <div class="col-2 text-center" style="border-bottom:1px solid black;"><b class="bold"></b></div>                
-                <div class="col-5 text-center"><b class="bold">( {{$kandidat->nama}} )</b></div>
+                <div class="col-5 text-center">
+                    <b class="bold" style="border-bottom:1px solid black;">( {{$kandidat->nama}} )</b>
+                    <p class="" style="font-weight:600">CPMI</p>
+                </div>
             </div>
             <div class="row">
                 <div class="col-4"><b class="bold"></b></div>
