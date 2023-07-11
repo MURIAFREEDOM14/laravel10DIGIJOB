@@ -26,12 +26,12 @@ class AkademiController extends Controller
     {
         $id = Auth::user();
         $akademi = Akademi::where('referral_code',$id->referral_code)->first();
-        $perusahaan = Perusahaan::all();
+        $perusahaan = Perusahaan::whereNotNull('email_operator')->get();
         $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
         $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
         $akademi_kandidat = Kandidat::where('id_akademi',$akademi->id_akademi)->limit(10)->get();
         $notifiA = notifyAkademi::where('created_at','<',Carbon::now()->subDays(14))->delete();
-        return view('/akademi/akademi_index',compact('akademi','perusahaan','akademi_kandidat','pesan','notif'));
+        return view('/akademi/index',compact('akademi','perusahaan','akademi_kandidat','pesan','notif'));
     } 
 
     public function isi_akademi_data()
