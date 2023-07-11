@@ -8,6 +8,7 @@ use App\Models\AkademiKandidat;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use App\Models\Kota;
+use App\Models\LowonganPekerjaan;
 use App\Models\Negara;
 use App\Models\Provinsi;
 use Illuminate\Http\Request;
@@ -165,7 +166,8 @@ class AkademiController extends Controller
         $perusahaan = Perusahaan::where('id_perusahaan',$id)->first();
         $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
         $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
-        return view('akademi/lihat_profil_perusahaan',compact('akademi','perusahaan','pesan','notif'));
+        $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        return view('akademi/lihat_profil_perusahaan',compact('akademi','perusahaan','pesan','notif','lowongan'));
     }
 
     public function listKandidat()
