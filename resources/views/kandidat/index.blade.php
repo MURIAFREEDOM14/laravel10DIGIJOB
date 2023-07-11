@@ -63,7 +63,7 @@
                                     <marquee behavior="" direction="">{{$item->nama_perusahaan}}, Lowongan: {{$item->nama_lowongan}} </marquee>
                                 </div>
                                 <div class="input-group-append">
-                                    @if ($kandidat->id_perusahaan == null)
+                                    @if ($kandidat->id_perusahaan == null && $kandidat->negara_id !== null)
                                         <a class="btn btn-outline-primary" href="/profil_perusahaan/{{$item->id_perusahaan}}">Lihat</a>                                        
                                     @endif
                                 </div>
