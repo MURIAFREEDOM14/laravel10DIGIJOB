@@ -656,6 +656,10 @@ class KandidatController extends Controller
 
     public function simpan_kandidat_parent(Request $request)
     {
+        $validated = $request->validate([
+            'rt' => 'required|max:3|min:3',
+            'rw' => 'required|max:3|min:3',
+        ]);
         $umurAyah = Carbon::parse($request->tgl_lahir_ayah)->age;
         $umurIbu = Carbon::parse($request->tgl_lahir_ibu)->age;
         // dd($umur);
