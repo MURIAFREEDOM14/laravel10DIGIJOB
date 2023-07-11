@@ -132,7 +132,7 @@
                     </div>
                 </div>
             </div>
-            <a href="/perusahaan/list/kandidat" class="btn btn-primary">Kembali</a>
+            <a href="/perusahaan/list_permohonan_lowongan" class="btn btn-primary">Kembali</a>
         </div>        
     </div>
     <div class="row">

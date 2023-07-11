@@ -11,20 +11,20 @@
                         <thead>
                             <tr class="text-center">
                                 <th>No.</th>
-                                <th>Tanggal Pembayaran</th>
                                 <th>Pembayaran</th>
-                                <th>Nominal Pembayaran</th>
+                                <th>Tanggal Interview</th>
+                                <th>Bukti Pembayaran</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($pembayaran as $item)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{date('d-M-Y',strtotime($item->created_at))}}</td>
                                     <td>{{$item->nominal_pembayaran}}</td>
+                                    <td>{{date('d-M-Y | h:m:sa',strtotime($item->jadwal_interview))}}</td>
                                     <td>
                                         <div class="form-button-action float-right">
-                                            <a href="/perusahaan/payment/{{$item->id_pembayaran}}" class="btn btn-success mr-2"><i class="far fa-eye"></i></a>
+                                            <a href="/perusahaan/payment/{{$item->id_pembayaran}}" class="btn btn-success mr-2">Serahkan Bukti</a>
                                         </div>
                                     </td>
                                 </tr>    

@@ -39,7 +39,7 @@
                             </div>
                             <div class="col-8">
                                 @if ($pembayaran->foto_pembayaran !== null)
-                                    <img src="/gambar/perusahaan/pembayaran/{{$pembayaran->nama_perusahaan}}/{{$pembayaran->foto_pembayaran}}" width="300" height="300" alt="">                                
+                                    <img src="/gambar/perusahaan/{{$pembayaran->nama_pembayaran}}/pembayaran/{{$pembayaran->foto_pembayaran}}" width="300" height="300" alt="">                                
                                 @endif
                             </div>
                         </div>

@@ -12,7 +12,16 @@
                         <div class="col-12">                        
                             <div class="card">
                                 <div class="card-body">
-                                    <input type="datetime-local" name="jadwal_interview[]" value="" required class="form-control" id="">
+                                    <div class="form-group">
+                                        <label for="">Nama Kandidat</label>
+                                        @foreach ($interview as $item)
+                                            <input type="text" class="form-control mb-2" name="nama[]" value="{{$item->nama_kandidat}}" id="">
+                                        @endforeach
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Jadwal Interview</label>
+                                        <input type="datetime-local" name="jadwal_interview" value="" required class="form-control" id="">
+                                    </div>
                                 </div>
                             </div>    
                         </div>

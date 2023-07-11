@@ -14,7 +14,7 @@
             <div class="card-body">
                 @if ($pembayaran !== null)
                     @if ($pembayaran->foto_pembayaran == null)
-                        <form action="/perusahaan/payment" method="POST" enctype="multipart/form-data">
+                        <form action="" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row mb-3">
                                 <div class="col-4">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
   <meta charset="utf-8">
@@ -58,13 +58,6 @@
           <li><a class="nav-link scrollto active" style="color: black" href="#hero">Beranda</a></li>
           <li><a class="nav-link scrollto disabled" style="color: gray;" href="/about_us">Tentang</a></li>
           <li><a class="nav-link scrollto" style="color: black;" href="/login">Login</a></li>
-          {{-- <li class="nav-link scroll"><a href=""><span style="color: black">Daftar</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="/register/kandidat" style="color: black">Kandidat</a></li>
-              <li><a href="/register/akademi" style="color: black">Akademi</a></li>
-              < li><a href="/register/perusahaan" style="color: black">Perusahaan</a></li>
-            </ul>
-          </li> --}}
           <li><a class="nav-link scrollto disabled" style="color: gray" href="/perbaikan">Portfolio</a></li>
           <li><a class="nav-link scrollto" style="color: black" href="/hubungi_kami">Hubungi</a></li>
         </ul>
@@ -101,7 +94,10 @@
               </div>
               <div class="carousel-item" data-bs-interval="2300">
                 <h4 style="color: black; text-transform:uppercase">Akurat / Accurate</h4>
-                <h5 style="color: black">Digijob menyediakan informasi yang akurat dan data valid</h5>
+                <h5 style="color: black">Digijob menyediakan informasi yang akurat dan data valid
+                <br>
+                &nbsp;
+                </h5>
                 <div class="d-flex justify-content-center justify-content-sm-start mb-5">
                 </div>
               </div>
@@ -126,7 +122,7 @@
             </div>
             <div class="carousel-inner">
               <div class="carousel-item active" data-bs-interval="1800">
-                <img src="Arsha/assets/img/hero-img.png" width="420" height="420" class="mb-3" alt="">
+                <img src="Arsha/assets/img/hero-img.png" class="img-fluid " alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
                 </div>

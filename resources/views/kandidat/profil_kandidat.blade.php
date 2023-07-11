@@ -1,5 +1,6 @@
 @extends('layouts.kandidat')
 @section('content')
+@include('sweetalert::alert')
     <div class="container mt-5">
         <div class="card">
             <div class="card-header rounded-top bg-primary">
@@ -173,11 +174,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{-- <a class="btn btn-success" href="/output_izin_waris">Cetak Surat Izin & Ahli waris</a> --}}
                             </div>
                         </div>
                     </div>
                 </div>
+                <a class="btn btn-success" href="/output_izin_waris">Cetak Surat Izin & Ahli waris</a>
             </div>        
         </div>
     </div>        

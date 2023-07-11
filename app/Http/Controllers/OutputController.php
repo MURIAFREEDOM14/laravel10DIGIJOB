@@ -170,9 +170,9 @@ class OutputController extends Controller
         $tgl_print = Carbon::now()->isoFormat('D MMM Y');
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        if($kandidat->negara_id == null)
+        if($kandidat->penempatan == null)
         {
-            return redirect('/isi_kandidat_personal');
+            return redirect('/kandidat');
         }
         if ($kandidat->negara == "loc") {
             $negara = "Indonesia";
@@ -185,39 +185,12 @@ class OutputController extends Controller
         )
         ->where('referral_code',$id->referral_code)
         ->first();
-        if ($kandidat->periode_awal1 !== null) {
-            $periode_awal1 = Carbon::create($kandidat->periode_awal1)->isoFormat('D MMM Y');
-            $periode_akhir1 = Carbon::create($kandidat->periode_akhir1)->isoFormat('D MMM Y');
-        } else {
-            $periode_awal1 = null;
-            $periode_akhir1 = null;
-        }
-        if ($kandidat->periode_awal2 !== null) {
-            $periode_awal2 = Carbon::create($kandidat->periode_awal2)->isoFormat('D MMM Y');
-            $periode_akhir2 = Carbon::create($kandidat->periode_akhir2)->isoFormat('D MMM Y');
-        } else {
-            $periode_awal2 = null;
-            $periode_akhir2 = null;
-        }
-        if ($kandidat->periode_awal3 !== null){
-            $periode_awal3 = Carbon::create($kandidat->periode_awal3)->isoFormat('D MMM Y');
-            $periode_akhir3 = Carbon::create($kandidat->periode_akhir3)->isoFormat('D MMM Y');    
-        } else {
-            $periode_awal3 = null;
-            $periode_akhir3 = null;
-        }
         return view('Output/output_izin_waris',compact(
             'kandidat',
             'tgl_print',
             'tgl_user',
             'tgl_perizin',
             'negara',
-            'periode_awal1',
-            'periode_awal2',
-            'periode_awal3',
-            'periode_akhir1',
-            'periode_akhir2',
-            'periode_akhir3',
         ));
     }
 

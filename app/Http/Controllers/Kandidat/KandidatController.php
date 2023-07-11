@@ -880,6 +880,24 @@ class KandidatController extends Controller
             'negara_id' => $request->negara_id,
             'penempatan' => $request->penempatan,
         ]);
+
+        if($kandidat->penempatan == "luar negeri")
+        {
+            notifyKandidat::create([
+                'id_kandidat' => $kandidat->id_kandidat,
+                'isi' => "Anda mendapat pesan masuk",
+                'pengirim' => "Sistem",
+                'url' => '/semua_pesan',
+            ]);
+
+            messageKandidat::create([
+                'id_kandidat' => $kandidat->id_kandidat,
+                'pesan' => "Halo, Terima kasih telah sudah melengkapi profil anda. Kini anda dapat mengambil surat izin dan kuasa waris di profil anda",
+                'pengirim' => "sistem",
+                'kepada' => $kandidat->nama,
+            ]);
+        }
+
         if($kandidat->negara_id == null)
         {
             Alert::success('Selamat','Semua data profil anda sudah lengkap');

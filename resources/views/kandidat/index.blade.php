@@ -63,9 +63,17 @@
                     @foreach ($lowongan as $item)
                     <div class="row mb-3">
                         <div class="col-md-12 ">
-                            <div class="form-control mb-3">      
-                                <marquee behavior="" direction="">{{$item->nama_perusahaan}}, Lowongan: {{$item->nama_lowongan}} </marquee>
+                            <div class="input-group mb-3">
+                                <div class="form-control">      
+                                    <marquee behavior="" direction="">{{$item->nama_perusahaan}}, Lowongan: {{$item->nama_lowongan}} </marquee>
+                                </div>
+                                <div class="input-group-append">
+                                    @if ($kandidat->id_perusahaan == null)
+                                        <a class="btn btn-outline-primary" href="/profil_perusahaan/{{$item->id_perusahaan}}">Lihat</a>                                        
+                                    @endif
+                                </div>
                             </div>
+                            
                         </div>
                     </div>    
                     @endforeach
@@ -81,8 +89,32 @@
     </button> --}}
   
     <!-- Modal -->
-    @if ($kandidat->info !== null)
-    @else
+    @if ($kandidat->hubungan_perizin == null)
+        <div class="modal fade" id="information" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form action="/info_connect/{{$kandidat->nama}}/{{$kandidat->id_kandidat}}" method="post">
+                        @csrf
+                        <div class="modal-header">
+                            {{-- <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5> --}}
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <h3 class="text-center">Harap Lengkapi Profil Anda</h3>
+                            <div class="text-center"><a class="btn btn-outline-primary" href="/isi_kandidat_personal">Lengkapi Profil</a></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" onclick="infoConfirm()" class="btn btn-primary" id="tekan">Selesai</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    @if ($kandidat->info == null)
         <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -105,14 +137,19 @@
                 </div>
             </div>
         </div>
-    </div>    
     @endif
+
     
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script type="text/javascript">
         $(window).on('load',function() {
+            $('#information').modal('show');                                                   
+        });
+
+        $(window).on('load',function() {
             $('#staticBackdrop').modal('show');                                                   
         });
+        
     </script>
 @endsection

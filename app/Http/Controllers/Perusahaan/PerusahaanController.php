@@ -25,6 +25,9 @@ use App\Models\PMIID;
 use App\Models\PermohonanLowongan;
 use App\Models\PerusahaanNegara;
 use App\Models\Pekerjaan;
+use App\Mail\Payment;
+use Illuminate\Support\Facades\Mail;
+
 
 class PerusahaanController extends Controller
 {
@@ -439,8 +442,12 @@ class PerusahaanController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $permohonan = PermohonanLowongan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        foreach($permohonan as $key){
+            $kandidat = Kandidat::where('id_kandidat',$key->id_kandidat)->first();
+        }
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        return view('perusahaan/list_permohonan_lowongan',compact('perusahaan','permohonan','pesan','notif','cabang'));
+        $isi = $permohonan->count();
+        return view('perusahaan/list_permohonan_lowongan',compact('perusahaan','permohonan','pesan','notif','cabang','isi','kandidat'));
     }
 
     public function permohonanLowonganPekerjaan()
@@ -629,7 +636,7 @@ class PerusahaanController extends Controller
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        $kandidat = Kandidat::where('penempatan','like','%'.$perusahaan->penempatan_kerja.'%')->whereNull('id_perusahaan')->get();        
+        $kandidat = Kandidat::where('penempatan','like','%'.$perusahaan->penempatan_kerja.'%')->whereNull('stat_pemilik')->get();        
         $isi = $kandidat->count();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
@@ -670,7 +677,7 @@ class PerusahaanController extends Controller
         ->where('kandidat.kabupaten','like',"%".$kab."%")
         ->where('kandidat.provinsi','like',"%".$prov."%")
         ->where('kandidat.lama_kerja','like',"%".$lama_kerja."%")
-        ->whereNull('id_perusahaan')
+        ->whereNull('stat_pemilik')
         ->limit(15)->get();
         $isi = $kandidat->count();
         return view('perusahaan/kandidat/pilih_kandidat',compact('jk','perusahaan','kandidat','isi','notif','pesan','cabang'));
@@ -687,7 +694,7 @@ class PerusahaanController extends Controller
         $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
         
         if($id_kandidat == null){
-            return redirect('/perusahaan/list/kandidat')->with('error','anda harus memilih minimal 1 kandidat');
+            return redirect('/perusahaan/list_permohonan_lowongan')->with('error','anda harus memilih minimal 1 kandidat');
         } else {
             for($a = 0; $a < count($id_kandidat); $a++){                
                 $input['id_kandidat'] = $id_kandidat[$a];
@@ -699,16 +706,10 @@ class PerusahaanController extends Controller
                 $input['id_perusahaan'] = $perusahaan->id_perusahaan;
             Interview::create($input);
             }
-            
-            // $interview = Interview::create([
-            //     'id_kandidat'=>$kandidat->id_kandidat,
-            //     'nama_kandidat'=>$kandidat->nama,
-            //     'status'=>"pilih",
-            //     'usia'=>$kandidat->usia,
-            //     'jenis_kelamin'=>$kandidat->jenis_kelamin,
-            //     'pengalaman_kerja'=>$kandidat->pengalaman_kerja,
-            //     'id_perusahaan'=>$perusahaan->id_perusahaan,
-            // ]);
+
+            $kandidat = Kandidat::where('id_perusahaan',$perusahaan->id_perusahaan)->update([
+                'stat_pemilik' => "diambil",
+            ]);
         }
         
         return redirect('/perusahaan/interview');
@@ -725,7 +726,7 @@ class PerusahaanController extends Controller
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $semua_kandidat = Kandidat::
         where('kandidat.penempatan','like','%'.$perusahaan->penempatan_kerja.'%')
-        ->where('kandidat.id_kandidat','not like',$id)->whereNull('id_perusahaan')->limit(12)->get();
+        ->where('kandidat.id_kandidat','not like',$id)->whereNull('stat_pemilik')->limit(12)->get();
         $usia = Carbon::parse($kandidat->tgl_lahir)->age;
         $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
         $interview = Interview::where('id_kandidat',$kandidat->id_kandidat)->first();
@@ -802,36 +803,37 @@ class PerusahaanController extends Controller
     public function simpanJadwal(Request $request)
     {
         $jadwal = $request->jadwal_interview;
+        $nama = $request->nama;
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();        
-        $time = date('Y-m-d h:m:sa');
-        $timeBefore = date('Y-m-d', strtotime('-2 days', strtotime($time)));
-        for($i = 0; $i < count($jadwal); $i++){
-            $data['jadwal_interview'] = $jadwal[$i];
-            $data['status'] = "terjadwal";
-            Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->update($data);
+        // $time = date('Y-m-d h:m:sa');
+        // $timeBefore = date('Y-m-d', strtotime('-2 days', strtotime($time)));
+        for($i = 0; $i < count($nama); $i++){
+            $data['jadwal_interview'] = $jadwal;
+            $data['status'] = "pilih";
+            Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('nama_kandidat',$nama)->update($data);
         }
 
-        
-        $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->count();
-        // $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->update([
-        //     'jadwal_interview'=>$request->jadwal_interview,
-        //     'status'=>"terjadwal"
-        // ]);
-        Pembayaran::create([
+        $interview = Interview::where('jadwal_interview',$jadwal)->where('id_perusahaan',$perusahaan->id_perusahaan)->count();
+
+        $pembayaran = Pembayaran::create([
             'id_perusahaan'=>$perusahaan->id_perusahaan,
-            'nama_perusahaan'=>$perusahaan->nama_perusahaan,
+            'nama_pembayaran'=>$perusahaan->nama_perusahaan,
             'nib'=>$perusahaan->no_nib,
             'nominal_pembayaran'=>15000 * $interview,
             'stats_pembayaran'=>"belum dibayar",
+            'jadwal_interview' => $jadwal
         ]);
 
-        // $pembayaran = [
-        //     'nama_perusahaan'=>$perusahaan->nama_perusahaan,
-        //     'nib'=>$perusahaan->no_nib,
-        //     'nominal_pembayaran'=>15000,
-        // ];
-        // Mail::to($perusahaan->email_perusahaan)->send(new Payment($pembayaran));
+        $payment = 1500 * $interview;
+        $namarec = "Hamepa";
+        $nomorec = 4399997272;
+        $message = "Pembayaran Interview";
+
+        $terjadwal = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('jadwal_interview',$jadwal)->update([
+            'status' => "terjadwal",
+        ]);
+        Mail::mailer('payment')->to($perusahaan->email_perusahaan)->send(new Payment($perusahaan->nama_perusahaan,$message,'Pembayaran','digijobaccounting@ugiport.com',$payment,$namarec,$nomorec));
         return redirect('/perusahaan/interview')->with('success','Tagihan sudah muncul di email anda, silahkan selesaikan pembayaran untuk melanjutkan');
     }
 
@@ -870,16 +872,18 @@ class PerusahaanController extends Controller
         return view('perusahaan/pembayaran/pembayaran',compact('perusahaan','total','ttlBayar','notif','tgl','pembayaran','pesan','cabang'));
     }
 
-    public function paymentCheck(Request $request)
+    public function paymentCheck(Request $request, $id)
     {
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
         // $this->validate($request, [
         //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
         // ]);
+        $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
         $pembayaran = $perusahaan->nama_perusahaan.time().'.'.$request->foto_pembayaran->extension();  
-        $request->foto_pembayaran->move(public_path('/gambar/Perusahaan/Pembayaran/'.$perusahaan->nama_perusahaan), $pembayaran);
-        $pembayaran = Pembayaran::where('id_perusahaan',$perusahaan->id_perusahaan)->update([
+        $simpan_pembayaran = $request->file('foto_pembayaran');
+        $simpan_pembayaran->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Pembayaran/',$perusahaan->nama_perusahaan.time().'.'.$simpan_pembayaran);
+        $pembayaran = Pembayaran::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_pembayaran',$id)->update([
             'foto_pembayaran'=>$pembayaran
         ]);
         return redirect('/perusahaan')->with('success','Metode pembayaran sedang diproses mohon tunggu');

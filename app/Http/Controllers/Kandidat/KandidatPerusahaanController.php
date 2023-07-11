@@ -59,7 +59,11 @@ class KandidatPerusahaanController extends Controller
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
         $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
         $penempatan = PerusahaanNegara::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
-        return view('kandidat/perusahaan/profil_perusahaan',compact('kandidat','perusahaan','notif','pembayaran','pesan','lowongan','penempatan'));
+        if($kandidat->hubungan_perizin){
+            return view('kandidat/perusahaan/profil_perusahaan',compact('kandidat','perusahaan','notif','pembayaran','pesan','lowongan','penempatan'));
+        } else {
+            return redirect()->route('kandidat')->with('warning',"Harap Lengkapi Profil Anda Terlebih Dahulu");
+        }
     }
 
     public function lihatPekerjaanPerusahaan($negaraid,$nama)

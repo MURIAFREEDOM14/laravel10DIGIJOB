@@ -440,7 +440,7 @@ Route::controller(RegisterController::class)->group(function() {
 // data output
 Route::controller(OutputController::class)->group(function() {
     Route::get('/output', 'index')->name('output');
-    Route::get('/output_izin_waris', 'izinWaris');
+    Route::get('/output_izin_waris', 'izinWaris')->middleware('kandidat');
     Route::get('/surat_izin_waris', 'suratIzinWaris');
     Route::get('/cetak/{id}', 'cetak')->name('cetak');
 });
