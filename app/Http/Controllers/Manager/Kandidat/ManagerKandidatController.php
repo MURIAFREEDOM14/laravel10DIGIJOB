@@ -762,13 +762,13 @@ class ManagerKandidatController extends Controller
     public function dalam_negeri()
     {
         $manager = Auth::user();
-        $kandidat = Kandidat::where('penempatan',"dalam negeri")->get();
+        $kandidat = Kandidat::where('penempatan','like',"%dalam negeri%")->get();
         return view('manager/penempatan/dalam_negeri',compact('kandidat','manager'));
     }
     public function luar_negeri()
     {
         $manager = Auth::user();
-        $kandidat = Kandidat::where('penempatan',"luar negeri")->get();
+        $kandidat = Kandidat::where('penempatan','like',"%luar negeri%")->get();
         return view('manager/penempatan/luar_negeri',compact('kandidat','manager'));
     }
 
