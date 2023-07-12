@@ -66,8 +66,8 @@
       </main>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
       @livewireScripts
+      <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
       <script type="text/javascript">
-      
       function beranda(ev)
       {
         ev.preventDefault();
@@ -166,6 +166,17 @@
         }
       }
       </script>
+
+      <script>
+        $(document).ready(function() {
+          
+        });
+        
+        function create() {
+          $("#tambah").modal('show');
+        }
+      </script>
+
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     </body>
 </html>

@@ -395,6 +395,7 @@ Route::controller(PrioritasController::class)->group(function(){
 });
 
 Route::get('/download_file',[FileUploadController::class,'downloadFile']);
+Route::get('/send_email_kandidat',[FileUploadController::class, 'sendEmailFile']);
 
 // data notifikasi
 Route::controller(NotifikasiController::class)->group(function() {
