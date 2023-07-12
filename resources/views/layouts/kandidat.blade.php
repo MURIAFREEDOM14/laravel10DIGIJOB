@@ -68,6 +68,12 @@
         <link rel="stylesheet" href="/Atlantis/examples/assets/css/bootstrap.min.css">
         <link rel="stylesheet" href="/Atlantis/examples/assets/css/atlantis.min.css">
         <link rel="stylesheet" href="/cardSlide/style.css">    
+    
+        <style>
+            body{
+                background-color:#78C1F3;
+            }
+        </style>
     </head>
     <body>
         <div class="wrapper">
@@ -670,6 +676,34 @@
                 console.log(url);
                 swal({
                     title: 'Apakah anda yakin ingin Membatalkan lowongan ini?',
+                    type: 'warning',
+                    icon: 'warning',
+                    buttons:{
+                        confirm: {
+                            text : 'Iya',
+                            className : 'btn btn-success'
+                        },
+                        cancel: {
+                            visible: true,
+                            className: 'btn btn-danger'
+                        }
+                    }
+                }).then((Delete) => {
+                    if (Delete) {
+                        window.location.href = url;
+                    } else {
+                        swal.close();
+                    }
+                });
+            }
+
+            function outPerusahaan(ev)
+            {
+                ev.preventDefault();
+                var url = ev.currentTarget.getAttribute('href');
+                console.log(url);
+                swal({
+                    title: 'Apakah anda yakin ingin Keluar dari perusahaan ini?',
                     type: 'warning',
                     icon: 'warning',
                     buttons:{

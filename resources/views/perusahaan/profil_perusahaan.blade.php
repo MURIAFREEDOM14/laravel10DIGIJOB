@@ -97,7 +97,7 @@
                                                                 <td>{{$item->isi}}</td>
                                                                 <td>{{$item->pencarian_tmp}}</td>
                                                                 <td>
-                                                                    <a class="btn btn-outline-primary" href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat Lowongan</a>
+                                                                    <a class="btn btn-outline-primary" href="/perusahaan/lihat_lowongan/{{$item->id_lowongan}}">Lihat Lowongan</a>
                                                                 </td>
                                                             </tr>
                                                         @endforeach

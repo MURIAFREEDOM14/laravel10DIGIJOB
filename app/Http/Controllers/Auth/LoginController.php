@@ -51,9 +51,9 @@ class LoginController extends Controller
         return view('auth/login_semua');
     }
 
-    public function forgotPassword()
+    public function forgotPasswordKandidat()
     {
-        return view('auth/forgot_password');
+        return view('auth/passwords/forgot_password_kandidat');
     }
 
     public function confirmAccountKandidat(Request $request)
@@ -67,14 +67,47 @@ class LoginController extends Controller
             return redirect()->back()->with('error',"Maaf data anda belum ada. Harap register");
         }
     }
+    public function forgotPasswordAkademi()
+    {
+        return view('auth/passwords/forgot_password_akademi');
+    }
+
+    public function confirmAccountAkademi(Request $request)
+    {
+        $user = User::where('name_akademi',$request->name)
+        ->where('no_nis',$request->no_nis)
+        ->where('email',$request->email)->first();
+        if($user !== null){
+            return view('auth/new_password',compact('user'));
+        } else {
+            return redirect()->back()->with('error',"Maaf data anda belum ada. Harap register");
+        }
+    }
+    public function forgotPasswordPerusahaan()
+    {
+        return view('auth/passwords/forgot_password_perusahaan');
+    }
+
+    public function confirmAccountPerusahaan(Request $request)
+    {
+        $user = User::where('name_perusahaan',$request->name)
+        ->where('no_nib',$request->no_nib)
+        ->where('email',$request->email)->first();
+        if($user !== null){
+            return view('auth/new_password',compact('user'));
+        } else {
+            return redirect()->back()->with('error',"Maaf data anda belum ada. Harap register");
+        }
+    }
 
     public function confirmPassword(Request $request)
     {
         $password = Hash::make($request->password); 
         $user = User::where('email',$request->email)->update([
             'password' => $password,
+            'check_password' => $request->password,
         ]);
-        $userLogin = User::where('email',$request->email)->first();
+        $userLogin = User::where('email',$request->email)->where('password',$password)->first();
         Auth::login($userLogin);
         return redirect('/')->with('success',"Selamat Datang");
     }

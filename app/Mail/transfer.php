@@ -64,9 +64,9 @@ class transfer extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'transfer',
+            view: 'mail/transfer',
             with : [
-                'transfer'=>$this->sendTransfer
+                'transfer'=>$this->message
             ]
         );
     }

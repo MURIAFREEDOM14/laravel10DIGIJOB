@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\softDeletes;
 class PengalamanKerja extends Model
 {
     use HasFactory;
-    use softDeletes;
+    // use softDeletes;
     protected $table = 'pengalaman_kerja';
     protected $guarded = [];
     public $timestamps = false;

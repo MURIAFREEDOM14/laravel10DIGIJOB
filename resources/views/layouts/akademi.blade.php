@@ -5,6 +5,22 @@
         <title>DIGIJOB-UGIPORT</title>
         <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
         <link rel="icon" href="/Atlantis/examples/assets/img/icon.ico" type="image/x-icon"/>
+        <!-- Fonts and icons -->
+        <script src="/Atlantis/examples/assets/js/plugin/webfont/webfont.min.js"></script>
+        <script>
+            WebFont.load({
+                google: {"families":["Lato:300,400,700,900"]},
+                custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/Atlantis/examples/assets/css/fonts.min.css']},
+                active: function() {
+                    sessionStorage.fonts = true;
+                }
+            });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <!-- CSS Files -->
+        <link rel="stylesheet" href="/Atlantis/examples/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/Atlantis/examples/assets/css/atlantis.min.css">
         <style>
             .bold{
                 font-size: 11px;
@@ -22,24 +38,10 @@
                 -webkit-line-clamp: 1;
                 -webkit-box-orient: vertical;
             }
+            body{
+                background-color: #FAE392;
+            }
         </style>
-        <!-- Fonts and icons -->
-        <script src="/Atlantis/examples/assets/js/plugin/webfont/webfont.min.js"></script>
-        <script>
-            WebFont.load({
-                google: {"families":["Lato:300,400,700,900"]},
-                custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/Atlantis/examples/assets/css/fonts.min.css']},
-                active: function() {
-                    sessionStorage.fonts = true;
-                }
-            });
-        </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-        <!-- CSS Files -->
-        <link rel="stylesheet" href="/Atlantis/examples/assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/Atlantis/examples/assets/css/atlantis.min.css">
-    
     </head>
     <body>
         <div class="wrapper">
@@ -275,34 +277,34 @@
                     <main class="px-3">
                         @yield('content')
                     </main>
-                </div>
-                <footer class="footer" style="background-color: #ff9e27">
-                    <div class="container-fluid">
-                        <nav class="pull-left">
-                            <ul class="nav nav-primary">
-                                <li class="nav-item">
-                                    <div class="copyright" style="color:white;">
-                                        &copy; Copyright <strong><span>DIGIJOB-UGIPORT</span></strong>. All Rights Reserved
-                                    </div>
-                                </li>
-                                {{-- <li class="nav-item">
-                                    <a class="nav-link" href="#">
-                                        Help
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">
-                                        Licenses
-                                    </a>
-                                </li> --}}
-                            </ul>
-                        </nav>
-                        <div class="copyright ml-auto">
-                            &nbsp;
-                            {{-- 2018, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">ThemeKita</a> --}}
+                    <footer class="footer" style="background-color: #ff9e27">
+                        <div class="container-fluid">
+                            <nav class="pull-left">
+                                <ul class="nav nav-primary">
+                                    <li class="nav-item">
+                                        <div class="copyright" style="color:white;">
+                                            &copy; Copyright <strong><span>DIGIJOB-UGIPORT</span></strong>. All Rights Reserved
+                                        </div>
+                                    </li>
+                                    {{-- <li class="nav-item">
+                                        <a class="nav-link" href="#">
+                                            Help
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">
+                                            Licenses
+                                        </a>
+                                    </li> --}}
+                                </ul>
+                            </nav>
+                            <div class="copyright ml-auto">
+                                &nbsp;
+                                {{-- 2018, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">ThemeKita</a> --}}
+                            </div>
                         </div>
-                    </div>
-                </footer>
+                    </footer>
+                </div>
             </div>
         </div>
         <!--   Core JS Files   -->

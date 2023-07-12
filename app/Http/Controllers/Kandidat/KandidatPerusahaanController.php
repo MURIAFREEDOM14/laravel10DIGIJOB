@@ -155,6 +155,7 @@ class KandidatPerusahaanController extends Controller
                 'id_kandidat' => $kandidat->id_kandidat,
                 'id_perusahaan' => $lowongan->id_perusahaan,
                 'negara' => $lowongan->negara,
+                'id_lowongan' => $lowongan->id_lowongan,
             ]);
         } else {
             PermohonanLowongan::create([
@@ -163,6 +164,7 @@ class KandidatPerusahaanController extends Controller
                 'id_kandidat' => $kandidat->id_kandidat,
                 'id_perusahaan' => $lowongan->id_perusahaan,
                 'jabatan' => $lowongan->jabatan,
+                'id_lowongan' => $lowongan->id_lowongan,
             ]);
         }
         Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([

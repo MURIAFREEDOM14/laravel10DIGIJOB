@@ -88,6 +88,7 @@ Route::controller(ManagerController::class)->group(function() {
     // DATA PERUSAHAAN //
     Route::get('/manager/perusahaan/list_perusahaan','perusahaan')->middleware('manager');
     Route::get('/manager/perusahaan/lihat_profil/{id}','lihatProfilPerusahaan')->middleware('manager');
+    Route::get('/manager/perusahaan/lihat_lowongan/{id}','lihatLowonganPekerjaan')->middleware('manager');
     Route::get('/manager/pembayaran/perusahaan','pembayaranPerusahaan')->middleware('manager');
     Route::get('/manager/cek_pembayaran/perusahaan/{id}','cekPembayaranPerusahaan')->middleware('manager');
     Route::post('/manager/cek_pembayaran/perusahaan/{id}','cekConfirmPerusahaan');
@@ -127,6 +128,11 @@ Route::controller(ManagerKandidatController::class)->group(function() {
     
     Route::get('/manager/edit/kandidat/job/{id}','isi_job')->middleware('manager');
     Route::post('/manager/edit/kandidat/job/{id}','simpan_job');
+
+    Route::get('/manager/kandidat/pelamar_lowongan','pelamarLowongan');
+    Route::get('/manager/kandidat/lihat_lowongan_pelamar/{id}','lihatPelamarLowongan');
+
+    Route::get('/manager/kandidat/lihat_video/{id}','lihatVideoKandidat');
 });
 
 Route::controller(ContactUsController::class)->group(function() {
@@ -409,8 +415,12 @@ Route::controller(LoginController::class)->group(function() {
     Route::get('/login','loginSemua')->middleware('guest');
     Route::post('/login','AuthenticateLogin');
     
-    Route::get('/forgot_password','forgotPassword')->middleware('guest');
-    Route::post('/forgot_password','confirmAccountKandidat');
+    Route::get('/forgot_password/kandidat','forgotPasswordKandidat')->middleware('guest');
+    Route::post('/forgot_password/kandidat','confirmAccountKandidat');
+    Route::get('/forgot_password/akademi','forgotPasswordAkademi')->middleware('guest');
+    Route::post('/forgot_password/akademi','confirmAccountAkademi');
+    Route::get('/forgot_password/perusahaan','forgotPasswordPerusahaan')->middleware('guest');
+    Route::post('/forgot_password/perusahaan','confirmAccountPerusahaan');
     Route::get('/new_password','newPassword')->middleware('guest');
     Route::post('/new_password','confirmPassword');
 
@@ -485,6 +495,7 @@ Route::controller(PaymentController::class)->group(function(){
     // USER AKADEMI //
     
     // USER PERUSAHAAN //
+    Route::view('/transfer','mail/transfer');
 
     // USER MANAGER //
     

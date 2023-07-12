@@ -25,10 +25,13 @@ use App\Models\PMIID;
 use App\Models\PermohonanLowongan;
 use App\Models\PerusahaanNegara;
 use App\Models\Pekerjaan;
-use App\Mail\Payment;
+use App\Mail\transfer;
 use Illuminate\Support\Facades\Mail;
 use App\Models\notifyKandidat;
 use App\Models\messageKandidat;
+use App\Models\notifyAkademi;
+use App\Models\messageAkademi;
+
 
 class PerusahaanController extends Controller
 {
@@ -684,52 +687,6 @@ class PerusahaanController extends Controller
         return view('perusahaan/kandidat/pilih_kandidat',compact('jk','perusahaan','kandidat','isi','notif','pesan','cabang'));
     }
 
-    public function pilihKandidat(Request $request)
-    {
-        $auth = Auth::user();
-        $id_kandidat = $request->id_kandidat;
-        $usia = $request->usia;
-        $jk = $request->jk;
-        $nama = $request->nama;
-        $pengalaman_kerja = $request->pengalaman_kerja;
-        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
-        
-        if($id_kandidat == null){
-            return redirect('/perusahaan/list_permohonan_lowongan')->with('error','anda harus memilih minimal 1 kandidat');
-        } else {
-            for($a = 0; $a < count($id_kandidat); $a++){                
-                $input['id_kandidat'] = $id_kandidat[$a];
-                $input['nama_kandidat'] = $nama[$a];
-                $input['status'] = "pilih";
-                $input['usia'] = $usia[$a];
-                $input['jenis_kelamin'] = $jk[$a];
-                $input['pengalaman_kerja'] = $pengalaman_kerja[$a];
-                $input['id_perusahaan'] = $perusahaan->id_perusahaan;
-            Interview::create($input);
-            }
-
-            $kandidat = Kandidat::where('id_perusahaan',$perusahaan->id_perusahaan)->update([
-                'stat_pemilik' => "diambil",
-            ]);
-
-            notifyKandidat::create([
-                'id_kandidat' => $kandidat->id_kandidat,
-                'isi' => "Anda mendapat pesan masuk",
-                'pengirim' => "Sistem",
-                'url' => '/semua_pesan',
-            ]);
-
-            messageKandidat::create([
-                'id_kandidat' => $kandidat->id_kandidat,
-                'pesan' => "Halo, Selamat anda telah diterima di ".$perusahaan->nama_perusaahaan.".Kini anda dapat mengambil surat izin dan kuasa waris di profil anda",
-                'pengirim' => "sistem",
-                'kepada' => $kandidat->nama,
-            ]);
-        }
-        
-        return redirect('/perusahaan/interview');
-    }
-
     public function lihatProfilKandidat($id)
     {
         $auth = Auth::user();
@@ -770,6 +727,69 @@ class PerusahaanController extends Controller
     }
 
     // DATA INTERVIEW //
+    public function pilihKandidat(Request $request)
+    {
+        $auth = Auth::user();
+        $id_kandidat = $request->id_kandidat;
+        $usia = $request->usia;
+        $jk = $request->jk;
+        $nama = $request->nama;
+        $pengalaman_kerja = $request->pengalaman_kerja;
+        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
+        if($id_kandidat == null){
+            return redirect('/perusahaan/list_permohonan_lowongan')->with('error','anda harus memilih minimal 1 kandidat');
+        } else {
+            for($a = 0; $a < count($id_kandidat); $a++){                
+                $input['id_kandidat'] = $id_kandidat[$a];
+                $input['nama_kandidat'] = $nama[$a];
+                $input['status'] = "pilih";
+                $input['usia'] = $usia[$a];
+                $input['jenis_kelamin'] = $jk[$a];
+                $input['pengalaman_kerja'] = $pengalaman_kerja[$a];
+                $input['id_perusahaan'] = $perusahaan->id_perusahaan;
+                Interview::create($input);
+                
+                Kandidat::where('id_kandidat',$id_kandidat[$a])->update([
+                    'stat_pemilik' => "diambil",
+                ]);
+                
+                notifyKandidat::create([
+                    'id_kandidat' => $id_kandidat[$a],
+                    'isi' => "Anda mendapat pesan masuk",
+                    'pengirim' => "Sistem",
+                    'url' => '/semua_pesan',
+                ]);
+
+                messageKandidat::create([
+                    'id_kandidat' => $id_kandidat[$a],
+                    'pesan' => "Halo, Selamat anda telah diterima di ".$perusahaan->nama_perusahaan.".Kini anda dapat mengambil surat izin dan kuasa waris di profil anda",
+                    'pengirim' => "Sistem",
+                    'kepada' => $nama[$a],
+                ]);
+
+                $kandidat = Kandidat::where('id_kandidat',$id_kandidat[$a])->whereNotNull('id_akademi')->first();
+                if($kandidat !== null){
+                    notifyAkademi::create([
+                        'id_akademi' => $kandidat->id_akademi,
+                        'id_kandidat' => $kandidat->id_kandidat,
+                        'isi' => "Anda mendapat pesan masuk",
+                        'pengirim' => "Sistem",
+                        'url' => '/akademi/semua_notif',
+                    ]);
+
+                    messageAkademi::create([
+                        'id_akademi' => $kandidat->id_akademi,
+                        'id_kandidat' => $kandidat->id_kandidat,
+                        'pesan' => "Selamat kandidat atas nama".$kandidat->nama."telah diterima di".$perusahaan->nama_perusahaan,
+                        'pengirim' => "Sistem",
+                        'kepada' => $kandidat->id_akademi,
+                    ]);
+                }
+            }
+        }
+        return redirect('/perusahaan/interview');
+    }
+
     public function JadwalInterview()
     {
         $auth = Auth::user();
@@ -831,6 +851,12 @@ class PerusahaanController extends Controller
 
         $interview = Interview::where('jadwal_interview',$jadwal)->where('id_perusahaan',$perusahaan->id_perusahaan)->count();
 
+        $payment = 1500 * $interview;
+        $namarec = "Hamepa";
+        $nomorec = 4399997272;
+        $message = "Pembayaran Interview";
+        Mail::mailer('transfer')->to($perusahaan->email_perusahaan)->send(new transfer($perusahaan->nama_perusahaan,$message,'Pembayaran','digijobaccounting@ugiport.com',$payment,$namarec,$nomorec));
+
         $pembayaran = Pembayaran::create([
             'id_perusahaan'=>$perusahaan->id_perusahaan,
             'nama_pembayaran'=>$perusahaan->nama_perusahaan,
@@ -840,15 +866,9 @@ class PerusahaanController extends Controller
             'jadwal_interview' => $jadwal
         ]);
 
-        $payment = 1500 * $interview;
-        $namarec = "Hamepa";
-        $nomorec = 4399997272;
-        $message = "Pembayaran Interview";
-
         $terjadwal = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('jadwal_interview',$jadwal)->update([
             'status' => "terjadwal",
         ]);
-        Mail::mailer('payment')->to($perusahaan->email_perusahaan)->send(new Payment($perusahaan->nama_perusahaan,$message,'Pembayaran','digijobaccounting@ugiport.com',$payment,$namarec,$nomorec));
         return redirect('/perusahaan/interview')->with('success','Tagihan sudah muncul di email anda, silahkan selesaikan pembayaran untuk melanjutkan');
     }
 

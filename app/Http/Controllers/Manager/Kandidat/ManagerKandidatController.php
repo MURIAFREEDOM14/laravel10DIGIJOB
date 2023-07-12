@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Kandidat;
+use App\Models\Perusahaan;
 use App\Models\Negara;
 use App\Models\Kelurahan;
 use App\Models\Kecamatan;
@@ -15,10 +16,25 @@ use App\Models\Kota;
 use App\Models\PengalamanKerja;
 use App\Models\Pekerjaan;
 use Carbon\Carbon;
+use App\Models\LowonganPekerjaan;
+use App\Models\PermohonanLowongan;
 
 class ManagerKandidatController extends Controller
 {
     // Kandidat Data //
+
+    public function lihatVideoKandidat($id)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $kandidat = Kandidat::join(
+            'pengalaman_kerja','kandidat.id_kandidat','=','pengalaman_kerja.id_kandidat'
+        )
+        ->where('pengalaman_kerja.pengalaman_kerja_id',$id)->first();
+        $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->where('pengalaman_kerja_id','not like',$kandidat->pengalaman_kerja_id)->get();
+        return view('manager/kandidat/lihat_video_kandidat',compact('manager','kandidat','pengalaman_kerja'));
+    }
+
     public function isi_personal($id)
     {
         $timeNow = Carbon::now();
@@ -754,5 +770,26 @@ class ManagerKandidatController extends Controller
         $manager = Auth::user();
         $kandidat = Kandidat::where('penempatan',"luar negeri")->get();
         return view('manager/penempatan/luar_negeri',compact('kandidat','manager'));
+    }
+
+    public function pelamarLowongan()
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $lowongan = LowonganPekerjaan::all();
+        // $kandidat = Kandidat::where()->get();
+        return view('manager/kandidat/lowongan_pelamar',compact('lowongan','manager'));
+    }
+
+    public function lihatPelamarLowongan($id)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $lowongan = LowonganPekerjaan::join(
+            'perusahaan','lowongan_pekerjaan.id_perusahaan','=','perusahaan.id_perusahaan'
+        )
+        ->where('lowongan_pekerjaan.id_lowongan',$id)->first();
+        $kandidat = Kandidat::where('id_perusahaan',$lowongan->id_perusahaan)->get();
+        return view('manager/kandidat/lihat_lowongan_pelamar',compact('manager','lowongan','kandidat'));
     }
 }

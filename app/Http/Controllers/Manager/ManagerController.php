@@ -31,6 +31,7 @@ use App\Models\ContactUs;
 use App\Models\PencarianStaff;
 use App\Models\PerusahaanStaff;
 use Carbon\Carbon;
+use App\Models\LowonganPekerjaan;
 
 class ManagerController extends Controller
 {
@@ -259,7 +260,17 @@ class ManagerController extends Controller
         $user = Auth::user();
         $manager = User::where('referral_code',$user->referral_code)->first();
         $perusahaan = Perusahaan::where('id_perusahaan',$id)->first();
-        return view('manager/perusahaan/lihat_profil_perusahaan',compact('perusahaan','manager'));
+        $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        return view('manager/perusahaan/lihat_profil_perusahaan',compact('perusahaan','manager','lowongan'));
+    }
+
+    public function lihatLowonganPekerjaan($id)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
+        $perusahaan = Perusahaan::where('id_perusahaan',$lowongan->id_perusahaan)->first();
+        return view('manager/perusahaan/lihat_lowongan',compact('lowongan','manager','perusahaan'));
     }
 
     // Akademi Data //

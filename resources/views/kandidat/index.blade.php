@@ -17,7 +17,7 @@
                     <b class="bold">Informasi Perusahaan</b>
                 </div>
                 <div class="card-body">
-                    @if ($kandidat->negara_id !== null)
+                    @if ($kandidat->id_perusahaan !== null)
                         <div class="table-responsive">
                             <table id="add-row" class="display table table-striped table-hover" >
                                 <thead>
@@ -28,23 +28,48 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($perusahaan_semua as $item)
-                                        <tr class="text-center">
-                                            <td>{{$loop->iteration}}</td>
-                                            <td>
-                                                {{$item->nama_perusahaan}}
-                                            </td>
-                                            <td>
-                                                <a href="/profil_perusahaan/{{$item->id_perusahaan}}">Lihat</a>
-                                            </td>
-                                        </tr>    
-                                    @endforeach    
+                                    <tr class="text-center">
+                                        <td>1</td>
+                                        <td>
+                                            {{$perusahaan->nama_perusahaan}}
+                                        </td>
+                                        <td>
+                                            <a href="/profil_perusahaan/{{$perusahaan->id_perusahaan}}">Lihat</a>
+                                        </td>
+                                    </tr>    
                                 </tbody>
                             </table>
                         </div>
                     @else
-                        <h3 class="text-center">Harap Lengkapi Profil Anda</h3>
-                        <div class="text-center"><a class="btn btn-outline-primary" href="/isi_kandidat_personal">Lengkapi Profil</a></div>
+                        @if ($kandidat->negara_id !== null)
+                            <div class="table-responsive">
+                                <table id="add-row" class="display table table-striped table-hover" >
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th style="width: 1px">No.</th>
+                                            <th>Nama Perusahaan</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($perusahaan_semua as $item)
+                                            <tr class="text-center">
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>
+                                                    {{$item->nama_perusahaan}}
+                                                </td>
+                                                <td>
+                                                    <a href="/profil_perusahaan/{{$item->id_perusahaan}}">Lihat</a>
+                                                </td>
+                                            </tr>    
+                                        @endforeach    
+                                    </tbody>
+                                </table>
+                            </div>
+                        @else
+                            <h3 class="text-center">Harap Lengkapi Profil Anda</h3>
+                            <div class="text-center"><a class="btn btn-outline-primary" href="/isi_kandidat_personal">Lengkapi Profil</a></div>
+                        @endif
                     @endif
                 </div>
             </div>

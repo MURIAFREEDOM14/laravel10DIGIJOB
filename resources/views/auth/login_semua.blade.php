@@ -24,9 +24,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class=""><a href="/forgot_password" class="btn btn-link mb-5">Lupa Password</a></div>
+                        <div class=""><button type="button" class="btn btn-link mb-2" data-bs-toggle="modal" data-bs-target="#forgotPassword">Lupa Password</button></div>
                         <div class="">Sudah Pernah Terdaftar?<a class="btn btn-link" href="/login/migration">Aktifkan Akun</a></div>                        
-                        <div class="">Belum punya akun?<button type="button" class="btn btn-link mb-2" data-bs-toggle="modal" data-bs-target="#exampleModal">Daftar yuk!!</button></div>
+                        <div class="">Belum punya akun?<button type="button" class="btn btn-link mb-2" data-bs-toggle="modal" data-bs-target="#newUser">Daftar yuk!!</button></div>
                         <button type="submit" class="btn btn-primary float-right mr-2">Masuk</button>
                     </form> 
                 </div>
@@ -40,8 +40,8 @@
 <main id="main">
     <!-- ======= Services Section ======= -->
     <section id="services" class="services">
-      <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <!-- Modal New User -->
+      <div class="modal fade" id="newUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
@@ -74,7 +74,44 @@
         </div>
       </div>
     </section>
-    <!-- End Services Section -->
+    <!-- End Modal New User -->
+
+    <section id="services" class="services">
+      <!-- Modal Forgot Password -->
+      <div class="modal fade" id="forgotPassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel" style="font-family:poppins">Lupa Password Sebagai...</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-4 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                  <div class="icon-box text-center" style="border-style: outset; background-color: #19A7CE">
+                    <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
+                    <h4><a href="/forgot_password/kandidat" style="text-transform: uppercase;color: white">Pencari Kerja</a></h4>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                  <div class="icon-box text-center" style="border-style: outset;background-color: #FFD966">
+                    <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
+                    <h4><a href="/forgot_password/akademi" style="text-transform: uppercase; color: white">Akademi</a></h4>
+                  </div>
+                </div>
+                <div class="col-md-4 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                  <div class="icon-box text-center" style="border-style: outset;background-color: #2bb930">
+                    <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
+                    <h4><a href="/forgot_password/perusahaan" style="text-transform: uppercase; color: white">Perusahaan</a></h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Modal Forgot Password -->
 
   </main>
 @endsection

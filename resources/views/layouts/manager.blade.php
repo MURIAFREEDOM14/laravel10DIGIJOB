@@ -12,10 +12,26 @@
                 font-weight: bold;
                 line-height:1px;
             }
+            .word{
+                text-transform: uppercase;
+                font-weight: bold;
+                line-height:1px;
+            }
             .img{
+                width: 100%;
+                height: auto;
                 border: 1px solid black;
                 border-radius: 2%;
-                width: 20%;
+            }
+            .img2{
+                width: 100%;
+                height: auto;
+            }
+            .hidden{
+                display:none;
+            }
+            video{
+                width: 100%;
                 height: auto;
             }
             .text1 {
@@ -23,6 +39,15 @@
                 display: -webkit-box;
                 -webkit-line-clamp: 1;
                 -webkit-box-orient: vertical;
+            }
+            #hidetext{
+                display: none;
+            }
+            #negara_tujuan{
+                display: none;
+            }
+            #hidebtn{
+                display: none;
             }            
         </style>
         <!-- Fonts and icons -->
@@ -211,7 +236,7 @@
                                         </li>
                                         <li>
                                             <a class="btn" href="/manager/negara_tujuan">
-                                                <span class="sub-item">Data Negara Tujuan</span>
+                                                <span class="sub-item">Negara Tujuan</span>
                                             </a>
                                         </li>
                                         {{-- <li>
@@ -221,24 +246,19 @@
                                         </li> --}}
                                         <li>
                                             <a class="btn" href="/manager/surat_izin">
-                                                <span class="sub-item">Data Surat izin</span>
+                                                <span class="sub-item">Surat izin</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a class="btn" href="/manager/kandidat/pelatihan">
-                                                <span class="sub-item">Data Pelatihan</span>
+                                                <span class="sub-item">Video Pelatihan</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="btn" href="/manager/permohonan_staff">
-                                                <span class="sub-item">Pencarian Kerja Staff</span>
+                                            <a class="btn" href="/manager/kandidat/pelamar_lowongan">
+                                                <span class="sub-item">Pelamar Lowongan</span>
                                             </a>
                                         </li>
-                                        {{-- <li>
-                                            <a class="btn" href="/manager/reset_kandidat">
-                                                <span class="sub-item">Reset Data Kandidat</span>
-                                            </a>
-                                        </li> --}}
                                     </ul>
                                 </div>
                             </li>
@@ -365,7 +385,8 @@
         <!-- Atlantis JS -->
         <script src="/Atlantis/examples/assets/js/atlantis.min.js"></script>
 
-        <script >
+        <!-- datatable -->
+        <script>
             $(document).ready(function() {
                 $('#basic-datatables').DataTable({
                 });
