@@ -42,7 +42,7 @@ class KandidatController extends Controller
         $lowongan = LowonganPekerjaan::join(
             'perusahaan','lowongan_pekerjaan.id_perusahaan','=','perusahaan.id_perusahaan'
         )
-        ->get();
+        ->where('penempatan_kerja','like','%'.$kandidat->penempatan.'%')->get();
         $cari_perusahaan = null;
         $perusahaan_semua = Perusahaan::whereNotNull('email_operator')->where('penempatan_kerja','like','%'.$kandidat->penempatan.'%')->get();
         if($kandidat->id_perusahaan !== null){
