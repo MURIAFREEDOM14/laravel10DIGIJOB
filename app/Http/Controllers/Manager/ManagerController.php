@@ -261,7 +261,8 @@ class ManagerController extends Controller
         $manager = User::where('referral_code',$user->referral_code)->first();
         $perusahaan = Perusahaan::where('id_perusahaan',$id)->first();
         $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
-        return view('manager/perusahaan/lihat_profil_perusahaan',compact('perusahaan','manager','lowongan'));
+        $kandidat = Kandidat::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        return view('manager/perusahaan/lihat_profil_perusahaan',compact('perusahaan','manager','lowongan','kandidat'));
     }
 
     public function lihatLowonganPekerjaan($id)
@@ -287,7 +288,8 @@ class ManagerController extends Controller
         $user = Auth::user();
         $manager = User::where('referral_code',$user->referral_code)->first();
         $akademi = Akademi::where('id_akademi',$id)->first();
-        return view('manager/akademi/lihat_profil_akademi',compact('akademi','manager'));
+        $kandidat = Kandidat::where('id_akademi',$akademi->id_akademi)->get();
+        return view('manager/akademi/lihat_profil_akademi',compact('akademi','manager','kandidat'));
     }
 
     public function pelatihan()

@@ -263,16 +263,36 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="btn" href="/manager/akademi/list_akademi">
+                                <a class="btn" data-toggle="collapse" href="#akademi">
                                     <i class="fas fa-th-list"></i>
                                     <p>Data Akademi</p>
+                                    <span class="caret"></span>
                                 </a>
+                                <div class="collapse" id="akademi">
+                                    <ul class="nav nav-collapse">
+                                        <li>
+                                            <a href="/manager/akademi/list_akademi">
+                                                <span class="sub-item">List Akademi</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
                             <li class="nav-item">
-                                <a class="btn" href="/manager/perusahaan/list_perusahaan">
+                                <a class="btn" data-toggle="collapse" href="#perusahaan">
                                     <i class="fas fa-th-list"></i>
                                     <p>Data Perusahaan</p>
+                                    <span class="caret"></span>
                                 </a>
+                                <div class="collapse" id="perusahaan">
+                                    <ul class="nav nav-collapse">
+                                        <li>
+                                            <a class="btn" href="/manager/perusahaan/list_perusahaan">
+                                                <span class="sub-item">List Perusahaan</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
                             <li class="nav-item">
                                 <a class="btn" data-toggle="collapse" href="#pembayaran">

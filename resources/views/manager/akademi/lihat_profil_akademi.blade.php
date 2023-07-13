@@ -53,5 +53,40 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <b class="bold">Kandidat dari akademi</b>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="basic-datatables" class="display table table-striped table-hover" >
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Nama Kandidat</th>
+                                        <th>No. Telp</th>
+                                        <th>Lihat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($kandidat as $item)
+                                        <tr>
+                                            <td>{{$loop->iteration}}</td>                                    
+                                            <td>{{$item->nama}}</td>                                    
+                                            <td>{{$item->no_telp}}</td>                                    
+                                            <td>
+                                                <a class="btn btn-primary" href="/manager/kandidat/lihat_profil/{{$item->id_kandidat}}"><i class="fas fa-eye"></i></a>
+                                            </td>                                    
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

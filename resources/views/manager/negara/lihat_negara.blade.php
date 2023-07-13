@@ -8,13 +8,15 @@
             <div class="card-body">
                 <h4 class="text-center">Gambar Icon Negara</h4>
                 <div class="row mb-3">
-                    <div class="col-12 text-center">
+                    <div class="col-4"></div>
+                    <div class="col-4 text-center">
                         @if ($negara->gambar == null)
-                            <img src="/gambar/default_user.png" alt="" class="img">
+                            <img src="/gambar/default_user.png" width="150" height="150" alt="" class="img">
                         @else
-                            <img src="/gambar/manager/Foto/Icon/{{$negara->gambar}}" class="img" alt="">                            
+                            <img src="/gambar/manager/Foto/Icon/{{$negara->gambar}}" width="150" height="150" class="img" alt="">                            
                         @endif
                     </div>
+                    <div class="col-4"></div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-4">

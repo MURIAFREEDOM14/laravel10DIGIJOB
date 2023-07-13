@@ -113,5 +113,86 @@
             </div>
         </div>    
     </div>
+    <div class="card">
+        <div class="card-header">
+            <b class="bold">Kandidat Dalam Perusahaan</b>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <b class="bold">Kandidat sudah diterima</b>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <b class="bold">Menunggu Konfirmasi Perusahaan</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="table-responsive">
+                        <table id="basic-datatables" class="display table table-striped table-hover" >
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Nama Kandidat</th>
+                                    <th>No. Telp</th>
+                                    <th>Lihat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($kandidat as $item)
+                                    @if ($item->stat_pemilik == "diambil")
+                                        <tr>
+                                            <td>{{$loop->iteration}}</td>                                    
+                                            <td>{{$item->nama}}</td>                                    
+                                            <td>{{$item->no_telp}}</td>                                    
+                                            <td>
+                                                <a class="btn btn-primary" href="/manager/kandidat/lihat_profil/{{$item->id_kandidat}}"><i class="fas fa-eye"></i></a>
+                                            </td>                                    
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="table-responsive">
+                        <table id="add-row" class="display table table-striped table-hover" >
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Nama Kandidat</th>
+                                    <th>No. Telp</th>
+                                    <th>Lihat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($kandidat as $item)
+                                    @if ($item->stat_pemilik !== "diambil")
+                                        <tr>
+                                            <td>{{$loop->iteration}}</td>                                    
+                                            <td>{{$item->nama}}</td>                                    
+                                            <td>{{$item->no_telp}}</td>                                    
+                                            <td>
+                                                <a class="btn btn-primary" href="/manager/perusahaan/lihat_profil/{{$item->id_perusahaan}}"><i class="fas fa-eye"></i></a>
+                                            </td>                                    
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
