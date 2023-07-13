@@ -81,11 +81,21 @@
                                     <label for="email" class="">{{ __('Konfirmasi Password') }}</label>
                                     <input id="password" type="password" class="form-control" name="passwordConfirm" required autocomplete="password">
                                 </div>
+                                <div class="mb-3">
+                                    <label for="">Kode Captcha</label>
+                                    <div class="ms-5">{!! htmlFormSnippet() !!}</div>
+                                </div>
                             </div>
                         </div>
-                        <div class="">Sudah Pernah Terdaftar?<a class="btn btn-link" href="/login/migration">Aktifkan Akun</a></div>                        
-                        <div class="">Sudah punya akun?<a href="/login" class="ms-1 btn btn-link">Login</a></div>
-                        <button type="submit" class="btn btn-primary mt-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" onclick="enable()" id="check">
+                            <span class="form-check-label" for="flexCheckDefault" style="font-size: 13px">
+                                Dengan ini, anda menyetujui <a href="/syarat_ketentuan/kandidat">syarat & ketentuan</a> kami.
+                            </span>
+                        </div>
+                        {{-- <div class="">Sudah Pernah Terdaftar?<a class="btn btn-link" href="/login/migration">Aktifkan Akun</a></div>                         --}}
+                        <div class="mt-3">Sudah punya akun?<a href="/login" class="ms-1 btn btn-link">Login</a></div>
+                        <button type="submit" id="btn" disabled="true" class="btn btn-primary mt-3">
                             {{ __('Register') }}
                         </button>
                     </form>

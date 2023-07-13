@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
+use App\Services\SlidingCaptcha;
 
 class PrototypeController extends Controller
 {
@@ -62,4 +63,23 @@ class PrototypeController extends Controller
     {
         dd($request);
     }
+
+    public function captcha()
+    {
+        $sc = new SlidingCaptcha(new ImageManager);
+
+        session()->put('sc_position', $sc->position);
+
+        return view('prototype')->withSlidingCaptcha($sc);
+    }
+
+    public function makeCaptcha(Request $request)
+    {
+        $this->validate($request, [
+            'guess' => ['required', Rule::in([session('sc_position')])],
+        ],[
+            'guess.in' => 'The puzzle must be aligned exactly'
+        ]);
+    }
+    
 }

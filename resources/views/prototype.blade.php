@@ -93,6 +93,17 @@
             <button type="submit">Kirim</button>
         </form>
 
+        <form action="{{ route('make.captcha') }}" method="POST"> @csrf
+            <!-- rest of your form here -->
+            <div class="flex flex-col" x-data="{guess:0}" x-effect="$refs.bottom.style.backgroundPosition=guess+'px';">
+                <div class="w-[400px] h-[50px]" style="background-image:url('{{ $slidingCaptcha->top->encode('data-url') }}');"></div>
+                <div class="w-[400px] h-[50px]" x-ref="bottom" style="background-image:url('{{ $slidingCaptcha->bottom->encode('data-url') }}');"></div>
+                <input type="range" name="guess" min="0" max="1600" step="10" x-model="guess">
+                @error('guess'){{ $message }}@enderror
+            </div>
+            <input type="submit" value="Send" class="px-4 py-2 rounded-lg bg-emerald-600 font-bold shadow-lg text-white mt-4 border"> 
+        </form>
+
         <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

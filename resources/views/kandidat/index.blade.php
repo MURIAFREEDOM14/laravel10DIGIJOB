@@ -134,6 +134,7 @@
         </div>
     @endif
 
+    {{-- Pesan interview perusahaan --}}
     
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -142,5 +143,8 @@
             $('#staticBackdrop').modal('show');                                                   
         });
         
+        $(window).on('load',function() {
+            $('#interviewConfirm').modal('show');                                                   
+        });
     </script>
 @endsection

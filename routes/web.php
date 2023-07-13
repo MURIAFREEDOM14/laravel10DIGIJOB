@@ -173,16 +173,20 @@ Route::controller(LamanController::class)->group(function() {
     Route::get('/register/akademi',  'register_akademi')->name('register_akademi')->middleware('guest');
     Route::get('/register/perusahaan',  'register_perusahaan')->name('register_perusahaan')->middleware('guest');
 
+    Route::view('/syarat_ketentuan/kandidat','laman/persyaratan_kandidat')->middleware('guest');
+    Route::view('/syarat_ketentuan/akademi','laman/persyaratan_akademi')->middleware('guest');
+    Route::view('/syarat_ketentuan/perusahaan','laman/persyaratan_perusahaan')->middleware('guest');
+
     Route::get('/login_gmail',  'login_gmail')->name('login_gmail')->middleware('guest');
     Route::get('/login_referral',  'login_referral')->middleware('guest');
     Route::get('/login_info',  'login_info')->middleware('guest');
     Route::post('/login_info',  'info');
 
-    Route::get('/digijob_system','digijobSystem')->middleware('guest');
-    Route::get('/benefits','benefits')->middleware('guest');
-    Route::get('/features','features')->middleware('guest');
-    Route::get('/hubungi_kami','contact')->middleware('guest');
-    Route::get('/about_us','about')->middleware('guest');
+    Route::view('/digijob_system','digijob_system')->middleware('guest');
+    Route::view('/benefits','benefits')->middleware('guest');
+    Route::view('/features','features')->middleware('guest');
+    Route::view('/hubungi_kami','contact_us')->middleware('guest');
+    Route::view('/about_us','about_us')->middleware('guest');
 });
 
 // DATA AKADEMI //
@@ -260,6 +264,7 @@ Route::controller(PerusahaanController::class)->group(function(){
     Route::get('/contact_us_perusahaan','contactUsPerusahaan')->middleware('perusahaan');
     
     Route::get('/perusahaan/list_permohonan_lowongan','listPermohonanLowongan');
+    Route::post('/perusahaan/list_permohonan_lowongan','confirmPermohonanLowongan');
     Route::get('/perusahaan/permohonan_lowongan_pekerjaan/{id}','permohonanLowonganPekerjaan');
     Route::post('/perusahaan/permohonan_lowongan_pekerjaan/{id}','confirmLowonganPekerjaan');
 
@@ -563,9 +568,9 @@ Route::controller(PrototypeController::class)->group(function(){
     Route::get('/proto_edit','edit');
     Route::get('/proto_update','update');
     Route::get('/proto_delete','delete');
-
     Route::post('/proto_mail','email');
 
+    Route::get('/make_captcha','captcha')->name('make.captcha');
 });
 
 Route::get('/linewire',Location::class)->middleware('verify');

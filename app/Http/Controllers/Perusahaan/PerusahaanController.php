@@ -439,21 +439,6 @@ class PerusahaanController extends Controller
         return view('perusahaan/contact_us',compact('perusahaan','notif','pesan','cabang'));
     }
 
-    public function listPermohonanLowongan()
-    {
-        $user = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        $permohonan = PermohonanLowongan::join(
-            'kandidat', 'permohonan_lowongan.id_kandidat','=','kandidat.id_kandidat'
-        )
-        ->where('kandidat.id_perusahaan',$perusahaan->id_perusahaan)->get();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        $isi = $permohonan->count();
-        return view('perusahaan/list_permohonan_lowongan',compact('perusahaan','permohonan','pesan','notif','cabang','isi'));
-    }
-
     public function permohonanLowonganPekerjaan()
     {
 
@@ -636,6 +621,45 @@ class PerusahaanController extends Controller
         return view('perusahaan/kandidat/kandidat',compact('kandidat','perusahaan','isi','notif','pesan','cabang'));
     }
 
+    public function lihatProfilKandidat($id)
+    {
+        $auth = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
+        $kandidat = Kandidat::where('id_kandidat',$id)->first();
+        $info_kandidat = PengalamanKerja::where('id_kandidat',$id)->get();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        $semua_kandidat = Kandidat::
+        where('kandidat.penempatan','like','%'.$perusahaan->penempatan_kerja.'%')
+        ->where('kandidat.id_kandidat','not like',$id)->whereNull('stat_pemilik')->limit(12)->get();
+        $usia = Carbon::parse($kandidat->tgl_lahir)->age;
+        $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
+        $interview = Interview::where('id_kandidat',$kandidat->id_kandidat)->first();
+        return view('perusahaan/kandidat/profil_kandidat',compact(
+            'kandidat',
+            'info_kandidat',
+            'perusahaan',
+            'usia',
+            'tgl_user',
+            'semua_kandidat',
+            'interview',
+            'notif',
+            'pesan',
+            'cabang',
+        ));
+    }
+
+    public function lihatVideoKandidat($id)
+    {
+        $auth = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
+        $kandidat = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
+        $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->get();
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        return view('perusahaan/kandidat/video_kandidat',compact('perusahaan','kandidat','pengalaman_kerja','cabang'));
+    }
+
     public function pencarianKandidat()
     {
         $id = Auth::user();
@@ -687,47 +711,23 @@ class PerusahaanController extends Controller
         return view('perusahaan/kandidat/pilih_kandidat',compact('jk','perusahaan','kandidat','isi','notif','pesan','cabang'));
     }
 
-    public function lihatProfilKandidat($id)
+    public function listPermohonanLowongan()
     {
-        $auth = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
-        $kandidat = Kandidat::where('id_kandidat',$id)->first();
-        $info_kandidat = PengalamanKerja::where('id_kandidat',$id)->get();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $permohonan = PermohonanLowongan::join(
+            'kandidat', 'permohonan_lowongan.id_kandidat','=','kandidat.id_kandidat'
+        )
+        ->where('kandidat.id_perusahaan',$perusahaan->id_perusahaan)->where('stat_pemilik','not like',"diambil")->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        $semua_kandidat = Kandidat::
-        where('kandidat.penempatan','like','%'.$perusahaan->penempatan_kerja.'%')
-        ->where('kandidat.id_kandidat','not like',$id)->whereNull('stat_pemilik')->limit(12)->get();
-        $usia = Carbon::parse($kandidat->tgl_lahir)->age;
-        $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
-        $interview = Interview::where('id_kandidat',$kandidat->id_kandidat)->first();
-        return view('perusahaan/kandidat/profil_kandidat',compact(
-            'kandidat',
-            'info_kandidat',
-            'perusahaan',
-            'usia',
-            'tgl_user',
-            'semua_kandidat',
-            'interview',
-            'notif',
-            'pesan',
-            'cabang',
-        ));
-    }
-
-    public function lihatVideoKandidat($id)
-    {
-        $auth = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
-        $kandidat = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
-        $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->get();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        return view('perusahaan/kandidat/video_kandidat',compact('perusahaan','kandidat','pengalaman_kerja','cabang'));
+        $isi = $permohonan->count();
+        return view('perusahaan/list_permohonan_lowongan',compact('perusahaan','permohonan','pesan','notif','cabang','isi'));
     }
 
     // DATA INTERVIEW //
-    public function pilihKandidat(Request $request)
+    public function confirmPermohonanLowongan(Request $request)
     {
         $auth = Auth::user();
         $id_kandidat = $request->id_kandidat;
@@ -762,7 +762,70 @@ class PerusahaanController extends Controller
 
                 messageKandidat::create([
                     'id_kandidat' => $id_kandidat[$a],
-                    'pesan' => "Halo, Selamat anda telah diterima di ".$perusahaan->nama_perusahaan.".Kini anda dapat mengambil surat izin dan kuasa waris di profil anda",
+                    'pesan' => "Halo, Anda mendapat undangan interview dari ".$perusahaan->nama_perusahaan.".apakah anda menyetujuinya?",
+                    'pengirim' => "Sistem",
+                    'kepada' => $nama[$a],
+                ]);
+
+                $kandidat = Kandidat::where('id_kandidat',$id_kandidat[$a])->whereNotNull('id_akademi')->first();
+                if($kandidat !== null){
+                    notifyAkademi::create([
+                        'id_akademi' => $kandidat->id_akademi,
+                        'id_kandidat' => $kandidat->id_kandidat,
+                        'isi' => "Anda mendapat pesan masuk",
+                        'pengirim' => "Sistem",
+                        'url' => '/akademi/semua_notif',
+                    ]);
+
+                    messageAkademi::create([
+                        'id_akademi' => $kandidat->id_akademi,
+                        'id_kandidat' => $kandidat->id_kandidat,
+                        'pesan' => "Selamat kandidat atas nama".$kandidat->nama."telah diterima di".$perusahaan->nama_perusahaan,
+                        'pengirim' => "Sistem",
+                        'kepada' => $kandidat->id_akademi,
+                    ]);
+                }
+            }
+        }
+        return redirect('/perusahaan/interview');
+    }
+
+    public function pilihKandidat(Request $request)
+    {
+        $auth = Auth::user();
+        $id_kandidat = $request->id_kandidat;
+        $usia = $request->usia;
+        $jk = $request->jk;
+        $nama = $request->nama;
+        $pengalaman_kerja = $request->pengalaman_kerja;
+        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
+        if($id_kandidat == null){
+            return redirect('/perusahaan/list_permohonan_lowongan')->with('error','anda harus memilih minimal 1 kandidat');
+        } else {
+            for($a = 0; $a < count($id_kandidat); $a++){                
+                $input['id_kandidat'] = $id_kandidat[$a];
+                $input['nama_kandidat'] = $nama[$a];
+                $input['status'] = "pilih";
+                $input['usia'] = $usia[$a];
+                $input['jenis_kelamin'] = $jk[$a];
+                $input['pengalaman_kerja'] = $pengalaman_kerja[$a];
+                $input['id_perusahaan'] = $perusahaan->id_perusahaan;
+                Interview::create($input);
+                
+                Kandidat::where('id_kandidat',$id_kandidat[$a])->update([
+                    'stat_pemilik' => "diambil",
+                ]);
+                
+                notifyKandidat::create([
+                    'id_kandidat' => $id_kandidat[$a],
+                    'isi' => "Anda mendapat pesan masuk",
+                    'pengirim' => "Sistem",
+                    'url' => '/semua_pesan',
+                ]);
+
+                messageKandidat::create([
+                    'id_kandidat' => $id_kandidat[$a], 
+                    'pesan' => "Halo, Anda mendapat undangan interview dari ".$perusahaan->nama_perusahaan.".apakah anda menyetujuinya?",
                     'pengirim' => "Sistem",
                     'kepada' => $nama[$a],
                 ]);
