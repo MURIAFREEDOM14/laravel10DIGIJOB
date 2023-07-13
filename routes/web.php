@@ -96,8 +96,8 @@ Route::controller(ManagerController::class)->group(function() {
 });
 
 Route::controller(ManagerKandidatController::class)->group(function() {
-    Route::get('/manager/kandidat/dalam_negeri')->middleware('manager');
-    Route::get('/manager/kandidat/luar_negeri')->middleware('manager');
+    Route::get('/manager/kandidat/dalam_negeri','dalamNegeri')->middleware('manager');
+    Route::get('/manager/kandidat/luar_negeri','luarNegeri')->middleware('manager');
 
     Route::get('/manager/edit/kandidat/personal/{id}','isi_personal')->middleware('manager');
     Route::post('/manager/edit/kandidat/personal/{id}','simpan_personal');
