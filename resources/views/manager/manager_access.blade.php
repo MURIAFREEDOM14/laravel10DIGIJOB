@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Proyek Portal</title>
+  <title>DIGIJOB-UGIPORT</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -78,11 +78,11 @@
                 @csrf
                 <div class="form-group form-group-default">
                     <label>Masukkan Email</label>
-                    <input id="Name" name="email" type="text" required class="form-control" placeholder="Masukkan Email">
+                    <input id="Name" name="email" type="email" required class="form-control" placeholder="Masukkan Email">
                 </div>            
                 <div class="form-group form-group-default">
                     <label>Masukkan Password</label>
-                    <input id="Name" name="password" type="text" required class="form-control" placeholder="Masukkan Password">
+                    <input id="Name" name="password" type="password" required class="form-control" placeholder="Masukkan Password">
                 </div>            
                 <div class="d-flex justify-content-center justify-content-lg-start mb-5">
                     <button type="submit" class="btn-get-started scrollto">Masuk</button>
