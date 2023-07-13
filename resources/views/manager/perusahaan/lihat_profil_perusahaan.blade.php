@@ -182,7 +182,7 @@
                                             <td>{{$item->nama}}</td>                                    
                                             <td>{{$item->no_telp}}</td>                                    
                                             <td>
-                                                <a class="btn btn-primary" href="/manager/kandidat/lihat_profil/{{$item->id_perusahaan}}"><i class="fas fa-eye"></i></a>
+                                                <a class="btn btn-primary" href="/manager/kandidat/lihat_profil/{{$item->id_kandidat}}"><i class="fas fa-eye"></i></a>
                                             </td>                                    
                                         </tr>
                                     @endif
