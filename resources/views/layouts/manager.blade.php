@@ -225,12 +225,12 @@
                                 <div class="collapse" id="kandidat">
                                     <ul class="nav nav-collapse">
                                         <li>
-                                            <a class="btn" href="/">
+                                            <a class="btn" href="/manager/kandidat/dalam_negeri">
                                                 <span class="sub-item">Dalam Negeri</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="btn" href="/">
+                                            <a class="btn" href="/manager/kandidat/luar_negeri">
                                                 <span class="sub-item">Luar Negeri</span>
                                             </a>
                                         </li>
