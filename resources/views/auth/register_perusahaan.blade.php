@@ -74,10 +74,10 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="mb-3">
+                                {{-- <div class="mb-3">
                                     <label for="">Kode Captcha</label>
                                     <div class="ms-5">{!! htmlFormSnippet() !!}</div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         {{-- <a href="/login/perusahaan" class="btn btn-secondary">Kembali</a> --}}
