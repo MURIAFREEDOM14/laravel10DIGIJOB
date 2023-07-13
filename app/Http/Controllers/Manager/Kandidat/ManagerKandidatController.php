@@ -759,14 +759,14 @@ class ManagerKandidatController extends Controller
         return redirect('/manager/kandidat/lihat_profil/'.$id);
     }
 
-    public function dalam_negeri()
+    public function dalamNegeri()
     {
         $user = Auth::user();
         $manager = User::where('referral_code',$user->referral_code)->first();
         $kandidat = Kandidat::where('penempatan','like',"%dalam negeri%")->get();
         return view('manager/penempatan/dalam_negeri',compact('kandidat','manager'));
     }
-    public function luar_negeri()
+    public function luarNegeri()
     {
         $user = Auth::user();
         $manager = User::where('referral_code',$user->referral_code)->first();
