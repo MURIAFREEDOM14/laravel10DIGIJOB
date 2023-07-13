@@ -3,13 +3,22 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '223ddb3a86fba9f1132f61dd49d1ac2e8bbd4893',
+        'reference' => 'd624240f48c6c383207f0e9432183beda22d781c',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        'anhskohbo/no-captcha' => array(
+            'pretty_version' => '3.5.0',
+            'version' => '3.5.0.0',
+            'reference' => '81302b9ddfb4ee5904b66f24bf3e11ea74fa0b92',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../anhskohbo/no-captcha',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'archtechx/enums' => array(
             'pretty_version' => 'v0.3.2',
             'version' => '0.3.2.0',
@@ -481,6 +490,15 @@
                 0 => 'v10.15.0',
             ),
         ),
+        'josiasmontag/laravel-recaptchav3' => array(
+            'pretty_version' => '1.0.2',
+            'version' => '1.0.2.0',
+            'reference' => '3ded05660dd9827eef065a44510f5efecc2e68da',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../josiasmontag/laravel-recaptchav3',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'kodova/hamcrest-php' => array(
             'dev_requirement' => true,
             'replaced' => array(
@@ -553,7 +571,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '223ddb3a86fba9f1132f61dd49d1ac2e8bbd4893',
+            'reference' => 'd624240f48c6c383207f0e9432183beda22d781c',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

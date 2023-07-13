@@ -40,7 +40,6 @@
     font-family: 'poppins';
   }
 </style>
-{!! ReCaptcha::htmlScriptTagJsApi() !!}
 </head>
   <body>
     <!-- ======= Header ======= -->

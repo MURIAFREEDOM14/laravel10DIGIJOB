@@ -81,10 +81,11 @@
                                     <label for="email" class="">{{ __('Konfirmasi Password') }}</label>
                                     <input id="password" type="password" class="form-control" name="passwordConfirm" required autocomplete="password">
                                 </div>
-                                {{-- <div class="mb-3">
+                                <div class="mb-3">
                                     <label for="">Kode Captcha</label>
-                                    <div class="ms-5">{!! htmlFormSnippet() !!}</div>
-                                </div> --}}
+                                    {!! NoCaptcha::renderJs() !!}
+                                    {!! NoCaptcha::display() !!}
+                                </div>
                             </div>
                         </div>
                         <div class="form-check">
