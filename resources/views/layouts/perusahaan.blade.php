@@ -56,6 +56,10 @@
             body{
                 background-color:#9BE8D8;
             }
+            .img{
+                border: 1px solid black;
+                border-radius: 2%;
+            }
         </style>
     </head>
     <body>
@@ -332,6 +336,11 @@
                                         <li>
                                             <a href="/perusahaan/list_permohonan_lowongan">
                                                 <span>Pelamar</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/perusahaan/persetujuan_kandidat">
+                                                <span>Persetujuan Kandidat</span>
                                             </a>
                                         </li>
                                     </ul>

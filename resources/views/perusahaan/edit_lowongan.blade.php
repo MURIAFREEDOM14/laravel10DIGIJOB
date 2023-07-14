@@ -39,7 +39,7 @@
                             @if ($lowongan->gambar_lowongan == "")
                                 <input type="file" name="gambar" class="form-control" id="" accept="image/*">                                
                             @elseif($lowongan->gambar_lowongan !== null)
-                                <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Lowongan Pekerjaan/{{$lowongan->gambar_lowongan}}" width="250" height="250" alt="" class="mb-2">
+                                <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Lowongan Pekerjaan/{{$lowongan->gambar_lowongan}}" width="250" height="250" alt="" class="img mb-2">
                                 <input type="file" name="gambar" class="form-control" id="" accept="image/*">                                
                             @else
                                 <input type="file" name="gambar" class="form-control" id="" accept="image/*">                                                             

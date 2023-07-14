@@ -818,7 +818,7 @@ class PerusahaanController extends Controller
                 PersetujuanKandidat::create($data);
 
                 Kandidat::where('id_kandidat',$id_kandidat[$a])->update([
-                    'stat_pemilik' => "diambil",
+                    'stat_pemilik' => "kosong",
                 ]);
                 
                 $interview = Interview::where('id_kandidat',$id_kandidat[$a])->where('id_perusahaan',$perusahaan->id_perusahaan)->first();
@@ -876,21 +876,24 @@ class PerusahaanController extends Controller
         )->join(
             'persetujuan_kandidat','kandidat.id_kandidat','=','persetujuan_kandidat.id_kandidat'
         )
-        ->where('kandidat.id_perusahaan',$perusahaan->id_perusahaan)
+        ->where('kandidat.id_perusahaan',$perusahaan->id_perusahaan)->where('kandidat.stat_pemilik',"kosong")
         ->get();
-        return view('perusahaan/recruitment/persetujuan_kandidat',compact('perusahaan','notif','pesan','cabang','kandidat'));
+        $isi = $kandidat->count();
+        return view('perusahaan/recruitment/persetujuan_kandidat',compact('perusahaan','notif','pesan','cabang','kandidat','isi'));
     }
 
     public function confirmPersetujuanKandidat(Request $request)
     {        
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-        $id_kandidat = $request->all();
-        dd();
-        // for($s = 0; $s < count($id_kandidat); $s++){
-        //     $data['id_kandidat'] = $id_kandidat[$s];
-        // }        
-        // return redirect('/perusahaan/interview');
+        $id_kandidat = $request->menerima;
+        for($k = 0; $k < count($id_kandidat); $k++){
+            $data['id_kandidat'] = $id_kandidat[$k];
+            Kandidat::where('id_kandidat',$id_kandidat[$k])->update([
+                'stat_pemilik' => "diambil"
+            ]);
+        }
+        return redirect('/perusahaan/interview')->with('success',"kandidat telah ditentukan");
     }
 
     public function JadwalInterview()

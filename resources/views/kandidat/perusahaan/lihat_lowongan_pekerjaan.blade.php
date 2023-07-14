@@ -23,20 +23,17 @@
                         <div class=""><b class="bold">: {{($lowongan->jabatan)}}</b></div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <label for="">Gambar</label>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="">
-                            @if ($lowongan->gambar_lowongan !== null)
-                                <img src="/gambar/Perusahaan/{{$perusahaan->nama}}/Lowongan Pekerjaan/{{$lowongan->gambar_lowongan}}" width="150" height="150" class="mb-2" alt="">                            
-                            @else
-
-                            @endif
+                @if ($lowongan->gambar_lowongan !== null)
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="">Gambar</label>
                         </div>
-                    </div>
-                </div>
+                        <div class="col-md-8">
+                            <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Lowongan Pekerjaan/{{$lowongan->gambar_lowongan}}" width="250" height="250" alt="" class="img">                            
+                        </div>
+                    </div>    
+                @endif
                 <hr>
                 <div  class="row">
                     <div class="col-md-3">

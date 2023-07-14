@@ -57,6 +57,7 @@ Route::controller(ManagerController::class)->group(function() {
     Route::get('/manager/surat_izin','suratIzin')->middleware('manager');
     Route::get('/manager/buat_surat_izin','buatSuratIzin')->middleware('manager');
     Route::post('/manager/buat_surat_izin','simpanSuratIzin');
+    
     Route::get('/manager/kandidat/cetak_surat/{id}','cetakSurat')->middleware('manager');
     Route::get('/manager/kandidat/surat_izin_waris','cetakSuratKosong');
 
@@ -89,6 +90,9 @@ Route::controller(ManagerController::class)->group(function() {
     Route::get('/manager/perusahaan/list_perusahaan','perusahaan')->middleware('manager');
     Route::get('/manager/perusahaan/lihat_profil/{id}','lihatProfilPerusahaan')->middleware('manager');
     Route::get('/manager/perusahaan/lihat_lowongan/{id}','lihatLowonganPekerjaan')->middleware('manager');
+    Route::get('/manager/perusahaan/pembuatan_id_pmi','IDPMI');
+    Route::post('/manager/perusahaan/pembuatan_id_pmi','buatIDPMI');
+    Route::post('/manager/perusahaan/simpan_id_pmi','simpanIDPMI');
     Route::get('/manager/pembayaran/perusahaan','pembayaranPerusahaan')->middleware('manager');
     Route::get('/manager/cek_pembayaran/perusahaan/{id}','cekPembayaranPerusahaan')->middleware('manager');
     Route::post('/manager/cek_pembayaran/perusahaan/{id}','cekConfirmPerusahaan');

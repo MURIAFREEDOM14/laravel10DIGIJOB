@@ -291,6 +291,11 @@
                                                 <span class="sub-item">List Perusahaan</span>
                                             </a>
                                         </li>
+                                        <li>
+                                            <a class="btn" href="/manager/perusahaan/pembuatan_id_pmi">
+                                                <span class="sub-item">Pembuatan PMI ID</span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>

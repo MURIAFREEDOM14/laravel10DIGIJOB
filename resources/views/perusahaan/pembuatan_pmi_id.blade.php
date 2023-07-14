@@ -26,8 +26,7 @@
                 </form>
             </div>
         </div>
-        @if ($id_kandidat == null)
-        @else
+        @if ($id_kandidat !== null)
             <div class="card">
                 <div class="card-header">
 
@@ -231,7 +230,6 @@
                 </div>
             </div>    
         @endif
-        
     </div>
 
     {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

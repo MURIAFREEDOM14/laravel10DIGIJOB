@@ -64,7 +64,6 @@ class KandidatController extends Controller
         } else {
             $persetujuan == null;
         }
-        
         return view('kandidat/index',compact('kandidat','notif','perusahaan_semua',
         'perusahaan','pembayaran','pesan','lowongan','cari_perusahaan','persetujuan'));
     }

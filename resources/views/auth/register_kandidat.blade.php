@@ -52,10 +52,10 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="nama_panggilan" class="">{{ __('Username / Nama Panggilan') }}</label>
-                                    <input id="nama_panggilan" type="text" class="form-control @error('username') is-invalid @enderror" name="nama_panggilan" value="{{ old('nama_panggilan') }}" required autocomplete="nama_panggilan">
+                                    <input id="nama_panggilan" type="text" class="form-control @error('nama_panggilan') is-invalid @enderror" name="nama_panggilan" value="{{ old('nama_panggilan') }}" required autocomplete="nama_panggilan">
                                     @error('nama_panggilan')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>Username sudah digunakan</strong>
+                                            <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>

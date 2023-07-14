@@ -14,6 +14,7 @@
                                 <th>No.</th>
                                 <th>Nama Jabatan</th>
                                 <th>Negara Tujuan</th>
+                                <th>Lihat Detail</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -23,8 +24,18 @@
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$item->jabatan}}</td>
                                     <td>{{$item->negara}}</td>
+                                    <td>
+                                        <a class="" href="/perusahaan/lihat_lowongan/{{$item->id_lowongan}}">
+                                            <div class="avatar-xl">
+                                                @if ($item->gambar_lowongan !== null)
+                                                    <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Lowongan Pekerjaan/{{$item->gambar_lowongan}}" alt="" class="avatar-img rounded-circle img">
+                                                @else
+                                                    <img src="/gambar/default_user.png" alt="" class="avatar-img rounded-circle img">
+                                                @endif
+                                            </div>
+                                        </a>
+                                    </td>
                                     <td class="text-center">
-                                        <a class="btn btn-success" href="/perusahaan/lihat_lowongan/{{$item->id_lowongan}}">Lihat</a>
                                         <a class="btn btn-warning" href="/perusahaan/edit_lowongan/{{$item->id_lowongan}}">Edit</a>
                                         <a class="btn btn-danger" href="/perusahaan/hapus_lowongan/{{$item->id_lowongan}}" onclick="hapusData(event)">Hapus</a>
                                     </td>

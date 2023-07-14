@@ -32,6 +32,7 @@ use App\Models\PencarianStaff;
 use App\Models\PerusahaanStaff;
 use Carbon\Carbon;
 use App\Models\LowonganPekerjaan;
+use App\Models\PMIID;
 
 class ManagerController extends Controller
 {
@@ -272,6 +273,49 @@ class ManagerController extends Controller
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
         $perusahaan = Perusahaan::where('id_perusahaan',$lowongan->id_perusahaan)->first();
         return view('manager/perusahaan/lihat_lowongan',compact('lowongan','manager','perusahaan'));
+    }
+
+    public function IDPMI()
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $kandidat = Kandidat::all();
+        $id_kandidat = null;
+        return view('manager/perusahaan/listIDPMI',compact('manager','kandidat','id_kandidat'));
+    }
+
+    public function buatIDPMI(Request $request)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $kandidat = Kandidat::all();
+        $id_kandidat = Kandidat::where('id_kandidat',$request->id_kandidat)->first();
+        $tgl = Carbon::create($id_kandidat->tgl_lahir)->isoformat('d MMM Y');
+        $negara = Negara::all();
+        $perusahaan = Perusahaan::all();
+        return view('manager/perusahaan/listIDPMI',compact('manager','kandidat','id_kandidat','tgl','negara','perusahaan'));
+    }
+
+    public function simpanIDPMI(Request $request)
+    {
+        // $perusahaan
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        PMIID::create([
+            'isi' => $request->isi,
+            'agency' => $request->agency,
+            'jabatan' => $request->jabatan,
+            'sektor_usaha' => $request->sektor_usaha,
+            'nominal' => $request->nominal,
+            'berlaku' => $request->berlaku,
+            'habis_berlaku' => $request->habis_berlaku,
+            'id_perusahaan' => $request->id_perusahaan,
+            'id_kandidat' => $request->id_kandidat,
+            'negara_id' => $request->negara_id,
+        ]);
+        Kandidat::where('id_kandidat',$request->id_kandidat)->update([
+            'negara_id' => $request->negara_id,
+        ]);
     }
 
     // Akademi Data //
