@@ -14,14 +14,19 @@
                         @csrf
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="mb-3">
-                                    <label for="exampleInputPassword1">Masukkan Email</label>
-                                    <input name="email" type="email" class="form-control" value="{{old('email')}}" required id="exampleInputPassword1">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputPassword1">Masukkan Password</label>
-                                    <input name="password" type="password" class="form-control" value="{{old('password')}}" required id="exampleInputPassword1">
-                                </div>
+                              <div class="mb-3">
+                                  <label for="exampleInputPassword1">Masukkan Email</label>
+                                  <input name="email" type="email" class="form-control" value="{{old('email')}}" required id="exampleInputPassword1">
+                              </div>
+                              <div class="mb-3">
+                                  <label for="exampleInputPassword1">Masukkan Password</label>
+                                  <input name="password" type="password" class="form-control" value="{{old('password')}}" required id="exampleInputPassword1">
+                              </div>
+                              <div class="mb-3">
+                                <label for="">Kode Captcha</label>
+                                {!! NoCaptcha::renderJs() !!}
+                                {!! NoCaptcha::display() !!}
+                              </div>
                             </div>
                         </div>
                         <div class=""><button type="button" class="btn btn-link mb-2" data-bs-toggle="modal" data-bs-target="#forgotPassword">Lupa Password</button></div>

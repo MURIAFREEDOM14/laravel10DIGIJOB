@@ -54,10 +54,6 @@
                                     <label for="email" class="">{{ __('Konfirmasi Password') }}</label>
                                     <input id="password" type="password" class="form-control " name="passwordConfirm" required autocomplete="password">
                                 </div>
-                                {{-- <div class="mb-3">
-                                    <label for="">Kode Captcha</label>
-                                    <div class="ms-5">{!! htmlFormSnippet() !!}</div>
-                                </div> --}}
                             </div>
                         </div>
                         <div class="">Sudah punya akun?<a href="/login" class="ms-1">Login</a></div>

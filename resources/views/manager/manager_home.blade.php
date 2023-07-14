@@ -89,7 +89,7 @@
                     <div class="chart-container" style="min-height: 375px">
                         <canvas id="statisticsChart"></canvas>
                     </div>
-                    <div id="myChartLegend"></div>
+                    <div id="grafik"></div>
                 </div>
             </div>
         </div>

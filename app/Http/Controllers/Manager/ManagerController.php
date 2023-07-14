@@ -33,6 +33,7 @@ use App\Models\PerusahaanStaff;
 use Carbon\Carbon;
 use App\Models\LowonganPekerjaan;
 use App\Models\PMIID;
+use DB;
 
 class ManagerController extends Controller
 {
@@ -69,7 +70,14 @@ class ManagerController extends Controller
     {
         $id = Auth::user();
         $manager = User::where('referral_code',$id->referral_code)->where('type','like',3)->first();
-        return view('manager/manager_home',compact('manager'));
+        
+        $login_kandidat = Kandidat::sum('id_kandidat');
+        
+        $bulanan = User::select(DB::raw("MONTHNAME(updated_at) as bulan"))
+        ->groupBy(DB::raw("Month(updated_at)"))
+        ->pluck('bulan');
+        dd($login_kandidat, $bulanan);
+        return view('manager/manager_home',compact('manager','login_kandidat','bulanan'));
     }
 
     public function suratIzin()

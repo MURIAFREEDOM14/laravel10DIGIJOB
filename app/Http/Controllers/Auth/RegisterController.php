@@ -123,7 +123,6 @@ class RegisterController extends Controller
             'no_telp' => 'required|unique:users|min:10|max:13',
             'nama_panggilan' => 'required|unique:kandidat|max:20',
             'password' => 'required|min:8',
-            'g-recaptcha-response' => 'required|captcha',
         ]);
 
         $tgl = Carbon::parse($request->tgl)->age;
