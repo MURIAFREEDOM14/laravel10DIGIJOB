@@ -135,7 +135,7 @@
                 </div>
             </div>
         </div>
-    {{-- @elseif($persetujuan !== null)
+    @elseif($persetujuan !== null)
         <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -180,7 +180,7 @@
                     </form>
                 </div>
             </div>
-        </div> --}}
+        </div>
     @else
     @endif
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

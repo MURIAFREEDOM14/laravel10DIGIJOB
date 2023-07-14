@@ -51,17 +51,22 @@ class KandidatController extends Controller
         } else {
             $perusahaan = null;
         }
-        // $persetujuan = Perusahaan::join(
-        //     'persetujuan_kandidat', 'persetujuan_kandidat.id_perusahaan','=','perusahaan.id_perusahaan'
-        // )
-        // ->where('persetujuan_kandidat.nama_kandidat',$kandidat->nama)->where('persetujuan_kandidat.id_kandidat',$kandidat->id_kandidat)->first();
-        // if($persetujuan->persetujuan == null){
-        //     $persetujuan = $persetujuan;
-        // } else {
-        //     $persetujuan = null;
-        // }
+        $persetujuan = PersetujuanKandidat::join(
+            'perusahaan', 'persetujuan_kandidat.id_perusahaan','=','perusahaan.id_perusahaan'
+        )
+        ->where('persetujuan_kandidat.nama_kandidat',$kandidat->nama)->where('persetujuan_kandidat.id_kandidat',$kandidat->id_kandidat)->first();
+        if($persetujuan !== null){
+            if($persetujuan->persetujuan == null){
+                $persetujuan = $persetujuan;
+            } else {
+                $persetujuan = null;
+            }
+        } else {
+            $persetujuan == null;
+        }
+        
         return view('kandidat/index',compact('kandidat','notif','perusahaan_semua',
-        'perusahaan','pembayaran','pesan','lowongan','cari_perusahaan'));
+        'perusahaan','pembayaran','pesan','lowongan','cari_perusahaan','persetujuan'));
     }
     
     public function profil()

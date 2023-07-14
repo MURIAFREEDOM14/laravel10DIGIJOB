@@ -162,10 +162,10 @@ class RegisterController extends Controller
             'nik' => $request->nik,
         ]);
 
-        // Mail::send('mail.mail', ['token' => $token,'nama' => $request->name], function($message) use($request){
-        //     $message->to($request->email);
-        //     $message->subject('Email Verification Mail');
-        // });
+        Mail::send('mail.mail', ['token' => $token,'nama' => $request->name], function($message) use($request){
+            $message->to($request->email);
+            $message->subject('Email Verification Mail');
+        });
         Auth::login($user);       
         return redirect()->route('verifikasi')->with('success',"Cek email anda untuk verifikasi");
     }
