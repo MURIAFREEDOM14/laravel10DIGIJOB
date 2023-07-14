@@ -265,8 +265,6 @@ Route::controller(PerusahaanController::class)->group(function(){
     
     Route::get('/perusahaan/list_permohonan_lowongan','listPermohonanLowongan');
     Route::post('/perusahaan/list_permohonan_lowongan','confirmPermohonanLowongan');
-    Route::get('/perusahaan/permohonan_lowongan_pekerjaan/{id}','permohonanLowonganPekerjaan');
-    Route::post('/perusahaan/permohonan_lowongan_pekerjaan/{id}','confirmLowonganPekerjaan');
 
     Route::get('/perusahaan/list/pmi_id','listPmiID')->middleware('perusahaan');
     Route::get('/perusahaan/pembuatan_pmi_id','pembuatanPmiID')->middleware('perusahaan');
@@ -288,6 +286,10 @@ Route::controller(PerusahaanController::class)->group(function(){
     Route::get('/perusahaan/cari/kandidat','pencarianKandidat')->middleware('perusahaan');
     Route::post('/perusahaan/cari/kandidat','cariKandidat');
     Route::post('/perusahaan/pilih/kandidat','pilihKandidat');
+    Route::get('/perusahaan/permohonan_lowongan_pekerjaan/{id}','permohonanLowonganPekerjaan');
+    Route::post('/perusahaan/permohonan_lowongan_pekerjaan/{id}','confirmLowonganPekerjaan');    
+    Route::get('/perusahaan/persetujuan_kandidat','persetujuanKandidat');
+    Route::post('/perusahaan/persetujuan_kandidat','confirmPersetujuanKandidat');
     Route::get('/perusahaan/lihat/kandidat/{id}','lihatProfilKandidat')->middleware('perusahaan');
     Route::get('/perusahaan/lihat/video_kandidat/{id}','lihatVideoKandidat')->middleware('perusahaan');
     Route::get('/perusahaan/interview','JadwalInterview')->middleware('perusahaan');
@@ -394,8 +396,8 @@ Route::controller(KandidatPerusahaanController::class)->group(function() {
     Route::get('/lihat_lowongan_pekerjaan/{id}','lowonganPekerjaan')->middleware('kandidat'); 
     Route::get('/permohonan_lowongan/{id}','permohonanLowongan')->middleware('kandidat');
     Route::post('/permohonan_lowongan/{id}','kirimPermohonan');
-
     Route::get('/keluar_perusahaan/{id}','keluarPerusahaan')->middleware('kandidat');
+    Route::post('/persetujuan_kandidat/{nama}/{id}','persetujuanKandidat');
 });
 
 // data akun prioritas
@@ -554,7 +556,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::get('/', [HomeController::class, 'managerHome'])->name('manager_home');
-
 
 Route::get('webcam', [CaptureController::class, 'index']);
 Route::post('webcam', [CaptureController::class, 'store'])->name('webcam.capture');

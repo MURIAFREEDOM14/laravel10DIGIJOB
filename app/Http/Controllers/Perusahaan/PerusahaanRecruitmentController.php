@@ -195,6 +195,20 @@ class PerusahaanRecruitmentController extends Controller
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
         $negara = Negara::where('negara_id',$request->negara_id)->first();
+        
+        if($request->file('gambar') !== null) {
+            $gambar = $perusahaan->nama_perusahaan.$request->jabatan.time().'.'.$request->gambar->extension();  
+            $gambar_lowongan = $request->file('gambar');
+            $gambar_lowongan->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Lowongan Pekerjaan/',$perusahaan->nama_perusahaan.$request->jabatan.time().'.'.$gambar_lowongan->extension());
+        } else {
+            $gambar = null;
+        }
+
+        if($gambar !== null) {
+            $gambar = $gambar;
+        } else {
+            $gambar = null;
+        }
         LowonganPekerjaan::create([
             'usia' => $request->usia,
             'jabatan' => $request->jabatan,
@@ -208,6 +222,7 @@ class PerusahaanRecruitmentController extends Controller
             'isi' => $request->isi,
             'negara' => $negara->negara,
             'ttp_lowongan' => $request->ttp_lowongan,
+            'gambar_lowongan' => $gambar,
         ]);
         return redirect('perusahaan/list/lowongan')->with('success');
     }
@@ -239,6 +254,32 @@ class PerusahaanRecruitmentController extends Controller
     {
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
+        if($request->file('gambar') !== null){
+            // $this->validate($request, [
+            //     'foto_perusahaan' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
+            // ]);
+            $hapus_gambar_lowongan = public_path('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Lowongan Pekerjaan/').$lowongan->gambar_lowongan;
+            if(file_exists($hapus_gambar_lowongan)){
+                @unlink($hapus_gambar_lowongan);
+            }
+            $gambar = $perusahaan->nama_perusahaan.$request->jabatan.time().'.'.$request->gambar->extension();  
+            $gambar_lowongan = $request->file('gambar');
+            $gambar_lowongan->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Lowongan Pekerjaan/',$perusahaan->nama_perusahaan.$request->jabatan.time().'.'.$gambar_lowongan->extension());
+        } else {
+            if($lowongan->gambar_lowongan !== null){
+                $gambar = $lowongan->gambar_lowongan;                
+            } else {
+                $gambar = null;    
+            }
+        }
+
+        if($gambar !== null) {
+            $gambar = $gambar;
+        } else {
+            $gambar = null;
+        }
+        
         LowonganPekerjaan::where('id_lowongan',$id)->update([
             'usia' => $request->usia,
             'jabatan' => $request->jabatan,
@@ -251,19 +292,18 @@ class PerusahaanRecruitmentController extends Controller
             'id_perusahaan' => $perusahaan->id_perusahaan,
             'isi' => $request->isi,
             'ttp_lowongan' => $request->ttp_lowongan,
+            'gambar_lowongan' => $gambar,
         ]);
         return redirect('/perusahaan/list/lowongan')->with('success');
     }
 
     public function hapusLowongan($id)
     {
-        $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
-        $datetime  = date('d-M-Y');
-        if($lowongan->ttp_lowongan == $datetime){
-            
-        }
-        
-        LowonganPekerjaan::where('id_lowongan',$id)->delete();
+        $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->delete();
+        $datetime  = date('y-m-d');
+        // if($lowongan->ttp_lowongan == 'y-m-d'){
+        //     LowonganPekerjaan::where('ttp_lowongan',$datetime)->delete();
+        // }
         return redirect('/perusahaan/list/lowongan')->with('success');
     }
 }

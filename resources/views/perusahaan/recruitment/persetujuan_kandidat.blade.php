@@ -1,0 +1,50 @@
+@extends('layouts.perusahaan')
+@section('content')
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h3 style="font-weight: bold; text-transform:uppercase">Persetujuan Kandidat</h3>
+            </div>
+            <div class="card-body">
+                <form action="" method="POST">
+                    @csrf
+                    <div class="row">
+                        @foreach ($kandidat as $item)
+                        <div class="col-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    {{$item->nama}}
+                                    <span class="float-right">
+                                        @if ($item->persetujuan == "ya")
+                                            <i class="far fa-check-circle" style="color: green"></i>                                            
+                                        @elseif($item->persetujuan == "tidak")
+                                            <i class="far fa-times-circle" style="color: red"></i>
+                                        @else
+                                            <i class="fas fa-clock" style="color: gray"></i>
+                                        @endif
+                                    </span>
+                                </div>
+                                <div class="card-body">
+                                    <span>
+                                        @if ($item->persetujuan == "ya")
+                                            Kandidat menyetujui
+                                            <input type="text" hidden name="menerima[]" value="{{$item->id_kandidat}}" id="">
+                                        @elseif($item->persetujuan == "tidak")
+                                            Kandidat menolak
+                                            <input type="text" hidden name="menolak[]" value="{{$item->id_kandidat}}" id="">
+                                        @else
+                                            Menunggu persetujuan
+                                            <input type="text" name="menunggu[]" value="{{$item->id_kandidat}}" id="">
+                                        @endif
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                    <button type="submit" class="btn btn-primary">Tentukan Jadwal Interview</button>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection

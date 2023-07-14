@@ -121,7 +121,7 @@ class RegisterController extends Controller
             'nik' => 'required|max:16|min:16|unique:kandidat',
             'email' => 'required|unique:users|max:255',
             'no_telp' => 'required|unique:users|min:10|max:13',
-            'nama_panggilan' => 'required|unique:kandidat|min:5|max:20',
+            'nama_panggilan' => 'required|unique:kandidat|max:20',
             'password' => 'required|min:8',
             'g-recaptcha-response' => 'required|captcha',
         ]);
@@ -162,10 +162,10 @@ class RegisterController extends Controller
             'nik' => $request->nik,
         ]);
 
-        Mail::send('mail.mail', ['token' => $token,'nama' => $request->name], function($message) use($request){
-            $message->to($request->email);
-            $message->subject('Email Verification Mail');
-        });
+        // Mail::send('mail.mail', ['token' => $token,'nama' => $request->name], function($message) use($request){
+        //     $message->to($request->email);
+        //     $message->subject('Email Verification Mail');
+        // });
         Auth::login($user);       
         return redirect()->route('verifikasi')->with('success',"Cek email anda untuk verifikasi");
     }

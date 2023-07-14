@@ -25,6 +25,7 @@ use App\Models\PermohonanLowongan;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Hash;
+use App\Models\PersetujuanKandidat;
 
 class KandidatController extends Controller
 {
@@ -50,7 +51,17 @@ class KandidatController extends Controller
         } else {
             $perusahaan = null;
         }
-        return view('kandidat/index',compact('kandidat','notif','perusahaan_semua','perusahaan','pembayaran','pesan','lowongan','cari_perusahaan'));
+        $persetujuan = PersetujuanKandidat::join(
+            'perusahaan', 'persetujuan_kandidat.id_perusahaan','=','perusahaan.id_perusahaan'
+        )
+        ->where('persetujuan_kandidat.nama_kandidat',$kandidat->nama)->where('persetujuan_kandidat.id_kandidat',$kandidat->id_kandidat)->first();
+        if($persetujuan->persetujuan == null){
+            $persetujuan = $persetujuan;
+        } else {
+            $persetujuan = null;
+        }
+        return view('kandidat/index',compact('kandidat','notif','perusahaan_semua',
+        'perusahaan','pembayaran','pesan','lowongan','cari_perusahaan','persetujuan'));
     }
     
     public function profil()

@@ -18,6 +18,7 @@ use App\Models\Pekerjaan;
 use App\Models\Negara;
 use App\Models\PekerjaPerusahaan;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\PersetujuanKandidat;
 
 class KandidatPerusahaanController extends Controller
 {
@@ -183,5 +184,19 @@ class KandidatPerusahaanController extends Controller
         ]);
         PermohonanLowongan::where('id_kandidat',$kandidat->id_kandidat)->delete();
         return redirect('/kandidat')->with('success',"Anda telah keluar dari ".$perusahaan->nama_perusahaan);
+    }
+
+    public function persetujuanKandidat(Request $request, $nama, $id)
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();  
+        PersetujuanKandidat::where('nama_kandidat',$nama)->where('id_kandidat',$kandidat->id_kandidat)->update([
+            'persetujuan' => $request->persetujuan,
+            'tmp_bekerja' => $request->tmp_bekerja,
+            'jabatan' => $request->jabatan,
+            'tgl_mulai_kerja' => $request->tgl_mulai_kerja,
+            'alasan_lain' => $request->alasan_lain,
+        ]);
+        return redirect('/kandidat')->with('success',"Terima kasih atas konfirmasi anda");
     }
 }

@@ -6,6 +6,23 @@
         <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
         <link rel="icon" href="/gambar/icon.ico" type="image/x-icon"/>
         <link rel="stylesheet" href="/moving.css">
+        <!-- Fonts and icons -->
+        <script src="/Atlantis/examples/assets/js/plugin/webfont/webfont.min.js"></script>
+        <script>
+            WebFont.load({
+                google: {"families":["Lato:300,400,700,900"]},
+                custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/Atlantis/examples/assets/css/fonts.min.css']},
+                active: function() {
+                    sessionStorage.fonts = true;
+                }
+            });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <!-- CSS Files -->
+        <link rel="stylesheet" href="/Atlantis/examples/assets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/Atlantis/examples/assets/css/atlantis.min.css">
+        <link rel="stylesheet" href="/cardSlide/style.css">    
         <style>
             .bold{
                 font-size: 11px;
@@ -50,28 +67,14 @@
             #hidebtn{
                 display: none;
             }
-        </style>
-        <!-- Fonts and icons -->
-        <script src="/Atlantis/examples/assets/js/plugin/webfont/webfont.min.js"></script>
-        <script>
-            WebFont.load({
-                google: {"families":["Lato:300,400,700,900"]},
-                custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/Atlantis/examples/assets/css/fonts.min.css']},
-                active: function() {
-                    sessionStorage.fonts = true;
-                }
-            });
-        </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-        <!-- CSS Files -->
-        <link rel="stylesheet" href="/Atlantis/examples/assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/Atlantis/examples/assets/css/atlantis.min.css">
-        <link rel="stylesheet" href="/cardSlide/style.css">    
-    
-        <style>
             body{
                 background-color:#78C1F3;
+            }
+            #batalInterview{
+                display: none;
+            }
+            #terimaInterview{
+                display: block;
             }
         </style>
     </head>
@@ -564,7 +567,9 @@
                 });
             });
         </script>
-
+        
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
         <script type="text/javascript">
             function confirmation(ev)
                 {
@@ -595,7 +600,7 @@
                 });    
             }
         </script>
-        {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> --}}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
                 $(document).on('change','#placement',function() {
@@ -723,6 +728,21 @@
                         swal.close();
                     }
                 });
+            }
+            $(window).on('load',function() {
+            $('#staticBackdrop').modal('show');                                                   
+            });
+            function tidakInterview() {
+                console.log("batal");
+                var y = document.getElementById("terimaInterview");
+                var n = document.getElementById("batalInterview");
+                if (n.style.display == 'block') {
+                    y.style.display = 'block';
+                    n.style.display = 'none';
+                } else {
+                    y.style.display = 'none';
+                    n.style.display = 'block';
+                }
             }
         </script>
     </body>

@@ -31,7 +31,7 @@ use App\Models\notifyKandidat;
 use App\Models\messageKandidat;
 use App\Models\notifyAkademi;
 use App\Models\messageAkademi;
-
+use App\Models\PersetujuanKandidat;
 
 class PerusahaanController extends Controller
 {
@@ -736,57 +736,57 @@ class PerusahaanController extends Controller
         $nama = $request->nama;
         $pengalaman_kerja = $request->pengalaman_kerja;
         $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
-        if($id_kandidat == null){
-            return redirect('/perusahaan/list_permohonan_lowongan')->with('error','anda harus memilih minimal 1 kandidat');
-        } else {
-            for($a = 0; $a < count($id_kandidat); $a++){                
-                $input['id_kandidat'] = $id_kandidat[$a];
-                $input['nama_kandidat'] = $nama[$a];
-                $input['status'] = "pilih";
-                $input['usia'] = $usia[$a];
-                $input['jenis_kelamin'] = $jk[$a];
-                $input['pengalaman_kerja'] = $pengalaman_kerja[$a];
-                $input['id_perusahaan'] = $perusahaan->id_perusahaan;
-                Interview::create($input);
+        // if($id_kandidat == null){
+        //     return redirect('/perusahaan/list_permohonan_lowongan')->with('error','anda harus memilih minimal 1 kandidat');
+        // } else {
+        //     for($a = 0; $a < count($id_kandidat); $a++){                
+        //         $input['id_kandidat'] = $id_kandidat[$a];
+        //         $input['nama_kandidat'] = $nama[$a];
+        //         $input['status'] = "pilih";
+        //         $input['usia'] = $usia[$a];
+        //         $input['jenis_kelamin'] = $jk[$a];
+        //         $input['pengalaman_kerja'] = $pengalaman_kerja[$a];
+        //         $input['id_perusahaan'] = $perusahaan->id_perusahaan;
+        //         Interview::create($input);
                 
-                Kandidat::where('id_kandidat',$id_kandidat[$a])->update([
-                    'stat_pemilik' => "diambil",
-                ]);
+        //         Kandidat::where('id_kandidat',$id_kandidat[$a])->update([
+        //             'stat_pemilik' => "diambil",
+        //         ]);
                 
-                notifyKandidat::create([
-                    'id_kandidat' => $id_kandidat[$a],
-                    'isi' => "Anda mendapat pesan masuk",
-                    'pengirim' => "Sistem",
-                    'url' => '/semua_pesan',
-                ]);
+        //         notifyKandidat::create([
+        //             'id_kandidat' => $id_kandidat[$a],
+        //             'isi' => "Anda mendapat pesan masuk",
+        //             'pengirim' => "Sistem",
+        //             'url' => '/semua_pesan',
+        //         ]);
 
-                messageKandidat::create([
-                    'id_kandidat' => $id_kandidat[$a],
-                    'pesan' => "Halo, Anda mendapat undangan interview dari ".$perusahaan->nama_perusahaan.".apakah anda menyetujuinya?",
-                    'pengirim' => "Sistem",
-                    'kepada' => $nama[$a],
-                ]);
+        //         messageKandidat::create([
+        //             'id_kandidat' => $id_kandidat[$a],
+        //             'pesan' => "Halo, Anda mendapat undangan interview dari ".$perusahaan->nama_perusahaan.".apakah anda menyetujuinya?",
+        //             'pengirim' => "Sistem",
+        //             'kepada' => $nama[$a],
+        //         ]);
 
-                $kandidat = Kandidat::where('id_kandidat',$id_kandidat[$a])->whereNotNull('id_akademi')->first();
-                if($kandidat !== null){
-                    notifyAkademi::create([
-                        'id_akademi' => $kandidat->id_akademi,
-                        'id_kandidat' => $kandidat->id_kandidat,
-                        'isi' => "Anda mendapat pesan masuk",
-                        'pengirim' => "Sistem",
-                        'url' => '/akademi/semua_notif',
-                    ]);
+        //         $kandidat = Kandidat::where('id_kandidat',$id_kandidat[$a])->whereNotNull('id_akademi')->first();
+        //         if($kandidat !== null){
+        //             notifyAkademi::create([
+        //                 'id_akademi' => $kandidat->id_akademi,
+        //                 'id_kandidat' => $kandidat->id_kandidat,
+        //                 'isi' => "Anda mendapat pesan masuk",
+        //                 'pengirim' => "Sistem",
+        //                 'url' => '/akademi/semua_notif',
+        //             ]);
 
-                    messageAkademi::create([
-                        'id_akademi' => $kandidat->id_akademi,
-                        'id_kandidat' => $kandidat->id_kandidat,
-                        'pesan' => "Selamat kandidat atas nama".$kandidat->nama."telah diterima di".$perusahaan->nama_perusahaan,
-                        'pengirim' => "Sistem",
-                        'kepada' => $kandidat->id_akademi,
-                    ]);
-                }
-            }
-        }
+        //             messageAkademi::create([
+        //                 'id_akademi' => $kandidat->id_akademi,
+        //                 'id_kandidat' => $kandidat->id_kandidat,
+        //                 'pesan' => "Selamat kandidat atas nama".$kandidat->nama."telah diterima di".$perusahaan->nama_perusahaan,
+        //                 'pengirim' => "Sistem",
+        //                 'kepada' => $kandidat->id_akademi,
+        //             ]);
+        //         }
+        //     }
+        // }
         return redirect('/perusahaan/interview');
     }
 
@@ -812,10 +812,17 @@ class PerusahaanController extends Controller
                 $input['id_perusahaan'] = $perusahaan->id_perusahaan;
                 Interview::create($input);
                 
+                $data['id_kandidat'] = $id_kandidat[$a];
+                $data['nama_kandidat'] = $nama[$a];
+                $data['id_perusahaan'] = $perusahaan->id_perusahaan;
+                PersetujuanKandidat::create($data);
+
                 Kandidat::where('id_kandidat',$id_kandidat[$a])->update([
                     'stat_pemilik' => "diambil",
                 ]);
                 
+                $interview = Interview::where('id_kandidat',$id_kandidat[$a])->where('id_perusahaan',$perusahaan->id_perusahaan)->first();
+
                 notifyKandidat::create([
                     'id_kandidat' => $id_kandidat[$a],
                     'isi' => "Anda mendapat pesan masuk",
@@ -828,6 +835,7 @@ class PerusahaanController extends Controller
                     'pesan' => "Halo, Anda mendapat undangan interview dari ".$perusahaan->nama_perusahaan.".apakah anda menyetujuinya?",
                     'pengirim' => "Sistem",
                     'kepada' => $nama[$a],
+                    'id_interview' => $interview->id_interview,
                 ]);
 
                 $kandidat = Kandidat::where('id_kandidat',$id_kandidat[$a])->whereNotNull('id_akademi')->first();
@@ -850,7 +858,39 @@ class PerusahaanController extends Controller
                 }
             }
         }
-        return redirect('/perusahaan/interview');
+        return redirect('/perusahaan/persetujuan_kandidat');
+    }
+
+    public function persetujuanKandidat()
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        $kandidat = Kandidat::join(
+            'perusahaan', 'kandidat.id_perusahaan','=','perusahaan.id_perusahaan'
+        )->join(
+            'interview', 'perusahaan.id_perusahaan','=','interview.id_perusahaan'
+        
+        )->join(
+            'persetujuan_kandidat','kandidat.id_kandidat','=','persetujuan_kandidat.id_kandidat'
+        )
+        ->where('kandidat.id_perusahaan',$perusahaan->id_perusahaan)
+        ->get();
+        return view('perusahaan/recruitment/persetujuan_kandidat',compact('perusahaan','notif','pesan','cabang','kandidat'));
+    }
+
+    public function confirmPersetujuanKandidat(Request $request)
+    {        
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $id_kandidat = $request->all();
+        dd();
+        // for($s = 0; $s < count($id_kandidat); $s++){
+        //     $data['id_kandidat'] = $id_kandidat[$s];
+        // }        
+        // return redirect('/perusahaan/interview');
     }
 
     public function JadwalInterview()

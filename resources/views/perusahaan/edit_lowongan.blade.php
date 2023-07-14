@@ -6,7 +6,7 @@
                 <h4 style="font-weight: bold">Edit Lowongan</h4>
             </div>
             <div class="card-body">
-                <form action="" method="POST">
+                <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row mb-3">
                         <div class="col-md-4">
@@ -29,6 +29,21 @@
                         </div>
                         <div class="col-md-4">
                             <input type="text" required name="jabatan" class="form-control" value="{{$lowongan->jabatan}}" id="">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="" class="col-form-label">Gambar</label>
+                        </div>
+                        <div class="col-md-8">
+                            @if ($lowongan->gambar_lowongan == "")
+                                <input type="file" name="gambar" class="form-control" id="" accept="image/*">                                
+                            @elseif($lowongan->gambar_lowongan !== null)
+                                <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Lowongan Pekerjaan/{{$lowongan->gambar_lowongan}}" width="250" height="250" alt="" class="mb-2">
+                                <input type="file" name="gambar" class="form-control" id="" accept="image/*">                                
+                            @else
+                                <input type="file" name="gambar" class="form-control" id="" accept="image/*">                                                             
+                            @endif
                         </div>
                     </div>
                     <hr>

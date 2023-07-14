@@ -8,7 +8,7 @@
             <div class="card-body">
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="" class="col-form-label">Negara Tujuan</label>
+                        <label for="" class="">Negara Tujuan</label>
                     </div>
                     <div class="col-md-8">
                         <div class=""><b class="bold">: {{$lowongan->negara}}</b></div>
@@ -16,10 +16,18 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="" class="col-form-label">Jabatan</label>
+                        <label for="" class="">Jabatan</label>
                     </div>
                     <div class="col-md-4">
                         <div class=""><b class="bold">: {{$lowongan->jabatan}}</b></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="" class="">Gambar</label>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Lowongan Pekerjaan/{{$lowongan->gambar_lowongan}}" alt="">
                     </div>
                 </div>
                 <div class="row">
@@ -31,7 +39,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="" class="col-form-label">Jenis Kelamin</label>
+                        <label for="" class="">Jenis Kelamin</label>
                     </div>
                     <div class="col-md-4">
                         <div class=""><b class="bold">: 
@@ -47,7 +55,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="" class="col-form-label">Pendidikan</label>
+                        <label for="" class="">Pendidikan</label>
                     </div>
                     <div class="col-md-4">
                         <div class=""><b class="bold">: {{$lowongan->pendidikan}}</b></div>
@@ -55,7 +63,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="" class="col-form-label">Usia</label>
+                        <label for="" class="">Usia</label>
                     </div>
                     <div class="col-md-4">
                         <div class=""><b class="bold">: 
@@ -69,7 +77,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="" class="col-form-label">Pengalaman Bekerja</label>
+                        <label for="" class="">Pengalaman Bekerja</label>
                     </div>
                     <div class="col-md-8">
                         <div class=""><b class="bold">: 
@@ -83,7 +91,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="" class="col-form-label">Berat Badan</label>
+                        <label for="" class="">Berat Badan</label>
                     </div>
                     <div class="col-md-4">
                         <div class=""><b class="bold">: 
@@ -97,7 +105,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="" class="col-form-label">Tinggi Badan</label>
+                        <label for="" class="">Tinggi Badan</label>
                     </div>
                     <div class="col-md-4">
                         <div class=""><b class="bold">: 
@@ -125,7 +133,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-4">
-                        <label for="" class="col-form-label">Tanggal Tutup Lowongan</label>
+                        <label for="" class="">Tanggal Tutup Lowongan</label>
                     </div>
                     <div class="col-8">
                         <div class=""><b class="bold">: {{date('d-M-Y',strtotime($lowongan->ttp_lowongan))}}</b></div>
@@ -134,7 +142,7 @@
                 <hr>
                 <div class="row mb-3">
                     <div class="col-4">
-                        <label for="" class="col-form-label">Kode Undangan</label>
+                        <label for="" class="">Kode Undangan</label>
                     </div>
                     <div class="col-8">
                         <div class=""><b class="bold">: {{$perusahaan->referral_code}}</b></div>
