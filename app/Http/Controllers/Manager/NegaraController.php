@@ -76,7 +76,8 @@ class NegaraController extends Controller
                 @unlink($hapus_icon);
             }
             $gambar = $request->negara.time().'.'.$request->gambar->extension();  
-            $request->gambar->move(public_path('/gambar/Manager/Foto/Icon/'), $gambar);
+            $simpan_gambar = $request->file('gambar');
+            $simpan_gambar->move('gambar/Manager/Foto/Icon/',$request->negara.time().'.'.$simpan_gambar->extension());
         } else {
             if($negara->gambar !== null){
                 $gambar = $negara->gambar;

@@ -15,6 +15,7 @@
                                 <th><b class="bold">Nama Negara</b></th>
                                 <th><b class="bold">Kode Negara</b></th>
                                 <th><b class="bold">Syarat Umur</b></th>
+                                <th><b class="bold">Mata Uang</b></th>
                                 <th><b class="bold">Deskripsi</b></th>
                                 <th><b class="bold">Aksi</b></th>
                             </tr>
@@ -26,6 +27,7 @@
                                     <td><b class="bold">{{$item->negara}}</b></td>
                                     <td><b class="bold">{{$item->kode_negara}}</b></td>
                                     <td><b class="bold">{{$item->syarat_umur}}</b></td>
+                                    <td><b class="bold">{{$item->mata_uang}}</b></td>
                                     <td class="text1"><b class="bold">{{$item->deskripsi}}</b></td>
                                     <td>
                                         <a class="" href="/manager/lihat_negara/{{$item->negara_id}}"><i class="fas fa-eye" style="color:green"></i></a>
