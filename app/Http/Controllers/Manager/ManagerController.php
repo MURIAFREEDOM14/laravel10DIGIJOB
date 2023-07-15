@@ -71,13 +71,13 @@ class ManagerController extends Controller
         $id = Auth::user();
         $manager = User::where('referral_code',$id->referral_code)->where('type','like',3)->first();
         
-        $login_kandidat = Kandidat::sum('id_kandidat');
+        // $login_kandidat = Kandidat::sum('id_kandidat');
         
-        $bulanan = User::select(DB::raw("MONTHNAME(updated_at) as bulan"))
-        ->groupBy(DB::raw("Month(updated_at)"))
-        ->pluck('bulan');
-        dd($login_kandidat, $bulanan);
-        return view('manager/manager_home',compact('manager','login_kandidat','bulanan'));
+        // $bulanan = User::select(DB::raw("MONTHNAME(updated_at) as bulan"))
+        // ->groupBy(DB::raw("Month(updated_at)"))
+        // ->pluck('bulan');
+        // dd($login_kandidat, $bulanan);
+        return view('manager/manager_home',compact('manager'));
     }
 
     public function suratIzin()
