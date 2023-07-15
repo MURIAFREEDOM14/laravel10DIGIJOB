@@ -412,34 +412,9 @@
 
         <!-- datatable -->
         <script type="https://code.highcharts.com/highcharts.js"></script>
-        {{-- <script type="text/javascript">
-            var login = <?php echo json_encode($login_kandidat) ?>;
-            var bulan = <?php echo json_encode($bulanan) ?>;
-            Highcharts.chart('grafik',{
-                title: {
-                    text: 'grafik login'
-                },
-                xAxis: {
-                    categories: bulan
-                },
-                yAxis: {
-                    title: {
-                        text: total kandidat login
-                    }
-                },
-                plotOptions: {
-                    series: {
-                        allowPointSelect:true
-                    }
-                },
-                series: [
-                    {
-                        name: 'total kandidat login',
-                        data: login
-                    }
-                ]
-            })
-        </script> --}}
+        <script type="text/javascript">
+            
+        </script>
         <script>
             $(document).ready(function() {
                 $('#basic-datatables').DataTable({

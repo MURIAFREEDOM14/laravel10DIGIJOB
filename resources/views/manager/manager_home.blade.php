@@ -24,15 +24,18 @@
                     <div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
                         <div class="px-2 pb-2 pb-md-0 text-center">
                             <div id="circles-1"></div>
-                            <h6 class="fw-bold mt-3 mb-0">New Users</h6>
+                            <h6 class="fw-bold mt-3 mb-0">Kandidat Baru</h6>
+                            <p>{{$ttl_baru_kandidat}}</p>
                         </div>
                         <div class="px-2 pb-2 pb-md-0 text-center">
                             <div id="circles-2"></div>
-                            <h6 class="fw-bold mt-3 mb-0">Sales</h6>
+                            <h6 class="fw-bold mt-3 mb-0">Akademi Baru</h6>
+                            <p>{{$ttl_baru_akademi}}</p>
                         </div>
                         <div class="px-2 pb-2 pb-md-0 text-center">
                             <div id="circles-3"></div>
-                            <h6 class="fw-bold mt-3 mb-0">Subscribers</h6>
+                            <h6 class="fw-bold mt-3 mb-0">Perusahaan Baru</h6>
+                            <p>{{$ttl_baru_perusahaan}}</p>
                         </div>
                     </div>
                 </div>
@@ -68,7 +71,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-head-row">
-                        <div class="card-title">User Statistics</div>
+                        <div class="card-title">Statistik Pengguna Aplikasi</div>
                         <div class="card-tools">
                             <a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2">
                                 <span class="btn-label">
@@ -86,10 +89,21 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="chart-container" style="min-height: 375px">
-                        <canvas id="statisticsChart"></canvas>
+                    <label for="">Kandidat Masuk</label>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{$total_kandidat}}0%" aria-valuenow="" aria-valuemin="0" aria-valuemax="{{$semua_kandidat}}">{{$total_kandidat}}</div>
                     </div>
-                    <div id="grafik"></div>
+                    <label for="">Akademi Masuk</label>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: {{$total_akademi}}0%" aria-valuenow="" aria-valuemin="0" aria-valuemax="{{$semua_akademi}}">{{$total_akademi}}</div>
+                    </div>
+                    <label for="">Perusahaan Masuk</label>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: {{$total_perusahaan}}0%" aria-valuenow="" aria-valuemin="0" aria-valuemax="{{$semua_perusahaan}}">{{$total_perusahaan}}</div>
+                    </div>
+                    {{-- <div class="chart-container" style="min-height: 375px">
+                        <canvas id="multipleBarChart"></canvas>
+                    </div> --}}
                 </div>
             </div>
         </div>

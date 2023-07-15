@@ -70,14 +70,33 @@ class ManagerController extends Controller
     {
         $id = Auth::user();
         $manager = User::where('referral_code',$id->referral_code)->where('type','like',3)->first();
+
+        $semua_kandidat = User::where('type',0)->count();
+        $semua_akademi = User::where('type',1)->count();
+        $semua_perusahaan = User::where('type',2)->count();
         
-        // $login_kandidat = Kandidat::sum('id_kandidat');
+        $data = date('Y-m-d');
+        $kandidat_baru = User::where('created_at','like','%'.$data.'%')->where('type',0)->get();
+        $ttl_baru_kandidat = $kandidat_baru->count();
+        $login_kandidat = User::where('updated_at','like','%'.$data.'%')->where('type',0)->get();
+        $total_kandidat = $login_kandidat->count();
         
-        // $bulanan = User::select(DB::raw("MONTHNAME(updated_at) as bulan"))
-        // ->groupBy(DB::raw("Month(updated_at)"))
-        // ->pluck('bulan');
-        // dd($login_kandidat, $bulanan);
-        return view('manager/manager_home',compact('manager'));
+        $akademi_baru = User::where('created_at','like','%'.$data.'%')->where('type',1)->get();
+        $ttl_baru_akademi = $akademi_baru->count();
+        $login_akademi = User::where('updated_at','like','%'.$data.'%')->where('type',1)->get();
+        $total_akademi = $login_akademi->count();        
+        
+        $perusahaan_baru = User::where('created_at','like','%'.$data.'%')->where('type',2)->get();
+        $ttl_baru_perusahaan = $perusahaan_baru->count();
+        $login_perusahaan = User::where('updated_at','like','%'.$data.'%')->where('type',2)->get();
+        $total_perusahaan = $login_perusahaan->count();                
+        
+        return view('manager/manager_home',compact(
+            'manager','data',
+            'login_kandidat','total_kandidat','semua_kandidat','kandidat_baru','ttl_baru_kandidat',
+            'login_akademi','total_akademi','semua_akademi','akademi_baru','ttl_baru_akademi',
+            'login_perusahaan','total_perusahaan','semua_perusahaan','perusahaan_baru','ttl_baru_perusahaan',
+        ));
     }
 
     public function suratIzin()
