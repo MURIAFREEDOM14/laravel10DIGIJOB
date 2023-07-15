@@ -26,6 +26,11 @@
                                 <label for="">Kode Captcha</label>
                                 {!! NoCaptcha::renderJs() !!}
                                 {!! NoCaptcha::display() !!}
+                                @error('g-recaptcha-response')
+                                  <span class="invalid-feedback" role="alert">
+                                      <strong>Harap centang kode captcha</strong>
+                                  </span>
+                                @enderror
                               </div>
                             </div>
                         </div>
