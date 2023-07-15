@@ -577,13 +577,14 @@ Route::controller(PrototypeController::class)->group(function(){
     Route::get('/proto_update','update');
     Route::get('/proto_delete','delete');
     Route::post('/proto_mail','email');
+    Route::view('/prototype3','prototype3');
 
     Route::get('/make_captcha','captcha')->name('make.captcha');
 });
 
 Route::controller(CaptchaController::class)->group(function() {
-    Route::get('/captcha','showCaptcha');
-    Route::post('/captcha/verify','verifyCaptcha')->name('captcha.verify');
+    Route::get('/sliding-puzzle', [CaptchaController::class, 'showSlidingPuzzle']);
+Route::post('/sliding-puzzle/verify', [CaptchaController::class, 'verifySlidingPuzzle'])->name('sliding-puzzle.verify');
 });
 
 Route::get('/linewire',Location::class)->middleware('verify');

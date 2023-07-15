@@ -188,6 +188,10 @@ return [
         //Barcode
         Milon\Barcode\BarcodeServiceProvider::class,
 
+        //capctha
+        Intervention\Image\ImageServiceProvider::class,
+        Mews\Captcha\CaptchaServiceProvider::class,
+        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -200,7 +204,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
     ],
 
     /*
@@ -223,7 +226,13 @@ return [
         'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
 
+        //captcha
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
+
+        //Image
+        'Image' => Intervention\Image\Facades\Image::class,
+
     ])->toArray(),
 
 ];

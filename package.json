@@ -13,6 +13,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "sweetalert2": "^11.7.12"
+        "@slider-captcha/react": "^1.0.0",
+        "sweetalert2": "^11.6.13"
     }
 }
