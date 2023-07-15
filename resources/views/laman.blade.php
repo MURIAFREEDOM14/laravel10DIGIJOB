@@ -76,34 +76,36 @@
             <div class="carousel-inner">
               <div class="carousel-item active" data-bs-interval="2300">
                 <h4 style="color: black; text-transform:uppercase">Murah / Low Cost</h4>
-                <h5 style="color: black">Digijob adalah pilihan tepat yang dapat membantu mewujudkan kebutuhan pekerja dengan biaya yang murah</h5>
+                <h5 style="color: black">Digijob adalah pilihan tepat yang dapat membantu mewujudkan kebutuhan pekerja</h5>
                 <div class="d-flex justify-content-center justify-content-sm-start mb-5">
                 </div>
               </div>
               <div class="carousel-item" data-bs-interval="2300">
                 <h4 style="color: black; text-transform:uppercase">Mudah / On hand</h4>
                 <h5 style="color: black">Digijob memfasilitasi dalam bentuk aplikasi yang aman dan mudah dioperasikan</h5>
+                <h5></h5>
                 <div class="d-flex justify-content-center justify-content-sm-start mb-5">
                 </div>
               </div>
               <div class="carousel-item" data-bs-interval="2300">
                 <h4 style="color: black; text-transform:uppercase">Cepat / Efficient</h4>
                 <h5 style="color: black">Pelayanan yang cepat dan dukungan optimal yang kami berikan kepada pengguna</h5>
+                <h5></h5>
                 <div class="d-flex justify-content-center justify-content-sm-start mb-5">
                 </div>
               </div>
               <div class="carousel-item" data-bs-interval="2300">
                 <h4 style="color: black; text-transform:uppercase">Akurat / Accurate</h4>
-                <h5 style="color: black">Digijob menyediakan informasi yang akurat dan data valid
-                <br>
-                &nbsp;
-                </h5>
+                <h5 style="color: black">Digijob menyediakan informasi yang akurat dan data valid</h5>
+                <h5></h5>
+                <h5></h5>
                 <div class="d-flex justify-content-center justify-content-sm-start mb-5">
                 </div>
               </div>
               <div class="carousel-item" data-bs-interval="2300">
                 <h4 style="color: black; text-transform:uppercase">Menyatu / integrate</h4>
                 <h5 style="color: black">Terintegrasi untuk dapat melayani anda agar dapat berhubungan</h5>
+                <h5></h5>
                 <div class="d-flex justify-content-center justify-content-sm-start mb-5">
                 </div>
               </div>
