@@ -76,36 +76,32 @@
             <div class="carousel-inner">
               <div class="carousel-item active" data-bs-interval="2300">
                 <h4 style="color: black; text-transform:uppercase">Murah / Low Cost</h4>
-                <h5 style="color: black">Digijob adalah pilihan tepat yang dapat membantu mewujudkan kebutuhan pekerja</h5>
+                {{-- <h5 style="color: black">Digijob adalah pilihan tepat yang dapat membantu mewujudkan kebutuhan pekerja dengan biaya yang murah</h5> --}}
+                <h5 style="color: black">Digijob solusi tepat untuk kebutuhan pekerja dengan biaya terjangkau.</h5>
                 <div class="d-flex justify-content-center justify-content-sm-start mb-5">
                 </div>
               </div>
               <div class="carousel-item" data-bs-interval="2300">
                 <h4 style="color: black; text-transform:uppercase">Mudah / On hand</h4>
                 <h5 style="color: black">Digijob memfasilitasi dalam bentuk aplikasi yang aman dan mudah dioperasikan</h5>
-                <h5></h5>
                 <div class="d-flex justify-content-center justify-content-sm-start mb-5">
                 </div>
               </div>
               <div class="carousel-item" data-bs-interval="2300">
                 <h4 style="color: black; text-transform:uppercase">Cepat / Efficient</h4>
                 <h5 style="color: black">Pelayanan yang cepat dan dukungan optimal yang kami berikan kepada pengguna</h5>
-                <h5></h5>
                 <div class="d-flex justify-content-center justify-content-sm-start mb-5">
                 </div>
               </div>
               <div class="carousel-item" data-bs-interval="2300">
                 <h4 style="color: black; text-transform:uppercase">Akurat / Accurate</h4>
-                <h5 style="color: black">Digijob menyediakan informasi yang akurat dan data valid</h5>
-                <h5></h5>
-                <h5></h5>
+                <h5 style="color: black">Digijob menyediakan beberapa informasi yang akurat dan data valid &nbsp;</h5>
                 <div class="d-flex justify-content-center justify-content-sm-start mb-5">
                 </div>
               </div>
               <div class="carousel-item" data-bs-interval="2300">
                 <h4 style="color: black; text-transform:uppercase">Menyatu / integrate</h4>
                 <h5 style="color: black">Terintegrasi untuk dapat melayani anda agar dapat berhubungan</h5>
-                <h5></h5>
                 <div class="d-flex justify-content-center justify-content-sm-start mb-5">
                 </div>
               </div>
@@ -123,31 +119,31 @@
               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 0"></button>
             </div>
             <div class="carousel-inner">
-              <div class="carousel-item active" data-bs-interval="1800">
+              <div class="carousel-item active" data-bs-interval="1500">
                 <img src="Arsha/assets/img/hero-img.png" class="img-fluid" alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
                 </div>
               </div>
-              <div class="carousel-item" data-bs-interval="1800">
+              <div class="carousel-item" data-bs-interval="1500">
                 <img src="Arsha/assets/img/hero-img.png" class="img-fluid" alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
                 </div>
               </div>
-              <div class="carousel-item" data-bs-interval="1800">
+              <div class="carousel-item" data-bs-interval="1500">
                 <img src="Arsha/assets/img/hero-img.png" class="img-fluid" alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
                 </div>
               </div>
-              <div class="carousel-item" data-bs-interval="1800">
+              <div class="carousel-item" data-bs-interval="1500">
                 <img src="Arsha/assets/img/hero-img.png" class="img-fluid" alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
                 </div>
               </div>
-              <div class="carousel-item" data-bs-interval="1800">
+              <div class="carousel-item" data-bs-interval="1500">
                 <img src="Arsha/assets/img/hero-img.png" class="img-fluid" alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
