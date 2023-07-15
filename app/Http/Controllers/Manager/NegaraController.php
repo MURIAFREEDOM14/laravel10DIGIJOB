@@ -37,9 +37,11 @@ class NegaraController extends Controller
     {
         $auth = Auth::user();
         $manager = User::where('type',3)->first();
-        if($request->file('gambar') == null){
+        if($request->file('gambar') !== null){
             $foto = $request->negara.time().'.'.$request->gambar->extension();  
-            $request->gambar->move(public_path('/gambar/Manager/Foto/Icon'), $foto); 
+            $simpan_gambar = $request->file('gambar');
+            $simpan_gambar->move('gambar/Manager/Foto/Icon',$request->negara.time().'.'.$simpan_gambar->extension()); 
+            
         } else {
             $foto = null;
         }
