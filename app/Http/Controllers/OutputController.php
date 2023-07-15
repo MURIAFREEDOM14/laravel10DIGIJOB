@@ -9,6 +9,7 @@ use App\Models\Perusahaan;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Stevebauman\Location\Facades\Location;
+use App\Models\PMIID;
 
 class OutputController extends Controller
 {
@@ -197,5 +198,19 @@ class OutputController extends Controller
     public function suratIzinWaris()
     {
         return view('output/surat_izin_waris');
+    }
+
+    public function cetakPmiID($id)
+    {
+        $pmi_id = PMIID::join(
+            'kandidat', 'perusahaan_kebutuhan.id_kandidat','kandidat.id_kandidat'
+        )
+        ->join(
+            'ref_negara', 'perusahaan_kebutuhan.negara_id','ref_negara.negara_id'
+        )
+        ->where('perusahaan_kebutuhan.pmi_id',$id)->first();
+        $berlaku = Carbon::create($pmi_id->berlaku)->isoformat('d MMM Y');
+        $habis_berlaku = Carbon::create($pmi_id->habis_berlaku)->isoformat('d MMM Y');
+        return view('Output/cetak_pmi_id',compact('pmi_id','berlaku','habis_berlaku'));
     }
 }

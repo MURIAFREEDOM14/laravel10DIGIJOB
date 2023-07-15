@@ -93,6 +93,8 @@ Route::controller(ManagerController::class)->group(function() {
     Route::get('/manager/perusahaan/pembuatan_id_pmi','IDPMI');
     Route::post('/manager/perusahaan/pembuatan_id_pmi','buatIDPMI');
     Route::post('/manager/perusahaan/simpan_id_pmi','simpanIDPMI');
+    Route::get('/manager/perusahaan/lihat_pmi_id/{id}','lihatIDPMI');
+    Route::get('/manager/perusahaan/cetak_pmi_id/{id}','cetakIDPMI');
     Route::get('/manager/pembayaran/perusahaan','pembayaranPerusahaan')->middleware('manager');
     Route::get('/manager/cek_pembayaran/perusahaan/{id}','cekPembayaranPerusahaan')->middleware('manager');
     Route::post('/manager/cek_pembayaran/perusahaan/{id}','cekConfirmPerusahaan');
@@ -275,7 +277,6 @@ Route::controller(PerusahaanController::class)->group(function(){
     Route::post('/perusahaan/pembuatan_pmi_id','selectKandidatID')->middleware('perusahaan');
     Route::post('/perusahaan/simpan_pembuatan_pmi_id','simpanPembuatanPmiID')->middleware('perusahaan');
     Route::get('/perusahaan/lihat_pmi_id/{id}','lihatPmiID')->middleware('perusahaan');
-    Route::get('/perusahaan/cetak_pmi_id/{id}','cetakPmiID')->middleware('perusahaan');
     Route::get('/perusahaan/edit_pmi_id/{id}','editPmiID')->middleware('perusahaan');
     Route::post('/perusahaan/edit_pmi_id/{id}','updatePmiID')->middleware('perusahaan');
     Route::get('/perusahaan/hapus_pmi_id/{id}','hapusPmiID')->middleware('perusahaan');
@@ -465,6 +466,8 @@ Route::controller(OutputController::class)->group(function() {
     Route::get('/output_izin_waris', 'izinWaris')->middleware('kandidat');
     Route::get('/surat_izin_waris', 'suratIzinWaris');
     Route::get('/cetak/{id}', 'cetak')->name('cetak');
+    Route::get('/perusahaan/cetak_pmi_id/{id}','cetakPmiID')->middleware('perusahaan');
+    Route::get('/manager/perusahaan/cetak_pmi_id/{id}','cetakPmiID')->middleware('manager');
 });
 
 // data verifikasi

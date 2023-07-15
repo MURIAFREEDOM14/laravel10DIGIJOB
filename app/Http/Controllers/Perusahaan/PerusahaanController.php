@@ -530,20 +530,6 @@ class PerusahaanController extends Controller
         return view('perusahaan/lihat_pmi_id',compact('perusahaan','pmi_id','notif','pesan','berlaku','habis_berlaku','cabang'));
     }
 
-    public function cetakPmiID($id)
-    {
-        $pmi_id = PMIID::join(
-            'kandidat', 'perusahaan_kebutuhan.id_kandidat','kandidat.id_kandidat'
-        )
-        ->join(
-            'ref_negara', 'perusahaan_kebutuhan.negara_id','ref_negara.negara_id'
-        )
-        ->where('perusahaan_kebutuhan.pmi_id',$id)->first();
-        $berlaku = Carbon::create($pmi_id->berlaku)->isoformat('d MMM Y');
-        $habis_berlaku = Carbon::create($pmi_id->habis_berlaku)->isoformat('d MMM Y');
-        return view('Output/cetak_pmi_id',compact('pmi_id','berlaku','habis_berlaku'));
-    }
-
     public function editPmiID($id)
     {
         $user = Auth::user();

@@ -9,7 +9,30 @@
                         <h5 style="font-weight: bold">List ID PMI</h5>
                     </div>
                     <div class="card-body">
-                        
+                        <div class="table-responsive">
+                            <table id="basic-datatables" class="display table table-striped table-hover" >
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Nama Perusahaan</th>
+                                        <th>Nama Kandidat</th>
+                                        <th>Lihat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($pmi_id as $item)
+                                        <tr>
+                                            <td>{{$loop->iteration}}</td>                                    
+                                            <td>{{$item->nama_perusahaan}}</td>                                    
+                                            <td>{{$item->nama}}</td>                                    
+                                            <td>
+                                                <a class="btn btn-primary" href="/manager/perusahaan/lihat_pmi_id/{{$item->pmi_id}}"><i class="fas fa-eye"></i></a>
+                                            </td>                                    
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

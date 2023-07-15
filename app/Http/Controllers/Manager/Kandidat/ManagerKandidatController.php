@@ -763,7 +763,7 @@ class ManagerKandidatController extends Controller
     {
         $user = Auth::user();
         $manager = User::where('referral_code',$user->referral_code)->first();
-        $kandidat = Kandidat::where('penempatan','like',"%dalam negeri%")->get();
+        $kandidat = Kandidat::where('penempatan','like','%dalam negeri%')->get();
         return view('manager/penempatan/dalam_negeri',compact('kandidat','manager'));
     }
     public function luarNegeri()
@@ -779,7 +779,6 @@ class ManagerKandidatController extends Controller
         $user = Auth::user();
         $manager = User::where('referral_code',$user->referral_code)->first();
         $lowongan = LowonganPekerjaan::all();
-        // $kandidat = Kandidat::where()->get();
         return view('manager/kandidat/lowongan_pelamar',compact('lowongan','manager'));
     }
 

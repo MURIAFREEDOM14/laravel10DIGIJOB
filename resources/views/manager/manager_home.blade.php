@@ -155,90 +155,21 @@
                             <div class="table-responsive table-hover table-sales">
                                 <table class="table">
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="flag">
-                                                    <img src="../assets/img/flags/id.png" alt="indonesia">
-                                                </div>
-                                            </td>
-                                            <td>Indonesia</td>
-                                            <td class="text-right">
-                                                2.320
-                                            </td>
-                                            <td class="text-right">
-                                                42.18%
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="flag">
-                                                    <img src="../assets/img/flags/us.png" alt="united states">
-                                                </div>
-                                            </td>
-                                            <td>USA</td>
-                                            <td class="text-right">
-                                                240
-                                            </td>
-                                            <td class="text-right">
-                                                4.36%
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="flag">
-                                                    <img src="../assets/img/flags/au.png" alt="australia">
-                                                </div>
-                                            </td>
-                                            <td>Australia</td>
-                                            <td class="text-right">
-                                                119
-                                            </td>
-                                            <td class="text-right">
-                                                2.16%
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="flag">
-                                                    <img src="../assets/img/flags/ru.png" alt="russia">
-                                                </div>
-                                            </td>
-                                            <td>Russia</td>
-                                            <td class="text-right">
-                                                1.081
-                                            </td>
-                                            <td class="text-right">
-                                                19.65%
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="flag">
-                                                    <img src="../assets/img/flags/cn.png" alt="china">
-                                                </div>
-                                            </td>
-                                            <td>China</td>
-                                            <td class="text-right">
-                                                1.100
-                                            </td>
-                                            <td class="text-right">
-                                                20%
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="flag">
-                                                    <img src="../assets/img/flags/br.png" alt="brazil">
-                                                </div>
-                                            </td>
-                                            <td>Brasil</td>
-                                            <td class="text-right">
-                                                640
-                                            </td>
-                                            <td class="text-right">
-                                                11.63%
-                                            </td>
-                                        </tr>
+                                        @foreach ($negara_tujuan as $item)
+                                            <tr>
+                                                {{-- <td>
+                                                    <div class="flag">
+                                                        <img src="/Atlantis/examples/assets/img/flags/id.png" alt="indonesia">
+                                                    </div>
+                                                </td> --}}
+                                                <td>{{$item->negara}}</td>
+                                                <td class="text-right">
+                                                    {{$item->mata_uang}}
+                                                </td>
+                                                <td class="text-right">
+                                                </td>
+                                            </tr>    
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -262,7 +193,7 @@
                 <div class="card-body pb-0">
                     <div class="d-flex">
                         <div class="avatar">
-                            <img src="../assets/img/logoproduct.svg" alt="..." class="avatar-img rounded-circle">
+                            <img src="/Atlantis/examples/assets/img/logoproduct.svg" alt="..." class="avatar-img rounded-circle">
                         </div>
                         <div class="flex-1 pt-1 ml-2">
                             <h6 class="fw-bold mb-1">CSS</h6>
@@ -275,7 +206,7 @@
                     <div class="separator-dashed"></div>
                     <div class="d-flex">
                         <div class="avatar">
-                            <img src="../assets/img/logoproduct.svg" alt="..." class="avatar-img rounded-circle">
+                            <img src="/Atlantis/examples/assets/img/logoproduct.svg" alt="..." class="avatar-img rounded-circle">
                         </div>
                         <div class="flex-1 pt-1 ml-2">
                             <h6 class="fw-bold mb-1">J.CO Donuts</h6>
@@ -288,7 +219,7 @@
                     <div class="separator-dashed"></div>
                     <div class="d-flex">
                         <div class="avatar">
-                            <img src="../assets/img/logoproduct3.svg" alt="..." class="avatar-img rounded-circle">
+                            <img src="/Atlantis/examples/assets/img/logoproduct3.svg" alt="..." class="avatar-img rounded-circle">
                         </div>
                         <div class="flex-1 pt-1 ml-2">
                             <h6 class="fw-bold mb-1">Ready Pro</h6>
@@ -312,7 +243,7 @@
                     <div class="card-list">
                         <div class="item-list">
                             <div class="avatar">
-                                <img src="../assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle">
+                                <img src="/Atlantis/examples/assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle">
                             </div>
                             <div class="info-user ml-3">
                                 <div class="username">Jimmy Denis</div>
@@ -324,7 +255,7 @@
                         </div>
                         <div class="item-list">
                             <div class="avatar">
-                                <img src="../assets/img/chadengle.jpg" alt="..." class="avatar-img rounded-circle">
+                                <img src="/Atlantis/examples/assets/img/chadengle.jpg" alt="..." class="avatar-img rounded-circle">
                             </div>
                             <div class="info-user ml-3">
                                 <div class="username">Chad</div>
@@ -336,7 +267,7 @@
                         </div>
                         <div class="item-list">
                             <div class="avatar">
-                                <img src="../assets/img/talha.jpg" alt="..." class="avatar-img rounded-circle">
+                                <img src="/Atlantis/examples/assets/img/talha.jpg" alt="..." class="avatar-img rounded-circle">
                             </div>
                             <div class="info-user ml-3">
                                 <div class="username">Talha</div>
@@ -348,7 +279,7 @@
                         </div>
                         <div class="item-list">
                             <div class="avatar">
-                                <img src="../assets/img/mlane.jpg" alt="..." class="avatar-img rounded-circle">
+                                <img src="/Atlantis/examples/assets/img/mlane.jpg" alt="..." class="avatar-img rounded-circle">
                             </div>
                             <div class="info-user ml-3">
                                 <div class="username">John Doe</div>
@@ -360,7 +291,7 @@
                         </div>
                         <div class="item-list">
                             <div class="avatar">
-                                <img src="../assets/img/talha.jpg" alt="..." class="avatar-img rounded-circle">
+                                <img src="/Atlantis/examples/assets/img/talha.jpg" alt="..." class="avatar-img rounded-circle">
                             </div>
                             <div class="info-user ml-3">
                                 <div class="username">Talha</div>
@@ -372,7 +303,7 @@
                         </div>
                         <div class="item-list">
                             <div class="avatar">
-                                <img src="../assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle">
+                                <img src="/Atlantis/examples/assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle">
                             </div>
                             <div class="info-user ml-3">
                                 <div class="username">Jimmy Denis</div>

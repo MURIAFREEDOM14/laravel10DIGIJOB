@@ -91,8 +91,10 @@ class ManagerController extends Controller
         $login_perusahaan = User::where('updated_at','like','%'.$data.'%')->where('type',2)->get();
         $total_perusahaan = $login_perusahaan->count();                
         
+        $negara_tujuan = Negara::all();
+
         return view('manager/manager_home',compact(
-            'manager','data',
+            'manager','data','negara_tujuan',
             'login_kandidat','total_kandidat','semua_kandidat','kandidat_baru','ttl_baru_kandidat',
             'login_akademi','total_akademi','semua_akademi','akademi_baru','ttl_baru_akademi',
             'login_perusahaan','total_perusahaan','semua_perusahaan','perusahaan_baru','ttl_baru_perusahaan',
@@ -308,7 +310,13 @@ class ManagerController extends Controller
         $manager = User::where('referral_code',$user->referral_code)->first();
         $kandidat = Kandidat::all();
         $id_kandidat = null;
-        return view('manager/perusahaan/listIDPMI',compact('manager','kandidat','id_kandidat'));
+        $pmi_id = PMIID::join(
+            'kandidat','perusahaan_kebutuhan.id_kandidat','=','kandidat.id_kandidat'
+        )->join(
+            'perusahaan','perusahaan_kebutuhan.id_perusahaan','=','perusahaan.id_perusahaan'
+        )
+        ->get();
+        return view('manager/perusahaan/listIDPMI',compact('manager','kandidat','id_kandidat','pmi_id'));
     }
 
     public function buatIDPMI(Request $request)
@@ -320,7 +328,13 @@ class ManagerController extends Controller
         $tgl = Carbon::create($id_kandidat->tgl_lahir)->isoformat('d MMM Y');
         $negara = Negara::all();
         $perusahaan = Perusahaan::all();
-        return view('manager/perusahaan/listIDPMI',compact('manager','kandidat','id_kandidat','tgl','negara','perusahaan'));
+        $pmi_id = PMIID::join(
+            'kandidat','perusahaan_kebutuhan.id_kandidat','=','kandidat.id_kandidat'
+        )->join(
+            'perusahaan','perusahaan_kebutuhan.id_perusahaan','=','perusahaan.id_perusahaan'
+        )
+        ->get();
+        return view('manager/perusahaan/listIDPMI',compact('manager','kandidat','id_kandidat','tgl','negara','perusahaan','pmi_id'));
     }
 
     public function simpanIDPMI(Request $request)
@@ -343,6 +357,24 @@ class ManagerController extends Controller
         Kandidat::where('id_kandidat',$request->id_kandidat)->update([
             'negara_id' => $request->negara_id,
         ]);
+        return redirect('/manager/perusahaan/pembuatan_id_pmi');
+    }
+
+    public function lihatIDPMI($id)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $pmi_id = PMIID::join(
+            'kandidat','perusahaan_kebutuhan.id_kandidat','=','kandidat.id_kandidat'
+        )->join(
+            'perusahaan','perusahaan_kebutuhan.id_perusahaan','=','perusahaan.id_perusahaan'
+        )->join(
+            'ref_negara', 'kandidat.negara_id','=','ref_negara.negara_id'
+        )
+        ->where('perusahaan_kebutuhan.pmi_id',$id)->first();
+        $berlaku = Carbon::create($pmi_id->berlaku)->isoformat('d MMM Y');
+        $habis_berlaku = Carbon::create($pmi_id->habis_berlaku)->isoformat('d MMM Y');
+        return view('manager/perusahaan/lihat_PMIID',compact('manager','pmi_id','berlaku','habis_berlaku'));
     }
 
     // Akademi Data //
