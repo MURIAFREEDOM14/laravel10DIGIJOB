@@ -412,7 +412,7 @@
 
         <!-- datatable -->
         <script type="https://code.highcharts.com/highcharts.js"></script>
-        <script type="text/javascript">
+        {{-- <script type="text/javascript">
             var login = <?php echo json_encode($login_kandidat) ?>;
             var bulan = <?php echo json_encode($bulanan) ?>;
             Highcharts.chart('grafik',{
@@ -439,7 +439,7 @@
                     }
                 ]
             })
-        </script>
+        </script> --}}
         <script>
             $(document).ready(function() {
                 $('#basic-datatables').DataTable({
