@@ -1054,7 +1054,7 @@ class KandidatController extends Controller
 
         Kandidat::where('referral_code',$id->referral_code)->update([
             'no_paspor'=>$request->no_paspor,
-            'pemilik_paspor' => $request->pemilik_paspor,
+            'pemilik_paspor' => $kandidat->nama,
             'tgl_terbit_paspor'=>$request->tgl_terbit_paspor,
             'tgl_akhir_paspor'=>$request->tgl_akhir_paspor,
             'tmp_paspor'=>$request->tmp_paspor,

@@ -32,6 +32,7 @@ use App\Http\Controllers\ReferralController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\MessagerController;
 use PHPUnit\TextUI\Configuration\Group;
+use App\Http\Controllers\CaptchaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -513,7 +514,6 @@ Route::controller(PaymentController::class)->group(function(){
 
     // USER MANAGER //
     
-
 });
 
 Route::controller(GoogleController::class)->group(function(){
@@ -579,6 +579,11 @@ Route::controller(PrototypeController::class)->group(function(){
     Route::post('/proto_mail','email');
 
     Route::get('/make_captcha','captcha')->name('make.captcha');
+});
+
+Route::controller(CaptchaController::class)->group(function() {
+    Route::get('/captcha','showCaptcha');
+    Route::post('/captcha/verify','verifyCaptcha')->name('captcha.verify');
 });
 
 Route::get('/linewire',Location::class)->middleware('verify');

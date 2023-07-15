@@ -4,7 +4,7 @@
     <div class="container mt-5">
         <div class="card">
             <div class="card-header">
-                <h4><b class="bold">List Permohonan Lowongan Pekerjaan</b></h4>
+                <h4><b class="bold">List Pelamar Lowongan Pekerjaan</b></h4>
             </div>
             <div class="card-body">
                 <form action="/perusahaan/pilih/kandidat" method="POST">
@@ -17,8 +17,7 @@
                     <div class="row">
                         @if ($isi == 0)
                             <div class="col-md-12 text-center">
-                                <b>Maaf kandidat yang anda minta masih belum tersedia</b>
-                                <p>Sedang dalam pencarian</p>
+                                <b>Maaf, belum ada kandidat yang menerima lowongan</b>
                             </div>
                         @else
                             @foreach ($permohonan as $item)

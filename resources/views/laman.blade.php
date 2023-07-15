@@ -122,31 +122,31 @@
             </div>
             <div class="carousel-inner">
               <div class="carousel-item active" data-bs-interval="1800">
-                <img src="Arsha/assets/img/hero-img.png" class="img-fluid " alt="">
+                <img src="Arsha/assets/img/hero-img.png" class="img-fluid" alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
                 </div>
               </div>
               <div class="carousel-item" data-bs-interval="1800">
-                <img src="Arsha/assets/img/hero-img.png" class="img-fluid " alt="">
+                <img src="Arsha/assets/img/hero-img.png" class="img-fluid" alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
                 </div>
               </div>
               <div class="carousel-item" data-bs-interval="1800">
-                <img src="Arsha/assets/img/hero-img.png" class="img-fluid " alt="">
+                <img src="Arsha/assets/img/hero-img.png" class="img-fluid" alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
                 </div>
               </div>
               <div class="carousel-item" data-bs-interval="1800">
-                <img src="Arsha/assets/img/hero-img.png" class="img-fluid " alt="">
+                <img src="Arsha/assets/img/hero-img.png" class="img-fluid" alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
                 </div>
               </div>
               <div class="carousel-item" data-bs-interval="1800">
-                <img src="Arsha/assets/img/hero-img.png" class="img-fluid " alt="">
+                <img src="Arsha/assets/img/hero-img.png" class="img-fluid" alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
                 </div>

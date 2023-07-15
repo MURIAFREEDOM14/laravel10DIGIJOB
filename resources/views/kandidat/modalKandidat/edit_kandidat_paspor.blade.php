@@ -6,9 +6,6 @@
         <div class="card-body">
             <div class="row">
                 <h4 class="text-center">PROFIL BIO DATA</h4>
-                {{-- <h6 class="text-center mb-5" style="text-transform: uppercase">
-                    {{$negara}}
-                </h6> --}}
                 <form action="/isi_kandidat_paspor" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="" id="perizin">
@@ -30,7 +27,7 @@
                                 <label for="inputPassword6" class="col-form-label">Nama Pemilik Paspor</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" required value="{{$kandidat->pemilik_paspor}}" name="pemilik_paspor" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                <input type="text" disabled value="{{$kandidat->nama}}" name="pemilik_paspor" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                             </div>
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
