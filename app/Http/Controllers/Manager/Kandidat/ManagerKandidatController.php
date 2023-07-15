@@ -764,14 +764,14 @@ class ManagerKandidatController extends Controller
         $user = Auth::user();
         $manager = User::where('referral_code',$user->referral_code)->first();
         $kandidat = Kandidat::where('penempatan','like','%dalam negeri%')->get();
-        return view('manager/penempatan/dalam_negeri',compact('kandidat','manager'));
+        return view('manager/kandidat/dalam_negeri',compact('kandidat','manager'));
     }
     public function luarNegeri()
     {
         $user = Auth::user();
         $manager = User::where('referral_code',$user->referral_code)->first();
         $kandidat = Kandidat::where('penempatan','like',"%luar negeri%")->get();
-        return view('manager/penempatan/luar_negeri',compact('kandidat','manager'));
+        return view('manager/kandidat/luar_negeri',compact('kandidat','manager'));
     }
 
     public function pelamarLowongan()
