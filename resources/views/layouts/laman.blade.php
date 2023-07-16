@@ -125,6 +125,7 @@
           btn.disabled = "true";
         }
       }
+      grecaptcha.execute();
     </script>
   </body>
 </html>

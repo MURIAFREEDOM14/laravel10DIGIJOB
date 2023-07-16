@@ -567,9 +567,6 @@
                 });
             });
         </script>
-        
-        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
         <script type="text/javascript">
             function confirmation(ev)
                 {
@@ -600,7 +597,6 @@
                 });    
             }
         </script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
                 $(document).on('change','#placement',function() {
