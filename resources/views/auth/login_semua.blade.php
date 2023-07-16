@@ -22,21 +22,21 @@
                                   <label for="exampleInputPassword1">Masukkan Password</label>
                                   <input name="password" type="password" class="form-control" value="{{old('password')}}" required id="exampleInputPassword1">
                               </div>
-                              <div class="mb-3">
+                              {{-- <div class="mb-3">
                                 <label for="">Kode Captcha</label>
                                 <div class="g-recaptcha"
                                   data-sitekey="6LfWRh4nAAAAAPt7VvWit7lDBfejUQQO6x4V1ohZ"
                                   data-callback="onSubmit"
                                   data-size="invisible">
                                 </div>
-                                {{-- {!! NoCaptcha::renderJs() !!}
-                                {!! NoCaptcha::display() !!} --}}
+                                {!! NoCaptcha::renderJs() !!}
+                                {!! NoCaptcha::display() !!}
                                 @error('g-recaptcha-response')
                                   <span class="invalid-feedback" role="alert">
                                       <strong>Harap centang kode captcha</strong>
                                   </span>
                                 @enderror
-                              </div>
+                              </div> --}}
                             </div>
                         </div>
                         <div class=""><button type="button" class="btn btn-link mb-2" data-bs-toggle="modal" data-bs-target="#forgotPassword">Lupa Password</button></div>
