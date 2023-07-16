@@ -29,8 +29,8 @@
                                   data-callback="onSubmit"
                                   data-size="invisible">
                                 </div>
-                                {!! NoCaptcha::renderJs() !!}
-                                {!! NoCaptcha::display() !!}
+                                {{-- {!! NoCaptcha::renderJs() !!}
+                                {!! NoCaptcha::display() !!} --}}
                                 @error('g-recaptcha-response')
                                   <span class="invalid-feedback" role="alert">
                                       <strong>Harap centang kode captcha</strong>
