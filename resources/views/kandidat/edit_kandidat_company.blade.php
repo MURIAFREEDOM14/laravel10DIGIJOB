@@ -39,7 +39,7 @@
                             <div class="">
                                 @if ($pengalaman_kerja->video_pengalaman_kerja !== null)
                                     <video width="400" class="" id="video">
-                                        <source src="/gambar/Kandidat/{{$pengalaman_kerja->nama}}/Pengalaman Kerja/{{$pengalaman_kerja->video_pengalaman_kerja}}">
+                                        <source src="/gambar/Kandidat/{{$pengalaman_kerja->nama_kandidat}}/Pengalaman Kerja/{{$pengalaman_kerja->video_pengalaman_kerja}}">
                                     </video>
                                     <button class="btn btn-success mb-2" type="button" onclick="playPause()">Mulai/Jeda</button>
                                     <input type="file" name="video" class="form-control" id="video" aria-describedby="emailHelp" accept="video/*">

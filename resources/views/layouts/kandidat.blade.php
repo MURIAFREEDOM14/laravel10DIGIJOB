@@ -17,12 +17,14 @@
                 }
             });
         </script>
+        <script src="/js/captcha.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
         <!-- CSS Files -->
         <link rel="stylesheet" href="/Atlantis/examples/assets/css/bootstrap.min.css">
         <link rel="stylesheet" href="/Atlantis/examples/assets/css/atlantis.min.css">
-        <link rel="stylesheet" href="/cardSlide/style.css">    
+        <link rel="stylesheet" href="/cardSlide/style.css">
+        <link rel="stylesheet" href="/captcha.css">    
         <style>
             .bold{
                 font-size: 11px;
@@ -397,10 +399,10 @@
                                 </li> --}}
                             @endif
                             <li class="nav-item">
-                                <a class="btn  disabled" href="/pelatihan_interview">
+                                <a class="btn" href="/video_pelatihan">
                                     <i class="fas fa-clipboard-list"></i>
                                     {{-- <i class="fas fa-crown" style="color: yellow"></i> --}}
-                                    <p>Pelatihan Interview</p>
+                                    <p>Video Pelatihan</p>
                                 </a>
                             </li>
                             <li class="nav-section">

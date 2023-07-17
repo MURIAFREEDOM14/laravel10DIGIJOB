@@ -35,10 +35,8 @@ class ComposerStaticInit587246653a71d30b9c74e985c120f87b
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
         '5f2edeb18ca19ebd9ee6da72dc9f4292' => __DIR__ . '/..' . '/biscolab/laravel-recaptcha/src/helpers.php',
-        'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
         '40275907c8566c390185147049ef6e5d' => __DIR__ . '/..' . '/livewire/livewire/src/helpers.php',
         '38ea50801e981fa2297115e1c44a148b' => __DIR__ . '/..' . '/mckenziearts/laravel-notify/src/helpers.php',
-        '5e8fe2a5ffaded85af682684fe3bbf5a' => __DIR__ . '/..' . '/mews/captcha/src/helpers.php',
         'c72349b1fe8d0deeedd3a52e8aa814d8' => __DIR__ . '/..' . '/mockery/mockery/library/helpers.php',
         'ce9671a430e4846b44e1c68c7611f9f5' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'a1cfe24d14977df6878b9bf804af2d1c' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Phpunit/Autoload.php',
@@ -137,7 +135,6 @@ class ComposerStaticInit587246653a71d30b9c74e985c120f87b
             'Monolog\\' => 8,
             'Money\\' => 6,
             'Mockery\\' => 8,
-            'Mews\\Captcha\\' => 13,
             'Mckenziearts\\Notify\\' => 20,
             'MaxMind\\WebService\\' => 19,
             'MaxMind\\Exception\\' => 18,
@@ -218,7 +215,6 @@ class ComposerStaticInit587246653a71d30b9c74e985c120f87b
             'Cron\\' => 5,
             'Composer\\Semver\\' => 16,
             'Composer\\CaBundle\\' => 18,
-            'Collective\\Html\\' => 16,
             'Carbon\\' => 7,
         ),
         'B' => 
@@ -490,10 +486,6 @@ class ComposerStaticInit587246653a71d30b9c74e985c120f87b
         array (
             0 => __DIR__ . '/..' . '/mockery/mockery/library/Mockery',
         ),
-        'Mews\\Captcha\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/mews/captcha/src',
-        ),
         'Mckenziearts\\Notify\\' => 
         array (
             0 => __DIR__ . '/..' . '/mckenziearts/laravel-notify/src',
@@ -722,10 +714,6 @@ class ComposerStaticInit587246653a71d30b9c74e985c120f87b
         array (
             0 => __DIR__ . '/..' . '/composer/ca-bundle/src',
         ),
-        'Collective\\Html\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/laravelcollective/html/src',
-        ),
         'Carbon\\' => 
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
@@ -767,13 +755,6 @@ class ComposerStaticInit587246653a71d30b9c74e985c120f87b
             'Milon\\Barcode' => 
             array (
                 0 => __DIR__ . '/..' . '/milon/barcode/src',
-            ),
-        ),
-        'G' => 
-        array (
-            'Greggilbert\\Recaptcha' => 
-            array (
-                0 => __DIR__ . '/..' . '/greggilbert/recaptcha/src',
             ),
         ),
     );
@@ -1084,13 +1065,6 @@ class ComposerStaticInit587246653a71d30b9c74e985c120f87b
         'Carbon\\TranslatorImmutable' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/TranslatorImmutable.php',
         'Carbon\\TranslatorStrongTypeInterface' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/TranslatorStrongTypeInterface.php',
         'Collator' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/Resources/stubs/Collator.php',
-        'Collective\\Html\\Componentable' => __DIR__ . '/..' . '/laravelcollective/html/src/Componentable.php',
-        'Collective\\Html\\Eloquent\\FormAccessible' => __DIR__ . '/..' . '/laravelcollective/html/src/Eloquent/FormAccessible.php',
-        'Collective\\Html\\FormBuilder' => __DIR__ . '/..' . '/laravelcollective/html/src/FormBuilder.php',
-        'Collective\\Html\\FormFacade' => __DIR__ . '/..' . '/laravelcollective/html/src/FormFacade.php',
-        'Collective\\Html\\HtmlBuilder' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlBuilder.php',
-        'Collective\\Html\\HtmlFacade' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlFacade.php',
-        'Collective\\Html\\HtmlServiceProvider' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlServiceProvider.php',
         'Composer\\CaBundle\\CaBundle' => __DIR__ . '/..' . '/composer/ca-bundle/src/CaBundle.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Composer\\Semver\\Comparator' => __DIR__ . '/..' . '/composer/semver/src/Comparator.php',
@@ -2096,10 +2070,6 @@ class ComposerStaticInit587246653a71d30b9c74e985c120f87b
         'GrahamCampbell\\ResultType\\Error' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Error.php',
         'GrahamCampbell\\ResultType\\Result' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Result.php',
         'GrahamCampbell\\ResultType\\Success' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Success.php',
-        'Greggilbert\\Recaptcha\\CheckRecaptcha' => __DIR__ . '/..' . '/greggilbert/recaptcha/src/Greggilbert/Recaptcha/CheckRecaptcha.php',
-        'Greggilbert\\Recaptcha\\CheckRecaptchaV2' => __DIR__ . '/..' . '/greggilbert/recaptcha/src/Greggilbert/Recaptcha/CheckRecaptchaV2.php',
-        'Greggilbert\\Recaptcha\\RecaptchaInterface' => __DIR__ . '/..' . '/greggilbert/recaptcha/src/Greggilbert/Recaptcha/RecaptchaInterface.php',
-        'Greggilbert\\Recaptcha\\RecaptchaServiceProvider' => __DIR__ . '/..' . '/greggilbert/recaptcha/src/Greggilbert/Recaptcha/RecaptchaServiceProvider.php',
         'GuzzleHttp\\BodySummarizer' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/BodySummarizer.php',
         'GuzzleHttp\\BodySummarizerInterface' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/BodySummarizerInterface.php',
         'GuzzleHttp\\Client' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Client.php',
@@ -4352,11 +4322,6 @@ class ComposerStaticInit587246653a71d30b9c74e985c120f87b
         'Mckenziearts\\Notify\\LaravelNotify' => __DIR__ . '/..' . '/mckenziearts/laravel-notify/src/LaravelNotify.php',
         'Mckenziearts\\Notify\\LaravelNotifyServiceProvider' => __DIR__ . '/..' . '/mckenziearts/laravel-notify/src/LaravelNotifyServiceProvider.php',
         'Mckenziearts\\Notify\\Storage\\Session' => __DIR__ . '/..' . '/mckenziearts/laravel-notify/src/Storage/Session.php',
-        'Mews\\Captcha\\Captcha' => __DIR__ . '/..' . '/mews/captcha/src/Captcha.php',
-        'Mews\\Captcha\\CaptchaController' => __DIR__ . '/..' . '/mews/captcha/src/CaptchaController.php',
-        'Mews\\Captcha\\CaptchaServiceProvider' => __DIR__ . '/..' . '/mews/captcha/src/CaptchaServiceProvider.php',
-        'Mews\\Captcha\\Facades\\Captcha' => __DIR__ . '/..' . '/mews/captcha/src/Facades/Captcha.php',
-        'Mews\\Captcha\\LumenCaptchaController' => __DIR__ . '/..' . '/mews/captcha/src/LumenCaptchaController.php',
         'Milon\\Barcode\\BarcodeServiceProvider' => __DIR__ . '/..' . '/milon/barcode/src/Milon/Barcode/BarcodeServiceProvider.php',
         'Milon\\Barcode\\DNS1D' => __DIR__ . '/..' . '/milon/barcode/src/Milon/Barcode/DNS1D.php',
         'Milon\\Barcode\\DNS2D' => __DIR__ . '/..' . '/milon/barcode/src/Milon/Barcode/DNS2D.php',

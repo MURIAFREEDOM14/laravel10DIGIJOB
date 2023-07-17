@@ -385,6 +385,8 @@ Route::controller(KandidatController::class)->group(function() {
 
     Route::post('/info_connect/{nama}/{id}','simpanInfoConnect');
 
+    Route::get('/video_pelatihan','videoPelatihan')->middleware('kandidat');
+    Route::get('/lihat_video_pelatihan/{id}','lihatVideoPelatihan')->middleware('kandidat');
     // Route::get('/contact_us','contactUsKandidat');
     // Route::post('/contact_us','sendContactUsKandidat');
     // DATA PERUSAHAAN //

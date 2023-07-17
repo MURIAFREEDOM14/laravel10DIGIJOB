@@ -25,6 +25,7 @@
   <link href="/Arsha/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="/Arsha/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
+  <link rel="stylesheet" href="/css/captcha.css">  
   <!-- Template Main CSS File -->
   <link href="/Arsha/assets/css/style.css" rel="stylesheet">
 
@@ -112,6 +113,8 @@
     <script src="/Arsha/assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="/Arsha/assets/vendor/waypoints/noframework.waypoints.js"></script>
     <script src="/Arsha/assets/vendor/php-email-form/validate.js"></script>
+
+    <script src="/js/captcha.js"></script>
 
     <!-- Template Main JS File -->
     <script src="/Arsha/assets/js/main.js"></script>

@@ -40,13 +40,6 @@
                                         <option value="Luar Negeri">Luar Negeri</option>
                                     </select>
                                 </div>
-                                {{-- <div class="row mb-3 g-3 align-items-center">
-                                    <div class="col-md-4">
-                                    </div>
-                                    <div class="col-md-8">
-                                        
-                                    </div>
-                                </div> --}}
                                 <div class="mb-3">
                                     <label for="email" class="">{{ __('Email Address') }}</label>
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -74,11 +67,35 @@
                                         </span>
                                     @enderror
                                 </div>
+                                <div class="mb-3">
+                                    <div class="slidercaptcha card">
+                                      <div class="card-header">
+                                          <span>Kode Captcha</span>
+                                      </div>
+                                      <div class="card-body">
+                                        <div @required(true) class="@error('captcha') is-invalid @enderror" id="captcha"></div>
+                                        <div class="text-center mt-5" id="confirm">Kode Captcha Terkonfirmasi
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <input type="text" hidden name="captcha" value="" id="confirmCaptcha">
+                                    @error('captcha')
+                                      <span class="invalid-feedback" role="alert">
+                                          <strong>Harap isi captcha anda</strong>
+                                      </span>
+                                    @enderror
+                                </div>
                             </div>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" onclick="enable()" id="check">
+                            <span class="form-check-label" for="flexCheckDefault" style="font-size: 13px">
+                                Dengan ini, anda menyetujui <a href="/syarat_ketentuan/kandidat">syarat & ketentuan</a> kami.
+                            </span>
                         </div>
                         {{-- <a href="/login/perusahaan" class="btn btn-secondary">Kembali</a> --}}
                         <div class="">Sudah punya akun?<a href="/login" class="ms-1">Login</a></div>
-                        <button type="submit" class="btn btn-primary mt-3">
+                        <button type="submit" id="btn" disabled="true" class="btn btn-primary mt-3">
                             {{ __('Register') }}
                         </button>
                     </form>

@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Hash;
 use App\Models\PersetujuanKandidat;
+use App\Models\Pelatihan;
 
 class KandidatController extends Controller
 {
@@ -1106,5 +1107,26 @@ class KandidatController extends Controller
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
         return view('kandidat/contact_us',compact('kandidat','notif','pembayaran','pesan'));
+    }
+
+    public function videoPelatihan()
+    {
+        $id = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
+        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
+        $video = Pelatihan::where('negara_id',$kandidat->negara_id)->get();
+        return view('kandidat/video_pelatihan',compact('kandidat','notif','pesan','video'));
+    }
+
+    public function lihatVideoPelatihan($id)
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
+        $video = Pelatihan::where('id',$id)->first();
+        $pelatihan = Pelatihan::where('negara_id',$kandidat->negara_id)->where('id','not like',$id)->get();
+        return view('kandidat/lihat_video_pelatihan',compact('kandidat','notif','pesan','video','pelatihan'));
     }
 }

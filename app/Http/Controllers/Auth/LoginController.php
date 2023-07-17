@@ -112,6 +112,11 @@ class LoginController extends Controller
         return redirect('/')->with('success',"Selamat Datang");
     }
 
+    public function reloadCaptcha()
+    {
+        return response()->json(['captcha' => captcha_img()]);
+    }
+
     // public function loginKandidat()
     // {
     //     return view('/auth/login_kandidat');
@@ -130,7 +135,7 @@ class LoginController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
-            // 'g-recaptcha-response' => 'required|captcha',
+            'captcha' => 'required',
         ]);
         
         // $semua = User::where('email',$request->email)->where('password',$request->password)->first();

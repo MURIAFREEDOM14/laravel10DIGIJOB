@@ -81,6 +81,24 @@
                                     <label for="email" class="">{{ __('Konfirmasi Password') }}</label>
                                     <input id="password" type="password" class="form-control" name="passwordConfirm" required autocomplete="password">
                                 </div>
+                                <div class="mb-3">
+                                    <div class="slidercaptcha card">
+                                      <div class="card-header">
+                                          <span>Kode Captcha</span>
+                                      </div>
+                                      <div class="card-body">
+                                        <div @required(true) class="@error('captcha') is-invalid @enderror" id="captcha"></div>
+                                        <div class="text-center mt-5" id="confirm">Kode Captcha Terkonfirmasi
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <input type="text" hidden name="captcha" value="" id="confirmCaptcha">
+                                    @error('captcha')
+                                      <span class="invalid-feedback" role="alert">
+                                          <strong>Harap isi captcha anda</strong>
+                                      </span>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                         <div class="form-check">

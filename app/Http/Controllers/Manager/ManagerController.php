@@ -427,7 +427,7 @@ class ManagerController extends Controller
 
         // VIDEO PELATIHAN //
         $validated = $request->validate([
-            'video' => 'mimes:mp4,mov,ogg,qt | max:3000',
+            'video' => 'mimes:mp4,mov,ogg,qt',
         ]);
         $video = $request->file('video');
         $video->move('gambar/Manager/Pelatihan/'.$request->judul.'/Video',$request->judul.$video->getClientOriginalName());

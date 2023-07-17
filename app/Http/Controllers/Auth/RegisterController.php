@@ -123,6 +123,7 @@ class RegisterController extends Controller
             'no_telp' => 'required|unique:users|min:10|max:13',
             'nama_panggilan' => 'required|unique:kandidat|max:20',
             'password' => 'required|min:8',
+            'captcha' => 'required',
         ]);
 
         $tgl = Carbon::parse($request->tgl)->age;
@@ -180,6 +181,7 @@ class RegisterController extends Controller
             'email' => 'required|unique:users|max:255',
             'no_nis' => 'required|unique:users|max:40',
             'password' => 'required|min:8',
+            'captcha' => 'required',
         ]);
 
         $token = Str::random(64).$request->no_nis;
@@ -228,6 +230,7 @@ class RegisterController extends Controller
             'email' => 'required|unique:users|max:255',
             'no_nib' => 'required|unique:users|max:40',
             'password' => 'required|min:8',
+            'captcha' => 'required',
         ]);
 
         $token = Str::random(64).$request->no_nib;
