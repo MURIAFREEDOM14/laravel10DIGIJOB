@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('video')->nullable();
             $table->text('deskripsi')->nullable();
             $table->integer('negara_id')->nullable();
+            $table->string('tema')->nullable();
             $table->timestamps();
         });
     }

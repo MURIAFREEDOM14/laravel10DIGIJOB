@@ -89,7 +89,8 @@
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success">Tambah</button>
+                    <a class="btn btn-danger" href="/manager/kandidat/lihat_video_pelatihan/{{$pelatihan->id}}">Kembali</a>
+                    <button type="submit" class="btn btn-warning">Ubah</button>
                 </form>
             </div>
         </div>

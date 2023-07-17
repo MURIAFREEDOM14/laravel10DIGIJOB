@@ -8,12 +8,14 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <video width="250" height="250" class="img" id="video">
+                        <video width="250" height="250" class="" id="video">
                             <source src="/gambar/Manager/Pelatihan/{{$video->judul}}/Video/{{$video->video}}" type="video/mp4">
                         </video>
                         <button type="button" class="btn btn-success" onclick="playPause()">Mulai / Jeda</button>
+                        <button type="button" class="" onclick="fullsize()">Ukuran Penuh</button>
                     </div>
                     <div class="col-md-6">
+                        <hr>
                         <b class="bold">Judul Video : {{$video->judul}}</b>
                         <hr>
                         <b class="bold">Deskripsi : {{$video->deskripsi}}</b>
@@ -66,6 +68,6 @@
             } else {
                 video.pause();
             };
-        }
+        }   
     </script>
 @endsection

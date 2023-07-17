@@ -3,40 +3,48 @@
     <div class="container mt-5">
         <div class="card">
             <div class="card-header">
-                <h5 class="float-left">Pelatihan</h5>
-                <a href="/manager/kandidat/tambah_pelatihan" class="float-right btn btn-primary">Tambah</a>
+                <h3 class="float-left" style="font-weight: 700">Video Pelatihan</h3>
+                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal">+ Tambah Tema</button>
             </div>
             <div class="card-body">
                 <div class="row">
                     @foreach ($pelatihan as $item)
-                        <div class="col-6">
+                        <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <b>{{$item->judul}}</b>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <video width="200" class="img2"
-                                            @if ($item->thumbnail !== null)
-                                                poster="/gambar/Manager/Pelatihan/{{$item->judul}}/Thumbnail/{{$item->thumbnail}}"
-                                            @endif
-                                            controls>
-                                                <source src="/gambar/Manager/Pelatihan/{{$item->judul}}/Video/{{$item->video}}" type="video/mp4">
-                                            </video>
-                                        </div>
-                                        <div class="col-6">
-                                            <label style="font-weight: 400">{{$item->deskripsi}}</label>
-                                        </div>
-                                        <a class="btn btn-warning" href="/manager/kandidat/edit_pelatihan/{{$item->id}}">Edit</a>
-                                        <a class="btn btn-danger ml-1" href="/manager/kandidat/hapus_pelatihan/{{$item->id}}">Hapus</a>
-                                    </div>
+                                    <b class="float-left">{{$item->tema}}</b>
+                                    <a class="btn btn-primary float-right" href="/manager/kandidat/lihat_video_pelatihan/{{$item->id}}">Lihat</a>
                                 </div>
                             </div>
                         </div>
                     @endforeach
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form action="/manager/kandidat/tambah_tema_pelatihan" method="POST">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tema Pelatihan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Nama Tema</label>
+                    <input type="text" class="form-control" name="tema" required id="recipient-name">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Tambahkan</button>
+                </div>
+            </form>
+          </div>
         </div>
     </div>
 @endsection

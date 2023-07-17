@@ -27,7 +27,7 @@
                                             <b class="" style="text-transform: uppercase;">Video Pelatihan</b>
                                         </div>
                                         <div class="card-body text-white" style="font-size: 15px; text-transform:uppercase;">
-                                            <b>Mari Atasi sikap gugupmu dan tambahkan rasa percaya dirimu dengan Pelatihan Interview</b> 
+                                            <b>Hai, kami punya video pelatihan nih buat kamu. Apakah kamu penasaran? Tonton yuk</b> 
                                         </div>
                                     </div>
                                 </div>
@@ -59,11 +59,6 @@
                                         </div>
                                     </div>
                                 @endforeach
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <a class="btn btn-primary" href="/list_video_interview">Lihat Lebih banyak</a>
-                                </div>
                             </div>
                         </div>
                     </div>

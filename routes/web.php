@@ -66,11 +66,13 @@ Route::controller(ManagerController::class)->group(function() {
     Route::get('/manager/kandidat/lihat_profil/{id}','lihatProfil')->middleware('manager');
     
     Route::get('/manager/kandidat/pelatihan','pelatihan')->middleware('manager');
-    Route::get('/manager/kandidat/tambah_pelatihan','tambahPelatihan')->middleware('manager');
-    Route::post('/manager/kandidat/tambah_pelatihan','simpanPelatihan');
-    Route::get('/manager/kandidat/edit_pelatihan/{id}','editPelatihan')->middleware('manager');
-    Route::post('/manager/kandidat/edit_pelatihan/{id}','updatePelatihan');
-    Route::get('/manager/kandidat/hapus_pelatihan/{id}','hapusPelatihan')->middleware('manager');
+    Route::post('/manager/kandidat/tambah_tema_pelatihan','simpanTemaPelatihan');
+    Route::get('/manager/kandidat/lihat_video_pelatihan/{id}','lihatVideoPelatihan')->middleware('manager');
+    Route::get('/manager/kandidat/tambah_video_pelatihan/{tema}/{id}','tambahVideoPelatihan')->middleware('manager');
+    Route::post('/manager/kandidat/tambah_video_pelatihan/{tema}/{id}','simpanVideoPelatihan');
+    Route::get('/manager/kandidat/edit_video_pelatihan/{tema}/{id}','editVideoPelatihan')->middleware('manager');
+    Route::post('/manager/kandidat/edit_video_pelatihan/{tema}/{id}','updateVideoPelatihan');
+    Route::get('/manager/kandidat/hapus_video_pelatihan/{id}','hapusVideoPelatihan')->middleware('manager');
 
     Route::get('/manager/pembayaran/kandidat','pembayaranKandidat')->middleware('manager');
     Route::get('/manager/cek_pembayaran/kandidat/{id}','cekPembayaranKandidat')->middleware('manager');

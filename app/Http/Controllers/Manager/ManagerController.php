@@ -399,19 +399,46 @@ class ManagerController extends Controller
     {
         $auth = Auth::user();
         $manager = User::where('referral_code',$auth->referral_code)->first();      
-        $pelatihan = Pelatihan::limit(40)->get();
+        $pelatihan = Pelatihan::limit(20)->whereNull('judul')->get();
         return view('manager/kandidat/pelatihan',compact('manager','pelatihan'));
     }
 
-    public function tambahPelatihan()
+    public function tambahTemaPelatihan()
+    {
+        $auth = Auth::user();
+        $manager = User::where('referral_code',$auth->referral_code)->first();
+        return view('manager/kandidat/tambah_tema_pelatihan',compact('manager'));
+    }
+
+    public function simpanTemaPelatihan(Request $request)
+    {
+        $auth = Auth::user();
+        $manager = User::where('referral_code',$auth->referral_code)->first();        
+        Pelatihan::create([
+            'tema' => $request->tema,
+        ]);
+        return redirect('/manager/kandidat/pelatihan')->with('success',"Tema pelatihan ditambahkan");
+    }
+
+    public function lihatVideoPelatihan($id)
+    {
+        $auth = Auth::user();
+        $manager = User::where('referral_code',$auth->referral_code)->first();        
+        $pelatihan = Pelatihan::where('id',$id)->first();
+        $video = Pelatihan::where('tema',$pelatihan->tema)->get();
+        return view('manager/kandidat/video_pelatihan',compact('manager','pelatihan','video'));
+    }
+
+    public function tambahVideoPelatihan($tema,$id)
     {
         $auth = Auth::user();
         $manager = User::where('referral_code',$auth->referral_code)->first();
         $negara = Negara::all();
-        return view('manager/kandidat/tambah_pelatihan',compact('manager','negara'));
+        $pelatihan = Pelatihan::where('tema',$tema)->where('id',$id)->first();
+        return view('manager/kandidat/tambah_pelatihan',compact('manager','negara','pelatihan'));
     }
 
-    public function simpanPelatihan(Request $request)
+    public function simpanVideoPelatihan(Request $request,$tema,$id)
     {
         $auth = Auth::user();
         $manager = User::where('referral_code',$auth->referral_code)->first();
@@ -440,24 +467,25 @@ class ManagerController extends Controller
             'thumbnail'=>$thumbnail,
             'url'=>$request->url,
             'negara_id'=>$request->negara_id,
+            'tema'=>$tema,
         ]);
-        return redirect('/manager/kandidat/pelatihan');
+        return redirect('/manager/kandidat/lihat_video_pelatihan/'.$id);
     }
 
-    public function editPelatihan($id)
+    public function editVideoPelatihan($tema,$id)
     {
         $auth = Auth::user();
         $manager = User::where('referral_code',$auth->referral_code)->first();
-        $pelatihan = Pelatihan::where('id',$id)->first();
+        $pelatihan = Pelatihan::where('tema',$tema)->where('id',$id)->first();
         $negara = Negara::all();
         return view('manager/kandidat/edit_pelatihan',compact('pelatihan','manager','negara'));
     }
 
-    public function updatePelatihan(Request $request,$id)
+    public function updateVideoPelatihan(Request $request,$tema,$id)
     {
         $auth = Auth::user();
         $manager = User::where('referral_code',$auth->referral_code)->first();
-        $pelatihan = Pelatihan::where('id',$id)->first();
+        $pelatihan = Pelatihan::where('tema',$tema)->where('id',$id)->first();
         
         // THUMBNAIL //
         if ($request->file('thumbnail') !== null) {    
@@ -518,19 +546,15 @@ class ManagerController extends Controller
         return redirect('/manager/kandidat/pelatihan');
     }
 
-    public function hapusPelatihan($id)
+    public function hapusVideoPelatihan($id)
     {
         $hapus = Pelatihan::findorfail($id);
         $file = public_path('/gambar/Manager/Pelatihan/'.$hapus->judul.'/Thumbnail/').$hapus->thumbnail;
         if(file_exists($file)){
             @unlink($file);
         }
-        $video = public_path('/gambar/Manager/Pelatihan/'.$hapus->judul.'/Video/').$hapus->video;
-        if(file_exists($video)){
-            @unlink($video);
-        }
         Pelatihan::where('id',$id)->delete();
-        return redirect('/manager/kandidat/pelatihan');
+        return redirect('/manager/kandidat/lihat_video_pelatihan/'.$hapus->id);
     }
 
     public function permohonanStaff()
