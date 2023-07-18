@@ -888,7 +888,6 @@ class ComposerStaticInit587246653a71d30b9c74e985c120f87b
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
-        'App\\Services\\SlidingPuzzleGenerator' => __DIR__ . '/../..' . '/app/Services/SlidingPuzzleGenerator.php',
         'ArchTech\\Enums\\Exceptions\\UndefinedCaseError' => __DIR__ . '/..' . '/archtechx/enums/src/Exceptions/UndefinedCaseError.php',
         'ArchTech\\Enums\\From' => __DIR__ . '/..' . '/archtechx/enums/src/From.php',
         'ArchTech\\Enums\\InvokableCases' => __DIR__ . '/..' . '/archtechx/enums/src/InvokableCases.php',

@@ -184,7 +184,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         Stevebauman\Location\LocationServiceProvider::class,
-        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+        // RealRashid\SweetAlert\SweetAlertServiceProvider::class,
 
         //Barcode
         Milon\Barcode\BarcodeServiceProvider::class,
@@ -233,7 +233,7 @@ return [
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
         'Image' => Intervention\Image\Facades\Image::class,
         
-        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+        // 'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
 
     ])->toArray(),
 
