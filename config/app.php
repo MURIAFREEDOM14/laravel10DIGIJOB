@@ -184,6 +184,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         Stevebauman\Location\LocationServiceProvider::class,
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
 
         //Barcode
         Milon\Barcode\BarcodeServiceProvider::class,

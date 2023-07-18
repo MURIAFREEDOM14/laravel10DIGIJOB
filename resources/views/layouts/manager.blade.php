@@ -384,7 +384,6 @@
         <!-- jQuery Scrollbar -->
         <script src="/Atlantis/examples/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 
-
         <!-- Chart JS -->
         <script src="/Atlantis/examples/assets/js/plugin/chart.js/chart.min.js"></script>
 
@@ -522,6 +521,55 @@
                     }
                 });    
             }
+        </script>
+        <script>
+            var multipleBarChart = document.getElementById('multipleBarChart').getContext('2d');
+            var myMultipleBarChart = new Chart(multipleBarChart, {
+                type: 'bar',
+                data: {
+                    labels: ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"],
+                    datasets : [{
+                        label: "Kandidat",
+                        backgroundColor: '#177dff',
+                        borderColor: '#177dff',
+                        data: [50, 100, 112, 101, 144, 159, 178, 156, 188, 190, 210, 245],
+                    },{
+                        label: "Akademi",
+                        backgroundColor: '#fdaf4b',
+                        borderColor: '#fdaf4b',
+                        data: [145, 256, 244, 233, 210, 279, 287, 253, 287, 299, 312,356],
+                    }, {
+                        label: "Perusahaan",
+                        backgroundColor: '#59d05d',
+                        borderColor: '#59d05d',
+                        data: [185, 279, 273, 287, 234, 312, 322, 286, 301, 320, 346, 399],
+                    }],
+                },
+                options: {
+                    responsive: true, 
+                    maintainAspectRatio: false,
+                    legend: {
+                        position : 'bottom'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Pengguna'
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    responsive: true,
+                    scales: {
+                        xAxes: [{
+                            stacked: true,
+                        }],
+                        yAxes: [{
+                            stacked: true
+                        }]
+                    }
+                }
+            });
         </script>
         @livewireScripts
     </body>

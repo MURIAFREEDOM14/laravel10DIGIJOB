@@ -71,7 +71,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-head-row">
-                        <div class="card-title">Statistik Pengguna Aplikasi</div>
+                        <div class="card-title">Statistik Pengguna Aplikasi Hari Ini</div>
                         <div class="card-tools">
                             <a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2">
                                 <span class="btn-label">
@@ -104,6 +104,16 @@
                     {{-- <div class="chart-container" style="min-height: 375px">
                         <canvas id="multipleBarChart"></canvas>
                     </div> --}}
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Statistik Pengguna Mingguan</div>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="multipleBarChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
