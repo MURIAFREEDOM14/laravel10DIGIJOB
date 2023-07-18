@@ -74,7 +74,7 @@
                                       </div>
                                       <div class="card-body">
                                         <div class="@error('captcha') is-invalid @enderror" id="captcha"></div>
-                                        <div class="text-center mt-5" id="confirm">Kode Captcha Terkonfirmasi
+                                        <div class="text-center mt-5" id="confirm">
                                         </div>
                                       </div>
                                     </div>

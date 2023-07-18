@@ -37,8 +37,12 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 <style>
-  p{
+  p {
     font-family: 'poppins';
+  }
+  .img {
+    width: 100%;
+    height: auto;
   }
 </style>
 </head>

@@ -158,10 +158,6 @@ font-family: 'Roboto', sans-serif;
     color: #fff;
 }
 
-#confirm {
-    display: none;
-}
-
 #captcha {
     display: block;
 }

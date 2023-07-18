@@ -271,9 +271,6 @@ Route::controller(PerusahaanController::class)->group(function(){
 
     Route::get('/perusahaan/lihat/perusahaan','profil')->middleware('perusahaan');    
     Route::get('/contact_us_perusahaan','contactUsPerusahaan')->middleware('perusahaan');
-    
-    Route::get('/perusahaan/list_permohonan_lowongan','listPermohonanLowongan');
-    Route::post('/perusahaan/list_permohonan_lowongan','confirmPermohonanLowongan');
 
     Route::get('/perusahaan/list/pmi_id','listPmiID')->middleware('perusahaan');
     Route::get('/perusahaan/pembuatan_pmi_id','pembuatanPmiID')->middleware('perusahaan');
@@ -294,10 +291,6 @@ Route::controller(PerusahaanController::class)->group(function(){
     Route::get('/perusahaan/cari/kandidat','pencarianKandidat')->middleware('perusahaan');
     Route::post('/perusahaan/cari/kandidat','cariKandidat');
     Route::post('/perusahaan/pilih/kandidat','pilihKandidat');
-    Route::get('/perusahaan/permohonan_lowongan_pekerjaan/{id}','permohonanLowonganPekerjaan');
-    Route::post('/perusahaan/permohonan_lowongan_pekerjaan/{id}','confirmLowonganPekerjaan');    
-    Route::get('/perusahaan/persetujuan_kandidat','persetujuanKandidat');
-    Route::post('/perusahaan/persetujuan_kandidat','confirmPersetujuanKandidat');
     Route::get('/perusahaan/lihat/kandidat/{id}','lihatProfilKandidat')->middleware('perusahaan');
     Route::get('/perusahaan/lihat/video_kandidat/{id}','lihatVideoKandidat')->middleware('perusahaan');
     Route::get('/perusahaan/interview','JadwalInterview')->middleware('perusahaan');
@@ -338,6 +331,14 @@ Route::controller(PerusahaanRecruitmentController::class)->group(function() {
     Route::get('/perusahaan/edit_lowongan/{id}','editLowongan')->middleware('perusahaan');
     Route::post('/perusahaan/edit_lowongan/{id}','updateLowongan');
     Route::get('/perusahaan/hapus_lowongan/{id}','hapusLowongan')->middleware('perusahaan');
+
+    Route::get('/perusahaan/list_permohonan_lowongan','listPermohonanLowongan');
+    Route::post('/perusahaan/list_permohonan_lowongan','confirmPermohonanLowongan');
+    Route::get('/perusahaan/permohonan_lowongan_pekerjaan/{id}','permohonanLowonganPekerjaan');
+    Route::post('/perusahaan/permohonan_lowongan_pekerjaan/{id}','confirmLowonganPekerjaan');    
+    Route::get('/perusahaan/persetujuan_kandidat','persetujuanKandidat');
+    Route::post('/perusahaan/persetujuan_kandidat','confirmPersetujuanKandidat');
+
 });
 
 // DATA KANDIDAT //

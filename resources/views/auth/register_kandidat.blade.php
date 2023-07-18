@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="nama_panggilan" class="">{{ __('Username / Nama Panggilan') }}</label>
-                                    <input id="nama_panggilan" type="text" class="form-control @error('nama_panggilan') is-invalid @enderror" name="nama_panggilan" value="{{ old('nama_panggilan') }}" required autocomplete="nama_panggilan">
+                                    <input id="nama_panggilan" type="text" placeholder="Maks 20 kata" class="form-control @error('nama_panggilan') is-invalid @enderror" name="nama_panggilan" value="{{ old('nama_panggilan') }}" required autocomplete="nama_panggilan">
                                     @error('nama_panggilan')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -70,16 +70,16 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="">{{ __('Buat Password') }}</label>
-                                    <input id="password" type="text" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" required autocomplete="password">
+                                    <input id="password" type="text" placeholder="min 8 kata" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" required autocomplete="password">
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>password harus berisi min 6 digit dan max 20 digit</strong>
+                                            <strong>password harus berisi min 8 digit dan max 20 digit</strong>
                                         </span>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="">{{ __('Konfirmasi Password') }}</label>
-                                    <input id="password" type="password" class="form-control" name="passwordConfirm" required autocomplete="password">
+                                    <input id="password" type="password" placeholder="Masukkan ulang password anda dengan benar" class="form-control" name="passwordConfirm" required autocomplete="password">
                                 </div>
                                 <div class="mb-3">
                                     <div class="slidercaptcha card">
@@ -88,7 +88,7 @@
                                       </div>
                                       <div class="card-body">
                                         <div class="@error('captcha') is-invalid @enderror" id="captcha"></div>
-                                        <div class="text-center mt-5" id="confirm">Kode Captcha Terkonfirmasi
+                                        <div class="text-center mt-5" id="confirm">
                                         </div>
                                       </div>
                                     </div>

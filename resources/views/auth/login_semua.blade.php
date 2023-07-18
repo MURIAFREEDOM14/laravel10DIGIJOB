@@ -22,18 +22,20 @@
                                   <label for="exampleInputPassword1">Masukkan Password</label>
                                   <input name="password" type="password" class="form-control" value="{{old('password')}}" required id="exampleInputPassword1">
                               </div>
-                              <div class="mb-3">
-                                <div class="slidercaptcha card">
-                                  <div class="card-header">
-                                      <span>Kode Captcha</span>
-                                  </div>
-                                  <div class="card-body">
-                                    <div class="@error('captcha') is-invalid @enderror" id="captcha"></div>
-                                    <div class="text-center mt-5" id="confirm">Kode Captcha Terkonfirmasi
+                              <div class="row mb-3">
+                                <div class="col-md-12">
+                                  <div class="slidercaptcha card">
+                                    <div class="card-header">
+                                        <span>Kode Captcha</span>
+                                    </div>
+                                    <div class="card-body">
+                                      <div class="@error('captcha') is-invalid @enderror" id="captcha"></div>
+                                      <div class="text-center mt-5" id="confirm">
+                                      </div>
                                     </div>
                                   </div>
+                                  <input type="text" hidden name="captcha" value="" id="confirmCaptcha">
                                 </div>
-                                <input type="text" hidden name="captcha" value="" id="confirmCaptcha">
                                 @error('captcha')
                                   <span class="invalid-feedback" role="alert">
                                       <strong>Harap isi captcha anda</strong>
