@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Notification;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class RegisterController extends Controller
 {
