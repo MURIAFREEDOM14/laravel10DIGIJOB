@@ -14,6 +14,6 @@
     },
     "dependencies": {
         "@slider-captcha/react": "^1.0.0",
-        "sweetalert2": "^11.6.13"
+        "sweetalert2": "^11.7.18"
     }
 }
