@@ -1,6 +1,7 @@
 @extends('layouts.laman')
 @section('content')
 @include('sweetalert::alert')
+@include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
 <div class="container">
     <div class="row">
         <div class="col-md-3"></div>
