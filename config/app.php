@@ -184,13 +184,14 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         Stevebauman\Location\LocationServiceProvider::class,
-        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+        // RealRashid\SweetAlert\SweetAlertServiceProvider::class,
 
         //Barcode
         Milon\Barcode\BarcodeServiceProvider::class,
 
         //capctha
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+        Mews\Captcha\CaptchaServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
         /*
@@ -229,9 +230,10 @@ return [
 
         //Image
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
         'Image' => Intervention\Image\Facades\Image::class,
         
-        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+        // 'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
 
     ])->toArray(),
 
