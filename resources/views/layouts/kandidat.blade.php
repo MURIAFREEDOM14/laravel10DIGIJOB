@@ -399,7 +399,7 @@
                                 </li> --}}
                             @endif
                             <li class="nav-item">
-                                <a class="btn" href="/video_pelatihan">
+                                <a class="btn disabled" href="/video_pelatihan">
                                     <i class="fas fa-clipboard-list"></i>
                                     {{-- <i class="fas fa-crown" style="color: yellow"></i> --}}
                                     <p>Video Pelatihan</p>

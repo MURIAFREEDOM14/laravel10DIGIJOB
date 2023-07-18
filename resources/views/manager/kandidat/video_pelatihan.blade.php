@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="float-left" style="font-weight: 700">Pelatihan</h3>
-                <a class=" float-right btn btn-primary" href="/manager/kandidat/tambah_video_pelatihan/{{$pelatihan->tema}}/{{$pelatihan->id}}">Tambah</a>
+                <a class=" float-right btn btn-primary" href="/manager/kandidat/tambah_video_pelatihan/{{$pelatihan->tema_pelatihan}}/{{$pelatihan->tema_pelatihan_id}}">Tambah</a>
             </div>
             <div class="card-body">
                 @foreach ($video as $item)
@@ -14,7 +14,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h4 style="font-weight: 500" class="float-left">{{$item->judul}}</h4>
-                                        <a class="btn btn-danger mx-1 float-right" onclick="hapusNegara(event)" href="/manager/kandidat/hapus_video_pelatihan/{{$item->id}}">Hapus</a>
+                                        <a class="btn btn-danger mx-1 float-right" onclick="hapusNegara(event)" href="/manager/kandidat/hapus_video_pelatihan/{{$pelatihan->tema_pelatihan_id}}/{{$item->id}}">Hapus</a>
                                         <a class="btn btn-warning float-right" href="/manager/kandidat/edit_video_pelatihan/{{$item->tema}}/{{$item->id}}">Edit</a>
                                     </div>
                                     <div class="card-body">

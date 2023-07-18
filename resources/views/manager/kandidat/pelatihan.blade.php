@@ -12,8 +12,8 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <b class="float-left">{{$item->tema}}</b>
-                                    <a class="btn btn-primary float-right" href="/manager/kandidat/lihat_video_pelatihan/{{$item->id}}">Lihat</a>
+                                    <b class="float-left">{{$item->tema_pelatihan}}</b>
+                                    <a class="btn btn-primary float-right" href="/manager/kandidat/lihat_video_pelatihan/{{$item->tema_pelatihan_id}}">Lihat</a>
                                 </div>
                             </div>
                         </div>

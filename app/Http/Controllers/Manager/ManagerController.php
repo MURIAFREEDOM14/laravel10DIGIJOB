@@ -26,6 +26,7 @@ use App\Models\notifyPerusahaan;
 use App\Models\messageKandidat;
 use App\Models\messageAkademi;
 use App\Models\messagePerusahaan;
+use App\Models\TemaPelatihan;
 use App\Models\Pelatihan;
 use App\Models\ContactUs;
 use App\Models\PencarianStaff;
@@ -399,7 +400,7 @@ class ManagerController extends Controller
     {
         $auth = Auth::user();
         $manager = User::where('referral_code',$auth->referral_code)->first();      
-        $pelatihan = Pelatihan::limit(20)->whereNull('judul')->get();
+        $pelatihan = TemaPelatihan::all();
         return view('manager/kandidat/pelatihan',compact('manager','pelatihan'));
     }
 
@@ -414,8 +415,8 @@ class ManagerController extends Controller
     {
         $auth = Auth::user();
         $manager = User::where('referral_code',$auth->referral_code)->first();        
-        Pelatihan::create([
-            'tema' => $request->tema,
+        TemaPelatihan::create([
+            'tema_pelatihan' => $request->tema,
         ]);
         return redirect('/manager/kandidat/pelatihan')->with('success',"Tema pelatihan ditambahkan");
     }
@@ -424,8 +425,8 @@ class ManagerController extends Controller
     {
         $auth = Auth::user();
         $manager = User::where('referral_code',$auth->referral_code)->first();        
-        $pelatihan = Pelatihan::where('id',$id)->first();
-        $video = Pelatihan::where('tema',$pelatihan->tema)->get();
+        $pelatihan = TemaPelatihan::where('tema_pelatihan_id',$id)->first();
+        $video = Pelatihan::where('tema',$pelatihan->tema_pelatihan)->get();
         return view('manager/kandidat/video_pelatihan',compact('manager','pelatihan','video'));
     }
 
@@ -434,7 +435,7 @@ class ManagerController extends Controller
         $auth = Auth::user();
         $manager = User::where('referral_code',$auth->referral_code)->first();
         $negara = Negara::all();
-        $pelatihan = Pelatihan::where('tema',$tema)->where('id',$id)->first();
+        $pelatihan = TemaPelatihan::where('tema_pelatihan',$tema)->where('tema_pelatihan_id',$id)->first();
         return view('manager/kandidat/tambah_pelatihan',compact('manager','negara','pelatihan'));
     }
 
@@ -442,7 +443,6 @@ class ManagerController extends Controller
     {
         $auth = Auth::user();
         $manager = User::where('referral_code',$auth->referral_code)->first();
-        $pelatihan = Pelatihan::where('judul','like','%'.$request->judul.'%')->first();
         
         // THUMBNAIL //
         if($request->file('thumbnail') !== null){
@@ -468,6 +468,7 @@ class ManagerController extends Controller
             'url'=>$request->url,
             'negara_id'=>$request->negara_id,
             'tema'=>$tema,
+            'tema_pelatihan_id'=>$id,
         ]);
         return redirect('/manager/kandidat/lihat_video_pelatihan/'.$id);
     }
@@ -546,7 +547,7 @@ class ManagerController extends Controller
         return redirect('/manager/kandidat/pelatihan');
     }
 
-    public function hapusVideoPelatihan($id)
+    public function hapusVideoPelatihan($temaid,$id)
     {
         $hapus = Pelatihan::findorfail($id);
         $file = public_path('/gambar/Manager/Pelatihan/'.$hapus->judul.'/Thumbnail/').$hapus->thumbnail;
@@ -554,7 +555,7 @@ class ManagerController extends Controller
             @unlink($file);
         }
         Pelatihan::where('id',$id)->delete();
-        return redirect('/manager/kandidat/lihat_video_pelatihan/'.$hapus->id);
+        return redirect('/manager/kandidat/lihat_video_pelatihan/'.$temaid);
     }
 
     public function permohonanStaff()

@@ -29,7 +29,7 @@
                         <div class="col-md-3">
                             <label for="">Gambar</label>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-4">
                             <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Lowongan Pekerjaan/{{$lowongan->gambar_lowongan}}" width="250" height="250" alt="" class="img">                            
                         </div>
                     </div>    

@@ -89,7 +89,7 @@
                             </select>
                         </div>
                     </div>
-                    <a class="btn btn-danger" href="/manager/kandidat/lihat_video_pelatihan/{{$pelatihan->id}}">Kembali</a>
+                    <a class="btn btn-danger" href="/manager/kandidat/lihat_video_pelatihan/{{$pelatihan->tema_pelatihan_id}}">Kembali</a>
                     <button type="submit" class="btn btn-warning">Ubah</button>
                 </form>
             </div>

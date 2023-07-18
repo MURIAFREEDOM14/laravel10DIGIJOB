@@ -69,6 +69,7 @@ return array(
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'Money\\' => array($vendorDir . '/moneyphp/money/src'),
     'Mockery\\' => array($vendorDir . '/mockery/mockery/library/Mockery'),
+    'Mews\\Captcha\\' => array($vendorDir . '/mews/captcha/src'),
     'Mckenziearts\\Notify\\' => array($vendorDir . '/mckenziearts/laravel-notify/src'),
     'MaxMind\\WebService\\' => array($vendorDir . '/maxmind/web-service-common/src/WebService'),
     'MaxMind\\Exception\\' => array($vendorDir . '/maxmind/web-service-common/src/Exception'),

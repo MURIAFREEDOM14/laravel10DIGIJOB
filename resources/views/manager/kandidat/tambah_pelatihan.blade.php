@@ -61,6 +61,7 @@
                             </select>
                         </div>
                     </div>
+                    <a class="btn btn-danger" href="/manager/kandidat/lihat_video_pelatihan/{{$pelatihan->tema_pelatihan_id}}">Kembali</a>
                     <button type="submit" class="btn btn-success">Tambah</button>
                 </form>
             </div>
