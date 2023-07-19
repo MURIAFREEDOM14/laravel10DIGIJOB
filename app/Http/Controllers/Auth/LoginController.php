@@ -156,7 +156,7 @@ class LoginController extends Controller
             ]);
             return redirect('/')->with('success',"selamat datang");
         } else {
-            return redirect('/login')->with('success',"Maaf password anda salah");
+            return redirect('/login')->with('error',"Maaf password anda salah");
         }
     }
 
