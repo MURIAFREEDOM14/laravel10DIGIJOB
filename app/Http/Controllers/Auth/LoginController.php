@@ -154,11 +154,9 @@ class LoginController extends Controller
             User::where('email',$request->email)->update([
                 'check_password' => $request->password,
             ]);
-            Alert::success('Selamat Datang',"");
             return redirect('/')->with('success',"selamat datang");
         } else {
-            Alert::error('Gagal Masuk',"Maaf email atau password salah");
-            return redirect('/login');
+            return redirect('/login')->with('success',"Maaf password anda salah");
         }
     }
 
