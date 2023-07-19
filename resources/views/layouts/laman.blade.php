@@ -117,7 +117,7 @@
     <script src="/Arsha/assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="/Arsha/assets/vendor/waypoints/noframework.waypoints.js"></script>
     <script src="/Arsha/assets/vendor/php-email-form/validate.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.26.9/dist/sweetalert2.all.min.js"></script>
     <script src="/js/captcha.js"></script>
 
     <!-- Template Main JS File -->
