@@ -80,7 +80,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="">{{ __('Konfirmasi Password') }}</label>
-                                    <input id="password" type="password" placeholder="Masukkan ulang password anda dengan benar" class="form-control" name="passwordConfirm" required autocomplete="password">
+                                    <input id="password" type="text" placeholder="Masukkan ulang password anda dengan benar" class="form-control" name="passwordConfirm" required autocomplete="password">
                                 </div>
                                 <div class="mb-3">
                                     <div class="slidercaptcha card">
