@@ -65,7 +65,7 @@ class LoginController extends Controller
             $token = Str::random(64).$request->no_telp;
             User::where('email',$request->email)->update([
                 'token' => $token,
-                // 'password' => null,
+                'password' => null,
                 // 'verify_confirmed' => null,
             ]);
             dd($request);
