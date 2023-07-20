@@ -165,8 +165,9 @@ class KandidatController extends Controller
             'password' => $password,
             'check_password' => $check_password,
         ]);
-        Alert::toast('Data anda tersimpan','success');
-        return redirect('/isi_kandidat_document');
+        // Alert::toast('Data anda tersimpan','success');
+        return redirect('/isi_kandidat_document')
+        ->with('success',"Data anda tersimpan");
         // ->with('toast_success',"Data anda tersimpan");
     }
 
@@ -360,7 +361,9 @@ class KandidatController extends Controller
         ]);
 
         if ($request->stats_nikah == "Menikah") {
-            return redirect()->route('family')->with('toast_success',"Data anda tersimpan");
+            return redirect()->route('family')
+            // ->with('toast_success',"Data anda tersimpan");
+            ->with('success',"Data anda tersimpan");
         } elseif($request->stats_nikah == "Cerai hidup"){
             $hapus_buku_nikah = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/').$kandidat->foto_buku_nikah;
             if(file_exists($hapus_buku_nikah)){
@@ -383,7 +386,9 @@ class KandidatController extends Controller
                 'foto_cerai' =>null,
                 'foto_kematian_pasangan' => null,
             ]);
-            return redirect()->route('family')->with('toast_success',"Data anda tersimpan");
+            return redirect()->route('family')
+            // ->with('toast_success',"Data anda tersimpan");
+            ->with('success',"Data anda tersimpan");
         } elseif($request->stats_nikah == "Cerai mati"){
             $hapus_buku_nikah = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/').$kandidat->foto_buku_nikah;
             if(file_exists($hapus_buku_nikah)){
@@ -406,7 +411,9 @@ class KandidatController extends Controller
                 'foto_cerai' =>null,
                 'foto_kematian_pasangan' => null,
             ]);
-            return redirect()->route('family')->with('toast_success',"Data anda tersimpan");
+            return redirect()->route('family')
+            // ->with('toast_success',"Data anda tersimpan");
+            ->with('success',"Data anda tersimpan");
         } else {
             $hapus_buku_nikah = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/').$kandidat->foto_buku_nikah;
             if(file_exists($hapus_buku_nikah)){
@@ -433,7 +440,9 @@ class KandidatController extends Controller
                 'foto_cerai' =>null,
                 'foto_kematian_pasangan' => null,
             ]);
-            return redirect('/isi_kandidat_vaksin')->with('toast_success',"Data anda tersimpan");
+            return redirect('/isi_kandidat_vaksin')
+            // ->with('toast_success',"Data anda tersimpan");
+            ->with('success',"Data anda tersimpan");
         }        
     }
 
@@ -542,7 +551,9 @@ class KandidatController extends Controller
             'foto_cerai' => $foto_cerai,
             'foto_kematian_pasangan' => $foto_kematian_pasangan,
         ]);
-        return redirect('/isi_kandidat_vaksin')->with('toast_success',"Data anda tersimpan");
+        return redirect('/isi_kandidat_vaksin')
+        // ->with('toast_success',"Data anda tersimpan");
+        ->with('success',"Data anda tersimpan");
     }
 
     public function isi_kandidat_vaksin()
@@ -650,7 +661,9 @@ class KandidatController extends Controller
             // null,
             $foto_sertifikat_vaksin3
         ]);
-        return redirect('/isi_kandidat_parent')->with('toast_success',"Data anda tersimpan");
+        return redirect('/isi_kandidat_parent')
+        // ->with('toast_success',"Data anda tersimpan");
+        ->with('success',"Data anda tersimpan");
     }
 
     public function isi_kandidat_parent()
@@ -702,7 +715,9 @@ class KandidatController extends Controller
             'jml_sdr_pr' => $request->jml_sdr_pr,
             'anak_ke' => $request->anak_ke
         ]);
-        return redirect()->route('company')->with('toast_success',"Data anda tersimpan");
+        return redirect()->route('company')
+        // ->with('toast_success',"Data anda tersimpan");
+        ->with('success',"Data anda tersimpan");
     }
 
     public function isi_kandidat_company()
@@ -766,7 +781,9 @@ class KandidatController extends Controller
             'nama_kandidat' => $kandidat->nama,
             'lama_kerja' => $tahun,
         ]);
-        return redirect()->route('company')->with('toast_success',"Data anda tersimpan");
+        return redirect()->route('company')
+        // ->with('toast_success',"Data anda tersimpan");
+        ->with('success',"Data anda tersimpan");
     }
 
     public function editPengalamanKerja($id)
@@ -821,7 +838,9 @@ class KandidatController extends Controller
             'nama_kandidat' => $kandidat->nama,
             'lama_kerja' => $tahun,
         ]);
-        return redirect()->route('company')->with('toast_success',"Data anda tersimpan");
+        return redirect()->route('company')
+        // ->with('toast_success',"Data anda tersimpan");
+        ->with('success',"Data anda tersimpan");
     }
 
     public function hapusPengalamanKerja($id)
@@ -855,7 +874,9 @@ class KandidatController extends Controller
             'pengalaman_kerja' => $jabatanValues,
             'lama_kerja' => $lamaKerjaValues,
         ]);
-        return redirect()->route('permission')->with('toast_success',"Data anda tersimpan");
+        return redirect()->route('permission')
+        // ->with('toast_success',"Data anda tersimpan");
+        ->with('success',"Data anda tersimpan");
     }
 
     public function isi_kandidat_placement()
@@ -891,7 +912,9 @@ class KandidatController extends Controller
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         if($kandidat->id_perusahaan !== null){
-            return redirect()->route('kandidat')->with('toast_error',"Maaf anda tidak bisa berganti penempatan kerja karena sudah masuk dalam lowonngan perusahaan");
+            return redirect()->route('kandidat')
+            // ->with('toast_error',"Maaf anda tidak bisa berganti penempatan kerja karena sudah masuk dalam lowonngan perusahaan");
+            ->with('error',"Maaf anda tidak bisa berganti penempatan kerja karena sudah masuk dalam lowonngan perusahaan");
         }
 
         Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
@@ -904,7 +927,9 @@ class KandidatController extends Controller
             Alert::success('Selamat','Semua data profil anda sudah lengkap');
             return redirect()->route('kandidat');
         } else {
-            return redirect()->route('kandidat')->with('toast_success','Data anda tersimpan');
+            return redirect()->route('kandidat')
+            // ->with('toast_success','Data anda tersimpan');
+            ->with('success','Data anda tersimpan');
         }
     }
 
@@ -1000,7 +1025,9 @@ class KandidatController extends Controller
             Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
                 'no_paspor' => $paspor,
             ]);
-            return redirect()->route('paspor')->with('toast_success',"Data anda tersimpan");
+            return redirect()->route('paspor')
+            // ->with('toast_success',"Data anda tersimpan");
+            ->with('success',"Data anda tersimpan");
         } else {
             return redirect()->route('kandidat')->with('success',"Data anda tersimpan");
         }

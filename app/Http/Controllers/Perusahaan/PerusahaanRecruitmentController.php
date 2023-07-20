@@ -90,7 +90,9 @@ class PerusahaanRecruitmentController extends Controller
             'negara_id' => $id,
             'id_perusahaan' => $perusahaan->id_perusahaan,
         ]);
-        return redirect('/perusahaan/pekerjaan/'.$id.'/'.$nama)->with('toast_success',"Data Ditambahkan");
+        return redirect('/perusahaan/pekerjaan/'.$id.'/'.$nama)
+        // ->with('toast_success',"Data Ditambahkan");
+        ->with('success',"Data Ditambahkan");
     }
 
     public function editPerusahaanJob($kerjaid,$id)
@@ -114,13 +116,17 @@ class PerusahaanRecruitmentController extends Controller
             'syarat_umur' => $request->syarat_umur,
             'syarat_kelamin' => $request->syarat_kelamin,
         ]);
-        return redirect('/perusahaan/pekerjaan/'.$negara->negara_id.'/'.$negara->negara)->with('toast_success',"Data diubah");
+        return redirect('/perusahaan/pekerjaan/'.$negara->negara_id.'/'.$negara->negara)
+        // ->with('toast_success',"Data diubah");
+        ->with('success',"Data diubah");
     }
 
     public function hapusPerusahaanJob($kerjaid)
     {
         Pekerjaan::where('id_pekerjaan',$kerjaid)->delete();
-        return back()->with('toast_success','Pekerjaan Berhasil Dihapus');
+        return back()
+        // ->with('toast_success','Pekerjaan Berhasil Dihapus');
+        ->with('success','Pekerjaan Berhasil Dihapus');
     }
 
     public function cariKandidatStaff()

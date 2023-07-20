@@ -101,7 +101,9 @@ class AkademiKandidatController extends Controller
             'logo_akademi' => $logos_akademi,
         ]);
 
-        return redirect()->route('akademi.operator')->with('toast_success',"Data anda tersimpan");
+        return redirect()->route('akademi.operator')
+        // ->with('toast_success',"Data anda tersimpan");
+        ->with('success',"Data anda tersimpan");
     }
 
     public function isi_akademi_operator()
@@ -120,7 +122,9 @@ class AkademiKandidatController extends Controller
             'email_operator' => $request->email_operator,
             'no_telp_operator' => $request->no_telp_operator,
         ]);
-        return redirect('/akademi')->with('toast_success',"Data anda tersimpan");
+        return redirect('/akademi')
+        // ->with('toast_success',"Data anda tersimpan");
+        ->with('success',"Data anda tersimpan");
     }
 
     public function contactUsAkademi()
@@ -239,7 +243,9 @@ class AkademiKandidatController extends Controller
             'id_akademi' => $akademi->id_akademi,
         ]);
 
-        return redirect('/akademi/isi_kandidat_personal/'.$nama.'/'.$id)->with('toast_success',"Data anda tersimpan");
+        return redirect('/akademi/isi_kandidat_personal/'.$nama.'/'.$id)
+        // ->with('toast_success',"Data anda tersimpan");
+        ->with('success',"Data anda tersimpan");
     }
 
     public function isi_personal($nama, $id)
