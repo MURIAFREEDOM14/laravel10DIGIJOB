@@ -63,11 +63,11 @@ class LoginController extends Controller
         ->where('email',$request->email)->first();
         if($user !== null){
             $token = Str::random(64).$request->no_telp;
-            // User::where('email',$request->email)->update([
-            //     'token' => $token,
-            //     'password' => null,
-            //     'verify_confirmed' => null,
-            // ]);
+            User::where('email',$request->email)->update([
+                'token' => $token,
+                'password' => null,
+                'verify_confirmed' => null,
+            ]);
             dd($request);
             Mail::send('mail.mail',['token' => $token,'nama' => $request->name], function($message) use($request){
                 $message->to($request->email);
@@ -76,7 +76,6 @@ class LoginController extends Controller
             Auth::login($user);
             return redirect()->route('verifikasi')->with('success',"Anda akan segera mendapat Email verifikasi");
         } else {
-            dd($request);
             return back()->with('error',"Maaf data anda belum ada. Harap register");
         }
     }
