@@ -15,6 +15,8 @@ use App\Models\notifyAkademi;
 use App\Models\notifyKandidat;
 use App\Models\notifyPerusahaan;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+
 class VerifikasiController extends Controller
 {
     public function verifikasi()
@@ -94,12 +96,21 @@ class VerifikasiController extends Controller
                     'verify_confirmed' => $verifyUser->referral_code,
                 ]);
                 $kandidat = Kandidat::where('referral_code',$verifyUser->referral_code)->first(); 
-                $data['id_kandidat'] = $kandidat->id_kandidat;
-                $data['isi'] = "Harap lengkapi data profil anda";
-                $data['pengirim'] = "Admin";
-                $data['url'] = ('/isi_kandidat_personal');
-                notifyKandidat::create($data);
-                return redirect()->route('kandidat')->with('success',"Selamat Datang");
+                $user = Auth::user();
+                if($user->password == null){
+                    $data['id_kandidat'] = $kandidat->id_kandidat;
+                    $data['isi'] = "Selamat datang kembali ".$user->name;
+                    $data['pengirim'] = "Admin";
+                    notifyKandidat::create($data);
+                    return redirect('/nomor_id')->with('succes',"Email anda terverifikasi");
+                } else {
+                    $data['id_kandidat'] = $kandidat->id_kandidat;
+                    $data['isi'] = "Harap lengkapi data profil anda";
+                    $data['pengirim'] = "Admin";
+                    $data['url'] = ('/isi_kandidat_personal');
+                    notifyKandidat::create($data);
+                    return redirect()->route('kandidat')->with('success',"Selamat Datang");
+                }
             
             } elseif($verifyUser->type == 1) {
                 User::where('token',$token)->update([
@@ -132,51 +143,38 @@ class VerifikasiController extends Controller
             return redirect('/laman');
         }
     }
-    public function verifyAccountAkademi($token)
+
+    public function nomorID()
     {
-        $verifyUser = User::where('token',$token)->first();
-        if(!is_null($verifyUser) ){
-            $user = $verifyUser->id;
-            if($user) {
-                User::where('token',$token)->update([
-                    'verify_confirmed' => 'Terverifikasi',
-                ]);
-                $akademi = Akademi::where('referral_code',$verifyUser->referral_code)->first(); 
-                $data['id_akademi'] = $akademi->id_akademi;
-                $data['isi'] = "Harap lengkapi data profil anda";
-                $data['pengirim'] = "Admin";
-                $data['url'] = ('/akademi/isi_akademi_data');
-                notifyAkademi::create($data);
-                return redirect()->route('akademi')->with('success',"Selamat Datang");
-            } else {
-                $message = "Your e-mail is already verified. You can now login.";
-            }
-        } else {
-            return redirect('/laman');
-        }
+        $user = Auth::user();
+        return view('auth/passwords/confirm_nomor_id',compact('user'));
     }
-    public function verifyAccountPerusahaan($token)
+
+    public function confirmNomorID(Request $request)
     {
-        $verifyUser = User::where('token',$token)->first();
-        if(!is_null($verifyUser) ){
-            $user = $verifyUser->id;
-            if($user) {
-                User::where('token',$token)->update([
-                    'verify_confirmed' => 'Terverifikasi',
-                ]);
-                $perusahaan = Perusahaan::where('referral_code',$verifyUser->referral_code)->first(); 
-                $data['id_perusahaan'] = $perusahaan->id_perusahaan;
-                $data['isi'] = "Harap lengkapi data profil anda";
-                $data['pengirim'] = "Admin";
-                $data['url'] = ('/perusahaan/isi_perusahaan_data');
-                notifyPerusahaan::create($data);        
-                return redirect()->route('perusahaan')->with('success',"Selamat Datang");
-            } else {
-                $message = "Your e-mail is already verified. You can now login.";
-            }
+        $user = Auth::user();
+        $kandidat = User::where('no_telp',$request->no)->where('type',0)->first();
+        $akademi = User::where('no_nis',$request->no)->where('type',1)->first();
+        $perusahaan = User::where('no_nib',$request->no)->where('type',2)->first();
+        if($perusahaan || $akademi || $kandidat){
+            return view('auth/new_password',compact('user'));
         } else {
-            return redirect('/laman');
+            return back()->with('error',"Maaf No. ini tidak ada");
         }
     }
 
+    public function confirmPassword(Request $request)
+    {
+        $check = Auth::user();
+        if($request->password == $check->check_password){
+            return back()->with('warning',"Anda tidak bisa menggunakan password anda sebelumnya");
+        }
+        $password = Hash::make($request->password); 
+        $user = User::where('email',$check->email)->update([
+            'password' => $password,
+            'check_password' => $request->password,
+            'counter' => null,
+        ]);
+        return redirect('/')->with('success',"Selamat Datang Kembali");
+    }
 }

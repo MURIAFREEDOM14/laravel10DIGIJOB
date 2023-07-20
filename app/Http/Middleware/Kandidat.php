@@ -18,7 +18,7 @@ class Kandidat
         if(auth()->user()) 
         {
             if(auth()->user()->type == 0){
-                if(auth()->user()->verify_confirmed !== null){
+                if(auth()->user()->verify_confirmed !== null && auth()->user()->password !== null){
                     return $next($request);
                 } else {
                     return redirect('/verifikasi');

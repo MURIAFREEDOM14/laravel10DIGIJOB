@@ -1,7 +1,8 @@
-@extends('layouts.laman')
+@extends('layouts.input')
 @section('content')
+@include('flash_message')
 @include('sweetalert::alert')
-<div class="container">
+<div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-3"></div>
         <div class="col-md-6">
@@ -17,7 +18,6 @@
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1">Masukkan Email</label>
                                     <input name="email" disabled type="email" class="form-control" value="{{$user->email}}" required id="exampleInputPassword1">
-                                    <input name="email" hidden type="email" class="form-control" value="{{$user->email}}" required id="exampleInputPassword1">
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1">Masukkan Password Baru</label>

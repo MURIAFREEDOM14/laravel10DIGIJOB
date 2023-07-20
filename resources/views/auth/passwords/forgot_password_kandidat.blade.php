@@ -22,10 +22,6 @@
                                     <label for="exampleInputPassword1">Masukkan Email</label>
                                     <input name="email" type="email" class="form-control" value="{{old('email')}}" required id="exampleInputPassword1">
                                 </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputPassword1">Masukkan No. Telp</label>
-                                    <input name="no_telp" type="number" class="form-control" value="{{old('email')}}" required id="exampleInputPassword1">
-                                </div>
                             </div>
                         </div>
                         <div class="mt-3">

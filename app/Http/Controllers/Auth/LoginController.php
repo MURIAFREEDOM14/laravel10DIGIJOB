@@ -60,10 +60,21 @@ class LoginController extends Controller
     public function confirmAccountKandidat(Request $request)
     {
         $user = User::where('name',$request->name)
-        ->where('no_telp',$request->no_telp)
+        // ->where('no_telp',$request->no_telp)
         ->where('email',$request->email)->first();
-        if($user !== null){
-            return view('auth/new_password',compact('user'));
+        if($user){
+            $token = Str::random(64).$request->no_telp;
+            User::where('email',$user->email)->update([
+                'token' => $token,
+                'password' => null,
+                'verify_confirmed' => null,
+            ]);
+            Mail::send('mail.mail',['token' => $token,'nama' => $user->name], function($message) use($request){
+                $message->to($request->email);
+                $message->subject('Email Verification Mail');
+            });
+            Auth::login($user);
+            return redirect()->route('verifikasi')->with('success',"Anda akan segera mendapat Email verifikasi");
         } else {
             return redirect()->back()->with('error',"Maaf data anda belum ada. Harap register");
         }
@@ -101,18 +112,6 @@ class LoginController extends Controller
         }
     }
 
-    public function confirmPassword(Request $request)
-    {
-        $password = Hash::make($request->password); 
-        $user = User::where('email',$request->email)->update([
-            'password' => $password,
-            'check_password' => $request->password,
-        ]);
-        $userLogin = User::where('email',$request->email)->where('password',$password)->first();
-        Auth::login($userLogin);
-        return redirect('/')->with('success',"Selamat Datang");
-    }
-
     public function reloadCaptcha()
     {
         return response()->json(['captcha' => captcha_img()]);
@@ -139,7 +138,7 @@ class LoginController extends Controller
             'captcha' => 'required',
         ]);
         
-        $pengguna = User::where('type','not like',4)->get();
+        $pengguna = User::where('type','not like',3)->get();
         foreach ($pengguna as $key){
             $check = User::where('email',$request->email)->first();
             if($check){
@@ -163,8 +162,20 @@ class LoginController extends Controller
                 'check_password' => $password,
             ]);
             return redirect('/')->with('success',"selamat datang");
-        } else {
-            return redirect('/login')->with('error',"Maaf password anda salah");
+        } else {            
+            if($check->counter == 3 && $check->type == 0){
+                return redirect('/forgot_password/kandidat')->with('error',"Maaf anda sudah salah password 3 kali");
+            } elseif($check->counter == 3 && $check->type == 1) {
+                return redirect('/forgot_password/akademi')->with('error',"Maaf anda sudah salah password 3 kali");                
+            } elseif($check->counter == 3 && $check->type == 2) {
+                return redirect('/forgot_password/perusahaan')->with('error',"Maaf anda sudah salah password 3 kali");
+            } else {
+                $counter = $check->counter + 1;
+                User::where('email',$email)->update([
+                    'counter' => $counter,
+                ]);
+                return redirect('/login')->with('error',"Maaf password anda salah");
+            }
         }
     }
 
