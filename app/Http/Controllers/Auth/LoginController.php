@@ -132,27 +132,35 @@ class LoginController extends Controller
     // }
 
     public function AuthenticateLogin(Request $request)
-    {
+    {        
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
             'captcha' => 'required',
         ]);
         
-        // $semua = User::where('email',$request->email)->where('password',$request->password)->first();
-        $email = $request->email;
-        $password = $request->password;
+        $pengguna = User::where('type','not like',4)->get();
+        foreach ($pengguna as $key){
+            $check = User::where('email',$request->email)->first();
+            if($check){
+                $email = $request->email;
+                $password = $request->password;
+            } else {
+                return back()->with('no_found',"Akun anda belum terdaftar. Harap Daftar");
+            }
+        }
+
         $user = User::where('email',$email)->where('password',$password)->first();
-        if(Auth::attempt(['email'=>$request->email,'password'=>$request->password]))
+        if(Auth::attempt(['email'=>$email,'password'=>$password]))
         {
-            User::where('email',$request->email)->update([
-                'check_password' => $request->password,
+            User::where('email',$email)->update([
+                'check_password' => $password,
             ]);
             return redirect('/')->with('success',"selamat datang");
         } elseif($user !== null) {
             Auth::login($user);
-            User::where('email',$request->email)->update([
-                'check_password' => $request->password,
+            User::where('email',$email)->update([
+                'check_password' => $password,
             ]);
             return redirect('/')->with('success',"selamat datang");
         } else {

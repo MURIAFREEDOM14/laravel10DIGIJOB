@@ -26,9 +26,25 @@
 </div>
 @endif
 
+@if ($message = Session::get('no_found'))
+<div class="alert alert-danger alert-block">
+	<strong>{{ $message }}</strong>
+</div>
+@endif
+
 @if ($errors->any())
 <div class="alert alert-danger">
 	{{-- <button type="button" class="close" data-dismiss="alert">×</button>	 --}}
-	Please check the form below for errors
+	Maaf ada kolom yang tidak sesuai dengan data yang diisi, harap teliti kembali
 </div>
 @endif
+<script type="text/javascript">
+function name(params) {
+	Swal.fire({
+	icon: 'error',
+	title: 'Oops...',
+	text: 'Something went wrong!',
+	footer: '<a href="">Why do I have this issue?</a>'
+	})	
+}
+</script>
