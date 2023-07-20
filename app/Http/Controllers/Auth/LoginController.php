@@ -68,6 +68,7 @@ class LoginController extends Controller
                 'password' => null,
                 'verify_confirmed' => null,
             ]);
+            dd($request);
             Mail::send('mail.mail',['token' => $token,'nama' => $request->name], function($message) use($request){
                 $message->to($request->email);
                 $message->subject('Email Verification Mail');
@@ -75,7 +76,7 @@ class LoginController extends Controller
             Auth::login($user);
             return redirect()->route('verifikasi')->with('success',"Anda akan segera mendapat Email verifikasi");
         } else {
-            return redirect()->back()->with('error',"Maaf data anda belum ada. Harap register");
+            return back()->with('error',"Maaf data anda belum ada. Harap register");
         }
     }
     public function forgotPasswordAkademi()
