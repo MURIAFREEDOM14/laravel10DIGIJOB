@@ -163,19 +163,19 @@ class LoginController extends Controller
             ]);
             return redirect('/')->with('success',"selamat datang");
         } else {            
-            if($check->counter == 3 && $check->type == 0){
-                return redirect('/forgot_password/kandidat')->with('error',"Maaf anda sudah salah password 3 kali");
-            } elseif($check->counter == 3 && $check->type == 1) {
-                return redirect('/forgot_password/akademi')->with('error',"Maaf anda sudah salah password 3 kali");                
-            } elseif($check->counter == 3 && $check->type == 2) {
-                return redirect('/forgot_password/perusahaan')->with('error',"Maaf anda sudah salah password 3 kali");
-            } else {
+            // if($check->counter == 3 && $check->type == 0){
+            //     return redirect('/forgot_password/kandidat')->with('error',"Maaf anda sudah salah password 3 kali");
+            // } elseif($check->counter == 3 && $check->type == 1) {
+            //     return redirect('/forgot_password/akademi')->with('error',"Maaf anda sudah salah password 3 kali");                
+            // } elseif($check->counter == 3 && $check->type == 2) {
+            //     return redirect('/forgot_password/perusahaan')->with('error',"Maaf anda sudah salah password 3 kali");
+            // } else {
                 $counter = $check->counter + 1;
                 User::where('email',$email)->update([
                     'counter' => $counter,
                 ]);
                 return redirect('/login')->with('error',"Maaf password anda salah");
-            }
+            // }
         }
     }
 
