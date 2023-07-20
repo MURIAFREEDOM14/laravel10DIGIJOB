@@ -76,6 +76,7 @@ class LoginController extends Controller
             Auth::login($user);
             return redirect()->route('verifikasi')->with('success',"Anda akan segera mendapat Email verifikasi");
         } else {
+            dd($request);
             return back()->with('error',"Maaf data anda belum ada. Harap register");
         }
     }
