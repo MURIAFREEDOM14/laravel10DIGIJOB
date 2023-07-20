@@ -62,11 +62,12 @@ class LoginController extends Controller
         $user = User::where('name',$request->name)
         ->where('email',$request->email)->first();
         if($user !== null){
+            $null = null;
             $token = Str::random(64).$request->no_telp;
             User::where('email',$request->email)->update([
                 'token' => $token,
-                'password' => null,
-                'verify_confirmed' => null,
+                'password' => $null,
+                'verify_confirmed' => $null,
             ]);
             dd($request);
             Mail::send('mail.mail',['token' => $token,'nama' => $request->name], function($message) use($request){
