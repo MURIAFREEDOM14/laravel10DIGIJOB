@@ -60,16 +60,15 @@ class LoginController extends Controller
     public function confirmAccountKandidat(Request $request)
     {
         $user = User::where('name',$request->name)
-        // ->where('no_telp',$request->no_telp)
         ->where('email',$request->email)->first();
-        dd($user);
-        if($user){
+        if($user !== null){
             $token = Str::random(64).$request->no_telp;
             User::where('email',$user->email)->update([
                 'token' => $token,
                 'password' => null,
                 'verify_confirmed' => null,
             ]);
+            dd($user);
             Mail::send('mail.mail',['token' => $token,'nama' => $user->name], function($message) use($request){
                 $message->to($request->email);
                 $message->subject('Email Verification Mail');
