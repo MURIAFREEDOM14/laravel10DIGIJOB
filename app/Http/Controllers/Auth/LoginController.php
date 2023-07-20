@@ -63,11 +63,11 @@ class LoginController extends Controller
         ->where('email',$request->email)->first();
         if($user !== null){
             $token = Str::random(64).$request->no_telp;
-            User::where('email',$request->email)->update([
-                'token' => $token,
-                'password' => null,
-                'verify_confirmed' => null,
-            ]);
+            // User::where('email',$request->email)->update([
+            //     'token' => $token,
+            //     'password' => null,
+            //     'verify_confirmed' => null,
+            // ]);
             dd($request);
             Mail::send('mail.mail',['token' => $token,'nama' => $request->name], function($message) use($request){
                 $message->to($request->email);
