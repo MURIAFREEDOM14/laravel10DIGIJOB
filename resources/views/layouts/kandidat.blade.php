@@ -26,9 +26,6 @@
         <link rel="stylesheet" href="/cardSlide/style.css">
         <link rel="stylesheet" href="/captcha.css">    
         
-        <!-- sweetalert -->
-        {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css"> --}}
-
         <style>
             .bold{
                 font-size: 11px;
@@ -524,9 +521,6 @@
         <!-- Atlantis JS -->
         <script src="/Atlantis/examples/assets/js/atlantis.min.js"></script>
         
-        <!-- Sweetalert -->
-        {{-- <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script> --}}
-
         <!-- datatable -->
         <script>
             $(document).ready(function() {
