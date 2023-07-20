@@ -62,6 +62,7 @@ class LoginController extends Controller
         $user = User::where('name',$request->name)
         // ->where('no_telp',$request->no_telp)
         ->where('email',$request->email)->first();
+        dd($user);
         if($user){
             $token = Str::random(64).$request->no_telp;
             User::where('email',$user->email)->update([
@@ -69,7 +70,6 @@ class LoginController extends Controller
                 'password' => null,
                 'verify_confirmed' => null,
             ]);
-            dd($token);
             Mail::send('mail.mail',['token' => $token,'nama' => $user->name], function($message) use($request){
                 $message->to($request->email);
                 $message->subject('Email Verification Mail');
