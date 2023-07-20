@@ -335,6 +335,9 @@
             <div class="main-panel">
                 <div class="content">
                     <main class="">
+                        @include('sweetalert::alert')
+                        @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
+                        @include('flash_message')
                         @yield('content')
                     </main>
                 </div>

@@ -1,12 +1,9 @@
 @extends('layouts.laman')
 @section('content')
-@include('sweetalert::alert')
-@include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
 <div class="container">
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-            @include('flash_message')
             <div class="card">
                 <div class="card-header">
                     <h4 class="text-center">{{ __('Register') }}</h4>
