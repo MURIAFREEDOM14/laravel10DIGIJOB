@@ -68,7 +68,6 @@ class LoginController extends Controller
                 // 'password'=>null,
                 'verify_confirmed'=>null,
             ]);
-            dd($request);
             Mail::send('mail.mail',['token' => $token,'nama' => $request->name], function($message) use($request){
                 $message->to($request->email);
                 $message->subject('Email Verification Mail');
