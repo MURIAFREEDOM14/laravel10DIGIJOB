@@ -1,7 +1,6 @@
 @extends('layouts.kandidat')
 @section('content')
 @include('sweetalert::alert')
-@include('flash_message')
 <div class="container mt-5 my-3">
     <div class="row mt-2">
         <div class="col-md-7">
