@@ -61,8 +61,8 @@ class LoginController extends Controller
     {
         $user = User::where('name',$request->name)
         ->where('email',$request->email)->first();
-        dd($request);
         if($user !== null){
+            dd($request);
             $token = Str::random(64).$request->no_telp;
             User::where('email',$user->email)->update([
                 'token' => $token,
