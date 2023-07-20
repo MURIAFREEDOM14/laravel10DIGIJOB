@@ -25,7 +25,7 @@
   <link href="/Arsha/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="/Arsha/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="/css/captcha.css">  
+  <link rel="stylesheet" href="/css/captcha.css">
   <!-- Template Main CSS File -->
   <link href="/Arsha/assets/css/style.css" rel="stylesheet">
 
