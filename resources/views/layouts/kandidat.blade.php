@@ -449,8 +449,8 @@
             <div class="main-panel">
                 <div class="content">
                     <main class="px-1">
-                        {{-- @include('sweetalert::alert')
-                        @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"]) --}}
+                        @include('sweetalert::alert')
+                        @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
                         @include('flash_message')
                         @yield('content')
                     </main>
