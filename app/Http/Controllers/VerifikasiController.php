@@ -117,25 +117,42 @@ class VerifikasiController extends Controller
                     'verify_confirmed' => $verifyUser->referral_code,
                 ]);
                 $akademi = Akademi::where('referral_code',$verifyUser->referral_code)->first(); 
-                $data['id_akademi'] = $akademi->id_akademi;
-                $data['isi'] = "Harap lengkapi data profil akademi";
-                $data['pengirim'] = "Admin";
-                $data['url'] = ('/akademi/isi_akademi_data');
-                notifyAkademi::create($data);
-                return redirect()->route('akademi')->with('success',"Selamat Datang");
+                $user = Auth::user();
+                if($user->password == null){
+                    $data['id_akademi'] = $akademi->id_akademi;
+                    $data['isi'] = "Selamat datang kembali ".$user->name_akademi;
+                    $data['pengirim'] = "Admin";
+                    notifyAkademi::create($data);    
+                    return redirect('/nomor_id')->with('success',"Akun akademi teridentifikasi");
+                } else {
+                    $data['id_akademi'] = $akademi->id_akademi;
+                    $data['isi'] = "Harap lengkapi data profil akademi";
+                    $data['pengirim'] = "Admin";
+                    $data['url'] = ('/akademi/isi_akademi_data');
+                    notifyAkademi::create($data);
+                    return redirect()->route('akademi')->with('success',"Selamat Datang");
+                }
             
             } elseif($verifyUser->type == 2){    
                 User::where('token',$token)->update([
                     'verify_confirmed' => $verifyUser->referral_code,
                 ]);
                 $perusahaan = Perusahaan::where('referral_code',$verifyUser->referral_code)->first(); 
-                $data['id_perusahaan'] = $perusahaan->id_perusahaan;
-                $data['isi'] = "Harap lengkapi data profil perusahaan";
-                $data['pengirim'] = "Admin";
-                $data['url'] = ('/perusahaan/isi_perusahaan_data');
-                notifyperusahaan::create($data);
-                return redirect()->route('perusahaan')->with('success',"Selamat Datang");
-            
+                $user = Auth::user();
+                if($user->password == null){
+                    $data['id_perusahaan'] = $perusahaan->id_perusahaan;
+                    $data['isi'] = "Selamat datang kembali ".$user->name_perusahaan;
+                    $data['pengirim'] = "Admin";    
+                    notifyperusahaan::create($data);
+                    return redirect('/nomor_id')->with('success',"Akun akademi teridentifikasi");
+                } else {
+                    $data['id_perusahaan'] = $perusahaan->id_perusahaan;
+                    $data['isi'] = "Harap lengkapi data profil perusahaan";
+                    $data['pengirim'] = "Admin";
+                    $data['url'] = ('/perusahaan/isi_perusahaan_data');
+                    notifyperusahaan::create($data);
+                    return redirect()->route('perusahaan')->with('success',"Selamat Datang");
+                }
             } else {
                 return redirect()->route('verifikasi')->with('warning',"Maaf Email Anda Belum Terverifikasi, Harap Hubungi Admin");
             }

@@ -208,7 +208,7 @@ class RegisterController extends Controller
         Akademi::create([
             'nama_akademi' => $request->name,
             'referral_code' => $userId,
-            'email_akademi' => $request->email,
+            'email' => $request->email,
             'no_nis' => $request->no_nis,
         ]);
 
