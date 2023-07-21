@@ -20,6 +20,8 @@ class Kandidat
             if(auth()->user()->type == 0){
                 if(auth()->user()->verify_confirmed !== null && auth()->user()->password !== null){
                     return $next($request);
+                } elseif(auth()->user()->password == null) {
+                    return redirect('/nomor_id');
                 } else {
                     return redirect('/verifikasi');
                 }
