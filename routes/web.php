@@ -584,6 +584,7 @@ Route::controller(PrototypeController::class)->group(function(){
     Route::get('/proto_delete','delete');
     Route::post('/proto_mail','email');
     Route::view('/prototype3','prototype3');
+    Route::get('/checking_nomor','checking');
 
     Route::get('/make_captcha','captcha')->name('make.captcha');
 });
