@@ -439,7 +439,6 @@ Route::controller(LoginController::class)->group(function() {
     Route::post('/forgot_password/akademi','confirmAccountAkademi');
     Route::get('/forgot_password/perusahaan','forgotPasswordPerusahaan')->middleware('guest');
     Route::post('/forgot_password/perusahaan','confirmAccountPerusahaan');
-    Route::post('/new_password','confirmPassword');
 
     Route::get('/login/migration','loginMigration')->middleware('guest');
     Route::post('/login/migration','checkLoginMigration');
@@ -483,6 +482,7 @@ Route::controller(VerifikasiController::class)->group(function(){
     Route::get('/verify_account/{token}','verifyAccount')->name('users_verification')->middleware('verify');
     Route::get('/nomor_id','nomorID')->name('nomorID');
     Route::post('/nomor_id','confirmNomorID');
+    Route::post('/new_password','confirmPassword');
 });
 
 Route::controller(NegaraController::class)->group(function() {

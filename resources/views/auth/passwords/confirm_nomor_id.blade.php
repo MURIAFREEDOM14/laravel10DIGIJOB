@@ -33,7 +33,7 @@
                                     <input type="number" name="no" required class="form-control" id="">
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Lanjut</button>
+                            <button type="submit" class="btn btn-primary float-end">Lanjut</button>
                         </form>
                         {{-- <div class="row">
                             <div class="col">
