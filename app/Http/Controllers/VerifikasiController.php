@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\VerifikasiDiri;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -178,6 +179,22 @@ class VerifikasiController extends Controller
         } else {
             return back()->with('error',"Maaf No. ini tidak ada");
         }
+    }
+
+    public function confirmVerifikasiDiri(Request $request)
+    {
+        $user = Auth::user();
+        $foto = $user->name.time().'.'.$request->photo_id->extension();
+        $simpan_foto = $request->file('photo_id');
+        $simpan_foto->move('gambar/Kandidat/'.$user->name.'/Verifikasi Diri/',$user->name.time().'.'.$simpan_foto->extension());
+        
+        VerifikasiDiri::create([
+            'id'=>$user->id,
+            'email'=>$user->email,
+            'foto_diri_ktp'=>$foto, 
+        ]);
+        auth::logout($user);
+        return redirect('/login')->with('success',"Terima kasih atas konfirmasi anda. Kami akan menghubungi anda kembali melalui email. Pastikan anda untuk memeriksa email anda");
     }
 
     public function confirmPassword(Request $request)

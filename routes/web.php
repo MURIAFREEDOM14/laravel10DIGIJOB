@@ -167,6 +167,10 @@ Route::controller(ContactUsController::class)->group(function() {
     Route::get('/manager/contact_us_perusahaan','contactUsPerusahaanList')->middleware('contact.service');
     Route::get('/manager/lihat/contact_perusahaan/{id}','contactUsPerusahaanLihat')->middleware('contact.service');
     Route::post('/manager/lihat/contact_perusahaan/{id}','contactUsPerusahaanJawab');
+
+    Route::get('/manager/verification_kandidat','verifyKandidatList')->middleware('contact.service');
+    Route::get('/manager/lihat/verifikasi_kandidat/{id}','lihatVerifyKandidat')->middleware('contact.service');
+    Route::post('/manager/lihat/verifikasi_kandidat/{id}','confirmVerifyKandidat');
 });
 
 // DATA LAMAN //
@@ -482,7 +486,10 @@ Route::controller(VerifikasiController::class)->group(function(){
     Route::get('/verify_account/{token}','verifyAccount')->name('users_verification')->middleware('verify');
     Route::get('/nomor_id','nomorID')->name('nomorID');
     Route::post('/nomor_id','confirmNomorID');
+    Route::post('/kirim_verifikasi_diri','confirmVerifikasiDiri');
     Route::post('/new_password','confirmPassword');
+    Route::view('/confirm_alternative_id','auth/passwords/confirm_alternative_id');
+    Route::post('/kirim_verifikasi_diri','confirmVerifikasiDiri');
 });
 
 Route::controller(NegaraController::class)->group(function() {
@@ -584,6 +591,9 @@ Route::controller(PrototypeController::class)->group(function(){
     Route::get('/proto_delete','delete');
     Route::post('/proto_mail','email');
     Route::view('/prototype3','prototype3');
+
+    Route::get('/webcam','takePhoto');
+    Route::post('/webcam','store')->name('webcam.capture');
 
     Route::get('/make_captcha','captcha')->name('make.captcha');
 });

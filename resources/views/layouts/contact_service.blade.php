@@ -15,7 +15,7 @@
             .img{
                 border: 1px solid black;
                 border-radius: 2%;
-                width: 20%;
+                width: 100%;
                 height: auto;
             }
             .text1 {
@@ -214,6 +214,12 @@
                                         </li>
                                     </ul>
                                 </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn" href="/manager/verification_kandidat">
+                                    <i class="fas fa-clipboard-list"></i>
+                                    <p>Verifikasi Kandidat</p>
+                                </a>
                             </li>
                         </ul>
                     </div>

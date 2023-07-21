@@ -20,6 +20,9 @@
                         <input type="hidden" name="image" class="image-tag">
                     </div>
                     <div class="col-md-6">
+                        <input type="file" name="" id="" accept="image/*" capture="camera">
+                    </div>
+                    <div class="col-md-6">
                         <div id="results">Your captured image will appear here...</div>
                     </div>
                     <div class="col-md-12 text-center">
@@ -29,6 +32,8 @@
                 </div>
             </form>
         </div>
+        <script type="text/javascript" src="assets/webcam.min.js">
+        </script>
         <script language="JavaScript">
             Webcam.set({
                 width: 490,

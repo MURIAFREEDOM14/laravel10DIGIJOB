@@ -20,6 +20,7 @@ use App\Models\ContactUsAkademi;
 use App\Models\Perusahaan;
 use App\Models\Akademi;
 use App\Models\Kandidat;
+use App\Models\VerifikasiDiri;
 
 class ContactUsController extends Controller
 {
@@ -239,5 +240,30 @@ class ContactUsController extends Controller
             'balas' => "dibaca",
         ]);
         return redirect('/manager/lihat/contact_perusahaan/'.$id)->with('success',"Pesan Terkirim");
+    }
+
+    public function verifyKandidatList()
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $verification = VerifikasiDiri::join(
+            'kandidat','verifikasi_diri.id','=','kandidat.id'
+        )->get();
+        return view('manager/contactService/verify_kandidat_list',compact('manager','verification'));
+    }
+
+    public function lihatVerifyKandidat($id)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $verification = VerifikasiDiri::join(
+            'kandidat','verifikasi_diri.id','=','kandidat.id'
+        )->where('verify_id',$id)->first();
+        return view('manager/contactService/lihat_verify_kandidat',compact('manager','verification'));
+    }
+
+    public function confirmVerifyKandidat(Request $request)
+    {
+        return redirect('/');
     }
 }

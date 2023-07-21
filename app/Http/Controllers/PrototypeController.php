@@ -13,13 +13,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 use App\Services\SlidingCaptcha;
+use Storage;
 
 class PrototypeController extends Controller
 {
     public function test()
     {
         $prov = Provinsi::get();
-        return view('/prototype',compact('prov'));
+        return view('prototype/prototype',compact('prov'));
     }
 
     public function select(Request $request)
@@ -70,7 +71,7 @@ class PrototypeController extends Controller
 
         session()->put('sc_position', $sc->position);
 
-        return view('prototype')->withSlidingCaptcha($sc);
+        return view('prototype/prototype')->withSlidingCaptcha($sc);
     }
 
     public function makeCaptcha(Request $request)
@@ -80,5 +81,28 @@ class PrototypeController extends Controller
         ],[
             'guess.in' => 'The puzzle must be aligned exactly'
         ]);
+    }
+
+    public function takePhoto()
+    {
+        return view('prototype/webcam');
+    }
+
+    public function store(Request $request)
+    {
+        $img = $request->image;
+        $folderPath = "uploads/";
+
+        $image_parts = explode(";base64", $img);
+        $image_type_aux = explode("image/", $image_parts[0]);
+        $image_type = $image_type_aux[1];
+
+        $image_base64 = base64_decode($image_parts[1]);
+        $fileName = uniqid() . '.png';
+
+        $file = $folderPath . $fileName;
+        Storage::put($file, $image_base64);
+
+        dd('image upload successfully' .$fileName);
     }
 }
