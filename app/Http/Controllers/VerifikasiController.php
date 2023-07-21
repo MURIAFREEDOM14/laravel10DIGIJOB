@@ -102,7 +102,7 @@ class VerifikasiController extends Controller
                     $data['isi'] = "Selamat datang kembali ".$user->name;
                     $data['pengirim'] = "Admin";
                     // notifyKandidat::create($data);
-                    return redirect('/nomor_id')->with('succes',"Email anda terverifikasi");
+                    return redirect('/check_condition')->with('succes',"Email anda terverifikasi");
                 } else {
                     $data['id_kandidat'] = $kandidat->id_kandidat;
                     $data['isi'] = "Harap lengkapi data profil anda";
@@ -147,7 +147,6 @@ class VerifikasiController extends Controller
     public function nomorID()
     {
         $user = Auth::user();
-        dd($user);
         return view('auth/passwords/confirm_nomor_id',compact('user'));
     }
 
