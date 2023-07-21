@@ -98,9 +98,9 @@ class VerifikasiController extends Controller
                 $kandidat = Kandidat::where('referral_code',$verifyUser->referral_code)->first(); 
                 $user = Auth::user();
                 if($user->password == null){
-                    // $data['id_kandidat'] = $kandidat->id_kandidat;
-                    // $data['isi'] = "Selamat datang kembali ".$user->name;
-                    // $data['pengirim'] = "Admin";
+                    $data['id_kandidat'] = $kandidat->id_kandidat;
+                    $data['isi'] = "Selamat datang kembali ".$user->name;
+                    $data['pengirim'] = "Admin";
                     // notifyKandidat::create($data);
                     dd($user);
                     return redirect()->route('nomorID')->with('succes',"Email anda terverifikasi");
