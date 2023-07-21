@@ -147,7 +147,7 @@ class VerifikasiController extends Controller
     public function nomorID()
     {
         $user = Auth::user();
-        return view('auth/passwords/confirm_nomor_id',compact('user'));
+        return view('prototype',compact('user'));
     }
 
     public function confirmNomorID(Request $request)
