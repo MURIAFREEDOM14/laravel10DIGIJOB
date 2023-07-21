@@ -81,5 +81,4 @@ class PrototypeController extends Controller
             'guess.in' => 'The puzzle must be aligned exactly'
         ]);
     }
-    
 }
