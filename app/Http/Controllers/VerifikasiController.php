@@ -102,8 +102,8 @@ class VerifikasiController extends Controller
                     $data['isi'] = "Selamat datang kembali ".$user->name;
                     $data['pengirim'] = "Admin";
                     // notifyKandidat::create($data);
-                    return redirect('nomor_id')
-                    // ->route('nomorID')
+                    return redirect()
+                    ->route('nomorID')
                     ->with('succes',"Email anda terverifikasi");
                 } else {
                     $data['id_kandidat'] = $kandidat->id_kandidat;
