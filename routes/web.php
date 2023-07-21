@@ -439,7 +439,8 @@ Route::controller(LoginController::class)->group(function() {
     Route::post('/forgot_password/akademi','confirmAccountAkademi');
     Route::get('/forgot_password/perusahaan','forgotPasswordPerusahaan')->middleware('guest');
     Route::post('/forgot_password/perusahaan','confirmAccountPerusahaan');
-    Route::get('/check_condition','condition');
+    
+    // Route::get('/check_condition','condition');
 
     Route::get('/login/migration','loginMigration')->middleware('guest');
     Route::post('/login/migration','checkLoginMigration');
