@@ -1,6 +1,7 @@
 @extends('layouts.input')
 @section('content')
 @include('sweetalert::alert')
+@include('flash_message')
     <div class="container mt-5">
         <div class="row">
             <div class="col-3"></div>
@@ -32,7 +33,7 @@
                                     <input type="number" name="no" required class="form-control" id="">
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="submit" class="btn btn-primary">Lanjut</button>
                         </form>
                         {{-- <div class="row">
                             <div class="col">

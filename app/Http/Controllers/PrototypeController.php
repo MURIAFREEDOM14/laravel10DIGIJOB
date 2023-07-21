@@ -81,9 +81,4 @@ class PrototypeController extends Controller
             'guess.in' => 'The puzzle must be aligned exactly'
         ]);
     }
-
-    public function checking()
-    {
-        return view('auth/passwords/confirm_nomor_id');
-    }
 }

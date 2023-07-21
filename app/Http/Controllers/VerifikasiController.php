@@ -92,17 +92,17 @@ class VerifikasiController extends Controller
         $verifyUser = User::where('token',$token)->first();
         if(!is_null($verifyUser) ){
             if($verifyUser->type == 0) {
-                // User::where('token',$token)->update([
-                //     'verify_confirmed' => $verifyUser->referral_code,
-                // ]);
+                User::where('token',$token)->update([
+                    'verify_confirmed' => $verifyUser->referral_code,
+                ]);
                 $kandidat = Kandidat::where('referral_code',$verifyUser->referral_code)->first(); 
                 $user = Auth::user();
                 if($user->password == null){
                     $data['id_kandidat'] = $kandidat->id_kandidat;
                     $data['isi'] = "Selamat datang kembali ".$user->name;
                     $data['pengirim'] = "Admin";
-                    // notifyKandidat::create($data);
-                    return redirect('/');
+                    notifyKandidat::create($data);
+                    return redirect('/nomor_id')->with('success',"Akun anda teridentifikasi");
                 } else {
                     $data['id_kandidat'] = $kandidat->id_kandidat;
                     $data['isi'] = "Harap lengkapi data profil anda";
