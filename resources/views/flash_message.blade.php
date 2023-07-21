@@ -39,6 +39,12 @@
 </div>
 @endif
 
+@if ($message == Session::get('popup'))
+<div class="alert alert-block mt-5 mx-5" id="alert">
+	{{ $message }}
+</div>	
+@endif
+
 <script type="text/javascript">
 setTimeout(() => {
 	var alert = document.getElementById('alert');

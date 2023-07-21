@@ -35,11 +35,9 @@
                             </div>
                             <button type="submit" class="btn btn-primary float-end">Lanjut</button>
                         </form>
-                        {{-- <div class="row">
-                            <div class="col">
-
-                            </div>
-                        </div> --}}
+                        @if ($user->type == 0)
+                            <div class="">Apakah No. Telp anda mati atau tidak bisa digunakan? Gunakan <a class="" href="/confirm_alternative_id">cara ini</a></div>                            
+                        @endif
                     </div>
                 </div>
             </div>
