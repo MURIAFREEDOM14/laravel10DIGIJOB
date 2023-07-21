@@ -440,8 +440,6 @@ Route::controller(LoginController::class)->group(function() {
     Route::get('/forgot_password/perusahaan','forgotPasswordPerusahaan')->middleware('guest');
     Route::post('/forgot_password/perusahaan','confirmAccountPerusahaan');
     
-    // Route::get('/check_condition','condition');
-
     Route::get('/login/migration','loginMigration')->middleware('guest');
     Route::post('/login/migration','checkLoginMigration');
     Route::get('/login/migration/confirm', 'tambahLoginMigration');
@@ -482,11 +480,10 @@ Route::controller(VerifikasiController::class)->group(function(){
     Route::post('/verifikasi','masukVerifikasi');
     Route::get('/ulang_verifikasi','ulang_verifikasi')->middleware('verify');
     Route::get('/verify_account/{token}','verifyAccount')->name('users_verification')->middleware('verify');
-    Route::get('/nomor_id','prototype');
+    Route::get('/nomor_id','prototype')->name('nomorID');
     Route::post('/nomor_id','confirmNomorID');
     Route::post('/new_password','confirmPassword');
 
-    Route::get('/check_condition','condition');
 });
 
 Route::controller(NegaraController::class)->group(function() {
