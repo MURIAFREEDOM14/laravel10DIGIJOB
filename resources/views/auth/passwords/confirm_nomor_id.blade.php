@@ -24,13 +24,21 @@
                             <div class="row mb-3">
                                 <div class="col-md-12">
                                     @if ($user->type == 2)
-                                        <label for="col-form-label">Masukkan No. NIB</label>
+                                        <label for="col-form-label">No. NIB</label>
+                                        <input type="number" name="no" disabled class="form-control" value="{{$user->no_nib}}" id="">
                                     @elseif($user->type == 1)
-                                        <label for="col-form-label">Masukkan No. NIS</label>
+                                        <label for="col-form-label">No. NIS</label>
+                                        <input type="number" name="no" disabled class="form-control" value="{{$user->no_nis}}" id="">
                                     @else
-                                        <label for="col-form-label">Masukkan No. Telp</label>
+                                        <label for="col-form-label">No. Telp</label>
+                                        <input type="number" name="no" disabled class="form-control" value="{{$user->no_telp}}" id="">
                                     @endif
-                                    <input type="number" name="no" required class="form-control" id="">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <label for="col-form-label">Kode Verifikasi</label>
+                                    <input type="text" name="referral_code" required class="form-control" placeholder="Masukkan Kode Verifikasi Anda" id="">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary float-end">Lanjut</button>

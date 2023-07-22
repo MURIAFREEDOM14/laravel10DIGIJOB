@@ -33,6 +33,8 @@ use App\Http\Controllers\MailController;
 use App\Http\Controllers\MessagerController;
 use PHPUnit\TextUI\Configuration\Group;
 use App\Http\Controllers\CaptchaController;
+use App\Models\User;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -520,6 +522,7 @@ Route::controller(PaymentController::class)->group(function(){
     Route::post('/payment', 'kandidatConfirm')->middleware('kandidat');
 
     Route::view('/pembayaran','mail/pembayaran');
+    Route::view('check_mail_verify','mail/verify');
     // USER AKADEMI //
     
     // USER PERUSAHAAN //
@@ -595,11 +598,19 @@ Route::controller(PrototypeController::class)->group(function(){
     Route::get('/webcam','takePhoto');
     Route::post('/webcam','store')->name('webcam.capture');
 
+    Route::get('/video/chat', function() {
+        $users = User::where('id','<>', Auth::id())->get();
+        return view('prototype/webcam',['users'=>$users]);
+    });
+
+    Route::post('/video/call-user','callingUser');
+    Route::post('/video/accept-call','confirmCalling');
+
     Route::get('/make_captcha','captcha')->name('make.captcha');
 });
 
 Route::controller(CaptchaController::class)->group(function() {
-    Route::get('/sliding-puzzle', [CaptchaController::class, 'showSlidingPuzzle']);
+Route::get('/sliding-puzzle', [CaptchaController::class, 'showSlidingPuzzle']);
 Route::post('/sliding-puzzle/verify', [CaptchaController::class, 'verifySlidingPuzzle'])->name('sliding-puzzle.verify');
 });
 

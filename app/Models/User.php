@@ -27,7 +27,7 @@ class User extends Authenticatable
 
     public function getReferralLinkAttribute()
     {
-        return $this->referral_link = route('register', ['ref' => $this->username]);
+        return $this->referral_link = route('register_kandidat', ['ref' => $this->username]);
     }
 
 

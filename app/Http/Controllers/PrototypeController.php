@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\StartVideoChat;
 use App\Mail\Noreply;
 use App\Models\Kandidat;
 use App\Models\Kecamatan;
@@ -104,5 +105,24 @@ class PrototypeController extends Controller
         Storage::put($file, $image_base64);
 
         dd('image upload successfully' .$fileName);
+    }
+
+    public function callingUser(Request $request)
+    {
+        $data[] = $request->to_call;
+        $data['signalData'] = $request->signal_data;
+        $data['from'] = Auth::id();
+        $data['type'] = 'incomingCall';
+        broadcast(new StartVideoChat($data))->toOthers();
+        dd('Hello world');
+    }
+
+    public function confirmCalling(Request $request)
+    {
+        $data['signal'] = $request->signal;
+        $data['to'] = $request->to;
+        $data['type'] = 'callAccepted';
+        broadcast(new StartVideoChat($data))->toOthers();
+        dd('Hello World');
     }
 }

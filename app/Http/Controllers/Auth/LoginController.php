@@ -63,12 +63,13 @@ class LoginController extends Controller
         ->where('email',$request->email)->first();
         if($user !== null){
             $token = Str::random(64).$user->no_telp;
+            $text = $user->referral_code;
             User::where('email',$request->email)->update([
                 'token'=>$token,
                 'password'=>null,
                 'verify_confirmed'=>null,
             ]);
-            Mail::send('mail.mail',['token' => $token,'nama' => $request->name], function($message) use($request){
+            Mail::send('mail.verify',['token'=>$token,'nama'=>$request->name,'text'=>$text], function($message) use($request){
                 $message->to($request->email);
                 $message->subject('Email Verification Mail');
             });
@@ -168,7 +169,7 @@ class LoginController extends Controller
             }
         }
 
-        $user = User::where('email',$email)->where('password',$password)->first();
+        $user = User::where('email',$email)->where('password',$password)->first();        
         if(Auth::attempt(['email'=>$email,'password'=>$password]))
         {
             User::where('email',$email)->update([

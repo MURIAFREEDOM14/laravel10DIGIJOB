@@ -49,6 +49,23 @@
                 </div>
             </div>
         </div>
+        <div class="card">
+            <div class="card-header">
+                <h5 style="font-weight: 600">Konfirmasi</h5>
+            </div>
+            <div class="card-body">
+                <form action="" method="POST">
+                    <div class="form-group">
+                        <label for="" class="col-form-label">Apakah Kandidat diatas terbukti benar?</label>
+                        <select name="answer" required class="form-control" id="">
+                            <option value="">-- Tentukan jawaban --</option>
+                            <option value="ya">Ya</option>
+                            <option value="tidak">Tidak</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>
         {{-- <div class="card">
             <div class="card-header">
                 <h3 style="font-weight: 700">Kirim Email</h3>

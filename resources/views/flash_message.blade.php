@@ -1,7 +1,7 @@
 @if ($message = Session::get('success'))
 <div class="alert alert-success alert-block mt-5 mx-5" style="border-left: 5px solid green" id="alert">
 	{{-- <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>	 --}}
-	<strong>{{ $message }}</strong>
+	<strong id="text">{{ $message }}</strong>
 </div>
 @endif
 
@@ -37,12 +37,6 @@
 	{{-- <button type="button" class="close" data-dismiss="alert">×</button>	 --}}
 	Maaf ada kolom yang tidak sesuai dengan data yang diisi, harap teliti kembali
 </div>
-@endif
-
-@if ($message == Session::get('popup'))
-<div class="alert alert-block mt-5 mx-5" id="alert">
-	{{ $message }}
-</div>	
 @endif
 
 <script type="text/javascript">

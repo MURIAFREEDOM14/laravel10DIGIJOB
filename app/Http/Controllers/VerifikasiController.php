@@ -70,7 +70,7 @@ class VerifikasiController extends Controller
         } else {
             $newToken = $user->token;   
         }
-
+        $text = $user->referral_code;
         if($user->type == 0){
             $nama = $user->name;
         } elseif($user->type == 1){
@@ -81,10 +81,17 @@ class VerifikasiController extends Controller
             $nama = null;
         }
 
-        Mail::send('mail.mail', ['token' => $newToken, 'nama' => $nama], function($message) use($user){
-            $message->to($user->email);
-            $message->subject('Email Verification Mail');
-        });
+        if($user->password == null){
+            Mail::send('mail.verify',['token'=>$token,'nama'=>$nama,'text'=>$text], function($message) use($user){
+                $message->to($user->email);
+                $message->subject('Email Verification Mail');
+            });
+        } else {
+            Mail::send('mail.mail', ['token'=>$newToken,'nama'=>$nama], function($message) use($user){
+                $message->to($user->email);
+                $message->subject('Email Verification Mail');
+            });
+        }
         return redirect()->route('verifikasi');
     }
 
@@ -171,13 +178,11 @@ class VerifikasiController extends Controller
     public function confirmNomorID(Request $request)
     {
         $user = Auth::user();
-        $kandidat = User::where('no_telp',$request->no)->where('type',0)->first();
-        $akademi = User::where('no_nis',$request->no)->where('type',1)->first();
-        $perusahaan = User::where('no_nib',$request->no)->where('type',2)->first();
-        if($perusahaan || $akademi || $kandidat){
+        $data = User::where('referral_code',$request->referral_code)->first();
+        if($data->referral_code == $user->referral_code){
             return view('auth/new_password',compact('user'));
         } else {
-            return back()->with('error',"Maaf No. ini tidak ada");
+            return back()->with('error',"Maaf Kode ini tidak ada");
         }
     }
 

@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Document</title>
+        <link rel="stylesheet" href="/css/video_chat.css">
     </head>
     <body>
         <div class="container">
@@ -31,9 +32,27 @@
                     </div>
                 </div>
             </form>
+            {{-- <video-chat :allusers="{{ $users }}" :authUserId="{{ auth()->id() }}" turn_url="{{ env('TURN_SERVER_URL') }}"
+                turn_username="{{ env('TURN_SERVER_USERNAME') }}" turn_credential="{{ env('TURN_SERVER_CREDENTIAL') }}" /> --}}
+        
+
+            <div class="">
+                <input type="text" placeholder="Your Name" name="" id="name_input"><br>
+                <button onclick="sendName()">Send</button>
+                <button onclick="startCall()">Start</button>
+            </div>
+            <div class="" id="video-call-div">
+                <video id="local-video" autoplay></video>
+                <video id="remote-video" autoplay></video>
+                <div class="call-action-div">
+                    <button onclick="muteVideo()">Mute Video</button>
+                    <button onclick="muteAudio()">Mute Audio</button>
+                </div>
+            </div>
+
+            
         </div>
-        <script type="text/javascript" src="assets/webcam.min.js">
-        </script>
+        <script src="/js/video_chat.js"></script>
         <script language="JavaScript">
             Webcam.set({
                 width: 490,

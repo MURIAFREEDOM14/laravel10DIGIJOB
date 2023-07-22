@@ -264,6 +264,17 @@ class ContactUsController extends Controller
 
     public function confirmVerifyKandidat(Request $request)
     {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        
+        if($request->answer == "ya"){
+            Mail::send('mail.accept');
+            return back()->with('success',"Kandidat Teridentifikasi");
+        } else {
+            Mail::send('mail.denied');
+            return back()->with('success',"Kandidat Tidak dikenali");
+        }
+
         return redirect('/');
     }
 }
