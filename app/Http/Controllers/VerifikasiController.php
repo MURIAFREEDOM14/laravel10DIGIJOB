@@ -106,6 +106,9 @@ class VerifikasiController extends Controller
                     'verify_confirmed' => $newKode,
                     'referral_code' => $newKode,
                 ]);
+                Kandidat::where('id',$verifyUser->id)->update([
+                    'referral_code' => $newKode,
+                ]);
                 $kandidat = Kandidat::where('referral_code',$verifyUser->referral_code)->first(); 
                 $user = Auth::user();
                 if($user->password == null){
