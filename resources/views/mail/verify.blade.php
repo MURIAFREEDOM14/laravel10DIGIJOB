@@ -152,7 +152,7 @@
                                         <tr>
                                             <td align="center" style="border-radius: 3px;" bgcolor="red">
                                                 <a 
-                                                {{-- href="{{route('users_verification',$token)}}"  --}}
+                                                href="{{route('users_verification',$token)}}" 
                                                 style="margin:20px; font-size:20px; line-height:50px; text-decoration:none; color:white">
                                                     Verifikasi Akun
                                                 </a>

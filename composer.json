@@ -26,6 +26,7 @@
         "realrashid/sweet-alert": "^7.0",
         "stevebauman/location": "^6.6",
         "stripe/stripe-php": "^10.13",
+        "twilio/sdk": "^7.5",
         "vinkla/hashids": "^11.0"
     },
     "require-dev": {

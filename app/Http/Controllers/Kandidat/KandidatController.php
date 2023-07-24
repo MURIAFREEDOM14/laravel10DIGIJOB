@@ -27,6 +27,8 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Hash;
 use App\Models\PersetujuanKandidat;
 use App\Models\Pelatihan;
+use App\Models\VerifyOTP;
+use Twilio\Rest\Client;
 
 class KandidatController extends Controller
 {
@@ -169,6 +171,71 @@ class KandidatController extends Controller
         return redirect('/isi_kandidat_document')
         ->with('success',"Data anda tersimpan");
         // ->with('toast_success',"Data anda tersimpan");
+    }
+
+    public function ubah_kandidat_noTelp(Request $request)
+    {
+        $id = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
+        User::where('referral_code',$id->referral_code)->update([
+            'number_phone'=>$request->no_telp,
+        ]);
+        $verifyOTP = $this->confirmOTP($request->no_telp);
+
+        $locate = "+62";
+        $no_telp = $locate.$request->no_telp;
+
+        // Your Account SID and Auth Token from console.twilio.com
+        $sid = "ACb06a8933697ab7c78fb43bcb61277dda";
+        $token = "bb18df3cb8e369ee635189c9fd3e0a22";
+
+        $client = new Client($sid, $token);
+        // Use the Client to make requests to the Twilio REST API
+        $message = $client->messages->create(
+            // The number you'd like to send the message to
+            $no_telp,
+            [
+                // A Twilio phone number you purchased at https://console.twilio.com
+                'from' => '+12294045420',
+                // The body of the text message you'd like to send
+                'body' => $verifyOTP->otp,
+            ]
+        );
+
+        return view('kandidat/modalKandidat/otp_code',compact('kandidat'));
+    }
+
+    public function confirmOTP()
+    {
+        $id = Auth::user();
+        $user = User::where('no_telp',$id->no_telp)->where('number_phone',$id->number_phone)->first();
+        $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
+        $verifyOTP = VerifyOTP::where('id',$user->id)->latest()->first();
+
+        $now = Carbon::now();
+        if($verifyOTP && $now->isBefore($verifyOTP->expire_at)){
+            return $verifyOTP;
+        }
+
+        return VerifyOTP::create([
+            'id' => $user->id,
+            'otp' => rand(123456789, 999999),
+            'expire_at' => Carbon::now()->addMinutes(10),
+        ]);
+    }
+
+    public function confirm_kandidat_OTP_Telp(Request $request)
+    {
+        $id = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
+        $verifyOTP = VerifyOTP::where('id',$id->id)->where('otp',$request->otp)->first();
+        $now = Carbon::now();
+        if($verifyOTP && $now->isAfter($verifyOTP->expire_at)){
+            return back()->with('error',"Masa berlaku Kode OTP telah habis");
+        }
+
+        $user = User::whereId($id->id)->first();
+        return redirect()->route('document')->with('success',"No Telp anda diperbarui");
     }
 
     public function isi_kandidat_document()

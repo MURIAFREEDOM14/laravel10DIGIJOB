@@ -430,6 +430,47 @@ class ManagerController extends Controller
         return view('manager/kandidat/video_pelatihan',compact('manager','pelatihan','video'));
     }
 
+    public function editTemaPelatihan($id)
+    {
+        $auth = Auth::user();
+        $manager = User::where('referral_code',$auth->referral_code)->first();
+        $pelatihan = TemaPelatihan::where('tema_pelatihan_id',$id)->first();
+        $video = Pelatihan::where('tema',$pelatihan->tema_pelatihan)->get();
+        return view('manager/kandidat/edit_tema_pelatihan',compact('manager','pelatihan','video'));
+    }
+
+    public function updateTemaPelatihan(Request $request,$id)
+    {
+        $auth = Auth::user();
+        $manager = User::where('referral_code',$auth->referral_code)->first();
+        TemaPelatihan::where('tema_pelatihan_id',$id)->update([
+            'tema_pelatihan'=>$request->tema,
+        ]);
+        Pelatihan::where('tema_pelatihan_id',$id)->update([
+            'tema_pelatihan_id'=>$id,
+            'tema'=>$request->tema,
+        ]);
+        return redirect('/manager/kandidat/pelatihan')->with('success',"Tema berhasil diubah");
+    }
+
+    public function hapusTemaPelatihan($id)
+    {
+        $hapus = Pelatihan::where('tema_pelatihan_id',$id)->first();
+        $file = public_path('/gambar/Manager/Pelatihan/'.$hapus->judul.'/Thumbnail/').$hapus->thumbnail;
+        if(file_exists($file)){
+            @unlink($file);
+        }
+        $hapus_video = public_path('/gambar/Manager/Pelatihan/'.$hapus->judul.'/Video/').$hapus->video;
+            if(file_exists($hapus_video)){
+                @unlink($hapus_video);
+            }
+        $auth = Auth::user();
+        $manager = User::where('referral_code',$auth->referral_code)->first();
+        TemaPelatihan::where('tema_pelatihan_id',$id)->delete();
+        Pelatihan::where('tema_pelatihan_id',$id)->delete();
+        return redirect('/manager/kandidat/pelatihan')->with('success',"Tema berhasil dihapus");
+    }
+
     public function tambahVideoPelatihan($tema,$id)
     {
         $auth = Auth::user();
@@ -447,7 +488,7 @@ class ManagerController extends Controller
         // THUMBNAIL //
         if($request->file('thumbnail') !== null){
             $thumbnail = $request->judul.time().'.'.$request->thumbnail->extension();  
-            $request->thumbnail->move(public_path('/gambar/Manager/Pelatihan/'.$request->judul.'/Thumbnail'), $thumbnail);
+            $request->thumbnail->move(public_path('/gambar/Manager/Pelatihan/'.$request->judul.'/Thumbnail/'), $thumbnail);
         } else {
             $thumbnail = null;
         }
@@ -457,8 +498,8 @@ class ManagerController extends Controller
             'video' => 'mimes:mp4,mov,ogg,qt',
         ]);
         $video = $request->file('video');
-        $video->move('gambar/Manager/Pelatihan/'.$request->judul.'/Video',$request->judul.$video->getClientOriginalName());
-        $simpanVideo = $request->judul.$video->getClientOriginalName();
+        $video->move('gambar/Manager/Pelatihan/'.$request->judul.'/Video/',$request->judul.time().'.'.$video->getClientOriginalName());
+        $simpanVideo = $request->judul.time().'.'.$video->getClientOriginalName();
         
         Pelatihan::create([
             'judul'=>$request->judul,
@@ -495,7 +536,7 @@ class ManagerController extends Controller
                 @unlink($hapus_thumbnail);
             }
             $thumbnail = $request->judul.time().'.'.$request->thumbnail->extension();  
-            $request->thumbnail->move(public_path('/gambar/Manager/Pelatihan/'.$request->judul.'/Thumbnail'), $thumbnail);
+            $request->thumbnail->move(public_path('/gambar/Manager/Pelatihan/'.$request->judul.'/Thumbnail/'), $thumbnail);
         } else {
             if ($pelatihan->thumbnail !== null) {
                 $thumbnail = $pelatihan->thumbnail;
@@ -514,8 +555,8 @@ class ManagerController extends Controller
                 @unlink($hapus_video);
             }
             $video = $request->file('video');
-            $video->move('gambar/Manager/Pelatihan/'.$request->judul.'/Video',$request->judul.$video->getClientOriginalName());
-            $simpan_video = $request->judul.$video->getClientOriginalName();
+            $video->move('gambar/Manager/Pelatihan/'.$request->judul.'/Video/',$request->judul.time().'.'.$video->getClientOriginalName());
+            $simpan_video = $request->judul.time().'.'.$video->getClientOriginalName();
         } else {
             if($pelatihan->video !== null){
                 $simpan_video = $pelatihan->video;

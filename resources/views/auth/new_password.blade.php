@@ -26,7 +26,6 @@
                             </div>
                         </div>
                         <div class="mt-3">
-                            <a class="btn btn-danger" href="/login">Kembali</a>
                             <button class="btn btn-primary float-end" type="submit">Simpan</button>    
                         </div>
                     </form> 

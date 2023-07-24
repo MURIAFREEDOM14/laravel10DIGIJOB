@@ -70,7 +70,12 @@
                                     <label for="inputPassword6" class="col-form-label">No Telepon</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="number" disabled required value="{{$user->no_telp}}" name="no_telp" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <div class="input-group">
+                                        <input type="number" disabled value="{{$user->no_telp}}" name="no_telp" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                        <div class="input-group-append">
+                                            <a class="btn btn-warning" href="/edit_kandidat_no_telp" id="button-addon2">Ubah</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">

@@ -139,6 +139,7 @@ class RegisterController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'no_telp' => $request->no_telp,
+            'number_phone' => $request->no_telp,
             'password' => $password,
             'check_password' => $request->password,
             'token' => $token,

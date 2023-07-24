@@ -49,23 +49,33 @@
                 </div>
             </div>
         </div>
+        @if ($verification->confirmation !== "ya")
         <div class="card">
             <div class="card-header">
                 <h5 style="font-weight: 600">Konfirmasi</h5>
             </div>
             <div class="card-body">
                 <form action="" method="POST">
-                    <div class="form-group">
-                        <label for="" class="col-form-label">Apakah Kandidat diatas terbukti benar?</label>
-                        <select name="answer" required class="form-control" id="">
-                            <option value="">-- Tentukan jawaban --</option>
-                            <option value="ya">Ya</option>
-                            <option value="tidak">Tidak</option>
-                        </select>
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="" class="col-form-label">Apakah Kandidat diatas terbukti benar?</label>
+                            <div class="input-group mb-3">
+                                <select name="answer" required class="form-control" id="">
+                                    <option value="">-- Tentukan jawaban --</option>
+                                    <option value="ya">Ya</option>
+                                    <option value="tidak">Tidak</option>
+                                </select>
+                                <div class="input-group-append">
+                                <button class="btn btn-outline-primary" type="submit" id="button-addon2">Konfirmasi</button>
+                                </div>
+                            </div>  
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
+        @endif
         {{-- <div class="card">
             <div class="card-header">
                 <h3 style="font-weight: 700">Kirim Email</h3>

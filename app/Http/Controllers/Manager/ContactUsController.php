@@ -21,15 +21,16 @@ use App\Models\Perusahaan;
 use App\Models\Akademi;
 use App\Models\Kandidat;
 use App\Models\VerifikasiDiri;
+use Illuminate\Support\Facades\Mail;
 
 class ContactUsController extends Controller
 {
     public function contactUsAdmin()
     {
         $user = Auth::user();
-        $manager = User::where('type',3)->first();
-        $admin = User::where('type',4)->get();
-        return view('manager/contactService/contact_us',compact('manager','admin'));
+        // $admin = User::where('type',4)->first();
+        $admin = User::where('type',4)->first();
+        return view('manager/contactService/contact_us',compact('admin'));
     }
 
     public function tambahContactUsAdmin(Request $request)
@@ -60,9 +61,11 @@ class ContactUsController extends Controller
     public function contactUs()
     {
         $user = Auth::user();
-        $manager = User::where('type',3)->first();
-        $admin = User::where('type',4)->get();
-        return view('manager/contactService/index',compact('manager','admin'));
+        $admin = User::where('type',4)->first();
+        $notifCK = ContactUsKandidat::where('balas',"belum dibaca")->limit(20)->get();
+        $notifCA = ContactUsAkademi::where('balas',"belum dibaca")->limit(20)->get();
+        $notifCP = ContactUsPerusahaan::where('balas',"belum dibaca")->limit(20)->get();
+        return view('manager/contactService/index',compact('admin','notifCK','notifCA','notifCP'));
     }
     
     public function lihatContactUs($id)
@@ -70,7 +73,7 @@ class ContactUsController extends Controller
         $user = Auth::user();
         $manager = User::where('referral_code',$user->referral_code)->first();
         $contact_us = ContactUs::where('id',$id)->first();
-        return view('manager/contactService/lihat_contact_us',compact('manager','contact_us'));
+        return view('manager/contactService/lihat_contact_us',compact('admin','contact_us'));
     }
 
     public function sendContactUs(Request $request)
@@ -124,32 +127,32 @@ class ContactUsController extends Controller
     public function contactUsGuestList()
     {
         $user = Auth::user();
-        $manager = User::where('type',3)->first();
+        $admin = User::where('type',4)->first();
         $semua_guest = ContactUs::where('no_telp','is not null')->where('email','is not null')->get();
-        return view('manager/contactService/guest_list',compact('manager','semua_guest'));
+        return view('manager/contactService/guest_list',compact('admin','semua_guest'));
     }
 
     public function contactUsGuestLihat($id)
     {
         $user = Auth::user();
-        $manager = User::where('type',3)->first();
+        $admin = User::where('type',4)->first();
         $kandidat = ContactUsKandidat::where('id',$id)->first();           
     }
 
     public function contactUsKandidatList()
     {
         $user = Auth::user();
-        $manager = User::where('type',3)->first();
+        $admin = User::where('type',4)->first();
         $semua_kandidat = ContactUsKandidat::all();
-        return view('manager/contactService/kandidat_list',compact('manager','semua_kandidat'));
+        return view('manager/contactService/kandidat_list',compact('admin','semua_kandidat'));
     }
 
     public function contactUsKandidatLihat($id)
     {
         $user = Auth::user();
-        $manager = User::where('type',3)->first();
+        $admin = User::where('type',4)->first();
         $kandidat = ContactUsKandidat::where('id_contact_kandidat',$id)->first();
-        return view('manager/contactService/kandidat_lihat',compact('manager','kandidat'));
+        return view('manager/contactService/kandidat_lihat',compact('admin','kandidat'));
     }
 
     public function contactUsKandidatJawab(Request $request,$id)
@@ -174,17 +177,17 @@ class ContactUsController extends Controller
     public function contactUsAkademiList()
     {
         $user = Auth::user();
-        $manager = User::where('type',3)->first();
+        $admin = User::where('type',4)->first();
         $semua_akademi = ContactUsAkademi::all();
-        return view('manager/contactService/akademi_list',compact('manager','semua_akademi'));
+        return view('manager/contactService/akademi_list',compact('admin','semua_akademi'));
     }
 
     public function contactUsAkademiLihat($id)
     {
         $user = Auth::user();
-        $manager = User::where('type',3)->first();
+        $admin = User::where('type',4)->first();
         $akademi = ContactUsAkademi::where('id_contact_akademi',$id)->first();
-        return view('manager/contactService/akademi_lihat',compact('manager','akademi'));
+        return view('manager/contactService/akademi_lihat',compact('admin','akademi'));
     }
 
     public function contactUsAkademiJawab(Request $request,$id)
@@ -209,17 +212,17 @@ class ContactUsController extends Controller
     public function contactUsPerusahaanList()
     {
         $user = Auth::user();
-        $manager = User::where('type',3)->first();
+        $admin = User::where('type',4)->first();
         $semua_perusahaan = ContactUsPerusahaan::all();
-        return view('manager/contactService/perusahaan_list',compact('manager','semua_perusahaan'));
+        return view('manager/contactService/perusahaan_list',compact('admin','semua_perusahaan'));
     }
 
     public function contactUsPerusahaanLihat($id)
     {
         $user = Auth::user();
-        $manager = User::where('type',3)->first();
+        $admin = User::where('type',4)->first();
         $perusahaan = ContactUsPerusahaan::where('id_contact_perusahaan',$id)->first();
-        return view('manager/contactService/perusahaan_lihat',compact('manager','perusahaan'));
+        return view('manager/contactService/perusahaan_lihat',compact('admin','perusahaan'));
     }
 
     public function contactUsPerusahaanJawab(Request $request, $id)
@@ -245,36 +248,51 @@ class ContactUsController extends Controller
     public function verifyKandidatList()
     {
         $user = Auth::user();
-        $manager = User::where('referral_code',$user->referral_code)->first();
+        $admin = User::where('referral_code',$user->referral_code)->first();
         $verification = VerifikasiDiri::join(
             'kandidat','verifikasi_diri.id','=','kandidat.id'
-        )->get();
-        return view('manager/contactService/verify_kandidat_list',compact('manager','verification'));
+        )->whereNull('confirmation')->get();
+        $riwayat = VerifikasiDiri::join(
+            'kandidat','verifikasi_diri.id','=','kandidat.id'
+        )->where('confirmation',"ya")->get();
+        return view('manager/contactService/verify_kandidat_list',compact('admin','verification','riwayat'));
     }
 
     public function lihatVerifyKandidat($id)
     {
         $user = Auth::user();
-        $manager = User::where('referral_code',$user->referral_code)->first();
+        $admin = User::where('referral_code',$user->referral_code)->first();
         $verification = VerifikasiDiri::join(
             'kandidat','verifikasi_diri.id','=','kandidat.id'
         )->where('verify_id',$id)->first();
-        return view('manager/contactService/lihat_verify_kandidat',compact('manager','verification'));
+        return view('manager/contactService/lihat_verify_kandidat',compact('admin','verification'));
     }
 
-    public function confirmVerifyKandidat(Request $request)
+    public function confirmVerifyKandidat(Request $request,$id)
     {
         $user = Auth::user();
         $manager = User::where('referral_code',$user->referral_code)->first();
-        
+        $verification = VerifikasiDiri::join(
+            'users','verifikasi_diri.id','=','users.id'
+        )->where('verify_id',$id)->first();
         if($request->answer == "ya"){
-            Mail::send('mail.accept');
+            VerifikasiDiri::where('verify_id',$id)->update([
+                'confirmation'=>$request->answer,
+            ]);
+            Mail::send('mail.accept', ['token'=>$verification->token,'nama'=>$verification->name], function($message) use($verification){
+                $message->to($verification->email);
+                $message->subject('Kandidat Verification');
+            });
             return back()->with('success',"Kandidat Teridentifikasi");
         } else {
-            Mail::send('mail.denied');
+            VerifikasiDiri::where('verify_id',$id)->update([
+                'confirmation'=>$request->answer,
+            ]);
+            Mail::send('mail.denied', ['token'=>$verification->token, 'nama'=>$verification->name], function($message) use($verification){
+                $message->to($verification->email);
+                $message->subject('Kandidat Verification');
+            });
             return back()->with('success',"Kandidat Tidak dikenali");
         }
-
-        return redirect('/');
     }
 }

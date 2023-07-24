@@ -107,10 +107,13 @@
                                 </ul>
                             </li>
                             <li class="nav-item dropdown hidden-caret">
-                                {{-- <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-bell"></i>
-                                    <span class="notification">4</span>
-                                </a> --}}
+                                    @php
+                                        
+                                    @endphp
+                                    <span class="notification">0</span>
+                                </a>
                                 <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
                                     <li>
                                         <div class="dropdown-title">Ada Notifikasi Baru</div>
@@ -148,8 +151,8 @@
                                                 <div class="avatar-lg">
                                                         <img src="/gambar/default_user.png" alt="image profile" class="avatar-img rounded"></div>                                                        
                                                 <div class="u-text">
-                                                    <h4>{{$manager->name}}</h4>
-                                                    <p class="text-muted">{{$manager->email}}</p>
+                                                    <h4>{{$admin->name}}</h4>
+                                                    <p class="text-muted">{{$admin->email}}</p>
                                                 </div>
                                             </div>
                                         </li>
@@ -173,7 +176,7 @@
                     <div class="sidebar-content">
                         <ul class="nav nav-primary">
                             <li class="nav-item active">
-                                <a href="" class="btn" aria-expanded="false">
+                                <a href="/manager/contact_us" class="btn" aria-expanded="false">
                                     <i class="fas fa-home"></i>
                                     <p>Dashboard</p>
                                 </a>

@@ -70,6 +70,9 @@ Route::controller(ManagerController::class)->group(function() {
     Route::get('/manager/kandidat/pelatihan','pelatihan')->middleware('manager');
     Route::post('/manager/kandidat/tambah_tema_pelatihan','simpanTemaPelatihan');
     Route::get('/manager/kandidat/lihat_video_pelatihan/{id}','lihatVideoPelatihan')->middleware('manager');
+    Route::get('/manager/kandidat/edit_tema_pelatihan/{id}','editTemaPelatihan')->middleware('manager');
+    Route::post('/manager/kandidat/edit_tema_pelatihan/{id}','updateTemaPelatihan');
+    Route::get('/manager/kandidat/hapus_tema_pelatihan/{id}','hapusTemaPelatihan')->middleware('manager');
     Route::get('/manager/kandidat/tambah_video_pelatihan/{tema}/{id}','tambahVideoPelatihan')->middleware('manager');
     Route::post('/manager/kandidat/tambah_video_pelatihan/{tema}/{id}','simpanVideoPelatihan');
     Route::get('/manager/kandidat/edit_video_pelatihan/{tema}/{id}','editVideoPelatihan')->middleware('manager');
@@ -357,7 +360,11 @@ Route::controller(KandidatController::class)->group(function() {
 
     Route::get('/isi_kandidat_personal', 'isi_kandidat_personal')->middleware('kandidat')->name('personal');
     Route::post('/isi_kandidat_personal', 'simpan_kandidat_personal');
-    
+    Route::view('/edit_kandidat_no_telp','kandidat/modalKandidat/edit_no_telp');
+    Route::post('/edit_kandidat_no_telp','ubah_kandidat_noTelp');
+    Route::post('/confirm_otp_code','confirmOTP');
+    Route::post('/confirm_kandidat_otp_telp','confirm_kandidat_OTP_Telp');
+
     Route::get('/isi_kandidat_document', 'isi_kandidat_document')->middleware('kandidat')->name('document');
     Route::post('/isi_kandidat_document', 'simpan_kandidat_document');
 
@@ -486,6 +493,9 @@ Route::controller(VerifikasiController::class)->group(function(){
     Route::post('/verifikasi','masukVerifikasi');
     Route::get('/ulang_verifikasi','ulang_verifikasi')->middleware('verify');
     Route::get('/verify_account/{token}','verifyAccount')->name('users_verification')->middleware('verify');
+    Route::get('/identify_account/{token}','identifyAccount')->name('identify_account');
+    Route::get('/identify_id','identifyID');
+    Route::post('/identify_id','confirmIdentifyID');
     Route::get('/nomor_id','nomorID')->name('nomorID');
     Route::post('/nomor_id','confirmNomorID');
     Route::post('/kirim_verifikasi_diri','confirmVerifikasiDiri');
@@ -594,7 +604,7 @@ Route::controller(PrototypeController::class)->group(function(){
     Route::get('/proto_delete','delete');
     Route::post('/proto_mail','email');
     Route::view('/prototype3','prototype3');
-
+    
     Route::get('/webcam','takePhoto');
     Route::post('/webcam','store')->name('webcam.capture');
 
@@ -607,6 +617,9 @@ Route::controller(PrototypeController::class)->group(function(){
     Route::post('/video/accept-call','confirmCalling');
 
     Route::get('/make_captcha','captcha')->name('make.captcha');
+
+    Route::view('/kirim_sms','prototype/sms');
+    Route::post('/kirim_sms','sendSMS');
 });
 
 Route::controller(CaptchaController::class)->group(function() {
