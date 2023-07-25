@@ -86,19 +86,25 @@ class ManagerController extends Controller
         $ttl_baru_akademi = $akademi_baru->count();
         $login_akademi = User::where('updated_at','like','%'.$data.'%')->where('type',1)->get();
         $total_akademi = $login_akademi->count();        
-        
+        $akademi_list = Akademi::limit(10)->get();
+
         $perusahaan_baru = User::where('created_at','like','%'.$data.'%')->where('type',2)->get();
         $ttl_baru_perusahaan = $perusahaan_baru->count();
         $login_perusahaan = User::where('updated_at','like','%'.$data.'%')->where('type',2)->get();
         $total_perusahaan = $login_perusahaan->count();                
-        
+        $perusahaan_list = Perusahaan::limit(10)->get();
+
         $negara_tujuan = Negara::all();
+        $kandidat = Kandidat::all();
 
         return view('manager/manager_home',compact(
-            'manager','data','negara_tujuan',
+            'manager','data','negara_tujuan','kandidat',
             'login_kandidat','total_kandidat','semua_kandidat','kandidat_baru','ttl_baru_kandidat',
+
             'login_akademi','total_akademi','semua_akademi','akademi_baru','ttl_baru_akademi',
+            'akademi_list',
             'login_perusahaan','total_perusahaan','semua_perusahaan','perusahaan_baru','ttl_baru_perusahaan',
+            'perusahaan_list',
         ));
     }
 

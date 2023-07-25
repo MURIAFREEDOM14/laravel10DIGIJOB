@@ -4,23 +4,23 @@
     <div class="page-inner py-5">
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
             <div>
-                <h2 class="text-white pb-2 fw-bold">Dashboard</h2>
-                <h5 class="text-white op-7 mb-2">Free Bootstrap 4 Admin Dashboard</h5>
+                <h2 class="text-white pb-2 fw-bold">Beranda</h2>
+                <h5 class="text-white op-7 mb-2" style="text-transform: uppercase">Digijob - Ugiport</h5>
             </div>
-            <div class="ml-md-auto py-2 py-md-0">
+            {{-- <div class="ml-md-auto py-2 py-md-0">
                 <a href="#" class="btn btn-white btn-border btn-round mr-2">Manage</a>
                 <a href="#" class="btn btn-secondary btn-round">Add Customer</a>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>
 <div class="page-inner mt--5">
     <div class="row mt--2">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card full-height">
                 <div class="card-body">
-                    <div class="card-title">Overall statistics</div>
-                    <div class="card-category">Daily information about statistics in system</div>
+                    <div class="card-title">statistik kandidat baru hari ini</div>
+                    <div class="card-category"> informasi statistik harian di sistem</div>
                     <div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
                         <div class="px-2 pb-2 pb-md-0 text-center">
                             <div id="circles-1"></div>
@@ -41,7 +41,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        {{-- <div class="col-md-6">
             <div class="card full-height">
                 <div class="card-body">
                     <div class="card-title">Total income & spend statistics</div>
@@ -64,27 +64,27 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <div class="card-head-row">
                         <div class="card-title">Statistik Pengguna Aplikasi Hari Ini</div>
                         <div class="card-tools">
-                            <a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2">
+                            {{-- <a href="#" class="btn btn-info btn-border btn-round btn-sm mr-2">
                                 <span class="btn-label">
                                     <i class="fa fa-pencil"></i>
                                 </span>
                                 Export
-                            </a>
-                            <a href="#" class="btn btn-info btn-border btn-round btn-sm">
+                            </a> --}}
+                            {{-- <a href="#" class="btn btn-info btn-border btn-round btn-sm">
                                 <span class="btn-label">
                                     <i class="fa fa-print"></i>
                                 </span>
                                 Print
-                            </a>
+                            </a> --}}
                         </div>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        {{-- <div class="col-md-4">
             <div class="card card-primary">
                 <div class="card-header">
                     <div class="card-title">Daily Sales</div>
@@ -142,22 +142,22 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
     <div class="row row-card-no-pd">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <div class="card-head-row card-tools-still-right">
-                        <h4 class="card-title">Users Geolocation</h4>
+                        <h4 class="card-title">Penempatan Kerja Kandidat</h4>
                         <div class="card-tools">
                             <button class="btn btn-icon btn-link btn-primary btn-xs"><span class="fa fa-angle-down"></span></button>
                             <button class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card"><span class="fa fa-sync-alt"></span></button>
                             <button class="btn btn-icon btn-link btn-primary btn-xs"><span class="fa fa-times"></span></button>
                         </div>
                     </div>
-                    <p class="card-category">
-                    Map of the distribution of users around the world</p>
+                    {{-- <p class="card-category">
+                    Map of the distribution of users around the world</p> --}}
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -177,6 +177,12 @@
                                                     {{$item->mata_uang}}
                                                 </td>
                                                 <td class="text-right">
+                                                    @foreach ($kandidat as $number)
+                                                        @php
+                                                            $total = $number->negara_id == $item->negara_id;
+                                                            
+                                                        @endphp
+                                                    @endforeach
                                                 </td>
                                             </tr>    
                                         @endforeach
@@ -198,7 +204,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">Top Products</div>
+                    <div class="card-title">Penempatan Terbanyak</div>
                 </div>
                 <div class="card-body pb-0">
                     <div class="d-flex">
@@ -248,87 +254,37 @@
         </div>
         <div class="col-md-4">
             <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Kontak Akademi</div>
+                </div>
                 <div class="card-body">
-                    <div class="card-title fw-mediumbold">Suggested People</div>
                     <div class="card-list">
-                        <div class="item-list">
-                            <div class="avatar">
-                                <img src="/Atlantis/examples/assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle">
+                        @foreach ($akademi_list as $item)
+                            <div class="item-list">
+                                <div class="avatar">
+                                    @if ($item->logo_akademi !== null)
+                                        <img src="/gambar/Akademi/{{$item->nama_akademi}}/Logo Akademi/{{$item->logo_akademi}}" alt="..." class="avatar-img rounded-circle">                                        
+                                    @else
+                                        <img src="/gambar/default_user.png" alt="" class="avatar-img rounded-circle">
+                                    @endif
+                                </div>
+                                <div class="info-user ml-3">
+                                    <div class="username">{{$item->nama_akademi}}</div>
+                                </div>
+                                <a class="btn btn-icon btn-primary btn-round btn-xs" href="">
+                                    <i class="fa fa-plus"></i>
+                                </a>
                             </div>
-                            <div class="info-user ml-3">
-                                <div class="username">Jimmy Denis</div>
-                                <div class="status">Graphic Designer</div>
-                            </div>
-                            <button class="btn btn-icon btn-primary btn-round btn-xs">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
-                        <div class="item-list">
-                            <div class="avatar">
-                                <img src="/Atlantis/examples/assets/img/chadengle.jpg" alt="..." class="avatar-img rounded-circle">
-                            </div>
-                            <div class="info-user ml-3">
-                                <div class="username">Chad</div>
-                                <div class="status">CEO Zeleaf</div>
-                            </div>
-                            <button class="btn btn-icon btn-primary btn-round btn-xs">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
-                        <div class="item-list">
-                            <div class="avatar">
-                                <img src="/Atlantis/examples/assets/img/talha.jpg" alt="..." class="avatar-img rounded-circle">
-                            </div>
-                            <div class="info-user ml-3">
-                                <div class="username">Talha</div>
-                                <div class="status">Front End Designer</div>
-                            </div>
-                            <button class="btn btn-icon btn-primary btn-round btn-xs">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
-                        <div class="item-list">
-                            <div class="avatar">
-                                <img src="/Atlantis/examples/assets/img/mlane.jpg" alt="..." class="avatar-img rounded-circle">
-                            </div>
-                            <div class="info-user ml-3">
-                                <div class="username">John Doe</div>
-                                <div class="status">Back End Developer</div>
-                            </div>
-                            <button class="btn btn-icon btn-primary btn-round btn-xs">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
-                        <div class="item-list">
-                            <div class="avatar">
-                                <img src="/Atlantis/examples/assets/img/talha.jpg" alt="..." class="avatar-img rounded-circle">
-                            </div>
-                            <div class="info-user ml-3">
-                                <div class="username">Talha</div>
-                                <div class="status">Front End Designer</div>
-                            </div>
-                            <button class="btn btn-icon btn-primary btn-round btn-xs">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
-                        <div class="item-list">
-                            <div class="avatar">
-                                <img src="/Atlantis/examples/assets/img/jm_denis.jpg" alt="..." class="avatar-img rounded-circle">
-                            </div>
-                            <div class="info-user ml-3">
-                                <div class="username">Jimmy Denis</div>
-                                <div class="status">Graphic Designer</div>
-                            </div>
-                            <button class="btn btn-icon btn-primary btn-round btn-xs">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card card-primary bg-primary-gradient">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Kontak Akademi</div>
+                </div>
                 <div class="card-body">
                     <h4 class="mt-3 b-b1 pb-2 mb-4 fw-bold">Active user right now</h4>
                     <h1 class="mb-4 fw-bold">17</h1>

@@ -91,7 +91,7 @@
                                         </div>
                                       </div>
                                     </div>
-                                    <input type="text" hidden name="captcha" value="" id="confirmCaptcha">
+                                    <input type="text" hidden name="captcha" value="" id="confirmCaptcha" required>
                                     @error('captcha')
                                       <span class="invalid-feedback" role="alert">
                                           <strong>Harap isi captcha anda</strong>
@@ -106,11 +106,13 @@
                                 Dengan ini, anda menyetujui <a href="/syarat_ketentuan/kandidat">syarat & ketentuan</a> kami.
                             </span>
                         </div>
-                        {{-- <div class="">Sudah Pernah Terdaftar?<a class="btn btn-link" href="/login/migration">Aktifkan Akun</a></div>                         --}}
                         <div class="mt-3">Sudah punya akun?<a href="/login" class="ms-1 btn btn-link">Login</a></div>
-                        <button type="submit" id="btn" disabled="true" class="btn btn-primary mt-3">
+                        {{-- <button type="submit" id="btn" disabled="true" class="btn btn-primary mt-3">
                             {{ __('Register') }}
-                        </button>
+                        </button> --}}
+                        <a href="/perbaikan" id="btn" disabled="true" class="btn btn-primary mt-3">
+                            {{ __('Register') }}
+                        </a>
                     </form>
                 </div>
             </div>
