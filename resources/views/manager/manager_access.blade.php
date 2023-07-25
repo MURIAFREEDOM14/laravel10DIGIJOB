@@ -82,7 +82,11 @@
                 </div>            
                 <div class="form-group form-group-default">
                     <label>Masukkan Password</label>
-                    <input id="Name" name="password" type="password" required class="form-control" placeholder="Masukkan Password">
+                    <input id="password" name="password" type="password" required class="form-control" placeholder="Masukkan Password">
+                </div>            
+                <div class="form-group form-group-default">
+                    <label>Masukkan Kode</label>
+                    <input id="kode" name="kode" type="password" required class="form-control" placeholder="Masukkan Kode">
                 </div>            
                 <div class="d-flex justify-content-center justify-content-lg-start mb-5">
                     <button type="submit" class="btn-get-started scrollto">Masuk</button>

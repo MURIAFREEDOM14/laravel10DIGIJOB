@@ -47,9 +47,10 @@ class ManagerController extends Controller
     {
         $this->validate($request, [
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
+            'kode' => 'required',
         ]);
-        $data = User::where(['email'=>$request->email, 'password'=>$request->password])->first();
+        $data = User::where(['email'=>$request->email, 'password'=>$request->password, 'referral_code'=>$request->kode])->first();
         if($data == null){
             return redirect()->back()->with('error',"maaf Email atau Password anda salah");
         } else {

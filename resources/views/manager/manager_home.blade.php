@@ -91,15 +91,15 @@
                 <div class="card-body">
                     <label for="">Kandidat Masuk</label>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{$total_kandidat}}0%" aria-valuenow="" aria-valuemin="0" aria-valuemax="{{$semua_kandidat}}">{{$total_kandidat}}</div>
+                        <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{$total_kandidat}}%" aria-valuenow="" aria-valuemin="0" aria-valuemax="{{$semua_kandidat}}">{{$total_kandidat}}</div>
                     </div>
                     <label for="">Akademi Masuk</label>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: {{$total_akademi}}0%" aria-valuenow="" aria-valuemin="0" aria-valuemax="{{$semua_akademi}}">{{$total_akademi}}</div>
+                        <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: {{$total_akademi}}%" aria-valuenow="" aria-valuemin="0" aria-valuemax="{{$semua_akademi}}">{{$total_akademi}}</div>
                     </div>
                     <label for="">Perusahaan Masuk</label>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: {{$total_perusahaan}}0%" aria-valuenow="" aria-valuemin="0" aria-valuemax="{{$semua_perusahaan}}">{{$total_perusahaan}}</div>
+                        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: {{$total_perusahaan}}%" aria-valuenow="" aria-valuemin="0" aria-valuemax="{{$semua_perusahaan}}">{{$total_perusahaan}}</div>
                     </div>
                     {{-- <div class="chart-container" style="min-height: 375px">
                         <canvas id="multipleBarChart"></canvas>
@@ -255,7 +255,8 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">Kontak Akademi</div>
+                    <div class="card-title float-left">Kontak Akademi</div>
+                    <a href="/manager/akademi/list_akademi" class="float-right">Lainnya</a>
                 </div>
                 <div class="card-body">
                     <div class="card-list">
@@ -271,7 +272,7 @@
                                 <div class="info-user ml-3">
                                     <div class="username">{{$item->nama_akademi}}</div>
                                 </div>
-                                <a class="btn btn-icon btn-primary btn-round btn-xs" href="">
+                                <a class="btn-primary btn-round btn-xs" href="/manager/akademi/lihat_profil/{{$item->id_akademi}}">
                                     <i class="fa fa-plus"></i>
                                 </a>
                             </div>
@@ -283,18 +284,29 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">Kontak Akademi</div>
+                    <div class="card-title float-left">Kontak Perusahaan</div>
+                    <a href="/manager/perusahaan/list_perusahaan" class="float-right">Lainnya</a>
                 </div>
                 <div class="card-body">
-                    <h4 class="mt-3 b-b1 pb-2 mb-4 fw-bold">Active user right now</h4>
-                    <h1 class="mb-4 fw-bold">17</h1>
-                    <h4 class="mt-3 b-b1 pb-2 mb-5 fw-bold">Page view per minutes</h4>
-                    <div id="activeUsersChart"></div>
-                    <h4 class="mt-5 pb-3 mb-0 fw-bold">Top active pages</h4>
-                    <ul class="list-unstyled">
-                        <li class="d-flex justify-content-between pb-1 pt-1"><small>/product/readypro/index.html</small> <span>7</span></li>
-                        <li class="d-flex justify-content-between pb-1 pt-1"><small>/product/atlantis/demo.html</small> <span>10</span></li>
-                    </ul>
+                    <div class="card-list">
+                        @foreach ($perusahaan_list as $item)
+                            <div class="item-list">
+                                <div class="avatar">
+                                    @if ($item->logo_perusahaan !== null)
+                                        <img src="/gambar/Perusahaan/{{$item->nama_perusahaan}}/Logo Perusahaan/{{$item->logo_perusahaan}}" alt="..." class="avatar-img rounded-circle">                                        
+                                    @else
+                                        <img src="/gambar/default_user.png" alt="" class="avatar-img rounded-circle">
+                                    @endif
+                                </div>
+                                <div class="info-user ml-3">
+                                    <div class="username">{{$item->nama_perusahaan}}</div>
+                                </div>
+                                <a class="btn-primary btn-round btn-xs" href="/manager/perusahaan/lihat_profil/{{$item->id_perusahaan}}">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
         </div>
@@ -303,7 +315,7 @@
         <div class="col-md-6">
             <div class="card full-height">
                 <div class="card-header">
-                    <div class="card-title">Feed Activity</div>
+                    <div class="card-title">Jadwal Acara</div>
                 </div>
                 <div class="card-body">
                     <ol class="activity-feed">
@@ -339,87 +351,23 @@
             <div class="card full-height">
                 <div class="card-header">
                     <div class="card-head-row">
-                        <div class="card-title">Support Tickets</div>
-                        <div class="card-tools">
-                            <ul class="nav nav-pills nav-secondary nav-pills-no-bd nav-sm" id="pills-tab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link" id="pills-today" data-toggle="pill" href="#pills-today" role="tab" aria-selected="true">Today</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="pills-week" data-toggle="pill" href="#pills-week" role="tab" aria-selected="false">Week</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="pills-month" data-toggle="pill" href="#pills-month" role="tab" aria-selected="false">Month</a>
-                                </li>
-                            </ul>
-                        </div>
+                        <div class="card-title">List Pekerja</div>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="avatar avatar-online">
-                            <span class="avatar-title rounded-circle border border-white bg-info">J</span>
+                            <span class="avatar-title rounded-circle border border-white bg-info">N</span>
                         </div>
                         <div class="flex-1 ml-3 pt-1">
-                            <h6 class="text-uppercase fw-bold mb-1">Joko Subianto <span class="text-warning pl-3">pending</span></h6>
-                            <span class="text-muted">I am facing some trouble with my viewport. When i start my</span>
+                            <h6 class="text-uppercase fw-bold mb-1"> Nama Pekerja <span class="text-warning pl-3">???</span></h6>
+                            <span class="text-muted">Bekerja di bidang .....</span>
                         </div>
                         <div class="float-right pt-1">
                             <small class="text-muted">8:40 PM</small>
                         </div>
                     </div>
                     <div class="separator-dashed"></div>
-                    <div class="d-flex">
-                        <div class="avatar avatar-offline">
-                            <span class="avatar-title rounded-circle border border-white bg-secondary">P</span>
-                        </div>
-                        <div class="flex-1 ml-3 pt-1">
-                            <h6 class="text-uppercase fw-bold mb-1">Prabowo Widodo <span class="text-success pl-3">open</span></h6>
-                            <span class="text-muted">I have some query regarding the license issue.</span>
-                        </div>
-                        <div class="float-right pt-1">
-                            <small class="text-muted">1 Day Ago</small>
-                        </div>
-                    </div>
-                    <div class="separator-dashed"></div>
-                    <div class="d-flex">
-                        <div class="avatar avatar-away">
-                            <span class="avatar-title rounded-circle border border-white bg-danger">L</span>
-                        </div>
-                        <div class="flex-1 ml-3 pt-1">
-                            <h6 class="text-uppercase fw-bold mb-1">Lee Chong Wei <span class="text-muted pl-3">closed</span></h6>
-                            <span class="text-muted">Is there any update plan for RTL version near future?</span>
-                        </div>
-                        <div class="float-right pt-1">
-                            <small class="text-muted">2 Days Ago</small>
-                        </div>
-                    </div>
-                    <div class="separator-dashed"></div>
-                    <div class="d-flex">
-                        <div class="avatar avatar-offline">
-                            <span class="avatar-title rounded-circle border border-white bg-secondary">P</span>
-                        </div>
-                        <div class="flex-1 ml-3 pt-1">
-                            <h6 class="text-uppercase fw-bold mb-1">Peter Parker <span class="text-success pl-3">open</span></h6>
-                            <span class="text-muted">I have some query regarding the license issue.</span>
-                        </div>
-                        <div class="float-right pt-1">
-                            <small class="text-muted">2 Day Ago</small>
-                        </div>
-                    </div>
-                    <div class="separator-dashed"></div>
-                    <div class="d-flex">
-                        <div class="avatar avatar-away">
-                            <span class="avatar-title rounded-circle border border-white bg-danger">L</span>
-                        </div>
-                        <div class="flex-1 ml-3 pt-1">
-                            <h6 class="text-uppercase fw-bold mb-1">Logan Paul <span class="text-muted pl-3">closed</span></h6>
-                            <span class="text-muted">Is there any update plan for RTL version near future?</span>
-                        </div>
-                        <div class="float-right pt-1">
-                            <small class="text-muted">2 Days Ago</small>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
