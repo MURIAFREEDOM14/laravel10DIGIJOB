@@ -107,12 +107,9 @@
                             </span>
                         </div>
                         <div class="mt-3">Sudah punya akun?<a href="/login" class="ms-1 btn btn-link">Login</a></div>
-                        {{-- <button type="submit" id="btn" disabled="true" class="btn btn-primary mt-3">
+                        <button type="submit" id="btn" disabled="true" class="btn btn-primary mt-3">
                             {{ __('Register') }}
-                        </button> --}}
-                        <a href="/perbaikan" id="btn" disabled="true" class="btn btn-primary mt-3">
-                            {{ __('Register') }}
-                        </a>
+                        </button>
                     </form>
                 </div>
             </div>
