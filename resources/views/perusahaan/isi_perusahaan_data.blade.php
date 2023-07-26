@@ -1,5 +1,7 @@
 @extends('layouts.input')
 @section('content')
+@include('sweetalert::alert')
+@include('flash_message')
     <div class="container mt-5">        
         <div class="card mb-4">
             <div class="card-header">

@@ -1,5 +1,7 @@
 @extends('layouts.input')
 @section('content')
+@include('sweetalert::alert')
+@include('flash_message')
 <style>
     #dalam_n{
         display: none;

@@ -1,5 +1,7 @@
 @extends('layouts.perusahaan')
 @section('content')
+@include('sweetalert::alert')
+@include('flash_message')
     <div class="container mt-5">
         <div class="row">
             <div class="col-12">

@@ -314,107 +314,116 @@
                                     <p>Dashboard</p>
                                 </a>
                             </li>
-                            <li class="nav-section">
-                                <span class="sidebar-mini-icon">
-                                    <i class="fa fa-ellipsis-h"></i>
-                                </span>
-                                <h4 class="text-section">Komponen</h4>
-                            </li>
-                            <li class="nav-item">
-                                <a data-toggle="collapse" href="#lowongan">
-                                    <i class="fas fa-flag"></i>
-                                    <p>Lowongan Pekerjaan</p>
-                                    <span class="caret"></span>
-                                </a>
-                                <div class="collapse" id="lowongan">
-                                    <ul class="nav nav-collapse">
-                                        <li>
-                                            <a href="/perusahaan/list/lowongan">
-                                                <span>Buat Lowongan Pekerjaan</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/perusahaan/list_permohonan_lowongan">
-                                                <span>Pelamar</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/perusahaan/persetujuan_kandidat">
-                                                <span>Persetujuan Kandidat</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/perusahaan/list/pmi_id">
-                                    <i class="fas fa-layer-group"></i>
-                                    <p>Pembuatan PMI ID</p>
-                                </a>
-                            </li>
-                            @if ($perusahaan->penempatan_kerja == "Luar negeri")
+                            @if ($perusahaan->email_operator !== null)
+                                <li class="nav-section">
+                                    <span class="sidebar-mini-icon">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </span>
+                                    <h4 class="text-section">Komponen</h4>
+                                </li>
                                 <li class="nav-item">
-                                    <a href="/perusahaan/negara_tujuan">
+                                    <a data-toggle="collapse" href="#lowongan">
+                                        <i class="fas fa-flag"></i>
+                                        <p>Lowongan Pekerjaan</p>
+                                        <span class="caret"></span>
+                                    </a>
+                                    <div class="collapse" id="lowongan">
+                                        <ul class="nav nav-collapse">
+                                            <li>
+                                                <a href="/perusahaan/list/lowongan">
+                                                    <span>Buat Lowongan Pekerjaan</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/perusahaan/list_permohonan_lowongan">
+                                                    <span>Pelamar</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/perusahaan/persetujuan_kandidat">
+                                                    <span>Persetujuan Kandidat</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/perusahaan/list/pmi_id">
                                         <i class="fas fa-layer-group"></i>
-                                        <p>Penempatan Kerja</p>
+                                        <p>Pembuatan PMI ID</p>
                                     </a>
                                 </li>
-                            @else
-                                
-                            @endif
-                            <li class="nav-item">
-                                <a data-toggle="collapse" href="#kandidat">
-                                    <i class="fas fa-flag"></i>
-                                    <p>Data Kandidat</p>
-                                    <span class="caret"></span>
-                                </a>
-                                <div class="collapse" id="kandidat">
-                                    <ul class="nav nav-collapse">
-                                        <li>
-                                            <a href="/perusahaan/list/kandidat">
-                                                <i class="fas fa-layer-group"></i>
-                                                <p>Data Kandidat</p>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/perusahaan/cari/kandidat">
-                                                <i class="fas fa-layer-group"></i>
-                                                <p>Cari Kandidat</p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a  href="/perusahaan/list/akademi">
-                                    <i class="fas fa-th-list"></i>
-                                    <p>Data Akademi</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a  href="/perusahaan/interview">
-                                    <i class="fas fa-th-list"></i>
-                                    <p>Data Interview</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a  href="/perusahaan/list/pembayaran">
-                                    <i class="fas fa-th-list"></i>
-                                    <p>Data Pembayaran</p>
-                                </a>
-                            </li>
-                            <li class="nav-item my-3">
-                                <div class="card" style="background-color: #1572e8">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <b class="">Jika anda membutuhkan karyawan / staff pegawai</b>
-                                                <a href="/perusahaan/cari_kandidat_staff" style="color: white; font-weight:600"><i class="fas fa-search" style="color: white"></i> Klik disini </a>
+                                @if ($perusahaan->penempatan_kerja == "Luar negeri")
+                                    <li class="nav-item">
+                                        <a href="/perusahaan/negara_tujuan">
+                                            <i class="fas fa-layer-group"></i>
+                                            <p>Penempatan Kerja</p>
+                                        </a>
+                                    </li>
+                                @else
+                                    
+                                @endif
+                                <li class="nav-item">
+                                    <a data-toggle="collapse" href="#kandidat">
+                                        <i class="fas fa-flag"></i>
+                                        <p>Data Kandidat</p>
+                                        <span class="caret"></span>
+                                    </a>
+                                    <div class="collapse" id="kandidat">
+                                        <ul class="nav nav-collapse">
+                                            <li>
+                                                <a href="/perusahaan/list/kandidat">
+                                                    <i class="fas fa-layer-group"></i>
+                                                    <p>Data Kandidat</p>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/perusahaan/cari/kandidat">
+                                                    <i class="fas fa-layer-group"></i>
+                                                    <p>Cari Kandidat</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a  href="/perusahaan/list/akademi">
+                                        <i class="fas fa-th-list"></i>
+                                        <p>Data Akademi</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a  href="/perusahaan/interview">
+                                        <i class="fas fa-th-list"></i>
+                                        <p>Data Interview</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a  href="/perusahaan/list/pembayaran">
+                                        <i class="fas fa-th-list"></i>
+                                        <p>Data Pembayaran</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item my-3">
+                                    <div class="card" style="background-color: #1572e8">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <b class="">Jika anda membutuhkan karyawan / staff pegawai</b>
+                                                    <a href="/perusahaan/cari_kandidat_staff" style="color: white; font-weight:600"><i class="fas fa-search" style="color: white"></i> Klik disini </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
+                                </li>
+                            @else
+                                <li class="nav-section">
+                                    <span class="sidebar-mini-icon">
+                                        <i class="fa fa-ellipsis-h"></i>
+                                    </span>
+                                    <h4 class="text-section">Harap isi profil perusahaan terlebih dahulu</h4>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                 </div>

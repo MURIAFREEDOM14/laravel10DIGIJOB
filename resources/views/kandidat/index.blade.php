@@ -68,8 +68,21 @@
                                 </table>
                             </div>
                         @else
-                            <h3 class="text-center">Harap Lengkapi Profil Anda</h3>
-                            <div class="text-center"><a class="btn btn-outline-primary" href="/isi_kandidat_personal">Lengkapi Profil</a></div>
+                            @php
+                                $personal = $kandidat->tinggi;
+                                $document = $kandidat->foto_ijazah;
+                                $vaksin = $kandidat->sertifikat_vaksin2;
+                                $parent = $kandidat->tgl_lahir_ibu;
+                                $permission = $kandidat->hubungan_perizin;                                
+                            @endphp
+                            @if ($personal == null ||
+                            $document == null ||
+                            $vaksin == null ||
+                            $parent == null ||
+                            $permission == null)
+                                <h3 class="text-center">Harap Lengkapi Profil Anda</h3>
+                                <div class="text-center"><a class="btn btn-outline-primary" href="/isi_kandidat_personal">Lengkapi Profil</a></div>                                                            
+                            @endif
                         @endif
                     @endif
                 </div>

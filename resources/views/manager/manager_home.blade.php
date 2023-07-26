@@ -1,5 +1,7 @@
 @extends('layouts.manager')
 @section('content')
+@include('sweetalert::alert')
+@include('flash_message')
 <div class="panel-header bg-primary-gradient">
     <div class="page-inner py-5">
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">

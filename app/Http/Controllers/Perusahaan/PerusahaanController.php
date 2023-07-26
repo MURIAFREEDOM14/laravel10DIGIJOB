@@ -40,7 +40,7 @@ class PerusahaanController extends Controller
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like','%'.$perusahaan->penempatan_kerja.'%')->get();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $interview = Interview::where('status',"terjadwal")->where('id_perusahaan',$perusahaan->id_perusahaan)->get();        
@@ -70,7 +70,7 @@ class PerusahaanController extends Controller
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like','%'.$perusahaan->penempatan_kerja.'%')->get();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
@@ -87,18 +87,6 @@ class PerusahaanController extends Controller
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->first();
-        // if ($cabang->penempatan_kerja !== $perusahaan->penempatan_kerja) {
-        //     if($cabang->penempatan_kerja == $perusahaan->penempatan_kerja){
-        //         PerusahaanCabang::create([
-        //             'id_perusahaan' => $perusahaan->id_perusahaan,
-        //             'nama_perusahaan' => $perusahaan->nama_perusahaan,
-        //             'no_nib' => $perusahaan->no_nib,
-        //             'referral_code' => $perusahaan->referral_code,
-        //             'email_perusahaan' => $perusahaan->email_perusahaan,
-        //             'penempatan_kerja' => $perusahaan->penempatan_kerja,
-        //         ]);
-        //     }
-        // }
         return view('perusahaan/isi_perusahaan_data',compact('perusahaan'));
     }
 
@@ -236,7 +224,7 @@ class PerusahaanController extends Controller
             'negara_id' => $negara_id,
             'alamat' => $request->alamat,
         ]);
-        return redirect()->route('perusahaan.operator');
+        return redirect()->route('perusahaan.operator')->with('success',"Data anda tersimpan");
     }
 
     public function isi_perusahaan_operator()
@@ -250,26 +238,7 @@ class PerusahaanController extends Controller
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        // if($request->file('foto_operator') !== null){
-        //     // $this->validate($request, [
-        //     //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
-        //     // ]);
-        //     $operator = time().'.'.$request->foto_operator->extension();  
-        //     $request->foto_operator->move(public_path('/gambar/Perusahaan/Operator'), $operator);
-        // } else {
-        //     if($perusahaan->foto_operator !== null){
-        //         $operator = $perusahaan->foto_operator;                
-        //     } else {
-        //         $operator = null;    
-        //     }
-        // }
-
-        // if ($operator !== null) {
-        //     $foto_operetor = $operator;
-        // } else {
-        //     $foto_operetor = null;
-        // }
-
+    
         Perusahaan::where('no_nib',$id->no_nib)->update([
             'nama_operator'=>$request->nama_operator,
             'no_telp_operator'=>$request->no_telp_operator,
@@ -285,7 +254,7 @@ class PerusahaanController extends Controller
             // 'foto_operator'=>$foto_operetor,
             'company_profile'=>$request->company_profile
         ]);
-        return redirect()->route('perusahaan');
+        return redirect()->route('perusahaan')->with('success',"Data anda tersimpan");
     }
 
     public function tambahCabangData()
@@ -301,7 +270,6 @@ class PerusahaanController extends Controller
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();        
-        $cabang = PerusahaanCabang::where('penempatan_kerja',$id->penempatan_kerja)->where('no_nib',$id->no_nib)->first();
 
         if($request->file('foto_perusahaan') !== null){
             // $this->validate($request, [
@@ -433,7 +401,7 @@ class PerusahaanController extends Controller
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like','%'.$perusahaan->penempatan_kerja.'%')->get();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         return view('perusahaan/contact_us',compact('perusahaan','notif','pesan','cabang'));
@@ -455,7 +423,7 @@ class PerusahaanController extends Controller
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like','%'.$perusahaan->penempatan_kerja.'%')->get();
         $pmi_id = PMIID::join(
             'kandidat', 'perusahaan_kebutuhan.id_kandidat','=','kandidat.id_kandidat'
         )->where('perusahaan_kebutuhan.id_perusahaan',$perusahaan->id_perusahaan)->get();
@@ -470,7 +438,7 @@ class PerusahaanController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $id_kandidat = null;
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like','%'.$perusahaan->penempatan_kerja.'%')->get();
         return view('perusahaan/pembuatan_pmi_id',compact('perusahaan','kandidat','pesan','notif','id_kandidat','cabang'));
     }
 
@@ -484,7 +452,7 @@ class PerusahaanController extends Controller
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $tgl = Carbon::create($id_kandidat->tgl_lahir)->isoformat('d MMM Y');
         $negara = Negara::all();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like','%'.$perusahaan->penempatan_kerja.'%')->get();
         return view('perusahaan/pembuatan_pmi_id',compact('perusahaan','kandidat','pesan','notif','id_kandidat','tgl','negara','cabang'));
     }
 

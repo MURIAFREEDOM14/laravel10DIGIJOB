@@ -377,27 +377,6 @@
                                         </ul>
                                     </div>
                                 </li>
-                                {{-- <li class="nav-item">
-                                    <a data-toggle="collapse" href="#perusahaan">
-                                        <i class="fas fa-flag"></i>
-                                        <p>Informasi Perusahaan</p>
-                                        <span class="caret"></span>
-                                    </a>
-                                    <div class="collapse" id="perusahaan">
-                                        <ul class="nav nav-collapse">
-                                            <li>
-                                                <a href="/list_informasi_perusahaan">
-                                                    <span>List Perusahaan</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="/list_lowongan_pekerjaan">
-                                                    <span>List Lowongan</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li> --}}
                             @endif
                             <li class="nav-item">
                                 <a class="btn disabled" href="/video_pelatihan">
