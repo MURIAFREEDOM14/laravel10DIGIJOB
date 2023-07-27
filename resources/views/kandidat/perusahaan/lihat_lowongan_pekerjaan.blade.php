@@ -8,19 +8,68 @@
             <div class="card-body">
                 <div  class="row">
                     <div class="col-md-3">
-                        <label for="" class="">Negara</label>
+                        <label for="" class="">Tingkatan Pekerja</label>
                     </div>
                     <div class="col-md-8">
-                        <div class=""><b class="bold">: {{($lowongan->negara)}}</b></div>
+                        <div class=""><b class="bold">: {{($lowongan->lvl_pekerjaan)}}</b></div>
                     </div>
                 </div>
                 <hr>
                 <div  class="row">
                     <div class="col-md-3">
-                        <label for="" class="">Jabatan</label>
+                        <label for="" class="">Spesifikasi Pekerjaan</label>
                     </div>
                     <div class="col-md-8">
                         <div class=""><b class="bold">: {{($lowongan->jabatan)}}</b></div>
+                    </div>
+                </div>
+                <hr>
+                <div  class="row">
+                    <div class="col-md-3">
+                        <label for="" class="">Deskripsi Pekerjaan</label>
+                    </div>
+                    <div class="col-md-8">
+                        <div class=""><b class="bold">: {{($lowongan->isi)}}</b></div>
+                    </div>
+                </div>
+                <hr>
+                <div  class="row">
+                    <div class="col-md-3">
+                        <label for="" class="">Mata Uang</label>
+                    </div>
+                    <div class="col-md-4">
+                        <div class=""><b class="bold">: {{($lowongan->mata_uang)}}</b></div>
+                    </div>
+                </div>
+                <hr>
+                <div  class="row">
+                    <div class="col-md-3">
+                        <label for="" class="">Informasi Gaji</label>
+                    </div>
+                    <div class="col-md-3">
+                        <div class=""><b class="bold">Gaji Minimum: {{($lowongan->gaji_minimum)}}</b></div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class=""><b class="bold">Gaji Maksimum: {{($lowongan->gaji_maksimum)}}</b></div>
+                    </div>
+                </div>
+                <hr>
+                <div  class="row">
+                    <div class="col-md-3">
+                        <label for="" class="">Benefit Pekerjaan</label>
+                    </div>
+                    <div class="col-md-8">
+                        <div class=""><b class="bold">: {{($lowongan->benefit)}}
+                        </b></div>
+                    </div>
+                </div>
+                <hr>
+                <div  class="row">
+                    <div class="col-md-3">
+                        <label for="" class="">Penempatan</label>
+                    </div>
+                    <div class="col-md-8">
+                        <div class=""><b class="bold">: {{($lowongan->negara)}}</b></div>
                     </div>
                 </div>
                 @if ($lowongan->gambar_lowongan !== null)
@@ -34,6 +83,33 @@
                         </div>
                     </div>    
                 @endif
+                <hr>
+                <div  class="row">
+                    <div class="col-md-3">
+                        <label for="" class="">Tanggal Tutup Lowongan</label>
+                    </div>
+                    <div class="col-md-8">
+                        <div class=""><b class="bold">: {{date('d-M-Y',strtotime($lowongan->ttp_lowongan))}}</b></div>
+                    </div>
+                </div>
+                <hr>
+                <div  class="row">
+                    <div class="col-md-3">
+                        <label for="" class="">Tanggal Interview</label>
+                    </div>
+                    <div class="col-md-8">
+                        <div class=""><b class="bold">: {{date('d-M-Y',strtotime($lowongan->tgl_interview))}}</b></div>
+                    </div>
+                </div>
+                <hr>
+                <div  class="row">
+                    <div class="col-md-3">
+                        <label for="" class="">Kode Undangan Perusahaan</label>
+                    </div>
+                    <div class="col-md-8">
+                        <div class=""><b class="bold">: {{$perusahaan->referral_code}}</b></div>
+                    </div>
+                </div>
                 <hr>
                 <div  class="row">
                     <div class="col-md-3">
@@ -128,24 +204,6 @@
                     </div>
                     <div class="col-md-8">
                         <div class=""><b class="bold">: {{$lowongan->pencarian_tmp}}</b></div>
-                    </div>
-                </div>
-                <hr>
-                <div  class="row">
-                    <div class="col-md-3">
-                        <label for="" class="">Tanggal Tutup Lowongan</label>
-                    </div>
-                    <div class="col-md-8">
-                        <div class=""><b class="bold">: {{date('d-M-Y',strtotime($lowongan->ttp_lowongan))}}</b></div>
-                    </div>
-                </div>
-                <hr>
-                <div  class="row">
-                    <div class="col-md-3">
-                        <label for="" class="">Kode Undangan Perusahaan</label>
-                    </div>
-                    <div class="col-md-8">
-                        <div class=""><b class="bold">: {{$perusahaan->referral_code}}</b></div>
                     </div>
                 </div>
                 <hr>

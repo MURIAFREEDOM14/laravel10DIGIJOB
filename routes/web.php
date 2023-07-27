@@ -305,6 +305,9 @@ Route::controller(PerusahaanController::class)->group(function(){
     Route::get('/perusahaan/interview','JadwalInterview')->middleware('perusahaan');
     Route::get('/perusahaan/jadwal_interview','tentukanJadwal')->middleware('perusahaan');
     Route::post('/perusahaan/jadwal_interview','simpanJadwal');
+    Route::get('/perusahaan/edit/kandidat/interview/{id}','editJadwalInterview');
+    Route::post('/perusahaan/edit/kandidat/interview/{id}','ubahJadwalInterview');
+    Route::get('/perusahaan/hapus/kandidat/interview/{id}','deleteJadwalInterview');
 
     //  DATA AKADEMI //
     Route::get('/perusahaan/list/akademi','akademi')->middleware('perusahaan');
@@ -314,8 +317,7 @@ Route::controller(PerusahaanController::class)->group(function(){
     Route::get('/perusahaan/cari_kandidat/experience','cariKandidatExperience')->middleware('perusahaan');
     Route::post('/perusahaan/cari_kandidat/experience','temukanKandidatExperience');
         
-    Route::post('/perusahaan/interview','TambahJadwal');
-    Route::get('/perusahaan/hapus/kandidat/interview/{id}','deleteKandidatInterview');
+    // Route::post('/perusahaan/interview','TambahJadwal');
 });
 
 Route::controller(PerusahaanRecruitmentController::class)->group(function() {

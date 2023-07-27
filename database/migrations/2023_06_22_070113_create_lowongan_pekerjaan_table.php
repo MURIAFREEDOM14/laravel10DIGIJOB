@@ -24,7 +24,15 @@ return new class extends Migration
             $table->string('pencarian_tmp')->nullable();
             $table->integer('id_perusahaan')->nullable();
             $table->text('isi')->nullable();
-            $table->string('ttp_lowongan')->nullable();
+            $table->date('ttp_lowongan')->nullable();
+            $table->text('gambar_lowongan')->nullable();
+            $table->datetime('tgl_interview')->nullable();
+            $table->string('lvl_pekerjaan')->nullable();
+            $table->text('isi')->nullable();
+            $table->string('mata_uang')->nullable();
+            $table->string('gaji_minimum')->nullable();
+            $table->string('gaji_maksimum')->nullable();
+            $table->text('benefit')->nullable();
             $table->timestamps();
         });
     }

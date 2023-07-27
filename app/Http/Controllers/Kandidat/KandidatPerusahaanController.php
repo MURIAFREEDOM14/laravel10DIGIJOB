@@ -11,6 +11,7 @@ use App\Models\notifyPerusahaan;
 use App\Models\Pembayaran;
 use App\Models\Perusahaan;
 use App\Models\messageKandidat;
+use App\Models\messagePerusahaan;
 use App\Models\LowonganPekerjaan;
 use App\Models\PermohonanLowongan;
 use App\Models\PerusahaanNegara;
@@ -19,6 +20,9 @@ use App\Models\Negara;
 use App\Models\PekerjaPerusahaan;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\PersetujuanKandidat;
+use App\Models\Interview;
+use App\Models\CreditPerusahaan;
+
 
 class KandidatPerusahaanController extends Controller
 {
@@ -170,6 +174,7 @@ class KandidatPerusahaanController extends Controller
         }
         Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
             'id_perusahaan' => $lowongan->id_perusahaan,
+            'stat_pemilik' => "kosong",
         ]);
         return redirect('/kandidat')->with('success',"Permohonan anda terkirim");
     }
@@ -179,8 +184,40 @@ class KandidatPerusahaanController extends Controller
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $perusahaan = Perusahaan::where('id_perusahaan',$id)->first();
+        $interview = Interview::where('id_kandidat',$kandidat->id_kandidat)->where('id_perusahaan',$perusahaan->id_perusahaan)->where('status',"terjadwal")->first();
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        if($interview){
+            notifyPerusahaan::create([
+                'id_perusahaan' => $perusahaan->id_perusahaan,
+                'id_kandidat' => $kandidat->id_kandidat,
+                'isi' => "Terdapat kandidat yang mengundurkan diri dari jadwal interview anda.",
+                'pengirim' => "Admin",
+                'url' => '/perusahaan/semua_pesan',
+            ]);
+            messagePerusahaan::create([
+                'id_perusahaan' => $perusahaan->id_perusahaan,
+                'id_kandidat' => $kandidat->id_kandidat,
+                'pesan' => "Maaf Kandidat dengan atas nama ".$kandidat->nama."telah mengundurkan diri dari jadwal interview anda. Maka dari hal tersebut anda akan mendapatkan Credit yang dapat anda gunakan pada interview kandidat berikutnya.",
+                'pengirim' => "Admin",
+                'kepada' => $perusahaan->nama_perusahaan,
+            ]);
+            if($credit){
+                CreditPerusahaan::where('credit_id',$credit->credit_id)->update([
+                    'credit' => $credit->credit+1,                    
+                ]);
+            } else {
+                CreditPerusahaan::create([
+                    'id_perusahaan' => $perusahaan->id_perusahaan,
+                    'nama_perusahaan' => $perusahaan->nama_perusahaan,
+                    'no_nib' => $perusahaan->no_nib,
+                    'credit' => 1,
+                ]);
+            }
+            
+        }
         Kandidat::where('id_perusahaan',$id)->where('id_kandidat',$kandidat->id_kandidat)->update([
             'id_perusahaan' => null,
+            'stat_pemilik' => null
         ]);
         PermohonanLowongan::where('id_kandidat',$kandidat->id_kandidat)->delete();
         return redirect('/kandidat')->with('success',"Anda telah keluar dari ".$perusahaan->nama_perusahaan);

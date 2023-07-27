@@ -14,37 +14,22 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Kandidat</th>
-                                <th>Usia</th>
-                                <th>Jenis Kelamin</th>
-                                <th>Jadwal Interview</th>
-                                <th>Aksi</th>
+                                <th>Pekerjaan</th>
+                                <th>Tentukan Jadwal</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($interview as $item)
                                 <tr>
                                     <td style="width: 1">{{$loop->iteration}}</td>
-                                    <td style="text-transform: uppercase;">{{$item->nama_kandidat}}</td>
-                                    <td style="width: 1">{{$item->usia}}</td>
-                                    <td style="width: 1">{{$item->jenis_kelamin}}</td>
-                                    <td>{{$item->jadwal_interview}}</td>
+                                    <td>{{$item->jabatan}}</td>
                                     <td style="width: 1">
-                                        @if ($item->jadwal_interview !== null)
-                                        <a class="btn btn-danger" href="/perusahaan/hapus/kandidat/interview/{{$item->id_interview}}"><i class="fas fa-trash-alt"></i></a>  
-                                        @else
-                                        <a class="btn btn-danger" href="/perusahaan/hapus/kandidat/interview/{{$item->id_interview}}"><i class="fas fa-trash-alt"></i></a>                                            
-                                        @endif
+                                        <a href="/perusahaan/jadwal_interview" class="btn text-white" style="background-color:green">Tentukan jadwal</a>                                                
                                     </td>
                                 </tr>    
                             @endforeach
                         </tbody>
                     </table>
-                    @if ($pilih == null)
-                        {{-- <a href="/perusahaan/jadwal_interview" class="btn text-dark" style="background-color:#FFD95A">Edit jadwal</a> --}}
-                    @else
-                        <a href="/perusahaan/jadwal_interview" class="btn text-white" style="background-color:green">Tentukan jadwal</a>                                                
-                    @endif
                 </div>
             </div>
         </div>
@@ -59,8 +44,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama Kandidat</th>
-                                <th>Usia</th>
-                                <th>Jenis Kelamin</th>
+                                <th>Pekerjaan</th>
                                 <th>Jadwal Interview</th>
                                 <th>Aksi</th>
                             </tr>
@@ -70,25 +54,16 @@
                                 <tr>
                                     <td style="width: 1">{{$loop->iteration}}</td>
                                     <td style="text-transform: uppercase;">{{$item->nama_kandidat}}</td>
-                                    <td style="width: 1">{{$item->usia}}</td>
-                                    <td style="width: 1">{{$item->jenis_kelamin}}</td>
-                                    <td>{{$item->jadwal_interview}}</td>
+                                    <td style="width: 1">{{$item->jabatan}}</td>
+                                    <td>{{date('d-M-Y | h:m:s',strtotime($item->jadwal_interview))}}</td>
                                     <td style="width: 1">
-                                        @if ($item->jadwal_interview !== null)
-                                        <a class="btn btn-danger disabled" href="/perusahaan/hapus/kandidat/interview/{{$item->id_interview}}"><i class="fas fa-trash-alt"></i></a>  
-                                        @else
+                                        <a class="btn btn-warning" href="/perusahaan/edit/kandidat/interview/{{$item->id_interview}}"><i class="fas fa-pencil-alt"></i></a>                                            
                                         <a class="btn btn-danger" href="/perusahaan/hapus/kandidat/interview/{{$item->id_interview}}"><i class="fas fa-trash-alt"></i></a>                                            
-                                        @endif
                                     </td>
                                 </tr>    
                             @endforeach
                         </tbody>
                     </table>
-                    @if ($interview !== null)
-                        {{-- <a href="/perusahaan/jadwal_interview" class="btn text-dark" style="background-color:#FFD95A">Edit jadwal</a> --}}
-                    @else
-                        <a href="/perusahaan/jadwal_interview" class="btn text-white" style="background-color:green">Tentukan jadwal</a>                                                
-                    @endif
                 </div>
             </div>
         </div>

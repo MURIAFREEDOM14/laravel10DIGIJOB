@@ -15,13 +15,13 @@
                             <label for="" class="col-form-label">Level Pekerja</label>
                         </div>
                         <div class="col-md-6">
-                            <select name="" class="form-control" id="">
+                            <select name="lvl_pekerjaan" required class="form-control" id="">
                                 <option value="">-- Tentukan Level Pekerja --</option>
-                                <option value="">Magang</option>
-                                <option value="">Karyawan / Staff</option>
-                                <option value="">Manager</option>
-                                <option value="">Direktur</option>
-                                <option value="">SEO</option>
+                                <option value="magang">Magang</option>
+                                <option value="karyawan">Karyawan / Staff</option>
+                                <option value="manager">Manager</option>
+                                <option value="direktur">Direktur</option>
+                                <option value="seo">SEO</option>
                             </select>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                             <label for="" class="col-form-label">Job Deskripsi</label>
                         </div>
                         <div class="col-md-8">
-                            <textarea name="" id="" class="form-control"></textarea>
+                            <textarea name="deskripsi" id="" class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -46,7 +46,7 @@
                             <label for="" class="col-form-label">Mata Uang Gaji</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" name="" id="" class="form-control" required>
+                            <input type="text" name="mata_uang" id="" class="form-control" required>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -54,56 +54,36 @@
                             <label for="" class="col-form-label">Informasi Gaji</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" name="" id="" placeholder="Gaji Minimum" class="form-control">
+                            <input type="text" name="gaji_minimum" id="" placeholder="Gaji Minimum" class="form-control">
                         </div>
                         <div class="col-md-4">
-                            <input type="text" name="" id="" placeholder="Gaji Maksimum" class="form-control">
+                            <input type="text" name="gaji_maksimum" id="" placeholder="Gaji Maksimum" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Benefit Pekerjaan</label>
-                        <div class="row gutters-xs">
-                            <div class="col-auto">
-                                <label class="colorinput">
-                                    <input name="color" type="checkbox" value="dark" class="colorinput-input">
-                                    <span class="">Cuti Tahunan</span>
-                                </label>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="form-label">Benefit Pekerjaan</label>
                             </div>
-                            <div class="col-auto">
-                                <label class="colorinput">
-                                    <input name="color" type="checkbox" value="primary" class="colorinput-input">
-                                    <span class=""></span>
-                                </label>
-                            </div>
-                            <div class="col-auto">
-                                <label class="colorinput">
-                                    <input name="color" type="checkbox" value="secondary" class="colorinput-input">
-                                    <span class=""></span>
-                                </label>
-                            </div>
-                            <div class="col-auto">
-                                <label class="colorinput">
-                                    <input name="color" type="checkbox" value="info" class="colorinput-input">
-                                    <span class=""></span>
-                                </label>
-                            </div>
-                            <div class="col-auto">
-                                <label class="colorinput">
-                                    <input name="color" type="checkbox" value="success" class="colorinput-input">
-                                    <span class=""></span>
-                                </label>
-                            </div>
-                            <div class="col-auto">
-                                <label class="colorinput">
-                                    <input name="color" type="checkbox" value="danger" class="colorinput-input">
-                                    <span class=""></span>
-                                </label>
-                            </div>
-                            <div class="col-auto">
-                                <label class="colorinput">
-                                    <input name="color" type="checkbox" value="warning" class="colorinput-input">
-                                    <span class=""></span>
-                                </label>
+                            <div class="col-md-8">
+                                <div class="selectgroup selectgroup-pills">
+                                    <label class="selectgroup-item">
+                                        <input type="checkbox" name="benefit[]" value="cuti tahunan" class="selectgroup-input">
+                                        <span class="selectgroup-button">Cuti Tahunan</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="checkbox" name="benefit[]" value="gaji lembur" class="selectgroup-input">
+                                        <span class="selectgroup-button">Gaji Lembur</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="checkbox" name="benefit[]" value="asuransi" class="selectgroup-input">
+                                        <span class="selectgroup-button">Asuransi</span>
+                                    </label>
+                                    <label class="selectgroup-item">
+                                        <input type="checkbox" name="benefit[]" value="transportasi" class="selectgroup-input">
+                                        <span class="selectgroup-button">Transportasi</span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>

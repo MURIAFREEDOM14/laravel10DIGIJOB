@@ -740,7 +740,9 @@ class PerusahaanController extends Controller
     {
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
-        $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('status',"pilih")->get();
+        $interview = Interview::join(
+            'permohonan_lowongan', 'interview.id_kandidat','=','permohonan_lowongan.id_kandidat'
+        )->where('interview.id_perusahaan',$perusahaan->id_perusahaan)->where('interview.status',"pilih")->get();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
@@ -755,7 +757,9 @@ class PerusahaanController extends Controller
         } else {
             $pilih = null;
         }
-        $terjadwal = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('status',"terjadwal")->get();
+        $terjadwal = Interview::join(
+            'permohonan_lowongan', 'interview.id_kandidat','=','permohonan_lowongan.id_kandidat'
+        )->where('interview.id_perusahaan',$perusahaan->id_perusahaan)->where('interview.status',"terjadwal")->get();
         $jml_kandidat = $interview->count();
         $biaya = 15000;
         $total = $jml_kandidat * $biaya;
@@ -774,7 +778,7 @@ class PerusahaanController extends Controller
     {
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
-        $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('status',"pilih")->get();
+        $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();       
@@ -786,18 +790,36 @@ class PerusahaanController extends Controller
         $jadwal = $request->jadwal_interview;
         $nama = $request->nama;
         $auth = Auth::user();
+        $ttl_interview = count($nama);
         $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();        
-        // $time = date('Y-m-d h:m:sa');
-        // $timeBefore = date('Y-m-d', strtotime('-2 days', strtotime($time)));
-        for($i = 0; $i < count($nama); $i++){
-            $data['jadwal_interview'] = $jadwal;
-            $data['status'] = "pilih";
-            Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('nama_kandidat',$nama)->update($data);
+        $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->first();
+        for($i = 0; $i < count($jadwal); $i++){
+            $input['jadwal_interview'] = $jadwal[$i];
+            $input['status'] = "terjadwal";
+            $data['nama'] = $nama[$i];
+            $kandidat = Kandidat::where('nama','like','%'.$nama[$i].'%')->where('id_perusahaan',$perusahaan->id_perusahaan)->first();
+            Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('nama_kandidat',$nama[$i])->update($input);
+            $time = Carbon::create($jadwal[$i])->isoformat('D MMM Y | h A');
+            notifyKandidat::create([
+                'id_kandidat' => $kandidat->id_kandidat,
+                'id_perusahaan' => $perusahaan->id_perusahaan,
+                'isi' => "Anda mendapat jadwal interview dengan perusahaan. cek pesan anda.",
+                'pengirim' => "Admin",
+                'id_interview' => $interview->id_interview,
+                'url' => '/semua_pesan',
+            ]);
+
+            messageKandidat::create([
+                'id_kandidat'=>$kandidat->id_kandidat,
+                'id_perusahaan'=>$perusahaan->id_perusahaan,
+                'pesan'=>$perusahaan->nama_perusahaan." telah menentukan waktu interview anda pada ".$time.".",
+                'pengirim'=>$perusahaan->nama_perusahaan,
+                'kepada'=>$kandidat->nama,
+                'id_interview'=>$interview->id_interview,
+            ]);
         }
 
-        $interview = Interview::where('jadwal_interview',$jadwal)->where('id_perusahaan',$perusahaan->id_perusahaan)->count();
-
-        $payment = 1500 * $interview;
+        $payment = 1500 * $ttl_interview;
         $namarec = "Hamepa";
         $nomorec = 4399997272;
         $message = "Pembayaran Interview";
@@ -807,21 +829,65 @@ class PerusahaanController extends Controller
             'id_perusahaan'=>$perusahaan->id_perusahaan,
             'nama_pembayaran'=>$perusahaan->nama_perusahaan,
             'nib'=>$perusahaan->no_nib,
-            'nominal_pembayaran'=>15000 * $interview,
+            'nominal_pembayaran'=>15000 * $ttl_interview,
             'stats_pembayaran'=>"belum dibayar",
-            'jadwal_interview' => $jadwal
         ]);
 
-        $terjadwal = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('jadwal_interview',$jadwal)->update([
-            'status' => "terjadwal",
-        ]);
-        return redirect('/perusahaan/interview')->with('success','Tagihan sudah muncul di email anda, silahkan selesaikan pembayaran untuk melanjutkan');
+        return redirect('/perusahaan/interview')
+        // return back()->with('success',"yay")
+        ->with('success','Tagihan sudah muncul di email anda, silahkan selesaikan pembayaran untuk melanjutkan');
     }
 
-    public function DeleteKandidatInterview($id)
+    public function editJadwalInterview($id)
     {
+        $auth = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
+        $interview = Interview::where('id_interview',$id)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();       
+        return view('perusahaan/edit_interview',compact('perusahaan','interview','notif','pesan','cabang'));
+    }
+
+    public function ubahJadwalInterview(Request $request,$id)
+    {
+        $auth = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
+        $interview = Interview::where('id_interview',$id)->first();
+        $kandidat = Kandidat::where('id_kandidat',$interview->id_kandidat)->first();
+        if($interview->jadwal_interview !== $request->jadwal){
+            notifyKandidat::create([
+                'id_kandidat' => $interview->id_kandidat,
+                'id_perusahaan' => $interview->id_perusahaan,
+                'isi' => "Ada perubahan jadwal interview anda dengan perusahaan. cek pesan anda.",
+                'pengirim' => "Admin",
+                'id_interview' => $interview->id_interview,
+                'url' => '/semua_pesan',
+            ]);
+            $time = Carbon::create($request->jadwal)->isoformat('D MMM Y | h A');
+            messageKandidat::create([
+                'id_kandidat'=>$interview->id_kandidat,
+                'id_perusahaan'=>$interview->id_perusahaan,
+                'pesan'=>$perusahaan->nama_perusahaan." mengubah waktu interview anda menjadi ".$time.".",
+                'pengirim'=>$perusahaan->nama_perusahaan,
+                'kepada'=>$kandidat->nama,
+                'id_interview'=>$interview->id_interview,
+            ]);
+        }
+        Interview::where('id_interview',$id)->update([
+            'jadwal_interview'=>$request->jadwal
+        ]);
+        return redirect('/perusahaan/interview')->with('success',"Jadwal berhasil diubah");
+    }
+
+    public function deleteJadwalInterview($id)
+    {
+        $interview = Interview::where('id_interview',$id)->first();
         Interview::where('id_interview',$id)->delete();
-        return redirect('/perusahaan/interview');
+        Kandidat::where('id_kandidat',$interview->id_kandidat)->where('id_perusahaan',$interview->id_perusahaan)->update([
+            'stat_pemilik'=>"kosong"
+        ]);
+        return redirect('/perusahaan/interview')->with('error',"Jadwal Interview Dibatalkan");
     }
 
     public function pembayaran()
