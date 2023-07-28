@@ -101,15 +101,17 @@
                     </div>
                 </div>
                 <hr>
-                <div  class="row">
-                    <div class="col-md-3">
-                        <label for="" class="">Tanggal Interview</label>
+                @if ($lowongan->tgl_interview !== null)
+                    <div  class="row">
+                        <div class="col-md-3">
+                            <label for="" class="">Tanggal Interview</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class=""><b class="bold">: {{date('d-M-Y',strtotime($lowongan->tgl_interview))}}</b></div>
+                        </div>
                     </div>
-                    <div class="col-md-8">
-                        <div class=""><b class="bold">: {{date('d-M-Y',strtotime($lowongan->tgl_interview))}}</b></div>
-                    </div>
-                </div>
-                <hr>
+                    <hr>    
+                @endif
                 <div  class="row">
                     <div class="col-md-3">
                         <label for="" class="">Kode Undangan Perusahaan</label>
