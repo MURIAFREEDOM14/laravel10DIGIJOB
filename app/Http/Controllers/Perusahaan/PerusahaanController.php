@@ -733,7 +733,7 @@ class PerusahaanController extends Controller
                     messageAkademi::create([
                         'id_akademi' => $kandidat->id_akademi,
                         'id_kandidat' => $kandidat->id_kandidat,
-                        'pesan' => "Selamat kandidat atas nama".$kandidat->nama."telah diterima di".$perusahaan->nama_perusahaan,
+                        'pesan' => "Selamat kandidat atas nama ".$kandidat->nama." telah diterima di ".$perusahaan->nama_perusahaan,
                         'pengirim' => "Sistem",
                         'kepada' => $kandidat->id_akademi,
                     ]);

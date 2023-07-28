@@ -180,7 +180,6 @@ class KandidatPerusahaanController extends Controller
         }
         Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
             'id_perusahaan' => $lowongan->id_perusahaan,
-            'stat_pemilik' => "kosong",
         ]);
         return redirect('/kandidat')->with('success',"Permohonan anda terkirim");
     }
