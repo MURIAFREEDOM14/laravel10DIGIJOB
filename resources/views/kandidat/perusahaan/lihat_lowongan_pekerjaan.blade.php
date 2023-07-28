@@ -92,15 +92,17 @@
                     </div>    
                 @endif
                 <hr>
-                <div  class="row">
-                    <div class="col-md-3">
-                        <label for="" class="">Tanggal Tutup Lowongan</label>
+                @if ($lowongan->ttp_lowongan !== null)
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="" class="">Tanggal Tutup Lowongan</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class=""><b class="bold">: {{date('d-M-Y',strtotime($lowongan->ttp_lowongan))}}</b></div>
+                        </div>
                     </div>
-                    <div class="col-md-8">
-                        <div class=""><b class="bold">: {{date('d-M-Y',strtotime($lowongan->ttp_lowongan))}}</b></div>
-                    </div>
-                </div>
-                <hr>
+                    <hr>
+                @endif
                 @if ($lowongan->tgl_interview !== null)
                     <div  class="row">
                         <div class="col-md-3">
