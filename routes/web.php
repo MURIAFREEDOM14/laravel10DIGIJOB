@@ -146,6 +146,9 @@ Route::controller(ManagerKandidatController::class)->group(function() {
     Route::get('/manager/kandidat/pelamar_lowongan','pelamarLowongan');
     Route::get('/manager/kandidat/lihat_lowongan_pelamar/{id}','lihatPelamarLowongan');
 
+    Route::get('/manager/kandidat/penolakan_kandidat','penolakanKandidat');
+    Route::get('/manager/kandidat/lihat/penolakan_kandidat/{id}','lihatPenolakanKandidat');
+
     Route::get('/manager/kandidat/lihat_video/{id}','lihatVideoKandidat');
 });
 
@@ -187,9 +190,10 @@ Route::controller(LamanController::class)->group(function() {
     Route::get('/login/akademi', 'login_akademi')->middleware('guest');
     Route::get('/login/perusahaan', 'login_perusahaan')->middleware('guest');
 
-    Route::get('/register/kandidat',  'register_kandidat')->name('register_kandidat')->middleware('guest');
-    Route::get('/register/akademi',  'register_akademi')->name('register_akademi')->middleware('guest');
-    Route::get('/register/perusahaan',  'register_perusahaan')->name('register_perusahaan')->middleware('guest');
+    Route::view('/register','auth/register_semua')->middleware('guest');
+    Route::view('/register/kandidat','auth/register_kandidat')->name('register_kandidat')->middleware('guest');
+    Route::view('/register/akademi','auth/register_akademi')->name('register_akademi')->middleware('guest');
+    Route::view('/register/perusahaan','auth/register_perusahaan')->name('register_perusahaan')->middleware('guest');
 
     Route::view('/syarat_ketentuan/kandidat','laman/persyaratan_kandidat')->middleware('guest');
     Route::view('/syarat_ketentuan/akademi','laman/persyaratan_akademi')->middleware('guest');

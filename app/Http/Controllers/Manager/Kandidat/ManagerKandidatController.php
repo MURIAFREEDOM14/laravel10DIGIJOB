@@ -18,11 +18,11 @@ use App\Models\Pekerjaan;
 use Carbon\Carbon;
 use App\Models\LowonganPekerjaan;
 use App\Models\PermohonanLowongan;
+use App\Models\PersetujuanKandidat;
 
 class ManagerKandidatController extends Controller
 {
     // Kandidat Data //
-
     public function lihatVideoKandidat($id)
     {
         $user = Auth::user();
@@ -792,5 +792,31 @@ class ManagerKandidatController extends Controller
         ->where('lowongan_pekerjaan.id_lowongan',$id)->first();
         $kandidat = Kandidat::where('id_perusahaan',$lowongan->id_perusahaan)->get();
         return view('manager/kandidat/lihat_lowongan_pelamar',compact('manager','lowongan','kandidat'));
+    }
+
+    public function penolakanKandidat(){
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $penolakan = PersetujuanKandidat::join(
+            'kandidat','persetujuan_kandidat.id_kandidat','=','kandidat.id_kandidat'
+        )
+        ->join(
+            'perusahaan','persetujuan_kandidat.id_perusahaan','=','perusahaan.id_perusahaan'
+        )
+        ->get();
+        return view('manager/kandidat/penolakan_kandidat',compact('manager','penolakan'));
+    }
+
+    public function lihatPenolakanKandidat($id){
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $penolakan = PersetujuanKandidat::join(
+            'kandidat','persetujuan_kandidat.id_kandidat','=','kandidat.id_kandidat'
+        )
+        ->join(
+            'perusahaan','persetujuan_kandidat.id_perusahaan','=','perusahaan.id_perusahaan'
+        )
+        ->where('persetujuan_kandidat.persetujuan_id',$id)->first();
+        return view('manager/kandidat/lihat_penolakan',compact('manager','penolakan'));
     }
 }

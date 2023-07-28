@@ -6,7 +6,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="text-center">{{ __('Register') }}</h4>
+                    <h4 class="text-center">{{ __('Register Perusahaan') }}</h4>
                 </div>
                 <div class="card-body">
                     <form method="POST" action="/register/perusahaan">

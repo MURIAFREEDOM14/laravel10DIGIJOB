@@ -13,10 +13,15 @@ return new class extends Migration
     {
         Schema::create('interview', function (Blueprint $table) {
             $table->integer('id_interview');
-            $table->string('nama_interview');
-            $table->text('video_interview');
-            $table->string('nama_pembuat');
-            // $table->timestamps();
+            $table->string('nama_kandidat')->nullable();
+            $table->integer('id_kandidat')->nullable();
+            $table->datetime('jadwal_interview')->nullable();
+            $table->enum('status',['pilih','terjadwal','dimulai','berakhir'])->nullable();
+            $table->integer('usia')->nullable();
+            $table->enum('jenis_kelamin',['M','F'])->nullable();
+            $table->integer('id_perusahaan')->nullable();
+            $table->integer('kesempatan')->nullable();
+            $table->timestamps();
         });
     }
 

@@ -17,6 +17,7 @@ use App\Models\Message;
 use App\Models\Perusahaan;
 use App\Models\PerusahaanCabang;
 use App\Models\Pembayaran;
+use App\Models\CreditPerusahaan;
 use Carbon\Carbon;
 
 class MessagerController extends Controller
@@ -83,7 +84,8 @@ class MessagerController extends Controller
         $semua_pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_Perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        return view('perusahaan/semua_pesan',compact('perusahaan','notif','pesan','semua_pesan','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/semua_pesan',compact('perusahaan','notif','pesan','semua_pesan','cabang','credit'));
     }
 
     public function sendMessagePerusahaan($id)
@@ -94,7 +96,8 @@ class MessagerController extends Controller
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_Perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pengirim = messagePerusahaan::where('id',$id)->first();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        return view('perusahaan/kirim_pesan',compact('perusahaan','pesan','notif','pengirim','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/kirim_pesan',compact('perusahaan','pesan','notif','pengirim','cabang','credit'));
     }
 
     public function sendMessageConfirmPerusahaan()

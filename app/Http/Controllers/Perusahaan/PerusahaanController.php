@@ -32,6 +32,7 @@ use App\Models\messageKandidat;
 use App\Models\notifyAkademi;
 use App\Models\messageAkademi;
 use App\Models\PersetujuanKandidat;
+use App\Models\CreditPerusahaan;
 
 class PerusahaanController extends Controller
 {
@@ -45,7 +46,8 @@ class PerusahaanController extends Controller
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $interview = Interview::where('status',"terjadwal")->where('id_perusahaan',$perusahaan->id_perusahaan)->get();        
         $notifyP = notifyPerusahaan::where('created_at','<',Carbon::now()->subDays(14))->delete();
-        return view('perusahaan/index',compact('perusahaan','cabang','notif','interview','pesan'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/index',compact('perusahaan','cabang','notif','interview','pesan','credit'));
     }
 
     public function gantiPerusahaan($id)
@@ -74,11 +76,12 @@ class PerusahaanController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
         if($perusahaan->nama_pemimpin == null)
         {
             return redirect()->route('perusahaan')->with('warning',"Harap lengkapi profil perusahaan terlebih dahulu");
         } else {
-            return view('perusahaan/profil_perusahaan',compact('cabang','perusahaan','notif','pesan','lowongan'));
+            return view('perusahaan/profil_perusahaan',compact('cabang','perusahaan','notif','pesan','lowongan','credit'));
         }
     }
 
@@ -261,9 +264,7 @@ class PerusahaanController extends Controller
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        return view('perusahaan/cabang/tambah_perusahaan_data',compact('perusahaan','notif','pesan'));
+        return view('perusahaan/cabang/tambah_perusahaan_data',compact('perusahaan'));
     }
 
     public function simpanCabangData(Request $request)
@@ -404,7 +405,8 @@ class PerusahaanController extends Controller
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like','%'.$perusahaan->penempatan_kerja.'%')->get();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        return view('perusahaan/contact_us',compact('perusahaan','notif','pesan','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/contact_us',compact('perusahaan','notif','pesan','cabang','credit'));
     }
 
     public function permohonanLowonganPekerjaan()
@@ -424,10 +426,11 @@ class PerusahaanController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like','%'.$perusahaan->penempatan_kerja.'%')->get();
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
         $pmi_id = PMIID::join(
             'kandidat', 'perusahaan_kebutuhan.id_kandidat','=','kandidat.id_kandidat'
         )->where('perusahaan_kebutuhan.id_perusahaan',$perusahaan->id_perusahaan)->get();
-        return view('perusahaan/list_pmi_id',compact('perusahaan','pmi_id','pesan','notif','cabang'));
+        return view('perusahaan/list_pmi_id',compact('perusahaan','pmi_id','pesan','notif','cabang','credit'));
     }
 
     public function pembuatanPmiID(Request $request)
@@ -439,7 +442,8 @@ class PerusahaanController extends Controller
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $id_kandidat = null;
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like','%'.$perusahaan->penempatan_kerja.'%')->get();
-        return view('perusahaan/pembuatan_pmi_id',compact('perusahaan','kandidat','pesan','notif','id_kandidat','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/pembuatan_pmi_id',compact('perusahaan','kandidat','pesan','notif','id_kandidat','cabang','credit'));
     }
 
     public function selectKandidatID(Request $request)
@@ -453,7 +457,8 @@ class PerusahaanController extends Controller
         $tgl = Carbon::create($id_kandidat->tgl_lahir)->isoformat('d MMM Y');
         $negara = Negara::all();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like','%'.$perusahaan->penempatan_kerja.'%')->get();
-        return view('perusahaan/pembuatan_pmi_id',compact('perusahaan','kandidat','pesan','notif','id_kandidat','tgl','negara','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/pembuatan_pmi_id',compact('perusahaan','kandidat','pesan','notif','id_kandidat','tgl','negara','cabang','credit'));
     }
 
     public function simpanPembuatanPmiID(Request $request)
@@ -495,7 +500,8 @@ class PerusahaanController extends Controller
         $berlaku = Carbon::create($pmi_id->berlaku)->isoformat('d MMM Y');
         $habis_berlaku = Carbon::create($pmi_id->habis_berlaku)->isoformat('d MMM Y');
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        return view('perusahaan/lihat_pmi_id',compact('perusahaan','pmi_id','notif','pesan','berlaku','habis_berlaku','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/lihat_pmi_id',compact('perusahaan','pmi_id','notif','pesan','berlaku','habis_berlaku','cabang','credit'));
     }
 
     public function editPmiID($id)
@@ -511,7 +517,8 @@ class PerusahaanController extends Controller
         $tgl = Carbon::create($pmi_id->tgl_lahir)->isoformat('d MMM Y');
         $negara = Negara::all();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        return view('perusahaan/edit_pmi_id',compact('perusahaan','pmi_id','pesan','notif','tgl','negara','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/edit_pmi_id',compact('perusahaan','pmi_id','pesan','notif','tgl','negara','cabang','credit'));
     }
 
     public function updatePmiID(Request $request, $id)
@@ -548,7 +555,8 @@ class PerusahaanController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        return view('perusahaan/akademi/list_akademi', compact('perusahaan','akademi','notif','pesan','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/akademi/list_akademi', compact('perusahaan','akademi','notif','pesan','cabang','credit'));
     }
 
     public function lihatProfilAkademi($id)
@@ -559,7 +567,8 @@ class PerusahaanController extends Controller
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $akademi = Akademi::where('id_akademi',$id)->first();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        return view('perusahaan/akademi/profil_akademi',compact('perusahaan','akademi','notif','pesan','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/akademi/profil_akademi',compact('perusahaan','akademi','notif','pesan','cabang','credit'));
     }
 
     // DATA KANDIDAT //
@@ -572,7 +581,8 @@ class PerusahaanController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        return view('perusahaan/kandidat/kandidat',compact('kandidat','perusahaan','isi','notif','pesan','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/kandidat/kandidat',compact('kandidat','perusahaan','isi','notif','pesan','cabang','credit'));
     }
 
     public function lihatProfilKandidat($id)
@@ -584,23 +594,18 @@ class PerusahaanController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        $semua_kandidat = Kandidat::
-        where('kandidat.penempatan','like','%'.$perusahaan->penempatan_kerja.'%')
-        ->where('kandidat.id_kandidat','not like',$id)->whereNull('stat_pemilik')->limit(12)->get();
         $usia = Carbon::parse($kandidat->tgl_lahir)->age;
         $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
         $interview = Interview::where('id_kandidat',$kandidat->id_kandidat)->first();
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        $semua_kandidat = Kandidat::
+        where('kandidat.penempatan','like','%'.$perusahaan->penempatan_kerja.'%')
+        ->where('kandidat.id_kandidat','not like',$id)->whereNull('stat_pemilik')->limit(12)->get();
         return view('perusahaan/kandidat/profil_kandidat',compact(
-            'kandidat',
-            'info_kandidat',
-            'perusahaan',
-            'usia',
-            'tgl_user',
-            'semua_kandidat',
-            'interview',
-            'notif',
-            'pesan',
-            'cabang',
+            'kandidat','info_kandidat','perusahaan',
+            'usia','tgl_user','semua_kandidat',
+            'interview','notif','pesan','cabang',
+            'credit',
         ));
     }
 
@@ -623,7 +628,8 @@ class PerusahaanController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        return view('perusahaan/kandidat/pencarian_kandidat',compact('kandidat','perusahaan','isi','notif','pesan','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first(); 
+        return view('perusahaan/kandidat/pencarian_kandidat',compact('kandidat','perusahaan','isi','notif','pesan','cabang','credit'));
     }
 
     public function cariKandidat(Request $request)
@@ -649,6 +655,7 @@ class PerusahaanController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
         $kandidat = Kandidat::
         where('penempatan','like','%Luar negeri%')
         ->where('kandidat.jenis_kelamin','like',"%".$jk."%")
@@ -662,7 +669,7 @@ class PerusahaanController extends Controller
         ->whereNull('stat_pemilik')
         ->limit(15)->get();
         $isi = $kandidat->count();
-        return view('perusahaan/kandidat/pilih_kandidat',compact('jk','perusahaan','kandidat','isi','notif','pesan','cabang'));
+        return view('perusahaan/kandidat/pilih_kandidat',compact('jk','perusahaan','kandidat','isi','notif','pesan','cabang','credit'));
     }
 
     public function pilihKandidat(Request $request)
@@ -740,13 +747,14 @@ class PerusahaanController extends Controller
     {
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
-        $interview = Interview::join(
-            'permohonan_lowongan', 'interview.id_kandidat','=','permohonan_lowongan.id_kandidat'
-        )->where('interview.id_perusahaan',$perusahaan->id_perusahaan)->where('interview.status',"pilih")->get();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $pilih = null;
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        $interview = Interview::join(
+            'permohonan_lowongan', 'interview.id_kandidat','=','permohonan_lowongan.id_kandidat'
+        )->where('interview.id_perusahaan',$perusahaan->id_perusahaan)->where('interview.status',"pilih")->get();
         foreach($interview as $item){
             if($item->status == "pilih"){
                 $pilih = 1;
@@ -764,13 +772,10 @@ class PerusahaanController extends Controller
         $biaya = 15000;
         $total = $jml_kandidat * $biaya;
         return view('perusahaan/interview',compact(
-            'perusahaan',
-            'interview',
-            'terjadwal',
-            'jml_kandidat',
-            'biaya','total',
-            'pilih','notif',
-            'pesan','cabang',
+            'perusahaan','interview',
+            'terjadwal','jml_kandidat',
+            'biaya','total','pilih','notif',
+            'pesan','cabang','credit',
         ));
     }
 
@@ -782,7 +787,8 @@ class PerusahaanController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();       
-        return view('perusahaan/jadwal_interview',compact('perusahaan','interview','notif','pesan','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/jadwal_interview',compact('perusahaan','interview','notif','pesan','cabang','credit'));
     }
 
     public function simpanJadwal(Request $request)
@@ -846,15 +852,19 @@ class PerusahaanController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();       
-        return view('perusahaan/edit_interview',compact('perusahaan','interview','notif','pesan','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/edit_interview',compact('perusahaan','interview','notif','pesan','cabang','credit'));
     }
 
     public function ubahJadwalInterview(Request $request,$id)
-    {
+    { 
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
         $interview = Interview::where('id_interview',$id)->first();
         $kandidat = Kandidat::where('id_kandidat',$interview->id_kandidat)->first();
+        if($interview->kesempatan == 1){
+            return back()->with('warning',"Maaf kesempatan anda mengubah jadwal telah habis. Harap hubungi admin");
+        }
         if($interview->jadwal_interview !== $request->jadwal){
             notifyKandidat::create([
                 'id_kandidat' => $interview->id_kandidat,
@@ -875,7 +885,8 @@ class PerusahaanController extends Controller
             ]);
         }
         Interview::where('id_interview',$id)->update([
-            'jadwal_interview'=>$request->jadwal
+            'jadwal_interview'=>$request->jadwal,
+            'kesempatan' => 1,
         ]);
         return redirect('/perusahaan/interview')->with('success',"Jadwal berhasil diubah");
     }
@@ -900,7 +911,8 @@ class PerusahaanController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        return view('perusahaan/pembayaran/list_pembayaran', compact('perusahaan','pembayaran','notif','pesan','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/pembayaran/list_pembayaran', compact('perusahaan','pembayaran','notif','pesan','cabang','credit'));
     }
 
     public function Payment($id)
@@ -916,7 +928,8 @@ class PerusahaanController extends Controller
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $pembayaran = Pembayaran::where('id_pembayaran',$id)->first();
-        return view('perusahaan/pembayaran/pembayaran',compact('perusahaan','total','ttlBayar','notif','tgl','pembayaran','pesan','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/pembayaran/pembayaran',compact('perusahaan','total','ttlBayar','notif','tgl','pembayaran','pesan','cabang','credit'));
     }
 
     public function paymentCheck(Request $request, $id)

@@ -505,8 +505,8 @@ class ManagerController extends Controller
             'video' => 'mimes:mp4,mov,ogg,qt',
         ]);
         $video = $request->file('video');
-        $video->move('gambar/Manager/Pelatihan/'.$request->judul.'/Video/',$request->judul.time().'.'.$video->getClientOriginalName());
-        $simpanVideo = $request->judul.time().'.'.$video->getClientOriginalName();
+        $video->move('gambar/Manager/Pelatihan/'.$request->judul.'/Video/',$request->judul.$video->getClientOriginalName());
+        $simpanVideo = $request->judul.$video->getClientOriginalName();
         
         Pelatihan::create([
             'judul'=>$request->judul,

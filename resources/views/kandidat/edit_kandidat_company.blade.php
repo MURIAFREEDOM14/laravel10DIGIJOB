@@ -51,6 +51,17 @@
                             </div>
                         </div>
                         <div class="mb-2">
+                            <label for="" class="form-label">Foto Kerja</label>
+                            <div class="">
+                                @if ($pengalaman_kerja->foto_pengalaman_kerja !== null)
+                                    <img src="/gambar/Kandidat/{{$pengalaman_kerja->nama}}/Pengalaman Kerja/{{$pengalaman_kerja->foto_pengalaman_kerja}}">
+                                    <input type="file" class="form-control" name="foto">
+                                @else
+                                    <input type="file" class="form-control" name="foto">                
+                                @endif
+                            </div>
+                        </div>
+                        <div class="mb-2">
                             <a href="/isi_kandidat_company" class="btn btn-danger">Kembali</a>
                             <button type="submit" class="btn btn-warning">Ubah</button>
                         </div>    

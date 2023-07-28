@@ -173,7 +173,7 @@
                                     <li>
                                         <div class="notif-scroll scrollbar-outer">
                                             <div class="notif-center">
-                                                <div class="ml-2">Your credit</div>
+                                                <div class="ml-2 my-3">Credit Anda : {{$credit->credit}}</div>
                                             </div>
                                         </div>
                                     </li>

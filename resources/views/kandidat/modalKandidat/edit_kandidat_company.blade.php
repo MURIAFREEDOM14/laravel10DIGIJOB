@@ -130,6 +130,10 @@
                                 <input type="file" name="video" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" accept="video/*">
                                 <small>Usahakan untuk ukuran video 3mb</small>
                             </div>
+                            <div class="mb-2">
+                                <label for="exampleInputEmail1" class="form-label">Foto Kerja</label>
+                                <input type="file" name="foto" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" accept="image/*">
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>

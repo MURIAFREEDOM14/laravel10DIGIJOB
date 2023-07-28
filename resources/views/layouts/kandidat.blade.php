@@ -79,6 +79,12 @@
             #terimaInterview{
                 display: block;
             }
+            #bekerja {
+                display: none;
+            }
+            #alasan {
+                display: none;
+            }
         </style>
     </head>
     <body>
@@ -710,18 +716,37 @@
             $(window).on('load',function() {
             $('#staticBackdrop').modal('show');                                                   
             });
+
             function tidakInterview() {
-                console.log("batal");
                 var y = document.getElementById("terimaInterview");
                 var n = document.getElementById("batalInterview");
                 if (n.style.display == 'block') {
-                    y.style.display = 'block';
-                    n.style.display = 'none';
+                    y.style.display = 'none';
+                    n.style.display = 'block';
                 } else {
                     y.style.display = 'none';
                     n.style.display = 'block';
                 }
             }
+
+            $(document).ready(function() {
+                $(document).on('change','#tolakInterview',function() {
+                    console.log("ditekan");
+                    var getID = $(this).val();
+                    console.log(getID);
+                    var div = $(this).parent();
+                    var op = "";
+                    var b = document.getElementById('bekerja');
+                    var a = document.getElementById('alasan');
+                    if (getID == "bekerja") {
+                        b.style.display = 'block';
+                        a.style.display = 'none';
+                    } else {
+                        b.style.display = 'none';
+                        a.style.display = 'block';
+                    }
+                })
+            });
         </script>
     </body>
 </html>

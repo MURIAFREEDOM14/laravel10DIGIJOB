@@ -20,6 +20,7 @@ use App\Models\PerusahaanCabang;
 use App\Models\Kandidat;
 use App\Models\PermohonanLowongan;
 use App\Models\PersetujuanKandidat;
+use App\Models\CreditPerusahaan;
 
 class PerusahaanRecruitmentController extends Controller
 {
@@ -32,7 +33,8 @@ class PerusahaanRecruitmentController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        return view('perusahaan/recruitment/negara_tujuan',compact('perusahaan','negara_perusahaan','notif','pesan','negara','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/recruitment/negara_tujuan',compact('perusahaan','negara_perusahaan','notif','pesan','negara','cabang','credit'));
     }
 
     public function tambahNegaraTujuan()
@@ -42,7 +44,8 @@ class PerusahaanRecruitmentController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        return view('perusahaan/recruitment/tambah_negara_tujuan',compact('perusahaan','notif','pesan','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/recruitment/tambah_negara_tujuan',compact('perusahaan','notif','pesan','cabang','credit'));
     }
 
     public function simpanNegaraTujuan(Request $request)
@@ -67,7 +70,8 @@ class PerusahaanRecruitmentController extends Controller
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $pekerjaan = Pekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('negara_id',$id)->get();
-        return view('perusahaan/recruitment/lihat_job',compact('id','nama','perusahaan','notif','pesan','pekerjaan','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/recruitment/lihat_job',compact('id','nama','perusahaan','notif','pesan','pekerjaan','cabang','credit'));
     }
 
     public function tambahPerusahaanJob($id, $nama)
@@ -77,7 +81,8 @@ class PerusahaanRecruitmentController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        return view('perusahaan/recruitment/tambah_job',compact('perusahaan','notif','pesan','id','nama','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/recruitment/tambah_job',compact('perusahaan','notif','pesan','id','nama','cabang','credit'));
     }
 
     public function simpanPerusahaanJob(Request $request,$id,$nama)
@@ -104,7 +109,8 @@ class PerusahaanRecruitmentController extends Controller
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pekerjaan = Pekerjaan::where('id_pekerjaan',$kerjaid)->first();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        return view('perusahaan/recruitment/edit_job',compact('perusahaan','notif','pesan','pekerjaan','id','kerjaid','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/recruitment/edit_job',compact('perusahaan','notif','pesan','pekerjaan','id','kerjaid','cabang','credit'));
     }
 
     public function ubahPerusahaanJob(Request $request, $kerjaid,$id)
@@ -138,7 +144,8 @@ class PerusahaanRecruitmentController extends Controller
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $isi = "";
-        return view('perusahaan/kandidat/cari_staff',compact('perusahaan','notif','pesan','cabang','isi'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/kandidat/cari_staff',compact('perusahaan','notif','pesan','cabang','isi','credit'));
     }
 
     public function pencarianKandidatStaff(Request $request)
@@ -162,6 +169,7 @@ class PerusahaanRecruitmentController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
         $kandidat = Kandidat::
         where('usia','>=',$request->usia)
         ->where('jenis_kelamin','like','%'.$request->jenis_kelamin.'%')
@@ -173,7 +181,7 @@ class PerusahaanRecruitmentController extends Controller
         ->where('lama_kerja','>=','%'.$request->pengalaman.'%')
         ->get();
         $isi = $kandidat->count();
-        return view('perusahaan/kandidat/cari_staff',compact('perusahaan','notif','pesan','cabang','isi'));
+        return view('perusahaan/kandidat/cari_staff',compact('perusahaan','notif','pesan','cabang','isi','credit'));
     }
 
     public function lowonganPekerjaan()
@@ -184,7 +192,8 @@ class PerusahaanRecruitmentController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        return view('perusahaan/lowongan_pekerjaan',compact('perusahaan','notif','pesan','lowongan','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/lowongan_pekerjaan',compact('perusahaan','notif','pesan','lowongan','cabang','credit'));
     }
 
     public function tambahLowongan()
@@ -194,7 +203,8 @@ class PerusahaanRecruitmentController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        return view('perusahaan/tambah_lowongan',compact('perusahaan','notif','pesan','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/tambah_lowongan',compact('perusahaan','notif','pesan','cabang','credit'));
     }
 
     public function simpanLowongan(Request $request)
@@ -250,7 +260,8 @@ class PerusahaanRecruitmentController extends Controller
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        return view('perusahaan/lihat_lowongan',compact('perusahaan','lowongan','pesan','notif','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/lihat_lowongan',compact('perusahaan','lowongan','pesan','notif','cabang','credit'));
     }
 
     public function editLowongan($id)
@@ -262,7 +273,8 @@ class PerusahaanRecruitmentController extends Controller
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $negara = Negara::where('negara_id','not like',2)->get();
-        return view('perusahaan/edit_lowongan',compact('perusahaan','pesan','notif','lowongan','cabang','negara'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/edit_lowongan',compact('perusahaan','pesan','notif','lowongan','cabang','negara','credit'));
     }
 
     public function updateLowongan(Request $request, $id)
@@ -328,78 +340,15 @@ class PerusahaanRecruitmentController extends Controller
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $permohonan = PermohonanLowongan::join(
             'kandidat', 'permohonan_lowongan.id_kandidat','=','kandidat.id_kandidat'
         )
-        ->where('kandidat.id_perusahaan',$perusahaan->id_perusahaan)->where('kandidat.stat_pemilik','not like',"diambil")->get();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        ->where('kandidat.id_perusahaan',$perusahaan->id_perusahaan)->whereNull('kandidat.stat_pemilik')->get();
         $isi = $permohonan->count();
-        return view('perusahaan/list_permohonan_lowongan',compact('perusahaan','permohonan','pesan','notif','cabang','isi'));
+        return view('perusahaan/list_permohonan_lowongan',compact('perusahaan','permohonan','pesan','notif','cabang','isi','credit'));
     }
-
-    // DATA INTERVIEW //
-    // public function confirmPermohonanLowongan(Request $request)
-    // {
-    //     $auth = Auth::user();
-    //     $id_kandidat = $request->id_kandidat;
-    //     $usia = $request->usia;
-    //     $jk = $request->jk;
-    //     $nama = $request->nama;
-    //     $pengalaman_kerja = $request->pengalaman_kerja;
-    //     $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
-    //     // if($id_kandidat == null){
-    //     //     return redirect('/perusahaan/list_permohonan_lowongan')->with('error','anda harus memilih minimal 1 kandidat');
-    //     // } else {
-    //     //     for($a = 0; $a < count($id_kandidat); $a++){                
-    //     //         $input['id_kandidat'] = $id_kandidat[$a];
-    //     //         $input['nama_kandidat'] = $nama[$a];
-    //     //         $input['status'] = "pilih";
-    //     //         $input['usia'] = $usia[$a];
-    //     //         $input['jenis_kelamin'] = $jk[$a];
-    //     //         $input['pengalaman_kerja'] = $pengalaman_kerja[$a];
-    //     //         $input['id_perusahaan'] = $perusahaan->id_perusahaan;
-    //     //         Interview::create($input);
-                
-    //     //         Kandidat::where('id_kandidat',$id_kandidat[$a])->update([
-    //     //             'stat_pemilik' => "diambil",
-    //     //         ]);
-                
-    //     //         notifyKandidat::create([
-    //     //             'id_kandidat' => $id_kandidat[$a],
-    //     //             'isi' => "Anda mendapat pesan masuk",
-    //     //             'pengirim' => "Sistem",
-    //     //             'url' => '/semua_pesan',
-    //     //         ]);
-
-    //     //         messageKandidat::create([
-    //     //             'id_kandidat' => $id_kandidat[$a],
-    //     //             'pesan' => "Halo, Anda mendapat undangan interview dari ".$perusahaan->nama_perusahaan.".apakah anda menyetujuinya?",
-    //     //             'pengirim' => "Sistem",
-    //     //             'kepada' => $nama[$a],
-    //     //         ]);
-
-    //     //         $kandidat = Kandidat::where('id_kandidat',$id_kandidat[$a])->whereNotNull('id_akademi')->first();
-    //     //         if($kandidat !== null){
-    //     //             notifyAkademi::create([
-    //     //                 'id_akademi' => $kandidat->id_akademi,
-    //     //                 'id_kandidat' => $kandidat->id_kandidat,
-    //     //                 'isi' => "Anda mendapat pesan masuk",
-    //     //                 'pengirim' => "Sistem",
-    //     //                 'url' => '/akademi/semua_notif',
-    //     //             ]);
-
-    //     //             messageAkademi::create([
-    //     //                 'id_akademi' => $kandidat->id_akademi,
-    //     //                 'id_kandidat' => $kandidat->id_kandidat,
-    //     //                 'pesan' => "Selamat kandidat atas nama".$kandidat->nama."telah diterima di".$perusahaan->nama_perusahaan,
-    //     //                 'pengirim' => "Sistem",
-    //     //                 'kepada' => $kandidat->id_akademi,
-    //     //             ]);
-    //     //         }
-    //     //     }
-    //     // }
-    //     return redirect('/perusahaan/interview');
-    // }
 
     public function persetujuanKandidat()
     {
@@ -408,19 +357,17 @@ class PerusahaanRecruitmentController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
         $kandidat = Kandidat::join(
             'perusahaan', 'kandidat.id_perusahaan','=','perusahaan.id_perusahaan'
         )
-        // ->join(
-        //     'interview', 'perusahaan.id_perusahaan','=','interview.id_perusahaan'
-        // )
         ->join(
             'persetujuan_kandidat','kandidat.id_kandidat','=','persetujuan_kandidat.id_kandidat'
         )
         ->where('kandidat.id_perusahaan',$perusahaan->id_perusahaan)->where('kandidat.stat_pemilik','not like',"diambil")
         ->get();
         $isi = $kandidat->count();
-        return view('perusahaan/recruitment/persetujuan_kandidat',compact('perusahaan','notif','pesan','cabang','kandidat','isi'));
+        return view('perusahaan/recruitment/persetujuan_kandidat',compact('perusahaan','notif','pesan','cabang','kandidat','isi','credit'));
     }
 
     public function confirmPersetujuanKandidat(Request $request)
@@ -429,7 +376,7 @@ class PerusahaanRecruitmentController extends Controller
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
         $id_kandidat = $request->menerima;
         if($id_kandidat == null){
-            return redirect('/perusahaan/persetujuan_kandidat')->with('warning',"Maaf belum ada kandidat yang menyetujui");
+            return redirect('/perusahaan/persetujuan_kandidat')->with('error',"Maaf belum ada kandidat yang menyetujui");
         }
         for($k = 0; $k < count($id_kandidat); $k++){
             $data['id_kandidat'] = $id_kandidat[$k];
@@ -440,5 +387,4 @@ class PerusahaanRecruitmentController extends Controller
         }
         return redirect('/perusahaan/interview')->with('success',"kandidat telah ditentukan");
     }
-
 }

@@ -29,6 +29,7 @@ use App\Models\PersetujuanKandidat;
 use App\Models\Pelatihan;
 use App\Models\VerifyOTP;
 use Twilio\Rest\Client;
+use App\Models\Interview;
 
 class KandidatController extends Controller
 {
@@ -58,6 +59,9 @@ class KandidatController extends Controller
             'perusahaan', 'persetujuan_kandidat.id_perusahaan','=','perusahaan.id_perusahaan'
         )
         ->where('persetujuan_kandidat.nama_kandidat',$kandidat->nama)->where('persetujuan_kandidat.id_kandidat',$kandidat->id_kandidat)->first();
+        $interview = Interview::join(
+            'perusahaan', 'interview.id_perusahaan','=','perusahaan.id_perusahaan'
+        )->where('interview.id_kandidat',$kandidat->id_kandidat)->where('interview.id_perusahaan',$kandidat->id_perusahaan)->first();
         if($persetujuan !== null){
             if($persetujuan->persetujuan == null){
                 $persetujuan = $persetujuan;
@@ -66,6 +70,11 @@ class KandidatController extends Controller
             }
         } else {
             $persetujuan == null;
+        }
+        if($interview){
+            $interview = $interview;
+        } else {
+            $interview = null;
         }
         return view('kandidat/index',compact('kandidat','notif','perusahaan_semua',
         'perusahaan','pembayaran','pesan','lowongan','cari_perusahaan','persetujuan'));
@@ -832,6 +841,20 @@ class KandidatController extends Controller
             $video = null;
         }
 
+        if($request->file('foto') !== null){
+            $foto_kerja = $kandidat->nama.time().'.'.$request->foto->extension();
+            $simpan_foto_kerja = $request->file('foto');  
+            $simpan_foto_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.time().'.'.$simpan_foto_kerja->extension());
+        } else {            
+            $foto_kerja = null;
+        }
+
+        if($foto_kerja !== null){
+            $foto = $foto_kerja;
+        } else {
+            $foto = null;
+        }
+
         $periodeAwal = new \Datetime($request->periode_awal);
         $periodeAkhir = new \DateTime($request->periode_akhir);
         $tahun = $periodeAkhir->diff($periodeAwal)->y;
@@ -844,6 +867,7 @@ class KandidatController extends Controller
             'periode_akhir'=>$request->periode_akhir,
             'alasan_berhenti'=>$request->alasan_berhenti,
             'video_pengalaman_kerja'=>$video,
+            'foto_pengalaman_kerja'=>$foto,
             'id_kandidat'=>$kandidat->id_kandidat,
             'nama_kandidat' => $kandidat->nama,
             'lama_kerja' => $tahun,
@@ -856,19 +880,19 @@ class KandidatController extends Controller
     public function editPengalamanKerja($id)
     {
         $pengalaman_kerja = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
-        return view('kandidat/edit_kandidat_company', compact('pengalaman_kerja'));
+        return view('kandidat/modalKandidat/edit_pengalaman_kerja', compact('pengalaman_kerja'));
     }
 
     public function updatePengalamanKerja(Request $request, $id)
     {
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
-        $video_kandidat = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->first('video_pengalaman_kerja');
+        $video_kandidat = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->first();
         if($request->file('video') !== null){
             $validated = $request->validate([
                 'video' => 'mimes:mp4,mov,ogg,qt',
             ]);
-            $hapus_video_kerja = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$video_kandidat;
+            $hapus_video_kerja = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$video_kandidat->video_pengalaman_kerja;
             if(file_exists($hapus_video_kerja)){
                 @unlink($hapus_video_kerja);
             }
@@ -889,6 +913,28 @@ class KandidatController extends Controller
             $video = null;
         }
 
+        if($request->file('foto') !== null){
+            $hapus_foto = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$video_kandidat->foto_pengalaman_kerja;
+            if(file_exists($hapus_foto)){
+                @unlink($hapus_foto);
+            }
+            $foto_kerja = $kandidat->nama.time().'.'.$request->foto->extension();
+            $simpan_foto_kerja = $request->file('foto');  
+            $simpan_foto_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.time().'.'.$simpan_foto_kerja->extension());
+        } else {
+            if($video_kandidat->foto_pengalaman_kerja !== null){
+                $foto_kerja = $video_kandidat->foto_pengalaman_kerja;
+            } else {
+                $foto_kerja = null;
+            }           
+        }
+
+        if($foto_kerja !== null){
+            $foto = $foto_kerja;
+        } else {
+            $foto = null;
+        }
+
         $periodeAwal = new \Datetime($request->periode_awal);
         $periodeAkhir = new \DateTime($request->periode_akhir);
         $tahun = $periodeAkhir->diff($periodeAwal)->y;
@@ -901,6 +947,7 @@ class KandidatController extends Controller
             'periode_akhir'=>$request->periode_akhir,
             'alasan_berhenti'=>$request->alasan_berhenti,
             'video_pengalaman_kerja'=>$video,
+            'foto_pengalaman_kerja'=>$foto,
             'id_kandidat'=>$kandidat->id_kandidat,
             'nama_kandidat' => $kandidat->nama,
             'lama_kerja' => $tahun,
@@ -915,12 +962,16 @@ class KandidatController extends Controller
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $video_kandidat = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
-        PengalamanKerja::where('pengalaman_kerja_id',$id)->delete();
         $hapus_video_kerja = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$video_kandidat->video_pengalaman_kerja;
             if(file_exists($hapus_video_kerja)){
                 @unlink($hapus_video_kerja);
             }
-        return redirect()->route('company');
+        $hapus_foto_kerja = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$video_kandidat->foto_pengalaman_kerja;
+            if(file_exists($hapus_foto_kerja)){
+                @unlink($hapus_foto_kerja);
+            }
+        PengalamanKerja::where('pengalaman_kerja_id',$id)->delete();
+        return redirect()->route('company')->with('success',"Data berhasi dihapus");
     }
 
     public function simpan_kandidat_company(Request $request)

@@ -20,6 +20,10 @@
                                 <label for="">Jadwal Interview</label>
                                 <input type="datetime-local" name="jadwal" value="{{$interview->jadwal_interview}}" required class="form-control" id="">
                             </div>
+                        </div>
+                        <div class="col-6">
+                            <label for="">Catatan :</label>
+                            <div class="">Anda hanya dapat mengubah jadwal interview anda sekali. Untuk lebih lanjut anda bisa menghubungi admin.</div>
                         </div>                            
                     </div>
                     <a href="/perusahaan/interview" class="btn btn-danger">Kembali</a>

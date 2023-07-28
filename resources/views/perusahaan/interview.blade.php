@@ -57,8 +57,10 @@
                                     <td style="width: 1">{{$item->jabatan}}</td>
                                     <td>{{date('d-M-Y | h:m:s',strtotime($item->jadwal_interview))}}</td>
                                     <td style="width: 1">
-                                        <a class="btn btn-warning" href="/perusahaan/edit/kandidat/interview/{{$item->id_interview}}"><i class="fas fa-pencil-alt"></i></a>                                            
-                                        <a class="btn btn-danger" href="/perusahaan/hapus/kandidat/interview/{{$item->id_interview}}"><i class="fas fa-trash-alt"></i></a>                                            
+                                        @if ($item->kesempatan !== 1)
+                                            <a class="btn btn-warning" href="/perusahaan/edit/kandidat/interview/{{$item->id_interview}}"><i class="fas fa-pencil-alt"></i></a>                                            
+                                        @endif
+                                            <a class="btn btn-danger" href="/perusahaan/hapus/kandidat/interview/{{$item->id_interview}}"><i class="fas fa-trash-alt"></i></a>                                            
                                     </td>
                                 </tr>    
                             @endforeach

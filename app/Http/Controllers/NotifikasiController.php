@@ -18,6 +18,7 @@ use App\Models\messageKandidat;
 use App\Models\messageAkademi;
 use App\Models\messagePerusahaan;
 use Carbon\Carbon;
+use App\Models\CreditPerusahaan;
 
 class NotifikasiController extends Controller
 {
@@ -57,6 +58,7 @@ class NotifikasiController extends Controller
         $semua_notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('pengirim','not like',$perusahaan->nama_perusahaan)->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        return view('perusahaan/semua_notif',compact('perusahaan','notif','pesan','semua_notif','cabang'));
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/semua_notif',compact('perusahaan','notif','pesan','semua_notif','cabang','credit'));
     }
 }

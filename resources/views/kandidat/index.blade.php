@@ -5,14 +5,6 @@
 <div class="container mt-5 my-3">
     <div class="row mt-2">
         <div class="col-md-7">
-            {{-- <div class="card mb-3" style="background-color: #1269db">
-                <div class="card-body">
-                    <div class="text-white" style="border-bottom:2px solid white"><b class="word" style="font-size: 13px;">Hai, apakah kamu penasaran ingin melihat informasi perusahaan?</b></div>
-                </div>
-            </div> --}}
-            {{-- <input type="text" name="" value="{{$kandidat->nama}}" id="nama">
-            <input type="text" name="" value="{{$kandidat->id_kandidat}}" id="id"> --}}
-            {{-- <input type="text" value="{{$kandidat->negara_id}}" name="negara_id" id="negara_id"> --}}
             <div class="card">
                 <div class="card-header">
                     <b class="bold">Informasi Perusahaan</b>
@@ -167,24 +159,31 @@
                             <div class="text-center" id="terimaInterview">
                                 <h4 class="">Selamat anda mendapatkan udangan interview dari {{$persetujuan->nama_perusahaan}}</h4>
                                 <h5 class="">Apakah anda ingin menyetujuinya?</h5>
-                                <button type="submit" onclick="infoConfirm()" name="persetujuan" value="ya" class="btn btn-success" id="">Ya</button>
-                                <button type="button" onclick="tidakInterview()" class="btn btn-danger" data-dismiss="modal">Tidak</button>    
+                                <button type="submit" name="persetujuan" value="ya" class="btn btn-success" id="">Ya</button>
+                                <button type="button" onclick="tidakInterview()" class="btn btn-danger">Tidak</button>    
                             </div>
                             <div class="" id="batalInterview">
                                 <h5 class="text-center">Jelaskan alasan anda menolak undangan interview</h5>
-                                <div class="form-group">
-                                    <label for="">Dimana anda Bekerja?</label>
-                                    <input type="text" name="tmp_bekerja" class="form-control" id="">
+                                <select name="pilih" class="form-control my-3" id="tolakInterview">
+                                    <option value="">-- Tentukan Pilihanmu --</option>
+                                    <option value="bekerja">Sudah bekerja</option>
+                                    <option value="alasan">Alasan Lain</option>
+                                </select>
+                                <div class="" id="bekerja">
+                                    <div class="form-group">
+                                        <label for="">Dimana anda Bekerja?</label>
+                                        <input type="text" name="tmp_bekerja" class="form-control" id="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Anda sekarang bekerja sebagai:</label>
+                                        <input type="text" name="jabatan" class="form-control" id="">                                    
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Sejak kapan anda bekerja</label>
+                                        <input type="date" name="tgl_mulai_kerja" class="form-control" id="">                                    
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="">Anda sekarang bekerja sebagai:</label>
-                                    <input type="text" name="jabatan" class="form-control" id="">                                    
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Sejak kapan anda bekerja</label>
-                                    <input type="date" name="tgl_mulai_kerja" class="form-control" id="">                                    
-                                </div>
-                                <div class="form-group">
+                                <div class="form-group" id="alasan">
                                     <label for="">Alasan lain</label>
                                     <textarea name="alasan_lain" class="form-control" id=""></textarea>
                                 </div>
@@ -198,4 +197,32 @@
             </div>
         </div>
     @endif
+
+    {{-- @if($Interview !== null)
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form action="" method="post">
+                        @csrf
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="staticBackdropLabel">Undangan Interview</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="text-center" id="terimaInterview">
+                                <h4 class="">{{$interview->}}</h4>
+                                <h5 class="">Apakah anda ingin menyetujuinya?</h5>
+                                <button type="submit" onclick="infoConfirm()" name="persetujuan" value="ya" class="btn btn-success" id="">Ya</button>
+                                <button type="button" onclick="tidakInterview()" class="btn btn-danger" data-dismiss="modal">Tidak</button>    
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endif --}}
 @endsection

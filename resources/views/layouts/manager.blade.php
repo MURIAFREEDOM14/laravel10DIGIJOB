@@ -179,7 +179,6 @@
                                         </li>
                                         <li>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="/edit_profil">Edit Profil</a>
                                             <a href="{{route('logout')}}" class="dropdown-item" onclick="confirmation(event)">Keluar</a>
                                             {{-- <a class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
@@ -257,6 +256,11 @@
                                         <li>
                                             <a class="btn" href="/manager/kandidat/pelamar_lowongan">
                                                 <span class="sub-item">Pelamar Lowongan</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="btn" href="/manager/kandidat/penolakan_kandidat">
+                                                <span class="sub-item">Penolakan Kandidat</span>
                                             </a>
                                         </li>
                                     </ul>
