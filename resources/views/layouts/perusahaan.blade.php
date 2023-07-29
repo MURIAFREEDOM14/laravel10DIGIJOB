@@ -173,7 +173,11 @@
                                     <li>
                                         <div class="notif-scroll scrollbar-outer">
                                             <div class="notif-center">
-                                                <div class="ml-2 my-3">Credit Anda : {{$credit->credit}}</div>
+                                                @if ($credit->credit == null)
+                                                    <div class="ml-2 my-3">Credit Anda : 0</div>                                                    
+                                                @else
+                                                    <div class="ml-2 my-3">Credit Anda : {{$credit->credit}}</div>                                                    
+                                                @endif
                                             </div>
                                         </div>
                                     </li>

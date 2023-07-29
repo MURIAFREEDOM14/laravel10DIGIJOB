@@ -836,7 +836,7 @@ class PerusahaanController extends Controller
         $namarec = "Hamepa";
         $nomorec = 4399997272;
         $message = "Pembayaran Interview";
-        Mail::mailer('transfer')->to($perusahaan->email_perusahaan)->send(new transfer($perusahaan->nama_perusahaan,$message,'Pembayaran','digijobaccounting@ugiport.com',$payment,$namarec,$nomorec));
+        // Mail::mailer('transfer')->to($perusahaan->email_perusahaan)->send(new transfer($perusahaan->nama_perusahaan,$message,'Pembayaran','digijobaccounting@ugiport.com',$payment,$namarec,$nomorec));
 
         $pembayaran = Pembayaran::create([
             'id_perusahaan'=>$perusahaan->id_perusahaan,

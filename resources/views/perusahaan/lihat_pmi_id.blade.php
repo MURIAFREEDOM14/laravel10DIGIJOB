@@ -46,7 +46,7 @@
                                     <td style="width: 0%;">6</td>
                                     <td style="width:13rem">Tanggal Lahir</td>
                                     <td style="width: 0%">: </td>
-                                    <td>{{$pmi_id->tgl_lahir}}</td>
+                                    <td>{{date('d-M-Y',strtotime($pmi_id->tgl_lahir))}}</td>
                                 </tr>
                                 <tr>
                                     <td style="width: 0%;">7</td>
