@@ -47,6 +47,13 @@ class PerusahaanController extends Controller
         $interview = Interview::where('status',"terjadwal")->where('id_perusahaan',$perusahaan->id_perusahaan)->get();        
         $notifyP = notifyPerusahaan::where('created_at','<',Carbon::now()->subDays(14))->delete();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        if(!$credit){
+            CreditPerusahaan::create([
+                'id_perusahaan' => $perusahaan->id_perusahaan,
+                'nama_perusahaan' => $perusahaan->nama_perusahaan,
+                'no_nib' => $perusahaan->no_nib,
+            ]);
+        } 
         return view('perusahaan/index',compact('perusahaan','cabang','notif','interview','pesan','credit'));
     }
 
