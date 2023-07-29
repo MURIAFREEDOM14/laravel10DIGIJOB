@@ -292,7 +292,7 @@
                                         @if ($perusahaan->email_operator !== null)
                                             <li>
                                                 <a href="/perusahaan/tambah/cabang_data" class="dropdown-item">
-                                                    <div class="link-collapse">Tambah Perusahaan <i class="fas fa-user-circle float-right"></i></div>
+                                                    <div class="link-collapse">Tambah Cabang <i class="fas fa-user-circle float-right"></i></div>
                                                 </a>
                                             </li>
                                             <li>
