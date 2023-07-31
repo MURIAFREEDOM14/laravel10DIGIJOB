@@ -825,7 +825,7 @@ class KandidatController extends Controller
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $jabatan = $request->jabatan;
-        $video_kandidat = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->first('video_pengalaman_kerja');
+        $video_kandidat = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->first();
         
         if($request->file('video') !== null){
             $validated = $request->validate([
@@ -1055,8 +1055,8 @@ class KandidatController extends Controller
         //         @unlink($hapus_foto_kerja);
         //     }
         
+        Portofolio::where('pengalaman_kerja_id',$id)->delete();
         PengalamanKerja::where('pengalaman_kerja_id',$id)->delete();
-        Portofolio::where('penngalaman_kerja_id',$id)->delete();
         return redirect()->route('company')->with('success',"Data berhasi dihapus");
     }
 
