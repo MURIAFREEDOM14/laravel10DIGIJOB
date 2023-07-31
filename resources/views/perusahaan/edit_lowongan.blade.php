@@ -3,7 +3,7 @@
     <div class="container mt-5">
         <div class="card">
             <div class="card-header">
-                <h4 style="font-weight: bold">Tambah Lowongan</h4>
+                <h4 style="font-weight: bold">Edit Lowongan</h4>
             </div>
             <div class="card-body">
                 <form action="" method="POST" enctype="multipart/form-data">
@@ -21,9 +21,15 @@
                         <div class="col-md-4">
                             <select name="jenis_kelamin" required class="form-control" id="">
                                 <option value="">-- Pilih jenis kelamin --</option>
-                                <option value="M">Laki-laki</option>
-                                <option value="F">Perempuan</option>
-                                <option value="MF">Laki-laki & Perempuan</option>
+                                <option value="M" @if ($lowongan->jenis_kelamin == "M")
+                                    selected
+                                @endif>Laki-laki</option>
+                                <option value="F" @if ($lowongan->jenis_kelamin == "F")
+                                    selected
+                                @endif>Perempuan</option>
+                                <option value="MF" @if ($lowongan->jenis_kelamin == "MF")
+                                    selected
+                                @endif>Laki-laki & Perempuan</option>
                             </select>
                         </div>
                     </div>
@@ -34,14 +40,30 @@
                         <div class="col-md-4">
                             <select name="pendidikan" required class="form-control" id="">
                                 <option value="">-- Pilih Tingkatan Pendidikan --</option>
-                                <option value="Tidak sekolah">Tanpa Ijazah</option>
-                                <option value="SD">SD Sederajat / Kejar Paket A</option>
-                                <option value="SMP">SMP Sederajat / Kejar Paket B</option>
-                                <option value="SMA">SMA Sederajat / Kejar Paket C</option>
-                                <option value="Diploma">Diploma</option>
-                                <option value="Sarjana">Sarjana</option>
-                                <option value="Master">Master, phD</option>
-                                <option value="Doctoral">Doctoral</option>
+                                <option value="Tidak sekolah" @if ($lowongan->pendidikan == "Tidak sekolah")
+                                    selected
+                                @endif>Tanpa Ijazah</option>
+                                <option value="SD" @if ($lowongan->pendidikan == "SD")
+                                    selected
+                                @endif>SD Sederajat / Kejar Paket A</option>
+                                <option value="SMP" @if ($lowongan->pendidikan == "SMP")
+                                    selected
+                                @endif>SMP Sederajat / Kejar Paket B</option>
+                                <option value="SMA" @if ($lowongan->pendidikan == "SMA")
+                                    selected
+                                @endif>SMA Sederajat / Kejar Paket C</option>
+                                <option value="Diploma" @if ($lowongan->pendidikan == "Diploma")
+                                    selected
+                                @endif>Diploma</option>
+                                <option value="Sarjana" @if ($lowongan->pendidikan == "Sarjana")
+                                    selected
+                                @endif>Sarjana</option>
+                                <option value="Master" @if ($lowongan->pendidikan == "Master")
+                                    selected
+                                @endif>Master, phD</option>
+                                <option value="Doctoral" @if ($lowongan->pendidikan == "Doctoral")
+                                    selected
+                                @endif>Doctoral</option>
                             </select>
                         </div>
                     </div>
@@ -50,7 +72,7 @@
                             <label for="" class="col-form-label">Usia Minimal</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="number" name="usia" class="form-control" id="">
+                            <input type="number" name="usia" value="{{$lowongan->usia}}" class="form-control" id="">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -216,7 +238,7 @@
                     </div>
                     <hr>
                     <a href="/perusahaan/list/lowongan" class="btn btn-danger">Kembali</a>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <button type="submit" class="btn btn-warning">Ubah</button>
                 </form>
             </div>
         </div>

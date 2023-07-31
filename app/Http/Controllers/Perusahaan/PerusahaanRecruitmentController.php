@@ -296,6 +296,7 @@ class PerusahaanRecruitmentController extends Controller
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
+        $penempatan = Negara::where('negara_id',$request->penempatan)->first();
         if($request->file('gambar') !== null){
             // $this->validate($request, [
             //     'foto_perusahaan' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
@@ -327,6 +328,11 @@ class PerusahaanRecruitmentController extends Controller
             $benefit = null;
         }
 
+        if($penempatan !== null){
+            $penempatan = $penempatan->negara;
+        } else {
+            $penempatan = null;
+        }
         LowonganPekerjaan::where('id_lowongan',$id)->update([
             'usia' => $request->usia,
             'jabatan' => $request->jabatan,
@@ -338,9 +344,9 @@ class PerusahaanRecruitmentController extends Controller
             'pencarian_tmp' => $request->pencarian_tmp,
             'id_perusahaan' => $perusahaan->id_perusahaan,
             'isi' => $request->deskripsi,
-            'ttp_lowongan' => $request->ttp_lowongan,
+            'ttp_lowongan' => $request->ttp_lowongan,x c 
             'gambar_lowongan' => $gambar_flyer,
-            'negara' => $request->penempatan,
+            'negara' => $penempatan,
             'tgl_interview' => $request->tgl_interview,
             'lvl_pekerjaan' => $request->lvl_pekerjaan,
             'mata_uang' => $request->mata_uang,
