@@ -1035,6 +1035,8 @@ class KandidatController extends Controller
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $video_kandidat = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
+        $portofolio = Portofolio::where('pengalaman_kerja_id',$id)->get();
+        
         $hapus_video_kerja = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$video_kandidat->video_pengalaman_kerja;
             if(file_exists($hapus_video_kerja)){
                 @unlink($hapus_video_kerja);
@@ -1043,7 +1045,18 @@ class KandidatController extends Controller
             if(file_exists($hapus_foto_kerja)){
                 @unlink($hapus_foto_kerja);
             }
+        
+        // $hapus_video_portofolio = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$video_kandidat->video_pengalaman_kerja;
+        //     if(file_exists($hapus_video_kerja)){
+        //         @unlink($hapus_video_kerja);
+        //     }
+        // $hapus_foto_portofolio = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$video_kandidat->foto_pengalaman_kerja;
+        //     if(file_exists($hapus_foto_kerja)){
+        //         @unlink($hapus_foto_kerja);
+        //     }
+        
         PengalamanKerja::where('pengalaman_kerja_id',$id)->delete();
+        Portofolio::where('penngalaman_kerja_id',$id)->delete();
         return redirect()->route('company')->with('success',"Data berhasi dihapus");
     }
 
