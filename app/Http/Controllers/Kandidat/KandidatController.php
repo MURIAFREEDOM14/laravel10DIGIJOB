@@ -30,6 +30,7 @@ use App\Models\Pelatihan;
 use App\Models\VerifyOTP;
 use Twilio\Rest\Client;
 use App\Models\Interview;
+use App\Models\Portofolio;
 
 class KandidatController extends Controller
 {
@@ -825,6 +826,7 @@ class KandidatController extends Controller
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $jabatan = $request->jabatan;
         $video_kandidat = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->first('video_pengalaman_kerja');
+        
         if($request->file('video') !== null){
             $validated = $request->validate([
                 'video' => 'mimes:mp4,mov,ogg,qt',
@@ -859,7 +861,7 @@ class KandidatController extends Controller
         $periodeAkhir = new \DateTime($request->periode_akhir);
         $tahun = $periodeAkhir->diff($periodeAwal)->y;
 
-        PengalamanKerja::create([
+        $pengalaman = PengalamanKerja::create([
             'nama_perusahaan'=>$request->nama_perusahaan,
             'alamat_perusahaan'=>$request->alamat_perusahaan,
             'jabatan'=>$request->jabatan,
@@ -872,9 +874,80 @@ class KandidatController extends Controller
             'nama_kandidat' => $kandidat->nama,
             'lama_kerja' => $tahun,
         ]);
+
+        Portofolio::create([
+            'foto_pengalaman_kerja' => $foto,
+            'video_pengalaman_kerja' => $video,
+            'batas' => null,
+            'pengalaman_kerja_id' => $pengalaman->id,
+            'jabatan' => $request->jabatan,
+        ]);
         return redirect()->route('company')
         // ->with('toast_success',"Data anda tersimpan");
         ->with('success',"Data anda tersimpan");
+    }
+
+    public function lihatPengalamanKerja($id)
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
+        $portofolio = Portofolio::where('pengalaman_kerja_id',$id)->get();
+        return view('kandidat/modalKandidat/lihat_pengalaman_kerja',compact('kandidat','pengalaman','portofolio','id'));
+    }
+
+    public function tambahPortofolio($id)
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        return view('kandidat/modalKandidat/tambah_portofolio',compact('kandidat'));
+    }
+
+    public function simpanPortofolio(Request $request,$id)
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
+        
+        if($request->file('video') !== null){
+            $validated = $request->validate([
+                'video' => 'mimes:mp4,mov,ogg,qt',
+            ]);
+            $video_kerja = $request->file('video');
+            $video_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.$pengalaman->jabatan.$video_kerja->getClientOriginalName());
+            $simpan_kerja = $kandidat->nama.$pengalaman->jabatan.$video_kerja->getClientOriginalName();
+        } else {
+            $simpan_kerja = null;
+        }
+
+        if($simpan_kerja !== null){
+            $video = $simpan_kerja;
+        } else {
+            $video = null;
+        }
+
+        if($request->file('foto') !== null){
+            $foto_kerja = $kandidat->nama.time().'.'.$request->foto->extension();
+            $simpan_foto_kerja = $request->file('foto');  
+            $simpan_foto_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.time().'.'.$simpan_foto_kerja->extension());
+        } else {            
+            $foto_kerja = null;
+        }
+
+        if($foto_kerja !== null){
+            $foto = $foto_kerja;
+        } else {
+            $foto = null;
+        }
+
+        Portofolio::create([
+            'foto_pengalaman_kerja' => $foto,
+            'video_pengalaman_kerja' => $video,
+            'batas' => null,
+            'pengalaman_kerja_id' => $pengalaman->pengalaman_kerja_id,
+            'jabatan' => $pengalaman->jabatan,
+        ]);
+        return redirect('/lihat_kandidat_pengalaman_kerja/'.$id)->with('success',"Portofolio ditambahkan");      
     }
 
     public function editPengalamanKerja($id)

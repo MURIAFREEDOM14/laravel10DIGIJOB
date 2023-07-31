@@ -63,7 +63,7 @@
                   <li><a href="/register/perusahaan" style="color: black">Perusahaan</a></li>
               </ul>
           </li> --}}
-          <li><a class="nav-link scrollto disabled" style="color: gray" href="/perbaikan">Portfolio</a></li>
+          {{-- <li><a class="nav-link scrollto disabled" style="color: gray" href="/perbaikan">Portfolio</a></li> --}}
           <li><a class="nav-link scrollto" style="color: black" href="/hubungi_kami">Hubungi</a></li>
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>

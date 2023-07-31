@@ -10,9 +10,14 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      */
-    protected function schedule(Schedule $schedule): void
+    protected $commands = [
+        Commands\TimeJadwal::class,
+    ];
+
+     protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('app:time-jadwal')->daily();
     }
 
     /**

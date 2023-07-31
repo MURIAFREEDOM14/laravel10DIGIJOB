@@ -9,7 +9,7 @@
         "anhskohbo/no-captcha": "^3.5",
         "barryvdh/laravel-dompdf": "*",
         "biscolab/laravel-recaptcha": "^6.0",
-        "guzzlehttp/guzzle": "^7.2",
+        "guzzlehttp/guzzle": "^7.7",
         "intervention/image": "^2.7",
         "josiasmontag/laravel-recaptchav3": "^1.0",
         "laravel/cashier": "^14.12",

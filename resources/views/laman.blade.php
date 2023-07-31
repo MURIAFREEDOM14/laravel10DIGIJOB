@@ -55,10 +55,10 @@
       <h1 class="logo me-auto"><a href="/laman" style="text-transform: uppercase; font-family:poppins; color:black">DIGIJOB</a></h1>
       <nav id="navbar" class="navbar" style="background-color: #FFD966;">
         <ul>
-          <li><a class="nav-link scrollto active" style="color: black" href="#hero">Beranda</a></li>
-          <li><a class="nav-link scrollto disabled" style="color: gray;" href="/about_us">Tentang</a></li>
+          {{-- <li><a class="nav-link scrollto active" style="color: black" href="#hero">Beranda</a></li> --}}
+          {{-- <li><a class="nav-link scrollto disabled" style="color: gray;" href="/about_us">Tentang</a></li> --}}
           <li><a class="nav-link scrollto" style="color: black;" href="/login">Login</a></li>
-          <li><a class="nav-link scrollto disabled" style="color: gray" href="/perbaikan">Portfolio</a></li>
+          {{-- <li><a class="nav-link scrollto disabled" style="color: gray" href="/perbaikan">Portfolio</a></li> --}}
           <li><a class="nav-link scrollto" style="color: black" href="/hubungi_kami">Hubungi</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -226,7 +226,7 @@
       </div>
       <!-- Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="exampleModalLabel" style="font-family:poppins">Anda ingin daftar sebagai siapa?</h1>
@@ -234,19 +234,23 @@
             </div>
             <div class="modal-body">
               <div class="row">
-                <div class="col-md-4 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                <div class="col-md-12 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                   <div class="icon-box text-center" style="border-style: outset; background-color: #19A7CE">
                     <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
                     <h4><a href="/register/kandidat" style="text-transform: uppercase;color: white">Pencari Kerja</a></h4>
                   </div>
                 </div>
-                <div class="col-md-4 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+              </div>
+              <div class="row">
+                <div class="col-md-12 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                   <div class="icon-box text-center" style="border-style: outset;background-color: #FFD966">
                     <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
                     <h4><a href="/register/akademi" style="text-transform: uppercase; color: white">Akademi</a></h4>
                   </div>
                 </div>
-                <div class="col-md-4 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+              </div>
+              <div class="row">
+                <div class="col-md-12 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                   <div class="icon-box text-center" style="border-style: outset;background-color: #2bb930">
                     <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
                     <h4><a href="/register/perusahaan" style="text-transform: uppercase; color: white">Perusahaan</a></h4>

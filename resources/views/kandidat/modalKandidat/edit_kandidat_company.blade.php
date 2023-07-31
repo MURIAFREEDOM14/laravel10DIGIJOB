@@ -48,7 +48,6 @@
                                                         <td>
                                                             <a class="btn btn-warning mb-1" href="/edit_kandidat_pengalaman_kerja/{{$item->pengalaman_kerja_id}}">Edit</a>
                                                             <a class="btn btn-danger mb-1" href="/hapus_kandidat_pengalaman_kerja/{{$item->pengalaman_kerja_id}}" onclick="hapusData(event)">Hapus</a>
-                                                            {{-- <button onclick="destroy({{$item->pengalaman_kerja_id}})">Hapus</button> --}}
                                                         </td>
                                                     </tr>                                    
                                                 @endforeach

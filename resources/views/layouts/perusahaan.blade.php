@@ -613,7 +613,27 @@
                     }
                 });
             }
-
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $(document).on('change','#negara_tujuan', function() {
+                    var negara = $(this).val();
+                    var sp = "";
+                    var div = $(this).parent();
+                    console.log(negara);
+                    $.ajax({
+                        type:'get',
+                        url:'{!!URL::to('/lowongan_negara')!!}',
+                        data:{'negara':negara},
+                        success:function(data){
+                            console.log(data.mata_uang);
+                            sp+='<span class="input-group-text" id="">'+data.mata_uang+'</span>';
+                            div.find('#mata_uang').html(" ");
+                            div.find('#')
+                        }
+                    })
+                })
+            })
         </script>
         @livewireScripts
     </body>

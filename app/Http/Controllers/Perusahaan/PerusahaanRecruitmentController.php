@@ -204,7 +204,15 @@ class PerusahaanRecruitmentController extends Controller
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/tambah_lowongan',compact('perusahaan','notif','pesan','cabang','credit'));
+        $negara = Negara::all();
+        
+        return view('perusahaan/tambah_lowongan',compact('perusahaan','notif','pesan','cabang','credit','negara'));
+    }
+
+    protected function lowonganNegara(Request $request)
+    {
+        $data = Negara::where('negara_id',$request->negara)->first();
+        return response()->json($data);
     }
 
     public function simpanLowongan(Request $request)
@@ -307,6 +315,12 @@ class PerusahaanRecruitmentController extends Controller
             $gambar_flyer = null;
         }
         
+        if($request->benefit !== null){
+            $benefit = implode(",",$request->benefit); 
+        } else {
+            $benefit = null;
+        }
+
         LowonganPekerjaan::where('id_lowongan',$id)->update([
             'usia' => $request->usia,
             'jabatan' => $request->jabatan,
@@ -317,9 +331,16 @@ class PerusahaanRecruitmentController extends Controller
             'tinggi' => $request->tinggi,
             'pencarian_tmp' => $request->pencarian_tmp,
             'id_perusahaan' => $perusahaan->id_perusahaan,
-            'isi' => $request->isi,
+            'isi' => $request->deskripsi,
             'ttp_lowongan' => $request->ttp_lowongan,
             'gambar_lowongan' => $gambar_flyer,
+            'negara' => $request->penempatan,
+            'tgl_interview' => $request->tgl_interview,
+            'lvl_pekerjaan' => $request->lvl_pekerjaan,
+            'mata_uang' => $request->mata_uang,
+            'gaji_minimum' => $request->gaji_minimum,
+            'gaji_maksimum' => $request->gaji_maksimum,
+            'benefit' => $benefit,            
         ]);
         return redirect('/perusahaan/list/lowongan')->with('success');
     }

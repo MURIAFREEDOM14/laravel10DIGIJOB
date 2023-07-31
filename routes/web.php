@@ -341,6 +341,7 @@ Route::controller(PerusahaanRecruitmentController::class)->group(function() {
 
     Route::get('/perusahaan/list/lowongan','lowonganPekerjaan')->middleware('perusahaan');
     Route::get('/perusahaan/buat_lowongan','tambahLowongan')->middleware('perusahaan');
+    Route::get('/lowongan_negara','lowonganNegara');
     Route::post('/perusahaan/buat_lowongan','simpanLowongan');
     Route::get('/perusahaan/lihat_lowongan/{id}','lihatLowongan')->middleware('perusahaan');
     Route::get('/perusahaan/edit_lowongan/{id}','editLowongan')->middleware('perusahaan');
@@ -387,6 +388,9 @@ Route::controller(KandidatController::class)->group(function() {
     Route::post('/isi_kandidat_company', 'simpan_kandidat_company');
     Route::get('/tambah_kandidat_pengalaman_kerja', 'tambahPengalamanKerja')->middleware('kandidat');
     Route::post('/simpan_kandidat_pengalaman_kerja', 'simpanPengalamanKerja');
+    Route::get('/lihat_kandidat_pengalaman_kerja/{id}','lihatPengalamanKerja')->middleware('kandidat');
+    Route::get('/tambah_portofolio_pengalaman_kerja/{id}','tambahPortofolio')->middleware('kandidat');
+    Route::post('/simpan_portofolio_pengalaman_kerja/{id}','simpanPortofolio');
     Route::get('/edit_kandidat_pengalaman_kerja/{id}','editPengalamanKerja')->middleware('kandidat');
     Route::post('/update_kandidat_pengalaman_kerja/{id}','updatePengalamanKerja');
     Route::get('/hapus_kandidat_pengalaman_kerja/{id}','hapusPengalamanKerja');
@@ -607,7 +611,7 @@ Route::controller(PrototypeController::class)->group(function(){
     Route::get('/proto_store','store');
     Route::get('/proto_edit','edit');
     Route::get('/proto_update','update');
-    Route::get('/proto_delete','delete');
+    Route::get('/prototype4','delete');
     Route::post('/proto_mail','email');
     Route::view('/prototype3','prototype3');
     

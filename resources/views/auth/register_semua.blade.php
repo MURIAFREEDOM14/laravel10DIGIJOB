@@ -5,7 +5,7 @@
             <div class="col-md-10 mx-auto">
                 <div class="card" style="border-top: 10px solid #19A7CE">
                     <div class="card-body text-center">
-                        <p style="text-transform: uppercase">Register Kandidat</p>
+                        <p style="text-transform: uppercase">Register Pencari Kerja</p>
                         <a class="btn btn-outline-primary" href="/register/kandidat">Register</a>
                     </div>
                 </div>
