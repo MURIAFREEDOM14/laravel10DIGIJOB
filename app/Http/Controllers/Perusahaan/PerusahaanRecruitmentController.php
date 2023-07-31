@@ -219,6 +219,7 @@ class PerusahaanRecruitmentController extends Controller
     {
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $penempatan = Negara::where('negara_id',$request->penempatan)->first();
         if($request->benefit !== null){
             $benefit = implode(",",$request->benefit); 
         } else {
@@ -236,6 +237,11 @@ class PerusahaanRecruitmentController extends Controller
         } else {
             $gambar_flyer = null;
         }
+        if ($penempatan !== null) {
+            $penempatan = $penempatan->negara;
+        } else {
+            $penempatan = null;
+        }
         LowonganPekerjaan::create([
             'usia' => $request->usia,
             'jabatan' => $request->jabatan,
@@ -247,7 +253,7 @@ class PerusahaanRecruitmentController extends Controller
             'pencarian_tmp' => $request->pencarian_tmp,
             'id_perusahaan' => $perusahaan->id_perusahaan,
             'isi' => $request->deskripsi,
-            'negara' => $request->penempatan,
+            'negara' => $penempatan,
             'ttp_lowongan' => $request->ttp_lowongan,
             'gambar_lowongan' => $gambar_flyer,
             'tgl_interview' => $request->tgl_interview,
