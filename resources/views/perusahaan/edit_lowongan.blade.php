@@ -80,7 +80,7 @@
                             <label for="" class="col-form-label">Pengalaman Bekerja</label>
                         </div>
                         <div class="col-md-8">
-                            <textarea name="pengalaman_kerja" id="" class="form-control"></textarea>
+                            <textarea name="pengalaman_kerja" id="" class="form-control">{{$lowongan->pengalaman_kerja}}</textarea>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -88,7 +88,7 @@
                             <label for="" class="col-form-label">Berat Badan Minimal</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="number" name="berat" placeholder="Masukkan Berat" class="form-control" id="">
+                            <input type="number" name="berat" value="{{$lowongan->berat}}" placeholder="Masukkan Berat" class="form-control" id="">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -96,7 +96,7 @@
                             <label for="" class="col-form-label">Tinggi Badan Minimal</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="number" name="tinggi" placeholder="Masukkan Tinggi" class="form-control" id="">
+                            <input type="number" name="tinggi" value="{{$lowongan->tinggi}}" placeholder="Masukkan Tinggi" class="form-control" id="">
                         </div>
                     </div>
                     <hr>
@@ -105,7 +105,7 @@
                             <label for="" class="col-form-label">Spesifikasi Pekerjaan</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="text" required name="jabatan" class="form-control" id="">
+                            <input type="text" required name="jabatan" value="{{$lowongan->jabatan}}" class="form-control" id="">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -115,11 +115,21 @@
                         <div class="col-md-6">
                             <select name="lvl_pekerjaan" required class="form-control" id="">
                                 <option value="">-- Tentukan Level Pekerja --</option>
-                                <option value="magang">Magang</option>
-                                <option value="karyawan">Karyawan / Staff</option>
-                                <option value="manager">Manager</option>
-                                <option value="direktur">Direktur</option>
-                                <option value="seo">SEO</option>
+                                <option value="magang" @if ($lowongan->lvl_pekerjaan == "magang")
+                                    selected
+                                @endif>Magang</option>
+                                <option value="karyawan" @if ($lowongan->lvl_pekerjaan == "karyawan")
+                                    selected
+                                @endif>Karyawan / Staff</option>
+                                <option value="manager" @if ($lowongan->lvl_pekerjaan == "manager")
+                                    selected
+                                @endif>Manager</option>
+                                <option value="direktur" @if ($lowongan->lvl_pekerjaan == "direktur")
+                                    selected
+                                @endif>Direktur</option>
+                                <option value="seo" @if ($lowongan->lvl_pekerjaan == "seo")
+                                    selected
+                                @endif>SEO</option>
                             </select>
                         </div>
                     </div>
@@ -128,7 +138,7 @@
                             <label for="" class="col-form-label">Job Deskripsi</label>
                         </div>
                         <div class="col-md-8">
-                            <textarea name="deskripsi" id="" class="form-control"></textarea>
+                            <textarea name="deskripsi" id="" class="form-control">{{$lowongan->isi}}</textarea>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -136,7 +146,12 @@
                             <label for="" class="col-form-label">Flyer (jika ada)</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="file" name="gambar" class="form-control" id="" accept="image/*">
+                            @if ($lowongan->gambar_lowongan !== null)
+                                <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/" class="img" alt="">
+                                <input type="file" name="gambar" class="form-control" id="" accept="image/*">                                
+                            @else
+                                <input type="file" name="gambar" class="form-control" id="" accept="image/*">                                                                
+                            @endif
                         </div>
                     </div>
                     <div class="form-group">
@@ -193,7 +208,9 @@
                             <select name="penempatan" class="form-control" id="negara_tujuan">
                                 <option value="">-- Pilih Negara Penempatan --</option>
                                 @foreach ($negara as $item)                                    
-                                    <option value="{{$item->negara_id}}">{{$item->negara}}</option>                                                                        
+                                    <option value="{{$item->negara_id}}" @if ($item->negara == $lowongan->negara)
+                                        selected
+                                    @endif>{{$item->negara}}</option>                                                                        
                                 @endforeach
                             </select>
                         </div>
@@ -202,20 +219,20 @@
                         <div class="col-md-4">
                             <label for="" class="col-form-label">Informasi Gaji</label>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-4">
                             <div class="input-group flex-nowrap">
                                 <div class="input-group-prepend" id="mata_uang">
                                   <span class="input-group-text" id=""></span>
                                 </div>
-                                <input type="text" name="gaji_minimum" id="" placeholder="Gaji Minimum" class="form-control">
+                                <input type="text" name="gaji_minimum" value="{{$lowongan->gaji_minimum}}" id="" placeholder="Gaji Minimum" class="form-control">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-4">
                             <div class="input-group flex-nowrap">
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="mata_uang"></span>
                                 </div>
-                                <input type="text" name="gaji_maksimum" id="" placeholder="Gaji Maksimum" class="form-control">
+                                <input type="text" name="gaji_maksimum" value="{{$lowongan->gaji_maksimum}}" id="" placeholder="Gaji Maksimum" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -224,7 +241,7 @@
                             <label for="" class="col-form-label">Tanggal Tutup Lowongan</label>
                         </div>
                         <div class="col-4">
-                            <input type="date" name="ttp_lowongan" class="form-control" id="">
+                            <input type="date" name="ttp_lowongan" value="{{$lowongan->ttp_lowongan}}" class="form-control" id="">
                         </div>
                     </div>
                     <hr>                    

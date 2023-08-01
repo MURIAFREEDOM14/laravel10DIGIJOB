@@ -629,7 +629,8 @@
                             console.log(data.mata_uang);
                             sp+='<span class="input-group-text" id="">'+data.mata_uang+'</span>';
                             div.find('#mata_uang').html(" ");
-                            div.find('#')
+                            div.find('#mata_uang').append(sp);
+                            console.log(sp);
                         }
                     })
                 })

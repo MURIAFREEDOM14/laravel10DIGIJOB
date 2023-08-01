@@ -237,9 +237,12 @@ class PerusahaanRecruitmentController extends Controller
         } else {
             $gambar_flyer = null;
         }
+
         if ($penempatan !== null) {
+            $mata_uang = $penempatan->mata_uang;
             $penempatan = $penempatan->negara;
         } else {
+            $mata_uang = null;
             $penempatan = null;
         }
         LowonganPekerjaan::create([
@@ -258,7 +261,7 @@ class PerusahaanRecruitmentController extends Controller
             'gambar_lowongan' => $gambar_flyer,
             'tgl_interview' => $request->tgl_interview,
             'lvl_pekerjaan' => $request->lvl_pekerjaan,
-            'mata_uang' => $request->mata_uang,
+            'mata_uang' => $mata_uang,
             'gaji_minimum' => $request->gaji_minimum,
             'gaji_maksimum' => $request->gaji_maksimum,
             'benefit' => $benefit,
@@ -329,8 +332,10 @@ class PerusahaanRecruitmentController extends Controller
         }
 
         if($penempatan !== null){
+            $mata_uang = $penempatan->mata_uang;
             $penempatan = $penempatan->negara;
         } else {
+            $mata_uang = null;
             $penempatan = null;
         }
         LowonganPekerjaan::where('id_lowongan',$id)->update([
@@ -349,7 +354,7 @@ class PerusahaanRecruitmentController extends Controller
             'negara' => $penempatan,
             'tgl_interview' => $request->tgl_interview,
             'lvl_pekerjaan' => $request->lvl_pekerjaan,
-            'mata_uang' => $request->mata_uang,
+            'mata_uang' => $mata_uang,
             'gaji_minimum' => $request->gaji_minimum,
             'gaji_maksimum' => $request->gaji_maksimum,
             'benefit' => $benefit,            
