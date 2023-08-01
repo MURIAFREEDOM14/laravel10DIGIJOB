@@ -348,11 +348,12 @@ Route::controller(PerusahaanRecruitmentController::class)->group(function() {
     Route::post('/perusahaan/edit_lowongan/{id}','updateLowongan');
     Route::get('/perusahaan/hapus_lowongan/{id}','hapusLowongan')->middleware('perusahaan');
 
-    Route::get('/perusahaan/list_permohonan_lowongan','listPermohonanLowongan');
-    Route::post('/perusahaan/list_permohonan_lowongan','confirmPermohonanLowongan');
-    Route::get('/perusahaan/permohonan_lowongan_pekerjaan/{id}','permohonanLowonganPekerjaan');
+    Route::get('/perusahaan/list_permohonan_lowongan','listPermohonanLowongan')->middleware('perusahaan');
+    Route::get('/perusahaan/lihat_permohonan_lowongan/{id}','lihatPermohonanLowongan')->middleware('perusahaan');
+    Route::post('/perusahaan/lihat_permohonan_lowongan/{id}','confirmPermohonanLowongan');
+    Route::get('/perusahaan/permohonan_lowongan_pekerjaan/{id}','permohonanLowonganPekerjaan')->middleware('perusahaan');
     Route::post('/perusahaan/permohonan_lowongan_pekerjaan/{id}','confirmLowonganPekerjaan');    
-    Route::get('/perusahaan/persetujuan_kandidat','persetujuanKandidat');
+    Route::get('/perusahaan/persetujuan_kandidat','persetujuanKandidat')->middleware('perusahaan');
     Route::post('/perusahaan/persetujuan_kandidat','confirmPersetujuanKandidat');
 
 });

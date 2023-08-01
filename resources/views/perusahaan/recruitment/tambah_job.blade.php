@@ -20,8 +20,8 @@
                         <div class="col-4">
                             <label for="" class="col-form-label">Syarat Umur</label>
                         </div>
-                        <div class="col-2">
-                            <input type="number" name="syarat_umur" required class="form-control" id="">
+                        <div class="col-8">
+                            <input type="text" placeholder="( contoh 18 sampai 40 )" name="syarat_umur" required class="form-control" id="">
                         </div>
                     </div>
                     <div class="row mb-3">

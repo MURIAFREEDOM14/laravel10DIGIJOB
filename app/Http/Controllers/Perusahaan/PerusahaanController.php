@@ -421,11 +421,6 @@ class PerusahaanController extends Controller
 
     }
 
-    public function confirmLowonganPekerjaan()
-    {
-
-    }
-
     public function listPmiID()
     {
         $user = Auth::user();
@@ -688,6 +683,8 @@ class PerusahaanController extends Controller
         $nama = $request->nama;
         $pengalaman_kerja = $request->pengalaman_kerja;
         $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
+        $permohonan = PermohonanLowongan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('jabatan',)->get();
+        dd($permohonan);
         if($id_kandidat == null){
             return redirect('/perusahaan/list_permohonan_lowongan')->with('error','anda harus memilih minimal 1 kandidat');
         } else {
@@ -711,7 +708,11 @@ class PerusahaanController extends Controller
                 ]);
                 
                 $interview = Interview::where('id_kandidat',$id_kandidat[$a])->where('id_perusahaan',$perusahaan->id_perusahaan)->first();
+                // if(){
 
+                // } else {
+        
+                // }
                 notifyKandidat::create([
                     'id_kandidat' => $id_kandidat[$a],
                     'isi' => "Anda mendapat pesan masuk",

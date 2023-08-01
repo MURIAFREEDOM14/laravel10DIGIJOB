@@ -16,6 +16,9 @@
                 border: 1px solid black;
                 border-radius: 2%;
             }
+            div {
+                line-height: 20px;
+            }
         </style>
     </head>
     <body>        
@@ -224,7 +227,7 @@
                 <div class="col-5"></div>
                 <div class="col-2"></div>
                 <div class="col-5 text-center">
-                    <b style="font-size: 11px; font-weight:bold; text-transform:uppercase; font-family:serif">
+                    <b style="font-size: 11px; font-weight:bold; text-transform:uppercase;">
                         {{$kandidat->kabupaten}}, 
                         {{$tgl_print}}</b>
                 </div>
@@ -245,7 +248,7 @@
                     <div class=""><b class="bold">Materai Rp. 10.000</b></div>
                 </div>
             </div>
-            <div class="row mt-4">
+            <div class="row mt-5">
                 <div class="col-5 text-center">
                     <b class="bold" style="border-bottom:1px solid black">
                         ( {{$kandidat->nama}} )
@@ -394,7 +397,7 @@
             <div class="row">
                 <div class="col-5"></div>
                 <div class="col-2"></div>
-                <div class="col-5 text-center"><b class="" style="font-size: 11px; font-weight:bold; text-transform:uppercase; font-family:serif"> 
+                <div class="col-5 text-center"><b class="" style="font-size: 11px; font-weight:bold; text-transform:uppercase;"> 
                     {{$kandidat->kabupaten}}, 
                     {{$tgl_print}}</b></div>
             </div>
@@ -406,7 +409,7 @@
                 </div>
             </div>
             <br>
-            <div class="row mt-4">
+            <div class="row mt-5">
                 <div class="col-5 text-center">
                     <b class="bold" style="border-bottom:1px solid black;">( 
                         @if ($kandidat->nama_perizin == null)

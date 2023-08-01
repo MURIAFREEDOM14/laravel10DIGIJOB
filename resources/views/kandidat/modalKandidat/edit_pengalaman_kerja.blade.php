@@ -34,7 +34,7 @@
                             <label for="exampleInputEmail1" class="form-label">Alasan Berhenti</label>
                             <input type="text" required name="alasan_berhenti" value="{{$pengalaman_kerja->alasan_berhenti}}" class="form-control" id="alasan_berhenti" aria-describedby="emailHelp">
                         </div>
-                        <div class="mb-2">
+                        {{-- <div class="mb-2">
                             <label for="exampleInputEmail1" class="form-label">Video Kerja</label>
                             <div class="">
                                 @if ($pengalaman_kerja->video_pengalaman_kerja !== null)
@@ -60,7 +60,7 @@
                                     <input type="file" class="form-control" name="foto" accept="image/*">                
                                 @endif
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="mb-2">
                             <a href="/isi_kandidat_company" class="btn btn-danger">Kembali</a>
                             <button type="submit" class="btn btn-warning">Ubah</button>

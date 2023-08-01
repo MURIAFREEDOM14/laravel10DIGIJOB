@@ -9,7 +9,11 @@
         @livewireStyles
       <style>
         .img {
-          width: 35%;
+          width: 50%;
+          height: auto;
+        }
+        .img2 {
+          width: 100%;
           height: auto;
         }
         video {
@@ -185,6 +189,16 @@
         function create() {
           $("#tambah").modal('show');
         }
+      </script>
+      <script>
+        var video = document.getElementById("video");
+          function playPause() {
+              if (video.paused) {
+                  video.play();
+              } else {
+                  video.pause();
+              }
+          }
       </script>
 
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>

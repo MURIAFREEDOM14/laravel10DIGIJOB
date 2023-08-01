@@ -618,7 +618,8 @@
             $(document).ready(function() {
                 $(document).on('change','#negara_tujuan', function() {
                     var negara = $(this).val();
-                    var sp = "";
+                    var sp1 = document.getElementById("mata_uang1");
+                    var sp2 = document.getElementById("mata_uang2");
                     var div = $(this).parent();
                     console.log(negara);
                     $.ajax({
@@ -627,10 +628,8 @@
                         data:{'negara':negara},
                         success:function(data){
                             console.log(data.mata_uang);
-                            sp+='<span class="input-group-text" id="">'+data.mata_uang+'</span>';
-                            div.find('#mata_uang').html(" ");
-                            div.find('#mata_uang').append(sp);
-                            console.log(sp);
+                            sp1.textContent = data.mata_uang;
+                            sp2.textContent = data.mata_uang;
                         }
                     })
                 })

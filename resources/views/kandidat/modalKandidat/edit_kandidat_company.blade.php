@@ -46,7 +46,8 @@
                                                         <td>{{date('d-M-Y',strtotime($item->periode_awal))}} - {{date('d-M-Y',strtotime($item->periode_akhir))}}</td>
                                                         <td>{{$item->alasan_berhenti}}</td>
                                                         <td>
-                                                            <a class="btn btn-warning mb-1" href="/edit_kandidat_pengalaman_kerja/{{$item->pengalaman_kerja_id}}">Edit</a>
+                                                            <a class="btn btn-primary mb-1" href="/lihat_kandidat_pengalaman_kerja/{{$item->pengalaman_kerja_id}}">Lihat</a>
+                                                            {{-- <a class="btn btn-warning mb-1" href="/edit_kandidat_pengalaman_kerja/{{$item->pengalaman_kerja_id}}">Edit</a> --}}
                                                             <a class="btn btn-danger mb-1" href="/hapus_kandidat_pengalaman_kerja/{{$item->pengalaman_kerja_id}}" onclick="hapusData(event)">Hapus</a>
                                                         </td>
                                                     </tr>                                    

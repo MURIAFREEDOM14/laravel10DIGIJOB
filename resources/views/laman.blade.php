@@ -24,7 +24,6 @@
   <!-- Favicons -->
   <link href="/gambar/icon.ico" rel="icon">
   <link href="/gambar/icon.ico" rel="apple-touch-icon">
-
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
@@ -57,9 +56,9 @@
         <ul>
           {{-- <li><a class="nav-link scrollto active" style="color: black" href="#hero">Beranda</a></li> --}}
           {{-- <li><a class="nav-link scrollto disabled" style="color: gray;" href="/about_us">Tentang</a></li> --}}
-          <li><a class="nav-link scrollto" style="color: black;" href="/login">Login</a></li>
+          <li><a class="nav-link scrollto" style="color: black;" href="/register">Registrasi</a></li>
           {{-- <li><a class="nav-link scrollto disabled" style="color: gray" href="/perbaikan">Portfolio</a></li> --}}
-          <li><a class="nav-link scrollto" style="color: black" href="/hubungi_kami">Hubungi</a></li>
+          <li><a class="nav-link scrollto" style="color: black" href="/hubungi_kami">Hubungi Kami</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
@@ -68,48 +67,57 @@
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex align-items-center mt-3" style="background-color: #FFF2CC">
+  <section id="hero" class="d-flex align-items-center" style="background-color: #468B97; height:100%">
     <div class="container mt-5">
       <div class="row">
-        <div class="col-sm-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-          <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active" data-bs-interval="2300">
-                <h4 style="color: black; text-transform:uppercase">Murah / Low Cost</h4>
-                {{-- <h5 style="color: black">Digijob adalah pilihan tepat yang dapat membantu mewujudkan kebutuhan pekerja dengan biaya yang murah</h5> --}}
-                <h5 style="color: black">Digijob solusi tepat untuk kebutuhan pekerja dengan biaya terjangkau.</h5>
-                <div class="d-flex justify-content-center justify-content-sm-start mb-5">
-                </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-8 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+          <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 3"></button>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner" style="height: 150px">
+              <div class="carousel-item text-center active">
+                <h4 style="color: white; text-transform:uppercase">Murah / Low Cost</h4>
+                <h5 style="color: white">Digijob solusi tepat untuk kebutuhan pekerja dengan biaya terjangkau.</h5>
               </div>
-              <div class="carousel-item" data-bs-interval="2300">
-                <h4 style="color: black; text-transform:uppercase">Mudah / On hand</h4>
-                <h5 style="color: black">Digijob memfasilitasi dalam bentuk aplikasi yang aman dan mudah dioperasikan</h5>
-                <div class="d-flex justify-content-center justify-content-sm-start mb-5">
-                </div>
+              <div class="carousel-item text-center">
+                <h4 style="color: white; text-transform:uppercase">Mudah / On hand</h4>
+                <h5 style="color: white">Digijob memfasilitasi dalam bentuk aplikasi yang aman dan mudah dioperasikan</h5>
               </div>
-              <div class="carousel-item" data-bs-interval="2300">
-                <h4 style="color: black; text-transform:uppercase">Cepat / Efficient</h4>
-                <h5 style="color: black">Pelayanan yang cepat dan dukungan optimal yang kami berikan kepada pengguna</h5>
-                <div class="d-flex justify-content-center justify-content-sm-start mb-5">
-                </div>
+              <div class="carousel-item text-center">
+                <h4 style="color: white; text-transform:uppercase">Cepat / Efficient</h4>
+                <h5 style="color: white">Pelayanan yang cepat dan dukungan optimal yang kami berikan kepada pengguna</h5>
               </div>
-              <div class="carousel-item" data-bs-interval="2300">
-                <h4 style="color: black; text-transform:uppercase">Akurat / Accurate</h4>
-                <h5 style="color: black">Digijob menyediakan beberapa informasi yang akurat dan data valid &nbsp;</h5>
-                <div class="d-flex justify-content-center justify-content-sm-start mb-5">
-                </div>
+              <div class="carousel-item text-center">
+                <h4 style="color: white; text-transform:uppercase">Akurat / Accurate</h4>
+                <h5 style="color: white">Digijob menyediakan beberapa informasi yang akurat dan data valid &nbsp;</h5>
               </div>
-              <div class="carousel-item" data-bs-interval="2300">
-                <h4 style="color: black; text-transform:uppercase">Menyatu / integrate</h4>
-                <h5 style="color: black">Terintegrasi untuk dapat melayani anda agar dapat berhubungan</h5>
-                <div class="d-flex justify-content-center justify-content-sm-start mb-5">
-                </div>
+              <div class="carousel-item text-center">
+                <h4 style="color: white; text-transform:uppercase">Menyatu / integrate</h4>
+                <h5 style="color: white">Terintegrasi untuk dapat melayani anda agar dapat berhubungan</h5>
               </div>
             </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+              {{-- <span class="carousel-control-prev-icon" aria-hidden="true"></span> --}}
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+              {{-- <span class="carousel-control-next-icon" aria-hidden="true"></span> --}}
+              <span class="visually-hidden">Next</span>
+            </button>
           </div>
             {{-- <a href="https://youtu.be/9W05yY_pQ4I" class="glightbox btn-watch-video"><i class="bi bi-play-circle" style="color: black"></i><span style="color: black">Lihat Video</span></a> --}}
         </div>
-        <div class="col-sm-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+      </div>
+      <div class="col-md-2"></div>
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 d-flex flex-column justify-content-center pt-4 pt-lg-0" data-aos="fade-up" data-aos-delay="200">
           <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -120,6 +128,12 @@
             </div>
             <div class="carousel-inner">
               <div class="carousel-item active" data-bs-interval="1500">
+                <img src="Arsha/assets/img/hero-img.png" class="img-fluid text-center" alt="">
+                <div class="carousel-caption d-none d-md-block">
+                  <p style="color: black"></p>
+                </div>
+              </div>
+              {{-- <div class="carousel-item" data-bs-interval="1500">
                 <img src="Arsha/assets/img/hero-img.png" class="img-fluid" alt="">
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
@@ -142,30 +156,14 @@
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
                 </div>
-              </div>
-              <div class="carousel-item" data-bs-interval="1500">
-                <img src="Arsha/assets/img/hero-img.png" class="img-fluid" alt="">
-                <div class="carousel-caption d-none d-md-block">
-                  <p style="color: black"></p>
-                </div>
-              </div>
+              </div> --}}
             </div>
             {{-- <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
             </button> --}}
           </div>
         </div>
-        {{-- <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-          <h1>DIGIJOB</h1>
-          <h2>Kami bergerak di bidang Penyaluran Pekerja Migran Indonesia (PMI) khusus sektor formal di Perusahaan atau Pabrik Besar di Beberapa Negara</h2>
-          <div class="d-flex justify-content-center justify-content-lg-start mb-5">
-            <a href="#services" class="btn-get-started scrollto">Masuk</a>
-            <a href="https://youtu.be/9W05yY_pQ4I" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>Lihat Video</span></a>
-          </div>
-        </div>
-        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
-          <img src="Arsha/assets/img/hero-img.png" class="img-fluid animated" alt="">
-        </div> --}}
+        <div class="col-md-3"></div>
       </div>
     </div>
 
@@ -182,10 +180,10 @@
           </button>     
         </div>
         <div class="section-title">
-          <img src="/gambar/icon.ico" width="100" height="100" alt="">
+          <img src="/gambar/icon.ico" width="150" height="150" alt="">
         </div>
-        <div class="row">
-          <div class="col-md-3 align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
+        <div class="row mx-5">
+          <div class="col-md-12 align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
             <div class="icon-box text-center" style="">
               <div class="icon"><i class="bx bx-file"></i></div>
               <h4><a href="digijob_system" style="text-transform: uppercase;">Digijob System</a></h4>
@@ -194,7 +192,9 @@
               </p>
             </div>
           </div>
-          <div class="col-md-3 align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
+        </div>
+        <div class="row mx-5">
+          <div class="col-md-12 align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
             <div class="icon-box text-center">
               <div class="icon"><i class="bx bx-file"></i></div>
               <h4><a href="/benefits" style="text-transform: uppercase;">Keunggulan</a></h4>
@@ -203,7 +203,9 @@
               </p>
             </div>
           </div>
-          <div class="col-md-3 align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
+        </div>
+        <div class="row mx-5">
+          <div class="col-md-12 align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
             <div class="icon-box text-center">
               <div class="icon"><i class="bx bx-file"></i></div>
               <h4><a href="/features" style="text-transform: uppercase;">Tambahan</a></h4>
@@ -212,7 +214,9 @@
               </p>
             </div>
           </div>
-          <div class="col-md-3 align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
+        </div>
+        <div class="row mx-5">
+          <div class="col-md-12 align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
             <div class="icon-box text-center">
               <div class="icon"><i class="bx bx-file"></i></div>
               <h4><a href="/hubungi_kami" style="text-transform: uppercase;">Hubungi Kami</a></h4>

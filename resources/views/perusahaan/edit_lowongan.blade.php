@@ -187,7 +187,7 @@
                                 <label>Area Rekrut Pekerja</label>
                             </div>  
                             <label class="form-radio-label">
-                                <input class="form-radio-input" type="radio" name="pencarian_tmp" value="{{$perusahaan->kota}}"  checked="">
+                                <input class="form-radio-input" type="radio" name="pencarian_tmp" value="{{$perusahaan->kota}}" checked="">
                                 <span class="form-radio-sign">Se-Kabupaten /  Kota</span>
                             </label>
                             <label class="form-radio-label ml-3">
@@ -221,8 +221,8 @@
                         </div>
                         <div class="col-4">
                             <div class="input-group flex-nowrap">
-                                <div class="input-group-prepend" id="mata_uang">
-                                  <span class="input-group-text" id=""></span>
+                                <div class="input-group-prepend" id="">
+                                  <span class="input-group-text" id="mata_uang1">{{$lowongan->mata_uang}}</span>
                                 </div>
                                 <input type="text" name="gaji_minimum" value="{{$lowongan->gaji_minimum}}" id="" placeholder="Gaji Minimum" class="form-control">
                             </div>
@@ -230,7 +230,7 @@
                         <div class="col-4">
                             <div class="input-group flex-nowrap">
                                 <div class="input-group-prepend">
-                                  <span class="input-group-text" id="mata_uang"></span>
+                                  <span class="input-group-text" id="mata_uang2">{{$lowongan->mata_uang}}</span>
                                 </div>
                                 <input type="text" name="gaji_maksimum" value="{{$lowongan->gaji_maksimum}}" id="" placeholder="Gaji Maksimum" class="form-control">
                             </div>

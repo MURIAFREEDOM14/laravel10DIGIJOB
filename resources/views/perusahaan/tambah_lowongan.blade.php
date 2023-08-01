@@ -182,28 +182,28 @@
                         <div class="col-md-4">
                             <label for="" class="col-form-label">Informasi Gaji</label>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-4">
                             <div class="input-group flex-nowrap">
-                                <div class="input-group-prepend" id="mata_uang">
-                                  <span class="input-group-text" id=""></span>
+                                <div class="input-group-prepend" id="">
+                                  <span class="input-group-text" id="mata_uang1"></span>
                                 </div>
                                 <input type="text" name="gaji_minimum" id="" placeholder="Gaji Minimum" class="form-control">
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-4">
                             <div class="input-group flex-nowrap">
                                 <div class="input-group-prepend">
-                                  <span class="input-group-text" id="mata_uang"></span>
+                                  <span class="input-group-text" id="mata_uang2"></span>
                                 </div>
                                 <input type="text" name="gaji_maksimum" id="" placeholder="Gaji Maksimum" class="form-control">
                             </div>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-4">
+                        <div class="col-md-4">
                             <label for="" class="col-form-label">Tanggal Tutup Lowongan</label>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4">
                             <input type="date" name="ttp_lowongan" class="form-control" id="">
                         </div>
                     </div>

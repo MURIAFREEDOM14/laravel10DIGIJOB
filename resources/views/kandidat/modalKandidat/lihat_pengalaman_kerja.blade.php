@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="float-start" style="font-weight: 600">Lihat Pengalaman Kerja</h5>
-                <a class="float-end btn btn-primary" href="/tambah_portofolio_pengalaman_kerja/{{$id}}">Tambah Portofolio</a>
+                <a class="float-end btn btn-warning" href="/edit_kandidat_pengalaman_kerja/{{$id}}">Edit Pengalaman Kerja</a>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -56,6 +56,7 @@
                                     </div>
                                 </div>
                                 <hr>
+                                <a class="btn btn-primary" href="/tambah_kandidat_pengalaman_kerja/{{$id}}">Tambah Portofolio</a>
                             </div>
                         </div>
                         <div class="my-3" style="border-bottom:1px solid black "></div>
@@ -64,7 +65,28 @@
                                 <h5 style="font-weight: 600">Video Pengalaman Kerja</h5>
                             </div>
                             <div class="card-body">
-
+                                <div class="row">
+                                    @foreach ($portofolio as $item)
+                                        @if ($item->video_pengalaman_kerja !== null)
+                                            <div class="col-6">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <video id="video">
+                                                            <source class="" src="/gambar/Kandidat/{{$pengalaman->nama_kandidat}}/Pengalaman Kerja/{{$pengalaman->video_pengalaman_kerja}}">
+                                                        </video>
+                                                        <div class="">
+                                                            <button class="btn btn-success mb-2" type="button" onclick="playPause()">Mulai/Jeda</button>
+                                                            <a class="btn btn-warning mb-2" href="/edit_portofolio/{{$item->portofolio_id}}">Edit</a>
+                                                            <a class="btn btn-danger mb-2" onclick="" href="/hapus_portofolio/{{$item->portofolio_id}}">Hapus</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>    
+                                        @endif
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                         <div class="my-3" style="border-bottom:1px solid black "></div>
@@ -73,29 +95,26 @@
                                 <h5 style="font-weight: 600">Foto Pengalaman Kerja</h5>
                             </div>
                             <div class="card-body">
-
+                                <div class="row">
+                                    @foreach ($portofolio as $item)
+                                        @if ($item->foto_pengalaman_kerja !== null)
+                                            <div class="col-4">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <img src="/gambar/Kandidat/{{$pengalaman->nama_kandidat}}/Pengalaman Kerja/{{$pengalaman->foto_pengalaman_kerja}}" class="img2 mb-1">
+                                                        <a class="btn btn-warning mb-2" href="/edit_portofolio/{{$item->portofolio_id}}">Edit</a>
+                                                        <a class="btn btn-danger mb-2" href="/hapus_portofolio/{{$item->portofolio_id}}">Hapus</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    @foreach ($portofolio as $item)
-                        @if ($item->video_pengalaman_kerja !== null)
-                            <div class="col-md-4">
-                                <video width="400" class="img" id="video">
-                                    <source src="/gambar/Kandidat/{{$pengalaman_kerja->nama_kandidat}}/Pengalaman Kerja/{{$pengalaman_kerja->video_pengalaman_kerja}}">
-                                </video>
-                                <button class="btn btn-success mb-2" type="button" onclick="playPause()">Mulai/Jeda</button>
-                            </div>    
-                        @endif
-                    @endforeach
-                </div>
-                <div class="row">
-                    @foreach ($portofolio as $item)
-                        @if ($item->foto_pengalaman_kerja !== null)
-                            <img src="/gambar/Kandidat/{{$pengalaman_kerja->nama_kandidat}}/Pengalaman Kerja/{{$pengalaman_kerja->foto_pengalaman_kerja}}" class="img mb-1">
-                        @endif
-                    @endforeach
                 </div>
             </div>
         </div>

@@ -53,18 +53,8 @@
       <h1 class="logo me-auto"><a href="/laman" style="text-transform: uppercase; font-family:poppins; color:black">DIGIJOB</a></h1>
       <nav id="navbar" class="navbar" style="background-color: #FFD966;">
           <ul>
-          <li><a class="nav-link scrollto active" style="color: black" href="/laman">Beranda</a></li>
-          <li><a class="nav-link scrollto disabled" style="color: gray" href="/about_us">Tentang</a></li>
-          <li><a class="nav-link scrollto" style="color: black" href="/login">Login</a></li>
-          {{-- <li class="dropdown"><a><span style="color: black">Daftar</span> <i class="bi bi-chevron-down"></i></a>
-              <ul>
-                  <li><a href="/register/kandidat" style="color: black">Kandidat</a></li>
-                  <li><a href="/register/akademi" style="color: black">Akademi</a></li>
-                  <li><a href="/register/perusahaan" style="color: black">Perusahaan</a></li>
-              </ul>
-          </li> --}}
-          {{-- <li><a class="nav-link scrollto disabled" style="color: gray" href="/perbaikan">Portfolio</a></li> --}}
-          <li><a class="nav-link scrollto" style="color: black" href="/hubungi_kami">Hubungi</a></li>
+          <li><a class="nav-link scrollto" style="color: black" href="/login">Masuk</a></li>
+          <li><a class="nav-link scrollto" style="color: black" href="/hubungi_kami">Hubungi Kami</a></li>
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
