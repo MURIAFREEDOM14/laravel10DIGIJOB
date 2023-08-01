@@ -66,7 +66,7 @@
     {{-- <section>
     </section><!-- End Hero --> --}}
 
-    <main id="main" style="background-color: #FFF7D4">
+    <main id="main" style="background-color: #468B97">
       <!-- ======= Clients Section ======= -->
       <section id="clients" class=" mt-5">
         <div class="container mt-5">

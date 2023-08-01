@@ -438,6 +438,7 @@ class PerusahaanRecruitmentController extends Controller
                 'stat_pemilik' => "kosong",
             ]);
 
+            $permohonan = PermohonanLowongan::where('id_kandidat',$id_kandidat[$a])->where('id_perusahaan',$perusahaan->id_perusahaan)->first();
             $interview = Interview::where('id_kandidat',$id_kandidat[$a])->where('id_perusahaan',$perusahaan->id_perusahaan)->first();
                 notifyKandidat::create([
                     'id_kandidat' => $id_kandidat[$a],
