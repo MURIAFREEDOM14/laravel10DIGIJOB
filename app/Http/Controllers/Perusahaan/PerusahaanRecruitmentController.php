@@ -344,7 +344,7 @@ class PerusahaanRecruitmentController extends Controller
             'pencarian_tmp' => $request->pencarian_tmp,
             'id_perusahaan' => $perusahaan->id_perusahaan,
             'isi' => $request->deskripsi,
-            'ttp_lowongan' => $request->ttp_lowongan,x c 
+            'ttp_lowongan' => $request->ttp_lowongan,
             'gambar_lowongan' => $gambar_flyer,
             'negara' => $penempatan,
             'tgl_interview' => $request->tgl_interview,
