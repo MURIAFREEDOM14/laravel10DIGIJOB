@@ -126,14 +126,21 @@
                                 <input type="text" required name="alasan_berhenti" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                             </div>
                             <div class="mb-2">
-                                <label for="exampleInputEmail1" class="form-label">Video Kerja</label>
-                                <input type="file" name="video" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" accept="video/*">
-                                <small>Usahakan untuk ukuran video 3mb</small>
+                                <label for="" class="form-label">Galeri Pengalaman Kerja</label>
+                                <select name="type" class="form-select" id="data_pengalaman">
+                                    <option value="">-- Tentukan Tipe Inputan --</option>
+                                    <option value="video">Video</option>
+                                    <option value="foto">Foto</option>
+                                </select>
                             </div>
-                            <div class="mb-2">
-                                <label for="exampleInputEmail1" class="form-label">Foto Kerja</label>
+                            <div class="mb-2" id="video_pengalaman">
+                                <label for="exampleInputEmail1" class="form-label">Video Pengalaman Kerja</label>
+                                <input type="file" name="video" class="form-control" id="" aria-describedby="emailHelp" accept="video/*">
+                            </div>    
+                            <div class="mb-2" id="foto_pengalaman">
+                                <label for="exampleInputEmail1" class="form-label">Foto Pengalaman Kerja</label>
                                 <input type="file" name="foto" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" accept="image/*">
-                            </div>
+                            </div>    
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>

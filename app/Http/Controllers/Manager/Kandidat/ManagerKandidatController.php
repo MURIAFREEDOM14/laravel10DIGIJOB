@@ -759,6 +759,14 @@ class ManagerKandidatController extends Controller
         return redirect('/manager/kandidat/lihat_profil/'.$id);
     }
 
+    public function kandidatBaru()
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $kandidat = Kandidat::whereNull('penempatan')->get();
+        return view('manager/kandidat/kandidat_baru',compact('kandidat','manager'));
+    }
+
     public function dalamNegeri()
     {
         $user = Auth::user();

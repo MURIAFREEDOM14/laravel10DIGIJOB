@@ -32,6 +32,9 @@ class AkademiController extends Controller
         $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
         $akademi_kandidat = Kandidat::where('id_akademi',$akademi->id_akademi)->limit(10)->get();
         $notifiA = notifyAkademi::where('created_at','<',Carbon::now()->subDays(14))->delete();
+        User::where('referral_code',$akademi->referral_code)->update([
+            'counter' => null,
+        ]);
         return view('/akademi/index',compact('akademi','perusahaan','akademi_kandidat','pesan','notif'));
     } 
 

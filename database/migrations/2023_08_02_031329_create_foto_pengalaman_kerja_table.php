@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('portofolio_pengalaman_kerja', function (Blueprint $table) {
-            $table->bigInteger('portofolio_id')->autoIncrement();
-            $table->text('portofolio')->nullable();
-            $table->integer('batas')->nullable();
+        Schema::create('foto_pengalaman_kerja', function (Blueprint $table) {
+            $table->id('foto_kerja_id');
             $table->integer('pengalaman_kerja_id')->nullable();
             $table->string('jabatan')->nullable();
-            $table->enum('type',['foto','video']);
-            // $table->timestamps();
+            $table->text('foto')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('portofolio_pengalaman_kerja');
+        Schema::dropIfExists('foto_pengalaman_kerja');
     }
 };

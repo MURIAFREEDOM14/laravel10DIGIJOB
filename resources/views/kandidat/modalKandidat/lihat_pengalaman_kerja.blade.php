@@ -1,5 +1,7 @@
 @extends('layouts.input')
 @section('content')
+@include('sweetalert::alert')
+@include('flash_message')
     <div class="container mt-5">
         <div class="card">
             <div class="card-header">
@@ -56,30 +58,29 @@
                                     </div>
                                 </div>
                                 <hr>
-                                <a class="btn btn-primary" href="/tambah_kandidat_pengalaman_kerja/{{$id}}">Tambah Portofolio</a>
                             </div>
                         </div>
                         <div class="my-3" style="border-bottom:1px solid black "></div>
                         <div class="card">
                             <div class="card-header">
-                                <h5 style="font-weight: 600">Video Pengalaman Kerja</h5>
+                                <h5 class="float-start" style="font-weight: 600">Galeri</h5>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     @foreach ($portofolio as $item)
-                                        @if ($item->video_pengalaman_kerja !== null)
-                                            <div class="col-6">
+                                        @if ($item->portofolio !== null)
+                                            <div class="col-md-4 mb-3">
                                                 <div class="card">
                                                     <div class="card-header">
                                                     </div>
                                                     <div class="card-body">
                                                         <video id="video">
-                                                            <source class="" src="/gambar/Kandidat/{{$pengalaman->nama_kandidat}}/Pengalaman Kerja/{{$pengalaman->video_pengalaman_kerja}}">
+                                                            <source class="" src="/gambar/Kandidat/{{$pengalaman->nama_kandidat}}/Pengalaman Kerja/{{$item->portofolio}}">
                                                         </video>
-                                                        <div class="">
+                                                        <div class="text-center">
                                                             <button class="btn btn-success mb-2" type="button" onclick="playPause()">Mulai/Jeda</button>
-                                                            <a class="btn btn-warning mb-2" href="/edit_portofolio/{{$item->portofolio_id}}">Edit</a>
-                                                            <a class="btn btn-danger mb-2" onclick="" href="/hapus_portofolio/{{$item->portofolio_id}}">Hapus</a>
+                                                            <a class="btn btn-warning mb-2" href="/edit_portofolio_pengalaman_kerja/{{$item->video_kerja_id}}/{{"video"}}">Edit</a>
+                                                            <a class="btn btn-danger mb-2" onclick="hapusData(event)" href="/hapus_portofolio_pengalaman_kerja/{{$item->video_kerja_id}}/{{"video"}}">Hapus</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -89,34 +90,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="my-3" style="border-bottom:1px solid black "></div>
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 style="font-weight: 600">Foto Pengalaman Kerja</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    @foreach ($portofolio as $item)
-                                        @if ($item->foto_pengalaman_kerja !== null)
-                                            <div class="col-4">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <img src="/gambar/Kandidat/{{$pengalaman->nama_kandidat}}/Pengalaman Kerja/{{$pengalaman->foto_pengalaman_kerja}}" class="img2 mb-1">
-                                                        <a class="btn btn-warning mb-2" href="/edit_portofolio/{{$item->portofolio_id}}">Edit</a>
-                                                        <a class="btn btn-danger mb-2" href="/hapus_portofolio/{{$item->portofolio_id}}">Hapus</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endif
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>        
     </div>
 @endsection

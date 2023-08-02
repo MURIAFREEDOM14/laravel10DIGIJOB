@@ -110,6 +110,7 @@ Route::controller(ManagerController::class)->group(function() {
 });
 
 Route::controller(ManagerKandidatController::class)->group(function() {
+    Route::get('/manager/kandidat/kandidat_baru','kandidatBaru')->middleware('manager');
     Route::get('/manager/kandidat/dalam_negeri','dalamNegeri')->middleware('manager');
     Route::get('/manager/kandidat/luar_negeri','luarNegeri')->middleware('manager');
 
@@ -390,8 +391,14 @@ Route::controller(KandidatController::class)->group(function() {
     Route::get('/tambah_kandidat_pengalaman_kerja', 'tambahPengalamanKerja')->middleware('kandidat');
     Route::post('/simpan_kandidat_pengalaman_kerja', 'simpanPengalamanKerja');
     Route::get('/lihat_kandidat_pengalaman_kerja/{id}','lihatPengalamanKerja')->middleware('kandidat');
-    Route::get('/tambah_portofolio_pengalaman_kerja/{id}','tambahPortofolio')->middleware('kandidat');
-    Route::post('/simpan_portofolio_pengalaman_kerja/{id}','simpanPortofolio');
+    
+    Route::get('/tambah_portofolio_pengalaman_kerja/{id}/{type}','tambahPortofolio')->middleware('kandidat');
+    // Route::get('/tambah_foto_pengalaman_kerja/{id}/{type}','tambahPortofolio')->middleware('kandidat');
+    Route::post('/tambah_portofolio_pengalaman_kerja/{id}/{type}','simpanPortofolio');
+    Route::get('/edit_portofolio_pengalaman_kerja/{id}/{type}','editPortofolio')->middleware('kandidat');
+    Route::post('/edit_portofolio_pengalaman_kerja/{id}/{type}','ubahPortofolio');
+    Route::get('/hapus_portofolio_pengalaman_kerja/{id}/{type}','hapusPortofolio');
+
     Route::get('/edit_kandidat_pengalaman_kerja/{id}','editPengalamanKerja')->middleware('kandidat');
     Route::post('/update_kandidat_pengalaman_kerja/{id}','updatePengalamanKerja');
     Route::get('/hapus_kandidat_pengalaman_kerja/{id}','hapusPengalamanKerja');

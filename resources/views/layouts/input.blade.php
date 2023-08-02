@@ -30,6 +30,12 @@
           width: 100%;
           height: auto;
         }
+        #video_pengalaman {
+          display: none;
+        }
+        #foto_pengalaman {
+          display: none;
+        }
       </style>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     </head>
@@ -180,15 +186,25 @@
         }
       }
       </script>
-
-      <script>
-        $(document).ready(function() {
-          
-        });
-        
-        function create() {
-          $("#tambah").modal('show');
-        }
+      <script type="text/javascript">
+      $(document).ready(function() {
+        $(document).on('change','#data_pengalaman',function() {
+          var pengalaman = $(this).val();
+          var v = document.getElementById('video_pengalaman');
+          var f = document.getElementById('foto_pengalaman');
+          console.log(pengalaman);
+          if (pengalaman == "video") {
+            v.style.display = 'block';
+            f.style.display = 'none';
+          } else if(pengalaman == "foto") {
+            v.style.display = 'none';
+            f.style.display = 'block';
+          } else {
+            v.style.display = 'none';
+            f.style.display = 'none';
+          }
+        })
+      })
       </script>
       <script>
         var video = document.getElementById("video");

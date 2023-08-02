@@ -180,14 +180,6 @@
                                         <li>
                                             <div class="dropdown-divider"></div>
                                             <a href="{{route('logout')}}" class="dropdown-item" onclick="confirmation(event)">Keluar</a>
-                                            {{-- <a class="dropdown-item" href="{{ route('logout') }}"
-                                                onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">
-                                                Keluar
-                                            </a>
-                                            <form id="logout-form" action="{{ route('logout') }}" method="get" class="d-none">
-                                                @csrf
-                                            </form> --}}
                                         </li>
                                     </div>
                                 </ul>
@@ -223,6 +215,11 @@
                                 </a>
                                 <div class="collapse" id="kandidat">
                                     <ul class="nav nav-collapse">
+                                        <li>
+                                            <a class="btn" href="/manager/kandidat/kandidat_baru">
+                                                <span class="sub-item">Kandidat Baru</span>
+                                            </a>
+                                        </li>
                                         <li>
                                             <a class="btn" href="/manager/kandidat/dalam_negeri">
                                                 <span class="sub-item">Dalam Negeri</span>

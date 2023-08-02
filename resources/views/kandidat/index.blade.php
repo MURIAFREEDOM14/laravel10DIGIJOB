@@ -91,7 +91,7 @@
                         <div class="col-md-12 ">
                             <div class="input-group mb-3">
                                 <div class="form-control">      
-                                    <marquee behavior="" direction="">{{$item->nama_perusahaan}}, Lowongan: {{$item->nama_lowongan}} </marquee>
+                                    <marquee behavior="" direction="">{{$item->nama_perusahaan}}, Lowongan: {{$item->jabatan}} </marquee>
                                 </div>
                                 <div class="input-group-append">
                                     @if ($kandidat->id_perusahaan == null && $kandidat->negara_id !== null)

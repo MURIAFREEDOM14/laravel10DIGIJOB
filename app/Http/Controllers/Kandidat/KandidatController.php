@@ -31,6 +31,8 @@ use App\Models\VerifyOTP;
 use Twilio\Rest\Client;
 use App\Models\Interview;
 use App\Models\Portofolio;
+use App\Models\VideoKerja;
+use App\Models\FotoKerja;
 
 class KandidatController extends Controller
 {
@@ -77,6 +79,9 @@ class KandidatController extends Controller
         } else {
             $interview = null;
         }
+        User::where('referral_code',$kandidat->referral_code)->update([
+            'counter' => null,
+        ]);
         return view('kandidat/index',compact('kandidat','notif','perusahaan_semua',
         'perusahaan','pembayaran','pesan','lowongan','cari_perusahaan','persetujuan'));
     }
@@ -822,39 +827,40 @@ class KandidatController extends Controller
 
     public function simpanPengalamanKerja(Request $request)
     {
+
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $jabatan = $request->jabatan;
         $video_kandidat = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->first();
         
         if($request->file('video') !== null){
-            $validated = $request->validate([
-                'video' => 'mimes:mp4,mov,ogg,qt',
-            ]);
-            $video_kerja = $request->file('video');
-            $video_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.$jabatan.$video_kerja->getClientOriginalName());
-            $simpan_kerja = $kandidat->nama.$jabatan.$video_kerja->getClientOriginalName();
+            // $validated = $request->validate([
+            //     'video' => 'mimes:mp4,mov,ogg,qt',
+            // ]);
+            $video = $request->file('data');
+            $video->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.$jabatan.$video->getClientOriginalName());
+            $simpan_video = $kandidat->nama.$jabatan.$video->getClientOriginalName();
         } else {
-            $simpan_kerja = null;
+            $simpan_video = null;
         }
-        if($simpan_kerja !== null){
-            $video = $simpan_kerja;
+        if($simpan_video !== null){
+            $video_pengalaman = $simpan_video;
         } else {
-            $video = null;
+            $video_pengalaman = null;
         }
 
         if($request->file('foto') !== null){
-            $foto_kerja = $kandidat->nama.time().'.'.$request->foto->extension();
-            $simpan_foto_kerja = $request->file('foto');  
-            $simpan_foto_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.time().'.'.$simpan_foto_kerja->extension());
+            $simpan_foto = $kandidat->nama.time().'.'.$request->foto->extension();
+            $foto = $request->file('foto');  
+            $foto->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.time().'.'.$foto->extension());
         } else {            
-            $foto_kerja = null;
+            $simpan_foto = null;
         }
 
-        if($foto_kerja !== null){
-            $foto = $foto_kerja;
+        if($simpan_foto !== null){
+            $foto_pengalaman = $simpan_foto;
         } else {
-            $foto = null;
+            $foto_pengalaman = null;
         }
 
         $periodeAwal = new \Datetime($request->periode_awal);
@@ -868,20 +874,19 @@ class KandidatController extends Controller
             'periode_awal'=>$request->periode_awal,
             'periode_akhir'=>$request->periode_akhir,
             'alasan_berhenti'=>$request->alasan_berhenti,
-            'video_pengalaman_kerja'=>$video,
-            'foto_pengalaman_kerja'=>$foto,
             'id_kandidat'=>$kandidat->id_kandidat,
             'nama_kandidat' => $kandidat->nama,
             'lama_kerja' => $tahun,
         ]);
 
         Portofolio::create([
-            'foto_pengalaman_kerja' => $foto,
-            'video_pengalaman_kerja' => $video,
-            'batas' => null,
+            'video' => $video_pengalaman,
+            'foto' => $foto_pengalaman,
             'pengalaman_kerja_id' => $pengalaman->id,
             'jabatan' => $request->jabatan,
+            'type' => $request->type,
         ]);
+        
         return redirect()->route('company')
         // ->with('toast_success',"Data anda tersimpan");
         ->with('success',"Data anda tersimpan");
@@ -896,58 +901,168 @@ class KandidatController extends Controller
         return view('kandidat/modalKandidat/lihat_pengalaman_kerja',compact('kandidat','pengalaman','portofolio','id'));
     }
 
-    public function tambahPortofolio($id)
+    public function tambahPortofolio($id,$type)
     {
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
-        return view('kandidat/modalKandidat/tambah_portofolio',compact('kandidat'));
+        $code = "tambah";
+        if($type == "video"){
+            return view('kandidat/modalKandidat/video_kerja',compact('kandidat','code','id'));
+        } elseif($type == "foto") {
+            return view('kandidat/modalKandidat/foto_kerja',compact('kandidat','code','id'));
+        } 
     }
 
-    public function simpanPortofolio(Request $request,$id)
+    public function simpanPortofolio(Request $request,$id,$type)
     {
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
-        $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
-        
-        if($request->file('video') !== null){
-            $validated = $request->validate([
-                'video' => 'mimes:mp4,mov,ogg,qt',
+        $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$id)->first(); 
+        if($type == "video"){
+            if($request->file('video') !== null){
+                $validated = $request->validate([
+                    'video' => 'mimes:mp4,mov,ogg,qt',
+                ]);
+                $video_kerja = $request->file('video');
+                $video_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.$pengalaman->jabatan.$video_kerja->getClientOriginalName());
+                $simpan_kerja = $kandidat->nama.$pengalaman->jabatan.$video_kerja->getClientOriginalName();
+            } else {
+                $simpan_kerja = null;
+            }
+    
+            if($simpan_kerja !== null){
+                $video = $simpan_kerja;
+            } else {
+                $video = null;
+            }
+            VideoKerja::create([
+                'video' => $video,
+                'pengalaman_kerja_id' => $pengalaman->pengalaman_kerja_id,
+                'jabatan' => $pengalaman->jabatan,
             ]);
-            $video_kerja = $request->file('video');
-            $video_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.$pengalaman->jabatan.$video_kerja->getClientOriginalName());
-            $simpan_kerja = $kandidat->nama.$pengalaman->jabatan.$video_kerja->getClientOriginalName();
-        } else {
-            $simpan_kerja = null;
+        } elseif($type == "foto"){
+            if($request->file('foto') !== null){
+                $foto_kerja = $kandidat->nama.time().'.'.$request->foto->extension();
+                $simpan_foto_kerja = $request->file('foto');  
+                $simpan_foto_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.time().'.'.$simpan_foto_kerja->extension());
+            } else {            
+                $foto_kerja = null;
+            }
+    
+            if($foto_kerja !== null){
+                $foto = $foto_kerja;
+            } else {
+                $foto = null;
+            }
+            FotoKerja::create([
+                'foto' => $foto,
+                'pengalaman_kerja_id' => $pengalaman->pengalaman_kerja_id,
+                'jabatan' => $pengalaman->jabatan,
+            ]);
         }
-
-        if($simpan_kerja !== null){
-            $video = $simpan_kerja;
-        } else {
-            $video = null;
-        }
-
-        if($request->file('foto') !== null){
-            $foto_kerja = $kandidat->nama.time().'.'.$request->foto->extension();
-            $simpan_foto_kerja = $request->file('foto');  
-            $simpan_foto_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.time().'.'.$simpan_foto_kerja->extension());
-        } else {            
-            $foto_kerja = null;
-        }
-
-        if($foto_kerja !== null){
-            $foto = $foto_kerja;
-        } else {
-            $foto = null;
-        }
-
-        Portofolio::create([
-            'foto_pengalaman_kerja' => $foto,
-            'video_pengalaman_kerja' => $video,
-            'batas' => null,
-            'pengalaman_kerja_id' => $pengalaman->pengalaman_kerja_id,
-            'jabatan' => $pengalaman->jabatan,
-        ]);
         return redirect('/lihat_kandidat_pengalaman_kerja/'.$id)->with('success',"Portofolio ditambahkan");      
+    }
+
+    public function editPortofolio($id,$type)
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        $foto = FotoKerja::where('foto_kerja_id',$id)->first();
+        $video = VideoKerja::where('video_kerja_id',$id)->first();
+        $code = "edit";
+        if($type == "video"){
+            return view('kandidat/modalKandidat/video_kerja',compact('kandidat','video','code'));
+        } elseif($type == "foto") {
+            return view('kandidat/modalKandidat/foto_kerja',compact('kandidat','foto','code'));
+        } else {
+            return back();
+        }
+    }
+
+    public function ubahPortofolio(Request $request,$id,$type)
+    {   
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        if($type == "video"){
+            $video = VideoKerja::where('video_kerja_id',$id)->first();
+            if($request->file('video') !== null){
+                $validated = $request->validate([
+                    'video' => 'mimes:mp4,mov,ogg,qt',
+                ]);
+                $hapus_video_kerja = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$video->video;
+                if(file_exists($hapus_video_kerja)){
+                    @unlink($hapus_video_kerja);
+                }
+                $video_kerja = $request->file('video');
+                $video_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.$video_kerja->getClientOriginalName());
+                $simpan_kerja = $kandidat->nama.$video_kerja->getClientOriginalName();
+            } else {
+                if($video->video !== null){
+                    $simpan_kerja = $video->video;
+                } else {
+                    $simpan_kerja = null;
+                }
+            }
+    
+            if($simpan_kerja !== null){
+                $video_pengalaman = $simpan_kerja;
+            } else {
+                $video_pengalaman = null;
+            }
+            VideoKerja::where('video_kerja_id',$id)->update([
+                'video'=>$video_pengalaman,
+            ]);
+            return redirect('/lihat_kandidat_pengalaman_kerja/'.$video->pengalaman_kerja_id)->with('success',"Data ditambahkan");
+        } elseif($type == "foto"){
+            $foto = FotoKerja::where('foto_kerja_id',$id)->first();
+            if($request->file('foto') !== null){
+                $hapus_foto = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$foto->foto;
+                if(file_exists($hapus_foto)){
+                    @unlink($hapus_foto);
+                }
+                $foto_kerja = $kandidat->nama.time().'.'.$request->foto->extension();
+                $simpan_foto_kerja = $request->file('foto');  
+                $simpan_foto_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.time().'.'.$simpan_foto_kerja->extension());
+            } else {
+                if($foto->foto !== null){
+                    $foto_kerja = $foto->foto;
+                } else {
+                    $foto_kerja = null;
+                }           
+            }
+    
+            if($foto_kerja !== null){
+                $foto_pengalaman = $foto_kerja;
+            } else {
+                $foto_pengalaman = null;
+            }
+            FotoKerja::where('foto_kerja_id',$id)->update([
+                'foto'=>$foto_pengalaman,
+            ]);
+            return redirect('/lihat_kandidat_pengalaman_kerja/'.$foto->pengalaman_kerja_id)->with('success',"Data ditambahkan");
+        }
+    }
+
+    public function hapusPortofolio($id,$type)
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        if($type == "video"){
+            $video = VideoKerja::where('video_kerja_id',$id)->first();
+            $hapus_video_kerja = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$video->video;
+                if(file_exists($hapus_video_kerja)){
+                    @unlink($hapus_video_kerja);
+                }
+            VideoKerja::where('video_kerja_id',$id)->delete();
+        } elseif($type == "foto"){
+            $foto = FotoKerja::where('foto_kerja_id',$id)->first();
+            $hapus_foto = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$foto->foto;
+                if(file_exists($hapus_foto)){
+                    @unlink($hapus_foto);
+                }
+            FotoKerja::where('foto_kerja_id',$id)->delete();
+        }
+        return back()->with('success',"Data Telah dihapus");
     }
 
     public function editPengalamanKerja($id)
@@ -961,52 +1076,6 @@ class KandidatController extends Controller
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $video_kandidat = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->first();
-        if($request->file('video') !== null){
-            $validated = $request->validate([
-                'video' => 'mimes:mp4,mov,ogg,qt',
-            ]);
-            $hapus_video_kerja = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$video_kandidat->video_pengalaman_kerja;
-            if(file_exists($hapus_video_kerja)){
-                @unlink($hapus_video_kerja);
-            }
-            $video_kerja = $request->file('video');
-            $video_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.$video_kerja->getClientOriginalName());
-            $simpan_kerja = $kandidat->nama.$video_kerja->getClientOriginalName();
-        } else {
-            if($video_kandidat->video_pengalaman_kerja !== null){
-                $simpan_kerja = $video_kandidat->video_pengalaman_kerja;
-            } else {
-                $simpan_kerja = null;
-            }
-        }
-
-        if($simpan_kerja !== null){
-            $video = $simpan_kerja;
-        } else {
-            $video = null;
-        }
-
-        if($request->file('foto') !== null){
-            $hapus_foto = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$video_kandidat->foto_pengalaman_kerja;
-            if(file_exists($hapus_foto)){
-                @unlink($hapus_foto);
-            }
-            $foto_kerja = $kandidat->nama.time().'.'.$request->foto->extension();
-            $simpan_foto_kerja = $request->file('foto');  
-            $simpan_foto_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.time().'.'.$simpan_foto_kerja->extension());
-        } else {
-            if($video_kandidat->foto_pengalaman_kerja !== null){
-                $foto_kerja = $video_kandidat->foto_pengalaman_kerja;
-            } else {
-                $foto_kerja = null;
-            }           
-        }
-
-        if($foto_kerja !== null){
-            $foto = $foto_kerja;
-        } else {
-            $foto = null;
-        }
 
         $periodeAwal = new \Datetime($request->periode_awal);
         $periodeAkhir = new \DateTime($request->periode_akhir);
@@ -1019,8 +1088,6 @@ class KandidatController extends Controller
             'periode_awal'=>$request->periode_awal,
             'periode_akhir'=>$request->periode_akhir,
             'alasan_berhenti'=>$request->alasan_berhenti,
-            'video_pengalaman_kerja'=>$video,
-            'foto_pengalaman_kerja'=>$foto,
             'id_kandidat'=>$kandidat->id_kandidat,
             'nama_kandidat' => $kandidat->nama,
             'lama_kerja' => $tahun,

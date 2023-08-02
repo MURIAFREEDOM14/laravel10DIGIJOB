@@ -29,10 +29,6 @@
                 font-weight: bold;
                 line-height:1px;
             }
-            .img{
-                border: 1px solid black;
-                border-radius: 2%;
-            }
             .cicrlegreen{
                 height: 15px;
                 width: 15px;
@@ -59,6 +55,10 @@
             .img{
                 border: 1px solid black;
                 border-radius: 2%;
+            }
+            video {
+                width: 100%;
+                height: auto;
             }
         </style>
     </head>

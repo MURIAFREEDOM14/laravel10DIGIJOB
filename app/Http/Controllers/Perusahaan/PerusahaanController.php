@@ -33,6 +33,9 @@ use App\Models\notifyAkademi;
 use App\Models\messageAkademi;
 use App\Models\PersetujuanKandidat;
 use App\Models\CreditPerusahaan;
+use App\Models\User;
+use App\Models\FotoKerja;
+use App\Models\VideoKerja;
 
 class PerusahaanController extends Controller
 {
@@ -54,6 +57,9 @@ class PerusahaanController extends Controller
                 'no_nib' => $perusahaan->no_nib,
             ]);
         } 
+        User::where('no_nib',$perusahaan->no_nib)->update([
+            'counter' => null,
+        ]);
         return view('perusahaan/index',compact('perusahaan','cabang','notif','interview','pesan','credit'));
     }
 
@@ -593,6 +599,7 @@ class PerusahaanController extends Controller
         $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
         $kandidat = Kandidat::where('id_kandidat',$id)->first();
         $info_kandidat = PengalamanKerja::where('id_kandidat',$id)->get();
+        $video = VideoKerja::first();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
@@ -607,7 +614,7 @@ class PerusahaanController extends Controller
             'kandidat','info_kandidat','perusahaan',
             'usia','tgl_user','semua_kandidat',
             'interview','notif','pesan','cabang',
-            'credit',
+            'credit','video',
         ));
     }
 
@@ -615,10 +622,16 @@ class PerusahaanController extends Controller
     {
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
-        $kandidat = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
+        $kandidat = PengalamanKerja::where('pengalaman_kerja.pengalaman_kerja_id',$id)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        $video = VideoKerja::where('pengalaman_kerja_id',$kandidat->pengalaman_kerja_id)->first();
+        $semua_video = VideoKerja::where('pengalaman_kerja_id',$kandidat->pengalaman_kerja_id)->get();
+        $foto = FotoKerja::where('pengalaman_kerja_id',$kandidat->pengalaman_kerja_id)->first();
         $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        return view('perusahaan/kandidat/video_kandidat',compact('perusahaan','kandidat','pengalaman_kerja','cabang'));
+        return view('perusahaan/kandidat/video_kandidat',compact('perusahaan','kandidat','pengalaman_kerja','cabang','pesan','notif','credit','video','foto','semua_video'));
     }
 
     public function pencarianKandidat()
