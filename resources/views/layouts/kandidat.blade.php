@@ -646,6 +646,7 @@
                         },
                         cancel: {
                             visible: true,
+                            text:'tidak',
                             className: 'btn btn-danger'
                         }
                     }
@@ -674,6 +675,7 @@
                         },
                         cancel: {
                             visible: true,
+                            text:'tidak',
                             className: 'btn btn-danger'
                         }
                     }
@@ -702,6 +704,7 @@
                         },
                         cancel: {
                             visible: true,
+                            text:'tidak',
                             className: 'btn btn-danger'
                         }
                     }

@@ -14,7 +14,7 @@
                             <label for="" class="col-form-label">Video Baru</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="file" name="video" class="form-control" id="" accept="video/*">
+                            <input type="file" required name="video" class="form-control" id="" accept="video/*">
                         </div>
                     </div>
                     <a class="btn btn-danger mt-3" href="/lihat_kandidat_pengalaman_kerja/{{$id}}">Kembali</a>

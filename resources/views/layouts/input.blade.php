@@ -162,6 +162,7 @@
                 },
                 cancel: {
                     visible: true,
+                    text:'tidak',
                     className: 'btn btn-danger'
                 }
             }

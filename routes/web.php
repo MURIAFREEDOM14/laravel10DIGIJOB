@@ -393,7 +393,6 @@ Route::controller(KandidatController::class)->group(function() {
     Route::get('/lihat_kandidat_pengalaman_kerja/{id}','lihatPengalamanKerja')->middleware('kandidat');
     
     Route::get('/tambah_portofolio_pengalaman_kerja/{id}/{type}','tambahPortofolio')->middleware('kandidat');
-    // Route::get('/tambah_foto_pengalaman_kerja/{id}/{type}','tambahPortofolio')->middleware('kandidat');
     Route::post('/tambah_portofolio_pengalaman_kerja/{id}/{type}','simpanPortofolio');
     Route::get('/edit_portofolio_pengalaman_kerja/{id}/{type}','editPortofolio')->middleware('kandidat');
     Route::post('/edit_portofolio_pengalaman_kerja/{id}/{type}','ubahPortofolio');

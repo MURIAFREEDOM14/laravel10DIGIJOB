@@ -827,7 +827,6 @@ class KandidatController extends Controller
 
     public function simpanPengalamanKerja(Request $request)
     {
-
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $jabatan = $request->jabatan;
@@ -837,7 +836,7 @@ class KandidatController extends Controller
             // $validated = $request->validate([
             //     'video' => 'mimes:mp4,mov,ogg,qt',
             // ]);
-            $video = $request->file('data');
+            $video = $request->file('video');
             $video->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.$jabatan.$video->getClientOriginalName());
             $simpan_video = $kandidat->nama.$jabatan.$video->getClientOriginalName();
         } else {
@@ -879,13 +878,19 @@ class KandidatController extends Controller
             'lama_kerja' => $tahun,
         ]);
 
-        Portofolio::create([
-            'video' => $video_pengalaman,
-            'foto' => $foto_pengalaman,
-            'pengalaman_kerja_id' => $pengalaman->id,
-            'jabatan' => $request->jabatan,
-            'type' => $request->type,
-        ]);
+        if($request->type == "video"){
+            VideoKerja::create([
+                'video' => $video_pengalaman,
+                'pengalaman_kerja_id' => $pengalaman->id,
+                'jabatan' => $request->jabatan,
+            ]);
+        } elseif($request->type == "foto") {
+            FotoKerja::create([
+                'foto'=> $foto_pengalaman,
+                'pengalaman_kerja_id' => $pengalaman->id,
+                'jabatan'=>$request->jabatan,
+            ]);
+        }
         
         return redirect()->route('company')
         // ->with('toast_success',"Data anda tersimpan");
@@ -897,11 +902,12 @@ class KandidatController extends Controller
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
-        $portofolio = Portofolio::where('pengalaman_kerja_id',$id)->get();
-        return view('kandidat/modalKandidat/lihat_pengalaman_kerja',compact('kandidat','pengalaman','portofolio','id'));
+        $video = VideoKerja::where('pengalaman_kerja_id',$id)->get();
+        $foto = FotoKerja::where('pengalaman_kerja_id',$id)->get();
+        return view('kandidat/modalKandidat/lihat_pengalaman_kerja',compact('kandidat','pengalaman','id','video','foto'));
     }
 
-    public function tambahPortofolio($id,$type)
+    public function tambahPortofolio($id, $type)
     {
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
@@ -1012,7 +1018,7 @@ class KandidatController extends Controller
             VideoKerja::where('video_kerja_id',$id)->update([
                 'video'=>$video_pengalaman,
             ]);
-            return redirect('/lihat_kandidat_pengalaman_kerja/'.$video->pengalaman_kerja_id)->with('success',"Data ditambahkan");
+            return redirect('/lihat_kandidat_pengalaman_kerja/'.$video->pengalaman_kerja_id)->with('success',"Data diubah");
         } elseif($type == "foto"){
             $foto = FotoKerja::where('foto_kerja_id',$id)->first();
             if($request->file('foto') !== null){
@@ -1039,7 +1045,7 @@ class KandidatController extends Controller
             FotoKerja::where('foto_kerja_id',$id)->update([
                 'foto'=>$foto_pengalaman,
             ]);
-            return redirect('/lihat_kandidat_pengalaman_kerja/'.$foto->pengalaman_kerja_id)->with('success',"Data ditambahkan");
+            return redirect('/lihat_kandidat_pengalaman_kerja/'.$foto->pengalaman_kerja_id)->with('success',"Data diubah");
         }
     }
 

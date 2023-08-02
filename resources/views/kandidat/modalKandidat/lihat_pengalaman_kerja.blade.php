@@ -64,28 +64,50 @@
                         <div class="card">
                             <div class="card-header">
                                 <h5 class="float-start" style="font-weight: 600">Galeri</h5>
+                                <button class="btn btn-primary dropdown-toggle float-end" type="button" data-bs-toggle="dropdown" aria-expanded="false">+ Tambah</button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                      <a class="dropdown-item" href="/tambah_portofolio_pengalaman_kerja/{{$id}}/{{"video"}}">Video</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/tambah_portofolio_pengalaman_kerja/{{$id}}/{{"foto"}}">Foto</a>
+                                    </li>
+                                </ul>
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    @foreach ($portofolio as $item)
-                                        @if ($item->portofolio !== null)
-                                            <div class="col-md-4 mb-3">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <video id="video">
-                                                            <source class="" src="/gambar/Kandidat/{{$pengalaman->nama_kandidat}}/Pengalaman Kerja/{{$item->portofolio}}">
-                                                        </video>
-                                                        <div class="text-center">
-                                                            <button class="btn btn-success mb-2" type="button" onclick="playPause()">Mulai/Jeda</button>
-                                                            <a class="btn btn-warning mb-2" href="/edit_portofolio_pengalaman_kerja/{{$item->video_kerja_id}}/{{"video"}}">Edit</a>
-                                                            <a class="btn btn-danger mb-2" onclick="hapusData(event)" href="/hapus_portofolio_pengalaman_kerja/{{$item->video_kerja_id}}/{{"video"}}">Hapus</a>
-                                                        </div>
-                                                    </div>
+                                    @foreach ($video as $item)
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card">
+                                                <div class="card-header">
                                                 </div>
-                                            </div>    
-                                        @endif
+                                                <div class="card-body">
+                                                    <video id="video">
+                                                        <source class="" src="/gambar/Kandidat/{{$pengalaman->nama_kandidat}}/Pengalaman Kerja/{{$item->video}}">
+                                                    </video>
+                                                    <div class="text-center">
+                                                        <button class="btn btn-success mb-2" type="button" onclick="playPause()">Mulai/Jeda</button>
+                                                        <a class="btn btn-warning mb-2" href="/edit_portofolio_pengalaman_kerja/{{$item->video_kerja_id}}/{{"video"}}">Edit</a>
+                                                        <a class="btn btn-danger mb-2" onclick="hapusData(event)" href="/hapus_portofolio_pengalaman_kerja/{{$item->video_kerja_id}}/{{"video"}}">Hapus</a>
+                                                    </div>                                                            
+                                                </div>
+                                            </div>
+                                        </div>    
+                                    @endforeach
+                                    @foreach ($foto as $item)
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                </div>
+                                                <div class="card-body">
+                                                    <img src="/gambar/Kandidat/{{$pengalaman->nama_kandidat}}/Pengalaman Kerja/{{$item->foto}}" class="img2 mb-1" alt="">
+                                                    <div class="text-center">
+                                                        <a class="btn btn-warning mb-2" href="/edit_portofolio_pengalaman_kerja/{{$item->foto_kerja_id}}/{{"foto"}}">Edit</a>
+                                                        <a class="btn btn-danger mb-2" onclick="hapusData(event)" href="/hapus_portofolio_pengalaman_kerja/{{$item->foto_kerja_id}}/{{"video"}}">Hapus</a>
+                                                    </div>                                                            
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endforeach
                                 </div>
                             </div>

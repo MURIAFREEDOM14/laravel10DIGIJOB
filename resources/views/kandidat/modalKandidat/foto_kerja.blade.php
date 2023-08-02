@@ -14,7 +14,7 @@
                             <label for="" class="col-form-label">Foto Baru</label>
                         </div>
                         <div class="col-md-8">
-                            <input type="file" name="foto" class="form-control" id="" accept="image/*">
+                            <input required type="file" name="foto" class="form-control" id="" accept="image/*">
                         </div>
                     </div>
                     <a class="btn btn-danger mt-3" href="/lihat_kandidat_pengalaman_kerja/{{$id}}">Kembali</a>
