@@ -58,6 +58,7 @@
                                     </div>
                                 </div>
                                 <hr>
+                                <a class="btn btn-danger" href="/isi_kandidat_company">Kembali</a>
                             </div>
                         </div>
                         <div class="my-3" style="border-bottom:1px solid black "></div>
