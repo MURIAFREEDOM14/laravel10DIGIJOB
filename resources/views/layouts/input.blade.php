@@ -87,9 +87,12 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
       @livewireScripts
       <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+      <script language="JavaScript" type="text/javascript" src="/js/jquery-1.2.6.min.js"></script>
+      <script language="JavaScript" type="text/javascript" src="/js/jquery-ui-personalized-1.5.2.packed.js"></script>
+      <script language="JavaScript" type="text/javascript" src="/js/sprinkle.js"></script>
+
       <script type="text/javascript">
-      function beranda(ev)
-      {
+      function beranda(ev){
         ev.preventDefault();
         var url = ev.currentTarget.getAttribute('href');
         console.log(url);
@@ -187,6 +190,7 @@
         }
       }
       </script>
+
       <script type="text/javascript">
       $(document).ready(function() {
         $(document).on('change','#data_pengalaman',function() {
