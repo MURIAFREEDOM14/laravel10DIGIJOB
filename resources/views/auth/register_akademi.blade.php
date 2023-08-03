@@ -79,7 +79,7 @@
                                 Dengan ini, anda menyetujui <a href="/syarat_ketentuan/kandidat">syarat & ketentuan</a> kami.
                             </span>
                         </div>
-                        <div class="">Sudah punya akun?<a href="/login" class="ms-1">Login</a></div>
+                        <div class="mt-3">Sudah punya akun?<a href="/login" class="ms-1">Login</a></div>
                         <button type="submit" id="btn" disabled="true" class="btn btn-primary mt-3">
                             {{ __('Register') }}
                         </button>

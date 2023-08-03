@@ -53,8 +53,14 @@
                 background-color:#9BE8D8;
             }
             .img{
+                width: 100%;
+                height: auto;
                 border: 1px solid black;
                 border-radius: 2%;
+            }
+            .img2 {
+                width: 100%;
+                height: auto;
             }
             video {
                 width: 100%;
@@ -634,6 +640,16 @@
                     })
                 })
             })
+        </script>
+        <script>
+            var video = document.getElementById("video");
+              function playPause() {
+                  if (video.paused) {
+                      video.play();
+                  } else {
+                      video.pause();
+                  }
+              }
         </script>
         @livewireScripts
     </body>

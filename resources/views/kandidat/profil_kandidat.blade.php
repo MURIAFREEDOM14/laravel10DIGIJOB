@@ -14,7 +14,7 @@
             </div>
             <div class="card-body">
                 <div class="row" style="line-height:20px">
-                    <div class="col-sm-9">
+                    <div class="col-md-8">
                         <div class="row">
                             <div class="col-sm-4"><b class="bold">NO. REGISTER</b></div>
                             <div class="col-sm-6"><b class="bold">: {{$kandidat->jenis_kelamin.$negara->kode_negara}}_{{$kandidat->id_kandidat+800}}</b></div>                
@@ -23,7 +23,7 @@
                 </div>
                 <div class="row ml-5 mt-3 mb-3"><b class="bold">PERSONAL BIO DATA</b></div>
                 <div class ="row" style="line-height:20px">
-                    <div class="col-sm-9">
+                    <div class="col-md-8">
                         <div class="row" style="line-height:20px">
                             <div class="col-sm-4">
                                 <b class="bold">NAMA LENGKAP</b>
@@ -85,15 +85,17 @@
                             </div>
                         </div>                                
                     </div>
-                    <div class="col-md-3">
-                        @if ($kandidat->foto_set_badan !== null)
-                            <img class="float-right img" src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" width="150" height="150" alt="">
-                        @else
-                            <img class="float-right img" src="/gambar/default_user.png" width="150" height="150" alt="">
-                        @endif
+                    <div class="col-md-4">
+                        <div class="float-right mt--5">
+                            @if ($kandidat->foto_set_badan !== null)
+                                <img class="avatar-img rounded-circle" style="border:2px solid black" src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" alt="">
+                            @else
+                                <img class="avatar-img rounded-circle" style="border:2px solid black" src="/gambar/default_user.png" width="150" height="150" alt="">
+                            @endif
+                        </div>
                     </div>
                 </div>
-                {{-- <div class="row mt-5" style="line-height:15px">
+                <div class="row mt-5" style="line-height:15px">
                     <div class="col">
                         <div class="card">
                             <div class="card-header">
@@ -125,9 +127,8 @@
                                                             <td><b class="bold">{{date('d-M-Y',strtotime($item->periode_awal))}} - {{date('d-M-Y',strtotime($item->periode_akhir))}}</b></td>
                                                             <td><b class="bold">{{$item->alasan_berhenti}}</b></td>
                                                             <td>
-                                                                <a href="/lihat_galeri_pengalaman_kerja/{{$item->pengalaman_kerja_id}}" class="btn btn-primary">Lihat Galeri</a>
+                                                                <a href="/galeri_pengalaman_kerja/{{$item->pengalaman_kerja_id}}" class="btn btn-primary">Lihat Galeri</a>
                                                             </td>                                                    
-                                                            <td></td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -138,7 +139,7 @@
                             </div>
                         </div>
                     </div>
-                </div> --}}
+                </div>
                 @if ($kandidat->id_perusahaan !== null && $kandidat->stat_pemilik == "diterima")
                     <a class="btn btn-success" href="/output_izin_waris">Cetak Surat Izin & Ahli waris</a>                    
                 @endif

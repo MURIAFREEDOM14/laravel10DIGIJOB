@@ -93,7 +93,7 @@
                             </span>
                         </div>
                         {{-- <a href="/login/perusahaan" class="btn btn-secondary">Kembali</a> --}}
-                        <div class="">Sudah punya akun?<a href="/login" class="ms-1">Login</a></div>
+                        <div class="mt-3">Sudah punya akun?<a href="/login" class="ms-1">Login</a></div>
                         <button type="submit" id="btn" disabled="true" class="btn btn-primary mt-3">
                             {{ __('Register') }}
                         </button>

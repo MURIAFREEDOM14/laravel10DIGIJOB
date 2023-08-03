@@ -306,7 +306,8 @@ Route::controller(PerusahaanController::class)->group(function(){
     Route::post('/perusahaan/cari/kandidat','cariKandidat');
     Route::post('/perusahaan/pilih/kandidat','pilihKandidat');
     Route::get('/perusahaan/lihat/kandidat/{id}','lihatProfilKandidat')->middleware('perusahaan');
-    Route::get('/perusahaan/lihat/video_kandidat/{id}','lihatVideoKandidat')->middleware('perusahaan');
+    Route::get('/perusahaan/galeri_kandidat/{id}','galeriKandidat')->middleware('perusahaan');
+    Route::get('/perusahaan/lihat/galeri_kandidat/{id}/{type}','lihatGaleriKandidat')->middleware('perusahaan');
     Route::get('/perusahaan/interview','JadwalInterview')->middleware('perusahaan');
     Route::get('/perusahaan/jadwal_interview','tentukanJadwal')->middleware('perusahaan');
     Route::post('/perusahaan/jadwal_interview','simpanJadwal');
@@ -364,7 +365,8 @@ Route::controller(KandidatController::class)->group(function() {
     Route::get('/kandidat','index')->middleware('kandidat')->name('kandidat');
     Route::get('/profil_kandidat','profil')->middleware('kandidat');
     Route::get('/edit_profil','edit')->name('edit_profil')->middleware('kandidat');
-    Route::get('/lihat_video_pengalaman_kerja/{id}', 'lihatVideo')->middleware('kandidat');
+    Route::get('/galeri_pengalaman_kerja/{id}', 'Galeri')->middleware('kandidat');
+    Route::get('/lihat_galeri_pengalaman_kerja/{id}/{type}','lihatGaleri')->middleware('kandidat');
     Route::get('/contact_us_kandidat','contactUsKandidat')->middleware('kandidat');
 
     Route::get('/isi_kandidat_personal', 'isi_kandidat_personal')->middleware('kandidat')->name('personal');

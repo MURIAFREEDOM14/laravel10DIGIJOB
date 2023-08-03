@@ -62,7 +62,7 @@
     <section id="services" class="services">
       <!-- Modal New User -->
       <div class="modal fade" id="newUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
               <h1 class="modal-title fs-5" id="exampleModalLabel" style="font-family:poppins">Anda ingin daftar sebagai siapa?</h1>
@@ -70,23 +70,33 @@
             </div>
             <div class="modal-body">
               <div class="row">
-                <div class="col-md-4 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-                  <div class="icon-box text-center" style="border-style: outset; background-color: #19A7CE">
-                    <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
-                    <h4><a href="/register/kandidat" style="text-transform: uppercase;color: white">Pencari Kerja</a></h4>
-                  </div>
+                <div class="col-md-12 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                  <a href="/register/kandidat" style="color: white">
+                    <div class="icon-box text-center" style="border-style: outset; background-color: #19A7CE">
+                      <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
+                      <h4 style="text-transform: uppercase;color: white">Pencari Kerja</h4>  
+                    </div>
+                  </a>
                 </div>
-                <div class="col-md-4 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-                  <div class="icon-box text-center" style="border-style: outset;background-color: #FFD966">
-                    <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
-                    <h4><a href="/register/akademi" style="text-transform: uppercase; color: white">Akademi</a></h4>
-                  </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                  <a href="/register/akademi" style="color: white">
+                    <div class="icon-box text-center" style="border-style: outset;background-color: #FFD966">
+                      <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
+                      <h4 style="text-transform: uppercase; color: white">Akademi</h4>
+                    </div>
+                  </a>
                 </div>
-                <div class="col-md-4 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-                  <div class="icon-box text-center" style="border-style: outset;background-color: #2bb930">
-                    <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
-                    <h4><a href="/register/perusahaan" style="text-transform: uppercase; color: white">Perusahaan</a></h4>
-                  </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                  <a href="/register/perusahaan" style="color: white">
+                    <div class="icon-box text-center" style="border-style: outset;background-color: #2bb930">
+                      <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
+                      <h4 style="text-transform: uppercase; color: white">Perusahaan</h4>
+                    </div>
+                  </a>
                 </div>
               </div>
             </div>

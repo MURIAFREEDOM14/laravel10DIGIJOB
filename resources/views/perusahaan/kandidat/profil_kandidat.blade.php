@@ -76,11 +76,13 @@
                     </div>                                
                 </div>
                 <div class="col-md-3">
-                    @if ($kandidat->foto_set_badan !== null)
-                        <img class="float-right img" src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" width="130px" height="150px" alt="">
-                    @else
-                        <img class="float-right img" src="/gambar/default_user.png" width="120px" height="150px" alt="">
-                    @endif
+                    <div class="float-right mt--5">
+                        @if ($kandidat->foto_set_badan !== null)
+                            <img class="avatar-img rounded-circle" style="border:2px solid black" src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" width="130px" height="150px" alt="">
+                        @else
+                            <img class="avatar-img rounded-circle" style="border:2px solid black" src="/gambar/default_user.png" width="120px" height="150px" alt="">
+                        @endif
+                    </div>
                 </div>
             </div>
             <div class="row mt-5" style="line-height:15px">
@@ -93,20 +95,20 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered-bd-default text-center">
+                                        <table class="table table-bordered table-head-bg-info table-bordered-bd-info text-center">
                                             <thead>
-                                                <tr class="" style="font-size:10px;">
-                                                    <th style="width: 1px;"><b class="bold">No</b></th>
-                                                    <th style="width: 1px;"><b class="bold">Nama Perusahaan</b></th>
-                                                    <th style="width: 1px;"><b class="bold">Alamat Perusahaan</b></th>
-                                                    <th style="width: 1px;"><b class="bold">Jabatan</b></th>
-                                                    <th><b class="bold">Periode</b></th>
-                                                    <th style="width: 1px"><b class="bold">Alasan Berhenti</b></th>
-                                                    <th><b class="bold">Pratinjau Video</b></th>
-                                                </tr>
+                                            <tr class="" style="font-size:10px;">
+                                                <th style="width: 1px;"><b class="bold">No</b></th>
+                                                <th style="width: 1px;"><b class="bold">Nama Perusahaan</b></th>
+                                                <th style="width: 1px;"><b class="bold">Alamat Perusahaan</b></th>
+                                                <th style="width: 1px;"><b class="bold">Jabatan</b></th>
+                                                <th><b class="bold">Periode</b></th>
+                                                <th style="width: 1px"><b class="bold">Alasan Berhenti</b></th>
+                                                <th><b class="bold">Pratinjau Video</b></th>
+                                            </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($info_kandidat as $item)
+                                                @foreach ($pengalaman_kerja_kandidat as $item)
                                                     <tr>
                                                         <th><b class="bold">{{$loop->iteration}}</b></th>
                                                         <td><b class="bold">{{$item->nama_perusahaan}}</b></td>
@@ -114,15 +116,11 @@
                                                         <td><b class="bold">{{$item->jabatan}}</b></td>
                                                         <td><b class="bold">{{date('d-M-Y',strtotime($item->periode_awal))}} - {{date('d-M-Y',strtotime($item->periode_akhir))}}</b></td>
                                                         <td><b class="bold">{{$item->alasan_berhenti}}</b></td>
-                                                        @if ($item->pengalaman_kerja_id == $video->pengalaman_kerja_id)
-                                                            <td>
-                                                                <a class="btn btn-primary" href="/perusahaan/lihat/video_kandidat/{{$item->pengalaman_kerja_id}}">Lihat</a>
-                                                            </td>                                                    
-                                                        @else
-                                                            <td>---</td>
-                                                        @endif    
+                                                        <td>
+                                                            <a href="/perusahaan/galeri_kandidat/{{$item->pengalaman_kerja_id}}" class="btn btn-primary">Lihat Galeri</a>
+                                                        </td>                                                    
                                                     </tr>
-                                                @endforeach 
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>

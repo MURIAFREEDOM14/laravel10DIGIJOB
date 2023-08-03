@@ -119,13 +119,13 @@
         <div class="col-md-3"></div>
         <div class="col-md-6 d-flex flex-column justify-content-center pt-4 pt-lg-0" data-aos="fade-up" data-aos-delay="200">
           <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
+            {{-- <div class="carousel-indicators">
               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
               <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 0"></button>
-            </div>
+            </div> --}}
             <div class="carousel-inner">
               <div class="carousel-item active" data-bs-interval="1500">
                 <img src="Arsha/assets/img/hero-img.png" class="img-fluid text-center" alt="">
@@ -133,12 +133,6 @@
                   <p style="color: black"></p>
                 </div>
               </div>
-              {{-- <div class="carousel-item" data-bs-interval="1500">
-                <img src="Arsha/assets/img/hero-img.png" class="img-fluid" alt="">
-                <div class="carousel-caption d-none d-md-block">
-                  <p style="color: black"></p>
-                </div>
-              </div>
               <div class="carousel-item" data-bs-interval="1500">
                 <img src="Arsha/assets/img/hero-img.png" class="img-fluid" alt="">
                 <div class="carousel-caption d-none d-md-block">
@@ -156,7 +150,13 @@
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
                 </div>
-              </div> --}}
+              </div>
+              <div class="carousel-item" data-bs-interval="1500">
+                <img src="Arsha/assets/img/hero-img.png" class="img-fluid" alt="">
+                <div class="carousel-caption d-none d-md-block">
+                  <p style="color: black"></p>
+                </div>
+              </div>
             </div>
             {{-- <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
@@ -239,26 +239,32 @@
             <div class="modal-body">
               <div class="row">
                 <div class="col-md-12 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-                  <div class="icon-box text-center" style="border-style: outset; background-color: #19A7CE">
-                    <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
-                    <h4><a href="/register/kandidat" style="text-transform: uppercase;color: white">Pencari Kerja</a></h4>
-                  </div>
+                  <a href="/register/kandidat" style="color: white">
+                    <div class="icon-box text-center" style="border-style: outset; background-color: #19A7CE">
+                      <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
+                      <h4 style="text-transform: uppercase;color: white">Pencari Kerja</h4>  
+                    </div>
+                  </a>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-                  <div class="icon-box text-center" style="border-style: outset;background-color: #FFD966">
-                    <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
-                    <h4><a href="/register/akademi" style="text-transform: uppercase; color: white">Akademi</a></h4>
-                  </div>
+                  <a href="/register/akademi" style="color: white">
+                    <div class="icon-box text-center" style="border-style: outset;background-color: #FFD966">
+                      <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
+                      <h4 style="text-transform: uppercase; color: white">Akademi</h4>
+                    </div>
+                  </a>
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-                  <div class="icon-box text-center" style="border-style: outset;background-color: #2bb930">
-                    <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
-                    <h4><a href="/register/perusahaan" style="text-transform: uppercase; color: white">Perusahaan</a></h4>
-                  </div>
+                  <a href="/register/perusahaan" style="color: white">
+                    <div class="icon-box text-center" style="border-style: outset;background-color: #2bb930">
+                      <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
+                      <h4 style="text-transform: uppercase; color: white">Perusahaan</h4>
+                    </div>
+                  </a>
                 </div>
               </div>
             </div>

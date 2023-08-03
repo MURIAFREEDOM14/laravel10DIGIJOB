@@ -76,137 +76,132 @@
           </div>
       </nav>
       <main class="">
-        <div class="row">
-          <div class="col-md-1"></div>
-          <div class="col-md-10">
-            @yield('content')
-          </div>
-          <div class="col-md-1"></div>
+        <div class="container px-5">
+          @yield('content')
         </div>
       </main>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
       @livewireScripts
       <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-      
       <script type="text/javascript">
-      function beranda(ev){
-        ev.preventDefault();
-        var url = ev.currentTarget.getAttribute('href');
-        console.log(url);
-        swal({
-            title: 'Apakah anda yakin ingin kembali ke beranda?',
-            type: 'warning',
-            icon: 'warning',
-            buttons:{
-                confirm: {
-                    text : 'Iya',
-                    className : 'btn btn-success'
-                },
-                cancel: {
-                    visible: true,
-                    text: 'Tidak',
-                    className: 'btn btn-danger'
-                }
-            }
-        }).then((Delete) => {
-            if (Delete) {
-                window.location.href = url;
-            } else {
-                swal.close();
-            }
-        });
-      }
-      
-      function confirmation(ev)
-      {
-        ev.preventDefault();
-        var url = ev.currentTarget.getAttribute('href');
-        console.log(url);
-        swal({
-            title: 'Apakah anda yakin ingin keluar?',
-            type: 'warning',
-            icon: 'warning',
-            buttons:{
-                confirm: {
-                    text : 'Iya',
-                    className : 'btn btn-success'
-                },
-                cancel: {
-                    visible: true,
-                    text: 'Tidak',
-                    className: 'btn btn-danger'
-                }
-            }
-        }).then((Delete) => {
-            if (Delete) {
-                window.location.href = url;
-            } else {
-                swal.close();
-            }
-        });
-      }
-
-      function hapusData(ev)
-      {
-        ev.preventDefault();
-        var url = ev.currentTarget.getAttribute('href');
-        console.log(url);
-        swal({
-            title: 'Apakah anda yakin ingin Menghapus data ini?',
-            type: 'warning',
-            icon: 'warning',
-            buttons:{
-                confirm: {
-                    text : 'Iya',
-                    className : 'btn btn-success'
-                },
-                cancel: {
-                    visible: true,
-                    text:'tidak',
-                    className: 'btn btn-danger'
-                }
-            }
-        }).then((Delete) => {
-            if (Delete) {
-                window.location.href = url;
-            } else {
-                swal.close();
-            }
-        });
-      }
-
-      function passwordBtn(){
-        var x = document.getElementById('newPassword1');
-        var y = document.getElementById('newPassword2')
-        if (x.style.display === 'block' && y.style.display === 'block') {
-          x.style.display = 'none';
-          y.style.display = 'none';
-        } else {
-          x.style.display = 'block';
-          y.style.display = 'block';
+        function beranda(ev){
+          ev.preventDefault();
+          var url = ev.currentTarget.getAttribute('href');
+          console.log(url);
+          swal({
+              title: 'Apakah anda yakin ingin kembali ke beranda?',
+              type: 'warning',
+              icon: 'warning',
+              buttons:{
+                  confirm: {
+                      text : 'Iya',
+                      className : 'btn btn-success'
+                  },
+                  cancel: {
+                      visible: true,
+                      text: 'Tidak',
+                      className: 'btn btn-danger'
+                  }
+              }
+          }).then((Delete) => {
+              if (Delete) {
+                  window.location.href = url;
+              } else {
+                  swal.close();
+              }
+          });
         }
-      }
+        
+        function confirmation(ev)
+        {
+          ev.preventDefault();
+          var url = ev.currentTarget.getAttribute('href');
+          console.log(url);
+          swal({
+              title: 'Apakah anda yakin ingin keluar?',
+              type: 'warning',
+              icon: 'warning',
+              buttons:{
+                  confirm: {
+                      text : 'Iya',
+                      className : 'btn btn-success'
+                  },
+                  cancel: {
+                      visible: true,
+                      text: 'Tidak',
+                      className: 'btn btn-danger'
+                  }
+              }
+          }).then((Delete) => {
+              if (Delete) {
+                  window.location.href = url;
+              } else {
+                  swal.close();
+              }
+          });
+        }
+
+        function hapusData(ev)
+        {
+          ev.preventDefault();
+          var url = ev.currentTarget.getAttribute('href');
+          console.log(url);
+          swal({
+              title: 'Apakah anda yakin ingin Menghapus data ini?',
+              type: 'warning',
+              icon: 'warning',
+              buttons:{
+                  confirm: {
+                      text : 'Iya',
+                      className : 'btn btn-success'
+                  },
+                  cancel: {
+                      visible: true,
+                      text:'tidak',
+                      className: 'btn btn-danger'
+                  }
+              }
+          }).then((Delete) => {
+              if (Delete) {
+                  window.location.href = url;
+              } else {
+                  swal.close();
+              }
+          });
+        }
+
+        function passwordBtn(){
+          var x = document.getElementById('newPassword1');
+          var y = document.getElementById('newPassword2')
+          if (x.style.display === 'block' && y.style.display === 'block') {
+            x.style.display = 'none';
+            y.style.display = 'none';
+          } else {
+            x.style.display = 'block';
+            y.style.display = 'block';
+          }
+        }
       </script>
 
       <script type="text/javascript">
-      $(document).ready(function() {
-        $(document).on('change','#data_pengalaman',function() {
-          var pengalaman = $(this).val();
-          var v = document.getElementById('video_pengalaman');
-          var f = document.getElementById('foto_pengalaman');
-          console.log(pengalaman);
-          if (pengalaman == "video") {
-            v.style.display = 'block';
-            f.style.display = 'none';
-          } else if(pengalaman == "foto") {
-            v.style.display = 'none';
-            f.style.display = 'block';
-          } else {
-            v.style.display = 'none';
-            f.style.display = 'none';
-          }
+        $(document).ready(function() {
+          $(document).on('change','#data_pengalaman',function() {
+            var pengalaman = $(this).val();
+            var v = document.getElementById('video_pengalaman');
+            var f = document.getElementById('foto_pengalaman');
+            console.log(pengalaman);
+            if (pengalaman == "video") {
+              v.style.display = 'block';
+              f.style.display = 'none';
+            } else if(pengalaman == "foto") {
+              v.style.display = 'none';
+              f.style.display = 'block';
+            } else {
+              v.style.display = 'none';
+              f.style.display = 'none';
+            }
+          })
         })
-      })
       </script>
       <script>
         var video = document.getElementById("video");
@@ -218,7 +213,6 @@
               }
           }
       </script>
-
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     </body>
 </html>

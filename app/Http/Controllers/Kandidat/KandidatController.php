@@ -119,16 +119,39 @@ class KandidatController extends Controller
         }
     }
 
-    public function lihatVideo($id)
+    public function galeri($id)
     {
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
-        $kandidat_pengalaman_kerja = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
-        $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->get();
-        return view('kandidat/modalKandidat/lihat_video',compact('kandidat','notif','pesan','pengalaman_kerja','kandidat_pengalaman_kerja'));
+        $pengalaman_kerja = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
+        $video = VideoKerja::where('pengalaman_kerja_id',$id)->get();
+        $foto = FotoKerja::where('pengalaman_kerja_id',$id)->get();
+        return view('kandidat/modalKandidat/galeri',compact('kandidat','notif','pesan','pengalaman_kerja','video','foto'));
     }
+
+    public function lihatGaleri($id,$type)
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
+        if($type == "video"){
+            $video = VideoKerja::where('video_kerja_id',$id)->first();
+            $video_pengalaman = VideoKerja::where('pengalaman_kerja_id',$video->pengalaman_kerja_id)->get();
+            $foto_pengalaman = FotoKerja::where('pengalaman_kerja_id',$video->pengalaman_kerja_id)->get();
+            $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$video->pengalaman_kerja_id)->first();
+            return view('kandidat/modalKandidat/lihat_galeri',compact('kandidat','type','id','video_pengalaman','video','foto_pengalaman','pesan','notif','pengalaman'));
+        } elseif($type == "foto"){
+            $foto = FotoKerja::where('foto_kerja_id',$id)->first();
+            $foto_pengalaman = FotoKerja::where('pengalaman_kerja_id',$foto->pengalaman_kerja_id)->get();
+            $video_pengalaman = VideoKerja::where('pengalaman_kerja_id',$foto->pengalaman_kerja_id)->get();
+            $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$foto->pengalaman_kerja_id)->first();
+            return view('kandidat/modalKandidat/lihat_galeri',compact('kandidat','type','id','foto_pengalaman','foto','video_pengalaman','pesan','notif','pengalaman'));
+        }
+    }
+
     public function edit()
     {
         return redirect()->route('personal');
