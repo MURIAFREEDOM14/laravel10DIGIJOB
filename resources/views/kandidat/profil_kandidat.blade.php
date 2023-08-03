@@ -93,7 +93,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="row mt-5" style="line-height:15px">
+                {{-- <div class="row mt-5" style="line-height:15px">
                     <div class="col">
                         <div class="card">
                             <div class="card-header">
@@ -124,16 +124,10 @@
                                                             <td><b class="bold">{{$item->jabatan}}</b></td>
                                                             <td><b class="bold">{{date('d-M-Y',strtotime($item->periode_awal))}} - {{date('d-M-Y',strtotime($item->periode_akhir))}}</b></td>
                                                             <td><b class="bold">{{$item->alasan_berhenti}}</b></td>
-                                                            @if ($item->video_pengalaman_kerja !== null)
-                                                                <td>
-                                                                    <a href="/lihat_video_pengalaman_kerja/{{$item->pengalaman_kerja_id}}" class="btn btn-primary">Lihat Video</a>
-                                                                    {{-- <button type="button" style="font-size: 10px; font-weight:bold;" id="" class="btn" data-bs-toggle="modal" onclick="Video({{$item->pengalaman_kerja_id}})" data-bs-target="#video_kerja">
-                                                                        Lihat Video
-                                                                    </button> --}}
-                                                                </td>                                                    
-                                                            @else
-                                                                <td></td>
-                                                            @endif    
+                                                            <td>
+                                                                <a href="/lihat_galeri_pengalaman_kerja/{{$item->pengalaman_kerja_id}}" class="btn btn-primary">Lihat Galeri</a>
+                                                            </td>                                                    
+                                                            <td></td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -144,7 +138,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 @if ($kandidat->id_perusahaan !== null && $kandidat->stat_pemilik == "diterima")
                     <a class="btn btn-success" href="/output_izin_waris">Cetak Surat Izin & Ahli waris</a>                    
                 @endif
