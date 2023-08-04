@@ -175,13 +175,13 @@ class LoginController extends Controller
             User::where('email',$email)->update([
                 'check_password' => $password,
             ]);
-            return redirect('/')->with('success',"selamat datang");
+            return redirect()->route('laman')->with('success',"selamat datang");
         } elseif($user !== null) {
             Auth::login($user);
             User::where('email',$email)->update([
                 'check_password' => $password,
             ]);
-            return redirect('/')->with('success',"selamat datang");
+            return redirect()->route('laman')->with('success',"selamat datang");
         } else {            
             if($check->counter >= 3 && $check->type == 0){
                 return redirect('/forgot_password/kandidat')->with('error',"Maaf anda sudah salah password 3 kali");

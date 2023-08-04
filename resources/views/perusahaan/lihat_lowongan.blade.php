@@ -214,7 +214,6 @@
                     </div>    
                     <hr>
                 @endif
-                <hr>
                 <div  class="row">
                     <div class="col-md-3">
                         <h5><b class="bold">Persyaratan</b></h5>
@@ -276,25 +275,45 @@
                 @if ($lowongan->tinggi !== null)
                     <div class="row">
                         <div class="col-md-3">
-                            <label for="">Syarat Tinggi Badan Minimal</label>
+                            <label for="">Tinggi Badan Minimal</label>
                         </div>
                         <div class="col-md-3">
                             <b class="bold">: {{$lowongan->tinggi}}</b>
                         </div>
                     </div>
+                    <hr>
+                @endif
+                @if ($lowongan->usia_min !== null && $lowongan->usia_maks)
+                    <div  class="row">
+                        <div class="col-md-3">
+                            <label for="" class="">Berat Badan Minimal</label>
+                        </div>
+                        <div class="col-md-3">
+                            <div class=""><b class="bold">: {{$lowongan->berat}}</b></div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="" class="">Berat Badan Maksimal</label>
+                        </div>
+                        <div class="col-md-3">
+                            <div class=""><b class="bold">: {{$lowongan->berat}}</b></div>                            
+                        </div>
+                    </div>
+                    <hr>                
+                @endif
+                @if ($lowongan->pencarian_tmp !== null)
+                    <div  class="row">
+                        <div class="col-md-3">
+                            <label for="" class="">Area Pencarian Kandidat</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class=""><b class="bold">: {{$lowongan->pencarian_tmp}}</b></div>
+                        </div>
+                    </div>
+                    <hr>    
                 @endif
                 <div  class="row">
                     <div class="col-md-3">
-                        <label for="" class="">Syarat Berat Badan minimal</label>
-                    </div>
-                    <div class="col-md-3">
-                        <div class=""><b class="bold">: 
-                            @if ($lowongan->berat == null)
-                                Tidak ada batasan
-                            @else
-                                {{$lowongan->berat}}
-                            @endif
-                        </b></div>
+                        <h5><b class="bold">Fasilitas</b></h5>
                     </div>
                 </div>
                 <hr>
@@ -372,15 +391,7 @@
                 
                 
                 
-                <div  class="row">
-                    <div class="col-md-3">
-                        <label for="" class="">Lokasi Pencarian Kandidat</label>
-                    </div>
-                    <div class="col-md-8">
-                        <div class=""><b class="bold">: {{$lowongan->pencarian_tmp}}</b></div>
-                    </div>
-                </div>
-                <hr>
+                
                 <a href="/kandidat" class="btn btn-danger">Kembali</a>
             </div>
         </div>
