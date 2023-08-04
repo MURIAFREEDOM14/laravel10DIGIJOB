@@ -217,7 +217,7 @@ class PerusahaanRecruitmentController extends Controller
 
     protected function lowonganNegara(Request $request)
     {
-        $data = Negara::where('negara_id',$request->negara)->first();
+        $data = Negara::where('negara',$request->negara)->first();
         return response()->json($data);
     }
 

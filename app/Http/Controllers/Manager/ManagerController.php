@@ -35,6 +35,8 @@ use Carbon\Carbon;
 use App\Models\LowonganPekerjaan;
 use App\Models\PMIID;
 use DB;
+use App\Models\VideoKerja;
+use App\Models\FotoKerja;
 
 class ManagerController extends Controller
 {
@@ -267,7 +269,8 @@ class ManagerController extends Controller
         $kandidat = Kandidat::where('id_kandidat',$id)->first();
         $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
         $usia = Carbon::parse($kandidat->tgl_lahir)->age;
-        $pengalamanKerja = PengalamanKerja::where('id_kandidat',$id)->get();
+        $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$id)->get();
+        
         if($kandidat->negara_id == null){
             Kandidat::where('id_kandidat',$id)->update([
                 'penempatan' => "dalam negeri",
@@ -280,8 +283,29 @@ class ManagerController extends Controller
             'tgl_user',
             'usia',
             'manager',
-            'pengalamanKerja',
+            'pengalaman_kerja',
         ));
+    }
+
+    public function galeriKandidat($id)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
+        $video = VideoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->get();
+        $foto = FotoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->get();
+        return view('manager/kandidat/galeri_kandidat',compact('manager','pengalaman','foto','video'));
+    }
+
+    public function lihatGaleriKandidat($id, $type)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        if($type == "video"){
+            $video = VideoKerja::where('video_kerja_id',$id)->first();
+        } elseif($type == "foto") {
+
+        }
     }
 
     // Perusahaan Data //

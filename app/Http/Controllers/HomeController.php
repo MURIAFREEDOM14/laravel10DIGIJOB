@@ -40,15 +40,15 @@ class HomeController extends Controller
 
     public function managerHome()
     {
-        if(Auth::user()->type == 3){
-            return redirect()->route('manager');
-        } elseif(Auth::user()->type == 2) {
-            return redirect()->route('perusahaan');
-        } elseif(Auth::user()->type == 1){
-            return redirect()->route('akademi');
-        } else {
-            return redirect()->route('kandidat');
-        }
+        // if(Auth::user()->type == 3){
+        //     return redirect()->route('manager');
+        // } elseif(Auth::user()->type == 2) {
+        //     return redirect()->route('perusahaan');
+        // } elseif(Auth::user()->type == 1){
+        //     return redirect()->route('akademi');
+        // } else {
+        //     return redirect()->route('kandidat');
+        // }
     }
 
     public function layouts()
@@ -56,18 +56,18 @@ class HomeController extends Controller
         $kandidat = Kandidat::where('referral_code')->first();
     }
 
-    public function dalam_negeri() : view
-    {
-        $userId = auth()->id();
-        $hashedUserId = \Hashids::encode($userId);
+    // public function dalam_negeri() : view
+    // {
+    //     $userId = auth()->id();
+    //     $hashedUserId = \Hashids::encode($userId);
 
-        $kandidat = Kandidat::where('type','=',0)->get();
-        return view('Kandidat/dalam_negeri', ['kandidat'=>$kandidat,'user_referral'=>$hashedUserId]);
-    }
+    //     $kandidat = Kandidat::where('type','=',0)->get();
+    //     return view('Kandidat/dalam_negeri', ['kandidat'=>$kandidat,'user_referral'=>$hashedUserId]);
+    // }
 
-    public function luar_negeri() : view
-    {
-        $kandidat = Kandidat::where('penempatan','=',"luar negeri")->get();
-        return view('Kandidat/luar_negeri',['kandidat'=>$kandidat]);
-    }
+    // public function luar_negeri() : view
+    // {
+    //     $kandidat = Kandidat::where('penempatan','=',"luar negeri")->get();
+    //     return view('Kandidat/luar_negeri',['kandidat'=>$kandidat]);
+    // }
 }

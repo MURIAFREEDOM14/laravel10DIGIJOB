@@ -22,7 +22,7 @@ class GoogleController extends Controller
 
             if($finduser){
                 Auth::login($finduser);
-                return redirect()->intended('laman');
+                return redirect()->route('laman');
             }
             else
             {
@@ -36,7 +36,7 @@ class GoogleController extends Controller
 
                 Auth::login($newUser);
 
-                return redirect()->intended('laman');
+                return redirect()->route('laman');
             }
         }
         catch (\Exception $e){

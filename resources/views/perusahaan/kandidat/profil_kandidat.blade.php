@@ -78,9 +78,9 @@
                 <div class="col-md-3">
                     <div class="float-right mt--5">
                         @if ($kandidat->foto_set_badan !== null)
-                            <img class="avatar-img rounded-circle" style="border:2px solid black" src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" width="130px" height="150px" alt="">
+                            <img class="img" src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" width="130px" height="150px" alt="">
                         @else
-                            <img class="avatar-img rounded-circle" style="border:2px solid black" src="/gambar/default_user.png" width="120px" height="150px" alt="">
+                            <img class="img" src="/gambar/default_user.png" width="120px" height="150px" alt="">
                         @endif
                     </div>
                 </div>
@@ -142,22 +142,24 @@
                 <div class="card-body">
                     <div class="row">
                         @foreach ($semua_kandidat as $item)
-                            <div class="col-4">
+                            <div class="col-md-3">
                                 <div class="card">
-                                    <div class="card-header">
-                                        <div class="float-left">{{$item->nama}}</div>
-                                        <div class="float-right">{{$item->usia}}thn</div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="avatar-sm float-left">
-                                            @if ($item->foto_4x6 == null)
-                                                <img src="/gambar/default_user.png" alt="/Atlantis/examples." class="avatar-img rounded-circle">
-                                            @else
-                                                <img src="/gambar/Kandidat/{{$item->nama}}/4x6/{{$item->foto_4x6}}" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                                
-                                            @endif
+                                    <a class="btn" style="border: 2px solid #1269DB; border-top-left-radius:10%;border-bottom-right-radius:10%" href="/perusahaan/lihat/kandidat/{{$item->id_kandidat}}">
+                                        <div class="card-header text-center mt--5">
+                                            <div class="avatar avatar-xl">
+                                                @if ($item->foto_4x6 == null)
+                                                    <img src="/gambar/default_user.png" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                            
+                                                @else
+                                                    <img src="/gambar/Kandidat/{{$item->nama}}/4x6/{{$item->foto_4x6}}" alt="" class="avatar-img rounded-circle">                                            
+                                                @endif
+                                            </div>
                                         </div>
-                                        <a href="/perusahaan/lihat/kandidat/{{$item->id_kandidat}}" class="btn btn-primary float-right">Lihat Profil</a>
-                                    </div>
+                                        <div class="card-body text-center" style="background-color: #1269DB">
+                                            <div class="mt-2" style="color: white; text-transform:uppercase">
+                                                {{$item->nama_panggilan}}
+                                            </div>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         @endforeach

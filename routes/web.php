@@ -45,9 +45,6 @@ use App\Models\User;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 // Auth::routes();
 // Auth::routes(['verify' => true]);
@@ -66,7 +63,9 @@ Route::controller(ManagerController::class)->group(function() {
 
     // DATA KANDIDAT // 
     Route::get('/manager/kandidat/lihat_profil/{id}','lihatProfil')->middleware('manager');
-    
+    Route::get('/manager/kandidat/galeri_kandidat/{id}','galeriKandidat')->middleware('manager');
+    Route::get('/manager/kandidat/lihat_galeri_kandidat/{id}/{type}','lihatGaleriKandidat')->middleware('manager');
+
     Route::get('/manager/kandidat/pelatihan','pelatihan')->middleware('manager');
     Route::post('/manager/kandidat/tambah_tema_pelatihan','simpanTemaPelatihan');
     Route::get('/manager/kandidat/lihat_video_pelatihan/{id}','lihatVideoPelatihan')->middleware('manager');
@@ -150,6 +149,12 @@ Route::controller(ManagerKandidatController::class)->group(function() {
     Route::get('/manager/kandidat/penolakan_kandidat','penolakanKandidat');
     Route::get('/manager/kandidat/lihat/penolakan_kandidat/{id}','lihatPenolakanKandidat');
 
+    Route::get('/manager/kandidat/penghapusan_kandidat','penghapusanKandidat')->middleware('manager');
+    Route::get('/manager/kandidat/confirm_penghapusan/{id}','confirmPenghapusanKandidat');
+
+    Route::get('/manager/kandidat/laporan_kandidat','laporanKandidat')->middleware('manager');
+    Route::get('/manager/kandidat/lihat_laporan_kandidat/{id}','lihatLaporanKandidat')->middleware('manager');
+
     Route::get('/manager/kandidat/lihat_video/{id}','lihatVideoKandidat');
 });
 
@@ -184,7 +189,7 @@ Route::controller(ContactUsController::class)->group(function() {
 
 // DATA LAMAN //
 Route::controller(LamanController::class)->group(function() {
-    Route::get('/laman', 'index')->name('laman')->middleware('guest');    
+    Route::get('/', 'index')->name('laman')->middleware('guest');    
     
     Route::get('/login','loginSemua')->middleware('guest');
     Route::get('/login/kandidat', 'login_kandidat')->middleware('guest');
@@ -607,7 +612,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/tulis_pesan', [HomeController::class, 'tulis_pesan']);
 });
 
-Route::get('/', [HomeController::class, 'managerHome'])->name('manager_home');
+Route::get('/laman', [HomeController::class, 'managerHome'])->name('manager_home')->middleware('guest');
 
 Route::get('webcam', [CaptureController::class, 'index']);
 Route::post('webcam', [CaptureController::class, 'store'])->name('webcam.capture');

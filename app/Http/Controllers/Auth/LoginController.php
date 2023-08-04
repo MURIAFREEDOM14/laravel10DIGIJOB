@@ -294,6 +294,6 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect('/laman');
+        return redirect()->route('laman');
     }
 }

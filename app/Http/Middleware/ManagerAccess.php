@@ -18,6 +18,6 @@ class ManagerAccess
         if (auth()->user()->type == 2) {
             return $next($request);
         }
-        return response()->redirect('/laman');
+        return response()->redirect()->route('laman');
     }
 }

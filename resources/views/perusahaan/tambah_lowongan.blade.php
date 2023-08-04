@@ -10,6 +10,65 @@
             <div class="card-body">
                 <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="" class="col-form-label">Penempatan Kerja</label>
+                        </div>
+                        <div class="col-md-8">
+                            <select name="penempatan" required class="form-control" id="negara_tujuan">
+                                <option value="">-- Pilih Negara Penempatan --</option>
+                                @foreach ($negara as $item)                                    
+                                    <option value="{{$item->negara_id}}">{{$item->negara}}</option>                                                                        
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="" class="col-form-label">Judul Pekerjaan</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" required name="jabatan" class="form-control" id="">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="" class="col-form-label">Jenis Pekerja</label>
+                        </div>
+                        <div class="col-md-6">
+                            @if ($perusahaan->penempatan_kerja == "Dalam negeri")
+                                <select name="lvl_pekerjaan" required class="form-control" id="">
+                                    <option value="">-- Tentukan Jenis Pekerja --</option>
+                                    <option value="magang">Magang</option>
+                                    <option value="karyawan">Karyawan / Staff</option>
+                                    <option value="manager">Manager</option>
+                                    <option value="direktur">Direktur</option>
+                                    <option value="ceo">CEO</option>
+                                </select>
+                            @elseif($perusahaan->penempatan_kerja == "Luar negeri")
+                                <select name="lvl_pekerjaan" required class="form-control" id="">
+                                    <option value="">-- Tentukan Jenis Pekerja --</option>
+                                </select>
+                            @endif  
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="" class="col-form-label">Deskripsi Pekerjaan</label>
+                        </div>
+                        <div class="col-md-8">
+                            <textarea name="deskripsi" required id="" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="" class="col-form-label">Flyer (jika ada)</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="file" name="gambar" class="form-control" id="" accept="image/*">
+                        </div>
+                    </div>
+                    <hr>
                     <div class="row">
                         <div class="col">
                             <h5 style="font-weight:bold">Persyaratan</h5>
@@ -49,10 +108,13 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-4">
-                            <label for="" class="col-form-label">Usia Minimal</label>
+                            <label for="" class="col-form-label">Syarat Usia</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="number" name="usia" class="form-control" id="">
+                            <input type="number" required placeholder="Usia Minimal" name="usia_min" class="form-control" id="">
+                        </div>
+                        <div class="col-md-4">
+                            <input type="number" required placeholder="Usia Maksimal" name="usia_mak" class="form-control" id="">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -60,15 +122,16 @@
                             <label for="" class="col-form-label">Pengalaman Bekerja</label>
                         </div>
                         <div class="col-md-8">
-                            <textarea name="pengalaman_kerja" id="" class="form-control"></textarea>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label for="" class="col-form-label">Berat Badan Minimal</label>
-                        </div>
-                        <div class="col-md-4">
-                            <input type="number" name="berat" placeholder="Masukkan Berat" class="form-control" id="">
+                            <div class="form-check">
+                                <label class="form-radio-label">
+                                    <input class="form-radio-input" type="radio" name="optionsRadios" value=""  checked="">
+                                    <span class="form-radio-sign">Non</span>
+                                </label>
+                                <label class="form-radio-label ml-3">
+                                    <input class="form-radio-input" type="radio" name="optionsRadios" value="">
+                                    <span class="form-radio-sign">Ex / Berpengalaman</span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -79,46 +142,52 @@
                             <input type="number" name="tinggi" placeholder="Masukkan Tinggi" class="form-control" id="">
                         </div>
                     </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="" class="col-form-label">Syarat Berat Badan</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="number" required name="berat_min" placeholder="Berat Minimal" class="form-control" id="">
+                        </div>
+                        <div class="col-md-4">
+                            <input type="number" required name="berat_maks" placeholder="Berat Maksimal" class="form-control" id="">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="col-form-label">Area Rekrut Pekerja</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-check">                               
+                                @if ($perusahaan->penempatan_kerja == "Dalam negeri")
+                                    <label class="form-radio-label">
+                                        <input class="form-radio-input" type="radio" name="pencarian_tmp" value="{{$perusahaan->kota}}"  checked="">
+                                        <span class="form-radio-sign">Se-Kabupaten /  Kota</span>
+                                    </label>
+                                    <label class="form-radio-label ml-3">
+                                        <input class="form-radio-input" type="radio" name="pencarian_tmp" value="{{$perusahaan->provinsi}}">
+                                        <span class="form-radio-sign">Se-Provinsi</span>
+                                    </label>
+                                    <label class="form-radio-label ml-3">
+                                        <input class="form-radio-input" type="radio" name="pencarian_tmp" value="Se-indonesia">
+                                        <span class="form-radio-sign">Se-Indonesia</span>
+                                    </label>    
+                                @elseif($perusahaan->penempatan_kerja == "Luar negeri")
+                                    <label class="form-radio-label ml-3">
+                                        <input class="form-radio-input" type="radio" name="pencarian_tmp" value="Se-indonesia" checked="">
+                                        <span class="form-radio-sign">Se-Indonesia</span>
+                                    </label>    
+                                @endif    
+                            </div>
+                        </div>
+                    </div>
                     <hr>
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label for="" class="col-form-label">Spesifikasi Pekerjaan</label>
-                        </div>
-                        <div class="col-md-8">
-                            <input type="text" required name="jabatan" class="form-control" id="">
+                    <div class="row">
+                        <div class="col">
+                            <h5 style="font-weight:bold">Fasilitas</h5>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label for="" class="col-form-label">Level Pekerja</label>
-                        </div>
-                        <div class="col-md-6">
-                            <select name="lvl_pekerjaan" required class="form-control" id="">
-                                <option value="">-- Tentukan Level Pekerja --</option>
-                                <option value="magang">Magang</option>
-                                <option value="karyawan">Karyawan / Staff</option>
-                                <option value="manager">Manager</option>
-                                <option value="direktur">Direktur</option>
-                                <option value="seo">SEO</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label for="" class="col-form-label">Job Deskripsi</label>
-                        </div>
-                        <div class="col-md-8">
-                            <textarea name="deskripsi" id="" class="form-control"></textarea>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label for="" class="col-form-label">Flyer (jika ada)</label>
-                        </div>
-                        <div class="col-md-8">
-                            <input type="file" name="gambar" class="form-control" id="" accept="image/*">
-                        </div>
-                    </div>
+                    <hr>
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-4">
@@ -142,40 +211,12 @@
                                         <input type="checkbox" name="benefit[]" value="transportasi" class="selectgroup-input">
                                         <span class="selectgroup-button">Transportasi</span>
                                     </label>
+                                    <label class="selectgroup-item">
+                                        <input type="checkbox" name="benefit[]" value="transportasi" class="selectgroup-input">
+                                        <span class="selectgroup-button">Akomodasi</span>
+                                    </label>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-check">
-                        <div class="row mb-3">   
-                            <div class="col-4">
-                                <label>Area Rekrut Pekerja</label>
-                            </div>  
-                            <label class="form-radio-label">
-                                <input class="form-radio-input" type="radio" name="pencarian_tmp" value="{{$perusahaan->kota}}"  checked="">
-                                <span class="form-radio-sign">Se-Kabupaten /  Kota</span>
-                            </label>
-                            <label class="form-radio-label ml-3">
-                                <input class="form-radio-input" type="radio" name="pencarian_tmp" value="{{$perusahaan->provinsi}}">
-                                <span class="form-radio-sign">Se-Provinsi</span>
-                            </label>
-                            <label class="form-radio-label ml-3">
-                                <input class="form-radio-input" type="radio" name="pencarian_tmp" value="Se-indonesia">
-                                <span class="form-radio-sign">Se-Indonesia</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label for="" class="col-form-label">Penempatan Kerja</label>
-                        </div>
-                        <div class="col-md-8">
-                            <select name="penempatan" class="form-control" id="negara_tujuan">
-                                <option value="">-- Pilih Negara Penempatan --</option>
-                                @foreach ($negara as $item)                                    
-                                    <option value="{{$item->negara_id}}">{{$item->negara}}</option>                                                                        
-                                @endforeach
-                            </select>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -199,14 +240,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label for="" class="col-form-label">Tanggal Tutup Lowongan</label>
-                        </div>
-                        <div class="col-md-4">
-                            <input type="date" name="ttp_lowongan" class="form-control" id="">
-                        </div>
-                    </div>
                     <hr>                    
                     <div class="row mb-3">
                         <div class="col-4">
@@ -214,6 +247,15 @@
                         </div>
                         <div class="col-8">
                             <input type="text" name="" disabled class="form-control" value="{{$perusahaan->referral_code}}" id="">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label for="" class="col-form-label">Tanggal Tutup Lowongan</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="date" name="ttp_lowongan" class="form-control" id="">
                         </div>
                     </div>
                     <hr>

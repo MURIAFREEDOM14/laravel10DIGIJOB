@@ -174,7 +174,7 @@ class VerifikasiController extends Controller
                 return redirect()->route('verifikasi')->with('warning',"Maaf Email Anda Belum Terverifikasi, Harap Hubungi Admin");
             }
         } else {
-            return redirect('/laman');
+            return redirect()->route('laman');
         }
     }
 

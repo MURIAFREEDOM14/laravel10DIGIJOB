@@ -163,6 +163,14 @@
                 <h4><b class="bold">Informasi Lowongan</b></h4>
             </div>
             <div class="card-body">
+                <div  class="row">
+                    <div class="col-md-3">
+                        <label for="" class="">Penempatan</label>
+                    </div>
+                    <div class="col-md-8">
+                        <div class=""><b class="bold">: {{($lowongan->negara)}}</b></div>
+                    </div>
+                </div>
                 @if ($lowongan->lvl_pekerjaan !== null)
                     <div  class="row">
                         <div class="col-md-3">
@@ -229,14 +237,7 @@
                     </div>
                     <hr>    
                 @endif
-                <div  class="row">
-                    <div class="col-md-3">
-                        <label for="" class="">Penempatan</label>
-                    </div>
-                    <div class="col-md-8">
-                        <div class=""><b class="bold">: {{($lowongan->negara)}}</b></div>
-                    </div>
-                </div>
+                
                 @if ($lowongan->gambar_lowongan !== null)
                     <hr>
                     <div class="row">

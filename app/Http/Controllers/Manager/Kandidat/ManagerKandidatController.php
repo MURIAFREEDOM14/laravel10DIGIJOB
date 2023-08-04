@@ -19,6 +19,13 @@ use Carbon\Carbon;
 use App\Models\LowonganPekerjaan;
 use App\Models\PermohonanLowongan;
 use App\Models\PersetujuanKandidat;
+use App\Models\messageKandidat;
+use App\Models\notifyKandidat;
+use App\Models\FotoKerja;
+use App\Models\VideoKerja;
+use App\Models\ContactUsKandidat;
+use App\Models\Interview;
+use App\Models\LaporanPekerja;
 
 class ManagerKandidatController extends Controller
 {
@@ -826,5 +833,126 @@ class ManagerKandidatController extends Controller
         )
         ->where('persetujuan_kandidat.persetujuan_id',$id)->first();
         return view('manager/kandidat/lihat_penolakan',compact('manager','penolakan'));
+    }
+
+    public function penghapusanKandidat()
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $kandidat = Kandidat::all();
+        return view('manager/kandidat/penghapusan_kandidat',compact('manager','kandidat'));
+    }
+
+    public function confirmPenghapusanKandidat($id)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $kandidat = Kandidat::where('id_kandidat',$id)->first();
+
+        notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->delete();
+        messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->delete();
+        PermohonanLowongan::where('id_kandidat',$kandidat->id_kandidat)->delete();
+        PersetujuanKandidat::where('id_kandidat',$kandidat->id_kandidat)->delete();
+        ContactUsKandidat::where('id_kandidat',$kandidat->id_kandidat)->delete();
+        Interview::where('id_kandidat',$kandidat->id_kandidat)->delete();
+
+        $hapus_ktp = public_path('gambar/Kandidat/'.$kandidat->nama.'/KTP/').$kandidat->foto_ktp;
+            if(file_exists($hapus_ktp)){
+                @unlink($hapus_ktp);
+            }
+        $hapus_kk = public_path('gambar/Kandidat/'.$kandidat->nama.'/KK/').$kandidat->foto_kk;
+            if(file_exists($hapus_kk)){
+                @unlink($hapus_kk);
+            }
+        $hapus_set_badan = public_path('gambar/Kandidat/'.$kandidat->nama.'/Set_badan/').$kandidat->foto_set_badan;
+            if(file_exists($hapus_set_badan)){
+                @unlink($hapus_set_badan);
+            }
+        $hapus_4x6 = public_path('gambar/Kandidat/'.$kandidat->nama.'/4x6/').$kandidat->foto_4x6;
+            if(file_exists($hapus_4x6)){
+                @unlink($hapus_4x6);
+            }
+        $hapus_ket_lahir = public_path('gambar/Kandidat/'.$kandidat->nama.'/Ket_lahir/').$kandidat->foto_ket_lahir;
+            if(file_exists($hapus_ket_lahir)){
+                @unlink($hapus_ket_lahir);
+            }
+        $hapus_ijazah = public_path('gambar/Kandidat/'.$kandidat->nama.'/Ijazah/').$kandidat->foto_ijazah;
+            if(file_exists($hapus_ijazah)){
+                @unlink($hapus_ijazah);
+            }
+        $hapus_buku_nikah = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/').$kandidat->foto_buku_nikah;
+            if(file_exists($hapus_buku_nikah)){
+                @unlink($hapus_buku_nikah);
+            }
+        $hapus_cerai = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Cerai/').$kandidat->foto_cerai;
+            if(file_exists($hapus_cerai)){
+                @unlink($hapus_cerai);
+            }
+        $hapus_kematian_pasangan = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Kematian Pasangan/').$kandidat->foto_kematian_pasangan;
+            if(file_exists($hapus_kematian_pasangan)){
+                @unlink($hapus_kematian_pasangan);
+            }
+        $hapus_sertifikat_vaksin1 = public_path('gambar/Kandidat/'.$kandidat->nama.'/Vaksin Pertama/').$kandidat->sertifikat_vaksin1;
+            if(file_exists($hapus_sertifikat_vaksin1)){
+                @unlink($hapus_sertifikat_vaksin1);
+            }
+        $hapus_sertifikat_vaksin2 = public_path('gambar/Kandidat/'.$kandidat->nama.'/Vaksin Kedua/').$kandidat->sertifikat_vaksin2;
+            if(file_exists($hapus_sertifikat_vaksin2)){
+                @unlink($hapus_sertifikat_vaksin2);
+            }
+        $hapus_sertifikat_vaksin3 = public_path('gambar/Kandidat/'.$kandidat->nama.'/Vaksin Ketiga/').$kandidat->sertifikat_vaksin3;
+            if(file_exists($hapus_sertifikat_vaksin3)){
+                @unlink($hapus_sertifikat_vaksin3);
+            }
+        $hapus_foto_ktp_izin = public_path('gambar/Kandidat/'.$kandidat->nama.'/KTP Perizin/').$kandidat->foto_ktp_izin;
+            if(file_exists($hapus_foto_ktp_izin)){
+                @unlink($hapus_foto_ktp_izin);
+            }
+        $hapus_paspor = public_path('gambar/Kandidat/'.$kandidat->nama.'/Paspor/').$kandidat->foto_paspor;
+            if(file_exists($hapus_paspor)){
+                @unlink($hapus_paspor);
+            }
+        $pengalaman = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->first();
+        if($pengalaman){
+            $foto = FotoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->first();
+            $video = VideoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->first();
+            
+        $hapus_video_kerja = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$video->video;
+            if(file_exists($hapus_video_kerja)){
+                @unlink($hapus_video_kerja);
+            }
+        $hapus_foto = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$foto->foto;
+            if(file_exists($hapus_foto)){
+                @unlink($hapus_foto);
+            }
+            
+            VideoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->delete();
+            FotoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->delete();
+            PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->delete();    
+        }
+
+        User::where('id',$kandidat->id)->delete();
+        Kandidat::where('id_kandidat',$id)->delete();
+        return back()->with('success',"Data Kandidat Telah Dihapus");
+    }
+
+    public function laporanKandidat()
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $laporan = LaporanPekerja::join(
+            'kandidat','laporan_pekerja.id_kandidat','=','kandidat.id_kandidat'
+        )->get();
+        return view('manager/kandidat/laporan_kandidat',compact('manager','laporan'));
+    }
+
+    public function lihatLaporanKandidat($id)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $laporan = LaporanPekerja::join(
+            'kandidat','laporan_pekerja.id_kandidat','=','kandidat.id_kandidat'
+        )->where('kandidat.id_kandidat',$id)->first();
+        return view('manager/kandidat/lihat_laporan_kandidat',compact('manager','laporan'));   
     }
 }

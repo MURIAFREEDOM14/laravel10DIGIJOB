@@ -116,11 +116,13 @@
                         </div>                                
                     </div>
                     <div class="col-md-3">
-                        @if ($kandidat->foto_set_badan !== null)
-                            <img class="float-right img" src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" width="150" height="150" alt="">
-                        @else
-                            <img class="float-right img" src="/gambar/default_user.png" width="150" height="150" alt="">
-                        @endif
+                        <div class="float-right mt--5">
+                            @if ($kandidat->foto_set_badan !== null)
+                                <img class="img" src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" alt="">
+                            @else
+                                <img class="img" src="/gambar/default_user.png" width="150" height="150" alt="">
+                            @endif
+                        </div>
                     </div>
                 </div>
                 <div class="row mt-5" style="line-height:15px">
@@ -146,7 +148,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($pengalamanKerja as $item)
+                                                    @foreach ($pengalaman_kerja as $item)
                                                         <tr>
                                                             <th><b class="bold">{{$loop->iteration}}</b></th>
                                                             <td><b class="bold">{{$item->nama_perusahaan}}</b></td>
@@ -154,16 +156,9 @@
                                                             <td><b class="bold">{{$item->jabatan}}</b></td>
                                                             <td><b class="bold">{{date('d-M-Y',strtotime($item->periode_awal))}} - {{date('d-M-Y',strtotime($item->periode_akhir))}}</b></td>
                                                             <td><b class="bold">{{$item->alasan_berhenti}}</b></td>
-                                                            @if ($item->video_pengalaman_kerja !== null)
-                                                                <td>
-                                                                    <a href="/manager/kandidat/lihat_video/{{$item->pengalaman_kerja_id}}" class="btn btn-primary">Lihat Video</a>
-                                                                    {{-- <button type="button" style="font-size: 10px; font-weight:bold;" id="" class="btn" data-bs-toggle="modal" onclick="Video({{$item->pengalaman_kerja_id}})" data-bs-target="#video_kerja">
-                                                                        Lihat Video
-                                                                    </button> --}}
-                                                                </td>                                                    
-                                                            @else
-                                                                <td></td>
-                                                            @endif    
+                                                            <td>
+                                                                <a href="/manager/kandidat/galeri_kandidat/{{$item->pengalaman_kerja_id}}" class="btn btn-primary">Lihat Galeri</a>
+                                                            </td>                                                    
                                                         </tr>
                                                     @endforeach
                                                 </tbody>

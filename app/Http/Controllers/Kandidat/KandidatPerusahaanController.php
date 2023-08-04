@@ -22,7 +22,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\PersetujuanKandidat;
 use App\Models\Interview;
 use App\Models\CreditPerusahaan;
-
+use App\Models\LaporanPekerja;
 
 class KandidatPerusahaanController extends Controller
 {
@@ -240,6 +240,13 @@ class KandidatPerusahaanController extends Controller
                     'tmp_bekerja' => 'required',
                     'jabatan' => 'required',
                     'tgl_mulai_kerja' => 'required'
+                ]);
+                LaporanPekerja::create([
+                    'nama_kandidat' => $kandidat->nama,
+                    'id_kandidat' => $kandidat->id_kandidat,
+                    'tmp_bekerja' => $request->tmp_bekerja,
+                    'jabatan' => $request->jabatan,
+                    'tgl_kerja' => $request->tgl_kerja,
                 ]);
             } else {
                 $validated = $request->validate([

@@ -31,24 +31,6 @@
                             </div>
                         </div>
                         <hr>
-                        <b class="bold">Email Perusahaan</b>
-                        <p><b class="">{{$perusahaan->email_perusahaan}}</b></p>
-                        <hr>
-                        <b class="bold">No. Telp Perusahaan</b>
-                        <p><b class="bold">{{$perusahaan->no_telp_perusahaan}}</b></p>
-                        <hr>
-                        <b class="bold">Alamat Perusahaan</b>
-                        <p><b class="bold">{{$perusahaan->alamat_perusahaan}}</b></p>
-                        <hr>
-                        <b class="bold">Nama Operator</b>
-                        <p><b class="bold">{{$perusahaan->nama_operator}}</b></p>
-                        <hr>
-                        <b class="bold">No. Telp Operator</b>
-                        <p><b class="bold">{{$perusahaan->no_telp_operator}}</b></p>
-                        <hr>
-                        <b class="bold">Email Operator</b>
-                        <p><b class="">{{$perusahaan->email_operator}}</b></p>
-                        <hr>
                         @if (auth()->user()->verify_confirmed !== null)
                             <span class="badge badge-pill badge-info">Verified</span>
                         @endif
@@ -84,38 +66,24 @@
                                 <div class="text-center text-white" style="text-transform:uppercase;"><b>Bio Data Perusahaan</b></div>
                             </div>
                             <div class="card-body">
-                                <div class="row mb-5">
+                                <div class="row mb-3">
                                     <div class="col-12">
                                         <b class="bold">Nama Perusahaan : {{$perusahaan->nama_perusahaan}}</b>
                                         <hr>
-                                        <b class="bold">No. NIB : {{$perusahaan->no_nib}}</b>
+                                        <b class="bold">Alamat Perusahaan : {{$perusahaan->kota}}</b>
+                                        <p><b class="bold"></b></p>
                                         <hr>
                                         <b class="bold">Nama Pemimpin : {{$perusahaan->nama_pemimpin}}</b>
                                         <hr>
-                                        <b class="bold">Company Profile :</b>
-                                        <p><b class="bold">{{$perusahaan->company_profile}}</b></p>
+                                        <b class="bold">Company Profile : {{$perusahaan->company_profile}}</b>
+                                        <p><b class="bold"></b></p>
                                         <hr>
-                                        <b class="bold">Penempatan Kerja :</b>
-                                        <p><b class="bold">{{$perusahaan->penempatan_kerja}}</b></p>
-                                        <hr>
-                                        <b class="bold">Negara Tujuan :</b>
-                                        <div class="row">
-                                        @foreach ($penempatan as $item)
-                                        <div class="col-4 text-center">
-                                            <a class="" href="/lihat/perusahaan/pekerjaan/{{$item->negara_id}}/{{$perusahaan->nama_perusahaan}}">
-                                                <div class="card">
-                                                    <div class="card-body btn btn-outline-success">
-                                                        <div class="btn">{{$item->nama_negara}}</div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>    
-                                        @endforeach
-                                        </div>
+                                        <b class="bold">Penempatan Kerja : {{$perusahaan->penempatan_kerja}}</b>
+                                        <p><b class="bold"></b></p>
                                         <hr>
                                     </div>
                                 </div>
-                                <div class="row">
+                                {{-- <div class="row">
                                     <div class="col-12">
                                         <div class="card">
                                             <div class="card-header">
@@ -149,13 +117,72 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>    
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <b class="bold">Negara Tujuan :</b>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            @foreach ($penempatan as $item)
+                                <div class="col-4 text-center">
+                                    <a class="" href="/lihat/perusahaan/pekerjaan/{{$item->negara_id}}/{{$perusahaan->nama_perusahaan}}">
+                                        <div class="card">
+                                            <div class="card-body btn btn-outline-success">
+                                                <div class="btn">{{$item->nama_negara}}</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>    
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <b class="bold">List Lowongan Pekerjaan Perusahaan</b>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th scope="col" style="">Nama Jabatan</th>
+                                        <th scope="col">Negara</th>
+                                        <th scope="col" style="">Pencarian Kandidat</th>
+                                        <th scope="col" style="width: 0px;">Lihat Detail</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($lowongan as $item)
+                                        <tr class="text-center">
+                                            <td>{{$item->jabatan}}</td>
+                                            <td>{{$item->negara}}</td>
+                                            <td>{{$item->pencarian_tmp}}</td>
+                                            <td>
+                                                <a class="btn btn-outline-primary" href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat Lowongan</a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

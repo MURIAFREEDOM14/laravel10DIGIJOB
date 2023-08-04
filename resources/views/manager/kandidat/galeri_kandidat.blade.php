@@ -1,9 +1,9 @@
-@extends('layouts.kandidat')
+@extends('layouts.manager')
 @section('content')
     <div class="container mt-5">
         <div class="card">
             <div class="card-header">
-                <h5 style="font-weight: 600">Pengalaman Kerja</h5>
+                <h5 style="font-weight:600">Pengalaman Kerja</h5>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -13,7 +13,7 @@
                                 <b class="bold">Nama Pengalaman Kerja</b>
                             </div>
                             <div class="col-8">
-                                : {{$pengalaman_kerja->nama_perusahaan}}
+                                : {{$pengalaman->nama_perusahaan}}
                             </div>
                         </div>
                         <hr>
@@ -22,7 +22,7 @@
                                 <b class="bold">Alamat Pengalaman Kerja</b>
                             </div>
                             <div class="col-8">
-                                : {{$pengalaman_kerja->alamat_perusahaan}}
+                                : {{$pengalaman->alamat_perusahaan}}
                             </div>
                         </div>
                         <hr>
@@ -31,7 +31,7 @@
                                 <b class="bold">Jabatan</b>
                             </div>
                             <div class="col-8">
-                                : {{$pengalaman_kerja->jabatan}}
+                                : {{$pengalaman->jabatan}}
                             </div>
                         </div>
                         <hr>
@@ -40,7 +40,7 @@
                                 <b class="bold">Periode</b>
                             </div>
                             <div class="col-8">
-                                : {{date('d-M-Y',strtotime($pengalaman_kerja->periode_awal))}} Sampai {{date('d-M-Y',strtotime($pengalaman_kerja->periode_akhir))}}
+                                : {{date('d-M-Y',strtotime($pengalaman->periode_awal))}} Sampai {{date('d-M-Y',strtotime($pengalaman->periode_akhir))}}
                             </div>
                         </div>
                         <hr>
@@ -49,7 +49,7 @@
                                 <b class="bold">Alasan Berhenti</b>
                             </div>
                             <div class="col-8">
-                                : {{$pengalaman_kerja->alasan_berhenti}}
+                                : {{$pengalaman->alasan_berhenti}}
                             </div>
                         </div>
                         <hr>
@@ -92,14 +92,4 @@
             </div>
         </div>
     </div>
-    <script>
-        var video = document.getElementById("video");
-        function playPause() {
-            if (video.paused) {
-                video.play();
-            } else {
-                video.pause();
-            }
-        }
-    </script>
 @endsection

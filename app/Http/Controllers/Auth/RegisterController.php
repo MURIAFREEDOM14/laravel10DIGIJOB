@@ -103,7 +103,7 @@ class RegisterController extends Controller
                 'check_password' => $data['password'],
             ]);
         } else {
-            return redirect('/laman');
+            return redirect()->route('laman');
         }
     }
 

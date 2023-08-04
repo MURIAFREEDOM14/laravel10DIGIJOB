@@ -260,6 +260,16 @@
                                                 <span class="sub-item">Penolakan Kandidat</span>
                                             </a>
                                         </li>
+                                        <li>
+                                            <a class="btn" href="/manager/kandidat/penghapusan_kandidat">
+                                                <span class="sub-item">Penghapusan Kandidat</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="btn" href="/manager/kandidat/laporan_kandidat">
+                                                <span class="sub-item">Laporan Kerja Kandidat</span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -494,6 +504,35 @@
                         swal.close();
                     }
                 });    
+            }
+
+            function hapusData(ev)
+            {
+                ev.preventDefault();
+                var url = ev.currentTarget.getAttribute('href');
+                console.log(url);
+                swal({
+                    title: 'Apakah anda yakin ingin Menghapus data ini?',
+                    type: 'warning',
+                    icon: 'warning',
+                    buttons:{
+                        confirm: {
+                            text : 'Iya',
+                            className : 'btn btn-success'
+                        },
+                        cancel: {
+                            visible: true,
+                            text:'tidak',
+                            className: 'btn btn-danger'
+                        }
+                    }
+                }).then((Delete) => {
+                    if (Delete) {
+                        window.location.href = url;
+                    } else {
+                        swal.close();
+                    }
+                });
             }
 
             function hapusNegara(ev)

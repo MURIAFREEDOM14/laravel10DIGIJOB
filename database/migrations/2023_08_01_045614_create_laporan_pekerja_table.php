@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('laporan_pekerja', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_kandidat')->nullable();
+            $table->integer('id_kandidat')->nullable();
+            $table->text('tmp_bekerja')->nullable();
+            $table->string('jabatan')->nullable();
+            $table->date('tgl_kerja')->nullable();
             $table->timestamps();
         });
     }

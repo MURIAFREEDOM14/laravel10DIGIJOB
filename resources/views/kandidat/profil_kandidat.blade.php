@@ -23,7 +23,7 @@
                 </div>
                 <div class="row ml-5 mt-3 mb-3"><b class="bold">PERSONAL BIO DATA</b></div>
                 <div class ="row" style="line-height:20px">
-                    <div class="col-md-8">
+                    <div class="col-md-9">
                         <div class="row" style="line-height:20px">
                             <div class="col-sm-4">
                                 <b class="bold">NAMA LENGKAP</b>
@@ -85,12 +85,12 @@
                             </div>
                         </div>                                
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="float-right mt--5">
                             @if ($kandidat->foto_set_badan !== null)
-                                <img class="avatar-img rounded-circle" style="border:2px solid black" src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" alt="">
+                                <img class="img" src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" alt="">
                             @else
-                                <img class="avatar-img rounded-circle" style="border:2px solid black" src="/gambar/default_user.png" width="150" height="150" alt="">
+                                <img class="img" src="/gambar/default_user.png" width="150" height="150" alt="">
                             @endif
                         </div>
                     </div>
