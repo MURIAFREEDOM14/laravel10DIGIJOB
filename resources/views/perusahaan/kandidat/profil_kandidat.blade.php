@@ -5,7 +5,7 @@
         <div class="card-header rounded-top bg-primary">
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="text-center text-light"><b class="bold" style="font-size: 25px; text-transform:uppercase; border-bottom:2px solid white">Profil Kandidat</b></div>
+                    <div class="text-center text-light"><b class="bold" style="font-size: 25px; text-transform:uppercase; border-bottom:2px solid white">Biodata Kandidat</b></div>
                     {{-- <h6 class="text-center text-light" style="line-height:20px; text-transform:uppercase;">{{$negara->negara}}</h6> --}}
                 </div>
             </div>
@@ -47,7 +47,7 @@
                             <b class="bold">Usia</b>
                         </div>
                         <div class="col-sm-5">
-                            <b class="bold">: {{$usia}}</b>
+                            <b class="bold">: {{$usia}} Tahun</b>
                         </div>
                     </div>
                     <div class="row" style="line-height:20px">
@@ -71,7 +71,14 @@
                             <b class="bold">Asal</b>
                         </div>
                         <div class="col-sm-6">
-                            <b class="bold">: Dsn. {{$kandidat->dusun}}, RT/RW : 0{{$kandidat->rt}}/0{{$kandidat->rw}}, Kel/Desa : {{$kandidat->kelurahan}}, Kec. {{$kandidat->kecamatan}}, {{$kandidat->kabupaten}}, {{$kandidat->provinsi}}</b>
+                            <b class="bold">
+                                @if ($kandidat->stat_pemilik == "dimiliki")
+                                    : Dsn. {{$kandidat->dusun}}, RT/RW : {{$kandidat->rt}}/ {{$kandidat->rw}}, Kel/Desa : {{$kandidat->kelurahan}}, Kec. {{$kandidat->kecamatan}}, {{$kandidat->kabupaten}}, {{$kandidat->provinsi}}                                    
+                                @else
+                                    
+                                @endif
+                                    : {{$kandidat->kabupaten}}
+                            </b>
                         </div>
                     </div>                                
                 </div>
@@ -133,7 +140,7 @@
             <a href="/perusahaan/list_permohonan_lowongan" class="btn btn-primary">Kembali</a>
         </div>        
     </div>
-    <div class="row">
+    {{-- <div class="row">
         <div class="col">
             <div class="card">
                 <div class="card-header">
@@ -167,6 +174,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>        
 @endsection

@@ -18,7 +18,7 @@
                             <select name="penempatan" required class="form-control" id="negara_tujuan">
                                 <option value="">-- Pilih Negara Penempatan --</option>
                                 @foreach ($negara as $item)                                    
-                                    <option value="{{$item->negara_id}}">{{$item->negara}}</option>                                                                        
+                                    <option value="{{$item->negara}}">{{$item->negara}}</option>                                                                        
                                 @endforeach
                             </select>
                         </div>
@@ -48,6 +48,9 @@
                             @elseif($perusahaan->penempatan_kerja == "Luar negeri")
                                 <select name="lvl_pekerjaan" required class="form-control" id="">
                                     <option value="">-- Tentukan Jenis Pekerja --</option>
+                                    @foreach ($jenis_pekerjaan as $item)
+                                        <option value="{{$item->judul}}">{{$item->judul}}</option>
+                                    @endforeach
                                 </select>
                             @endif  
                         </div>
@@ -114,7 +117,7 @@
                             <input type="number" required placeholder="Usia Minimal" name="usia_min" class="form-control" id="">
                         </div>
                         <div class="col-md-4">
-                            <input type="number" required placeholder="Usia Maksimal" name="usia_mak" class="form-control" id="">
+                            <input type="number" required placeholder="Usia Maksimal" name="usia_maks" class="form-control" id="">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -124,11 +127,11 @@
                         <div class="col-md-8">
                             <div class="form-check">
                                 <label class="form-radio-label">
-                                    <input class="form-radio-input" type="radio" name="optionsRadios" value=""  checked="">
+                                    <input class="form-radio-input" type="radio" name="pengalaman_kerja" value="non"  checked="">
                                     <span class="form-radio-sign">Non</span>
                                 </label>
                                 <label class="form-radio-label ml-3">
-                                    <input class="form-radio-input" type="radio" name="optionsRadios" value="">
+                                    <input class="form-radio-input" type="radio" name="pengalaman_kerja" value="ex">
                                     <span class="form-radio-sign">Ex / Berpengalaman</span>
                                 </label>
                             </div>
@@ -139,7 +142,7 @@
                             <label for="" class="col-form-label">Tinggi Badan Minimal</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="number" name="tinggi" placeholder="Masukkan Tinggi" class="form-control" id="">
+                            <input type="number" required name="tinggi" placeholder="Masukkan Tinggi" class="form-control" id="">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -228,7 +231,7 @@
                                 <div class="input-group-prepend" id="">
                                   <span class="input-group-text" id="mata_uang1"></span>
                                 </div>
-                                <input type="text" name="gaji_minimum" id="" placeholder="Gaji Minimum" class="form-control">
+                                <input type="text" required name="gaji_minimum" id="" placeholder="Gaji Minimum" class="form-control">
                             </div>
                         </div>
                         <div class="col-4">
@@ -236,7 +239,7 @@
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="mata_uang2"></span>
                                 </div>
-                                <input type="text" name="gaji_maksimum" id="" placeholder="Gaji Maksimum" class="form-control">
+                                <input type="text" required name="gaji_maksimum" id="" placeholder="Gaji Maksimum" class="form-control">
                             </div>
                         </div>
                     </div>

@@ -107,6 +107,7 @@
                             </span>
                         </div>
                         <div class="mt-3">Sudah punya akun?<a href="/login" class="ms-1 btn btn-link">Login</a></div>
+                        <div class="">Bingung cara untuk daftar?<button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-link">Yuk lihat video ini</button></div>
                         <button type="submit" id="btn" disabled="true" class="btn btn-primary mt-3">
                             {{ __('Register') }}
                         </button>
@@ -115,6 +116,6 @@
             </div>
         </div>
         <div class="col-md-3"></div>
-    </div>
+    </div>    
 </div>
 @endsection

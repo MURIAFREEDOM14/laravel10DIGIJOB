@@ -396,12 +396,12 @@
                                         </ul>
                                     </div>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a  href="/perusahaan/list/akademi">
                                         <i class="fas fa-th-list"></i>
                                         <p>Data Akademi</p>
                                     </a>
-                                </li>
+                                </li> --}}
                                 <li class="nav-item">
                                     <a  href="/perusahaan/interview">
                                         <i class="fas fa-th-list"></i>

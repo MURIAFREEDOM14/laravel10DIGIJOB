@@ -3,161 +3,6 @@
 @include('sweetalert::alert')
 @include('flash_message')
     <div class="container mt-5">
-        {{-- <div class="card">
-            <div class="card-header">
-                <h5 style="font-weight: bold">Lihat Lowongan</h5>
-            </div>
-            <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label for="" class="">Negara Tujuan</label>
-                    </div>
-                    <div class="col-md-8">
-                        <div class=""><b class="bold">: {{$lowongan->negara}}</b></div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label for="" class="">Jabatan</label>
-                    </div>
-                    <div class="col-md-4">
-                        <div class=""><b class="bold">: {{$lowongan->jabatan}}</b></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <label for="" class="">Gambar</label>
-                    </div>
-                    <div class="col-md-8">
-                        @if ($lowongan->gambar_lowongan !== null)
-                            <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Lowongan Pekerjaan/{{$lowongan->gambar_lowongan}}" width="250" height="250" alt="" class="img">
-                        @else
-                            <img src="/gambar/default_user.png" width="250" height="250" alt="" class="img">
-                        @endif
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <hr>
-                        <h5 style="font-weight:bold">Persyaratan</h5>
-                        <hr>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label for="" class="">Jenis Kelamin</label>
-                    </div>
-                    <div class="col-md-4">
-                        <div class=""><b class="bold">: 
-                            @if ($lowongan->jenis_kelamin == "M")
-                                Laki-laki
-                            @elseif($lowongan->jenis_kelamin == "F")
-                                Perempuan
-                            @else
-                                Laki-laki & Perempuan
-                            @endif
-                        </b></div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label for="" class="">Pendidikan</label>
-                    </div>
-                    <div class="col-md-4">
-                        <div class=""><b class="bold">: {{$lowongan->pendidikan}}</b></div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label for="" class="">Usia</label>
-                    </div>
-                    <div class="col-md-4">
-                        <div class=""><b class="bold">: 
-                            @if ($lowongan->usia == null)
-                                Tidak ada batasan
-                            @else
-                                {{$lowongan->usia}}
-                            @endif
-                        </b></div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label for="" class="">Pengalaman Bekerja</label>
-                    </div>
-                    <div class="col-md-8">
-                        <div class=""><b class="bold">: 
-                            @if ($lowongan->pengalaman_kerja == null)
-                                Tidak ada batasan
-                            @else
-                                {{$lowongan->pengalaman_kerja}}
-                            @endif
-                        </b></div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label for="" class="">Berat Badan</label>
-                    </div>
-                    <div class="col-md-4">
-                        <div class=""><b class="bold">: 
-                            @if ($lowongan->berat == null)
-                                Tidak ada batasan
-                            @else
-                                {{$lowongan->berat}}
-                            @endif
-                        </b></div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label for="" class="">Tinggi Badan</label>
-                    </div>
-                    <div class="col-md-4">
-                        <div class=""><b class="bold">: 
-                            @if ($lowongan->tinggi == null)
-                                Tidak ada batasan
-                            @else
-                                {{$lowongan->tinggi}}
-                            @endif
-                        </b></div>
-                    </div>
-                </div>
-                <div class="row mb-3">   
-                    <div class="col-4">
-                        <label>Kriteria Lokasi</label>
-                    </div>  
-                    <div class="col-8">
-                        <div class=""><b class="bold">: 
-                            @if ($lowongan->pencarian_tmp == null)
-                                Se-Indonesia
-                            @else
-                                {{$lowongan->pencarian_tmp}}
-                            @endif
-                        </b></div>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-4">
-                        <label for="" class="">Tanggal Tutup Lowongan</label>
-                    </div>
-                    <div class="col-8">
-                        <div class=""><b class="bold">: {{date('d-M-Y',strtotime($lowongan->ttp_lowongan))}}</b></div>
-                    </div>
-                </div>
-                <hr>
-                <div class="row mb-3">
-                    <div class="col-4">
-                        <label for="" class="">Kode Undangan</label>
-                    </div>
-                    <div class="col-8">
-                        <div class=""><b class="bold">: {{$perusahaan->referral_code}}</b></div>
-                    </div>
-                </div>
-                <hr>
-                <a class="btn btn-danger" href="/perusahaan/list/lowongan">Kembali</a>
-            </div>
-        </div> --}}
         <div class="card">
             <div class="card-header">
                 <h4><b class="bold">Informasi Lowongan</b></h4>
@@ -239,7 +84,7 @@
                 <hr>
                 <div  class="row">
                     <div class="col-md-3">
-                        <label for="" class="">Pendidikan</label>
+                        <label for="" class="">Pendidikan Minimal</label>
                     </div>
                     <div class="col-md-8">
                         <div class=""><b class="bold">: {{$lowongan->pendidikan}}</b></div>
@@ -249,10 +94,10 @@
                 @if ($lowongan->usia !== null)
                     <div  class="row">
                         <div class="col-md-3">
-                            <label for="" class="">Usia</label>
+                            <label for="" class="">Syarat Usia</label>
                         </div>
                         <div class="col-md-8">
-                            <div class=""><b class="bold">: {{$lowongan->usia}} Sampai {{$lowongan->usia}}</b></div>
+                            <div class=""><b class="bold">: {{$lowongan->usia}} tahun Sampai {{$lowongan->usia}} tahun</b></div>
                         </div>
                     </div>
                     <hr>    
@@ -262,13 +107,7 @@
                         <label for="" class="">Pengalaman Kerja</label>
                     </div>
                     <div class="col-md-8">
-                        <div class=""><b class="bold">: 
-                            @if ($lowongan->pengalaman_kerja == null)
-                                Tidak ada batasan
-                            @else    
-                                {{$lowongan->pengalaman_kerja}}
-                            @endif
-                        </b></div>
+                        <div class=""><b class="bold">: {{$lowongan->pengalaman_kerja}}</b></div>
                     </div>
                 </div>
                 <hr>
@@ -283,7 +122,7 @@
                     </div>
                     <hr>
                 @endif
-                @if ($lowongan->usia_min !== null && $lowongan->usia_maks)
+                @if ($lowongan->usia !== null && $lowongan->usia !== null)
                     <div  class="row">
                         <div class="col-md-3">
                             <label for="" class="">Berat Badan Minimal</label>
@@ -303,7 +142,7 @@
                 @if ($lowongan->pencarian_tmp !== null)
                     <div  class="row">
                         <div class="col-md-3">
-                            <label for="" class="">Area Pencarian Kandidat</label>
+                            <label for="" class="">Area Rekrut Pekerja</label>
                         </div>
                         <div class="col-md-8">
                             <div class=""><b class="bold">: {{$lowongan->pencarian_tmp}}</b></div>
@@ -317,6 +156,18 @@
                     </div>
                 </div>
                 <hr>
+                @if ($lowongan->benefit !== null)
+                    <div  class="row">
+                        <div class="col-md-3">
+                            <label for="" class="">Benefit Pekerjaan</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class=""><b class="bold">: {{($lowongan->benefit)}}
+                            </b></div>
+                        </div>
+                    </div>
+                    <hr>    
+                @endif
                 @if ($lowongan->mata_uang !== null)
                     <div  class="row">
                         <div class="col-md-3">
@@ -340,20 +191,14 @@
                     </div>
                     <hr>
                 @endif
-                @if ($lowongan->benefit !== null)
-                    <div  class="row">
-                        <div class="col-md-3">
-                            <label for="" class="">Benefit Pekerjaan</label>
-                        </div>
-                        <div class="col-md-8">
-                            <div class=""><b class="bold">: {{($lowongan->benefit)}}
-                            </b></div>
-                        </div>
+                <div  class="row">
+                    <div class="col-md-3">
+                        <label for="" class="">Kode Undangan Perusahaan</label>
                     </div>
-                    <hr>    
-                @endif
-                
-                
+                    <div class="col-md-8">
+                        <div class=""><b class="bold">: {{$perusahaan->referral_code}}</b></div>
+                    </div>
+                </div>
                 <hr>
                 @if ($lowongan->ttp_lowongan !== null)
                     <div class="row">
@@ -366,33 +211,9 @@
                     </div>
                     <hr>
                 @endif
-                @if ($lowongan->tgl_interview !== null)
-                    <div  class="row">
-                        <div class="col-md-3">
-                            <label for="" class="">Tanggal Interview</label>
-                        </div>
-                        <div class="col-md-8">
-                            <div class=""><b class="bold">: {{date('d-M-Y',strtotime($lowongan->tgl_interview))}}</b></div>
-                        </div>
-                    </div>
-                    <hr>    
-                @endif
-                <div  class="row">
-                    <div class="col-md-3">
-                        <label for="" class="">Kode Undangan Perusahaan</label>
-                    </div>
-                    <div class="col-md-8">
-                        <div class=""><b class="bold">: {{$perusahaan->referral_code}}</b></div>
-                    </div>
-                </div>
-                
-                
-                
-                
-                
-                
-                
-                <a href="/kandidat" class="btn btn-danger">Kembali</a>
+                <a class="btn btn-danger float-right" href="/perusahaan/hapus_lowongan/{{$lowongan->id_lowongan}}" onclick="hapusData(event)">Hapus</a>
+                <a class="btn btn-warning float-right mx-2" href="/perusahaan/edit_lowongan/{{$lowongan->id_lowongan}}">Edit</a>
+                <a href="/perusahaan/list/lowongan" class="btn btn-danger"><- Kembali</a>
             </div>
         </div>
     </div>

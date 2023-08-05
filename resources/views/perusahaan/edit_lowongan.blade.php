@@ -58,6 +58,11 @@
                             @elseif($perusahaan->penempatan_kerja == "Luar negeri")
                                 <select name="lvl_pekerjaan" required class="form-control" id="">
                                     <option value="">-- Tentukan Jenis Pekerja --</option>
+                                    @foreach ($jenis_pekerjaan as $item)
+                                        <option value="{{$item->nama}}" @if ($lowongan->jenis_pekerjaan == $item->jenis_pekerjaan)
+                                            selected
+                                        @endif>{{$item->nama}}</option>
+                                    @endforeach
                                 </select>
                             @endif  
                         </div>
@@ -67,7 +72,7 @@
                             <label for="" class="col-form-label">Deskripsi Pekerjaan</label>
                         </div>
                         <div class="col-md-8">
-                            <textarea name="deskripsi" required id="" class="form-control">{{$lowongan->deskripsi}}</textarea>
+                            <textarea name="deskripsi" required id="" class="form-control">{{$lowongan->isi}}</textarea>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -262,7 +267,7 @@
                                 <div class="input-group-prepend" id="">
                                   <span class="input-group-text" id="mata_uang1">{{$lowongan->mata_uang}}</span>
                                 </div>
-                                <input type="text" name="gaji_minimum" id="" placeholder="Gaji Minimum" class="form-control">
+                                <input type="text" name="gaji_minimum" value="{{$lowongan->gaji_minimum}}" id="" placeholder="Gaji Minimum" class="form-control">
                             </div>
                         </div>
                         <div class="col-4">
@@ -270,7 +275,7 @@
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="mata_uang2">{{$lowongan->mata_uang}}</span>
                                 </div>
-                                <input type="text" name="gaji_maksimum" id="" placeholder="Gaji Maksimum" class="form-control">
+                                <input type="text" name="gaji_maksimum" value="{{$lowongan->gaji_maksimum}}" id="" placeholder="Gaji Maksimum" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -293,8 +298,8 @@
                         </div>
                     </div>
                     <hr>
-                    <a href="/perusahaan/list/lowongan" class="btn btn-danger">Kembali</a>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <a href="/perusahaan/lihat_lowongan/{{$lowongan->id_lowongan}}" class="btn btn-danger">Kembali</a>
+                    <button type="submit" class="btn btn-warning">Ubah</button>
                 </form>
             </div>
         </div>

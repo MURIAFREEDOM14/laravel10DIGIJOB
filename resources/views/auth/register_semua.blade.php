@@ -31,5 +31,26 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="tutorial_kandidat" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Tutorial Daftar</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                        <div class="modal-body text-center">
+                            <video id="video" style="width: 50%;">
+                                <source class="" src="/gambar/Manager/Tutorial/Cara Register di DIGIJOB.mp4">
+                            </video>
+                            <div class="">
+                                <button class="btn btn-success mb-2" type="button" onclick="playPause()">Mulai/Jeda</button>
+                            </div>
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

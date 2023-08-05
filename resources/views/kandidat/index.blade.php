@@ -86,23 +86,24 @@
                     <b class="bold">Informasi Lowongan Pekerjaan</b>
                 </div>
                 <div class="card-body">
-                    @foreach ($lowongan as $item)
-                    <div class="row mb-3">
-                        <div class="col-md-12 ">
-                            <div class="input-group mb-3">
-                                <div class="form-control">      
-                                    <marquee behavior="" direction="">{{$item->nama_perusahaan}}, Lowongan: {{$item->jabatan}} </marquee>
+                    @if ($lowongan)
+                        @foreach ($lowongan as $item)
+                            <div class="row mb-3">
+                                <div class="col-md-12 ">
+                                    <div class="input-group mb-3">
+                                        <div class="form-control">      
+                                            <marquee behavior="" direction="">{{$item->nama_perusahaan}}, Lowongan: {{$item->jabatan}} </marquee>
+                                        </div>
+                                        <div class="input-group-append">
+                                            @if ($kandidat->id_perusahaan == null && $kandidat->negara_id !== null)
+                                                <a class="btn btn-outline-primary" href="/profil_perusahaan/{{$item->id_perusahaan}}">Lihat</a>                                        
+                                            @endif
+                                        </div>
+                                    </div>        
                                 </div>
-                                <div class="input-group-append">
-                                    @if ($kandidat->id_perusahaan == null && $kandidat->negara_id !== null)
-                                        <a class="btn btn-outline-primary" href="/profil_perusahaan/{{$item->id_perusahaan}}">Lihat</a>                                        
-                                    @endif
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>    
-                    @endforeach
+                            </div>    
+                        @endforeach    
+                    @endif
                 </div>
             </div>
         </div>

@@ -26,7 +26,7 @@ use App\Models\notifyKandidat;
 use App\Models\messageKandidat;
 use App\Models\notifyAkademi;
 use App\Models\messageAkademi;
-
+use App\Models\JenisPekerjaan;
 
 class PerusahaanRecruitmentController extends Controller
 {
@@ -210,9 +210,13 @@ class PerusahaanRecruitmentController extends Controller
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        $negara = Negara::all();
-        
-        return view('perusahaan/tambah_lowongan',compact('perusahaan','notif','pesan','cabang','credit','negara'));
+        if($perusahaan->penempatan_kerja == "Dalam negeri"){
+            $negara = Negara::where('negara','like',"%Indonesia%")->get();
+        } else {
+            $negara = Negara::where('negara','not like',"%Indonesia%")->get();
+        }
+        $jenis_pekerjaan = JenisPekerjaan::all();
+        return view('perusahaan/tambah_lowongan',compact('perusahaan','notif','pesan','cabang','credit','negara','jenis_pekerjaan'));
     }
 
     protected function lowonganNegara(Request $request)
@@ -225,9 +229,9 @@ class PerusahaanRecruitmentController extends Controller
     {
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-        $penempatan = Negara::where('negara_id',$request->penempatan)->first();
+        $penempatan = Negara::where('negara',$request->penempatan)->first();
         if($request->benefit !== null){
-            $benefit = implode(",",$request->benefit); 
+            $benefit = implode(", ",$request->benefit); 
         } else {
             $benefit = null;
         }
@@ -247,25 +251,29 @@ class PerusahaanRecruitmentController extends Controller
         if ($penempatan !== null) {
             $mata_uang = $penempatan->mata_uang;
             $penempatan = $penempatan->negara;
+            $negara_id = $penempatan->negara_id;
         } else {
             $mata_uang = null;
             $penempatan = null;
+            $negara_id=null;
         }
         LowonganPekerjaan::create([
-            'usia' => $request->usia,
+            'usia_min' => $request->usia_min,
+            'usia_maks' => $request->usia_maks,
             'jabatan' => $request->jabatan,
             'pendidikan' => $request->pendidikan,
             'jenis_kelamin' => $request->jenis_kelamin,
             'pengalaman_kerja' => $request->pengalaman_kerja,
-            'berat' => $request->berat,
+            'berat_min' => $request->berat_min,
+            'berat_maks' => $request->berat_maks,
             'tinggi' => $request->tinggi,
             'pencarian_tmp' => $request->pencarian_tmp,
             'id_perusahaan' => $perusahaan->id_perusahaan,
             'isi' => $request->deskripsi,
             'negara' => $penempatan,
+            'negara_id' => $negara_id,
             'ttp_lowongan' => $request->ttp_lowongan,
             'gambar_lowongan' => $gambar_flyer,
-            'tgl_interview' => $request->tgl_interview,
             'lvl_pekerjaan' => $request->lvl_pekerjaan,
             'mata_uang' => $mata_uang,
             'gaji_minimum' => $request->gaji_minimum,
@@ -295,9 +303,14 @@ class PerusahaanRecruitmentController extends Controller
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_perusahaan','not like',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        $negara = Negara::where('negara_id','not like',2)->get();
+        if($perusahaan->penempatan_kerja == "Dalam negeri") {
+            $negara = Negara::where('negara','like',"%Indonesia%")->first();
+        } else {
+            $negara = Negara::where('negara','not like',"%Indonesia%")->get();
+        }        
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/edit_lowongan',compact('perusahaan','pesan','notif','lowongan','cabang','negara','credit'));
+        $jenis_pekerjaan = JenisPekerjaan::all();
+        return view('perusahaan/edit_lowongan',compact('perusahaan','pesan','notif','lowongan','cabang','negara','credit','jenis_pekerjaan'));
     }
 
     public function updateLowongan(Request $request, $id)
@@ -305,7 +318,7 @@ class PerusahaanRecruitmentController extends Controller
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
-        $penempatan = Negara::where('negara_id',$request->penempatan)->first();
+        $penempatan = Negara::where('negara',$request->penempatan)->first();
         if($request->file('gambar') !== null){
             // $this->validate($request, [
             //     'foto_perusahaan' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
@@ -332,7 +345,7 @@ class PerusahaanRecruitmentController extends Controller
         }
         
         if($request->benefit !== null){
-            $benefit = implode(",",$request->benefit); 
+            $benefit = implode(", ",$request->benefit); 
         } else {
             $benefit = null;
         }
@@ -340,17 +353,21 @@ class PerusahaanRecruitmentController extends Controller
         if($penempatan !== null){
             $mata_uang = $penempatan->mata_uang;
             $penempatan = $penempatan->negara;
+            $negara_id = $penempatan->negara_id;
         } else {
             $mata_uang = null;
             $penempatan = null;
+            $negara_id = null;
         }
         LowonganPekerjaan::where('id_lowongan',$id)->update([
-            'usia' => $request->usia,
+            'usia_min' => $request->usia_min,
+            'usia_maks' => $request->usia_maks,
             'jabatan' => $request->jabatan,
             'pendidikan' => $request->pendidikan,
             'jenis_kelamin' => $request->jenis_kelamin,
             'pengalaman_kerja' => $request->pengalaman_kerja,
-            'berat' => $request->berat,
+            'berat_min' => $request->berat_min,
+            'berat_maks' => $request->berat_maks,
             'tinggi' => $request->tinggi,
             'pencarian_tmp' => $request->pencarian_tmp,
             'id_perusahaan' => $perusahaan->id_perusahaan,
@@ -358,7 +375,7 @@ class PerusahaanRecruitmentController extends Controller
             'ttp_lowongan' => $request->ttp_lowongan,
             'gambar_lowongan' => $gambar_flyer,
             'negara' => $penempatan,
-            'tgl_interview' => $request->tgl_interview,
+            'negara_id' => $negara_id,
             'lvl_pekerjaan' => $request->lvl_pekerjaan,
             'mata_uang' => $mata_uang,
             'gaji_minimum' => $request->gaji_minimum,

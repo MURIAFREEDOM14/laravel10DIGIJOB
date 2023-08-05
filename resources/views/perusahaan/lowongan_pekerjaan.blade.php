@@ -17,7 +17,6 @@
                                 <th>Nama Jabatan</th>
                                 <th>Negara Tujuan</th>
                                 <th>Lihat Detail</th>
-                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -28,18 +27,14 @@
                                     <td>{{$item->negara}}</td>
                                     <td>
                                         <a class="" href="/perusahaan/lihat_lowongan/{{$item->id_lowongan}}">
-                                            <div class="avatar-xl">
+                                            <div class="avatar avatar-xl">
                                                 @if ($item->gambar_lowongan !== null)
-                                                    <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Lowongan Pekerjaan/{{$item->gambar_lowongan}}" alt="" class="avatar-img rounded-circle img">
+                                                    <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Lowongan Pekerjaan/{{$item->gambar_lowongan}}" alt="" class="avatar-img rounded-circle">
                                                 @else
-                                                    <img src="/gambar/default_user.png" alt="" class="avatar-img rounded-circle img">
+                                                    <img src="/gambar/default_user.png" alt="" class="avatar-img rounded-circle">
                                                 @endif
                                             </div>
                                         </a>
-                                    </td>
-                                    <td class="text-center">
-                                        <a class="btn btn-warning" href="/perusahaan/edit_lowongan/{{$item->id_lowongan}}">Edit</a>
-                                        <a class="btn btn-danger" href="/perusahaan/hapus_lowongan/{{$item->id_lowongan}}" onclick="hapusData(event)">Hapus</a>
                                     </td>
                                 </tr>    
                             @endforeach

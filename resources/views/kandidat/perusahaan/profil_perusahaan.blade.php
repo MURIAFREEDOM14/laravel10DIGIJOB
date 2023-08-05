@@ -127,8 +127,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <b class="bold">Negara Tujuan :</b>
+                    <div class="card-header" style="background-color:#31ce36">
+                        <div class="text-center text-white" style="text-transform:uppercase;"><b>Negara Tujuan</b></div>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -151,8 +151,8 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <b class="bold">List Lowongan Pekerjaan Perusahaan</b>
+                    <div class="card-header" style="background-color: #31ce36">
+                        <div class="text-center text-white" style="text-transform:uppercase;"><b>List Lowongan Pekerjaan Perusahaan</b></div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -174,7 +174,7 @@
                                             <td>
                                                 <a class="btn btn-outline-primary" href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat Lowongan</a>
                                             </td>
-                                        </tr>
+                                        </tr>                                        
                                     @endforeach
                                 </tbody>
                             </table>

@@ -50,6 +50,11 @@ class PerusahaanController extends Controller
         $interview = Interview::where('status',"terjadwal")->where('id_perusahaan',$perusahaan->id_perusahaan)->get();        
         $notifyP = notifyPerusahaan::where('created_at','<',Carbon::now()->subDays(14))->delete();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        $penempatan = Negara::join(
+            'pekerjaan', 'ref_negara.negara_id','=','pekerjaan.negara_id'
+        )
+        ->where('pekerjaan.id_perusahaan',$perusahaan->id_perusahaan)->get();
+        $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
         if(!$credit){
             $credit = CreditPerusahaan::create([
                 'id_perusahaan' => $perusahaan->id_perusahaan,
@@ -60,7 +65,7 @@ class PerusahaanController extends Controller
         User::where('no_nib',$perusahaan->no_nib)->update([
             'counter' => null,
         ]);
-        return view('perusahaan/index',compact('perusahaan','cabang','notif','interview','pesan','credit'));
+        return view('perusahaan/index',compact('perusahaan','cabang','notif','interview','pesan','credit','penempatan','lowongan'));
     }
 
     public function gantiPerusahaan($id)
@@ -607,13 +612,17 @@ class PerusahaanController extends Controller
         $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
         $interview = Interview::where('id_kandidat',$kandidat->id_kandidat)->first();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        $semua_kandidat = Kandidat::
-        where('kandidat.penempatan','like','%'.$perusahaan->penempatan_kerja.'%')
-        ->where('kandidat.id_kandidat','not like',$id)->whereNull('stat_pemilik')->limit(12)->get();
+        
+        // $semua_kandidat = Kandidat::join(
+        //     'permohonan_lowongan', 'kandidat.id_kandidat','=','permohonan_lowongan.id_kandidat'
+        // )
+        // ->where('kandidat.id_perusahaan','like','%'.$perusahaan->id_perusahaan.'%')
+        // ->where('kandidat.id_kandidat','not like',$id)->whereNull('stat_pemilik')->limit(12)->get();
+        
         return view('perusahaan/kandidat/profil_kandidat',compact(
             'kandidat','pengalaman_kerja_kandidat','perusahaan',
-            'usia','tgl_user','semua_kandidat',
-            'interview','notif','pesan','cabang',
+            'usia','tgl_user','pesan',
+            'interview','notif','cabang',
             'credit','video',
         ));
     }

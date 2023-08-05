@@ -112,6 +112,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.26.9/dist/sweetalert2.all.min.js"></script>
     <script src="/js/captcha.js"></script>
 
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
     <!-- Template Main JS File -->
     <script src="/Arsha/assets/js/main.js"></script>
     <script>
@@ -126,5 +128,10 @@
       }
       grecaptcha.execute();
     </script>
+    <script>
+      $(window).on('load',function() {
+      $('#tutorial_kandidat').modal('show');                                                   
+      });
+  </script>
   </body>
 </html>

@@ -4,6 +4,15 @@
 @include('flash_message')
     <div class="container mt-5">
         <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 style="font-family: poppins; text-transform:uppercase;">{{$perusahaan->nama_perusahaan}}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             @if ($perusahaan->email_operator == null)
                 <div class="col-md-12">
                     <div class="card">
@@ -14,59 +23,115 @@
                     </div>
                 </div>
             @else
-                <div class="col-md-6">
+                <div class="col-3">
                     <div class="card">
-                        <div class="card-header">
-                            <b class="bold">Kandidat</b>
-                        </div>
                         <div class="card-body">
-                            <div class="card">
-                                <div class="card-body">
-                                    <a href="/perusahaan/list/kandidat">
-                                        <div id="kandidat" class="carousel slide" data-ride="carousel">
-                                            <div class="carousel-inner">
-                                                <div class="carousel-item active" data-interval="30">
-                                                    <img src="/gambar/default_user.png" class="d-block w-100" alt="">
-                                                </div>
-                                                <div class="carousel-item" data-interval="30">
-                                                    <img src="/gambar/default_user.png" class="d-block w-100" alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
+                            <div class="row">
+                                <div class="col-md-12 text-center" style="background-color:#31ce36">
+                                    <div class="avatar avatar-xxl my-3">
+                                        @if ($perusahaan->logo_perusahaan == null)
+                                            <img src="/gambar/default_user.png" class="avatar-img rounded-circle" alt="">
+                                        @else
+                                            <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Logo Perusahaan/{{$perusahaan->logo_perusahaan}}" alt="..." class="avatar-img rounded-circle">                                        
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <b class="bold">Email Perusahaan</b>
+                            <p><b class="bold">{{$perusahaan->email_perusahaan}}</b></p>
+                            <hr>
+                            <b class="bold">No. Telp Perusahaan</b>
+                            <p><b class="bold">{{$perusahaan->no_telp_perusahaan}}</b></p>
+                            <hr>
+                            <b class="bold">Alamat Perusahaan</b>
+                            <p><b class="bold">{{$perusahaan->kota}}</b></p>
+                            <hr>
+                            <b class="bold">Nama Operator</b>
+                            <p><b class="bold">{{$perusahaan->nama_operator}}</b></p>
+                            <hr>
+                            <b class="bold">No. Telp Operator</b>
+                            <p><b class="bold">{{$perusahaan->no_telp_operator}}</b></p>
+                            <hr>
+                            <b class="bold">Email Operator</b>
+                            <p><b class="bold">{{$perusahaan->email_operator}}</b></p>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-9">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <b class="bold">Nama Perusahaan : {{$perusahaan->nama_perusahaan}}</b>
+                                    <hr>
+                                    <b class="bold">No. NIB : {{$perusahaan->no_nib}}</b>
+                                    <hr>
+                                    <b class="bold">Nama Pemimpin : {{$perusahaan->nama_pemimpin}}</b>
+                                    <hr>
+                                    <b class="bold">Company Profile :</b>
+                                    <p><b class="bold">{{$perusahaan->company_profile}}</b></p>
+                                    <hr>
+                                    <b class="bold">Penempatan Kerja :</b>
+                                    <p><b class="bold">{{$perusahaan->penempatan_kerja}}</b></p>
+                                    <hr>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6">
                     <div class="card">
-                        <div class="card-header">
-                            <b class="bold">Akademi</b>
+                        <div class="card-header" style="background-color:#31ce36">
+                            <div class="text-center text-white" style="text-transform:uppercase;"><b>Negara Tujuan</b></div>
                         </div>
                         <div class="card-body">
-                            <div class="card">
-                                <div class="card-body">
-                                    <a href="/perusahaan/list/akademi">
-                                        <div id="akademi" class="carousel slide" data-ride="carousel">
-                                            <div class="carousel-inner">
-                                                <div class="carousel-item active" data-interval="2000">
-                                                    <img src="/gambar/default_user.png" class="d-block w-100" alt="">
-                                                </div>
-                                                <div class="carousel-item" data-interval="2000">
-                                                    <img src="/gambar/default_user.png" class="d-block w-100" alt="">
-                                                </div>
-                                                <div class="carousel-item">
-                                                    <img src="/gambar/default_user.png" class="d-block w-100" alt="">
+                            <div class="row">
+                                @foreach ($penempatan as $item)
+                                    <div class="col-4 text-center">
+                                        <a class="" href="/lihat/perusahaan/pekerjaan/{{$item->negara_id}}/{{$perusahaan->nama_perusahaan}}">
+                                            <div class="card">
+                                                <div class="card-body btn btn-outline-success">
+                                                    <div class="btn">{{$item->negara}}</div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </a>
-                                </div>
+                                        </a>
+                                    </div>    
+                                @endforeach
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <div style="text-transform:uppercase; font-weight:bold" class="text-center">Lowongan Pekerjaan</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th scope="col" style="">Judul Lowongan</th>
+                                            <th scope="col" style="">Negara</th>
+                                            <th scope="col" style="">Pencarian Kandidat</th>
+                                            <th scope="col" style="">Lihat Detail</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($lowongan as $item)
+                                            <tr class="text-center">
+                                                <td>{{$item->jabatan}}</td>
+                                                <td>{{$item->negara}}</td>
+                                                <td>{{$item->pencarian_tmp}}</td>
+                                                <td>
+                                                    <a class="btn btn-outline-primary" href="/perusahaan/lihat_lowongan/{{$item->id_lowongan}}">Lihat Lowongan</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
             @endif
         </div>
         <div class="row">

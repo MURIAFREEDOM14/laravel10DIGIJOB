@@ -48,9 +48,9 @@ class KandidatController extends Controller
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
         $notifyK = notifyKandidat::where('created_at','<',Carbon::now()->subDays(14))->delete();
         $lowongan = LowonganPekerjaan::join(
-            'perusahaan','lowongan_pekerjaan.id_perusahaan','=','perusahaan.id_perusahaan'
+            'perusahaan', 'lowongan_pekerjaan.id_perusahaan','=','perusahaan.id_perusahaan'
         )
-        ->where('penempatan_kerja','like','%'.$kandidat->penempatan.'%')->get();
+        ->where('perusahaan.penempatan_kerja','like','%'.$kandidat->penempatan.'%')->get();
         $cari_perusahaan = null;
         $perusahaan_semua = Perusahaan::whereNotNull('email_operator')->where('penempatan_kerja','like','%'.$kandidat->penempatan.'%')->get();
         if($kandidat->id_perusahaan !== null){
