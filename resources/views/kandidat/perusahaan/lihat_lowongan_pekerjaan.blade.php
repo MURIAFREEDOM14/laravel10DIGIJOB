@@ -209,9 +209,14 @@
                     </div>
                     <hr>
                 @endif
-                <a class="btn btn-danger float-right" href="/perusahaan/hapus_lowongan/{{$lowongan->id_lowongan}}" onclick="hapusData(event)">Hapus</a>
-                <a class="btn btn-warning float-right mx-2" href="/perusahaan/edit_lowongan/{{$lowongan->id_lowongan}}">Edit</a>
-                <a href="/perusahaan/list/lowongan" class="btn btn-danger"><- Kembali</a>
+                <a href="/kandidat" class="btn btn-danger">Kembali</a>
+                @if(!$interview)
+                    @if ($lowongan->jabatan == $jabatan)
+                        <a href="/permohonan_lowongan/{{$lowongan->id_lowongan}}" class="btn btn-primary float-right" onclick="return confirm('apakah anda ingin menganti lamaran sebelumnya?')">Melamar</a>                    
+                    @else
+                        <a href="/permohonan_lowongan/{{$lowongan->id_lowongan}}" class="btn btn-primary float-right">Melamar</a>
+                    @endif
+                @endif
             </div>
         </div>
         {{-- <div class="card">
