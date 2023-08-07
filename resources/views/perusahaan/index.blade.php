@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h3 style="font-family: poppins; text-transform:uppercase;">{{$perusahaan->nama_perusahaan}}</h3>
+                        <h3 style="text-transform:uppercase;">{{$perusahaan->nama_perusahaan}}</h3>
                     </div>
                 </div>
             </div>
