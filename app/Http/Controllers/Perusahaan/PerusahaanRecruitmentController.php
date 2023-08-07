@@ -250,12 +250,12 @@ class PerusahaanRecruitmentController extends Controller
 
         if ($penempatan !== null) {
             $mata_uang = $penempatan->mata_uang;
-            $penempatan = $penempatan->negara;
             $negara_id = $penempatan->negara_id;
+            $penempatan = $penempatan->negara;
         } else {
             $mata_uang = null;
-            $penempatan = null;
             $negara_id=null;
+            $penempatan = null;
         }
         LowonganPekerjaan::create([
             'usia_min' => $request->usia_min,
