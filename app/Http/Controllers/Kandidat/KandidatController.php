@@ -1136,16 +1136,20 @@ class KandidatController extends Controller
         // $portofolio = Portofolio::where('pengalaman_kerja_id',$id)->get();
         
         $video = VideoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->first();
-        $hapus_video_kerja = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$video->video;
+        if($video){
+            $hapus_video_kerja = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$video->video;
             if(file_exists($hapus_video_kerja)){
                 @unlink($hapus_video_kerja);
             }
+        }
         $foto = FotoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->first();    
-        $hapus_foto_kerja = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$foto->foto;
+        if($foto){
+            $hapus_foto_kerja = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$foto->foto;
             if(file_exists($hapus_foto_kerja)){
                 @unlink($hapus_foto_kerja);
             }
-                
+        }
+           
         // Portofolio::where('pengalaman_kerja_id',$id)->delete();
         VideoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->delete();
         FotoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->delete();    
