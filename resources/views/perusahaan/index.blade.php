@@ -153,16 +153,6 @@
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                @if ($perusahaan->penempatan_kerja == "Luar negeri")
-                                <button class="btn btn-link btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
-                                    Penempatan Kerja
-                                  </button>
-                                  <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="/perusahaan/negara_tujuan">Penempatan Kerja</a>                                                                
-                                </div>    
-                                @endif
-                            </div>
-                            <div class="col-md-2">
                                 <div class="dropdown">
                                     <button class="btn btn-link btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
                                       Data Kandidat
@@ -202,6 +192,16 @@
                                       <a class="dropdown-item" href="/perusahaan/list/pmi_id">Kandidat PMI ID</a>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-md-2">
+                                @if ($perusahaan->penempatan_kerja == "Luar negeri")
+                                <button class="btn btn-link btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
+                                    Penempatan Kerja
+                                  </button>
+                                  <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="/perusahaan/negara_tujuan">Penempatan Kerja</a>                                                                
+                                </div>    
+                                @endif
                             </div>
                         </div>
                         <hr>
