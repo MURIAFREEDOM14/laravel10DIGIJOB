@@ -18,7 +18,7 @@
                     <div class="card">
                         <div class="card-body text-center">
                             <h5 style="font-weight: 600">Harap Lengkapi Profil Perusahaan Terlebih dahulu</h5>
-                            <a href="/isi_perusahaan_data" class="btn btn-outline-primary">Lengkapi Profil</a>
+                            <a href="/perusahaan/isi_perusahaan_data" class="btn btn-outline-primary">Lengkapi Profil</a>
                         </div>
                     </div>
                 </div>
