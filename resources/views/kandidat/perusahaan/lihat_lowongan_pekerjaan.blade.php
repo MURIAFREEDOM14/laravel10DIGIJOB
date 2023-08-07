@@ -166,7 +166,7 @@
                     </div>
                     <hr>    
                 @endif
-                @if ($lowongan->mata_uang !== null)
+                @if ($lowongan->mata_uang !== null && $lowongan->gaji_minimum !== null && $lowongan->gaji_maksimum !== null)
                     <div  class="row">
                         <div class="col-md-3">
                             <label for="" class="">Mata Uang</label>
@@ -187,7 +187,7 @@
                             <div class=""><b class="bold">Gaji Maksimum: {{($lowongan->gaji_maksimum)}}</b></div>
                         </div>
                     </div>
-                    <hr>
+                    <hr>    
                 @endif
                 <div  class="row">
                     <div class="col-md-3">
