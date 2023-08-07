@@ -332,6 +332,12 @@
                                 </div>
                             </li>
                             <li class="nav-item">
+                                <a class="btn" href="/manager/search_email">
+                                    <i class="fas fa-th-list"></i>
+                                    <p>Verifikasi Email</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="btn" href="/manager/contact_us_admin">
                                     <i class="fas fa-th-list"></i>
                                     <p>Contact Us</p>

@@ -798,5 +798,16 @@ class ManagerController extends Controller
         return view('manager/riwayat_pembayaran_perusahaan',compact('manager','pembayaran'));        
     }
 
-    
+    public function emailVerify()
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $pengguna = User::all();
+        return view('manager/email_verify',compact('manager','pengguna'));
+    }    
+
+    public function sendEmailVerify(Request $request)
+    {
+        
+    }
 }

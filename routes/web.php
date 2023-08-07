@@ -61,6 +61,10 @@ Route::controller(ManagerController::class)->group(function() {
     Route::get('/manager/kandidat/cetak_surat/{id}','cetakSurat')->middleware('manager');
     Route::get('/manager/kandidat/surat_izin_waris','cetakSuratKosong');
 
+    Route::get('/manager/search_email','searchEmail')->middleware('manager');
+    Route::get('/manager/email_verify/{id}','emailVerify')->middleware('manager');
+    Route::post('/manager/email_verify/{id}','sendEmailVerify');
+    
     // DATA KANDIDAT // 
     Route::get('/manager/kandidat/lihat_profil/{id}','lihatProfil')->middleware('manager');
     Route::get('/manager/kandidat/galeri_kandidat/{id}','galeriKandidat')->middleware('manager');
