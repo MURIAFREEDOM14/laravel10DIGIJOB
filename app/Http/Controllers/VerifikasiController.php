@@ -128,10 +128,10 @@ class VerifikasiController extends Controller
             
             } elseif($verifyUser->type == 1) {
                 $newKode = \Hashids::encode($verifyUser->id.$verifyUser->no_telp);
-                // User::where('token',$token)->update([
-                //     'verify_confirmed' => $newKode,
-                //     'referral_code' => $newKode,
-                // ]);
+                User::where('token',$token)->update([
+                    'verify_confirmed' => $newKode,
+                    'referral_code' => $newKode,
+                ]);
                 $akademi = Akademi::where('referral_code',$verifyUser->referral_code)->first(); 
                 $user = Auth::user();
                 if($user->password == null){
@@ -150,10 +150,10 @@ class VerifikasiController extends Controller
                 }
             } elseif($verifyUser->type == 2){    
                 $newKode = \Hashids::encode($verifyUser->id.$verifyUser->no_telp);
-                // User::where('token',$token)->update([
-                //     'verify_confirmed' => $newKode,
-                //     'referral_code' => $newKode,
-                // ]);
+                User::where('token',$token)->update([
+                    'verify_confirmed' => $newKode,
+                    'referral_code' => $newKode,
+                ]);
                 $perusahaan = Perusahaan::where('referral_code',$verifyUser->referral_code)->first(); 
                 $user = Auth::user();
                 if($user->password == null){
