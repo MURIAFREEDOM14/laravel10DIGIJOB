@@ -16,7 +16,10 @@
                     </div>
                     <div class="col-3"></div>
                 </div>
-                <button class="btn btn-success float-left mb-2" type="button" onclick="playPause()">Mulai/Jeda</button>
+                <div class="text-center">
+                    <button class="btn btn-success mb-2" id="play" type="button" onclick="play()">Mulai</button>
+                    <button class="btn btn-warning mb-2" id="jeda" type="button" onclick="pause()">Jeda</button>
+                </div>
                 @elseif($type == "foto")
                 <div class="row">
                     <div class="col-3"></div>

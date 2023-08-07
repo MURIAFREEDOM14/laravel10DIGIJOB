@@ -85,6 +85,12 @@
             #alasan {
                 display: none;
             }
+            #jeda {
+                display: none;
+            }
+            #play {
+                display: block;
+            }
         </style>
     </head>
     <body>
@@ -753,13 +759,23 @@
         </script>
         <script>
             var video = document.getElementById("video");
-              function playPause() {
-                  if (video.paused) {
-                      video.play();
-                  } else {
-                      video.pause();
-                  }
-              }
+            var btnPlay = document.getElementById('play');
+            var btnJeda = document.getElementById('jeda');
+            function play() {
+                if (video.paused) {
+                video.play();
+                btnJeda.style.display = 'block';
+                btnPlay.style.display = 'none';
+                }
+            }
+
+            function pause() {
+                if (video.play) {
+                video.pause();
+                btnPlay.style.display = 'block';
+                btnJeda.style.display = 'none';
+                }
+            }
         </script>
     </body>
 </html>

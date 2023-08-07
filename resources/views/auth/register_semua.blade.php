@@ -40,10 +40,11 @@
                     </div>
                         <div class="modal-body text-center">
                             <video id="video" style="width: 50%;">
-                                <source class="" src="/gambar/Manager/Tutorial/Cara Register di DIGIJOB.mp4">
+                                <source class="" src="/gambar/Manager/Tutorial/Registrasi DIGIJOB UGIPORT.mp4">
                             </video>
-                            <div class="">
-                                <button class="btn btn-success mb-2" type="button" onclick="playPause()">Mulai/Jeda</button>
+                            <div class="text-center">
+                                <button class="btn btn-success mb-2" id="play" type="button" onclick="play()">Mulai</button>
+                                <button class="btn btn-warning mb-2" id="jeda" type="button" onclick="pause()">Jeda</button>
                             </div>
                         </div>
                     <div class="modal-footer">

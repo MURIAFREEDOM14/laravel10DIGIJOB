@@ -38,7 +38,10 @@
                             <video id="video">
                                 <source class="" src="/gambar/Kandidat/{{$kandidat->nama}}/Pengalaman Kerja/{{$video->video}}">
                             </video>
-                            <button class="btn btn-success mb-2" type="button" onclick="playPause()">Mulai/Jeda</button>
+                            <div class="text-center">
+                                <button class="btn btn-success mb-2" id="play" type="button" onclick="play()">Mulai</button>
+                                <button class="btn btn-warning mb-2" id="jeda" type="button" onclick="pause()">Jeda</button>
+                            </div>
                             <input type="file" name="video" id="" class="form-control" accept="video/*">
                         </div>
                     </div>

@@ -36,6 +36,12 @@
         #foto_pengalaman {
           display: none;
         }
+        #jeda {
+          display: none;
+        }
+        #play {
+          display: block;
+        }
       </style>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     </head>
@@ -205,13 +211,23 @@
       </script>
       <script>
         var video = document.getElementById("video");
-          function playPause() {
-              if (video.paused) {
-                  video.play();
-              } else {
-                  video.pause();
-              }
+        var btnPlay = document.getElementById('play');
+        var btnJeda = document.getElementById('jeda');
+        function play() {
+          if (video.paused) {
+          video.play();
+          btnJeda.style.display = 'block';
+          btnPlay.style.display = 'none';
           }
+        }
+
+        function pause() {
+          if (video.play) {
+          video.pause();
+          btnPlay.style.display = 'block';
+          btnJeda.style.display = 'none';
+          }
+        }
       </script>
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     </body>

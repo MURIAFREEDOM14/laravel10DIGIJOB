@@ -41,7 +41,10 @@
                                     <video width="400" class="" id="video">
                                         <source src="/gambar/Kandidat/{{$pengalaman_kerja->nama_kandidat}}/Pengalaman Kerja/{{$pengalaman_kerja->video_pengalaman_kerja}}">
                                     </video>
-                                    <button class="btn btn-success mb-2" type="button" onclick="playPause()">Mulai/Jeda</button>
+                                    <div class="text-center">
+                                        <button class="btn btn-success mb-2" id="play" type="button" onclick="play()">Mulai</button>
+                                        <button class="btn btn-warning mb-2" id="jeda" type="button" onclick="pause()">Jeda</button>
+                                    </div>
                                     <input type="file" name="video" class="form-control" id="video" aria-describedby="emailHelp" accept="video/*">
                                     <small>Usahakan untuk ukuran video 3mb</small>                                
                                 @else
@@ -70,15 +73,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        var video = document.getElementById("video");
-        function playPause() {
-            if (video.paused) {
-                video.play();
-            } else {
-                video.pause();
-            }
-        }
-    </script>
 @endsection

@@ -12,8 +12,8 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            @if ($perusahaan->email_operator == null)
+        @if ($perusahaan->email_operator == null)
+            <div class="row">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body text-center">
@@ -22,17 +22,19 @@
                         </div>
                     </div>
                 </div>
-            @else
-                <div class="col-3">
+            </div>
+        @else
+            <div class="row">
+                <div class="col-md-3">
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12 text-center" style="background-color:#31ce36">
                                     <div class="avatar avatar-xxl my-3">
                                         @if ($perusahaan->logo_perusahaan == null)
-                                            <img src="/gambar/default_user.png" class="avatar-img rounded-circle" alt="">
+                                            <img src="/gambar/default_user.png" class="avatar-img rounded-circle img2" alt="">
                                         @else
-                                            <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Logo Perusahaan/{{$perusahaan->logo_perusahaan}}" alt="..." class="avatar-img rounded-circle">                                        
+                                            <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Logo Perusahaan/{{$perusahaan->logo_perusahaan}}" alt="..." class="avatar-img rounded-circle img2">                                        
                                         @endif
                                     </div>
                                 </div>
@@ -80,7 +82,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card">
+                    {{-- <div class="card">
                         <div class="card-header" style="background-color:#31ce36">
                             <div class="text-center text-white" style="text-transform:uppercase;"><b>Negara Tujuan</b></div>
                         </div>
@@ -130,53 +132,126 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
-                </div>    
-            @endif
-        </div>
-        <div class="row">
-            <div class="col-6">
-                <div class="card">
-                    <div class="card-header">
-                        Data Kandidat
-                    </div>
-                    <div class="card-body">
-                        
+                    </div> --}}
+                </div>
+            </div> 
+            <div class="row">
+                <div class="col-12" style="background-color: white;">
+                    <div class=" mb-3">
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="dropdown">
+                                    <button class="btn btn-link btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
+                                      Lowongan Pekerjaan
+                                    </button>
+                                    <div class="dropdown-menu">
+                                      <a class="dropdown-item" href="/perusahaan/list/lowongan">Lowongan Pekerjaan</a>
+                                      <a class="dropdown-item" href="/perusahaan/list_permohonan_lowongan">Pelamar</a>
+                                      <a class="dropdown-item" href="/perusahaan/persetujuan_kandidat">Persetujuan Kandidat</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                @if ($perusahaan->penempatan_kerja == "Luar negeri")
+                                <button class="btn btn-link btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
+                                    Penempatan Kerja
+                                  </button>
+                                  <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="/perusahaan/negara_tujuan">Penempatan Kerja</a>                                                                
+                                </div>    
+                                @endif
+                            </div>
+                            <div class="col-md-2">
+                                <div class="dropdown">
+                                    <button class="btn btn-link btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
+                                      Data Kandidat
+                                    </button>
+                                    <div class="dropdown-menu">
+                                      <a class="dropdown-item" href="/perusahaan/list/kandidat">Data Kandidat</a>
+                                      <a class="dropdown-item" href="/perusahaan/cari/kandidat">Cari Kandidat</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="dropdown">
+                                    <button class="btn btn-link btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
+                                      Data Interview
+                                    </button>
+                                    <div class="dropdown-menu">
+                                      <a class="dropdown-item" href="/perusahaan/interview">Data Interview</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="dropdown">
+                                    <button class="btn btn-link btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
+                                      Data Pembayaran
+                                    </button>
+                                    <div class="dropdown-menu">
+                                      <a class="dropdown-item" href="/perusahaan/list/pembayaran">Data Pembayaran</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="dropdown">
+                                    <button class="btn btn-link btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
+                                      Kandidat PMI ID
+                                    </button>
+                                    <div class="dropdown-menu">
+                                      <a class="dropdown-item" href="/perusahaan/list/pmi_id">Kandidat PMI ID</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
                     </div>
                 </div>
             </div>
-            <div class="col-6">
-                <div class="card">
-                    <div class="card-header">
-                        Data Kandidat Interview
+            <div class="row mt-3">
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-header">
+                            Data Kandidat
+                        </div>
+                        <div class="card-body">
+                            
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="basic-datatables" class="display table table-striped table-hover" >
-                                <thead>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Jadwal</th>
-                                        <th>Lihat Detail</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($interview as $item)
-                                    <tr>
-                                        <td>{{$loop->iteration}}</td>
-                                        <td>{{$item->jadwal_interview}}</td>
-                                        <td>
-                                            <a href="/perusahaan/lihat/kandidat/{{$item->id_kandidat}}">Lihat</a>
-                                        </td>
-                                    </tr>    
-                                    @endforeach
-                                    
-                                </tbody>
-                            </table>
+                </div>
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-header">
+                            Data Kandidat Interview
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="basic-datatables" class="display table table-striped table-hover" >
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Jadwal</th>
+                                            <th>Lihat Detail</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($interview as $item)
+                                        <tr>
+                                            <td>{{$loop->iteration}}</td>
+                                            <td>{{$item->jadwal_interview}}</td>
+                                            <td>
+                                                <a href="/perusahaan/lihat/kandidat/{{$item->id_kandidat}}">Lihat</a>
+                                            </td>
+                                        </tr>    
+                                        @endforeach
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
 @endsection

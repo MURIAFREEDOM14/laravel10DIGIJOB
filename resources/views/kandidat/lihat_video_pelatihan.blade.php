@@ -11,7 +11,10 @@
                         <video width="250" height="250" class="" id="video">
                             <source src="/gambar/Manager/Pelatihan/{{$video->judul}}/Video/{{$video->video}}" type="video/mp4">
                         </video>
-                        <button type="button" class="btn btn-success" onclick="playPause()">Mulai / Jeda</button>
+                        <div class="text-center">
+                            <button class="btn btn-success mb-2" id="play" type="button" onclick="play()">Mulai</button>
+                            <button class="btn btn-warning mb-2" id="jeda" type="button" onclick="pause()">Jeda</button>
+                        </div>
                         <button type="button" class="" onclick="fullsize()">Ukuran Penuh</button>
                     </div>
                     <div class="col-md-6">

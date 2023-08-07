@@ -1078,6 +1078,7 @@ class KandidatController extends Controller
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         if($type == "video"){
             $video = VideoKerja::where('video_kerja_id',$id)->first();
+            $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$video->pengalaman_kerja_id)->first();
             $hapus_video_kerja = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$video->video;
                 if(file_exists($hapus_video_kerja)){
                     @unlink($hapus_video_kerja);
@@ -1085,13 +1086,14 @@ class KandidatController extends Controller
             VideoKerja::where('video_kerja_id',$id)->delete();
         } elseif($type == "foto"){
             $foto = FotoKerja::where('foto_kerja_id',$id)->first();
+            $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$foto->pengalaman_kerja_id)->first();
             $hapus_foto = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$foto->foto;
                 if(file_exists($hapus_foto)){
                     @unlink($hapus_foto);
                 }
             FotoKerja::where('foto_kerja_id',$id)->delete();
         }
-        return back()->with('success',"Data Telah dihapus");
+        return redirect('/lihat_kandidat_pengalaman_kerja/'.$pengalaman->pengalaman_kerja_id)->with('success',"Data Telah dihapus");
     }
 
     public function editPengalamanKerja($id)

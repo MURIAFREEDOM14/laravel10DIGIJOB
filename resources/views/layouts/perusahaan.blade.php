@@ -66,6 +66,12 @@
                 width: 100%;
                 height: auto;
             }
+            #jeda {
+                display: none;
+            }
+            #play {
+                display: block;
+            }
         </style>
     </head>
     <body>
@@ -324,7 +330,7 @@
                                     <p>Dashboard</p>
                                 </a>
                             </li>
-                            @if ($perusahaan->email_operator !== null)
+                            {{-- @if ($perusahaan->email_operator !== null)
                                 <li class="nav-section">
                                     <span class="sidebar-mini-icon">
                                         <i class="fa fa-ellipsis-h"></i>
@@ -396,12 +402,6 @@
                                         </ul>
                                     </div>
                                 </li>
-                                {{-- <li class="nav-item">
-                                    <a  href="/perusahaan/list/akademi">
-                                        <i class="fas fa-th-list"></i>
-                                        <p>Data Akademi</p>
-                                    </a>
-                                </li> --}}
                                 <li class="nav-item">
                                     <a  href="/perusahaan/interview">
                                         <i class="fas fa-th-list"></i>
@@ -433,7 +433,7 @@
                                     </span>
                                     <h4 class="text-section">Harap isi profil perusahaan terlebih dahulu</h4>
                                 </li>
-                            @endif
+                            @endif --}}
                         </ul>
                     </div>
                 </div>
@@ -643,13 +643,23 @@
         </script>
         <script>
             var video = document.getElementById("video");
-              function playPause() {
-                  if (video.paused) {
-                      video.play();
-                  } else {
-                      video.pause();
-                  }
-              }
+            var btnPlay = document.getElementById('play');
+            var btnJeda = document.getElementById('jeda');
+            function play() {
+                if (video.paused) {
+                video.play();
+                btnJeda.style.display = 'block';
+                btnPlay.style.display = 'none';
+                }
+            }
+
+            function pause() {
+                if (video.play) {
+                video.pause();
+                btnPlay.style.display = 'block';
+                btnJeda.style.display = 'none';
+                }
+            }
         </script>
         @livewireScripts
     </body>
