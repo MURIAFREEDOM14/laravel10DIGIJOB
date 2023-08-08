@@ -56,7 +56,7 @@
         <ul>
           {{-- <li><a class="nav-link scrollto active" style="color: black" href="#hero">Beranda</a></li> --}}
           {{-- <li><a class="nav-link scrollto disabled" style="color: gray;" href="/about_us">Tentang</a></li> --}}
-          <li><a class="nav-link scrollto" style="color: black;" href="/register">Registrasi</a></li>
+          {{-- <li><a class="nav-link scrollto" style="color: black;" href="/register">Registrasi</a></li> --}}
           <li><a class="nav-link scrollto" style="color: black;" href="/login">Masuk</a></li>
           {{-- <li><a class="nav-link scrollto disabled" style="color: gray" href="/perbaikan">Portfolio</a></li> --}}
           <li><a class="nav-link scrollto" style="color: black" href="/hubungi_kami">Hubungi Kami</a></li>
