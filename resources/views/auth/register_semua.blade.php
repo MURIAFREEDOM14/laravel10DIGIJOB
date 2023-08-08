@@ -31,6 +31,16 @@
                 </div>
             </div>
         </div>
+        <div class="row mb-3">
+            <div class="col-md-10 mx-auto">
+                <div class="card" style="border-top: 10px solid ">
+                    <div class="card-body text-center">
+                        <p style="text-transform:uppercase">Masuk Aplikasi</p>
+                        <a class="btn btn-outline-primary" href="/login">Masuk</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="tutorial_kandidat" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
