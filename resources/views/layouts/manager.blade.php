@@ -4,7 +4,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <title>DIGIJOB-UGIPORT</title>
         <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-        <link rel="icon" href="/Atlantis/examples/assets/img/icon.ico" type="image/x-icon"/>
+        <link rel="icon" href="/gambar/icon.ico" type="image/x-icon"/>
         <style>
             .bold{
                 font-size: 11px;
@@ -48,7 +48,13 @@
             }
             #hidebtn{
                 display: none;
-            }            
+            }
+            #jeda {
+                display: none;
+            }
+            #play {
+                display: block;
+            }
         </style>
         <!-- Fonts and icons -->
         <script src="/Atlantis/examples/assets/js/plugin/webfont/webfont.min.js"></script>
@@ -618,6 +624,26 @@
                     }
                 }
             });
+        </script>
+        <script>
+            var video = document.getElementById("video");
+            var btnPlay = document.getElementById('play');
+            var btnJeda = document.getElementById('jeda');
+            function play() {
+                if (video.paused) {
+                video.play();
+                btnJeda.style.display = 'block';
+                btnPlay.style.display = 'none';
+                }
+            }
+
+            function pause() {
+                if (video.play) {
+                video.pause();
+                btnPlay.style.display = 'block';
+                btnJeda.style.display = 'none';
+                }
+            }
         </script>
         @livewireScripts
     </body>

@@ -57,6 +57,7 @@
           {{-- <li><a class="nav-link scrollto active" style="color: black" href="#hero">Beranda</a></li> --}}
           {{-- <li><a class="nav-link scrollto disabled" style="color: gray;" href="/about_us">Tentang</a></li> --}}
           <li><a class="nav-link scrollto" style="color: black;" href="/register">Registrasi</a></li>
+          <li><a class="nav-link scrollto" style="color: black;" href="/login">Masuk</a></li>
           {{-- <li><a class="nav-link scrollto disabled" style="color: gray" href="/perbaikan">Portfolio</a></li> --}}
           <li><a class="nav-link scrollto" style="color: black" href="/hubungi_kami">Hubungi Kami</a></li>
         </ul>
@@ -175,9 +176,12 @@
       <div class="container" data-aos="fade-up">
         <div class="section-title">
           <!-- Button trigger modal -->
-          <button type="button" class="btn btn-outline-primary" style="width: 15rem; height:3rem;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Daftar
-          </button>     
+          {{-- <button type="button" class="btn btn-outline-primary" style="width: 15rem; height:3rem;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Registrasi
+          </button>      --}}
+          <a class="btn btn-outline-primary" href="/register" style="width: 15rem; height:3rem;">
+            Registrasi
+          </a>     
         </div>
         <div class="section-title">
           <img src="/gambar/icon.ico" width="150" height="150" alt="">

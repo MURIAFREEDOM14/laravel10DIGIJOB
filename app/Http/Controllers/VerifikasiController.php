@@ -127,7 +127,7 @@ class VerifikasiController extends Controller
                 }
             
             } elseif($verifyUser->type == 1) {
-                $newKode = \Hashids::encode($verifyUser->id.$verifyUser->no_telp);
+                $newKode = \Hashids::encode($verifyUser->id.$verifyUser->no_nis);
                 User::where('token',$token)->update([
                     'verify_confirmed' => $newKode,
                     'referral_code' => $newKode,

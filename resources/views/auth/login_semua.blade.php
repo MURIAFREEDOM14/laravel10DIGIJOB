@@ -45,8 +45,11 @@
                             </div>
                         </div>
                         <div class=""><button type="button" class="btn btn-link mb-2" data-bs-toggle="modal" data-bs-target="#forgotPassword">Lupa Password</button></div>
-                        <div class="">Sudah Pernah Terdaftar?<a class="btn btn-link" href="/login/migration">Aktifkan Akun</a></div>                        
-                        <div class="">Belum punya akun?<button type="button" class="btn btn-link mb-2" data-bs-toggle="modal" data-bs-target="#newUser">Daftar yuk!!</button></div>
+                        {{-- <div class="">Sudah Pernah Terdaftar?<a class="btn btn-link" href="/login/migration">Aktifkan Akun</a></div>                         --}}
+                        <div class="">Belum punya akun?
+                          {{-- <button type="button" class="btn btn-link mb-2" data-bs-toggle="modal" data-bs-target="#newUser">Daftar yuk!!</button> --}}
+                          <a href="/register" class="btn btn-link mb-2" >Daftar yuk!!</a>
+                        </div>
                         <button type="submit" class="btn btn-primary float-right mr-2">Masuk</button>
                     </form> 
                 </div>
@@ -57,7 +60,7 @@
     <div class="mt-2" style="height: 3rem"></div>
 </div>
 
-<main id="main">
+{{-- <main id="main"> --}}
     <!-- ======= Services Section ======= -->
     <section id="services" class="services">
       <!-- Modal New User -->

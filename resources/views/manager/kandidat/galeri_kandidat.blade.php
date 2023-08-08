@@ -67,10 +67,10 @@
                     @foreach ($video as $item)
                         <div class="col-3">
                             <div class="card" style="border:2px solid #1269db">
-                                <a href="/lihat_galeri_pengalaman_kerja/{{$item->video_kerja_id}}/{{"video"}}">
+                                <a href="/manager/kandidat/lihat_galeri_kandidat/{{$item->video_kerja_id}}/{{"video"}}">
                                     <div class="card-body">
                                         <video id="video" height="auto">
-                                            <source class="" src="/gambar/Kandidat/{{$kandidat->nama}}/Pengalaman Kerja/{{$item->video}}">
+                                            <source class="" src="/gambar/Kandidat/{{$pengalaman->nama_kandidat}}/Pengalaman Kerja/{{$item->video}}">
                                         </video>
                                     </div>
                                 </a>
@@ -80,9 +80,9 @@
                     @foreach ($foto as $item)
                         <div class="col-3">
                             <div class="card" style="border:2px solid #1269db">
-                                <a href="/lihat_galeri_pengalaman_kerja/{{$item->foto_kerja_id}}/{{"foto"}}">
+                                <a href="/manager/kandidat/lihat_galeri_kandidat/{{$item->foto_kerja_id}}/{{"foto"}}">
                                     <div class="card-body">
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Pengalaman Kerja/{{$item->foto}}" style="width: 100%; height:auto;" class="" alt="">
+                                        <img src="/gambar/Kandidat/{{$pengalaman->nama_kandidat}}/Pengalaman Kerja/{{$item->foto}}" style="width: 100%; height:auto;" class="" alt="">
                                     </div>
                                 </a>
                             </div>

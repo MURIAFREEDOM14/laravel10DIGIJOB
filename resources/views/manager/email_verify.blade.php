@@ -19,7 +19,7 @@
                             @foreach ($pengguna as $item)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>                                    
-                                    <td>{{$item->email_perusahaan}}</td>                                    
+                                    <td>{{$item->email}}</td>                                    
                                     <td>
                                         <a class="btn btn-primary" href="/manager/email_verify/{{$item->id}}"><i class="fas fa-eye"></i></a>
                                     </td>                                    

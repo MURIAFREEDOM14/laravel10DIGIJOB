@@ -37,6 +37,8 @@ use App\Models\PMIID;
 use DB;
 use App\Models\VideoKerja;
 use App\Models\FotoKerja;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Payment;
 
 class ManagerController extends Controller
 {
@@ -270,7 +272,6 @@ class ManagerController extends Controller
         $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
         $usia = Carbon::parse($kandidat->tgl_lahir)->age;
         $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$id)->get();
-        
         if($kandidat->negara_id == null){
             Kandidat::where('id_kandidat',$id)->update([
                 'penempatan' => "dalam negeri",
@@ -303,8 +304,16 @@ class ManagerController extends Controller
         $manager = User::where('referral_code',$user->referral_code)->first();
         if($type == "video"){
             $video = VideoKerja::where('video_kerja_id',$id)->first();
+            $video_pengalaman = VideoKerja::where('pengalaman_kerja_id',$video->pengalaman_kerja_id)->get();
+            $foto_pengalaman = FotoKerja::where('pengalaman_kerja_id',$video->pengalaman_kerja_id)->get();
+            $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$video->pengalaman_kerja_id)->first();
+            return view('manager/kandidat/lihat_galeri_kandidat',compact('manager','type','id','video_pengalaman','video','foto_pengalaman','pengalaman'));
         } elseif($type == "foto") {
-
+            $foto = FotoKerja::where('foto_kerja_id',$id)->first();
+            $foto_pengalaman = FotoKerja::where('pengalaman_kerja_id',$foto->pengalaman_kerja_id)->get();
+            $video_pengalaman = VideoKerja::where('pengalaman_kerja_id',$foto->pengalaman_kerja_id)->get();
+            $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$foto->pengalaman_kerja_id)->first();
+            return view('manager/kandidat/lihat_galeri_kandidat',compact('manager','type','id','foto_pengalaman','foto','video_pengalaman','pengalaman'));
         }
     }
 
@@ -798,16 +807,52 @@ class ManagerController extends Controller
         return view('manager/riwayat_pembayaran_perusahaan',compact('manager','pembayaran'));        
     }
 
-    public function emailVerify()
+    public function searchEmail()
     {
         $user = Auth::user();
         $manager = User::where('referral_code',$user->referral_code)->first();
         $pengguna = User::all();
-        return view('manager/email_verify',compact('manager','pengguna'));
+        return view('manager/email_verify',compact('manager','pengguna'));        
+    }
+
+    public function emailVerify($id)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $pengguna = User::where('id',$id)->first();
+        return view('manager/send_email',compact('manager','pengguna'));
     }    
 
-    public function sendEmailVerify(Request $request)
+    public function sendEmailVerify(Request $request, $id)
     {
-        
+        $pengguna = User::where('email',$request->email)->first();
+        if($request->type == 0){
+            if($pengguna->type == 2){
+                Mail::send('mail.mail', ['token' => $pengguna->token,'nama' => $pengguna->name_perusahaan], function($message) use($request){
+                    $message->to($request->email);
+                    $message->subject('Email Verification Mail');
+                });    
+            } elseif($pengguna->type == 1) {
+                Mail::send('mail.mail', ['token' => $pengguna->token,'nama' => $pengguna->name_akademi], function($message) use($request){
+                    $message->to($request->email);
+                    $message->subject('Email Verification Mail');
+                });
+            } elseif($pengguna->type == 0) {
+                Mail::send('mail.mail', ['token' => $pengguna->token,'nama' => $pengguna->name], function($message) use($request){
+                    $message->to($request->email);
+                    $message->subject('Email Verification Mail');
+                });    
+            }
+        } elseif($request->type == 1) {
+            $namarec = "Hamepa";
+            $nomorec = 4399997272;
+            $payment = 0;
+            if($pengguna->type == 2){
+                Mail::mailer('payment')->to($request->email)->send(new Payment($pengguna->name_perusahaan,$payment,'Pembayaran','digijobaccounting@ugiport.com',$payment,$namarec,$nomorec));
+            } else {
+                Mail::mailer('payment')->to($request->email)->send(new Payment($pengguna->name,$payment,'Pembayaran','digijobaccounting@ugiport.com',$payment,$namarec,$nomorec));
+            }
+        }
+        return redirect('/manager/search_email')->with('success',"Email Terkirim");
     }
 }
