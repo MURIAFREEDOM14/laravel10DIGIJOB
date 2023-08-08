@@ -33,7 +33,7 @@
         </div>
         <div class="row mb-3">
             <div class="col-md-10 mx-auto">
-                <div class="card" style="border-top: 10px solid #2bb930">
+                <div class="card" style="border-top: 10px solid #45CFDD">
                     <div class="card-body text-center">
                         <p style="text-transform:uppercase">Masuk Aplikasi</p>
                         <a class="btn btn-outline-primary" href="/login">Masuk</a>

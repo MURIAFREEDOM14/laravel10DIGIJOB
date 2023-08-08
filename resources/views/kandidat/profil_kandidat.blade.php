@@ -14,14 +14,14 @@
             </div>
             <div class="card-body">
                 <div class="row" style="line-height:20px">
-                    <div class="col-md-8">
+                    <div class="col-md-9">
                         <div class="row">
                             <div class="col-sm-4"><b class="bold">NO. REGISTER</b></div>
                             <div class="col-sm-6"><b class="bold">: {{$kandidat->jenis_kelamin.$negara->kode_negara}}_{{$kandidat->id_kandidat+800}}</b></div>                
                         </div>
                     </div>
                 </div>
-                <div class="row ml-5 mt-3 mb-3"><b class="bold">PERSONAL BIO DATA</b></div>
+                <div class="ml-5 mt-2 mb-2"><b class="bold">PERSONAL BIO DATA</b></div>
                 <div class ="row" style="line-height:20px">
                     <div class="col-md-9">
                         <div class="row" style="line-height:20px">
@@ -81,16 +81,16 @@
                                 <b class="bold">Asal</b>
                             </div>
                             <div class="col-sm-6">
-                                <b class="bold">: Dsn. {{$kandidat->dusun}}, RT/RW : 0{{$kandidat->rt}}/0{{$kandidat->rw}}, Kel/Desa : {{$kandidat->kelurahan}}, Kec. {{$kandidat->kecamatan}}, {{$kandidat->kabupaten}}, {{$kandidat->provinsi}}</b>
+                                <b class="bold">: Dsn. {{$kandidat->dusun}}, RT/RW : {{$kandidat->rt}} / {{$kandidat->rw}}, Kel/Desa : {{$kandidat->kelurahan}}, Kec. {{$kandidat->kecamatan}}, {{$kandidat->kabupaten}}, {{$kandidat->provinsi}}</b>
                             </div>
                         </div>                                
                     </div>
                     <div class="col-md-3">
-                        <div class="float-right mt--5">
+                        <div class="float-right">
                             @if ($kandidat->foto_set_badan !== null)
                                 <img class="img" src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" alt="">
                             @else
-                                <img class="img" src="/gambar/default_user.png" width="150" height="150" alt="">
+                                <img class="img" src="/gambar/default_user.png" alt="">
                             @endif
                         </div>
                     </div>

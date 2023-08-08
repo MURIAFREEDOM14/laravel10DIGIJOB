@@ -134,7 +134,7 @@
                                         <div class="message-notif-scroll scrollbar-outer">
                                             <div class="notif-center">
                                                 @foreach ($pesan as $item)
-                                                    <a href="">
+                                                    <a href="/kirim_balik/{{$item->id}}">
                                                         <div class="notif-content">
                                                             <span class="subject">{{$item->pengirim}}</span>
                                                             <span class="block">
@@ -261,7 +261,7 @@
             <div class="sidebar sidebar-style-2">
                 <div class="sidebar-wrapper scrollbar scrollbar-inner">
                     <div class="sidebar-content">
-                        <div class="user">
+                        {{-- <div class="user">
                             <div class="avatar-sm float-left mr-2">
                                 @if ($kandidat->foto_4x6 !== null)
                                     <img src="/gambar/Kandidat/{{$kandidat->nama}}/4x6/{{$kandidat->foto_4x6}}" alt="" class="avatar-img rounded-circle">                                    
@@ -301,7 +301,7 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <ul class="nav nav-primary">
                             <li class="nav-item active">
                                 <a href="/kandidat" class="btn" aria-expanded="false">
