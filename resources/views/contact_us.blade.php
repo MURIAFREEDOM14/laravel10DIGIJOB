@@ -12,7 +12,9 @@
                         <div class="text-center">
                             <h6>WhatsApp</h6>
                             <hr>
-                            <div class="">0816-3727-29</div>
+                            <div class="">
+                                <a href="https://api.whatsapp.com/send?phone=62816372729">0816-3727-29</a>
+                            </div>
                         </div>
                     </div>
                     <div class="col">
