@@ -114,13 +114,13 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-4">
+                        <div class="col-md-4 mb-2">
                             <label for="" class="col-form-label">Syarat Usia</label>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 mb-2">
                             <input type="number" required placeholder="Usia Minimal" name="usia_min" class="form-control" id="">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 mb-2">
                             <input type="number" required placeholder="Usia Maksimal" name="usia_maks" class="form-control" id="">
                         </div>
                     </div>
@@ -150,13 +150,13 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-4">
+                        <div class="col-md-4 mb-2">
                             <label for="" class="col-form-label">Syarat Berat Badan</label>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 mb-2">
                             <input type="number" required name="berat_min" placeholder="Berat Minimal" class="form-control" id="">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 mb-2">
                             <input type="number" required name="berat_maks" placeholder="Berat Maksimal" class="form-control" id="">
                         </div>
                     </div>
@@ -227,10 +227,10 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-4">
+                        <div class="col-md-4 mb-2">
                             <label for="" class="col-form-label">Informasi Gaji</label>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4 mb-2">
                             <div class="input-group flex-nowrap">
                                 <div class="input-group-prepend" id="">
                                   <span class="input-group-text" id="mata_uang1"></span>
@@ -238,7 +238,7 @@
                                 <input type="text" required name="gaji_minimum" id="" placeholder="Gaji Minimum" class="form-control">
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-4 mb-2">
                             <div class="input-group flex-nowrap">
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="mata_uang2"></span>
