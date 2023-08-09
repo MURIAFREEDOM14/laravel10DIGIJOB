@@ -4,13 +4,13 @@
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <h5>Call Center</h5>
+                <h5>Pusat Panggilan</h5>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col">
                         <div class="text-center">
-                            <h6>WhatsApp</h6>
+                            <span>WhatssApp</span>
                             <hr>
                             <div class="">
                                 <a href="https://api.whatsapp.com/send?phone=62816372729">0816-3727-29</a>

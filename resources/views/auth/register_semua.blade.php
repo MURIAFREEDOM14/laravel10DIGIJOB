@@ -49,7 +49,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="text-center">
-                        <video id="video" style="width: 100%;">
+                        <video id="video" style="width: 90%;">
                             <source class="" src="/gambar/Manager/Tutorial/Registrasi DIGIJOB UGIPORT.mp4">
                         </video>
                         <button class="btn btn-success mx-auto mb-2" id="play" type="button" onclick="play()">Mulai</button>

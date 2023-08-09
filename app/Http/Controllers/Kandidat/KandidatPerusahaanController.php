@@ -80,6 +80,7 @@ class KandidatPerusahaanController extends Controller
         $negara = Negara::where('negara_id',$negaraid)->first();
         $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
+        $pekerjaan = Pekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
         return view('kandidat/perusahaan/perusahaan_pekerjaan',compact('kandidat','perusahaan','pekerjaan','notif','pesan','negara','nama'));
     }
 

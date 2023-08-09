@@ -60,7 +60,7 @@
       <nav id="navbar" class="navbar" style="background-color: #FFD966;">
           <ul>
           {{-- <li><a class="nav-link scrollto" style="color: black" href="/register">Registrasi</a></li> --}}
-          <li><a class="nav-link scrollto" style="color: black" href="/login">Masuk</a></li>
+          <li><a class="nav-link scrollto" style="color: black" href="/login">Login</a></li>
           <li><a class="nav-link scrollto" style="color: black" href="/hubungi_kami">Hubungi Kami</a></li>
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
