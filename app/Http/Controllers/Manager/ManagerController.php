@@ -143,11 +143,7 @@ class ManagerController extends Controller
     {
         $user = Auth::user();
         $manager = User::where('referral_code',$user->referral_code)->first();
-        $reportNew = User::((
-			    `users`.`created_at` >= ( now() - INTERVAL 1 WEEK )) 
-            AND (
-	            `users`.`created_at` <= now()));
-        // $reportNew = ReportNewUser::all();
+        $reportNew = ReportNewUser::all();
         foreach($reportNew as $key){
             Jadwal::create([
                 'email' => $key->email,
