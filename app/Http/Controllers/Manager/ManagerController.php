@@ -120,13 +120,12 @@ class ManagerController extends Controller
         return view('manager/manager_home',compact(
             'manager','data','negara_tujuan','kandidat',
             'login_kandidat','total_kandidat','semua_kandidat','kandidat_baru','ttl_baru_kandidat',
-            'total_K',
 
             'login_akademi','total_akademi','semua_akademi','akademi_baru','ttl_baru_akademi',
-            'akademi_list','total_A',
+            'akademi_list',
             
             'login_perusahaan','total_perusahaan','semua_perusahaan','perusahaan_baru','ttl_baru_perusahaan',
-            'perusahaan_list','total_P',
+            'perusahaan_list',
         ));
     }
 
