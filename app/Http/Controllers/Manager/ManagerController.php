@@ -39,6 +39,9 @@ use App\Models\VideoKerja;
 use App\Models\FotoKerja;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Payment;
+use App\Models\ReportUserIn;
+use App\Models\Jadwal;
+use App\Models\ReportNewUser;
 
 class ManagerController extends Controller
 {
@@ -102,15 +105,69 @@ class ManagerController extends Controller
         $negara_tujuan = Negara::all();
         $kandidat = Kandidat::all();
 
+        $reportNew = ReportUserIn::all();
+        foreach($reportNew as $key) {
+            $total_K = ReportUserIn::where('type',0)->distinct()->count();
+            $total_A = ReportUserIn::where('type',1)->count();
+            $total_P = ReportUserIn::where('type',2)->count();
+        }
+        $total = array(
+            'data_K' => $total_K,
+            'data_A' => $total_A,
+            'data_P' => $total_P,
+        );
+        $json = json_encode($total);
+        // echo "var data = $json;";
         return view('manager/manager_home',compact(
             'manager','data','negara_tujuan','kandidat',
             'login_kandidat','total_kandidat','semua_kandidat','kandidat_baru','ttl_baru_kandidat',
+            'total_K',
 
             'login_akademi','total_akademi','semua_akademi','akademi_baru','ttl_baru_akademi',
-            'akademi_list',
+            'akademi_list','total_A',
+            
             'login_perusahaan','total_perusahaan','semua_perusahaan','perusahaan_baru','ttl_baru_perusahaan',
-            'perusahaan_list',
+            'perusahaan_list','total_P',
         ));
+    }
+
+    public function laporanPengguna()
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $jadwalIn = Jadwal::where('status',"login")->get();
+        $jadwalNew = Jadwal::where('status',"baru")->get();
+        return view('manager/laporan_pengguna',compact('manager','jadwalIn','jadwalNew'));
+    }
+
+    public function perbaruiLaporanPengguna()
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $reportNew = ReportNewUser::all();
+        foreach($reportNew as $key){
+            Jadwal::create([
+                'email' => $key->email,
+                'referral_code' => $key->referral_code,
+                'type' => $key->type,
+                'password' => $key->password,
+                'status' => "baru",
+                'data_created' => $key->created_at,
+            ]);
+        }
+
+        $reportIn = ReportUserIn::all();
+        foreach($reportIn as $key){
+            Jadwal::create([
+                'email' => $key->email,
+                'referral_code' => $key->referral_code,
+                'type' => $key->type,
+                'password' => $key->password,
+                'status' => "login",
+                'data_created' => $key->updated_at,
+            ]);
+        } 
+        return redirect()->route('manager')->with('success',"Data Laporan diperbarui");
     }
 
     public function suratIzin()

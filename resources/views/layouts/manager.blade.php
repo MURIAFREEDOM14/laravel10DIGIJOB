@@ -338,6 +338,12 @@
                                 </div>
                             </li>
                             <li class="nav-item">
+                                <a class="btn" href="/manager/laporan_pengguna">
+                                    <i class="fas fa-th-list"></i>
+                                    <p>Laporan Pengguna</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="btn" href="/manager/search_email">
                                     <i class="fas fa-th-list"></i>
                                     <p>Verifikasi Email</p>
@@ -358,8 +364,6 @@
             <div class="main-panel">
                 <div class="content">
                     <main class="">
-                        @include('sweetalert::alert')
-                        @include('flash_message')
                         @yield('content')
                     </main>
                 </div>

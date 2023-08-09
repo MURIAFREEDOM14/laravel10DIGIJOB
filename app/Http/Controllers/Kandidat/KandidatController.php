@@ -33,6 +33,9 @@ use App\Models\Interview;
 use App\Models\Portofolio;
 use App\Models\VideoKerja;
 use App\Models\FotoKerja;
+use App\Models\ReportUserIn;
+use App\Models\ReportNewUser;
+use App\Models\Jadwal;
 
 class KandidatController extends Controller
 {

@@ -61,6 +61,9 @@ Route::controller(ManagerController::class)->group(function() {
     Route::get('/manager/kandidat/cetak_surat/{id}','cetakSurat')->middleware('manager');
     Route::get('/manager/kandidat/surat_izin_waris','cetakSuratKosong');
 
+    Route::get('/manager/laporan_pengguna','laporanPengguna')->middleware('manager');
+    Route::get('/manager/perbarui_laporan_pengguna','perbaruiLaporanPengguna')->middleware('manager');
+
     Route::get('/manager/search_email','searchEmail')->middleware('manager');
     Route::get('/manager/email_verify/{id}','emailVerify')->middleware('manager');
     Route::post('/manager/email_verify/{id}','sendEmailVerify');
