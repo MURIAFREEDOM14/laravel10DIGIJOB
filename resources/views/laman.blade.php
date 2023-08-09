@@ -57,7 +57,7 @@
           {{-- <li><a class="nav-link scrollto active" style="color: black" href="#hero">Beranda</a></li> --}}
           {{-- <li><a class="nav-link scrollto disabled" style="color: gray;" href="/about_us">Tentang</a></li> --}}
           {{-- <li><a class="nav-link scrollto" style="color: black;" href="/register">Registrasi</a></li> --}}
-          <li><a class="nav-link scrollto" style="color: black;" href="/login">Masuk</a></li>
+          <li><a class="nav-link scrollto" style="color: black;" href="/login">Login</a></li>
           {{-- <li><a class="nav-link scrollto disabled" style="color: gray" href="/perbaikan">Portfolio</a></li> --}}
           <li><a class="nav-link scrollto" style="color: black" href="/hubungi_kami">Hubungi Kami</a></li>
         </ul>
@@ -175,13 +175,9 @@
     <section id="services" class="services section-bg">
       <div class="container" data-aos="fade-up">
         <div class="section-title">
-          <!-- Button trigger modal -->
-          {{-- <button type="button" class="btn btn-outline-primary" style="width: 15rem; height:3rem;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Registrasi
-          </button>      --}}
           <a class="btn btn-outline-primary" href="/register" style="width: 15rem; height:3rem;">
             Registrasi
-          </a>     
+          </a>
         </div>
         <div class="section-title">
           <img src="/gambar/icon.ico" width="150" height="150" alt="">
@@ -190,7 +186,7 @@
           <div class="col-md-12 align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
             <div class="icon-box text-center" style="">
               <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="digijob_system" style="text-transform: uppercase;">Digijob System</a></h4>
+              <h4><a href="digijob_system" style="text-transform: uppercase;">Digijob Sistem</a></h4>
               <p class="text1">
                 DIGIJOB dirancang untuk membantu organisasi dalam upaya mereka memaksimalkan efisiensi dan efektivitas proses perekrutan pekerja lokal dan migran. DIGIJOB mengubah kemampuan rekrutmen yang secara tradisional digunakan oleh industri rekrutmen pekerja menjadi platform online tunggal yang mudah digunakan dan hemat biaya. Sebagai sistem yang lengkap, DIGIJOB menawarkan nilai yang luar biasa kepada pengguna.   DIGIJOB dirancang agar sesuai dengan proses rekrutmen pekerja di negara-negara sumber tenaga kerja lokal dan luar negeri. Ruang lingkup DIGIJOB mencakup semua langkah utama dalam proses perekrutan pekerja migran dan menyediakan portal manajemen yang komprehensif bagi pengguna. Selain itu, DIGIJOB dirancang untuk meminimalkan upaya administratif dan menjadi solusi sederhana dan mudah digunakan untuk perekrutan pekerja migran.
               </p>
@@ -225,7 +221,7 @@
               <div class="icon"><i class="bx bx-file"></i></div>
               <h4><a href="/hubungi_kami" style="text-transform: uppercase;">Hubungi Kami</a></h4>
               <p class="text1">
-                Hubungi kami disini
+                Hubungi kami
                 <br>&nbsp;
               </p>
             </div>
@@ -233,7 +229,7 @@
         </div>
       </div>
       <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      {{-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
@@ -274,7 +270,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> --}}
     </section>
     <!-- End Services Section -->
 

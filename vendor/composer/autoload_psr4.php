@@ -89,6 +89,7 @@ return array(
     'Laravel\\SerializableClosure\\' => array($vendorDir . '/laravel/serializable-closure/src'),
     'Laravel\\Sanctum\\' => array($vendorDir . '/laravel/sanctum/src'),
     'Laravel\\Sail\\' => array($vendorDir . '/laravel/sail/src'),
+    'Laravel\\Prompts\\' => array($vendorDir . '/laravel/prompts/src'),
     'Laravel\\Cashier\\Database\\Factories\\' => array($vendorDir . '/laravel/cashier/database/factories'),
     'Laravel\\Cashier\\' => array($vendorDir . '/laravel/cashier/src'),
     'LaravelLang\\Publisher\\' => array($vendorDir . '/laravel-lang/publisher/src'),
