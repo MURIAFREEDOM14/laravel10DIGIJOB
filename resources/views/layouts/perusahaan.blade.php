@@ -238,7 +238,7 @@
                                             @endif
                                             {{-- <a class="dropdown-item" href="#">Kotak Masuk</a> --}}
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="/contact_us_perusahaan">Contact Us</a>
+                                            <a class="dropdown-item" href="/contact_us_perusahaan">Hubungi Kami</a>
                                             <div class="dropdown-divider"></div>
                                             @if ($perusahaan->email_operator !== null)
                                                 <li>

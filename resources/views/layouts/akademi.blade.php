@@ -174,14 +174,14 @@
                                         </li>
                                         <li>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="/akademi">Profil Akademi</a>
+                                            <a class="dropdown-item" href="/akademi/lihat/profil">Profil Akademi</a>
                                             @if ($akademi->nama_kepala_akademi == null)
                                                 <a class="dropdown-item" href="/akademi/isi_akademi_data">Lengkapi Profil</a>
                                             @else
                                                 <a class="dropdown-item" href="/akademi/isi_akademi_data">Edit Profil</a>
                                             @endif
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="/contact_us_akademi">Contact Us</a>
+                                            <a class="dropdown-item" href="/contact_us_akademi">Hubungi Kami</a>
                                             <div class="dropdown-divider"></div>
                                             <a href="{{route('logout')}}" class="dropdown-item" onclick="confirmation(event)">Keluar</a>
                                             {{-- <a class="dropdown-item" onclick="return confirm('apakah anda yakin ingin keluar?')" href="{{ route('logout') }}"
@@ -206,7 +206,7 @@
             <div class="sidebar sidebar-style-2">
                 <div class="sidebar-wrapper scrollbar scrollbar-inner">
                     <div class="sidebar-content">
-                        <div class="user">
+                        {{-- <div class="user">
                             <div class="avatar-sm float-left mr-2">
                                 @if ($akademi->logo_akademi !== null)
                                     <img src="/gambar/Akademi/{{$akademi->nama_akademi}}/Logo Akademi/{{$akademi->logo_akademi}}" alt="" class="avatar-img rounded-circle">                                    
@@ -246,12 +246,12 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <ul class="nav nav-primary">
                             <li class="nav-item active">
                                 <a href="/akademi" class="btn" aria-expanded="false">
                                     <i class="fas fa-home"></i>
-                                    <p>Dashboard</p>
+                                    <p>Beranda</p>
                                 </a>
                             </li>
                             <li class="nav-section">
