@@ -105,19 +105,18 @@ class ManagerController extends Controller
         $negara_tujuan = Negara::all();
         $kandidat = Kandidat::all();
 
-        $reportNew = ReportUserIn::all();
-        foreach($reportNew as $key) {
-            $total_K = ReportUserIn::where('type',0)->distinct()->count();
-            $total_A = ReportUserIn::where('type',1)->count();
-            $total_P = ReportUserIn::where('type',2)->count();
-        }
-        $total = array(
-            'data_K' => $total_K,
-            'data_A' => $total_A,
-            'data_P' => $total_P,
-        );
-        $json = json_encode($total);
-        // echo "var data = $json;";
+        // $reportNew = ReportUserIn::all();
+        // foreach($reportNew as $key) {
+        //     $total_K = ReportUserIn::where('type',0)->distinct()->count();
+        //     $total_A = ReportUserIn::where('type',1)->count();
+        //     $total_P = ReportUserIn::where('type',2)->count();
+        // }
+        // $total = array(
+        //     'data_K' => $total_K,
+        //     'data_A' => $total_A,
+        //     'data_P' => $total_P,
+        // );
+        // $json = json_encode($total);
         return view('manager/manager_home',compact(
             'manager','data','negara_tujuan','kandidat',
             'login_kandidat','total_kandidat','semua_kandidat','kandidat_baru','ttl_baru_kandidat',
@@ -144,7 +143,11 @@ class ManagerController extends Controller
     {
         $user = Auth::user();
         $manager = User::where('referral_code',$user->referral_code)->first();
-        $reportNew = ReportNewUser::all();
+        $reportNew = User::((
+			    `users`.`created_at` >= ( now() - INTERVAL 1 WEEK )) 
+            AND (
+	            `users`.`created_at` <= now()));
+        // $reportNew = ReportNewUser::all();
         foreach($reportNew as $key){
             Jadwal::create([
                 'email' => $key->email,
