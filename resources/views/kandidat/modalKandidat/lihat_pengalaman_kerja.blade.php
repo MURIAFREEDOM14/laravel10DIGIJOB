@@ -15,7 +15,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-6">
-                                        <label for="" class="">Nama Perusahaan</label>
+                                        <label for="" class="">Nama Perusahaan / Majikan</label>
                                     </div>
                                     <div class="col-6">
                                         <div class="">: {{$pengalaman->nama_perusahaan}}</div>
@@ -24,7 +24,7 @@
                                 <hr>
                                 <div class="row">
                                     <div class="col-6">
-                                        <label for="" class="">Alamat Perusahaan</label>
+                                        <label for="" class="">Alamat Perusahaan / Majikan</label>
                                     </div>
                                     <div class="col-6">
                                         <div class="">: {{$pengalaman->alamat_perusahaan}}</div>
@@ -55,6 +55,15 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="">: {{$pengalaman->alasan_berhenti}}</div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="" class="">Deskripsi Jabatan</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="">: {{$pengalaman->deskripsi}}</div>
                                     </div>
                                 </div>
                                 <hr>

@@ -72,6 +72,21 @@
             #play {
                 display: block;
             }
+            #tambahFasilitas {
+                display: block;
+            }
+            #fasilitasTambah {
+                display: none;
+            }
+            #tambahBenefit {
+                display: block;
+            }
+            #benefitTambah {
+                display: none;
+            }
+            #random {
+                display: none;
+            }
         </style>
     </head>
     <body>
@@ -220,10 +235,10 @@
                                                     <h4>{{$perusahaan->nama_perusahaan}}</h4>
                                                     <p class="text-muted">{{$perusahaan->email_perusahaan}}</p>
                                                     @if (auth()->user()->verify_confirmed !== null)
-                                                        <span class="badge badge-pill badge-info">Verified</span>
+                                                        <span class="badge badge-pill badge-info">Terverifikasi</span>
                                                     @endif
                                                     @if ($perusahaan->email_operator !== null)
-                                                        <span class="badge badge-pill badge-success">Profile</span>
+                                                        <span class="badge badge-pill badge-success">Profil</span>
                                                     @endif
                                                 </div>
                                             </div>
@@ -238,9 +253,7 @@
                                             @endif
                                             {{-- <a class="dropdown-item" href="#">Kotak Masuk</a> --}}
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="/contact_us_perusahaan">Hubungi Kami</a>
-                                            <div class="dropdown-divider"></div>
-                                            @if ($perusahaan->email_operator !== null)
+                                            {{-- @if ($perusahaan->email_operator !== null)
                                                 <li>
                                                     <a href="/perusahaan/tambah/cabang_data" class="dropdown-item">
                                                         <div class="link-collapse">Tambah Cabang <i class="fas fa-user-circle float-right"></i></div>
@@ -258,8 +271,7 @@
                                                         </a>
                                                     @endforeach
                                                 </li>
-                                            @endif
-                                            <div class="dropdown-divider"></div>
+                                            @endif --}}
                                             <a href="{{route('logout')}}" class="dropdown-item" onclick="confirmation(event)">Keluar</a>
                                             {{-- <a class="dropdown-item" onclick="return confirm('apakah anda yakin ingin keluar?')" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
@@ -384,6 +396,7 @@
                             </nav>
                             <div class="copyright ml-auto">
                                 &nbsp;
+                                <strong><a class="text-white" href="/contact_us_perusahaan" style="text-transform: uppercase">Hubungi Kami</a></strong>
                                 {{-- 2018, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">ThemeKita</a> --}}
                             </div>
                         </div>
@@ -537,6 +550,7 @@
             }
         </script>
         <script type="text/javascript">
+            // mata uang lowongan //
             $(document).ready(function() {
                 $(document).on('change','#negara_tujuan', function() {
                     var negara = $(this).val();
@@ -558,6 +572,7 @@
             })
         </script>
         <script>
+            // video lowongan //
             var video = document.getElementById("video");
             var btnPlay = document.getElementById('play');
             var btnJeda = document.getElementById('jeda');
@@ -576,6 +591,85 @@
                 btnJeda.style.display = 'none';
                 }
             }
+
+            // benefit lowongan //
+            function btnTambahBenefit() {
+                var tambah = document.getElementById('tambahBenefit');
+                var benefit = document.getElementById('benefitTambah');
+                benefit.style.display = 'block';
+                tambah.style.display = 'none';
+            }
+
+            function batalBenefit() {
+                var tambah = document.getElementById('tambahBenefit');
+                var benefit = document.getElementById('benefitTambah');
+                benefit.style.display = 'none';
+                tambah.style.display = 'block';
+            }
+
+            function opsiBenefit() {
+                var input = document.getElementById('inputBenefit').value;
+                var tambah = document.getElementById('tambahBenefit');
+                var benefit = document.getElementById('benefitTambah');
+                $.ajax({
+                    type:'get',
+                    url:'{!!URL::to('/benefit')!!}',
+                    data:{'data':input},
+                    success:function (data) {
+                        console.log(data.length);                        
+                        benefit.style.display = 'none';
+                        tambah.style.display = 'block';
+                    }
+                })
+            }
+             // fasilitas lowongan //
+            function btnTambahFasilitas() {
+                var tambah = document.getElementById('tambahFasilitas');
+                var fasilitas = document.getElementById('fasilitasTambah');
+                fasilitas.style.display = 'block';
+                tambah.style.display = 'none';
+            }
+
+            function batalFasilitas() {
+                var tambah = document.getElementById('tambahFasilitas');
+                var fasilitas = document.getElementById('fasilitasTambah');
+                fasilitas.style.display = 'none';
+                tambah.style.display = 'block';
+            }
+
+            function opsiFasilitas() {
+                var input = document.getElementById('inputFasilitas').value;
+                var tambah = document.getElementById('tambahFasilitas');
+                var fasilitas = document.getElementById('fasilitasTambah');
+                $.ajax({
+                    type:'get',
+                    url:'{!!URL::to('/fasilitas')!!}',
+                    data:{'data':input},
+                    success:function (data) {
+                        console.log(data.length);
+                        fasilitas.style.display = 'none';
+                        tambah.style.display = 'block';
+                    }
+                })
+            }
+
+            // usia lowongan //
+            $(document).ready(function() {
+                $(document).on('change','#ideal', function() {
+                    var ideal = this.value;
+                    console.log(ideal);
+                    var btnUsia = document.getElementById('ideal').value;
+                    var custom = document.getElementById('random');
+                    console.log(btnUsia);
+                    if (btnUsia === 'kustom') {
+                        custom.style.display = 'block';
+                    } else {
+                        custom.style.display = 'none';
+                    }
+                })
+            })
+                
+
         </script>
         @livewireScripts
     </body>

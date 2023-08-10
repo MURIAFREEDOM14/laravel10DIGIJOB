@@ -2,15 +2,41 @@
 @section('content')
 @include('sweetalert::alert')
 @include('flash_message')
+@php
+    $personal = $kandidat->tinggi;
+    $document = $kandidat->foto_ijazah;
+    $vaksin = $kandidat->sertifikat_vaksin2;
+    $parent = $kandidat->tgl_lahir_ibu;
+    $permission = $kandidat->hubungan_perizin;                                
+@endphp
 <div class="container mt-5 my-3">
-    <div class="row mt-2">
-        <div class="col-md-7">
-            <div class="card">
-                <div class="card-header">
-                    <b class="bold">Informasi Perusahaan</b>
+    @if ($personal == null &&
+        $document == null &&
+        $vaksin == null &&
+        $parent == null &&
+        $permission == null &&
+        $kandidat->negara_id == null)
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <b class="bold">Informasi Perusahaan</b>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="text-center">Harap Lengkapi Profil Anda</h3>
+                        <div class="text-center"><a class="btn btn-outline-primary" href="/isi_kandidat_personal">Lengkapi Profil</a></div>                                                            
+                    </div>
                 </div>
-                <div class="card-body">
-                    @if ($kandidat->id_perusahaan !== null)
+            </div>
+        </div>
+    @else
+        <div class="row mt-2">
+            <div class="col-md-7">
+                <div class="card">
+                    <div class="card-header">
+                        <b class="bold">Informasi Perusahaan</b>
+                    </div>
+                    <div class="card-body">
                         <div class="table-responsive">
                             <table id="add-row" class="display table table-striped table-hover" >
                                 <thead>
@@ -20,30 +46,19 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr class="text-center">
-                                        <td>1</td>
-                                        <td>
-                                            {{$perusahaan->nama_perusahaan}}
-                                        </td>
-                                        <td>
-                                            <a href="/profil_perusahaan/{{$perusahaan->id_perusahaan}}">Lihat</a>
-                                        </td>
-                                    </tr>    
-                                </tbody>
-                            </table>
-                        </div>
-                    @else
-                        @if ($kandidat->negara_id !== null)
-                            <div class="table-responsive">
-                                <table id="add-row" class="display table table-striped table-hover" >
-                                    <thead>
+                                @if ($kandidat->id_perusahaan !== null)
+                                    <tbody>
                                         <tr class="text-center">
-                                            <th style="width: 1px">No.</th>
-                                            <th>Nama Perusahaan</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
+                                            <td>1</td>
+                                            <td>
+                                                {{$perusahaan->nama_perusahaan}}
+                                            </td>
+                                            <td>
+                                                <a href="/profil_perusahaan/{{$perusahaan->id_perusahaan}}">Lihat</a>
+                                            </td>
+                                        </tr>    
+                                    </tbody>    
+                                @else
                                     <tbody>
                                         @foreach ($perusahaan_semua as $item)
                                             <tr class="text-center">
@@ -57,57 +72,41 @@
                                             </tr>    
                                         @endforeach    
                                     </tbody>
-                                </table>
-                            </div>
-                        @else
-                            @php
-                                $personal = $kandidat->tinggi;
-                                $document = $kandidat->foto_ijazah;
-                                $vaksin = $kandidat->sertifikat_vaksin2;
-                                $parent = $kandidat->tgl_lahir_ibu;
-                                $permission = $kandidat->hubungan_perizin;                                
-                            @endphp
-                            @if ($personal == null ||
-                            $document == null ||
-                            $vaksin == null ||
-                            $parent == null ||
-                            $permission == null)
-                                <h3 class="text-center">Harap Lengkapi Profil Anda</h3>
-                                <div class="text-center"><a class="btn btn-outline-primary" href="/isi_kandidat_personal">Lengkapi Profil</a></div>                                                            
-                            @endif
+                                @endif
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-header">
+                        <b class="bold">Informasi Lowongan Pekerjaan</b>
+                    </div>
+                    <div class="card-body">
+                        @if ($lowongan)
+                            @foreach ($lowongan as $item)
+                                <div class="row mb-3">
+                                    <div class="col-md-12 ">
+                                        <div class="input-group mb-3">
+                                            <div class="form-control">      
+                                                <marquee behavior="" direction="">{{$item->nama_perusahaan}}, Lowongan: {{$item->jabatan}} </marquee>
+                                            </div>
+                                            <div class="input-group-append">
+                                                @if ($kandidat->id_perusahaan == null && $kandidat->negara_id !== null)
+                                                    <a class="btn btn-outline-primary" href="/profil_perusahaan/{{$item->id_perusahaan}}">Lihat</a>                                        
+                                                @endif
+                                            </div>
+                                        </div>        
+                                    </div>
+                                </div>    
+                            @endforeach    
                         @endif
-                    @endif
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-5">
-            <div class="card">
-                <div class="card-header">
-                    <b class="bold">Informasi Lowongan Pekerjaan</b>
-                </div>
-                <div class="card-body">
-                    @if ($lowongan)
-                        @foreach ($lowongan as $item)
-                            <div class="row mb-3">
-                                <div class="col-md-12 ">
-                                    <div class="input-group mb-3">
-                                        <div class="form-control">      
-                                            <marquee behavior="" direction="">{{$item->nama_perusahaan}}, Lowongan: {{$item->jabatan}} </marquee>
-                                        </div>
-                                        <div class="input-group-append">
-                                            @if ($kandidat->id_perusahaan == null && $kandidat->negara_id !== null)
-                                                <a class="btn btn-outline-primary" href="/profil_perusahaan/{{$item->id_perusahaan}}">Lihat</a>                                        
-                                            @endif
-                                        </div>
-                                    </div>        
-                                </div>
-                            </div>    
-                        @endforeach    
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
+    @endif
 </div>
 
     <!-- Button trigger modal -->

@@ -901,6 +901,7 @@ class KandidatController extends Controller
             'id_kandidat'=>$kandidat->id_kandidat,
             'nama_kandidat' => $kandidat->nama,
             'lama_kerja' => $tahun,
+            'deskripsi' => $request->deskripsi,
         ]);
 
         if($request->type == "video"){
@@ -1250,7 +1251,13 @@ class KandidatController extends Controller
         } else {
             $negara = $show_negara->negara;    
         }
-        return view('kandidat/modalKandidat/edit_kandidat_permission',compact('kandidat','provinsi','kecamatan','kelurahan','kota','negara'));
+        $hubungan_anak = Kandidat::where('umur_anak_lk','like','%17%')->orWhere('umur_anak_pr','like','%17%')->first();
+        if($hubungan_anak){
+            $anak = $hubungan_anak;
+        } else {
+            $anak = null;
+        }
+        return view('kandidat/modalKandidat/edit_kandidat_permission',compact('kandidat','provinsi','kecamatan','kelurahan','kota','negara','anak'));
     }
 
     public function simpan_kandidat_permission(Request $request)

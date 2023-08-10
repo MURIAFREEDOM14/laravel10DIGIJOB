@@ -32,10 +32,10 @@
                         </div>
                         <hr>
                         @if (auth()->user()->verify_confirmed !== null)
-                            <span class="badge badge-pill badge-info">Verified</span>
+                            <span class="badge badge-pill badge-info">Terverifikasi</span>
                         @endif
                         @if ($perusahaan->email_operator !== null)
-                            <span class="badge badge-pill badge-success">Profile</span>
+                            <span class="badge badge-pill badge-success">Profil</span>
                         @endif
                     </div>
                 </div>
@@ -124,7 +124,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header" style="background-color:#31ce36">
@@ -147,7 +147,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="row">
             <div class="col-12">
                 <div class="card">

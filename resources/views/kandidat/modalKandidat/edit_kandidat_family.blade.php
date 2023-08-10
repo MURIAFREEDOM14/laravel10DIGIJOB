@@ -32,30 +32,30 @@
                                     @endif
                                 </div>
                             </div> --}}
-                            <div class="row mb-3 g-3 align-items-center">
+                            {{-- <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Nama Pasangan</label>
                                 </div>
                                 <div class="col-md-8">
                                     <input type="text" disabled value="{{$kandidat->nama_pasangan}}" required name="nama_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
-                            </div>
-                            <div class="row mb-3 g-3 align-items-center">
+                            </div> --}}
+                            {{-- <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Umur Pasangan</label>
                                 </div>
                                 <div class="col-md-2">
                                     <input type="number" disabled min="0" value="{{$kandidat->umur_pasangan}}" name="umur_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
-                            </div>
-                            <div class="row mb-3 g-3 align-items-center">
+                            </div> --}}
+                            {{-- <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Pekerjaan Pasangan</label>
                                 </div>
                                 <div class="col-md-8">
                                     <input type="text" disabled value="{{$kandidat->pekerjaan_pasangan}}" name="pekerjaan_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="" id="punya_anak">
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
@@ -97,7 +97,7 @@
                                     <label for="inputPassword6" class="col-form-label">Surat Keterangan Cerai</label>
                                 </div>
                                 <div class="col-md-8">
-                                    @if ($kandidat->foto_cerai)
+                                    @if ($kandidat->foto_cerai !== null)
                                         <img src="/gambar/Kandidat/{{$kandidat->nama}}/Cerai/{{$kandidat->foto_cerai}}" width="150" height="150" alt="" class="img mb-1">
                                         <input type="file" class="form-control" name="foto_cerai" accept="image/*">                                        
                                     @else
@@ -119,15 +119,15 @@
                                     @endif
                                 </div> --}}
                             </div>
-                            <div class="row mb-3 g-3 align-items-center">
+                            {{-- <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Nama Pasangan</label>
                                 </div>
                                 <div class="col-md-8">
                                     <input type="text" disabled value="{{$kandidat->nama_pasangan}}" name="nama_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
-                            </div>
-                            <div class="row mb-3 g-3 align-items-center">
+                            </div> --}}
+                            {{-- <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Umur Pasangan</label>
                                 </div>
@@ -138,15 +138,15 @@
                                         <input type="number" disabled min="0" name="umur_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                     @endif
                                 </div>
-                            </div>
-                            <div class="row mb-3 g-3 align-items-center">
+                            </div> --}}
+                            {{-- <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Pekerjaan Pasangan</label>
                                 </div>
                                 <div class="col-md-8">
                                     <input type="text" disabled value="{{$kandidat->pekerjaan_pasangan}}" name="pekerjaan_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="" id="punya_anak">
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
@@ -273,7 +273,7 @@
                         @endif
                     </div>
                     <hr>
-                    <a class="btn btn-warning" href="{{route('vaksin')}}">Lewati</a>
+                    {{-- <a class="btn btn-warning" href="{{route('vaksin')}}">Lewati</a> --}}
                     <button class="btn btn-primary float-end" type="submit">Selanjutnya</button>
                 </form>
             </div>

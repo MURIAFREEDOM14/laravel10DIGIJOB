@@ -34,7 +34,8 @@ return new class extends Migration
             $table->string('mata_uang')->nullable();
             $table->string('gaji_minimum')->nullable();
             $table->string('gaji_maksimum')->nullable();
-            $table->text('benefit')->nullable();
+            $table->date('tgl_interview_awal')->nullable();
+            $table->date('tgl_interview_akhir')->nullable();
             $table->timestamps();
         });
     }

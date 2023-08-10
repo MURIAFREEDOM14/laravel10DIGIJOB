@@ -21,19 +21,45 @@
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="inputPassword6" class="col-form-label">Nama Pemberi Izin</label>
+                                <label for="inputPassword6" class="col-form-label">Hubungan Kontak Darurat</label>
                             </div>
-                            <div class="col-md-8">
-                                @if ($kandidat->stats_nikah == "Menikah")
-                                    <input type="text" value="{{$kandidat->nama_pasangan}}" disabled name="nama_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">                                    
+                            <div class="col-md-4">
+                                @if ($kandidat->stats_nikah == "Menikah" || $kandidat->stats_nikah == "Cerai hidup" || $kandidat->stats_nikah == "Cerai mati")
+                                    <select name="hubungan_perizin" required class="form-select" id="">
+                                        <option value="">-- Masukkan Hubungan Kontak Darurat --</option>
+                                        <option value="pasangan" @if ($kandidat->hubungan_perizin == "pasangan")
+                                            selected
+                                        @endif>Pasangan</option>
+                                        <option value="wali">Wali</option>
+                                        @if ($anak)
+                                            <option value="anak">Anak</option>
+                                        @endif
+                                    </select>
                                 @else
-                                    <input type="text" required value="{{$kandidat->nama_perizin}}" name="nama_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">  
+                                    <select name="hubungan_perizin" required class="form-select" id="">
+                                        <option value="">-- Masukkan Hubungan Kontak Darurat --</option>
+                                        <option value="ayah">Ayah</option>
+                                        <option value="ibu">Ibu</option>
+                                        <option value="wali">Wali</option>
+                                    </select>    
                                 @endif
                             </div>
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="inputPassword6" class="col-form-label">NIK Perizin</label>
+                                <label for="inputPassword6" class="col-form-label">Nama Kontak Darurat</label>
+                            </div>
+                            <div class="col-md-8">
+                                {{-- @if ($kandidat->stats_nikah == "Menikah")
+                                    <input type="text" value="{{$kandidat->nama_pasangan}}"  name="nama_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">                                    
+                                @else --}}
+                                    <input type="text" required value="{{$kandidat->nama_perizin}}" name="nama_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">  
+                                {{-- @endif --}}
+                            </div>
+                        </div>
+                        <div class="row mb-3 g-3 align-items-center">
+                            <div class="col-md-4">
+                                <label for="inputPassword6" class="col-form-label">NIK Kontak Darurat</label>
                             </div>
                             <div class="col-md-8">
                                 <input type="number" required value="{{$kandidat->nik_perizin}}" name="nik_perizin" id="inputPassword6" class="form-control @error('nik_perizin') is-invalid @enderror" aria-labelledby="passwordHelpInline">
@@ -59,7 +85,7 @@
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="inputPassword6" class="col-form-label">Tempat / Tanggal Lahir Perizin</label>
+                                <label for="inputPassword6" class="col-form-label">Tempat / Tanggal Lahir Kontak Darurat</label>
                             </div>
                             <div class="col-md-4">
                                 <input type="text" value="{{$kandidat->tmp_lahir_perizin}}" name="tmp_lahir_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
@@ -70,7 +96,7 @@
                         </div>
                         <div class="row g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="inputPassword6" class="col-form-label">Alamat Lengkap Perizin</label>
+                                <label for="inputPassword6" class="col-form-label">Alamat Lengkap Kontak Darurat</label>
                             </div>
                         </div>
                         @livewire('location-permission')
@@ -100,7 +126,7 @@
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="inputPassword6" class="col-form-label">Foto KTP Pemberi Izin</label>
+                                <label for="inputPassword6" class="col-form-label">Foto KTP Kontak Darurat</label>
                             </div>
                             <div class="col-md-8">
                                 @if ($kandidat->foto_ktp_izin == "")
@@ -130,30 +156,6 @@
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="inputPassword6" class="col-form-label">Hubungan Pemberi Izin</label>
-                            </div>
-                            <div class="col-md-4">
-                                @if ($kandidat->stats_nikah == "Menikah")
-                                    <select name="hubungan_perizin" required class="form-select" id="">
-                                        <option value="">-- Masukkan Hubungan Pemberi Izin --</option>
-                                        <option value="suami" @if ($kandidat->hubungan_perizin == "suami")
-                                            selected
-                                        @endif>Suami</option>
-                                        <option value="istri" @if ($kandidat->hubungan_perizin == "istri")
-                                            selected
-                                        @endif>Istri</option>
-                                    </select>
-                                @else
-                                    <select name="hubungan_perizin" required class="form-select" id="">
-                                        <option value="">-- Masukkan Hubungan Pemberi Izin --</option>
-                                        <option value="ayah">Ayah</option>
-                                        <option value="ibu">Ibu</option>
-                                    </select>    
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row mb-3 g-3 align-items-center">
-                            <div class="col-md-4">
                                 <label for="inputPassword6" class="col-form-label">Apakah anda memiliki Paspor</label>
                             </div>
                             <div class="col-md-3">
@@ -169,7 +171,7 @@
                         </div>
                     </div>
                     <hr>
-                    <a class="btn btn-warning" href="{{route('paspor')}}">Lewati</a>
+                    {{-- <a class="btn btn-warning" href="{{route('paspor')}}">Lewati</a> --}}
                     <button class="btn btn-primary float-end" type="submit">Selanjutnya</button>
                 </form>
             </div>

@@ -11,13 +11,13 @@
                 <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row mb-3">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label for="" class="col-form-label">Penempatan Kerja</label>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-9">
                             <select name="penempatan" required class="form-control" id="negara_tujuan">
                                 <option value="">-- Pilih Negara Penempatan --</option>
-                                @if ($perusahaan->penempatan_kerja == "Dalam negeri")
+                                @if ($type == "dalam")
                                     <option value="{{$negara->negara}}">{{$negara->negara}}</option>
                                 @else
                                     @foreach ($negara as $item)                                    
@@ -28,19 +28,19 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label for="" class="col-form-label">Judul Pekerjaan</label>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-9">
                             <input type="text" required name="jabatan" class="form-control" id="">
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label for="" class="col-form-label">Jenis Pekerja</label>
                         </div>
                         <div class="col-md-6">
-                            @if ($perusahaan->penempatan_kerja == "Dalam negeri")
+                            @if ($type == "dalam")
                                 <select name="lvl_pekerjaan" required class="form-control" id="">
                                     <option value="">-- Tentukan Jenis Pekerja --</option>
                                     <option value="magang">Magang</option>
@@ -60,18 +60,18 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label for="" class="col-form-label">Deskripsi Pekerjaan</label>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-9">
                             <textarea name="deskripsi" required id="" class="form-control"></textarea>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label for="" class="col-form-label">Flyer (jika ada)</label>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-9">
                             <input type="file" name="gambar" class="form-control" id="" accept="image/*">
                         </div>
                     </div>
@@ -83,10 +83,10 @@
                     </div>
                     <hr>
                     <div class="row mb-3">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label for="" class="col-form-label">Jenis Kelamin</label>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <select name="jenis_kelamin" required class="form-control" id="">
                                 <option value="">-- Pilih jenis kelamin --</option>
                                 <option value="M">Laki-laki</option>
@@ -96,10 +96,10 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label for="" class="col-form-label">Pendidikan Minimal</label>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <select name="pendidikan" required class="form-control" id="">
                                 <option value="">-- Pilih Tingkatan Pendidikan --</option>
                                 <option value="Tidak sekolah">Tanpa Ijazah</option>
@@ -114,57 +114,98 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-4 mb-2">
+                        <div class="col-md-3 mb-2">
                             <label for="" class="col-form-label">Syarat Usia</label>
                         </div>
-                        <div class="col-md-4 mb-2">
-                            <input type="number" required placeholder="Usia Minimal" name="usia_min" class="form-control" id="">
+                        <div class="col-md-3 mb-2">
+                            <div class="input-group">
+                                <input type="number" required placeholder="Usia Minimal" name="usia_min" class="form-control" id="">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">Tahun</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-4 mb-2">
-                            <input type="number" required placeholder="Usia Maksimal" name="usia_maks" class="form-control" id="">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label for="" class="col-form-label">Pengalaman Bekerja</label>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="form-check">
-                                <label class="form-radio-label">
-                                    <input class="form-radio-input" type="radio" name="pengalaman_kerja" value="non"  checked="">
-                                    <span class="form-radio-sign">Non</span>
-                                </label>
-                                <label class="form-radio-label ml-3">
-                                    <input class="form-radio-input" type="radio" name="pengalaman_kerja" value="ex">
-                                    <span class="form-radio-sign">Ex / Berpengalaman</span>
-                                </label>
+                        <div class="col-md-3 mb-2">
+                            <div class="input-group">
+                                <input type="number" required placeholder="Usia Maksimal" name="usia_maks" class="form-control" id="">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">Tahun</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
+                            <label for="" class="col-form-label">Pengalaman Bekerja</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                    <input type="checkbox" name="pengalaman_kerja[]" value="non" aria-label="Checkbox for following text input">
+                                  </div>
+                                </div>
+                                <span class="selectgroup-button">Non</span>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                    <input type="checkbox" name="pengalaman_kerja[]" value="ex" aria-label="Checkbox for following text input">
+                                  </div>
+                                </div>
+                                <span class="selectgroup-button">Ex</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-3">
                             <label for="" class="col-form-label">Tinggi Badan Minimal</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="number" required name="tinggi" placeholder="Masukkan Tinggi" class="form-control" id="">
+                            <div class="input-group">
+                                <input type="number" required name="tinggi" placeholder="Masukkan Tinggi Badan" class="form-control" id="">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">Cm</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    
                     <div class="row mb-3">
-                        <div class="col-md-4 mb-2">
+                        <div class="col-md-3 mb-2">
                             <label for="" class="col-form-label">Syarat Berat Badan</label>
                         </div>
+                        <div class="col-md-4">
+                            <select name="berat_badan" id="ideal" class="form-control">
+                                <option value="ideal">Ideal</option>
+                                <option value="kustom">Kustom</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" id="random">
+                        <div class="col-md-3"></div>
                         <div class="col-md-4 mb-2">
-                            <input type="number" required name="berat_min" placeholder="Berat Minimal" class="form-control" id="">
+                            <div class="input-group">
+                                <input type="number" name="berat_min" placeholder="Berat Badan Minimal" class="form-control" id="">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">Kg</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-4 mb-2">
-                            <input type="number" required name="berat_maks" placeholder="Berat Maksimal" class="form-control" id="">
+                            <div class="input-group">
+                                <input type="number" name="berat_maks" placeholder="Berat Badan Maksimal" class="form-control" id="">
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">Kg</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label class="col-form-label">Area Rekrut Pekerja</label>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-9">
                             <div class="form-check">                               
                                 @if ($perusahaan->penempatan_kerja == "Dalam negeri")
                                     <label class="form-radio-label">
@@ -195,77 +236,189 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label class="form-label">Benefit Pekerjaan</label>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="" class="form-label">Fasilitas Pekerjaan</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                    <input type="checkbox" name="fasilitas[]" value="komunikasi" aria-label="Checkbox for following text input">
+                                  </div>
+                                </div>
+                                <span class="selectgroup-button">Komunikasi</span>
                             </div>
-                            <div class="col-md-8">
-                                <div class="selectgroup selectgroup-pills">
-                                    <label class="selectgroup-item">
-                                        <input type="checkbox" name="benefit[]" value="cuti tahunan" class="selectgroup-input">
-                                        <span class="selectgroup-button">Cuti Tahunan</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="checkbox" name="benefit[]" value="gaji lembur" class="selectgroup-input">
-                                        <span class="selectgroup-button">Gaji Lembur</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="checkbox" name="benefit[]" value="asuransi" class="selectgroup-input">
-                                        <span class="selectgroup-button">Asuransi</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="checkbox" name="benefit[]" value="transportasi" class="selectgroup-input">
-                                        <span class="selectgroup-button">Transportasi</span>
-                                    </label>
-                                    <label class="selectgroup-item">
-                                        <input type="checkbox" name="benefit[]" value="transportasi" class="selectgroup-input">
-                                        <span class="selectgroup-button">Akomodasi</span>
-                                    </label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                    <input type="checkbox" name="fasilitas[]" value="makanan" aria-label="Checkbox for following text input">
+                                  </div>
+                                </div>
+                                <span class="selectgroup-button">Makanan</span>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                    <input type="checkbox" name="fasilitas[]" value="tempat tinggal" aria-label="Checkbox for following text input">
+                                  </div>
+                                </div>
+                                <span class="selectgroup-button">Tempat Tinggal</span>
+                            </div>
+                            @foreach ($fasilitas as $item)
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <input type="checkbox" name="fasilitas[]" value="{{$item->fasilitas}}" aria-label="Checkbox for following text input">
+                                        </div>
+                                    </div>
+                                    <span class="selectgroup-button">{{$item->fasilitas}}</span>
+                                </div>    
+                            @endforeach
+                            <div class="">
+                                <button class="btn btn-primary" type="button" onclick="btnTambahFasilitas()" id="tambahFasilitas">Tambah Fasilitas</button>
+                                <div class="" id="fasilitasTambah">
+                                    <input type="text" name="" class="form-control mb-2" id="inputFasilitas">
+                                    <button class="btn btn-primary" type="button" onclick="opsiFasilitas()">Tambah</button>
+                                    <button class="btn btn-danger" type="button" onclick="batalFasilitas()">Batal</button>                                        
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col">
+                            <h5 style="font-weight:bold">Benefits</h5>
+                        </div>
+                    </div>
+                    <hr>
                     <div class="row mb-3">
-                        <div class="col-md-4 mb-2">
-                            <label for="" class="col-form-label">Informasi Gaji</label>
+                        <div class="col-md-3 mb-2">
+                            <label for="" class="col-form-label">Informasi Gaji </label>
                         </div>
                         <div class="col-md-4 mb-2">
                             <div class="input-group flex-nowrap">
                                 <div class="input-group-prepend" id="">
                                   <span class="input-group-text" id="mata_uang1"></span>
                                 </div>
-                                <input type="text" required name="gaji_minimum" id="" placeholder="Gaji Minimum" class="form-control">
+                                <input type="number" required name="gaji_minimum" id="" placeholder="Gaji Minimum" class="form-control">
                             </div>
                         </div>
-                        <div class="col-4 mb-2">
+                        <div class="col-md-4 mb-2">
                             <div class="input-group flex-nowrap">
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="mata_uang2"></span>
                                 </div>
-                                <input type="text" required name="gaji_maksimum" id="" placeholder="Gaji Maksimum" class="form-control">
+                                <input type="number" required name="gaji_maksimum" id="" placeholder="Gaji Maksimum" class="form-control">
                             </div>
                         </div>
                     </div>
-                    <hr>                    
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label class="form-label">Benefit Pekerjaan</label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                    <input type="checkbox" name="benefit[]" value="libur mingguan" aria-label="Checkbox for following text input">
+                                    </div>
+                                </div>
+                                <span class="selectgroup-button">Libur Mingguan</span>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                    <input type="checkbox" name="benefit[]" value="libur tahunan" aria-label="Checkbox for following text input">
+                                    </div>
+                                </div>
+                                <span class="selectgroup-button">Libur Tahunan</span>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                    <input type="checkbox" name="benefit[]" value="uang lembur" aria-label="Checkbox for following text input">
+                                    </div>
+                                </div>
+                                <span class="selectgroup-button">Uang Lembur</span>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                    <input type="checkbox" name="benefit[]" value="cuti sakit" aria-label="Checkbox for following text input">
+                                    </div>
+                                </div>
+                                <span class="selectgroup-button">Cuti Sakit</span>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                    <input type="checkbox" name="benefit[]" value="asuransi" aria-label="Checkbox for following text input">
+                                    </div>
+                                </div>
+                                <span class="selectgroup-button">Asuransi</span>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                    <input type="checkbox" name="benefit[]" value="tiket pulang" aria-label="Checkbox for following text input">
+                                    </div>
+                                </div>
+                                <span class="selectgroup-button">Tiket Pulang</span>
+                            </div>
+                            @foreach ($benefit as $item)
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input type="checkbox" name="benefit[]" value="{{$item->benefit}}" aria-label="Checkbox for following text input">
+                                    </div>
+                                    </div>
+                                    <span class="selectgroup-button">{{$item->benefit}}</span>
+                                </div>    
+                            @endforeach
+                            <div class="">
+                                <button class="btn btn-primary" type="button" onclick="btnTambahBenefit()" id="tambahBenefit">Tambah Benefit</button>
+                                <div class="" id="benefitTambah">
+                                    <input type="text" name="" class="form-control mb-2" id="inputBenefit">
+                                    <button class="btn btn-primary" type="button" onclick="opsiBenefit()">Tambah</button>
+                                    <button class="btn btn-danger" type="button" onclick="batalBenefit()">Batal</button>                                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>                  
                     <div class="row mb-3">
-                        <div class="col-4">
+                        <div class="col-md-3">
                             <label for="" class="col-form-label">Kode Undangan</label>
                         </div>
-                        <div class="col-8">
+                        <div class="col-md-9">
                             <input type="text" name="" disabled class="form-control" value="{{$perusahaan->referral_code}}" id="">
                         </div>
                     </div>
                     <hr>
                     <div class="row mb-3">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label for="" class="col-form-label">Tanggal Tutup Lowongan</label>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <input type="date" name="ttp_lowongan" class="form-control" id="">
                         </div>
                     </div>
                     <hr>
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <label for="" class="col-form-label">Tanggal Awal Interview</label>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="date" name="tgl_interview_awal" placeholder="Tanggal Interview Awal" required class="form-control" id="">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="" class="col-form-label">Tanggal Akhir Interview</label>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="date" name="tgl_interview_akhir" placeholder="Tanggal Interview Akhir" required class="form-control" id="">
+                        </div>
+                    </div>
                     <a href="/perusahaan/list/lowongan" class="btn btn-danger">Kembali</a>
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </form>

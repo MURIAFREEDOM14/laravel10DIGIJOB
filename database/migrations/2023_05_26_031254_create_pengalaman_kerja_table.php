@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('id_kandidat')->nullable();
             $table->string('nama_kandidat')->nullable();
             $table->integer('lama_kerja')->nullable();
+            $table->text('deskripsi')->nullable();
         });
     }
 

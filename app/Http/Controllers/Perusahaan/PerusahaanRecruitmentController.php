@@ -27,6 +27,8 @@ use App\Models\messageKandidat;
 use App\Models\notifyAkademi;
 use App\Models\messageAkademi;
 use App\Models\JenisPekerjaan;
+use App\Models\Benefit;
+use App\Models\Fasilitas;
 
 class PerusahaanRecruitmentController extends Controller
 {
@@ -190,7 +192,7 @@ class PerusahaanRecruitmentController extends Controller
         return view('perusahaan/kandidat/cari_staff',compact('perusahaan','notif','pesan','cabang','isi','credit'));
     }
 
-    public function lowonganPekerjaan()
+    public function lowonganPekerjaan($type)
     {
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
@@ -199,10 +201,10 @@ class PerusahaanRecruitmentController extends Controller
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/lowongan_pekerjaan',compact('perusahaan','notif','pesan','lowongan','cabang','credit'));
+        return view('perusahaan/lowongan_pekerjaan',compact('perusahaan','notif','pesan','lowongan','cabang','credit','type'));
     }
 
-    public function tambahLowongan()
+    public function tambahLowongan($type)
     {
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
@@ -210,13 +212,15 @@ class PerusahaanRecruitmentController extends Controller
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        if($perusahaan->penempatan_kerja == "Dalam negeri"){
-            $negara = Negara::where('negara','like',"%Indonesia%")->get();
+        $benefit = Benefit::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        $fasilitas = Fasilitas::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        if($type == "dalam"){
+            $negara = Negara::where('negara','like',"%Indonesia%")->first();
         } else {
             $negara = Negara::where('negara','not like',"%Indonesia%")->get();
         }
         $jenis_pekerjaan = JenisPekerjaan::all();
-        return view('perusahaan/tambah_lowongan',compact('perusahaan','notif','pesan','cabang','credit','negara','jenis_pekerjaan'));
+        return view('perusahaan/tambah_lowongan',compact('perusahaan','notif','pesan','cabang','credit','negara','jenis_pekerjaan','type','benefit','fasilitas'));
     }
 
     protected function lowonganNegara(Request $request)
@@ -225,15 +229,55 @@ class PerusahaanRecruitmentController extends Controller
         return response()->json($data);
     }
 
-    public function simpanLowongan(Request $request)
+    protected function lowonganBenefit(Request $request)
     {
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        Benefit::create([
+            'benefit' => $request->data,
+            'id_perusahaan' => $perusahaan->id_perusahaan,
+        ]);
+        $data = Benefit::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        return response()->json($data);
+    }
+
+    protected function lowonganFasilitas(Request $request)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        Fasilitas::create([
+            'fasilitas' => $request->data,
+            'id_perusahaan' => $perusahaan->id_perusahaan,
+        ]);
+        $data = Fasilitas::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        return response()->json($data);
+    }
+
+    public function simpanLowongan(Request $request)
+    {
+        // dd($request);
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
         $penempatan = Negara::where('negara',$request->penempatan)->first();
+        if($request->berat_badan == "ideal"){
+            
+        } else {
+
+        }
         if($request->benefit !== null){
             $benefit = implode(", ",$request->benefit); 
         } else {
             $benefit = null;
+        }
+        if($request->fasilitas !== null){
+            $fasilitas = implode(", ",$request->fasilitas);
+        } else {
+            $fasilitas = null;
+        }
+        if($request->pengalaman_kerja !== null){
+            $pengalaman = implode(", ",$request->pengalaman_kerja);
+        } else {
+            $pengalaman = null;
         }
         if($request->file('gambar') !== null) {
             $gambar = $perusahaan->nama_perusahaan.$request->jabatan.time().'.'.$request->gambar->extension();  
@@ -263,7 +307,7 @@ class PerusahaanRecruitmentController extends Controller
             'jabatan' => $request->jabatan,
             'pendidikan' => $request->pendidikan,
             'jenis_kelamin' => $request->jenis_kelamin,
-            'pengalaman_kerja' => $request->pengalaman_kerja,
+            'pengalaman_kerja' => $pengalaman,
             'berat_min' => $request->berat_min,
             'berat_maks' => $request->berat_maks,
             'tinggi' => $request->tinggi,
@@ -279,6 +323,9 @@ class PerusahaanRecruitmentController extends Controller
             'gaji_minimum' => $request->gaji_minimum,
             'gaji_maksimum' => $request->gaji_maksimum,
             'benefit' => $benefit,
+            'fasilitas' => $fasilitas,
+            'tgl_interview_awal' => $request->tgl_interview_awal,
+            'tgl_interview_akhir' => $request->tgl_interview_akhir,
         ]);
         return redirect('perusahaan/list/lowongan')->with('success');
     }

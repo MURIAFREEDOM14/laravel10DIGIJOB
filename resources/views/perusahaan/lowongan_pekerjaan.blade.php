@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-header">
                 <h5 style="font-weight: bold" class="float-left">List Lowongan Pekerjaan</h5>
-                <a class="btn btn-primary float-right" href="/perusahaan/buat_lowongan">Tambah</a>
+                <a class="btn btn-primary float-right" href="/perusahaan/buat_lowongan/{{$type}}">Tambah</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

@@ -219,10 +219,10 @@
                                                     <b class="bold">{{$kandidat->nama}}</b>
                                                     <p class="text-muted">{{$kandidat->email}}</p>
                                                     @if (auth()->user()->verify_confirmed !== null)
-                                                        <span class="badge badge-pill badge-info">Verified</span>
+                                                        <span class="badge badge-pill badge-info">Terverifikasi</span>
                                                     @endif
                                                     @if ($kandidat->hubungan_perizin !== null)
-                                                        <span class="badge badge-pill badge-success">Profile</span>
+                                                        <span class="badge badge-pill badge-success">Profil</span>
                                                     @endif
                                                 </div>
                                             </div>
@@ -235,8 +235,6 @@
                                             @else
                                                 <a class="dropdown-item" href="/isi_kandidat_personal">Edit Profil</a>                                                
                                             @endif
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="/contact_us_kandidat">Hubungi Kami</a>
                                             <div class="dropdown-divider"></div>
                                             <a href="{{ route('logout') }}" class="dropdown-item" onclick="confirmation(event)">keluar</a>
                                             {{-- <a class="dropdown-item" onclick="return confirm('Apakah anda yakin ingin keluar?')" href="{{ route('logout') }}"
@@ -452,20 +450,11 @@
                                             &copy; Copyright <strong><span>DIGIJOB-UGIPORT</span></strong>. All Rights Reserved
                                         </div>
                                     </li>
-                                    {{-- <li class="nav-item">
-                                        <a class="nav-link" href="#">
-                                            Help
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">
-                                            Licenses
-                                        </a>
-                                    </li> --}}
                                 </ul>
                             </nav>
                             <div class="copyright ml-auto">
                                 &nbsp;
+                                <strong><a class="text-white" href="/contact_us_kandidat" style="text-transform: uppercase">Hubungi Kami</a></strong>
                                 {{-- 2018, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">ThemeKita</a> --}}
                             </div>
                         </div>

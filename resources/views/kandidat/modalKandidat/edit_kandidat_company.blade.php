@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     <hr>
-                    <a class="btn btn-warning" href="{{route('permission')}}">Lewati</a>                        
+                    {{-- <a class="btn btn-warning" href="{{route('permission')}}">Lewati</a>                         --}}
                     <button class="btn btn-primary float-end" type="submit">Selanjutnya</button>
                 </form>
             </div>
@@ -101,16 +101,20 @@
                         </div>
                         <div class="modal-body">
                             <div class="mb-2">
-                                <label for="exampleInputEmail1" class="form-label">Nama Perusahaan</label>
+                                <label for="exampleInputEmail1" class="form-label">Nama Perusahaan / Majikan</label>
                                 <input type="text" name="nama_perusahaan" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                             </div>
                             <div class="mb-2">
-                                <label for="exampleInputEmail1" class="form-label">Alamat Perusahaan</label>
+                                <label for="exampleInputEmail1" class="form-label">Alamat Perusahaan / Majikan</label>
                                 <input type="text" name="alamat_perusahaan" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                             </div>
                             <div class="mb-2">
                                 <label for="exampleInputEmail1" class="form-label">Jabatan</label>
                                 <input type="text" name="jabatan" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                            </div>
+                            <div class="row mb-2">
+                                <label for="" class="form-label">Deskripsi Pekerjaan</label>
+                                <textarea name="deskripsi" id="" class="form-control" cols="5" rows="3"></textarea>
                             </div>
                             <div class="row mb-2">
                                 <label for="">Periode</label>
@@ -143,7 +147,6 @@
                             </div>     --}}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tutup</button>
                             <button type="submit" class="btn btn-primary">Tambah</button>
                         </div>
                     </div>

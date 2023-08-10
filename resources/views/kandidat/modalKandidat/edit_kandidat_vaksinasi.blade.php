@@ -176,7 +176,7 @@
                     </div>
                     <small>Catatan : Pastikan sudah vaksin minimal 2 kali</small>
                     <hr>
-                    <a class="btn btn-warning" href="{{route('parent')}}">Lewati</a>
+                    {{-- <a class="btn btn-warning" href="{{route('parent')}}">Lewati</a> --}}
                     <button class="btn btn-primary float-end" type="submit">Selanjutnya</button>
                 </form>
             </div>

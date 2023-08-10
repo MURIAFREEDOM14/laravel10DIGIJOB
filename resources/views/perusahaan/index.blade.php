@@ -2,6 +2,11 @@
 @section('content')
 @include('sweetalert::alert')
 @include('flash_message')
+@php
+    $alamat = $perusahaan->tmp_perusahaan;
+    $telp = $perusahaan->no_telp_perusahaan;
+    $operator = $perusahaan->email_operator;
+@endphp
     <div class="container mt-5">
         <div class="row">
             <div class="col-12">
@@ -12,7 +17,7 @@
                 </div>
             </div>
         </div>
-        @if ($perusahaan->email_operator == null)
+        @if ($alamat == null && $telp == null && $operator == null)
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
@@ -142,28 +147,39 @@
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="dropdown">
-                                    <button class="btn btn-link btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
-                                      Lowongan Pekerjaan
+                                    <div class="btn-group dropright">
+                                        <button type="button" class="btn btn-link btn-sm" data-toggle="dropdown" aria-expanded="false">
+                                            Buat Lowongan Baru
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="/perusahaan/list/lowongan/{{"dalam"}}">Dalam negeri</a>
+                                            <a class="dropdown-item" href="/perusahaan/list/lowongan/{{"luar"}}">Luar negeri</a>
+                                        </div>
+                                      </div>
+                                    {{-- <button class="btn btn-link btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
+                                      
                                     </button>
                                     <div class="dropdown-menu">
                                       <a class="dropdown-item" href="/perusahaan/list/lowongan">Lowongan Pekerjaan</a>
                                       <a class="dropdown-item" href="/perusahaan/list_permohonan_lowongan">Pelamar</a>
                                       <a class="dropdown-item" href="/perusahaan/persetujuan_kandidat">Persetujuan Kandidat</a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="dropdown">
-                                    <button class="btn btn-link btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
-                                      Data Kandidat
-                                    </button>
-                                    <div class="dropdown-menu">
-                                      <a class="dropdown-item" href="/perusahaan/list/kandidat">Data Kandidat</a>
-                                      <a class="dropdown-item" href="/perusahaan/cari/kandidat">Cari Kandidat</a>
+                                    <div class="btn-group dropright">
+                                        <button class="btn btn-link btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
+                                            Daftar Lowongan
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="/perusahaan/list_permohonan_lowongan">Daftar Lowongan</a>
+                                            {{-- <a class="dropdown-item" href="/perusahaan/list/kandidat">Data Kandidat</a> --}}
+                                        </div>    
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            {{-- <div class="col-md-2">
                                 <div class="dropdown">
                                     <button class="btn btn-link btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
                                       Data Interview
@@ -172,18 +188,18 @@
                                       <a class="dropdown-item" href="/perusahaan/interview">Data Interview</a>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-md-2">
                                 <div class="dropdown">
                                     <button class="btn btn-link btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
-                                      Data Pembayaran
+                                      Histori Pembayaran
                                     </button>
                                     <div class="dropdown-menu">
                                       <a class="dropdown-item" href="/perusahaan/list/pembayaran">Data Pembayaran</a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            {{-- <div class="col-md-2">
                                 <div class="dropdown">
                                     <button class="btn btn-link btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
                                       Kandidat PMI ID
@@ -192,8 +208,8 @@
                                       <a class="dropdown-item" href="/perusahaan/list/pmi_id">Kandidat PMI ID</a>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
+                            </div> --}}
+                            {{-- <div class="col-md-2">
                                 @if ($perusahaan->penempatan_kerja == "Luar negeri")
                                 <button class="btn btn-link btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
                                     Penempatan Kerja
@@ -202,56 +218,13 @@
                                     <a class="dropdown-item" href="/perusahaan/negara_tujuan">Penempatan Kerja</a>                                                                
                                 </div>    
                                 @endif
-                            </div>
+                            </div> --}}
                         </div>
                         <hr>
                     </div>
                 </div>
             </div>
-            <div class="row mt-3">
-                <div class="col-6">
-                    <div class="card">
-                        <div class="card-header">
-                            Data Kandidat
-                        </div>
-                        <div class="card-body">
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="card">
-                        <div class="card-header">
-                            Data Kandidat Interview
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="basic-datatables" class="display table table-striped table-hover" >
-                                    <thead>
-                                        <tr>
-                                            <th>No.</th>
-                                            <th>Jadwal</th>
-                                            <th>Lihat Detail</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($interview as $item)
-                                        <tr>
-                                            <td>{{$loop->iteration}}</td>
-                                            <td>{{$item->jadwal_interview}}</td>
-                                            <td>
-                                                <a href="/perusahaan/lihat/kandidat/{{$item->id_kandidat}}">Lihat</a>
-                                            </td>
-                                        </tr>    
-                                        @endforeach
-                                        
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="my-5"></div>
         @endif
     </div>
 @endsection

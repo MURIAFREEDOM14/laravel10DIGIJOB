@@ -20,7 +20,7 @@
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="inputPassword6" class="col-form-label">Nama Ayah</label>
+                                <label for="inputPassword6" class="col-form-label">Nama Ayah Kandung</label>
                             </div>
                             <div class="col-md-8">
                                 <input type="text" required value="{{$kandidat->nama_ayah}}" name="nama_ayah" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
@@ -28,7 +28,7 @@
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="inputPassword6" class="col-form-label">Tempat / Tanggal Lahir Ayah</label>
+                                <label for="inputPassword6" class="col-form-label">Tempat / Tanggal Lahir Ayah Kandung</label>
                             </div>
                             <div class="col-md-4">
                                 <input type="text" placeholder="Masukkan Tempat Lahir" required value="{{$kandidat->tmp_lahir_ayah}}" name="tmp_lahir_ayah" class="form-control" id="">
@@ -56,7 +56,7 @@
                         </div> --}}
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="inputPassword6" class="col-form-label">Nama Ibu</label>
+                                <label for="inputPassword6" class="col-form-label">Nama Ibu Kandung</label>
                             </div>
                             <div class="col-md-8">
                                 <input type="text" required value="{{$kandidat->nama_ibu}}" name="nama_ibu" class="form-control" id="">
@@ -64,7 +64,7 @@
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="inputPassword6" class="col-form-label">Tempat / Tanggal Lahir Ibu</label>
+                                <label for="inputPassword6" class="col-form-label">Tempat / Tanggal Lahir Ibu Kandung</label>
                             </div>
                             <div class="col-md-4">
                                 <input type="text" placeholder="Masukkan Tempat Lahir" required value="{{$kandidat->tmp_lahir_ibu}}" name="tmp_lahir_ibu" class="form-control" id="">
@@ -154,7 +154,7 @@
                         </div> --}}
                     </div>
                     <hr>
-                    <a class="btn btn-warning" href="{{route('company')}}">Lewati</a>
+                    {{-- <a class="btn btn-warning" href="{{route('company')}}">Lewati</a> --}}
                     <button class="btn btn-primary float-end" type="submit">Selanjutnya</button>
                 </form>
             </div>

@@ -353,10 +353,12 @@ Route::controller(PerusahaanRecruitmentController::class)->group(function() {
     Route::get('/perusahaan/cari_kandidat_staff','cariKandidatStaff');
     Route::post('/perusahaan/cari_kandidat_staff','pencarianKandidatStaff');
 
-    Route::get('/perusahaan/list/lowongan','lowonganPekerjaan')->middleware('perusahaan');
-    Route::get('/perusahaan/buat_lowongan','tambahLowongan')->middleware('perusahaan');
+    Route::get('/perusahaan/list/lowongan/{type}','lowonganPekerjaan')->middleware('perusahaan');
+    Route::get('/perusahaan/buat_lowongan/{type}','tambahLowongan')->middleware('perusahaan');
     Route::get('/lowongan_negara','lowonganNegara');
-    Route::post('/perusahaan/buat_lowongan','simpanLowongan');
+    Route::get('/benefit','lowonganBenefit');
+    Route::get('/fasilitas','lowonganFasilitas');
+    Route::post('/perusahaan/buat_lowongan/{type}','simpanLowongan');
     Route::get('/perusahaan/lihat_lowongan/{id}','lihatLowongan')->middleware('perusahaan');
     Route::get('/perusahaan/edit_lowongan/{id}','editLowongan')->middleware('perusahaan');
     Route::post('/perusahaan/edit_lowongan/{id}','updateLowongan');

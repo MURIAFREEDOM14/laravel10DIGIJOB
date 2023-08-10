@@ -100,10 +100,16 @@
                                     <label for="inputPassword6" class="col-form-label">Berat & Tinggi Badan</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="number" required value="{{$kandidat->berat}}" placeholder="Masukkan berat badan" name="berat" class="form-control">
+                                    <div class="input-group">
+                                        <input type="number" required value="{{$kandidat->berat}}" placeholder="Masukkan berat badan" name="berat" class="form-control">
+                                        <span class="input-group-text" id="basic-addon2">Kg</span> 
+                                    </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="number" required value="{{$kandidat->tinggi}}" placeholder="Masukkan tinggi badan" name="tinggi" class="form-control">
+                                    <div class="input-group">
+                                        <input type="number" required value="{{$kandidat->tinggi}}" placeholder="Masukkan tinggi badan" name="tinggi" class="form-control">
+                                        <span class="input-group-text" id="basic-addon2">Cm</span>                                     
+                                    </div>
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
@@ -129,7 +135,7 @@
                             </div>
                         </div>
                         <hr>
-                        <a class="btn btn-warning" href="{{route('document')}}">Lewati</a>
+                        {{-- <a class="btn btn-warning" href="{{route('document')}}">Lewati</a> --}}
                         <button class="btn btn-primary float-end" type="submit">Selanjutnya</button>
                     </form>
                 </div>

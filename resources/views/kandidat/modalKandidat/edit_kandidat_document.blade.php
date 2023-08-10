@@ -269,8 +269,8 @@
                                 </div>
                                 <div class="col-md-4">
                                     <select name="stats_nikah" class="form-select" id="">
-                                        <option value="Single" @if ($kandidat->stats_nikah == "Single") selected @endif>Single</option>
-                                        <option value="Menikah" @if ($kandidat->stats_nikah == "Menikah") selected @endif>Menikah</option>
+                                        <option value="Single" @if ($kandidat->stats_nikah == "Single") selected @endif>Belum Kawin</option>
+                                        <option value="Menikah" @if ($kandidat->stats_nikah == "Menikah") selected @endif>Kawin</option>
                                         <option value="Cerai hidup" @if ($kandidat->stats_nikah == "Cerai hidup") selected @endif>Cerai Hidup</option>
                                         <option value="Cerai mati" @if ($kandidat->stats_nikah == "Cerai mati") selected @endif>Cerai Mati</option>
                                     </select>
@@ -278,7 +278,7 @@
                             </div>
                         </div>
                         <hr>
-                        <a class="btn btn-warning" href="{{route('family')}}">Lewati</a>
+                        {{-- <a class="btn btn-warning" href="{{route('family')}}">Lewati</a> --}}
                         <button class="btn btn-primary float-end" type="submit">Selanjutnya</button>
                     </form>
                 </div>
