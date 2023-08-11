@@ -35,6 +35,7 @@ use App\Models\VideoKerja;
 use App\Models\FotoKerja;
 use App\Models\ReportUserIn;
 use App\Models\ReportNewUser;
+use App\Models\DataKeluarga;
 
 class KandidatController extends Controller
 {
@@ -558,6 +559,7 @@ class KandidatController extends Controller
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         $show_negara = Negara::where('negara_id',$kandidat->negara_id)->first();
+        $keluarga = DataKeluarga::where('id_kandidat',$kandidat->id_kandidat)->get();
         if($show_negara == null){
             $negara = null;
         } else {
@@ -567,16 +569,31 @@ class KandidatController extends Controller
         if ($kandidat->stats_nikah == null) {
             return redirect()->route('vaksin');
         } elseif($kandidat->stats_nikah !== "Single") {
-            return view('kandidat/modalKandidat/edit_kandidat_family',compact('kandidat','negara'));    
+            return view('kandidat/modalKandidat/edit_kandidat_family',compact('kandidat','negara','keluarga'));    
         } else {
             return redirect('/isi_kandidat_vaksin');
         }
+    }
+
+    public function simpan_kandidat_anak(Request $request)
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        DataKeluarga::create([
+            'id_kandidat' => $kandidat->id_kandidat,
+            'nama_kandidat' => $kandidat->nama,
+            'anak_ke' => $request->anak_ke,
+            'jenis_kelamin' => $request->jk,
+            'tgl_lahir_anak' => $request->tgl_lahir_anak,
+        ]);
+        return redirect()->back()->with('success',"Data ditambahkan");
     }
 
     public function simpan_kandidat_family(Request $request)
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
+        $tgl_anak = $request->tgl_lahir_anak;
         // cek buku nikah
         if($request->file('foto_buku_nikah') !== null){
             $hapus_buku_nikah = public_path('gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/').$kandidat->foto_buku_nikah;
@@ -641,19 +658,19 @@ class KandidatController extends Controller
         } else {
             $foto_kematian_pasangan = null;
         }
-
         $umur = Carbon::parse($request->tgl_lahir_pasangan)->age;
 
-        $id = Auth::user();
+        $data_keluarga = DataKeluarga::where('id_kandidat',$kandidat->id_kandidat)->get();
+        $jml_anak = $data_keluarga->count();
         Kandidat::where('referral_code', $id->referral_code)->update([
             'foto_buku_nikah' => $foto_buku_nikah,
             'nama_pasangan' => $request->nama_pasangan,
             'umur_pasangan' => $umur,
             'tgl_lahir_pasangan' => $request->tgl_lahir_pasangan,
             'pekerjaan_pasangan' => $request->pekerjaan_pasangan,
-            'jml_anak_lk' => $request->jml_anak_lk,
+            'jml_anak_lk' => $jml_anak,
             'umur_anak_lk' => $request->umur_anak_lk,
-            'jml_anak_pr' => $request->jml_anak_pr,
+            'jml_anak_pr' => $jml_anak,
             'umur_anak_pr' => $request->umur_anak_pr,
             'foto_cerai' => $foto_cerai,
             'foto_kematian_pasangan' => $foto_kematian_pasangan,

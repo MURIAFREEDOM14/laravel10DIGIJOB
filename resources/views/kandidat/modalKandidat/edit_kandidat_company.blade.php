@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     <hr>
-                    {{-- <a class="btn btn-warning" href="{{route('permission')}}">Lewati</a>                         --}}
+                    <a class="btn btn-warning" href="{{route('permission')}}">Lewati</a>                        
                     <button class="btn btn-primary float-end" type="submit">Selanjutnya</button>
                 </form>
             </div>

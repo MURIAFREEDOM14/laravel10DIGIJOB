@@ -196,11 +196,15 @@ class PerusahaanRecruitmentController extends Controller
     {
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-        $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        if($type == "dalam"){
+            $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('negara','like','%Indonesia%')->get();            
+        } else {
+            $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('negara','not like','%Indonesia%')->get();
+        }
         return view('perusahaan/lowongan_pekerjaan',compact('perusahaan','notif','pesan','lowongan','cabang','credit','type'));
     }
 
@@ -253,16 +257,27 @@ class PerusahaanRecruitmentController extends Controller
         return response()->json($data);
     }
 
-    public function simpanLowongan(Request $request)
+    public function simpanLowongan(Request $request,$type)
     {
-        // dd($request);
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
         $penempatan = Negara::where('negara',$request->penempatan)->first();
-        if($request->berat_badan == "ideal"){
-            
+        if($type == "dalam"){
+            $lvl_pekerjaan = $request->lvl_pekerjaan;
         } else {
-
+            $jenis_pekerjaan = JenisPekerjaan::where('judul',$request->lvl_pekerjaan)->first();
+            $lvl_pekerjaan = $jenis_pekerjaan->nama;
+        }
+        if($request->berat_badan == "ideal"){
+            $berat_min = $request->tinggi - 100;
+            $berat_maks = $request->tinggi - 100;
+        } else {
+            $validated = $request->validate([
+                'berat_min' => 'required',
+                'berat_maks' => 'required',
+            ]);
+            $berat_min = $request->berat_min;
+            $berat_maks = $request->berat_maks;
         }
         if($request->benefit !== null){
             $benefit = implode(", ",$request->benefit); 
@@ -308,8 +323,8 @@ class PerusahaanRecruitmentController extends Controller
             'pendidikan' => $request->pendidikan,
             'jenis_kelamin' => $request->jenis_kelamin,
             'pengalaman_kerja' => $pengalaman,
-            'berat_min' => $request->berat_min,
-            'berat_maks' => $request->berat_maks,
+            'berat_min' => $berat_min,
+            'berat_maks' => $berat_maks,
             'tinggi' => $request->tinggi,
             'pencarian_tmp' => $request->pencarian_tmp,
             'id_perusahaan' => $perusahaan->id_perusahaan,
@@ -318,7 +333,7 @@ class PerusahaanRecruitmentController extends Controller
             'negara_id' => $negara_id,
             'ttp_lowongan' => $request->ttp_lowongan,
             'gambar_lowongan' => $gambar_flyer,
-            'lvl_pekerjaan' => $request->lvl_pekerjaan,
+            'lvl_pekerjaan' => $lvl_pekerjaan,
             'mata_uang' => $mata_uang,
             'gaji_minimum' => $request->gaji_minimum,
             'gaji_maksimum' => $request->gaji_maksimum,
@@ -327,10 +342,10 @@ class PerusahaanRecruitmentController extends Controller
             'tgl_interview_awal' => $request->tgl_interview_awal,
             'tgl_interview_akhir' => $request->tgl_interview_akhir,
         ]);
-        return redirect('perusahaan/list/lowongan')->with('success');
+        return redirect('perusahaan/list/lowongan/'.$type)->with('success');
     }
 
-    public function lihatLowongan($id)
+    public function lihatLowongan($id,$type)
     {
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
@@ -339,10 +354,10 @@ class PerusahaanRecruitmentController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/lihat_lowongan',compact('perusahaan','lowongan','pesan','notif','cabang','credit'));
+        return view('perusahaan/lihat_lowongan',compact('perusahaan','lowongan','pesan','notif','cabang','credit','type'));
     }
 
-    public function editLowongan($id)
+    public function editLowongan($id,$type)
     {
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
@@ -350,17 +365,19 @@ class PerusahaanRecruitmentController extends Controller
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        if($perusahaan->penempatan_kerja == "Dalam negeri") {
+        $benefit = Benefit::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        $fasilitas = Fasilitas::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        if($type == "dalam") {
             $negara = Negara::where('negara','like',"%Indonesia%")->first();
         } else {
             $negara = Negara::where('negara','not like',"%Indonesia%")->get();
         }        
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
         $jenis_pekerjaan = JenisPekerjaan::all();
-        return view('perusahaan/edit_lowongan',compact('perusahaan','pesan','notif','lowongan','cabang','negara','credit','jenis_pekerjaan'));
+        return view('perusahaan/edit_lowongan',compact('perusahaan','pesan','notif','lowongan','cabang','negara','credit','jenis_pekerjaan','type','benefit','fasilitas'));
     }
 
-    public function updateLowongan(Request $request, $id)
+    public function updateLowongan(Request $request, $id, $type)
     {
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
@@ -384,27 +401,45 @@ class PerusahaanRecruitmentController extends Controller
                 $gambar = null;    
             }
         }
-
+        if($request->berat_badan == "ideal"){
+            $berat_min = $request->tinggi - 100;
+            $berat_maks = $request->tinggi - 100;
+        } else {
+            $validated = $request->validate([
+                'berat_min' => 'required',
+                'berat_maks' => 'required',
+            ]);
+            $berat_min = $request->berat_min;
+            $berat_maks = $request->berat_maks;
+        }
         if($gambar !== null) {
             $gambar_flyer = $gambar;
         } else {
             $gambar_flyer = null;
         }
-        
         if($request->benefit !== null){
             $benefit = implode(", ",$request->benefit); 
         } else {
             $benefit = null;
         }
-
+        if($request->fasilitas !== null){
+            $fasilitas = implode(", ",$request->fasilitas);
+        } else {
+            $fasilitas = null;
+        }
+        if($request->pengalaman_kerja !== null){
+            $pengalaman = implode(", ",$request->pengalaman_kerja);
+        } else {
+            $pengalaman = null;
+        }
         if($penempatan !== null){
             $mata_uang = $penempatan->mata_uang;
-            $penempatan = $penempatan->negara;
             $negara_id = $penempatan->negara_id;
+            $penempatan = $penempatan->negara;
         } else {
             $mata_uang = null;
-            $penempatan = null;
             $negara_id = null;
+            $penempatan = null;
         }
         LowonganPekerjaan::where('id_lowongan',$id)->update([
             'usia_min' => $request->usia_min,
@@ -412,9 +447,9 @@ class PerusahaanRecruitmentController extends Controller
             'jabatan' => $request->jabatan,
             'pendidikan' => $request->pendidikan,
             'jenis_kelamin' => $request->jenis_kelamin,
-            'pengalaman_kerja' => $request->pengalaman_kerja,
-            'berat_min' => $request->berat_min,
-            'berat_maks' => $request->berat_maks,
+            'pengalaman_kerja' => $pengalaman,
+            'berat_min' => $berat_min,
+            'berat_maks' => $berat_maks,
             'tinggi' => $request->tinggi,
             'pencarian_tmp' => $request->pencarian_tmp,
             'id_perusahaan' => $perusahaan->id_perusahaan,
@@ -427,19 +462,22 @@ class PerusahaanRecruitmentController extends Controller
             'mata_uang' => $mata_uang,
             'gaji_minimum' => $request->gaji_minimum,
             'gaji_maksimum' => $request->gaji_maksimum,
-            'benefit' => $benefit,            
+            'benefit' => $benefit,
+            'fasilitas' => $fasilitas,
+            'tgl_interview_awal' => $request->tgl_interview_awal,
+            'tgl_interview_akhir' =>$request->tgl_interview_akhir,
         ]);
-        return redirect('/perusahaan/list/lowongan')->with('success');
+        return redirect('/perusahaan/list/lowongan/'.$type)->with('success');
     }
 
-    public function hapusLowongan($id)
+    public function hapusLowongan($id,$type)
     {
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->delete();
         $datetime  = date('y-m-d');
         // if($lowongan->ttp_lowongan == 'y-m-d'){
         //     LowonganPekerjaan::where('ttp_lowongan',$datetime)->delete();
         // }
-        return redirect('/perusahaan/list/lowongan')->with('success');
+        return redirect('/perusahaan/list/lowongan/'.$type)->with('success');
     }
 
     public function listPermohonanLowongan()

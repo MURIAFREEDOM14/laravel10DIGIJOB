@@ -589,7 +589,7 @@ class PerusahaanController extends Controller
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        $kandidat = Kandidat::where('id_perusahaan',$perusahaan->id_perusahaan)->where('stat_pemilik','diambil')->get();        
+        $kandidat = Kandidat::where('id_perusahaan',$perusahaan->id_perusahaan)->where('stat_pemilik','diterima')->get();        
         $isi = $kandidat->count();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();

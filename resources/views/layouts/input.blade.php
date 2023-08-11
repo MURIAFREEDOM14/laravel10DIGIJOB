@@ -42,6 +42,9 @@
         #play {
           display: block;
         }
+        #kandidatAnak {
+          display: none;
+        }
       </style>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     </head>
@@ -208,7 +211,20 @@
             }
           })
         })
+
+        $(document).ready(function() {
+          $(document).on('change','#anak',function() {
+            var anak = $(this).val();
+            var kandidatAnak = document.getElementById('kandidatAnak');
+            if (anak == "ya") {
+              kandidatAnak.style.display = 'block';
+            } else {
+              kandidatAnak.style.display = 'none';
+            }
+          })
+        })
       </script>
+
       <script>
         var video = document.getElementById("video");
         var btnPlay = document.getElementById('play');

@@ -32,7 +32,7 @@
                             <label for="" class="col-form-label">Judul Pekerjaan</label>
                         </div>
                         <div class="col-md-9">
-                            <input type="text" required name="jabatan" class="form-control" id="">
+                            <input type="text" required name="jabatan" value="{{old('jabatan')}}" class="form-control" id="">
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -64,7 +64,7 @@
                             <label for="" class="col-form-label">Deskripsi Pekerjaan</label>
                         </div>
                         <div class="col-md-9">
-                            <textarea name="deskripsi" required id="" class="form-control"></textarea>
+                            <textarea name="deskripsi" required id="" class="form-control">{{old('deskripsi')}}</textarea>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -119,7 +119,7 @@
                         </div>
                         <div class="col-md-3 mb-2">
                             <div class="input-group">
-                                <input type="number" required placeholder="Usia Minimal" name="usia_min" class="form-control" id="">
+                                <input type="number" required placeholder="Usia Minimal" name="usia_min" value="{{old('usia_min')}}" class="form-control" id="">
                                 <div class="input-group-append">
                                     <span class="input-group-text" id="basic-addon2">Tahun</span>
                                 </div>
@@ -127,7 +127,7 @@
                         </div>
                         <div class="col-md-3 mb-2">
                             <div class="input-group">
-                                <input type="number" required placeholder="Usia Maksimal" name="usia_maks" class="form-control" id="">
+                                <input type="number" required placeholder="Usia Maksimal" name="usia_maks" value="{{old('usia_maks')}}" class="form-control" id="">
                                 <div class="input-group-append">
                                     <span class="input-group-text" id="basic-addon2">Tahun</span>
                                 </div>
@@ -163,14 +163,13 @@
                         </div>
                         <div class="col-md-4">
                             <div class="input-group">
-                                <input type="number" required name="tinggi" placeholder="Masukkan Tinggi Badan" class="form-control" id="">
+                                <input type="number" required name="tinggi" value="{{old('tinggi')}}" placeholder="Masukkan Tinggi Badan" class="form-control" id="">
                                 <div class="input-group-append">
                                     <span class="input-group-text" id="basic-addon2">Cm</span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
+                    </div>  
                     <div class="row mb-3">
                         <div class="col-md-3 mb-2">
                             <label for="" class="col-form-label">Syarat Berat Badan</label>
@@ -180,23 +179,22 @@
                                 <option value="ideal">Ideal</option>
                                 <option value="kustom">Kustom</option>
                             </select>
-                        </div>
-                    </div>
-                    <div class="row" id="random">
-                        <div class="col-md-3"></div>
-                        <div class="col-md-4 mb-2">
-                            <div class="input-group">
-                                <input type="number" name="berat_min" placeholder="Berat Badan Minimal" class="form-control" id="">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="basic-addon2">Kg</span>
+                            <div class="mt-2" id="random">
+                                <div class="mb-2">
+                                    <div class="input-group">
+                                        <input type="number" name="berat_min" value="{{old('berat_min')}}" placeholder="Berat Badan Minimal" class="form-control" id="">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">Kg</span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-2">
-                            <div class="input-group">
-                                <input type="number" name="berat_maks" placeholder="Berat Badan Maksimal" class="form-control" id="">
-                                <div class="input-group-append">
-                                    <span class="input-group-text" id="basic-addon2">Kg</span>
+                                <div class="mb-2">
+                                    <div class="input-group">
+                                        <input type="number" name="berat_maks" value="{{old('berat_maks')}}" placeholder="Berat Badan Maksimal" class="form-control" id="">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon2">Kg</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -207,7 +205,7 @@
                         </div>
                         <div class="col-md-9">
                             <div class="form-check">                               
-                                @if ($perusahaan->penempatan_kerja == "Dalam negeri")
+                                @if ($type == "dalam")
                                     <label class="form-radio-label">
                                         <input class="form-radio-input" type="radio" name="pencarian_tmp" value="{{$perusahaan->kota}}"  checked="">
                                         <span class="form-radio-sign">Se-Kabupaten /  Kota</span>
@@ -220,7 +218,7 @@
                                         <input class="form-radio-input" type="radio" name="pencarian_tmp" value="Se-indonesia">
                                         <span class="form-radio-sign">Se-Indonesia</span>
                                     </label>    
-                                @elseif($perusahaan->penempatan_kerja == "Luar negeri")
+                                @elseif($type == "luar")
                                     <label class="form-radio-label ml-3">
                                         <input class="form-radio-input" type="radio" name="pencarian_tmp" value="Se-indonesia" checked="">
                                         <span class="form-radio-sign">Se-Indonesia</span>
@@ -301,7 +299,7 @@
                                 <div class="input-group-prepend" id="">
                                   <span class="input-group-text" id="mata_uang1"></span>
                                 </div>
-                                <input type="number" required name="gaji_minimum" id="" placeholder="Gaji Minimum" class="form-control">
+                                <input type="number" required name="gaji_minimum" value="{{old('gaji_minimum')}}" id="" placeholder="Gaji Minimum" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-4 mb-2">
@@ -309,7 +307,7 @@
                                 <div class="input-group-prepend">
                                   <span class="input-group-text" id="mata_uang2"></span>
                                 </div>
-                                <input type="number" required name="gaji_maksimum" id="" placeholder="Gaji Maksimum" class="form-control">
+                                <input type="number" required name="gaji_maksimum" value="{{old('gaji_maksimum')}}" id="" placeholder="Gaji Maksimum" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -401,7 +399,7 @@
                             <label for="" class="col-form-label">Tanggal Tutup Lowongan</label>
                         </div>
                         <div class="col-md-3">
-                            <input type="date" name="ttp_lowongan" class="form-control" id="">
+                            <input type="date" required name="ttp_lowongan" value="{{old('ttp_lowongan')}}" class="form-control" id="">
                         </div>
                     </div>
                     <hr>
@@ -410,16 +408,16 @@
                             <label for="" class="col-form-label">Tanggal Awal Interview</label>
                         </div>
                         <div class="col-md-3">
-                            <input type="date" name="tgl_interview_awal" placeholder="Tanggal Interview Awal" required class="form-control" id="">
+                            <input type="date" name="tgl_interview_awal" value="{{old('tgl_interview_awal')}}" placeholder="Tanggal Interview Awal" required class="form-control" id="">
                         </div>
                         <div class="col-md-3">
                             <label for="" class="col-form-label">Tanggal Akhir Interview</label>
                         </div>
                         <div class="col-md-3">
-                            <input type="date" name="tgl_interview_akhir" placeholder="Tanggal Interview Akhir" required class="form-control" id="">
+                            <input type="date" name="tgl_interview_akhir" value="{{old('tgl_interview_akhir')}}" placeholder="Tanggal Interview Akhir" required class="form-control" id="">
                         </div>
                     </div>
-                    <a href="/perusahaan/list/lowongan" class="btn btn-danger">Kembali</a>
+                    <a href="/perusahaan/list/lowongan/{{$type}}" class="btn btn-danger">Kembali</a>
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </form>
             </div>

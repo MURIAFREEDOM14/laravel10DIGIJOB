@@ -91,13 +91,13 @@
                     </div>
                 </div>
                 <hr>
-                @if ($lowongan->usia !== null)
+                @if ($lowongan->usia_min !== null && $lowongan->usia_maks !== null)
                     <div  class="row">
                         <div class="col-md-3">
                             <label for="" class="">Syarat Usia</label>
                         </div>
                         <div class="col-md-8">
-                            <div class=""><b class="bold">: {{$lowongan->usia}} tahun Sampai {{$lowongan->usia}} tahun</b></div>
+                            <div class=""><b class="bold">: {{$lowongan->usia_min}} tahun Sampai {{$lowongan->usia_maks}} tahun</b></div>
                         </div>
                     </div>
                     <hr>    
@@ -122,19 +122,19 @@
                     </div>
                     <hr>
                 @endif
-                @if ($lowongan->usia !== null && $lowongan->usia !== null)
+                @if ($lowongan->berat_min !== null && $lowongan->berat_maks !== null)
                     <div  class="row">
                         <div class="col-md-3">
                             <label for="" class="">Berat Badan Minimal</label>
                         </div>
                         <div class="col-md-3">
-                            <div class=""><b class="bold">: {{$lowongan->berat}}</b></div>
+                            <div class=""><b class="bold">: {{$lowongan->berat_min}}</b></div>
                         </div>
                         <div class="col-md-3">
                             <label for="" class="">Berat Badan Maksimal</label>
                         </div>
                         <div class="col-md-3">
-                            <div class=""><b class="bold">: {{$lowongan->berat}}</b></div>                            
+                            <div class=""><b class="bold">: {{$lowongan->berat_maks}}</b></div>                            
                         </div>
                     </div>
                     <hr>                
@@ -151,8 +151,25 @@
                     <hr>    
                 @endif
                 <div  class="row">
-                    <div class="col-md-3">
+                    <div class="col-12">
                         <h5><b class="bold">Fasilitas</b></h5>
+                    </div>
+                </div>
+                <hr>
+                @if ($lowongan->fasilitas !== null)
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="" class="">Fasilitas Pekerjaan</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class=""><b class="bold">: {{$lowongan->fasilitas}}</b></div>
+                        </div>
+                    </div>
+                    <hr>
+                @endif
+                <div class="row">
+                    <div class="col-12">
+                        <h5><b class="bold">Benefit</b></h5>
                     </div>
                 </div>
                 <hr>
@@ -162,14 +179,13 @@
                             <label for="" class="">Benefit Pekerjaan</label>
                         </div>
                         <div class="col-md-8">
-                            <div class=""><b class="bold">: {{($lowongan->benefit)}}
-                            </b></div>
+                            <div class=""><b class="bold">: {{($lowongan->benefit)}}</b></div>
                         </div>
                     </div>
                     <hr>    
                 @endif
                 @if ($lowongan->mata_uang !== null)
-                    <div  class="row">
+                    <div class="row">
                         <div class="col-md-3">
                             <label for="" class="">Mata Uang</label>
                         </div>
@@ -183,10 +199,10 @@
                             <label for="" class="">Informasi Gaji</label>
                         </div>
                         <div class="col-md-3">
-                            <div class=""><b class="bold">Gaji Minimum: {{($lowongan->gaji_minimum)}}</b></div>
+                            <div class=""><b class="bold">: Gaji Minimum : {{($lowongan->gaji_minimum)}}</b></div>
                         </div>
                         <div class="col-md-3">
-                            <div class=""><b class="bold">Gaji Maksimum: {{($lowongan->gaji_maksimum)}}</b></div>
+                            <div class=""><b class="bold">Gaji Maksimum : {{($lowongan->gaji_maksimum)}}</b></div>
                         </div>
                     </div>
                     <hr>
@@ -211,9 +227,20 @@
                     </div>
                     <hr>
                 @endif
-                <a class="btn btn-danger float-right" href="/perusahaan/hapus_lowongan/{{$lowongan->id_lowongan}}" onclick="hapusData(event)">Hapus</a>
-                <a class="btn btn-warning float-right mx-2" href="/perusahaan/edit_lowongan/{{$lowongan->id_lowongan}}">Edit</a>
-                <a href="/perusahaan/list/lowongan" class="btn btn-danger"><- Kembali</a>
+                @if ($lowongan->tgl_interview_awal !== null && $lowongan->tgl_interview_akhir !== null)
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="" class="">Tanggal Interview</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class=""><b class="bold">{{$lowongan->tgl_interview_awal}} Sampai {{$lowongan->tgl_interview_akhir}}</b></div>
+                        </div>
+                    </div>
+                    <hr>
+                @endif
+                <a class="btn btn-danger float-right" href="/perusahaan/hapus_lowongan/{{$lowongan->id_lowongan}}/{{$type}}" onclick="hapusData(event)">Hapus</a>
+                <a class="btn btn-warning float-right mx-2" href="/perusahaan/edit_lowongan/{{$lowongan->id_lowongan}}/{{$type}}">Edit</a>
+                <a href="/perusahaan/list/lowongan/{{$type}}" class="btn btn-danger float-left"><- Kembali</a>
             </div>
         </div>
     </div>

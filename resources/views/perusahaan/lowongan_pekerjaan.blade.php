@@ -26,7 +26,7 @@
                                     <td>{{$item->jabatan}}</td>
                                     <td>{{$item->negara}}</td>
                                     <td>
-                                        <a class="" href="/perusahaan/lihat_lowongan/{{$item->id_lowongan}}">
+                                        <a class="" href="/perusahaan/lihat_lowongan/{{$item->id_lowongan}}/{{$type}}">
                                             <div class="avatar avatar-xl">
                                                 @if ($item->gambar_lowongan !== null)
                                                     <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Lowongan Pekerjaan/{{$item->gambar_lowongan}}" alt="" class="avatar-img rounded-circle">
@@ -36,7 +36,7 @@
                                             </div>
                                         </a>
                                     </td>
-                                </tr>    
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

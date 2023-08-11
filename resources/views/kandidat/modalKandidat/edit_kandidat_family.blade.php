@@ -19,76 +19,49 @@
                             </div>
                         </div>
                         @if ($kandidat->stats_nikah == "Cerai hidup")
-                            {{-- <div class="row mb-3 g-3 align-items-center">
-                                <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Foto Buku Nikah</label>
-                                </div>
-                                <div class="col-md-8">
-                                    @if ($kandidat->foto_buku_nikah !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Buku Nikah/{{$kandidat->foto_buku_nikah}}" width="150" height="150" alt="">
-                                        <input type="file" name="foto_buku_nikah" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">
-                                    @else
-                                        <input type="file" disabled name="foto_buku_nikah" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
-                                    @endif
-                                </div>
-                            </div> --}}
-                            {{-- <div class="row mb-3 g-3 align-items-center">
-                                <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Nama Pasangan</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" disabled value="{{$kandidat->nama_pasangan}}" required name="nama_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
-                                </div>
-                            </div> --}}
-                            {{-- <div class="row mb-3 g-3 align-items-center">
-                                <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Umur Pasangan</label>
-                                </div>
-                                <div class="col-md-2">
-                                    <input type="number" disabled min="0" value="{{$kandidat->umur_pasangan}}" name="umur_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
-                                </div>
-                            </div> --}}
-                            {{-- <div class="row mb-3 g-3 align-items-center">
-                                <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Pekerjaan Pasangan</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" disabled value="{{$kandidat->pekerjaan_pasangan}}" name="pekerjaan_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
-                                </div>
-                            </div> --}}
                             <div class="" id="punya_anak">
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
-                                        <label for="inputPassword6" class="col-form-label">Jumlah Anak Laki-laki</label>
+                                        <label for="" class="col-form-label">Apakah Anda Sudah Memiliki Anak?</label>
                                     </div>
-                                    <div class="col-md-2">
-                                        <input type="number" value="{{$kandidat->jml_anak_lk}}" name="jml_anak_lk" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <div class="col-md-3">
+                                        <select name="" id="anak" class="form-select">
+                                            <option value="tidak">Tidak</option>
+                                            <option value="ya">Ya</option>
+                                        </select>
                                     </div>
-                                </div>
-                                <div class="row mb-3 g-3 align-items-center">
-                                    <div class="col-md-4">
-                                        <label for="inputPassword6" class="col-form-label">Umur Anak Laki-laki</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <small class="col">Tuliskan umur anak dari paling besar sampai paling kecil, Contoh: 15, 12, 10, dst</small>
-                                        <input type="text" value="{{$kandidat->umur_anak_lk}}" name="umur_anak_lk" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
-                                    </div>
-                                </div>
-                                <div class="row mb-3 g-3 align-items-center">
-                                    <div class="col-md-4">
-                                        <label for="inputPassword6" class="col-form-label">Jumlah Anak Perempuan</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <input type="number" value="{{$kandidat->jml_anak_pr}}" name="jml_anak_pr" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
-                                    </div>
-                                </div>
-                                <div class="row mb-3 g-3 align-items-center">
-                                    <div class="col-md-4">
-                                        <label for="inputPassword6" class="col-form-label">Umur Anak Perempuan</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <small class="col">Tuliskan umur anak dari paling besar sampai paling kecil, Contoh: 15, 12, 10, dst</small>
-                                        <input type="text" value="{{$kandidat->umur_anak_pr}}" name="umur_anak_pr" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <div class="card" id="kandidatAnak">
+
+
+                                        <div class="card-header">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#data_anak">
+                                                Tambah
+                                            </button>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">No</th>
+                                                            <th scope="col">Anak Ke</th>
+                                                            <th scope="col">Jenis Kelamin</th>
+                                                            <th scope="col">Tanggal Lahir</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($keluarga as $item)
+                                                            <tr>
+                                                                <th>{{$loop->iteration}}</th>
+                                                                <td>{{$item->anak_ke}}</td>
+                                                                <td>{{$item->jenis_kelamin}}</td>
+                                                                <td>{{date('d-M-Y',strtotime($item->tgl_lahir_anak))}}</td>
+                                                            </tr>    
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -106,80 +79,47 @@
                                 </div>
                             </div>
                         @elseif ($kandidat->stats_nikah == "Cerai mati") 
-                            <div class="row mb-3 g-3 align-items-center">
-                                {{-- <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Foto Buku Nikah</label>
-                                </div>
-                                <div class="col-md-8">
-                                    @if ($kandidat->foto_buku_nikah !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Buku Nikah/{{$kandidat->foto_buku_nikah}}" width="150" height="150" alt="">
-                                        <input type="file" name="foto_buku_nikah" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">
-                                    @else
-                                        <input type="file" disabled name="foto_buku_nikah" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
-                                    @endif
-                                </div> --}}
-                            </div>
-                            {{-- <div class="row mb-3 g-3 align-items-center">
-                                <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Nama Pasangan</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" disabled value="{{$kandidat->nama_pasangan}}" name="nama_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
-                                </div>
-                            </div> --}}
-                            {{-- <div class="row mb-3 g-3 align-items-center">
-                                <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Umur Pasangan</label>
-                                </div>
-                                <div class="col-md-2">
-                                    @if ($kandidat->umur_pasangan !== null)
-                                        <input type="number" disabled value="{{$kandidat->umur_pasangan}}" name="umur_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
-                                    @else
-                                        <input type="number" disabled min="0" name="umur_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
-                                    @endif
-                                </div>
-                            </div> --}}
-                            {{-- <div class="row mb-3 g-3 align-items-center">
-                                <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Pekerjaan Pasangan</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" disabled value="{{$kandidat->pekerjaan_pasangan}}" name="pekerjaan_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
-                                </div>
-                            </div> --}}
                             <div class="" id="punya_anak">
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
-                                        <label for="inputPassword6" class="col-form-label">Jumlah Anak Laki-laki</label>
+                                        <label for="" class="col-form-label">Apakah Anda Sudah Memiliki Anak?</label>
                                     </div>
-                                    <div class="col-md-2">
-                                        <input type="number" value="{{$kandidat->jml_anak_lk}}" name="jml_anak_lk" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <div class="col-md-3">
+                                        <select name="" id="anak" class="form-select">
+                                            <option value="tidak">Tidak</option>
+                                            <option value="ya">Ya</option>
+                                        </select>
                                     </div>
-                                </div>
-                                <div class="row mb-3 g-3 align-items-center">
-                                    <div class="col-md-4">
-                                        <label for="inputPassword6" class="col-form-label">Umur Anak Laki-laki</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <small class="col">Tuliskan umur anak dari paling besar sampai paling kecil, Contoh: 15, 12, 10, dst</small>
-                                        <input type="text" value="{{$kandidat->umur_anak_lk}}" name="umur_anak_lk" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
-                                    </div>
-                                </div>
-                                <div class="row mb-3 g-3 align-items-center">
-                                    <div class="col-md-4">
-                                        <label for="inputPassword6" class="col-form-label">Jumlah Anak Perempuan</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <input type="number" value="{{$kandidat->jml_anak_pr}}" name="jml_anak_pr" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
-                                    </div>
-                                </div>
-                                <div class="row mb-3 g-3 align-items-center">
-                                    <div class="col-md-4">
-                                        <label for="inputPassword6" class="col-form-label">Umur Anak Perempuan</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <small class="col">Tuliskan umur anak dari paling besar sampai paling kecil, Contoh: 15, 12, 10, dst</small>
-                                        <input type="text" value="{{$kandidat->umur_anak_pr}}" name="umur_anak_pr" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <div class="card" id="kandidatAnak">
+                                        <div class="card-header">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#data_anak">
+                                                Tambah
+                                            </button>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">No</th>
+                                                            <th scope="col">Anak Ke</th>
+                                                            <th scope="col">Jenis Kelamin</th>
+                                                            <th scope="col">Tanggal Lahir</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach ($keluarga as $item)
+                                                            <tr>
+                                                                <th>{{$loop->iteration}}</th>
+                                                                <td>{{$item->anak_ke}}</td>
+                                                                <td>{{$item->jenis_kelamin}}</td>
+                                                                <td>{{date('d-M-Y',strtotime($item->tgl_lahir_anak))}}</td>
+                                                            </tr>    
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -237,39 +177,42 @@
                             <div class="" id="punya_anak">
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
-                                        <label for="inputPassword6" class="col-form-label">Jumlah Anak Laki-laki</label>
+                                        <label for="" class="col-form-label">Apakah Anda Sudah Memiliki Anak?</label>
                                     </div>
-                                    <div class="col-md-2">
-                                        <input type="number" value="{{$kandidat->jml_anak_lk}}" name="jml_anak_lk" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <div class="col-md-3">
+                                        <select name="" id="anak" class="form-select">
+                                            <option value="tidak">Tidak</option>
+                                            <option value="ya">Ya</option>
+                                        </select>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="" id="kandidatAnak">
                                 <div class="row mb-3 g-3 align-items-center">
-                                    <div class="col-md-4">
-                                        <label for="inputPassword6" class="col-form-label">Umur Anak Laki-laki</label>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="" class="">Anak Ke</label>
+                                            <input type="number" name="anak_ke" required class="form-control" id="">
+                                        </div>
                                     </div>
-                                    <div class="col-md-8">
-                                        <small class="col">Tuliskan umur anak dari paling besar sampai paling kecil, Contoh: 15, 12, 10, dst</small>
-                                        <input type="text" value="{{$kandidat->umur_anak_lk}}" name="umur_anak_lk" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="" class="">Jenis Kelamin</label>
+                                            <select name="jk" class="form-select" id="" required>
+                                                <option value="">-- Jenis Kelamin Anak --</option>
+                                                <option value="M">Laki-laki</option>
+                                                <option value="F">Perempuan</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row mb-3 g-3 align-items-center">
-                                    <div class="col-md-4">
-                                        <label for="inputPassword6" class="col-form-label">Jumlah Anak Perempuan</label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <input type="number" value="{{$kandidat->jml_anak_pr}}" name="jml_anak_pr" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
-                                    </div>
-                                </div>
-                                <div class="row mb-3 g-3 align-items-center">
-                                    <div class="col-md-4">
-                                        <label for="inputPassword6" class="col-form-label">Umur Anak Perempuan</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <small class="col">Tuliskan umur anak dari paling besar sampai paling kecil, Contoh: 15, 12, 10, dst</small>
-                                        <input type="text" value="{{$kandidat->umur_anak_pr}}" name="umur_anak_pr" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="" class="">Tanggal Lahir Anak</label>
+                                            <input type="date" required name="tgl_lahir_anak" id="" class="form-control">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>                                
+                            </div>
                         @endif
                     </div>
                     <hr>
@@ -280,5 +223,39 @@
             <hr>
         </div>
     </div>
-</div>    
+</div>
+<!-- Modal -->
+<div class="modal fade" id="data_anak" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="/isi_kandidat_anak" method="POST">
+                @csrf
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="" class="">Anak Ke</label>
+                        <input type="number" name="anak_ke" required class="form-control" id="">
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="" class="">Jenis Kelamin</label>
+                        <select name="jk" class="form-select" id="" required>
+                            <option value="">-- Jenis Kelamin Anak --</option>
+                            <option value="M">Laki-laki</option>
+                            <option value="F">Perempuan</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="" class="">Tanggal Lahir Anak</label>
+                        <input type="date" required name="tgl_lahir_anak" id="" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Tambah</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection

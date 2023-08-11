@@ -317,9 +317,11 @@ Route::controller(PerusahaanController::class)->group(function(){
     Route::get('/perusahaan/cari/kandidat','pencarianKandidat')->middleware('perusahaan');
     Route::post('/perusahaan/cari/kandidat','cariKandidat');
     Route::post('/perusahaan/pilih/kandidat','pilihKandidat');
+    
     Route::get('/perusahaan/lihat/kandidat/{id}','lihatProfilKandidat')->middleware('perusahaan');
     Route::get('/perusahaan/galeri_kandidat/{id}','galeriKandidat')->middleware('perusahaan');
     Route::get('/perusahaan/lihat/galeri_kandidat/{id}/{type}','lihatGaleriKandidat')->middleware('perusahaan');
+    
     Route::get('/perusahaan/interview','JadwalInterview')->middleware('perusahaan');
     Route::get('/perusahaan/jadwal_interview','tentukanJadwal')->middleware('perusahaan');
     Route::post('/perusahaan/jadwal_interview','simpanJadwal');
@@ -333,9 +335,7 @@ Route::controller(PerusahaanController::class)->group(function(){
     Route::get('/perusahaan/lihat/akademi/{id}','lihatProfilAkademi')->middleware('perusahaan');
     // Route::post('/perusahaan/cari_kandidat','temukanKandidat');
     Route::get('/perusahaan/cari_kandidat/experience','cariKandidatExperience')->middleware('perusahaan');
-    Route::post('/perusahaan/cari_kandidat/experience','temukanKandidatExperience');
-        
-    // Route::post('/perusahaan/interview','TambahJadwal');
+    Route::post('/perusahaan/cari_kandidat/experience','temukanKandidatExperience');        
 });
 
 Route::controller(PerusahaanRecruitmentController::class)->group(function() {
@@ -359,10 +359,10 @@ Route::controller(PerusahaanRecruitmentController::class)->group(function() {
     Route::get('/benefit','lowonganBenefit');
     Route::get('/fasilitas','lowonganFasilitas');
     Route::post('/perusahaan/buat_lowongan/{type}','simpanLowongan');
-    Route::get('/perusahaan/lihat_lowongan/{id}','lihatLowongan')->middleware('perusahaan');
-    Route::get('/perusahaan/edit_lowongan/{id}','editLowongan')->middleware('perusahaan');
-    Route::post('/perusahaan/edit_lowongan/{id}','updateLowongan');
-    Route::get('/perusahaan/hapus_lowongan/{id}','hapusLowongan')->middleware('perusahaan');
+    Route::get('/perusahaan/lihat_lowongan/{id}/{type}','lihatLowongan')->middleware('perusahaan');
+    Route::get('/perusahaan/edit_lowongan/{id}/{type}','editLowongan')->middleware('perusahaan');
+    Route::post('/perusahaan/edit_lowongan/{id}/{type}','updateLowongan');
+    Route::get('/perusahaan/hapus_lowongan/{id}/{type}','hapusLowongan')->middleware('perusahaan');
 
     Route::get('/perusahaan/list_permohonan_lowongan','listPermohonanLowongan')->middleware('perusahaan');
     Route::get('/perusahaan/lihat_permohonan_lowongan/{id}','lihatPermohonanLowongan')->middleware('perusahaan');
@@ -400,6 +400,7 @@ Route::controller(KandidatController::class)->group(function() {
     Route::post('/isi_kandidat_parent', 'simpan_kandidat_parent');
 
     Route::get('/isi_kandidat_family', 'isi_kandidat_family')->middleware('kandidat')->name('family');
+    Route::post('/isi_kandidat_anak', 'simpan_kandidat_anak');
     Route::post('/isi_kandidat_family', 'simpan_kandidat_family');
 
     Route::get('/isi_kandidat_company', 'isi_kandidat_company')->middleware('kandidat')->name('company');

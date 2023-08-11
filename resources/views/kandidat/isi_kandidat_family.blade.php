@@ -125,7 +125,7 @@
                                             <label for="inputPassword6" class="col-form-label">Jumlah Anak Laki-laki</label>
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="number" value="{{$kandidat->jml_anak_lk}}" name="jml_anak_lk" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                            
                                         </div>
                                     </div>
                                     <div class="row mb-3 g-3 align-items-center">
