@@ -173,29 +173,31 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-md-3">
-                            <label for="" class="col-form-label">Pengalaman Bekerja</label>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text">
-                                    <input type="checkbox" name="pengalaman_kerja[]" value="non" aria-label="Checkbox for following text input">
-                                  </div>
-                                </div>
-                                <span class="selectgroup-button">Non</span>
+                    @if ($type == "luar")
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <label for="" class="col-form-label">Pengalaman Bekerja</label>
                             </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text">
-                                    <input type="checkbox" name="pengalaman_kerja[]" value="ex" aria-label="Checkbox for following text input">
-                                  </div>
+                            <div class="col-md-9">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input type="checkbox" name="pengalaman_kerja[]" value="non" aria-label="Checkbox for following text input">
+                                    </div>
+                                    </div>
+                                    <span class="selectgroup-button">Non</span>
                                 </div>
-                                <span class="selectgroup-button">Ex</span>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input type="checkbox" name="pengalaman_kerja[]" value="ex" aria-label="Checkbox for following text input">
+                                    </div>
+                                    </div>
+                                    <span class="selectgroup-button">Ex</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                     <div class="row mb-3">
                         <div class="col-md-3">
                             <label for="" class="col-form-label">Tinggi Badan Minimal</label>

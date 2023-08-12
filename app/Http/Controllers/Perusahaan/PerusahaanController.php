@@ -36,6 +36,7 @@ use App\Models\CreditPerusahaan;
 use App\Models\User;
 use App\Models\FotoKerja;
 use App\Models\VideoKerja;
+use Carbon\CarbonPeriod;
 
 class PerusahaanController extends Controller
 {
@@ -805,6 +806,7 @@ class PerusahaanController extends Controller
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $pilih = null;
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->first();
         $interview = Interview::join(
             'permohonan_lowongan', 'interview.id_kandidat','=','permohonan_lowongan.id_kandidat'
         )->where('interview.id_perusahaan',$perusahaan->id_perusahaan)->where('interview.status',"pilih")->get();
@@ -832,7 +834,47 @@ class PerusahaanController extends Controller
         ));
     }
 
-    public function tentukanJadwal()
+    public function tentukanWaktu(Request $request, $id)
+    {
+        $auth = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
+        $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$id)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();       
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->first();
+        $lowongan_awal = new Carbon($lowongan->tgl_interview_awal);
+        $lowongan_akhir = new Carbon($lowongan->tgl_interview_akhir);
+        $range = CarbonPeriod::create($lowongan_awal, $lowongan_akhir);
+        if($request->time !== null){
+            $time = $request->time;
+        } else {
+            $time = $lowongan_awal;
+        }
+        // $jadwal = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$id)->where('waktu_interview','not like',null)->first();
+        // if($jadwal){
+            
+        // } else {
+
+        // }
+        return view('perusahaan/jadwal_interview',compact('perusahaan','interview','notif','pesan','cabang','credit','range','time','id'));
+    }
+
+    public function simpanWaktu(Request $request, $id, $time)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $waktu = $request->waktu;
+        $tanggal = $request->tanggal;
+        Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$id)->update([
+            'jadwal_interview' => $time,
+            'waktu_interview' => $request->waktu,
+        ]);
+        return redirect('/perusahaan/jadwal_interview/'.$id.'/'.$time)->with('success',"Waktu interview ditentukan");
+    }
+
+    public function tentukanJadwal(Request $request, $id)
     {
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
@@ -841,7 +883,16 @@ class PerusahaanController extends Controller
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();       
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/jadwal_interview',compact('perusahaan','interview','notif','pesan','cabang','credit'));
+        $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->first();
+        $lowongan_awal = new Carbon($lowongan->tgl_interview_awal);
+        $lowongan_akhir = new Carbon($lowongan->tgl_interview_akhir);
+        $range = CarbonPeriod::create($lowongan_awal, $lowongan_akhir);
+        if($request->time !== null){
+            $time = $request->time;
+        } else {
+            $time = $lowongan_awal;
+        }
+        return view('perusahaan/jadwal_interview',compact('perusahaan','interview','notif','pesan','cabang','credit','range','time','id'));
     }
 
     public function simpanJadwal(Request $request)

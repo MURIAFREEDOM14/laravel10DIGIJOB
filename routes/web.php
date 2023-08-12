@@ -323,8 +323,11 @@ Route::controller(PerusahaanController::class)->group(function(){
     Route::get('/perusahaan/lihat/galeri_kandidat/{id}/{type}','lihatGaleriKandidat')->middleware('perusahaan');
     
     Route::get('/perusahaan/interview','JadwalInterview')->middleware('perusahaan');
-    Route::get('/perusahaan/jadwal_interview','tentukanJadwal')->middleware('perusahaan');
-    Route::post('/perusahaan/jadwal_interview','simpanJadwal');
+    Route::get('/perusahaan/waktu_interview/{id}/{time}','tentukanWaktu')->middleware('perusahaan');
+    Route::post('/perusahaan/waktu_interview/{id}/{time}','simpanWaktu');
+    
+    Route::get('/perusahaan/jadwal_interview/{id}/{time}','tentukanJadwal')->middleware('perusahaan');
+    Route::post('/perusahaan/jadwal_interview/{id}/{time}','simpanJadwal');
     Route::get('/perusahaan/edit/kandidat/interview/{id}','editJadwalInterview');
     Route::post('/perusahaan/edit/kandidat/interview/{id}','ubahJadwalInterview');
     Route::get('/perusahaan/hapus/kandidat/interview/{id}','deleteJadwalInterview');
@@ -627,34 +630,34 @@ Route::get('/laman', [HomeController::class, 'managerHome'])->name('manager_home
 Route::get('webcam', [CaptureController::class, 'index']);
 Route::post('webcam', [CaptureController::class, 'store'])->name('webcam.capture');
 
-Route::controller(PrototypeController::class)->group(function(){
-    Route::get('/prototype','test')->name('prototype');
-    Route::get('/select1','select');
-    Route::post('/prototype','cek');
-    Route::get('/proto_create','create');
-    Route::get('/proto_store','store');
-    Route::get('/proto_edit','edit');
-    Route::get('/proto_update','update');
-    Route::get('/prototype4','delete');
-    Route::post('/proto_mail','email');
-    Route::view('/prototype3','prototype3');
+// Route::controller(PrototypeController::class)->group(function(){
+//     Route::get('/prototype','test')->name('prototype');
+//     Route::get('/select1','select');
+//     Route::post('/prototype','cek');
+//     Route::get('/proto_create','create');
+//     Route::get('/proto_store','store');
+//     Route::get('/proto_edit','edit');
+//     Route::get('/proto_update','update');
+//     Route::get('/prototype4','delete');
+//     Route::post('/proto_mail','email');
+//     Route::view('/prototype3','prototype3');
     
-    Route::get('/webcam','takePhoto');
-    Route::post('/webcam','store')->name('webcam.capture');
+//     Route::get('/webcam','takePhoto');
+//     Route::post('/webcam','store')->name('webcam.capture');
 
-    Route::get('/video/chat', function() {
-        $users = User::where('id','<>', Auth::id())->get();
-        return view('prototype/webcam',['users'=>$users]);
-    });
+//     Route::get('/video/chat', function() {
+//         $users = User::where('id','<>', Auth::id())->get();
+//         return view('prototype/webcam',['users'=>$users]);
+//     });
 
-    Route::post('/video/call-user','callingUser');
-    Route::post('/video/accept-call','confirmCalling');
+//     Route::post('/video/call-user','callingUser');
+//     Route::post('/video/accept-call','confirmCalling');
 
-    Route::get('/make_captcha','captcha')->name('make.captcha');
+//     Route::get('/make_captcha','captcha')->name('make.captcha');
 
-    Route::view('/kirim_sms','prototype/sms');
-    Route::post('/kirim_sms','sendSMS');
-});
+//     Route::view('/kirim_sms','prototype/sms');
+//     Route::post('/kirim_sms','sendSMS');
+// });
 
 Route::controller(CaptchaController::class)->group(function() {
 Route::get('/sliding-puzzle', [CaptchaController::class, 'showSlidingPuzzle']);

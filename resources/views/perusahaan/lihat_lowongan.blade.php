@@ -102,15 +102,17 @@
                     </div>
                     <hr>    
                 @endif
-                <div  class="row">
-                    <div class="col-md-3">
-                        <label for="" class="">Pengalaman Kerja</label>
+                @if ($lowongan->negara !== "Indonesia")
+                    <div  class="row">
+                        <div class="col-md-3">
+                            <label for="" class="">Pengalaman Kerja</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class=""><b class="bold">: {{$lowongan->pengalaman_kerja}}</b></div>
+                        </div>
                     </div>
-                    <div class="col-md-8">
-                        <div class=""><b class="bold">: {{$lowongan->pengalaman_kerja}}</b></div>
-                    </div>
-                </div>
-                <hr>
+                    <hr>    
+                @endif
                 @if ($lowongan->tinggi !== null)
                     <div class="row">
                         <div class="col-md-3">
@@ -233,7 +235,7 @@
                             <label for="" class="">Tanggal Interview</label>
                         </div>
                         <div class="col-md-8">
-                            <div class=""><b class="bold">{{$lowongan->tgl_interview_awal}} Sampai {{$lowongan->tgl_interview_akhir}}</b></div>
+                            <div class=""><b class="bold">{{date('d-M-Y',strtotime($lowongan->tgl_interview_awal))}} Sampai {{date('d-M-Y',strtotime($lowongan->tgl_interview_akhir))}}</b></div>
                         </div>
                     </div>
                     <hr>

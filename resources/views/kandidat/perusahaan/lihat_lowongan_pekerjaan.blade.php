@@ -5,6 +5,7 @@
             <div class="card-header">
                 <h4><b class="bold">Informasi Lowongan</b></h4>
             </div>
+
             <div class="card-body">
                 <div  class="row">
                     <div class="col-md-3">
@@ -49,7 +50,7 @@
                 @if ($lowongan->gambar_lowongan !== null)
                     <div class="row">
                         <div class="col-md-3">
-                            <label for="">Flyer</label>
+                            <label for="">Gambar</label>
                         </div>
                         <div class="col-md-4">
                             <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Lowongan Pekerjaan/{{$lowongan->gambar_lowongan}}" width="250" height="250" alt="" class="img">                            
@@ -100,22 +101,24 @@
                     </div>
                     <hr>    
                 @endif
-                <div  class="row">
-                    <div class="col-md-3">
-                        <label for="" class="">Pengalaman Kerja</label>
+                @if ($lowongan->negara !== "Indonesia")
+                    <div  class="row">
+                        <div class="col-md-3">
+                            <label for="" class="">Pengalaman Kerja</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class=""><b class="bold">: {{$lowongan->pengalaman_kerja}}</b></div>
+                        </div>
                     </div>
-                    <div class="col-md-8">
-                        <div class=""><b class="bold">: {{$lowongan->pengalaman_kerja}}</b></div>
-                    </div>
-                </div>
-                <hr>
+                    <hr>    
+                @endif
                 @if ($lowongan->tinggi !== null)
                     <div class="row">
                         <div class="col-md-3">
                             <label for="">Tinggi Badan Minimal</label>
                         </div>
                         <div class="col-md-3">
-                            <b class="bold">: {{$lowongan->tinggi}} Cm</b>
+                            <b class="bold">: {{$lowongan->tinggi}}</b>
                         </div>
                     </div>
                     <hr>
@@ -126,13 +129,13 @@
                             <label for="" class="">Berat Badan Minimal</label>
                         </div>
                         <div class="col-md-3">
-                            <div class=""><b class="bold">: {{$lowongan->berat_min}} Kg</b></div>
+                            <div class=""><b class="bold">: {{$lowongan->berat_min}}</b></div>
                         </div>
                         <div class="col-md-3">
                             <label for="" class="">Berat Badan Maksimal</label>
                         </div>
                         <div class="col-md-3">
-                            <div class=""><b class="bold">: {{$lowongan->berat_maks}} Kg</b></div>                            
+                            <div class=""><b class="bold">: {{$lowongan->berat_maks}}</b></div>                            
                         </div>
                     </div>
                     <hr>                
@@ -149,27 +152,41 @@
                     <hr>    
                 @endif
                 <div  class="row">
-                    <div class="col-md-3">
+                    <div class="col-12">
                         <h5><b class="bold">Fasilitas</b></h5>
+                    </div>
+                </div>
+                <hr>
+                @if ($lowongan->fasilitas !== null)
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="" class="">Fasilitas Pekerjaan</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class=""><b class="bold">: {{$lowongan->fasilitas}}</b></div>
+                        </div>
+                    </div>
+                    <hr>
+                @endif
+                <div class="row">
+                    <div class="col-12">
+                        <h5><b class="bold">Benefit</b></h5>
                     </div>
                 </div>
                 <hr>
                 @if ($lowongan->benefit !== null)
                     <div  class="row">
-                        <div class="col-md-12">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item"></li>
-                                <li class="list-group-item"></li>
-                                <li class="list-group-item"></li>
-                                <li class="list-group-item"></li>
-                                <li class="list-group-item"></li>
-                            </ul>
+                        <div class="col-md-3">
+                            <label for="" class="">Benefit Pekerjaan</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class=""><b class="bold">: {{($lowongan->benefit)}}</b></div>
                         </div>
                     </div>
                     <hr>    
                 @endif
-                @if ($lowongan->mata_uang !== null && $lowongan->gaji_minimum !== null && $lowongan->gaji_maksimum !== null)
-                    <div  class="row">
+                @if ($lowongan->mata_uang !== null)
+                    <div class="row">
                         <div class="col-md-3">
                             <label for="" class="">Mata Uang</label>
                         </div>
@@ -183,13 +200,13 @@
                             <label for="" class="">Informasi Gaji</label>
                         </div>
                         <div class="col-md-3">
-                            <div class=""><b class="bold">Gaji Minimum: {{($lowongan->gaji_minimum)}}</b></div>
+                            <div class=""><b class="bold">: Gaji Minimum : {{($lowongan->gaji_minimum)}}</b></div>
                         </div>
                         <div class="col-md-3">
-                            <div class=""><b class="bold">Gaji Maksimum: {{($lowongan->gaji_maksimum)}}</b></div>
+                            <div class=""><b class="bold">Gaji Maksimum : {{($lowongan->gaji_maksimum)}}</b></div>
                         </div>
                     </div>
-                    <hr>    
+                    <hr>
                 @endif
                 <div  class="row">
                     <div class="col-md-3">
@@ -214,20 +231,13 @@
                 @if ($lowongan->tgl_interview_awal !== null && $lowongan->tgl_interview_akhir !== null)
                     <div class="row">
                         <div class="col-md-3">
-                            <label for="" class="">Tanggal Interview Awal</label>
+                            <label for="" class="">Tanggal Interview</label>
                         </div>
-                        <div class="col-md-3">
-                            <div class="">{{$lowongan->tgl_interview_awal}}</div>
-                            <hr>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="" class="">Tanggal Interview Akhir</label>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="">{{$lowongan->tgl_interview_akhir}}</div>
-                            <hr>
+                        <div class="col-md-8">
+                            <div class=""><b class="bold">{{date('d-M-Y',strtotime($lowongan->tgl_interview_awal))}} Sampai {{date('d-M-Y',strtotime($lowongan->tgl_interview_akhir))}}</b></div>
                         </div>
                     </div>
+                    <hr>
                 @endif
                 <a href="/kandidat" class="btn btn-danger">Kembali</a>
                 @if(!$interview)

@@ -27,7 +27,7 @@
                                             <a class="btn btn-primary" style="width: 100%" href="/perusahaan/lihat_permohonan_lowongan/{{$item->id_lowongan}}">Melamar ({{0}})</a>
                                         </div>
                                         <div class="col-md-3 mb-1">
-                                            <a class="btn btn-info" style="width: 100%" href="/perusahaan/interview">Interview ({{0}})</a>
+                                            <a class="btn btn-info" style="width: 100%" href="/perusahaan/waktu_interview/{{$item->id_lowongan}}/{{$item->tgl_interview_awal}}">Interview ({{0}})</a>
                                         </div>
                                         <div class="col-md-3 mb-1">
                                             <a class="btn btn-success" style="width: 100%" href="/perusahaan/list/kandidat">Diterima ({{0}})</a>
