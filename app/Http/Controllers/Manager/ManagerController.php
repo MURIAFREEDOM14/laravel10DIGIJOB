@@ -42,6 +42,7 @@ use App\Mail\Payment;
 use App\Models\ReportUserIn;
 use App\Models\Jadwal;
 use App\Models\ReportNewUser;
+use App\Mail\Verification;
 
 class ManagerController extends Controller
 {
@@ -893,10 +894,11 @@ class ManagerController extends Controller
                     $message->subject('Email Verification Mail');
                 });
             } elseif($pengguna->type == 0) {
-                Mail::send('mail.mail', ['token' => $pengguna->token,'nama' => $pengguna->name], function($message) use($request){
-                    $message->to($request->email);
-                    $message->subject('Email Verification Mail');
-                });    
+                Mail::mailer('verification')->to($request->email)->send(new Verification($pengguna->name, $pengguna->token, 'Email Verification','no-reply@ugiport.com'));
+                // Mail::send('mail.mail', ['token' => $pengguna->token,'nama' => $pengguna->name], function($message) use($request){
+                //     $message->to($request->email);
+                //     $message->subject('Email Verification Mail');
+                // });    
             }
         } elseif($request->type == 1) {
             $namarec = "Hamepa";

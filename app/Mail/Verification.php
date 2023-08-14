@@ -13,12 +13,32 @@ class Verification extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $nama;
+    public $message;
+    public $token;
+    public $email;
+    public $fromName;
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($name, $token, $message, $email)
     {
-        //
+        $this->nama = $name;
+        $this->token = $token;
+        $this->message = $message;
+        $this->email = $email;
+        $this->fromName = env('MAIL_FROM_NAME');
+    }
+
+    public function build()
+    {
+        return $this->from($this->email, $this->fromName)
+        ->subject($this->token)
+        ->markdown('mail.mail')
+        ->with([
+            'token' => $this->token,
+            'message' => $this->message,
+        ]);
     }
 
     /**
@@ -37,7 +57,7 @@ class Verification extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'mail.mail',
         );
     }
 
