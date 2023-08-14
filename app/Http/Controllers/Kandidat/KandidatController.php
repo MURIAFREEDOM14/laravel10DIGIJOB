@@ -579,13 +579,15 @@ class KandidatController extends Controller
     {
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
-        
+        $age = Carbon::parse($request->tgl_lahir_anak)->age;
+
         DataKeluarga::create([
             'id_kandidat' => $kandidat->id_kandidat,
             'nama_kandidat' => $kandidat->nama,
             'anak_ke' => $request->anak_ke,
             'jenis_kelamin' => $request->jk,
-            'tgl_lahir_anak' => $request->tgl_lahir_anak,    
+            'tgl_lahir_anak' => $request->tgl_lahir_anak,
+            'usia' => $age,    
         ]);
         return redirect()->back()->with('success',"Data ditambahkan");
     }

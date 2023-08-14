@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Mail\DemoMail;
+use App\Mail\Verification;
 use App\Models\Kandidat;
 use App\Models\notifyAkademi;
 use App\Models\notifyKandidat;
@@ -23,6 +24,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Notification;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Cashier\Payment;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class RegisterController extends Controller
@@ -168,6 +170,8 @@ class RegisterController extends Controller
             $message->to($request->email);
             $message->subject('Email Verification Mail');
         });
+
+        Mail::mailer('verification')->to($request->email)->send(new Verification($request->name, $token, 'Email Verification', ))
         Auth::login($user);       
         return redirect()->route('verifikasi')->with('success',"Cek email anda untuk verifikasi");
     }
