@@ -7,15 +7,15 @@
     $document = $kandidat->foto_ijazah;
     $vaksin = $kandidat->sertifikat_vaksin2;
     $parent = $kandidat->tgl_lahir_ibu;
-    $permission = $kandidat->hubungan_perizin;                                
+    $permission = $kandidat->hubungan_perizin;
+    $negara = $kandidat->negara_id;                                
 @endphp
 <div class="container mt-5 my-3">
     @if ($personal == null &&
         $document == null &&
         $vaksin == null &&
         $parent == null &&
-        $permission == null &&
-        $kandidat->negara_id == null)
+        $permission == null)
         <div class="row mt-2">
             <div class="col-md-12">
                 <div class="card">
@@ -25,6 +25,36 @@
                     <div class="card-body">
                         <h3 class="text-center">Harap Lengkapi Profil Anda</h3>
                         <div class="text-center"><a class="btn btn-outline-primary" href="/isi_kandidat_personal">Lengkapi Profil</a></div>                                                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    @elseif($negara == null)
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <b class="bold">Informasi Perusahaan</b>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="text-center">Tujuan Bekerja</h3>
+                        <div class="text-center">
+                            <form action="/isi_kandidat_placement" method="POST">
+                                @csrf
+                                <select name="penempatan" id="placement" class="form-control">
+                                    <option value="">-- Pilih Tujuan Bekerja --</option>
+                                    <option value="dalam negeri">Dalam Negeri</option>
+                                    <option value="luar negeri">Luar Negeri</option>
+                                </select>
+                                <div class="" id="hidetext">
+                                    <h4 class="">Negara Tujuan</h4>
+                                </div>
+                                <select name="negara_id" required class="form-control" id="negara_tujuan">
+                                    <option value="">-- Pilih Negara --</option>
+                                </select>
+                                <button type="submit" class="btn btn-primary" id="hidebtn">Simpan</button>
+                            </form>
+                        </div>                                                            
                     </div>
                 </div>
             </div>
@@ -86,20 +116,22 @@
                     <div class="card-body">
                         @if ($lowongan)
                             @foreach ($lowongan as $item)
-                                <div class="row mb-3">
-                                    <div class="col-md-12 ">
-                                        <div class="input-group mb-3">
-                                            <div class="form-control">      
-                                                <marquee behavior="" direction="">{{$item->nama_perusahaan}}, Lowongan: {{$item->jabatan}} </marquee>
-                                            </div>
-                                            <div class="input-group-append">
-                                                @if ($kandidat->id_perusahaan == null && $kandidat->negara_id !== null)
-                                                    <a class="btn btn-outline-primary" href="/profil_perusahaan/{{$item->id_perusahaan}}">Lihat</a>                                        
-                                                @endif
-                                            </div>
-                                        </div>        
-                                    </div>
-                                </div>    
+                                @if ($item->jenis_kelamin == "MF" || $item->jenis_kelamin == $kandidat->jenis_kelamin)
+                                    <div class="row mb-3">
+                                        <div class="col-md-12 ">
+                                            <div class="input-group mb-3">
+                                                <div class="form-control">      
+                                                    <marquee behavior="" direction="">{{$item->nama_perusahaan}}, Lowongan: {{$item->jabatan}} </marquee>
+                                                </div>
+                                                <div class="input-group-append">
+                                                    @if ($kandidat->id_perusahaan == null && $kandidat->negara_id !== null)
+                                                        <a class="btn btn-outline-primary" href="/profil_perusahaan/{{$item->id_perusahaan}}">Lihat</a>                                        
+                                                    @endif
+                                                </div>
+                                            </div>        
+                                        </div>
+                                    </div>                                        
+                                @endif
                             @endforeach    
                         @endif
                     </div>

@@ -322,7 +322,6 @@ Route::controller(PerusahaanController::class)->group(function(){
     Route::get('/perusahaan/galeri_kandidat/{id}','galeriKandidat')->middleware('perusahaan');
     Route::get('/perusahaan/lihat/galeri_kandidat/{id}/{type}','lihatGaleriKandidat')->middleware('perusahaan');
     
-    Route::get('/perusahaan/interview','JadwalInterview')->middleware('perusahaan');
     Route::get('/perusahaan/waktu_interview/{id}/{time}','tentukanWaktu')->middleware('perusahaan');
     Route::post('/perusahaan/waktu_interview/{id}/{time}','simpanWaktu');
     
@@ -369,7 +368,12 @@ Route::controller(PerusahaanRecruitmentController::class)->group(function() {
 
     Route::get('/perusahaan/list_permohonan_lowongan','listPermohonanLowongan')->middleware('perusahaan');
     Route::get('/perusahaan/lihat_permohonan_lowongan/{id}','lihatPermohonanLowongan')->middleware('perusahaan');
-    Route::post('/perusahaan/lihat_permohonan_lowongan/{id}','confirmPermohonanLowongan');
+    Route::post('/perusahaan/terima_permohonan_lowongan/{id}','confirmPermohonanLowongan');
+    Route::post('/perusahaan/batal_permohonan_lowongan/{id}','cancelPermohonanLowongan');
+
+    Route::get('/perusahaan/interview/{id}/{time}','interview')->middleware('perusahaan');
+    Route::post('/perusahaan/interview/{id}/{time}','confirmInterview');
+
     Route::get('/perusahaan/permohonan_lowongan_pekerjaan/{id}','permohonanLowonganPekerjaan')->middleware('perusahaan');
     Route::post('/perusahaan/permohonan_lowongan_pekerjaan/{id}','confirmLowonganPekerjaan');    
     Route::get('/perusahaan/persetujuan_kandidat','persetujuanKandidat')->middleware('perusahaan');

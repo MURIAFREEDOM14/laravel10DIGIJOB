@@ -1,6 +1,7 @@
 @extends('layouts.kandidat')
 @section('content')
 @include('sweetalert::alert')
+@include('flash_message')
 <div class="container mt-5">
     <div class="row">
         <div class="col-12">
@@ -167,14 +168,16 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($lowongan as $item)
-                                        <tr class="text-center">
-                                            <td>{{$item->jabatan}}</td>
-                                            <td>{{$item->negara}}</td>
-                                            <td>{{$item->pencarian_tmp}}</td>
-                                            <td>
-                                                <a class="btn btn-outline-primary" href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat Lowongan</a>
-                                            </td>
-                                        </tr>                                        
+                                        @if ($item->jenis_kelamin == "MF" || $item->jenis_kelamin == $kandidat->jenis_kelamin)
+                                            <tr class="text-center">
+                                                <td>{{$item->jabatan}}</td>
+                                                <td>{{$item->negara}}</td>
+                                                <td>{{$item->pencarian_tmp}}</td>
+                                                <td>
+                                                    <a class="btn btn-outline-primary" href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat Lowongan</a>
+                                                </td>
+                                            </tr>    
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>

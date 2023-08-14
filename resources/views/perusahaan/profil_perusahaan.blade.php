@@ -16,12 +16,9 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="card">
-                        <div class="card-header" style="background-color: #31ce36">
-                            <div class="text-white text-center"><b class="" style="text-transform: uppercase;">Foto Perusahaan</b></div>
-                        </div>
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12 text-center" style="background-color:#31ce36">
+                            <div class="">
+                                <div class="text-center" style="background-color:#31ce36;">
                                     <div class="avatar avatar-xxl my-3">
                                         @if ($perusahaan->logo_perusahaan == null)
                                             <img src="/gambar/default_user.png" class="avatar-img rounded-circle" alt="">
@@ -53,11 +50,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-9">
                     <div class="card">
-                        <div class="card-header" style="background-color: #31ce36">
-                            <div class="text-center text-white" style="text-transform:uppercase;"><b>Bio Data Perusahaan</b></div>
-                        </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
@@ -75,45 +69,10 @@
                                     <hr>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <b class="bold">Penempatan Negara</b>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered">
-                                                    <thead>
-                                                        <tr class="text-center">
-                                                            <th scope="col" style="">Tema Lowongan</th>
-                                                            <th scope="col">Isi</th>
-                                                            <th scope="col" style="">Lokasi Perusahaan</th>
-                                                            <th scope="col" style="width: 0px;">Lihat Detail</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach ($lowongan as $item)
-                                                            <tr class="text-center">
-                                                                <td>{{$item->nama_lowongan}}</td>
-                                                                <td>{{$item->isi}}</td>
-                                                                <td>{{$item->pencarian_tmp}}</td>
-                                                                <td>
-                                                                    <a class="btn btn-outline-primary" href="/perusahaan/lihat_lowongan/{{$item->id_lowongan}}">Lihat Lowongan</a>
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-            </div>    
+            </div>
         </div>
     </div>
 @endsection

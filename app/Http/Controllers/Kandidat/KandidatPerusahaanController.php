@@ -23,6 +23,8 @@ use App\Models\PersetujuanKandidat;
 use App\Models\Interview;
 use App\Models\CreditPerusahaan;
 use App\Models\LaporanPekerja;
+use App\Models\KandidatInterview;
+use App\Models\Pendidikan;
 
 class KandidatPerusahaanController extends Controller
 {
@@ -151,7 +153,34 @@ class KandidatPerusahaanController extends Controller
         $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
-        return view('kandidat/perusahaan/permohonan_lowongan',compact('kandidat','notif','pesan','lowongan'));
+        $pendidikan_lowongan = Pendidikan::where('nama_pendidikan','like','%'.$lowongan->pendidikan.'%')->first();
+        $pendidikan_kandidat = Pendidikan::where('nama_pendidikan','like','%'.$kandidat->pendidikan.'%')->first();
+
+        $data = Kandidat::
+        where('usia','>=',$lowongan->usia_min)
+        ->where('usia','<=',$lowongan->usia_maks)
+        ->where('tinggi','>=',$lowongan->tinggi)
+        ->where('berat','>=',$lowongan->berat_min)
+        ->where('berat','<=',$lowongan->berat_maks)
+        ->where('referral_code',$user->referral_code)->first();
+        
+        if($data){
+            if($pendidikan_kandidat >= $pendidikan_lowongan){
+                if($kandidat->jenis_kelamin == $lowongan->jenis_kelamin || $lowongan->jenis_kelamin == "MF"){
+                    if($kandidat->kabupaten == $lowongan->pencarian_tmp || $kandidat->provinsi == $lowongan->pencarian_tmp || $lowongan->pencarian_tmp == "Se-indonesia"){
+                        return view('kandidat/perusahaan/permohonan_lowongan',compact('kandidat','notif','pesan','lowongan'));
+                    } else {
+                        return redirect()->back()->with('warning',"Maaf pencarian kandidat ini tidak sesuai dengan tempat anda");
+                    }
+                } else {
+                    return redirect()->back()->with('warning',"Maaf anda tidak bisa melamar di lowongan ini");
+                }
+            } else {
+                return redirect()->back()->with('warning',"Maaf pendidikan anda kurang untuk pekerjaan ini");
+            }
+        } else {
+            return redirect()->back()->with('warning',"Maaf anda tidak bisa melamar di pekerjaan ini");
+        }
     }
 
     public function kirimPermohonan(Request $request,$id)
@@ -221,7 +250,7 @@ class KandidatPerusahaanController extends Controller
             }
         }
         PermohonanLowongan::where('id_kandidat',$kandidat->id_kandidat)->where('id_perusahaan',$perusahaan->id_perusahaan)->delete();
-        Interview::where('id_kandidat',$kandidat->id_kandidat)->where('id_perusahaan',$perusahaan->id_perusahaan)->delete();
+        KandidatInterview::where('id_kandidat',$kandidat->id_kandidat)->where('id_perusahaan',$perusahaan->id_perusahaan)->delete();
         PersetujuanKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('id_perusahaan',$perusahaan->id_perusahaan)->delete();
         Kandidat::where('id_perusahaan',$id)->where('id_kandidat',$kandidat->id_kandidat)->update([
             'id_perusahaan' => null,

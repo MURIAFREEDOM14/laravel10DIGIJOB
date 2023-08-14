@@ -551,6 +551,7 @@
             });
         </script>
         <script type="text/javascript">
+            // Alert Log out //
             function confirmation(ev)
                 {
                 ev.preventDefault();
@@ -579,8 +580,8 @@
                     }
                 });    
             }
-        </script>
-        <script type="text/javascript">
+
+            // Negara Tujuan //
             $(document).ready(function() {
                 $(document).on('change','#placement',function() {
                     console.log("ditekan");
@@ -654,6 +655,7 @@
                 });
             }
 
+            // Batal Lowongan //
             function cancelLowongan(ev)
             {
                 ev.preventDefault();
@@ -683,6 +685,7 @@
                 });
             }
 
+            // Keluar Perusahaan //
             function outPerusahaan(ev)
             {
                 ev.preventDefault();
@@ -711,10 +714,12 @@
                     }
                 });
             }
+            
             $(window).on('load',function() {
             $('#staticBackdrop').modal('show');                                                   
             });
 
+            // Konfirmasi Interview //
             function tidakInterview() {
                 var y = document.getElementById("terimaInterview");
                 var n = document.getElementById("batalInterview");

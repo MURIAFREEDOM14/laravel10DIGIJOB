@@ -33,13 +33,13 @@
                 <div class="col-md-3">
                     <div class="card">
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12 text-center" style="background-color:#31ce36">
+                            <div class="">
+                                <div class="text-center" style="background-color:#31ce36;">
                                     <div class="avatar avatar-xxl my-3">
                                         @if ($perusahaan->logo_perusahaan == null)
-                                            <img src="/gambar/default_user.png" class="avatar-img rounded-circle img2" alt="">
+                                            <img src="/gambar/default_user.png" class="avatar-img rounded-circle" alt="">
                                         @else
-                                            <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Logo Perusahaan/{{$perusahaan->logo_perusahaan}}" alt="..." class="avatar-img rounded-circle img2">                                        
+                                            <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Logo Perusahaan/{{$perusahaan->logo_perusahaan}}" alt="..." class="avatar-img rounded-circle">                                        
                                         @endif
                                     </div>
                                 </div>
@@ -140,7 +140,7 @@
                     </div> --}}
                 </div>
             </div> 
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-12" style="background-color: white;">
                     <div class=" mb-3">
                         <hr>
@@ -155,15 +155,7 @@
                                             <a class="dropdown-item" href="/perusahaan/list/lowongan/{{"dalam"}}">Dalam negeri</a>
                                             <a class="dropdown-item" href="/perusahaan/list/lowongan/{{"luar"}}">Luar negeri</a>
                                         </div>
-                                      </div>
-                                    {{-- <button class="btn btn-link btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
-                                      
-                                    </button>
-                                    <div class="dropdown-menu">
-                                      <a class="dropdown-item" href="/perusahaan/list/lowongan">Lowongan Pekerjaan</a>
-                                      <a class="dropdown-item" href="/perusahaan/list_permohonan_lowongan">Pelamar</a>
-                                      <a class="dropdown-item" href="/perusahaan/persetujuan_kandidat">Persetujuan Kandidat</a>
-                                    </div> --}}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -174,21 +166,10 @@
                                         </button>
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item" href="/perusahaan/list_permohonan_lowongan">Daftar Lowongan</a>
-                                            {{-- <a class="dropdown-item" href="/perusahaan/list/kandidat">Data Kandidat</a> --}}
                                         </div>    
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="col-md-2">
-                                <div class="dropdown">
-                                    <button class="btn btn-link btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
-                                      Data Interview
-                                    </button>
-                                    <div class="dropdown-menu">
-                                      <a class="dropdown-item" href="/perusahaan/interview">Data Interview</a>
-                                    </div>
-                                </div>
-                            </div> --}}
                             <div class="col-md-2">
                                 <div class="dropdown">
                                     <button class="btn btn-link btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
@@ -199,31 +180,11 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="col-md-2">
-                                <div class="dropdown">
-                                    <button class="btn btn-link btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
-                                      Kandidat PMI ID
-                                    </button>
-                                    <div class="dropdown-menu">
-                                      <a class="dropdown-item" href="/perusahaan/list/pmi_id">Kandidat PMI ID</a>
-                                    </div>
-                                </div>
-                            </div> --}}
-                            {{-- <div class="col-md-2">
-                                @if ($perusahaan->penempatan_kerja == "Luar negeri")
-                                <button class="btn btn-link btn-sm" type="button" data-toggle="dropdown" aria-expanded="false">
-                                    Penempatan Kerja
-                                  </button>
-                                  <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="/perusahaan/negara_tujuan">Penempatan Kerja</a>                                                                
-                                </div>    
-                                @endif
-                            </div> --}}
                         </div>
                         <hr>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="my-5"></div>
         @endif
     </div>

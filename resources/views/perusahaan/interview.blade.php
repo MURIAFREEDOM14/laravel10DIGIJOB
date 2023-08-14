@@ -3,7 +3,7 @@
 @include('sweetalert::alert')
 @include('flash_message')
     <div class="container mt-5">
-        <div class="card">
+        {{-- <div class="card">
             <div class="card-header">
                 <b style="text-transform:uppercase;">Jadwal Interview</b>
                 <a href="/perusahaan/cari/kandidat" class="btn btn-primary float-right">Cari Kandidat</a>    
@@ -68,6 +68,57 @@
                     </table>
                 </div>
             </div>
+        </div> --}}
+        <hr>
+        <div class="card">
+            <div class="card-header">
+                <h5 style="text-transform: uppercase; font-weight:bold;">Jadwal Interview</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-3">
+                        <h5 for="" style="text-transform: uppercase; font-weight:bold; border-bottom:1px solid black;" class="text-center">Nama Kandidat</h5>
+                    </div>
+                    <div class="col-3">
+                        <h5 for="" style="text-transform: uppercase; font-weight:bold; border-bottom:1px solid black;" class="text-center">Tanggal Interview</h5>
+                    </div>
+                    <div class="col-3">
+                        <h5 for="" style="text-transform: uppercase; font-weight:bold; border-bottom:1px solid black;" class="text-center">WAktu Mulai</h5>
+                    </div>
+                    <div class="col-3">
+                        <h5 for="" style="text-transform: uppercase; font-weight:bold; border-bottom:1px solid black;" class="text-center">Durasi Interview</h5>
+                    </div>
+                </div>
+                <form action="" method="post">
+                    @csrf
+                    <div class="row">
+                        @foreach ($kandidat as $nama)
+                            <div class="col-3">
+                                <label for="" style="text-transform:uppercase;" class="col-form-label">{{$loop->iteration}}. {{$nama->nama}}</label>
+                            </div>
+                            <div class="col-3">
+                                <select class="form-control"  name="dater[]" id="">
+                                    @foreach ($jadwal as $time)
+                                        <option value="{{$time}}">{{date('d M Y',strtotime($time))}}</option>                                    
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-3">
+                                <input type="time" class="form-control" name="timer[]" id="">
+                            </div>
+                            <div class="col-3">
+                                <select name="duration[]" class="form-control" id="">
+                                    <option value="5">5 Menit</option>
+                                    <option value="10">10 Menit</option>
+                                    <option value="15">15 Menit</option>
+                                </select>
+                            </div>
+                        @endforeach
+                        <button type="submit" class="btn btn-primary">Jadwalkan</button>
+                    </div>
+                </form>
+            </div>
         </div>
+
     </div>
 @endsection

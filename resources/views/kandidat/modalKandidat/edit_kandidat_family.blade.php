@@ -30,39 +30,6 @@
                                             <option value="ya">Ya</option>
                                         </select>
                                     </div>
-                                    <div class="card" id="kandidatAnak">
-
-
-                                        <div class="card-header">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#data_anak">
-                                                Tambah
-                                            </button>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered">
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col">No</th>
-                                                            <th scope="col">Anak Ke</th>
-                                                            <th scope="col">Jenis Kelamin</th>
-                                                            <th scope="col">Tanggal Lahir</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach ($keluarga as $item)
-                                                            <tr>
-                                                                <th>{{$loop->iteration}}</th>
-                                                                <td>{{$item->anak_ke}}</td>
-                                                                <td>{{$item->jenis_kelamin}}</td>
-                                                                <td>{{date('d-M-Y',strtotime($item->tgl_lahir_anak))}}</td>
-                                                            </tr>    
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
@@ -89,37 +56,6 @@
                                             <option value="tidak">Tidak</option>
                                             <option value="ya">Ya</option>
                                         </select>
-                                    </div>
-                                    <div class="card" id="kandidatAnak">
-                                        <div class="card-header">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#data_anak">
-                                                Tambah
-                                            </button>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="table-responsive">
-                                                <table class="table table-striped table-bordered">
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col">No</th>
-                                                            <th scope="col">Anak Ke</th>
-                                                            <th scope="col">Jenis Kelamin</th>
-                                                            <th scope="col">Tanggal Lahir</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @foreach ($keluarga as $item)
-                                                            <tr>
-                                                                <th>{{$loop->iteration}}</th>
-                                                                <td>{{$item->anak_ke}}</td>
-                                                                <td>{{$item->jenis_kelamin}}</td>
-                                                                <td>{{date('d-M-Y',strtotime($item->tgl_lahir_anak))}}</td>
-                                                            </tr>    
-                                                        @endforeach
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -181,37 +117,25 @@
                                     </div>
                                     <div class="col-md-3">
                                         <select name="" id="anak" class="form-select">
-                                            <option value="tidak">Tidak</option>
-                                            <option value="ya">Ya</option>
+                                            <option value="tidak" @if ($kandidat->jml_anak_lk == null && $kandidat->jml_anak_pr == null)
+                                                selected
+                                            @endif>Tidak</option>
+                                            <option value="ya" @if ($kandidat->jml_anak_lk !== null || $kandidat->jml_anak_pr !== null)
+                                                selected
+                                            @endif>Ya</option>
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="" id="kandidatAnak">
-                                <div class="row mb-3 g-3 align-items-center">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="" class="">Anak Ke</label>
-                                            <input type="number" name="anak_ke" required class="form-control" id="">
+                                @if ($keluarga !== null)
+                                    <div class="row mb-3 g-3 align-items-center">
+                                        <div class="col-md-4">
+                                            <label for="" class="col-form-label">Tanggal Lahir Anak</label>
                                         </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="" class="">Jenis Kelamin</label>
-                                            <select name="jk" class="form-select" id="" required>
-                                                <option value="">-- Jenis Kelamin Anak --</option>
-                                                <option value="M">Laki-laki</option>
-                                                <option value="F">Perempuan</option>
-                                            </select>
+                                        <div class="col-md-4">
+                                            
                                         </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="" class="">Tanggal Lahir Anak</label>
-                                            <input type="date" required name="tgl_lahir_anak" id="" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
+                                    </div>    
+                                @endif
                             </div>
                         @endif
                     </div>
@@ -234,7 +158,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
+                    <div class="form-group mb-2">
                         <label for="" class="">Anak Ke</label>
                         <input type="number" name="anak_ke" required class="form-control" id="">
                     </div>

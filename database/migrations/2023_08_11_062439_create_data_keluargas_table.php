@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('anak_ke')->nullable();
             $table->enum('jenis_kelamin',['M','F'])->nullable();
             $table->date('tgl_lahir_anak')->nullable();
+            $table->integer('usia')->nullable();
             $table->timestamps();
         });
     }

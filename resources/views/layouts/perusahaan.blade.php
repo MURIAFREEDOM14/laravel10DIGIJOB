@@ -362,6 +362,53 @@
                                     <p>Beranda</p>
                                 </a>
                             </li>
+                            <li class="nav-section">
+                                <span class="sidebar-mini-icon">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </span>
+                                <h4 class="text-section">Menu</h4>
+                            </li>
+                            <li class="nav-item">
+                                <a data-toggle="collapse" href="#forms">
+                                    <i class="fas fa-flag"></i>
+                                    <p>Lowongan Pekerjaan</p>
+                                    <span class="caret"></span>
+                                </a>
+                                <div class="collapse" id="forms">
+                                    <ul class="nav nav-collapse">
+                                        <li class="nav-section">
+                                            <h4 class="text-section">Buat Lowongan Baru</h4>
+                                        </li>
+                                        <a href="/perusahaan/list/lowongan/{{"dalam"}}">
+                                            <li class="nav-item">
+                                                <i class="fas fa-pen-square"></i>
+                                                <p>Dalam Negeri</p>
+                                            </li>
+                                        </a>
+                                        <a href="/perusahaan/list/lowongan/{{"luar"}}">
+                                            <li class="nav-item">
+                                                <i class="fas fa-pen-square"></i>
+                                                <p>Luar Negeri</p>
+                                            </li>
+                                        </a>
+                                        <li class="nav-section">
+                                            <h4 class="text-section">Daftar Lowongan</h4>
+                                        </li>
+                                        <a href="/perusahaan/list_permohonan_lowongan">
+                                            <li class="nav-item">
+                                                <i class="fas fa-pen-square"></i>
+                                                <p>Daftar Lowongan</p>
+                                            </li>
+                                        </a>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/perusahaan/list/pembayaran">
+                                    <i class="fas fa-pen-square"></i>
+                                    <p>Data Pembayaran</p>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>

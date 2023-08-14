@@ -217,7 +217,7 @@
             var anak = $(this).val();
             var kandidatAnak = document.getElementById('kandidatAnak');
             if (anak == "ya") {
-              kandidatAnak.style.display = 'block';
+              $('#data_anak').modal('show');
             } else {
               kandidatAnak.style.display = 'none';
             }
