@@ -69,10 +69,10 @@
                 </div>
             </div>
         </div> --}}
-        <hr>
+        {{-- <hr> --}}
         <div class="card">
             <div class="card-header">
-                <h5 style="text-transform: uppercase; font-weight:bold;">Jadwal Interview</h5>
+                <h5 style="text-transform: uppercase; font-weight:bold;">Tanggal Interview</h5>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -83,10 +83,7 @@
                         <h5 for="" style="text-transform: uppercase; font-weight:bold; border-bottom:1px solid black;" class="text-center">Tanggal Interview</h5>
                     </div>
                     <div class="col-3">
-                        <h5 for="" style="text-transform: uppercase; font-weight:bold; border-bottom:1px solid black;" class="text-center">WAktu Mulai</h5>
-                    </div>
-                    <div class="col-3">
-                        <h5 for="" style="text-transform: uppercase; font-weight:bold; border-bottom:1px solid black;" class="text-center">Durasi Interview</h5>
+                        <h5 for="" style="text-transform: uppercase; font-weight:bold; border-bottom:1px solid black;" class="text-center">Urutan Kandidat</h5>
                     </div>
                 </div>
                 <form action="" method="post">
@@ -104,21 +101,17 @@
                                 </select>
                             </div>
                             <div class="col-3">
-                                <input type="time" class="form-control" name="timer[]" id="">
-                            </div>
-                            <div class="col-3">
-                                <select name="duration[]" class="form-control" id="">
-                                    <option value="5">5 Menit</option>
-                                    <option value="10">10 Menit</option>
-                                    <option value="15">15 Menit</option>
+                                <select name="urutan[]" class="form-control" id="">
+                                    @foreach ($kandidat as $item)
+                                        <option value="{{$loop->iteration}}">{{$loop->iteration}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         @endforeach
-                        <button type="submit" class="btn btn-primary">Jadwalkan</button>
+                        <button type="submit" class="btn btn-primary">Konfirmasi</button>
                     </div>
                 </form>
             </div>
-        </div>
-
+        </div>    
     </div>
 @endsection

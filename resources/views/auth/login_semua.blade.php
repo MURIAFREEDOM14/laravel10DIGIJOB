@@ -20,7 +20,10 @@
                               </div>
                               <div class="mb-3">
                                   <label for="exampleInputPassword1">Masukkan Password</label>
-                                  <input name="password" type="password" class="form-control" value="{{old('password')}}" required id="exampleInputPassword1">
+                                  <div class="input-group">
+                                    <input name="password" type="password" class="form-control" value="{{old('password')}}" required id="password_input">
+                                    <button type="button" class="btn btn-primary" onclick="seePassword()"><img src="/gambar/seeing.png" style="width: 15px; height:auto; color:white;" alt=""></button>
+                                  </div>
                               </div>
                               <div class="row mb-3">
                                 <div class="col-md-12">

@@ -23,7 +23,7 @@
                             </div>
                         @else
                             @foreach ($permohonan as $item)
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="card">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
@@ -35,7 +35,7 @@
                                             <b class="float-left">{{$item->nama_panggilan}}</b>
                                             <b class="float-right">{{$item->usia}}thn</b>
                                         </div>
-                                        <div class="card-body">
+                                        <div class="card-body text-center">
                                             <div class="avatar-sm float-left">
                                                 @if ($item->foto_4x6 == null)
                                                     <img src="/gambar/default_user.png" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                            

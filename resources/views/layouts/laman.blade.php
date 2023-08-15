@@ -159,6 +159,15 @@
           btnJeda.style.display = 'none';
         }
       }
+
+      function seePassword() {
+        var p = document.getElementById('password_input').type;
+        if (p == "password") {
+          document.getElementById('password_input').type = 'text';
+        } else {
+          document.getElementById('password_input').type = 'password';
+        }
+      }
     </script>
   </body>
 </html>

@@ -70,6 +70,10 @@ class ManagerController extends Controller
                 $user = User::where('type',4)->first();
                 Auth::login($user);
                 return redirect()->route('cs');
+            } elseif($data->type == 5) {
+                $user = User::where('type',5)->first();
+                Auth::login($user);
+                return redirect()->route('payment');
             } else {
                 return redirect()->back()->with('error', 'Email atau no telp salah');
             }

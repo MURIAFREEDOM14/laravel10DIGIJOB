@@ -616,7 +616,7 @@ class PerusahaanRecruitmentController extends Controller
                 PermohonanLowongan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('jabatan',$key->jabatan)->where('id_lowongan',$id_lowongan)->delete();
             }
         }                  
-        return redirect('/perusahaan/interview/'.$id.'/'.$lowongan->tgl_interview_awal);
+        return redirect('/perusahaan/jadwal_interview/'.$id);
     }
 
     public function cancelPermohonanLowongan(Request $request, $id)
@@ -639,7 +639,7 @@ class PerusahaanRecruitmentController extends Controller
         return redirect()->back()->with('success',"Kandidat Tidak Dipilih");
     }
 
-    public function interview($id, $time)
+    public function jadwalInterview($id)
     {
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
@@ -655,21 +655,56 @@ class PerusahaanRecruitmentController extends Controller
             'kandidat_interviews', 'interview.id_interview','=','kandidat_interviews.id_interview'
         )
         ->where('interview.id_perusahaan',$perusahaan->id_perusahaan)->get();
-        return view('perusahaan/interview',compact('perusahaan','notif','pesan','cabang','credit','lowongan','kandidat','jadwal'));
+        $check = $kandidat->count();
+        if($check > 0){
+            return view('perusahaan/interview',compact('perusahaan','notif','pesan','cabang','credit','lowongan','kandidat','jadwal','check'));
+        } else {
+            return redirect('/perusahaan/list_permohonan_lowongan')->with('error',"Maaf anda harus punya pelamar untuk mengatur jadwal interview");
+        }
     }
 
-    public function confirmInterview(Request $request, $id, $time)
+    public function confirmJadwalInterview(Request $request, $id)
     {
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
         $kandidat = KandidatInterview::where('id_lowongan',$id)->get();
         $jadwal = $request->dater;
+        $flag = $request->urutan;
         for($t = 0; $t < count($jadwal); $t++){
             KandidatInterview::where('id_lowongan',$id)->update([
-                'jadwal_interview' => $jadwal[$t]
+                'jadwal_interview' => $jadwal[$t],
+                'urutan' => $flag[$t],
             ]);
         }
-        return redirect()->back();
+        return redirect('/perusahaan/waktu_interview/'.$id)->with('success',"Jadwal Ditentukan");
+    }
+
+    public function waktuInterview($id)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        $kandidat = KandidatInterview::where('id_lowongan',$id)->orderBy('urutan','asc')->get();
+        return view('perusahaan/jadwal_interview',compact('perusahaan','notif','pesan','cabang','credit','kandidat'));
+    }
+
+    public function confirmWaktuInterview(Request $request, $id)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $timer = $request->timer;
+        $durasi = $request->durasi;
+        for($w = 0; $w < count($durasi); $w++){
+            $waktu_akhir = Carbon::create($timer[$w])->addMinutes($durasi[$w]);
+            KandidatInterview::where('id_lowongan',$id)->update([
+                'waktu_interview_awal' => $timer[$w],
+                'waktu_interview_akhir' => $waktu_akhir,
+            ]);
+        }
+        return redirect('/perusahaan/list/pembayaran')->with('success',"Interview Success");
     }
 
     public function persetujuanKandidat()

@@ -537,7 +537,6 @@
                 });
             });
         </script>
-
         <script type="text/javascript">
             function confirmation(ev)
                 {
@@ -715,8 +714,12 @@
                     }
                 })
             })
-                
-
+        </script>
+        <script>
+            time.oninput = changeSpan;
+            function changeSpan() {
+                hasil.innerTime = time.value;
+            }
         </script>
         @livewireScripts
     </body>

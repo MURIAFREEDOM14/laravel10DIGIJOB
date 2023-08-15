@@ -22,7 +22,8 @@ return new class extends Migration
             $table->enum('jenis_kelamin',['M','F'])->nullable();
             $table->integer('kesempatan')->nullable();
             $table->date('jadwal_interview')->nullable();
-            $table->time('waktu_interview')->nullable(); 
+            $table->time('waktu_interview_awal')->nullable(); 
+            $table->time('waktu_interview_akhir')->nullable(); 
             $table->timestamps();
         });
     }

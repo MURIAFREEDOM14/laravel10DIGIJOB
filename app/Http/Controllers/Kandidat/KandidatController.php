@@ -560,6 +560,7 @@ class KandidatController extends Controller
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         $show_negara = Negara::where('negara_id',$kandidat->negara_id)->first();
         $keluarga = DataKeluarga::where('id_kandidat',$kandidat->id_kandidat)->get();
+        
         if($show_negara == null){
             $negara = null;
         } else {
@@ -596,7 +597,19 @@ class KandidatController extends Controller
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        $tgl_anak = $request->tgl_lahir_anak;
+        $keluarga = DataKeluarga::where('id_kandidat',$kandidat->id_kandidat)->get();
+        $anak_lk = 0;
+        $anak_pr = 0;
+        foreach($keluarga as $data){
+            if($data->jenis_kelamin == "M"){
+                $data_lk = DataKeluarga::where('jenis_kelamin',"M")->where('id_kandidat',$kandidat->id_kandidat)->get();
+                $anak_lk = count($data_lk);
+            } elseif($data->jenis_kelamin == "F") {
+                $data_pr = DataKeluarga::where('jenis_kelamin',"F")->where('id_kandidat',$kandidat->id_kandidat)->get();
+                $anak_pr = count($data_pr);
+            }
+        }
+
         // cek buku nikah
         if($request->file('foto_buku_nikah') !== null){
             $hapus_buku_nikah = public_path('gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/').$kandidat->foto_buku_nikah;
@@ -663,21 +676,27 @@ class KandidatController extends Controller
         }
         $umur = Carbon::parse($request->tgl_lahir_pasangan)->age;
 
-        $data_keluarga = DataKeluarga::where('id_kandidat',$kandidat->id_kandidat)->get();
-        $jml_anak = $data_keluarga->count();
         Kandidat::where('referral_code', $id->referral_code)->update([
             'foto_buku_nikah' => $foto_buku_nikah,
             'nama_pasangan' => $request->nama_pasangan,
             'umur_pasangan' => $umur,
             'tgl_lahir_pasangan' => $request->tgl_lahir_pasangan,
             'pekerjaan_pasangan' => $request->pekerjaan_pasangan,
-            'jml_anak_lk' => $jml_anak,
+            'jml_anak_lk' => $anak_lk,
             'umur_anak_lk' => $request->umur_anak_lk,
-            'jml_anak_pr' => $jml_anak,
+            'jml_anak_pr' => $anak_pr,
             'umur_anak_pr' => $request->umur_anak_pr,
             'foto_cerai' => $foto_cerai,
             'foto_kematian_pasangan' => $foto_kematian_pasangan,
         ]);
+
+        foreach($keluarga as $key){
+            $usia = Carbon::parse($key->tgl_lahir_anak)->age;
+            DataKeluarga::where('id_kandidat',$kandidat->id_kandidat)->update([
+                'usia' => $usia,
+            ]);
+        }
+        
         return redirect('/isi_kandidat_vaksin')
         // ->with('toast_success',"Data anda tersimpan");
         ->with('success',"Data anda tersimpan");
@@ -1187,7 +1206,7 @@ class KandidatController extends Controller
         $jabatan = $request->jabatan;
         $lama_kerja = $request->lama_kerja;
         if($jabatan !== null){
-            $jabatanValues = implode(",",$jabatan);
+            $jabatanValues = implode(", ",$jabatan);
             $lamaKerjaValues = array_sum($lama_kerja);
         } else {
             $jabatanValues = null;

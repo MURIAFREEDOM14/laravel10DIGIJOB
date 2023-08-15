@@ -871,7 +871,7 @@ class PerusahaanController extends Controller
             'jadwal_interview' => $time,
             'waktu_interview' => $request->waktu,
         ]);
-        return redirect('/perusahaan/jadwal_interview/'.$id.'/'.$time)->with('success',"Waktu interview ditentukan");
+        return redirect('/perusahaan/jadwal_interview/'.$id)->with('success',"Waktu interview ditentukan");
     }
 
     public function tentukanJadwal(Request $request, $id)

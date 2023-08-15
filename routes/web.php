@@ -6,6 +6,7 @@ use App\Http\Controllers\Akademi\AkademiKandidatController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Manager\ManagerController;
+use App\Http\Controllers\Manager\ManagerPaymentController;
 use App\Http\Controllers\Manager\Kandidat\ManagerKandidatController;
 use App\Http\Controllers\Manager\ContactUsController;
 use App\Http\Controllers\Manager\NegaraController;
@@ -165,6 +166,16 @@ Route::controller(ManagerKandidatController::class)->group(function() {
     Route::get('/manager/kandidat/lihat_video/{id}','lihatVideoKandidat');
 });
 
+Route::controller(ManagerPaymentController::class)->group(function() {
+    Route::get('/manager/payment','index')->middleware('payment')->name('payment');
+    Route::get('/manager/payment/kandidat','kandidatPayment')->middleware('payment');
+    Route::get('/manager/lihat/payment/kandidat/{id}','lihatKandidatPayment');
+    Route::post('/manager/lihat/payment/kandidat/{id}','confirmKandidatPayment');
+    Route::get('/manager/payment/perusahaan','perusahaanPayment')->middleware('payment');
+    Route::get('/manager/lihat/payment/perusahaan/{id}','lihatPerusahaanPayment');
+    Route::post('/manager/lihat/payment/perusahaan/{id}','confirmPerusahaanPayment');
+});
+
 Route::controller(ContactUsController::class)->group(function() {
     Route::get('/manager/contact_us_admin','contactUsAdmin')->middleware('manager');
     Route::post('/manager/contact_us_admin','tambahContactUsAdmin');
@@ -322,11 +333,11 @@ Route::controller(PerusahaanController::class)->group(function(){
     Route::get('/perusahaan/galeri_kandidat/{id}','galeriKandidat')->middleware('perusahaan');
     Route::get('/perusahaan/lihat/galeri_kandidat/{id}/{type}','lihatGaleriKandidat')->middleware('perusahaan');
     
-    Route::get('/perusahaan/waktu_interview/{id}/{time}','tentukanWaktu')->middleware('perusahaan');
-    Route::post('/perusahaan/waktu_interview/{id}/{time}','simpanWaktu');
+    Route::get('/perusahaan/waktu_interview/{id}','tentukanWaktu')->middleware('perusahaan');
+    Route::post('/perusahaan/waktu_interview/{id}','simpanWaktu');
     
-    Route::get('/perusahaan/jadwal_interview/{id}/{time}','tentukanJadwal')->middleware('perusahaan');
-    Route::post('/perusahaan/jadwal_interview/{id}/{time}','simpanJadwal');
+    Route::get('/perusahaan/jadwal_interview/{id}','tentukanJadwal')->middleware('perusahaan');
+    Route::post('/perusahaan/jadwal_interview/{id}','simpanJadwal');
     Route::get('/perusahaan/edit/kandidat/interview/{id}','editJadwalInterview');
     Route::post('/perusahaan/edit/kandidat/interview/{id}','ubahJadwalInterview');
     Route::get('/perusahaan/hapus/kandidat/interview/{id}','deleteJadwalInterview');
@@ -371,8 +382,10 @@ Route::controller(PerusahaanRecruitmentController::class)->group(function() {
     Route::post('/perusahaan/terima_permohonan_lowongan/{id}','confirmPermohonanLowongan');
     Route::post('/perusahaan/batal_permohonan_lowongan/{id}','cancelPermohonanLowongan');
 
-    Route::get('/perusahaan/interview/{id}/{time}','interview')->middleware('perusahaan');
-    Route::post('/perusahaan/interview/{id}/{time}','confirmInterview');
+    Route::get('/perusahaan/jadwal_interview/{id}','jadwalInterview')->middleware('perusahaan');
+    Route::post('/perusahaan/jadwal_interview/{id}','confirmJadwalInterview');
+    Route::get('/perusahaan/waktu_interview/{id}','waktuInterview')->middleware('perusahaan');
+    Route::post('/perusahaan/waktu_interview/{id}','confirmWaktuInterview');
 
     Route::get('/perusahaan/permohonan_lowongan_pekerjaan/{id}','permohonanLowonganPekerjaan')->middleware('perusahaan');
     Route::post('/perusahaan/permohonan_lowongan_pekerjaan/{id}','confirmLowonganPekerjaan');    

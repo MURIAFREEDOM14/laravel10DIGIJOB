@@ -129,10 +129,23 @@
                                 @if ($keluarga !== null)
                                     <div class="row mb-3 g-3 align-items-center">
                                         <div class="col-md-4">
-                                            <label for="" class="col-form-label">Tanggal Lahir Anak</label>
+                                            <label for="" class="col-form-label">Usia Anak</label>
                                         </div>
                                         <div class="col-md-4">
-                                            
+                                            <ul class="list-group">
+                                                @foreach ($keluarga as $item)
+                                                    <li class="list-group-item">Anak Ke {{$item->anak_ke}} | Usia {{$item->usia}} Tahun | 
+                                                        @if ($item->jenis_kelamin == "M")
+                                                            Laki-laki 
+                                                        @else
+                                                            Perempuan
+                                                        @endif
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#data_anak">Tambah Data</button>
                                         </div>
                                     </div>    
                                 @endif
