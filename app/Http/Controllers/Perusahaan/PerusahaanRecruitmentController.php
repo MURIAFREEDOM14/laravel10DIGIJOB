@@ -32,6 +32,8 @@ use App\Models\Fasilitas;
 use Carbon\Carbon;
 use App\Models\KandidatInterview;
 use Carbon\CarbonPeriod;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Payment;
 
 class PerusahaanRecruitmentController extends Controller
 {
@@ -547,11 +549,6 @@ class PerusahaanRecruitmentController extends Controller
             $k['jenis_kelamin'] = $kandidat->jenis_kelamin;
             KandidatInterview::create($k);
 
-            // $data['id_kandidat'] = $kandidat->id_kandidat;
-            // $data['nama_kandidat'] = $kandidat->nama;
-            // $data['id_perusahaan'] = $perusahaan->id_perusahaan;
-            // PersetujuanKandidat::create($data);
-
             $permohonan_data = PermohonanLowongan::where('id_kandidat',$kandidat->id_kandidat)->where('id_perusahaan',$perusahaan->id_perusahaan)->first();
             $interview = KandidatInterview::where('id_kandidat',$id_kandidat[$a])->where('id_perusahaan',$perusahaan->id_perusahaan)->first();
                 if($permohonan_data !== null){
@@ -561,40 +558,7 @@ class PerusahaanRecruitmentController extends Controller
 
                     Kandidat::where('id_kandidat',$id_kandidat[$a])->update([
                         'stat_pemilik' => "diambil",
-                    ]);
-
-                    // notifyKandidat::create([
-                    //     'id_kandidat' => $kandidat->id_kandidat,
-                    //     'isi' => "Anda mendapat pesan masuk",
-                    //     'pengirim' => "Sistem",
-                    //     'url' => '/semua_pesan',
-                    // ]);
-        
-                    // messageKandidat::create([
-                    //     'id_kandidat' => $kandidat->id_kandidat, 
-                    //     'pesan' => "Halo, Anda mendapat undangan interview dari ".$perusahaan->nama_perusahaan.". Apakah anda menyetujuinya?",
-                    //     'pengirim' => "Sistem",
-                    //     'kepada' => $kandidat->nama,
-                    //     'id_interview' => $interview->id_interview,
-                    // ]);
-                    // $kandidat_akademi = Kandidat::where('id_kandidat',$id_kandidat[$a])->whereNotNull('id_akademi')->first();
-                    // if($kandidat_akademi !== null){
-                    //     notifyAkademi::create([
-                    //         'id_akademi' => $kandidat_akademi->id_akademi,
-                    //         'id_kandidat' => $kandidat_akademi->id_kandidat,
-                    //         'isi' => "Anda mendapat pesan masuk",
-                    //         'pengirim' => "Sistem",
-                    //         'url' => '/akademi/semua_notif',
-                    //     ]);
-
-                    //     messageAkademi::create([
-                    //         'id_akademi' => $kandidat_akademi->id_akademi,
-                    //         'id_kandidat' => $kandidat_akademi->id_kandidat,
-                    //         'pesan' => "Selamat kandidat atas nama ".$kandidat_akademi->nama." telah diterima di ".$perusahaan->nama_perusahaan,
-                    //         'pengirim' => "Sistem",
-                    //         'kepada' => $kandidat_akademi->id_akademi,
-                    //     ]);
-                    // }
+                    ]);                    
                 } 
         }
         $permohonan = PermohonanLowongan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$id_lowongan)->get();
@@ -695,6 +659,7 @@ class PerusahaanRecruitmentController extends Controller
     {
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $id_kandidat = $request->id_kandidat;
         $timer = $request->timer;
         $durasi = $request->durasi;
         for($w = 0; $w < count($durasi); $w++){
@@ -703,7 +668,49 @@ class PerusahaanRecruitmentController extends Controller
                 'waktu_interview_awal' => $timer[$w],
                 'waktu_interview_akhir' => $waktu_akhir,
             ]);
+            $kandidat = Kandidat::where('id_kandidat',$id_kandidat[$w])->first();
+            $data['id_kandidat'] = $kandidat->id_kandidat;
+            $data['nama_kandidat'] = $kandidat->nama;
+            $data['id_perusahaan'] = $perusahaan->id_perusahaan;
+            PersetujuanKandidat::create($data);
+
+            notifyKandidat::create([
+                'id_kandidat' => $kandidat->id_kandidat,
+                'isi' => "Anda mendapat pesan masuk",
+                'pengirim' => "Sistem",
+                'url' => '/semua_pesan',
+            ]);
+
+            messageKandidat::create([
+                'id_kandidat' => $kandidat->id_kandidat, 
+                'pesan' => "Halo, Anda mendapat undangan interview dari ".$perusahaan->nama_perusahaan.". Apakah anda menyetujuinya?",
+                'pengirim' => "Sistem",
+                'kepada' => $kandidat->nama,
+            ]);
+            $kandidat_akademi = Kandidat::where('id_kandidat',$id_kandidat[$a])->whereNotNull('id_akademi')->first();
+            if($kandidat_akademi !== null){
+                notifyAkademi::create([
+                    'id_akademi' => $kandidat_akademi->id_akademi,
+                    'id_kandidat' => $kandidat_akademi->id_kandidat,
+                    'isi' => "Anda mendapat pesan masuk",
+                    'pengirim' => "Sistem",
+                    'url' => '/akademi/semua_notif',
+                ]);
+
+                messageAkademi::create([
+                    'id_akademi' => $kandidat_akademi->id_akademi,
+                    'id_kandidat' => $kandidat_akademi->id_kandidat,
+                    'pesan' => "Selamat kandidat atas nama ".$kandidat_akademi->nama." telah diterima di ".$perusahaan->nama_perusahaan,
+                    'pengirim' => "Sistem",
+                    'kepada' => $kandidat_akademi->id_akademi,
+                ]);
+            }
         }
+
+        $namarec = "Hamepa";
+        $nomorec = 4399997272;
+        $payment = 0;
+        Mail::mailer('payment')->to($request->email)->send(new Payment($pengguna->name_perusahaan,$payment,'Pembayaran','digijobaccounting@ugiport.com',$payment,$namarec,$nomorec));
         return redirect('/perusahaan/list/pembayaran')->with('success',"Interview Success");
     }
 

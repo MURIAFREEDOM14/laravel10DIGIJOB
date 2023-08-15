@@ -25,6 +25,7 @@
                         <div class="row">
                             <div class="col-3">
                                 <label for="" style="text-transform:uppercase;" class="col-form-label">{{$item->urutan}}. {{$item->nama}}</label>
+                                <input type="text" hidden name="id_kandidat[]" value="{{$item->id_kandidat}}" id="">
                             </div>
                             <div class="col-3">
                                 <input type="time" name="timer[]" class="form-control" id="">

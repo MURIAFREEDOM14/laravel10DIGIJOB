@@ -32,13 +32,9 @@ class Verification extends Mailable
 
     public function build()
     {
-        return $this->from($this->email, $this->fromName)
-        ->subject($this->token)
-        ->markdown('mail.mail')
-        ->with([
-            'token' => $this->token,
-            'message' => $this->message,
-        ]);
+        return $this->from($this->fromName)
+        ->subject($this->message)
+        ->view('mail.mail');
     }
 
     /**
@@ -47,7 +43,7 @@ class Verification extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Verification',
+            subject: $this->message,
         );
     }
 
