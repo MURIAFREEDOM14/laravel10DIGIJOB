@@ -123,6 +123,19 @@ class KandidatPerusahaanController extends Controller
         return redirect('/profil_perusahaan/'.$perusahaan->id_perusahaan);
     }
 
+    public function listLowonganPekerjaan()
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        $notif = notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
+        $lowongan = LowonganPekerjaan::join(
+            'perusahaan', 'lowongan_pekerjaan.id_perusahaan','=','perusahaan.id_perusahaan'
+        )
+        ->where('perusahaan.penempatan_kerja','like','%'.$kandidat->penempatan.'%')->get();
+        return view('kandidat/perusahaan/list_lowongan_pekerjaan',compact('kandidat','lowongan','notif','pesan'));
+    }
+
     public function LowonganPekerjaan($id)
     {
         $user = Auth::user();
@@ -157,18 +170,23 @@ class KandidatPerusahaanController extends Controller
         $pendidikan_kandidat = Pendidikan::where('nama_pendidikan','like','%'.$kandidat->pendidikan.'%')->first();
 
         $data = Kandidat::
-        where('usia','>=',$lowongan->usia_min)
-        ->where('usia','<=',$lowongan->usia_maks)
+        where('referral_code',$user->referral_code)
         ->where('tinggi','>=',$lowongan->tinggi)
-        ->where('berat','>=',$lowongan->berat_min)
-        ->where('berat','<=',$lowongan->berat_maks)
-        ->where('referral_code',$user->referral_code)->first();
+        ->first();
         
         if($data){
             if($pendidikan_kandidat >= $pendidikan_lowongan){
                 if($kandidat->jenis_kelamin == $lowongan->jenis_kelamin || $lowongan->jenis_kelamin == "MF"){
                     if($kandidat->kabupaten == $lowongan->pencarian_tmp || $kandidat->provinsi == $lowongan->pencarian_tmp || $lowongan->pencarian_tmp == "Se-indonesia"){
-                        return view('kandidat/perusahaan/permohonan_lowongan',compact('kandidat','notif','pesan','lowongan'));
+                        if($kandidat->usia >= $lowongan->usia_min && $kandidat->usia <= $lowongan->usia_maks){
+                            if($kandidat->berat >= $lowongan->berat_min && $kandidat->berat <= $lowongan->berat_maks){
+                                return view('kandidat/perusahaan/permohonan_lowongan',compact('kandidat','notif','pesan','lowongan'));
+                            } else {
+                                return redirect()->back()->with('warning',"Maaf berat badan anda belum cukup untuk lowongan ini");
+                            }
+                        } else {
+                            return redirect()->back()->with('warning',"Maaf usia anda belum sesuai untuk lowongan ini");
+                        }
                     } else {
                         return redirect()->back()->with('warning',"Maaf pencarian kandidat ini tidak sesuai dengan tempat anda");
                     }

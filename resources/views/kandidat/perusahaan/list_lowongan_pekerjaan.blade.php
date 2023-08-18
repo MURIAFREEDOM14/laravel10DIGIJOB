@@ -12,8 +12,8 @@
                             <tr class="text-center">
                                 <th style="width: 1px">No.</th>
                                 <th>Nama Perusahaan</th>
-                                <th>Lowongan Pekerjaan</th>
-                                <th>Tempat Kerja</th>
+                                <th>Nama Lowongan</th>
+                                <th>Pencarian Tempat</th>
                                 <th>Lihat Lowongan</th>
                             </tr>
                         </thead>
@@ -24,8 +24,8 @@
                                     <td>
                                         {{$item->nama_perusahaan}}
                                     </td>
-                                    <td>{{$item->nama_lowongan}}</td>
-                                    <td>{{$item->penempatan_kerja}}</td>
+                                    <td>{{$item->jabatan}}</td>
+                                    <td>{{$item->pencarian_tmp}}</td>
                                     <td>
                                         <a class="btn btn-outline-primary" href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat Lowongan</a>
                                     </td>

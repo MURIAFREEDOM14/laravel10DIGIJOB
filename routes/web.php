@@ -378,6 +378,7 @@ Route::controller(PerusahaanRecruitmentController::class)->group(function() {
     Route::get('/perusahaan/hapus_lowongan/{id}/{type}','hapusLowongan')->middleware('perusahaan');
 
     Route::get('/perusahaan/list_permohonan_lowongan','listPermohonanLowongan')->middleware('perusahaan');
+    Route::get('/perusahaan/lowongan_kandidat_sesuai/{id}','lowonganKandidatSesuai')->middleware('perusahaan');
     Route::get('/perusahaan/lihat_permohonan_lowongan/{id}','lihatPermohonanLowongan')->middleware('perusahaan');
     Route::post('/perusahaan/terima_permohonan_lowongan/{id}','confirmPermohonanLowongan');
     Route::post('/perusahaan/batal_permohonan_lowongan/{id}','cancelPermohonanLowongan');
@@ -471,6 +472,7 @@ Route::controller(KandidatPerusahaanController::class)->group(function() {
     Route::get('/detail_pekerjaan_perusahaan/{kerjaid}/{nama}','detailPekerjaanPerusahaan');
     Route::post('/detail_pekerjaan_perusahaan/{kerjaid}/{nama}','terimaPekerjaanPerusahaan');
     
+    Route::get('/list_lowongan_pekerjaan','listLowonganPekerjaan')->middleware('kandidat');
     Route::get('/lihat_lowongan_pekerjaan/{id}','lowonganPekerjaan')->middleware('kandidat'); 
     Route::get('/permohonan_lowongan/{id}','permohonanLowongan')->middleware('kandidat');
     Route::post('/permohonan_lowongan/{id}','kirimPermohonan');

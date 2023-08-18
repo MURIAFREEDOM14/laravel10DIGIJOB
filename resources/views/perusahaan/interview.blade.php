@@ -92,6 +92,7 @@
                         @foreach ($kandidat as $nama)
                             <div class="col-3">
                                 <label for="" style="text-transform:uppercase;" class="col-form-label">{{$loop->iteration}}. {{$nama->nama}}</label>
+                                <input type="number" hidden name="id_kandidat[]" value="{{$nama->id_kandidat}}" id="">
                             </div>
                             <div class="col-3">
                                 <select class="form-control"  name="dater[]" id="">

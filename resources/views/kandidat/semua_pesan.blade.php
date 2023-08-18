@@ -6,7 +6,15 @@
                 Semua Pesan
             </div>
             <div class="card-body">
-                <div class="table-responsive">
+                @foreach ($semua_pesan as $item)
+                    <div class="list-group">                        
+                        <a href="/kirim_balik/{{$item->id}}" class="list-group-item list-group-item-action">
+                            <h5 class="">{{$item->pengirim}}</h5>
+                            <div class="mt-3">{{$item->pesan}}</div>
+                        </a>
+                    </div>
+                @endforeach
+                {{-- <div class="table-responsive">
                     <table class="table table-bordered table-head-bg-info table-bordered-bd-info mt-4">
                         <thead>
                             <tr>
@@ -35,7 +43,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

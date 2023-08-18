@@ -7,7 +7,6 @@
             <div class="card-header">
                 <h4><b class="bold">Informasi Lowongan</b></h4>
             </div>
-
             <div class="card-body">
                 <div  class="row">
                     <div class="col-md-3">
@@ -153,13 +152,13 @@
                     </div>
                     <hr>    
                 @endif
-                <div  class="row">
-                    <div class="col-12">
-                        <h5><b class="bold">Fasilitas</b></h5>
-                    </div>
-                </div>
-                <hr>
                 @if ($lowongan->fasilitas !== null)
+                    <div  class="row">
+                        <div class="col-12">
+                            <h5><b class="bold">Fasilitas</b></h5>
+                        </div>
+                    </div>
+                    <hr>
                     <div class="row">
                         <div class="col-md-3">
                             <label for="" class="">Fasilitas Pekerjaan</label>
@@ -225,7 +224,7 @@
                             <label for="" class="">Tanggal Tutup Lowongan</label>
                         </div>
                         <div class="col-md-8">
-                            <div class=""><b class="bold">: {{date('d-M-Y',strtotime($lowongan->ttp_lowongan))}}</b></div>
+                            <div class=""><b class="bold">: {{date('d M Y',strtotime($lowongan->ttp_lowongan))}}</b></div>
                         </div>
                     </div>
                     <hr>
@@ -236,7 +235,7 @@
                             <label for="" class="">Tanggal Interview</label>
                         </div>
                         <div class="col-md-8">
-                            <div class=""><b class="bold">{{date('d-M-Y',strtotime($lowongan->tgl_interview_awal))}} Sampai {{date('d-M-Y',strtotime($lowongan->tgl_interview_akhir))}}</b></div>
+                            <div class=""><b class="bold">{{date('d M Y',strtotime($lowongan->tgl_interview_awal))}} Sampai {{date('d M Y',strtotime($lowongan->tgl_interview_akhir))}}</b></div>
                         </div>
                     </div>
                     <hr>

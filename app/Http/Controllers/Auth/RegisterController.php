@@ -134,7 +134,7 @@ class RegisterController extends Controller
             return redirect('/register/kandidat')->with('warning',"Maaf umur anda belum cukup, syarat umur ialah 18 thn keatas");
         }
 
-        $token = Str::random(64).$request->no_telp;
+        $token = Str::random(32).$request->no_telp;
         $password = Hash::make($request->password);
         
         $user = User::create([

@@ -33,7 +33,7 @@ class PaymentController extends Controller
         $payment = 15000;
         $namarec = "Hamepa";
         $nomorec = 4399997272;
-        Mail::mailer('payment')->to($kandidat->email)->send(new Payment($kandidat->nama,$payment,'Pembayaran','digijobaccounting@ugiport.com',$payment,$namarec,$nomorec));
+        Mail::mailer('payment')->to($kandidat->email)->send(new Payment($kandidat->nama,$payment,'Pembayaran','digijobaccounting@ugiport.com', $namarec,$nomorec));
 
         Pembayaran::create([
             'id_kandidat' => $kandidat->id_kandidat,

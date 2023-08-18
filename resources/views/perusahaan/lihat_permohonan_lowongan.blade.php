@@ -232,7 +232,7 @@
                                             </div>
                                         </div>                        
                                         <div class="card-header">
-                                            <b class="float-left">{{$item->nama_panggilan}}</b>
+                                            <b class="float-left">{{$item->nama}}</b>
                                             <b class="float-right">{{$item->usia}}thn</b>
                                         </div>
                                         <div class="card-body">

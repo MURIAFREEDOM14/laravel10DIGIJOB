@@ -4,12 +4,13 @@
         <div class="card">
             <div class="card-header">
                 <h5 style="text-transform: uppercase">Isi Pesan</h5>
+                <a class="btn btn-danger float-right" href="/hapus_pesan/{{$id}}" onclick=""><i class="fas fa-trash"></i></a>
             </div>
             <div class="card-body">
                 <p class="text-justify" style="border: 2px solid #1572e8; border-radius:5%; padding-left:10px; padding-right:10px; padding-top:10px; padding-bottom:10px;">{{$pengirim->pesan}}</p>
             </div>
         </div>
-        <div class="card">
+        {{-- <div class="card">
             <div class="card-header">
                 <b>Jawab pesan</b>
             </div>
@@ -40,6 +41,6 @@
                     <button type="submit" class="btn btn-success">Kirim</button>
                 </div>
             </form>
-        </div>
+        </div> --}}
     </div>
 @endsection

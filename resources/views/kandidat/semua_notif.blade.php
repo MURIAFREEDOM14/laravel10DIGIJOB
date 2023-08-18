@@ -1,13 +1,24 @@
 @extends('layouts.kandidat')
 @section('content')
     <div class="container mt-5">
-        <hr>
         <div class="card">
             <div class="card-header">
                 Semua Notifikasi
             </div>
             <div class="card-body">
-                <div class="table-responsive">
+                <div class="row">
+                    @foreach ($notif as $item)
+                        <div class="col-12" style="">
+                            <a class="" style="color: black;" href="{{$item->url}}">
+                                <h5 class="float-left">{{$item->pengirim}}</h5>
+                                <small class="float-right">{{date('d-m-Y',strtotime($item->created_at))}}</small>
+                                <br>
+                                <h6 class="">{{$item->isi}}</h6>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+                {{-- <div class="table-responsive">
                     <table class="table table-bordered table-head-bg-primary table-bordered-bd-primary">
                         <thead>
                             <tr>
@@ -36,7 +47,8 @@
                             @endforeach
                         </tbody>
                     </table>
-                </div>
+                </div> --}}
+                <hr>
                 <div class="">Notifikasi akan terhapus dalam 2 minggu</div>
             </div>
         </div>

@@ -20,7 +20,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <b class="bold">Informasi Perusahaan</b>
+                        <b class="bold">Profil</b>
                     </div>
                     <div class="card-body">
                         <h3 class="text-center">Harap Lengkapi Profil Anda</h3>
@@ -61,7 +61,7 @@
         </div>
     @else
         <div class="row mt-2">
-            <div class="col-md-7">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <b class="bold">Informasi Perusahaan</b>
@@ -108,7 +108,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-5">
+            {{-- <div class="col-md-5">
                 <div class="card">
                     <div class="card-header">
                         <b class="bold">Informasi Lowongan Pekerjaan</b>
@@ -136,7 +136,7 @@
                         @endif
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     @endif
 </div>

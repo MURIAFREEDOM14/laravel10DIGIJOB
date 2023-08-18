@@ -5,10 +5,10 @@
 <div class="container mt-5">
     <div class="card">
         <div class="card-header">
-            <b class="bold">Pencarian Kandidat</b>
-            <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#cari_kandidat">
+            <b class="bold">Kandidat Yang Sesuai</b>
+            {{-- <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#cari_kandidat">
                 <i class="fas fa-search"></i> Apa yang anda butuhkan?
-            </button>    
+            </button>     --}}
         </div>
         <div class="card-body">
             <form action="/perusahaan/pilih/kandidat" method="POST">

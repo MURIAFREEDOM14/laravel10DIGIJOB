@@ -224,7 +224,7 @@
                             <label for="" class="">Tanggal Tutup Lowongan</label>
                         </div>
                         <div class="col-md-8">
-                            <div class=""><b class="bold">: {{date('d-M-Y',strtotime($lowongan->ttp_lowongan))}}</b></div>
+                            <div class=""><b class="bold">: {{date('d M Y',strtotime($lowongan->ttp_lowongan))}}</b></div>
                         </div>
                     </div>
                     <hr>
@@ -235,7 +235,7 @@
                             <label for="" class="">Tanggal Interview</label>
                         </div>
                         <div class="col-md-8">
-                            <div class=""><b class="bold">{{date('d-M-Y',strtotime($lowongan->tgl_interview_awal))}} Sampai {{date('d-M-Y',strtotime($lowongan->tgl_interview_akhir))}}</b></div>
+                            <div class=""><b class="bold">{{date('d M Y',strtotime($lowongan->tgl_interview_awal))}} Sampai {{date('d M Y',strtotime($lowongan->tgl_interview_akhir))}}</b></div>
                         </div>
                     </div>
                     <hr>

@@ -99,7 +99,7 @@
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="blue2">
                     <a href="/" class="logo">
-                        <b class="" style="color: white">DIGIJOB-UGIPORT</b>
+                        {{-- <b class="" style="color: white">DIGIJOB-UGIPORT</b> --}}
                     </a>
                     <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon">
@@ -389,46 +389,24 @@
                                 </li>
                             @endif
                             <li class="nav-item">
+                                <a class="btn" href="/list_lowongan_pekerjaan">
+                                    <i class="fas fa-clipboard-list"></i>
+                                    {{-- <i class="fas fa-crown" style="color: yellow"></i> --}}
+                                    <p>Lowongan Pekerjaan</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="btn disabled" href="/video_pelatihan">
                                     <i class="fas fa-clipboard-list"></i>
                                     {{-- <i class="fas fa-crown" style="color: yellow"></i> --}}
                                     <p>Video Pelatihan</p>
                                 </a>
                             </li>
-                            <li class="nav-section">
-                                <span class="sidebar-mini-icon">
-                                </span>
-                            </li>
-                            
-                            <li class="nav-item active">
-                                <a data-toggle="collapse" href="#prioritas">
+                            <li class="nav-item">
+                                <a class="btn disabled" href="/akun_prioritas">
                                     <i class="fas fa-crown"></i>
-                                    <p style="text-transform: uppercase;">Akun Prioritas</p>
-                                    <span class="caret"></span>
+                                    <p>Akun Prioritas</p>
                                 </a>
-                                <div class="collapse" id="prioritas">
-                                    <ul class="nav nav-collapse">
-                                        <li>
-                                            <div class="card mx-2 bg-primary">
-                                                <div class="card-body">
-                                                    <div class="" style="font-weight:bold;">
-                                                        Maaf fitur ini masih dalam Pembangunan.
-                                                        {{-- Halo {{$kandidat->nama_panggilan}}, Kami ada penawaran menarik nih buat kamu. 
-                                                        Yup yaitu Akun Prioritas,apakah kamu penasaran dengan fitur ini? 
-                                                        Di fitur ini kamu akan dapat : --}}
-                                                    </div>
-                                                    {{-- <div class="mb-2" style="font-weight:bold;"><i class="fas fa-check-circle"></i> Dapat Video Pelatihan</div>
-                                                    <div class="mb-2" style="font-weight:bold;"><i class="fas fa-check-circle"></i> Dapat Video Pelatihan</div>
-                                                    <div class="mb-2" style="font-weight:bold;"><i class="fas fa-check-circle"></i> Dapat Video Pelatihan</div> --}}
-                                                    {{-- <a href="/payment" class="btn btn-info" style="color:white; font-weight:bold;">Upgrade</a> --}}
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="nav-link">
-                                
                             </li>
                         </ul>
                     </div>

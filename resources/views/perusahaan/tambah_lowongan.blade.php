@@ -143,7 +143,7 @@
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                     <div class="input-group-text">
-                                        <input type="checkbox" name="pengalaman_kerja[]" value="non" aria-label="Checkbox for following text input">
+                                        <input type="checkbox" name="pengalaman_kerja[]" value="non" aria-label="Checkbox for following text input" checked>
                                     </div>
                                     </div>
                                     <span class="selectgroup-button">Non</span>

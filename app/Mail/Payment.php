@@ -13,8 +13,7 @@ class Payment extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $name;
-    public $message;
+    public $nama;
     public $subject;
     public $fromEmail;
     public $fromName;
@@ -25,10 +24,9 @@ class Payment extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct($name, $message, $subject, $fromEmail,$payment,$namarec,$nomorec)
+    public function __construct($nama, $payment, $subject, $fromEmail, $namarec,$nomorec)
     {
-        $this->name = $name;
-        $this->message = $message;
+        $this->nama = $nama;
         $this->subject = $subject;
         $this->fromEmail = $fromEmail;
         $this->payment = $payment;
@@ -43,13 +41,9 @@ class Payment extends Mailable
     
     public function build()
     {
-        return $this->from($this->fromEmail,$this->fromName)
+        return $this->from($this->fromName)
         ->subject($this->subject)
-        ->markdown('mail.pembayaran') 
-        ->with([
-            'userName' => $this->name,
-            'themessage' => $this->message,
-        ]);
+        ->view('mail.');
     }
     
     public function envelope(): Envelope
@@ -66,9 +60,6 @@ class Payment extends Mailable
     {
         return new Content(
             view: 'mail/pembayaran',
-            with: [
-                'pembayaran' =>$this->message
-            ]
         );
     }
 

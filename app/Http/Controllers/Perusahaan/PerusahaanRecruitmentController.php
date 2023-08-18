@@ -34,6 +34,7 @@ use App\Models\KandidatInterview;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Payment;
+use App\Models\Pendidikan;
 
 class PerusahaanRecruitmentController extends Controller
 {
@@ -274,8 +275,8 @@ class PerusahaanRecruitmentController extends Controller
             $lvl_pekerjaan = $jenis_pekerjaan->nama;
         }
         if($request->berat_badan == "ideal"){
-            $berat_min = $request->tinggi - 100;
-            $berat_maks = $request->tinggi - 100;
+            $berat_min = $request->tinggi - 110;
+            $berat_maks = $request->tinggi - 90;
         } else {
             $validated = $request->validate([
                 'berat_min' => 'required',
@@ -407,8 +408,8 @@ class PerusahaanRecruitmentController extends Controller
             }
         }
         if($request->berat_badan == "ideal"){
-            $berat_min = $request->tinggi - 100;
-            $berat_maks = $request->tinggi - 100;
+            $berat_min = $request->tinggi - 110;
+            $berat_maks = $request->tinggi - 90;
         } else {
             $validated = $request->validate([
                 'berat_min' => 'required',
@@ -485,6 +486,35 @@ class PerusahaanRecruitmentController extends Controller
         return redirect('/perusahaan/list/lowongan/'.$type)->with('success');
     }
 
+    public function lowonganKandidatSesuai($id)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        if($lowongan->usia_min == null || $lowongan->usia_maks == null || $lowongan->berat_min == null || $lowongan->berat_maks == null){
+            if($lowongan->negara == "Indonesia")
+            {
+                return redirect('/perusahaan/edit_lowongan/'.$id.'/dalam')->with('warning',"Maaf data lowongan anda ada yang kosong. Harap lengkapi kembali lowongan anda");
+            } else {
+                return redirect('/perusahaan/edit_lowongan/'.$id.'/luar')->with('warning',"Maaf data lowongan anda ada yang kosong. Harap lengkapi kembali lowongan anda");
+            }
+        }
+        $kandidat = Kandidat::
+        where('jenis_kelamin','like',$lowongan->jenis_kelamin)
+        ->where('tinggi','>=',$lowongan->tinggi)
+        ->where('usia','>=',$lowongan->usia_min)
+        ->where('usia','<=',$lowongan->usia_maks)
+        ->where('berat','>=',$lowongan->berat_min)
+        ->where('berat','<=',$lowongan->berat_maks)
+        ->get();
+        $p_lowongan = Pendidikan::where('nama_pendidikan','like','%'.$lowongan->pendidikan.'%')->first();
+        $isi = $kandidat->count();
+        return view('perusahaan/kandidat/lowongan_sesuai',compact('perusahaan','lowongan','isi','kandidat','pesan','notif','credit'));
+    }
+
     public function listPermohonanLowongan()
     {
         $user = Auth::user();
@@ -531,14 +561,6 @@ class PerusahaanRecruitmentController extends Controller
         ]);
         for($a = 0; $a < count($id_kandidat); $a++){                
             $kandidat = Kandidat::where('id_kandidat',$id_kandidat[$a])->first();
-            // $input['id_kandidat'] = $kandidat->id_kandidat;
-            // $input['nama_kandidat'] = $kandidat->nama;
-            // $input['status'] = "pilih";
-            // $input['usia'] = $kandidat->usia;
-            // $input['jenis_kelamin'] = $kandidat->jenis_kelamin;
-            // $input['pengalaman_kerja'] = $kandidat->pengalaman_kerja;
-            // $input['id_perusahaan'] = $perusahaan->id_perusahaan;
-            // $input['id_lowongan'] = $id_lowongan;
             
             $k['id_interview'] = $data_k->id;
             $k['id_lowongan'] = $id_lowongan;
@@ -561,25 +583,10 @@ class PerusahaanRecruitmentController extends Controller
                     ]);                    
                 } 
         }
-        $permohonan = PermohonanLowongan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$id_lowongan)->get();
-        foreach($permohonan as $key){
-            if($key->confirm == null){
-                notifyKandidat::create([
-                    'id_kandidat' => $key->id_kandidat,
-                    'isi' => "Anda mendapat pesan masuk",
-                    'pengirim' => "Sistem",
-                    'url' => '/semua_pesan',
-                ]);
-            
-                messageKandidat::create([
-                    'id_kandidat' => $key->id_kandidat, 
-                    'pesan' => "Maaf anda masih belum diterima di ".$perusahaan->nama_perusahaan.". Jangan menyerah, masih ada perusahaan lain yang bisa anda coba masuki.",
-                    'pengirim' => "Sistem",
-                    'kepada' => $key->nama_kandidat,
-                ]);
-                PermohonanLowongan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('jabatan',$key->jabatan)->where('id_lowongan',$id_lowongan)->delete();
-            }
-        }                  
+        $payment = 15000 * $id_kandidat->count();
+        $nama_rec = "HAMEPA";
+        $nomo_rec = 4399997272;
+        Mail::mailer('payment')->to($perusahaan->email_perusahaan)->send(new Payment($perusahaan->nama_perusahaan, $payment, 'Pembayaran Interview', 'digijobaccounting@ugiport.com', $nama_rec, $nomo_rec));                  
         return redirect('/perusahaan/jadwal_interview/'.$id);
     }
 
@@ -634,8 +641,9 @@ class PerusahaanRecruitmentController extends Controller
         $kandidat = KandidatInterview::where('id_lowongan',$id)->get();
         $jadwal = $request->dater;
         $flag = $request->urutan;
+        $id_kandidat = $request->id_kandidat;
         for($t = 0; $t < count($jadwal); $t++){
-            KandidatInterview::where('id_lowongan',$id)->update([
+            KandidatInterview::where('id_lowongan',$id)->where('id_kandidat',$id_kandidat[$t])->update([
                 'jadwal_interview' => $jadwal[$t],
                 'urutan' => $flag[$t],
             ]);
@@ -687,7 +695,7 @@ class PerusahaanRecruitmentController extends Controller
                 'pengirim' => "Sistem",
                 'kepada' => $kandidat->nama,
             ]);
-            $kandidat_akademi = Kandidat::where('id_kandidat',$id_kandidat[$a])->whereNotNull('id_akademi')->first();
+            $kandidat_akademi = Kandidat::where('id_kandidat',$id_kandidat[$w])->whereNotNull('id_akademi')->first();
             if($kandidat_akademi !== null){
                 notifyAkademi::create([
                     'id_akademi' => $kandidat_akademi->id_akademi,
@@ -707,10 +715,10 @@ class PerusahaanRecruitmentController extends Controller
             }
         }
 
-        $namarec = "Hamepa";
-        $nomorec = 4399997272;
-        $payment = 0;
-        Mail::mailer('payment')->to($request->email)->send(new Payment($pengguna->name_perusahaan,$payment,'Pembayaran','digijobaccounting@ugiport.com',$payment,$namarec,$nomorec));
+        // $namarec = "Hamepa";
+        // $nomorec = 4399997272;
+        // $payment = 0;
+        // Mail::mailer('payment')->to($request->email)->send(new Payment($pengguna->name_perusahaan,$payment,'Pembayaran','digijobaccounting@ugiport.com',$payment,$namarec,$nomorec));
         return redirect('/perusahaan/list/pembayaran')->with('success',"Interview Success");
     }
 

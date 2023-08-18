@@ -39,7 +39,7 @@ class MessagerController extends Controller
         $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
         $pengirim = messageKandidat::where('id',$id)->first();
-        return view('kandidat/kirim_pesan',compact('kandidat','pesan','notif','pengirim'));
+        return view('kandidat/kirim_pesan',compact('kandidat','pesan','notif','pengirim','id'));
     }
 
     public function sendMessageConfirmKandidat(Request $request,$id)

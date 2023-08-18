@@ -28,7 +28,7 @@
                                 <input type="text" hidden name="id_kandidat[]" value="{{$item->id_kandidat}}" id="">
                             </div>
                             <div class="col-3">
-                                <input type="time" name="timer[]" class="form-control" id="">
+                                <input type="time" name="timer[]" required class="form-control" id="">
                             </div>
                             <div class="col-3">
                                 <select name="durasi[]" class="form-control" id="">
