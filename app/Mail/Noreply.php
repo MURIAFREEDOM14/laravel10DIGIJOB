@@ -13,14 +13,27 @@ class Noreply extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $mailData;
+    public $name;
+    public $token;
+    public $text;
+    public $subject;
+    public $email;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($pengirim)
+    public function __construct($name, $token, $text, $subject, $email)
     {
-        $this->emailData = $pengirim;
+        $this->name = $name;
+        $this->token = $token;
+        $this->text = $text;
+        $this->subject = $subject;
+        $this->email = $email;
+    }
+
+    public function build()
+    {
+        return $this->from();
     }
 
     /**
@@ -29,7 +42,7 @@ class Noreply extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Email',
+            subject: $this->subject,
         );
     }
 
@@ -39,10 +52,7 @@ class Noreply extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail/mail',
-            with: [
-                'pengirim' =>$this->emailData
-            ]
+            view: 'mail/verify',
         );
     }
 

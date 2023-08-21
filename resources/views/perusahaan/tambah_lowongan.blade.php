@@ -102,7 +102,7 @@
                         <div class="col-md-5">
                             <select name="pendidikan" required class="form-control" id="">
                                 <option value="">-- Pilih Tingkatan Pendidikan --</option>
-                                <option value="Tidak sekolah">Tanpa Ijazah</option>
+                                <option value="Tidak_sekolah">Tanpa Ijazah</option>
                                 <option value="SD">SD Sederajat / Kejar Paket A</option>
                                 <option value="SMP">SMP Sederajat / Kejar Paket B</option>
                                 <option value="SMA">SMA Sederajat / Kejar Paket C</option>

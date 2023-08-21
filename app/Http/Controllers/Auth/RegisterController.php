@@ -218,11 +218,12 @@ class RegisterController extends Controller
             'no_nis' => $request->no_nis,
         ]);
 
-        Mail::send('mail.mail', ['token' => $token, 'nama' => $request->name], function($message) use($request){
-            $message->to($request->email);
-            $message->subject('Email Verification Mail');
-        });
-        Auth::login($user);
+        Mail::mailer('verification')->to($request->email)->send(new Verification($request->name, $token, 'Email Verifikasi', 'no-reply@ugiport.com'));
+        // Mail::send('mail.mail', ['token' => $token, 'nama' => $request->name], function($message) use($request){
+        //     $message->to($request->email);
+        //     $message->subject('Email Verification Mail');
+        // });
+        // Auth::login($user);
         return redirect()->route('verifikasi')->with('success',"Cek email anda untuk verifikasi");
     }
 
@@ -276,10 +277,11 @@ class RegisterController extends Controller
             'penempatan_kerja' => $request->penempatan_kerja,
         ]);
 
-        Mail::send('mail.mail', ['token' => $token, 'nama' => $request->name], function($message) use($request){
-            $message->to($request->email);
-            $message->subject('Email Verification Mail');
-        });
+        Mail::mailer('verification')->to($request->email)->send(new Verification($request->name, $token, 'Email Verifikasi', 'no-reply@ugiport.com'));
+        // Mail::send('mail.mail', ['token' => $token, 'nama' => $request->name], function($message) use($request){
+        //     $message->to($request->email);
+        //     $message->subject('Email Verification Mail');
+        // });
         Auth::login($user);
         return redirect()->route('verifikasi')->with('success',"Cek email anda untuk verifikasi");
     }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Noreply;
+use App\Mail\Verification;
 use App\Models\ContactUsKandidat;
 use App\Models\VerifikasiDiri;
 use Illuminate\Http\Request;
@@ -83,15 +85,17 @@ class VerifikasiController extends Controller
         }
 
         if($user->password == null){
+            Mail::mailer('verification')->to($user->email)->send(new Noreply($nama, $newToken, $text, 'Email Verifikasi Ulang', 'no-reply@ugiport.com'));
             Mail::send('mail.verify',['token'=>$newToken,'nama'=>$nama,'text'=>$text], function($message) use($user){
                 $message->to($user->email);
                 $message->subject('Email Verification Mail');
             });
         } else {
-            Mail::send('mail.mail', ['token'=>$newToken,'nama'=>$nama], function($message) use($user){
-                $message->to($user->email);
-                $message->subject('Email Verification Mail');
-            });
+            Mail::mailer('verification')->to($user->email)->send(new Verification($nama, $newToken, 'Email Verifikasi', 'no-reply@ugiport.com'))
+            // Mail::send('mail.mail', ['token'=>$newToken,'nama'=>$nama], function($message) use($user){
+            //     $message->to($user->email);
+            //     $message->subject('Email Verification Mail');
+            // });
         }
         return redirect()->route('verifikasi');
     }
