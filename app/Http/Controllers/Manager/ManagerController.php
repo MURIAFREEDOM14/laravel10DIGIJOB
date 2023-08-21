@@ -39,6 +39,7 @@ use App\Models\VideoKerja;
 use App\Models\FotoKerja;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Payment;
+use App\Mail\transfer;
 use App\Models\ReportUserIn;
 use App\Models\Jadwal;
 use App\Models\ReportNewUser;
@@ -888,17 +889,19 @@ class ManagerController extends Controller
         $pengguna = User::where('email',$request->email)->first();
         if($request->type == 0){
             if($pengguna->type == 2){
-                Mail::send('mail.mail', ['token' => $pengguna->token,'nama' => $pengguna->name_perusahaan], function($message) use($request){
-                    $message->to($request->email);
-                    $message->subject('Email Verification Mail');
-                });    
+                Mail::mailer('verification')->to($request->email)->send(new Verification($pengguna->name_perusahaan, $pengguna->token, 'Email Verifikasi', 'no-reply@ugiport.com'));
+                // Mail::send('mail.mail', ['token' => $pengguna->token,'nama' => $pengguna->name_perusahaan], function($message) use($request){
+                //     $message->to($request->email);
+                //     $message->subject('Email Verification Mail');
+                // });    
             } elseif($pengguna->type == 1) {
-                Mail::send('mail.mail', ['token' => $pengguna->token,'nama' => $pengguna->name_akademi], function($message) use($request){
-                    $message->to($request->email);
-                    $message->subject('Email Verification Mail');
-                });
+                Mail::mailer('verification')->to($request->email)->send(new Verification($pengguna->name_akademi, $pengguna->token, 'Email Verifikasi', 'no-reply@ugiport.com'));
+                // Mail::send('mail.mail', ['token' => $pengguna->token,'nama' => $pengguna->name_akademi], function($message) use($request){
+                //     $message->to($request->email);
+                //     $message->subject('Email Verification Mail');
+                // });
             } elseif($pengguna->type == 0) {
-                Mail::mailer('verification')->to($request->email)->send(new Verification($pengguna->name, $pengguna->token, 'Email Verification','no-reply@ugiport.com'));
+                Mail::mailer('verification')->to($request->email)->send(new Verification($pengguna->name, $pengguna->token, 'Email Verifikasi','no-reply@ugiport.com'));
                 // Mail::send('mail.mail', ['token' => $pengguna->token,'nama' => $pengguna->name], function($message) use($request){
                 //     $message->to($request->email);
                 //     $message->subject('Email Verification Mail');
@@ -909,10 +912,12 @@ class ManagerController extends Controller
             $nomorec = 4399997272;
             $payment = 0;
             if($pengguna->type == 2){
-                Mail::mailer('payment')->to($request->email)->send(new Payment($pengguna->name_perusahaan,$payment,'Pembayaran','digijobaccounting@ugiport.com',$payment,$namarec,$nomorec));
+                Mail::mailer('payment')->to($request->email)->send(new Payment($pengguna->name_perusahaan, $payment, 'Pembayaran', 'digijobaccounting@ugiport.com', $namarec, $nomorec));
             } else {
-                Mail::mailer('payment')->to($request->email)->send(new Payment($pengguna->name,$payment,'Pembayaran','digijobaccounting@ugiport.com',$payment,$namarec,$nomorec));
+                Mail::mailer('payment')->to($request->email)->send(new Payment($pengguna->name, $payment, 'Pembayaran', 'digijobaccounting@ugiport.com', $namarec, $nomorec));
             }
+        } elseif($request->type == 2) {
+            $alamat = $pengguna->kabupaten;
         }
         return redirect('/manager/search_email')->with('success',"Email Terkirim");
     }

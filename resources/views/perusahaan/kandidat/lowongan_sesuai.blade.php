@@ -13,45 +13,51 @@
         <div class="card-body">
             <form action="/perusahaan/pilih/kandidat" method="POST">
                 @csrf
-                <div class="row mb-2">
-                    {{-- <div class="">
+                {{-- <div class="row mb-2">
+                    <div class="">
                         <button class="btn btn-success" type="submit">Select</button>
-                    </div>     --}}
-                </div>
+                    </div>    
+                </div> --}}
                 <div class="row">
-                    @if ($isi == 0)
+                    {{-- @if ($isi == 0)
                     <div class="col-md-12 text-center">
                         <b>Maaf kandidat yang anda minta masih belum tersedia</b>
                         <p>Sedang dalam pencarian</p>
                     </div>
-                    @else
+                    @else --}}
                         @foreach ($kandidat as $item)
-                            <div class="col-md-3">
-                                <div class="card">
-                                    <a class="btn" style="border: 2px solid #1269DB; border-top-left-radius:10%;border-bottom-right-radius:10%" href="/perusahaan/lihat/kandidat/{{$item->id_kandidat}}">
-                                        <div class="card-header text-center mt--5">
-                                            <div class="avatar avatar-xl">
-                                                @if ($item->foto_4x6 == null)
-                                                    <img src="/gambar/default_user.png" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                            
-                                                @else
-                                                    <img src="/gambar/Kandidat/{{$item->nama}}/4x6/{{$item->foto_4x6}}" alt="" class="avatar-img rounded-circle">                                            
-                                                @endif
+                            @if ($item->no_urutan >= $p_lowongan->no_urutan)
+                                @if ($item->jenis_kelamin == $lowongan->jenis_kelamin || $lowongan->jenis_kelamin == "MF")
+                                    @if ($item->kabupaten == $lowongan->pencarian_tmp || $item->provinsi == $lowongan->pencarian_tmp || $lowongan->pencarian_tmp == "Se-indonesia")
+                                        <div class="col-md-3">
+                                            <div class="card">
+                                                <a class="btn" style="border: 2px solid #1269DB; border-top-left-radius:10%;border-bottom-right-radius:10%" href="/perusahaan/lihat/kandidat/{{$item->id_kandidat}}">
+                                                    <div class="card-header text-center mt--5">
+                                                        <div class="avatar avatar-xl">
+                                                            @if ($item->foto_4x6 == null)
+                                                                <img src="/gambar/default_user.png" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                            
+                                                            @else
+                                                                <img src="/gambar/Kandidat/{{$item->nama}}/4x6/{{$item->foto_4x6}}" alt="" class="avatar-img rounded-circle">                                            
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body text-center" style="background-color: #1269DB">
+                                                        <div class="mt-2" style="color: white; text-transform:uppercase">
+                                                            {{$item->nama_panggilan}}
+                                                        </div>
+                                                    </div>
+                                                </a>
                                             </div>
                                         </div>
-                                        <div class="card-body text-center" style="background-color: #1269DB">
-                                            <div class="mt-2" style="color: white; text-transform:uppercase">
-                                                {{$item->nama_panggilan}}
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
+                                    @endif                                    
+                                @endif
+                            @endif
                         @endforeach
-                    @endif
+                    {{-- @endif --}}
                 </div>
             </form>
-            <div class="row">
-            </div>            
+            <hr>
+            <a href="/perusahaan/list_permohonan_lowongan" class="btn btn-danger">Kembali</a>
             <div class="modal fade" id="cari_kandidat" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content">

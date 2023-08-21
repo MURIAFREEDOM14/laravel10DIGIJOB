@@ -39,6 +39,7 @@
                             <select name="type" class="form-control" id="">
                                 <option value="0">Email Verifikasi</option>
                                 <option value="1">Email Pembayaran</option>
+                                <option value="2">Email Disnaker</option>
                             </select>
                         </div>
                     </div>

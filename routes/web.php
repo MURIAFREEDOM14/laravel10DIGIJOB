@@ -608,18 +608,20 @@ Route::controller(MessagerController::class)->group(function() {
     Route::get('/semua_pesan','messageKandidat')->middleware('kandidat')->name('semuaPesan');
     Route::get('/kirim_balik/{id}','sendMessageKandidat')->middleware('kandidat');
     Route::post('/kirim_balik/{id}','sendMessageConfirmKandidat');
+    Route::get('/hapus_pesan/{id}','deleteMessageKandidat')->middleware('kandidat');
 
     // DATA AKADEMI //
     Route::get('/akademi/semua_pesan','messageAkademi')->middleware('akademi')->name('akademi.semuaPesan');
     Route::get('/akademi/kirim_balik/{id}','sendMessageAkademi')->middleware('akademi');
     Route::post('/akademi/kirim_balik/{id}','sendMessageConfirmAkademi');
+    Route::get('/akademi/hapus_pesan/{id}','deleteMessageAkademi')->middleware('akademi');
 
     // DATA PERUSAHAAN //
     Route::get('/perusahaan/semua_pesan','messagePerusahaan')->middleware('perusahaan')->name('perusahaan.semuaPesan');
     Route::get('/perusahaan/kirim_balik/{id}','sendMessagePerusahaan')->middleware('perusahaan');
     Route::post('/perusahaan/kirim_balik/{id}','sendMessageConfirmPerusahaan');
+    Route::get('/perusahaan/hapus_pesan/{id}','deleteMessagePerusahaan')->middleware('perusahaan');
 
-    // DATA MANAGER //
 });
 
 Route::controller(MailController::class)->group(function() {

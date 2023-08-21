@@ -2,6 +2,24 @@
 @section('content')
 @include('sweetalert::alert')
 @include('flash_message')
+<style>
+    /* CSS List */
+    a:visited {
+        background-color: #ffffff;
+        text-decoration: none;
+        color: #212529;
+    }
+    a:hover{
+        background-color: #f2f2f2;
+        text-decoration: none;
+        color: #212529;
+    }
+    .link-list{
+        border-top:0.1px solid #dfdfdf;
+        border-bottom:0.1px solid #dfdfdf;
+        color: #212529;
+    }
+</style>
 <div class="container mt-5">
     <hr>
     <div class="card">
@@ -9,32 +27,17 @@
             Semua Notifikasi
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered table-head-bg-primary table-bordered-bd-primary">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Dari</th>
-                            <th>Isi Pesan</th>
-                            <th>URL</th>
-                            <th>Waktu Pesan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($notif as $item)
-                        <tr>
-                            <td>{{$loop->iteration}}</td>
-                            <td>{{$item->pengirim}}</td>
-                            <td>{{$item->isi}}</td>
-                            <td>
-                                <a class="btn btn-primary" href="{{$item->url}}">Shorcut</a>
-                            </td>
-                            <td>{{date('d-M-Y | H:m',strtotime($item->created_at)) }}</td>
-                        </tr>                                
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+            @foreach ($notif as $item)
+                <div class="list-group">
+                    <a href="{{$item->url}}" class="link-list">
+                        <div class="mx-1">
+                            <h5 class="">{{$item->pengirim}}</h5>
+                        </div>
+                        <div class="mx-1">{{$item->isi}}</div>
+                        <div class="float-right mx-1">{{date('d-m-Y',strtotime($item->created_at))}}</div>
+                    </a>
+                </div>
+            @endforeach
             <div class="">Notifikasi akan terhapus dalam 2 minggu</div>
         </div>
     </div>

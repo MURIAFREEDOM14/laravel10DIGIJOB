@@ -61,6 +61,7 @@
                 -webkit-line-clamp: 1;
                 -webkit-box-orient: vertical;
             }
+            
             #hidetext{
                 display: none;
             }
@@ -355,7 +356,7 @@
                                         <p>Lengkapi Data Kontak Darurat</p>
                                     </a>
                                 </li>
-                            @else
+                            @elseif($kandidat->negara_id !== null)
                                 <li class="nav-item">
                                     <a data-toggle="collapse" href="#forms">
                                         <i class="fas fa-flag"></i>
@@ -380,8 +381,8 @@
                                                 <select name="negara_id" required class="form-control" id="negara_tujuan">
                                                     <option value="">-- Pilih Negara Tujuan --</option>
                                                 </select>
-                                                <li class="nav-section">
-                                                    <button type="submit" class="btn btn-primary" id="hidebtn">Simpan</button>
+                                                <li class="nav-section mt-2">
+                                                    <button type="submit" class="btn btn-primary mt-2" id="hidebtn">Simpan</button>
                                                 </li>
                                             </form>
                                         </ul>
@@ -419,25 +420,26 @@
                     <main class="px-1">
                         @yield('content')
                     </main>
-                    <footer class="footer" style="background-color: #1269db">
-                        <div class="container-fluid">
-                            <nav class="pull-left">
-                                <ul class="nav nav-primary">
-                                    <li class="nav-item">
-                                        <div class="copyright" style="color:white;">
-                                            &copy; Copyright <strong><span>DIGIJOB-UGIPORT</span></strong>. All Rights Reserved
-                                        </div>
-                                    </li>
-                                </ul>
-                            </nav>
-                            <div class="copyright ml-auto">
-                                &nbsp;
-                                <strong><a class="text-white" href="/contact_us_kandidat" style="text-transform: uppercase">Hubungi Kami</a></strong>
-                                {{-- 2018, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">ThemeKita</a> --}}
-                            </div>
-                        </div>
-                    </footer>
+                    {{--  --}}
                 </div>
+                <footer class="footer" style="background-color: #1269db;">
+                    <div class="container-fluid">
+                        <nav class="pull-left">
+                            <ul class="nav nav-primary">
+                                <li class="nav-item">
+                                    <div class="copyright" style="color:white;">
+                                        &copy; Copyright <strong><span>DIGIJOB-UGIPORT</span></strong>. All Rights Reserved
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>
+                        <div class="copyright ml-auto">
+                            &nbsp;
+                            <strong><a class="" style="color:white; background-color:#1269db; text-decoration:none;" href="/contact_us_kandidat" style="text-transform: uppercase">Hubungi Kami</a></strong>
+                            {{-- 2018, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">ThemeKita</a> --}}
+                        </div>
+                    </div>
+                </footer>
             </div>
         </div>
         <!--   Core JS Files   -->
@@ -559,51 +561,7 @@
                 });    
             }
 
-            // Negara Tujuan //
-            $(document).ready(function() {
-                $(document).on('change','#placement',function() {
-                    console.log("ditekan");
-                    var getID = $(this).val();
-                    console.log(getID);
-                    var div = $(this).parent();
-                    var op = "";
-                    var x = document.getElementById('hidetext');
-                    var y = document.getElementById('negara_tujuan');
-                    var btn = document.getElementById('hidebtn');
-                    if (getID == "luar negeri") {
-                        $.ajax({
-                            type:'get',
-                            url:'{!!URL::to('/penempatan')!!}',
-                            data:{'stats':getID},
-                            success:function (data) {
-                                console.log(data.length);
-                                x.style.display = 'block';
-                                y.style.display = 'block';
-                                btn.style.display = 'block';
-                                op+='<option value="" selected> -- Pilih Negara Tujuan -- </option>';
-                                for(var i = 0; i < data.length; i++){
-                                    op+='<option value="'+data[i].negara_id+'">'+data[i].negara+'</option>';
-                                }
-                                div.find('#negara_tujuan').html(" ");
-                                div.find('#negara_tujuan').append(op);
-                                console.log(op);
-                            },
-                            error:function() {
-
-                            }
-                        });
-                    } else {
-                        x.style.display = 'block';
-                        y.style.display = 'block';
-                        btn.style.display = 'block';
-                        op+='<option value="2" selected> Indonesia </option>';
-                        div.find('#negara_tujuan').html(" ");
-                        div.find('#negara_tujuan').append(op);
-                        console.log(op);
-                    }
-                })
-            });
-
+            // Terima Lowongan //
             function confirmLowongan(ev)
             {
                 ev.preventDefault();
@@ -692,6 +650,80 @@
                     }
                 });
             }
+
+            function hapusData(ev)
+            {
+                ev.preventDefault();
+                var url = ev.currentTarget.getAttribute('href');
+                console.log(url);
+                swal({
+                    title: 'Apakah anda yakin ingin Menghapus data ini?',
+                    type: 'warning',
+                    icon: 'warning',
+                    buttons:{
+                        confirm: {
+                            text : 'Iya',
+                            className : 'btn btn-success'
+                        },
+                        cancel: {
+                            visible: true,
+                            text:'tidak',
+                            className: 'btn btn-danger'
+                        }
+                    }
+                }).then((Delete) => {
+                    if (Delete) {
+                        window.location.href = url;
+                    } else {
+                        swal.close();
+                    }
+                });
+            }
+
+            // Negara Tujuan //
+            $(document).ready(function() {
+                $(document).on('change','#placement',function() {
+                    console.log("ditekan");
+                    var getID = $(this).val();
+                    console.log(getID);
+                    var div = $(this).parent();
+                    var op = "";
+                    var x = document.getElementById('hidetext');
+                    var y = document.getElementById('negara_tujuan');
+                    var btn = document.getElementById('hidebtn');
+                    if (getID == "luar negeri") {
+                        $.ajax({
+                            type:'get',
+                            url:'{!!URL::to('/penempatan')!!}',
+                            data:{'stats':getID},
+                            success:function (data) {
+                                console.log(data.length);
+                                x.style.display = 'block';
+                                y.style.display = 'block';
+                                btn.style.display = 'block';
+                                op+='<option value="" selected> -- Pilih Negara Tujuan -- </option>';
+                                for(var i = 0; i < data.length; i++){
+                                    op+='<option value="'+data[i].negara_id+'">'+data[i].negara+'</option>';
+                                }
+                                div.find('#negara_tujuan').html(" ");
+                                div.find('#negara_tujuan').append(op);
+                                console.log(op);
+                            },
+                            error:function() {
+
+                            }
+                        });
+                    } else {
+                        x.style.display = 'block';
+                        y.style.display = 'block';
+                        btn.style.display = 'block';
+                        op+='<option value="2" selected> Indonesia </option>';
+                        div.find('#negara_tujuan').html(" ");
+                        div.find('#negara_tujuan').append(op);
+                        console.log(op);
+                    }
+                })
+            });
             
             $(window).on('load',function() {
             $('#staticBackdrop').modal('show');                                                   

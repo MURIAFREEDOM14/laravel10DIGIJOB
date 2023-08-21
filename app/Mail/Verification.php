@@ -27,12 +27,12 @@ class Verification extends Mailable
         $this->token = $token;
         $this->message = $message;
         $this->email = $email;
-        $this->fromName = env('MAIL_FROM_NAME');
+        $this->fromName = "DIGIJOB-UGIPORT";
     }
 
     public function build()
     {
-        return $this->from($this->fromName)
+        return $this->from($this->email,$this->fromName)
         ->subject($this->message)
         ->view('mail.mail');
     }

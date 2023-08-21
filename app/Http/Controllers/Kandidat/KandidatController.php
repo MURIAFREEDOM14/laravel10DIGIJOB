@@ -299,15 +299,16 @@ class KandidatController extends Controller
 
     public function simpan_kandidat_document(Request $request)
     {
+        // dd($request);
         $validated = $request->validate([
             'rt' => 'required|max:3|min:3',
             'rw' => 'required|max:3|min:3',
-            'foto_ktp' => 'mimes:png,jpg,jpeg',
-            'foto_kk' => 'mimes:png,jpg,jpeg',
-            'foto_set_badan' => 'mimes:png,jpg,jpeg',
-            'foto_4x6' => 'mimes:png,jpg,jpeg',
-            'foto_ket_lahir' => 'mimes:png,jpg,jpeg',
-            'foto_ijazah' => 'mimes:png,jpg,jpeg',
+            'foto_ktp' => 'image',
+            'foto_kk' => 'image',
+            'foto_set_badan' => 'image',
+            'foto_4x6' => 'image',
+            'foto_ket_lahir' => 'image',
+            'foto_ijazah' => 'image',
         ]);
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code', $id->referral_code)->first();  
@@ -566,7 +567,14 @@ class KandidatController extends Controller
         } else {
             $negara = $show_negara->negara;    
         }
-
+        if($keluarga->count() !== 0){
+            foreach($keluarga as $key){
+                $usia = Carbon::parse($key->tgl_lahir_anak)->age;
+                DataKeluarga::where('id_keluarga',$key->id_keluarga)->update([
+                    'usia' => $usia,
+                ]);
+            }
+        }
         if ($kandidat->stats_nikah == null) {
             return redirect()->route('vaksin');
         } elseif($kandidat->stats_nikah !== "Single") {
@@ -598,6 +606,8 @@ class KandidatController extends Controller
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         $keluarga = DataKeluarga::where('id_kandidat',$kandidat->id_kandidat)->get();
+        $id_anak = $request->id_anak;
+        $tgl_anak = $request->tgl_anak;
         $anak_lk = 0;
         $anak_pr = 0;
         foreach($keluarga as $data){
@@ -690,9 +700,9 @@ class KandidatController extends Controller
             'foto_kematian_pasangan' => $foto_kematian_pasangan,
         ]);
 
-        foreach($keluarga as $key){
-            $usia = Carbon::parse($key->tgl_lahir_anak)->age;
-            DataKeluarga::where('id_kandidat',$kandidat->id_kandidat)->update([
+        for($a = 0; $a < count($id_anak); $a++){
+            $usia = Carbon::parse($tgl_anak[$a])->age;
+            DataKeluarga::where('id_keluarga',$id_anak[$a])->update([
                 'usia' => $usia,
             ]);
         }
@@ -1290,7 +1300,7 @@ class KandidatController extends Controller
         } else {
             $negara = $show_negara->negara;    
         }
-        $hubungan_anak = Kandidat::where('umur_anak_lk','like','%17%')->orWhere('umur_anak_pr','like','%17%')->first();
+        $hubungan_anak = DataKeluarga::where('id_kandidat',$kandidat->id_kandidat)->where('usia','>=',17)->first();
         if($hubungan_anak){
             $anak = $hubungan_anak;
         } else {
@@ -1305,7 +1315,7 @@ class KandidatController extends Controller
             'rt_perizin' => 'required|max:3|min:3',
             'rw_perizin' => 'required|max:3|min:3',
             'nik_perizin' => 'required|max:16|min:16',
-            'foto_ktp_izin' => 'mimes:png,jpg,jpeg',
+            'foto_ktp_izin' => 'required|image',
             'no_telp_perizin' => 'min:10|max:13'
         ]);
         $id = Auth::user();

@@ -5,25 +5,16 @@
 <div class="container mt-5">
     <div class="card">
         <div class="card-header">
-            <h4 class="float-left"><b class="bold">List Kandidat</b></h4>
-            <button type="button" class="btn btn-info float-right" data-toggle="modal" data-target="#cari_kandidat">
-                <i class="fas fa-search"></i> Apa yang anda butuhkan?
-            </button>    
+            <h4 class="float-left"><b class="bold">Kandidat Dalam Perusahaan Anda</b></h4>
         </div>
         <div class="card-body">
             <form action="/perusahaan/pilih/kandidat" method="POST">
                 @csrf
-                <div class="row mb-2">
-                    {{-- <div class="">
-                        <button class="btn btn-success" type="submit">Select</button>
-                    </div>     --}}
-                </div>
                 <div class="row">
                     @if ($isi == 0)
-                    <div class="col-md-12 text-center">
-                        <b>Maaf kandidat yang anda minta masih belum tersedia</b>
-                        <p>Sedang dalam pencarian</p>
-                    </div>
+                        <div class="col-md-12 text-center">
+                            <b>Maaf perusahaan anda masih belum punya kandidat</b>
+                        </div>
                     @else
                         @foreach ($kandidat as $item)
                             <div class="col-md-4">
@@ -52,8 +43,8 @@
                     @endif
                 </div>
             </form>
-            <div class="row">
-            </div>            
+            <hr>
+            <a href="/perusahaan/list_permohonan_lowongan" class="btn btn-danger">Kembali</a>
             <div class="modal fade" id="cari_kandidat" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content">

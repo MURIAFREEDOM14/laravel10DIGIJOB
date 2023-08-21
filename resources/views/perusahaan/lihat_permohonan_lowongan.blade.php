@@ -208,6 +208,8 @@
                         </tbody>
                     </table>
                 </div> --}}
+                <hr>
+                <a href="/perusahaan/list_permohonan_lowongan" class="btn btn-danger">Kembali</a>
             </div>
         </div>
         @if ($jml_interview !== 0)

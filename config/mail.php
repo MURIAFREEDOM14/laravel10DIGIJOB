@@ -67,17 +67,6 @@ return [
             'auth_mode' => null,
         ],
 
-        'transfer' => [
-            'transport' => 'smtp',
-            'host' => env('MAIL_HOST','smtp.mailgun.org'),
-            'port' => env('MAIL_PORT', 587),
-            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => 'digijobaccounting@ugiport.com',
-            'password' => '4Kunt1ng@D1g1j0b',
-            'timeout' => null,
-            'auth_mode' => null,
-        ],
-
         'ses' => [
             'transport' => 'ses',
         ],

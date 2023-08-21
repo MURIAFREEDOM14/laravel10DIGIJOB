@@ -26,11 +26,42 @@
                                     </div>
                                     <div class="col-md-3">
                                         <select name="" id="anak" class="form-select">
-                                            <option value="tidak">Tidak</option>
-                                            <option value="ya">Ya</option>
+                                            <option value="tidak" @if ($kandidat->jml_anak_lk == null && $kandidat->jml_anak_pr == null)
+                                                selected
+                                            @endif>Tidak</option>
+                                            <option value="ya" @if ($kandidat->jml_anak_lk !== null || $kandidat->jml_anak_pr !== null)
+                                                selected
+                                            @endif>Ya</option>
                                         </select>
                                     </div>
                                 </div>
+                                @if ($keluarga->count() > 0)
+                                    <div class="row mb-3 g-3 align-items-center">
+                                        <div class="col-md-4">
+                                            <label for="" class="col-form-label">Usia Anak</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <ul class="list-group">
+                                                @foreach ($keluarga as $item)
+                                                    <li class="list-group-item">Anak Ke {{$item->anak_ke}} | Usia {{$item->usia}} Tahun | 
+                                                        @if ($item->jenis_kelamin == "M")
+                                                            Laki-laki 
+                                                        @else
+                                                            Perempuan
+                                                        @endif
+                                                    </li>
+                                                    <div class="" hidden>
+                                                        <input type="number" name="id_anak[]" value="{{$item->id_keluarga}}" id="">
+                                                        <input type="date" name="tgl_anak[]" value="{{$item->tgl_lahir_anak}}" id="">    
+                                                    </div>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#data_anak">Tambah Data</button>
+                                        </div>
+                                    </div>    
+                                @endif
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
@@ -53,11 +84,42 @@
                                     </div>
                                     <div class="col-md-3">
                                         <select name="" id="anak" class="form-select">
-                                            <option value="tidak">Tidak</option>
-                                            <option value="ya">Ya</option>
+                                            <option value="tidak" @if ($kandidat->jml_anak_lk == null && $kandidat->jml_anak_pr == null)
+                                                selected
+                                            @endif>Tidak</option>
+                                            <option value="ya" @if ($kandidat->jml_anak_lk !== null || $kandidat->jml_anak_pr !== null)
+                                                selected
+                                            @endif>Ya</option>
                                         </select>
                                     </div>
                                 </div>
+                                @if ($keluarga->count() > 0)
+                                    <div class="row mb-3 g-3 align-items-center">
+                                        <div class="col-md-4">
+                                            <label for="" class="col-form-label">Usia Anak</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <ul class="list-group">
+                                                @foreach ($keluarga as $item)
+                                                    <li class="list-group-item">Anak Ke {{$item->anak_ke}} | Usia {{$item->usia}} Tahun | 
+                                                        @if ($item->jenis_kelamin == "M")
+                                                            Laki-laki 
+                                                        @else
+                                                            Perempuan
+                                                        @endif
+                                                    </li>
+                                                    <div class="" hidden>
+                                                        <input type="number" name="id_anak[]" value="{{$item->id_keluarga}}" id="">
+                                                        <input type="date" name="tgl_anak[]" value="{{$item->tgl_lahir_anak}}" id="">    
+                                                    </div>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#data_anak">Tambah Data</button>
+                                        </div>
+                                    </div>    
+                                @endif
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
@@ -126,7 +188,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                @if ($keluarga !== null)
+                                @if ($keluarga->count() > 0)
                                     <div class="row mb-3 g-3 align-items-center">
                                         <div class="col-md-4">
                                             <label for="" class="col-form-label">Usia Anak</label>
@@ -141,6 +203,10 @@
                                                             Perempuan
                                                         @endif
                                                     </li>
+                                                    <div class="" hidden>
+                                                        <input type="number" name="id_anak[]" value="{{$item->id_keluarga}}" id="">
+                                                        <input type="date" name="tgl_anak[]" value="{{$item->tgl_lahir_anak}}" id="">    
+                                                    </div>
                                                 @endforeach
                                             </ul>
                                         </div>

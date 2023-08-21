@@ -95,8 +95,8 @@
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="green">
 
-                    <a href="/" class="logo">
-                        <b class="" style="color: white">DIGIJOB-UGIPORT</b>
+                    <a href="/" class="logo" style="background-color: #31ce36">
+                        <b class="" style="color: white;">DIGIJOB-UGIPORT</b>
                     </a>
                     <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon">
@@ -420,35 +420,36 @@
                     <main class="px-1">
                         @yield('content')
                     </main>
-                    <footer class="footer" style="background-color: #2bb930">
-                        <div class="container-fluid">
-                            <nav class="pull-left">
-                                <ul class="nav nav-primary">
-                                    <li class="nav-item">
-                                        <div class="copyright" style="color:white;">
-                                            &copy; Copyright <strong><span>DIGIJOB-UGIPORT</span></strong>. All Rights Reserved
-                                        </div>
-                                    </li>
-                                    {{-- <li class="nav-item">
-                                        <a class="nav-link" href="#">
-                                            Help
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">
-                                            Licenses
-                                        </a>
-                                    </li> --}}
-                                </ul>
-                            </nav>
-                            <div class="copyright ml-auto">
-                                &nbsp;
-                                <strong><a class="text-white" href="/contact_us_perusahaan" style="text-transform: uppercase">Hubungi Kami</a></strong>
-                                {{-- 2018, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">ThemeKita</a> --}}
-                            </div>
-                        </div>
-                    </footer>
+                    {{--  --}}
                 </div>
+                <footer class="footer" style="background-color: #2bb930;">
+                    <div class="container-fluid">
+                        <nav class="pull-left">
+                            <ul class="nav nav-primary">
+                                <li class="nav-item">
+                                    <div class="copyright" style="color:white;">
+                                        &copy; Copyright <strong><span>DIGIJOB-UGIPORT</span></strong>. All Rights Reserved
+                                    </div>
+                                </li>
+                                {{-- <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        Help
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        Licenses
+                                    </a>
+                                </li> --}}
+                            </ul>
+                        </nav>
+                        <div class="copyright ml-auto">
+                            &nbsp;
+                            <strong><a class="" style="color: white; background-color:#2bb930; text-decoration:none;" href="/contact_us_perusahaan" style="text-transform: uppercase">Hubungi Kami</a></strong>
+                            {{-- 2018, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">ThemeKita</a> --}}
+                        </div>
+                    </div>
+                </footer>
             </div>
         </div>
         <!--   Core JS Files   -->
@@ -665,6 +666,7 @@
                         console.log(data.length);                        
                         benefit.style.display = 'none';
                         tambah.style.display = 'block';
+                        location.reload();
                     }
                 })
             }
@@ -695,6 +697,7 @@
                         console.log(data.length);
                         fasilitas.style.display = 'none';
                         tambah.style.display = 'block';
+                        location.reload();
                     }
                 })
             }

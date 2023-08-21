@@ -24,10 +24,9 @@ class transfer extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct($name, $message, $subject, $fromEmail,$payment,$namarec,$nomorec)
+    public function __construct($name, $payment, $subject, $fromEmail, $namarec,$nomorec)
     {
         $this->name = $name;
-        $this->message = $message;
         $this->subject = $subject;
         $this->fromEmail = $fromEmail;
         $this->payment = $payment;
@@ -47,14 +46,13 @@ class transfer extends Mailable
          ->markdown('mail.transfer') 
          ->with([
              'userName' => $this->name,
-             'themessage' => $this->message,
          ]);
      }
 
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Portal',
+            subject: $this->subject,
         );
     }
 

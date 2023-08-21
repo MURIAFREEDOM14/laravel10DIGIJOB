@@ -100,7 +100,17 @@
                             <div class=""><b class="bold">: {{$lowongan->usia_min}} tahun Sampai {{$lowongan->usia_maks}} tahun</b></div>
                         </div>
                     </div>
-                    <hr>    
+                    <hr>
+                @elseif($lowongan->usia_min !== null)
+                    <div  class="row">
+                        <div class="col-md-3">
+                            <label for="" class="">Syarat Usia Minimal</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class=""><b class="bold">: {{$lowongan->usia_min}} tahun</b></div>
+                        </div>
+                    </div>
+                    <hr>
                 @endif
                 @if ($lowongan->negara !== "Indonesia")
                     <div  class="row">
@@ -139,7 +149,17 @@
                             <div class=""><b class="bold">: {{$lowongan->berat_maks}}</b></div>                            
                         </div>
                     </div>
-                    <hr>                
+                    <hr>
+                @elseif($lowongan->berat_min !== null)
+                    <div  class="row">
+                        <div class="col-md-3">
+                            <label for="" class="">Berat Badan Minimal</label>
+                        </div>
+                        <div class="col-md-3">
+                            <div class=""><b class="bold">: {{$lowongan->berat_min}}</b></div>
+                        </div>
+                    </div>
+                    <hr>            
                 @endif
                 @if ($lowongan->pencarian_tmp !== null)
                     <div  class="row">
@@ -152,22 +172,22 @@
                     </div>
                     <hr>    
                 @endif
+                @if ($lowongan->fasilitas !== null)
                 <div  class="row">
                     <div class="col-12">
                         <h5><b class="bold">Fasilitas</b></h5>
                     </div>
                 </div>
                 <hr>
-                @if ($lowongan->fasilitas !== null)
-                    <div class="row">
-                        <div class="col-md-3">
-                            <label for="" class="">Fasilitas Pekerjaan</label>
-                        </div>
-                        <div class="col-md-8">
-                            <div class=""><b class="bold">: {{$lowongan->fasilitas}}</b></div>
-                        </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="" class="">Fasilitas Pekerjaan</label>
                     </div>
-                    <hr>
+                    <div class="col-md-8">
+                        <div class=""><b class="bold">: {{$lowongan->fasilitas}}</b></div>
+                    </div>
+                </div>
+                <hr>
                 @endif
                 <div class="row">
                     <div class="col-12">
@@ -236,6 +256,16 @@
                         </div>
                         <div class="col-md-8">
                             <div class=""><b class="bold">{{date('d M Y',strtotime($lowongan->tgl_interview_awal))}} Sampai {{date('d M Y',strtotime($lowongan->tgl_interview_akhir))}}</b></div>
+                        </div>
+                    </div>
+                    <hr>
+                @elseif($lowongan->tgl_interview_awal !== null)
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="" class="">Tanggal Interview</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class=""><b class="bold">{{date('d M Y',strtotime($lowongan->tgl_interview_awal))}}</b></div>
                         </div>
                     </div>
                     <hr>

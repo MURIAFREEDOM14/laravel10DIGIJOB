@@ -38,7 +38,7 @@ class MessagerController extends Controller
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
-        $pengirim = messageKandidat::where('id',$id)->first();
+        $pengirim = messageKandidat::where('id',$id)->first();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
         return view('kandidat/kirim_pesan',compact('kandidat','pesan','notif','pengirim','id'));
     }
 
@@ -54,6 +54,14 @@ class MessagerController extends Controller
             'pengirim'=>$kandidat->nama,
         ]);
         return redirect('/semua_pesan')->with('toast_success',"pesan berhasil dikirim");
+    }
+
+    public function deleteMessageKandidat($id)
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        $hapus_pesan = messageKandidat::where('id',$id)->delete();
+        return redirect('/semua_pesan')->with('success',"Pesan telah dihapus");
     }
 
     public function messageAkademi()

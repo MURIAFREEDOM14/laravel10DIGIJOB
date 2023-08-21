@@ -20,9 +20,12 @@
                               </div>
                               <div class="mb-3">
                                   <label for="exampleInputPassword1">Masukkan Password</label>
-                                  <div class="input-group">
+                                  {{-- <div class="input-group"> --}}
                                     <input name="password" type="password" class="form-control" value="{{old('password')}}" required id="password_input">
-                                    <button type="button" class="btn btn-primary" onclick="seePassword()"><img src="/gambar/seeing.png" style="width: 15px; height:auto; color:white;" alt=""></button>
+                                    {{-- <button type="button" class="btn btn-primary" onclick="seePassword()"><img src="/gambar/seeing.png" style="width: 15px; height:auto; color:white;" alt=""></button> --}}
+                                  {{-- </div> --}}
+                                  <div class="my-2">
+                                    <input type="checkbox" class="me-1" name="" onclick="seePassword()" id=""><span>Tampilkan Password</span>
                                   </div>
                               </div>
                               <div class="row mb-3">

@@ -243,6 +243,9 @@ class PerusahaanRecruitmentController extends Controller
     {
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $benefits = $request->validate([
+            'data' => 'required',
+        ]);
         Benefit::create([
             'benefit' => $request->data,
             'id_perusahaan' => $perusahaan->id_perusahaan,
@@ -255,6 +258,9 @@ class PerusahaanRecruitmentController extends Controller
     {
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $fasilitas = $request->validate([
+            'data' => 'required',
+        ]);
         Fasilitas::create([
             'fasilitas' => $request->data,
             'id_perusahaan' => $perusahaan->id_perusahaan,
@@ -502,17 +508,21 @@ class PerusahaanRecruitmentController extends Controller
                 return redirect('/perusahaan/edit_lowongan/'.$id.'/luar')->with('warning',"Maaf data lowongan anda ada yang kosong. Harap lengkapi kembali lowongan anda");
             }
         }
-        $kandidat = Kandidat::
-        where('jenis_kelamin','like',$lowongan->jenis_kelamin)
-        ->where('tinggi','>=',$lowongan->tinggi)
-        ->where('usia','>=',$lowongan->usia_min)
-        ->where('usia','<=',$lowongan->usia_maks)
-        ->where('berat','>=',$lowongan->berat_min)
-        ->where('berat','<=',$lowongan->berat_maks)
+        $kandidat = Kandidat::join(
+            'pendidikans', 'kandidat.pendidikan','=','pendidikans.nama_pendidikan'
+        )
+        ->where('kandidat.tinggi','>=',$lowongan->tinggi)
+        ->where('kandidat.usia','>=',$lowongan->usia_min)
+        ->where('kandidat.usia','<=',$lowongan->usia_maks)
+        ->where('kandidat.berat','>=',$lowongan->berat_min)
+        ->where('kandidat.berat','<=',$lowongan->berat_maks)
         ->get();
+        // dd("Tinggi == ".$kandidat->tinggi, "Lowongan tinggi == ".$lowongan->tinggi,
+        // "Usia == ".$kandidat->usia, "Lowongan Usia Min == ".$lowongan->usia_min, "Lowongan Usia Maks == ".$lowongan->usia_maks,
+        // "Berat == ".$kandidat->berat, "Lowongan Berat Min == ".$lowongan->berat_min, "Lowongan Berat Maks == ".$lowongan->berat_maks);
         $p_lowongan = Pendidikan::where('nama_pendidikan','like','%'.$lowongan->pendidikan.'%')->first();
         $isi = $kandidat->count();
-        return view('perusahaan/kandidat/lowongan_sesuai',compact('perusahaan','lowongan','isi','kandidat','pesan','notif','credit'));
+        return view('perusahaan/kandidat/lowongan_sesuai',compact('perusahaan','lowongan','isi','kandidat','pesan','notif','credit','p_lowongan'));
     }
 
     public function listPermohonanLowongan()

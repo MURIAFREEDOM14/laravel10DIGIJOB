@@ -13,7 +13,7 @@ class Payment extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $nama;
+    public $name;
     public $subject;
     public $fromEmail;
     public $fromName;
@@ -26,13 +26,13 @@ class Payment extends Mailable
      */
     public function __construct($nama, $payment, $subject, $fromEmail, $namarec,$nomorec)
     {
-        $this->nama = $nama;
+        $this->name = $nama;
+        $this->payment = $payment;
         $this->subject = $subject;
         $this->fromEmail = $fromEmail;
-        $this->payment = $payment;
         $this->namarec = $namarec;
         $this->nomorec = $nomorec;
-        $this->fromName = env('MAIL_FROM_NAME');
+        $this->fromName = "DIGIJOB-UGIPORT";
     }
 
     /**
@@ -41,15 +41,15 @@ class Payment extends Mailable
     
     public function build()
     {
-        return $this->from($this->fromName)
+        return $this->from($this->fromEmail,$this->fromName)
         ->subject($this->subject)
-        ->view('mail.');
+        ->view('mail.pembayaran');
     }
     
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Pembayaran',
+            subject: $this->subject,
         );
     }
 

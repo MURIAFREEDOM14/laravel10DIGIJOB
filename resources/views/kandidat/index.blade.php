@@ -11,11 +11,7 @@
     $negara = $kandidat->negara_id;                                
 @endphp
 <div class="container mt-5 my-3">
-    @if ($personal == null &&
-        $document == null &&
-        $vaksin == null &&
-        $parent == null &&
-        $permission == null)
+    @if ($personal == null)
         <div class="row mt-2">
             <div class="col-md-12">
                 <div class="card">
@@ -29,31 +25,93 @@
                 </div>
             </div>
         </div>
-    @elseif($negara == null)
+    @elseif($document == null)
         <div class="row mt-2">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <b class="bold">Informasi Perusahaan</b>
+                        <b class="bold">Profil</b>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="text-center">Harap Lengkapi Profil Anda</h3>
+                        <div class="text-center"><a class="btn btn-outline-primary" href="/isi_kandidat_document">Lengkapi Profil</a></div>                                                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    @elseif($vaksin == null)
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <b class="bold">Profil</b>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="text-center">Harap Lengkapi Profil Anda</h3>
+                        <div class="text-center"><a class="btn btn-outline-primary" href="/isi_kandidat_vaksin">Lengkapi Profil</a></div>                                                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    @elseif($parent == null)
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <b class="bold">Profil</b>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="text-center">Harap Lengkapi Profil Anda</h3>
+                        <div class="text-center"><a class="btn btn-outline-primary" href="/isi_kandidat_parent">Lengkapi Profil</a></div>                                                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    @elseif($permission == null)
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <b class="bold">Profil</b>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="text-center">Harap Lengkapi Profil Anda</h3>
+                        <div class="text-center"><a class="btn btn-outline-primary" href="/isi_kandidat_permission">Lengkapi Profil</a></div>                                                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    @elseif($negara == null)
+        <div class="row mt-2">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <b class="bold">Profil</b>
                     </div>
                     <div class="card-body">
                         <h3 class="text-center">Tujuan Bekerja</h3>
                         <div class="text-center">
-                            <form action="/isi_kandidat_placement" method="POST">
-                                @csrf
-                                <select name="penempatan" id="placement" class="form-control">
-                                    <option value="">-- Pilih Tujuan Bekerja --</option>
-                                    <option value="dalam negeri">Dalam Negeri</option>
-                                    <option value="luar negeri">Luar Negeri</option>
-                                </select>
-                                <div class="" id="hidetext">
-                                    <h4 class="">Negara Tujuan</h4>
+                            <div class="row">
+                                <div class="col-4"></div>
+                                <div class="col-4">
+                                    <form action="/isi_kandidat_placement" method="POST">
+                                        @csrf
+                                        <select name="penempatan" id="placement" class="form-control">
+                                            <option value="">-- Pilih Tujuan Bekerja --</option>
+                                            <option value="dalam negeri">Dalam Negeri</option>
+                                            <option value="luar negeri">Luar Negeri</option>
+                                        </select>
+                                        <div class="" id="hidetext">
+                                            <h4 class="">Negara Tujuan</h4>
+                                        </div>
+                                        <select name="negara_id" required class="form-control" id="negara_tujuan">
+                                            <option value="">-- Pilih Negara --</option>
+                                        </select>
+                                        <button type="submit" class="btn btn-primary" id="hidebtn">Simpan</button>
+                                    </form>
                                 </div>
-                                <select name="negara_id" required class="form-control" id="negara_tujuan">
-                                    <option value="">-- Pilih Negara --</option>
-                                </select>
-                                <button type="submit" class="btn btn-primary" id="hidebtn">Simpan</button>
-                            </form>
+                                <div class="col-4"></div>
+                            </div>
                         </div>                                                            
                     </div>
                 </div>

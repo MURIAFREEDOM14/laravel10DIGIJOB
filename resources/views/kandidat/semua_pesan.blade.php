@@ -1,50 +1,43 @@
 @extends('layouts.kandidat')
 @section('content')
-    <div class="container mt-5">
-        <div class="card">
-            <div class="card-header">
-                Semua Pesan
-            </div>
-            <div class="card-body">
-                @foreach ($semua_pesan as $item)
-                    <div class="list-group">                        
-                        <a href="/kirim_balik/{{$item->id}}" class="list-group-item list-group-item-action">
+@include('sweetalert::alert')
+@include('flash_message')
+<style>
+    /* CSS List */
+    a:visited {
+        background-color: #ffffff;
+        text-decoration: none;
+        color: #212529;
+    }
+    a:hover{
+        background-color: #f2f2f2;
+        text-decoration: none;
+        color: #212529;
+    }
+    .link-list{
+        border-top:0.1px solid #dfdfdf;
+        border-bottom:0.1px solid #dfdfdf;
+        color: #212529;
+    }
+</style>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            Semua Pesan
+        </div>
+        <div class="card-body">
+            @foreach ($semua_pesan as $item)
+                <div class="list-group">                        
+                    <a href="/kirim_balik/{{$item->id}}" class="link-list">
+                        <div class="mx-1">
                             <h5 class="">{{$item->pengirim}}</h5>
-                            <div class="mt-3">{{$item->pesan}}</div>
-                        </a>
-                    </div>
-                @endforeach
-                {{-- <div class="table-responsive">
-                    <table class="table table-bordered table-head-bg-info table-bordered-bd-info mt-4">
-                        <thead>
-                            <tr>
-                                <th scope="col">No.</th>
-                                <th scope="col">Nama Pengirim</th>
-                                <th scope="col">Tanggal Pesan</th>
-                                <th scope="col">Isi Pesan</th>
-                                <th scope="col">balas</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($semua_pesan as $item)
-                                <tr>
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$item->pengirim}}</td>
-                                    <td>{{date('d-M-Y | h:m',strtotime($item->created_at))}}</td>
-                                    <td>{{$item->pesan}}</td>
-                                    <td>
-                                        @if ($item->pengirim == $kandidat->nama)
-                                        
-                                        @else
-                                            <a href="/kirim_balik/{{$item->id}}" class="btn btn-primary">Balas</a>
-                                        @endif
-                                    </td>
-                                </tr>    
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div> --}}
-            </div>
+                        </div>
+                        <div class="mx-1">{{$item->pesan}}</div>
+                        <div class="float-right mx-1">{{date('d-m-Y',strtotime($item->created_at))}}</div>
+                    </a>
+                </div>
+            @endforeach
         </div>
     </div>
+</div>
 @endsection
