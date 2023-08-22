@@ -299,7 +299,6 @@ class KandidatController extends Controller
 
     public function simpan_kandidat_document(Request $request)
     {
-        // dd($request);
         $validated = $request->validate([
             'rt' => 'required|max:3|min:3',
             'rw' => 'required|max:3|min:3',

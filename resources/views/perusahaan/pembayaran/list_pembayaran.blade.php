@@ -12,7 +12,7 @@
                             <tr class="text-center">
                                 <th>No.</th>
                                 <th>Pembayaran</th>
-                                <th>Tanggal Interview</th>
+                                <th>Waktu Transaksi Dibuat</th>
                                 <th>Bukti Pembayaran</th>
                             </tr>
                         </thead>
@@ -21,9 +21,9 @@
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$item->nominal_pembayaran}}</td>
-                                    <td>{{date('d-M-Y | h:m:sa',strtotime($item->jadwal_interview))}}</td>
+                                    <td>{{date('d M Y|h:i:s ',strtotime($item->created_at))}}</td>
                                     <td>
-                                        <div class="form-button-action float-right">
+                                        <div class="form-button-action">
                                             <a href="/perusahaan/payment/{{$item->id_pembayaran}}" class="btn btn-success mr-2">Serahkan Bukti</a>
                                         </div>
                                     </td>

@@ -14,6 +14,7 @@ class Payment extends Mailable
     use Queueable, SerializesModels;
 
     public $name;
+    public $token;
     public $subject;
     public $fromEmail;
     public $fromName;
@@ -24,9 +25,10 @@ class Payment extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct($nama, $payment, $subject, $fromEmail, $namarec,$nomorec)
+    public function __construct($nama, $token, $payment, $subject, $fromEmail, $namarec,$nomorec)
     {
         $this->name = $nama;
+        $this->token = $token;
         $this->payment = $payment;
         $this->subject = $subject;
         $this->fromEmail = $fromEmail;

@@ -11,7 +11,7 @@
             </button>     --}}
         </div>
         <div class="card-body">
-            <form action="/perusahaan/pilih/kandidat" method="POST">
+            <form action="/perusahaan/terima_permohonan_lowongan/{{$id}}" method="POST">
                 @csrf
                 {{-- <div class="row mb-2">
                     <div class="">
@@ -30,6 +30,7 @@
                                 @if ($item->jenis_kelamin == $lowongan->jenis_kelamin || $lowongan->jenis_kelamin == "MF")
                                     @if ($item->kabupaten == $lowongan->pencarian_tmp || $item->provinsi == $lowongan->pencarian_tmp || $lowongan->pencarian_tmp == "Se-indonesia")
                                         <div class="col-md-3">
+                                            <input type="checkbox" name="id_kandidat[]" value="{{$item->id_kandidat}}" id="">
                                             <div class="card">
                                                 <a class="btn" style="border: 2px solid #1269DB; border-top-left-radius:10%;border-bottom-right-radius:10%" href="/perusahaan/lihat/kandidat/{{$item->id_kandidat}}">
                                                     <div class="card-header text-center mt--5">
@@ -55,9 +56,12 @@
                         @endforeach
                     {{-- @endif --}}
                 </div>
+                <hr>
+                @if ($isi !== 0)
+                    <button class="float-right btn btn-success">Pilih Kandidat</button>
+                @endif
+                <a href="/perusahaan/list_permohonan_lowongan" class="btn btn-danger float-left">Kembali</a>    
             </form>
-            <hr>
-            <a href="/perusahaan/list_permohonan_lowongan" class="btn btn-danger">Kembali</a>
             <div class="modal fade" id="cari_kandidat" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
                     <div class="modal-content">

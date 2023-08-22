@@ -91,7 +91,7 @@ class VerifikasiController extends Controller
                 $message->subject('Email Verification Mail');
             });
         } else {
-            Mail::mailer('verification')->to($user->email)->send(new Verification($nama, $newToken, 'Email Verifikasi', 'no-reply@ugiport.com'))
+            Mail::mailer('verification')->to($user->email)->send(new Verification($nama, $newToken, 'Email Verifikasi', 'no-reply@ugiport.com'));
             // Mail::send('mail.mail', ['token'=>$newToken,'nama'=>$nama], function($message) use($user){
             //     $message->to($user->email);
             //     $message->subject('Email Verification Mail');

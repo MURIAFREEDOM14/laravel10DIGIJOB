@@ -26,11 +26,12 @@
                                         <div class=" mb-1">
                                             <a class="btn btn-primary" style="width: 100%" href="/perusahaan/lihat_permohonan_lowongan/{{$item->id_lowongan}}">Melamar</a>
                                         </div>
-                                        {{-- @if () --}}
-                                            {{-- <div class=" mb-1">
-                                                <a class="btn btn-info" style="width: 100%" href="/perusahaan/jadwal_interview/{{$item->id_lowongan}}">Interview</a>
-                                            </div> --}}    
-                                        {{-- @endif --}}
+                                        <div class=" mb-1">
+                                            <a class="btn btn-info" style="width:100%" href="/perusahaan/kandidat_lowongan_dipilih/{{$item->id_lowongan}}">Dipilih</a>
+                                        </div>
+                                        <div class=" mb-1">
+                                            <a class="btn btn-warning" style="width: 100%" href="/perusahaan/jadwal_interview/{{$item->id_lowongan}}">Interview</a>
+                                        </div>    
                                         <div class=" mb-1">
                                             <a class="btn btn-success" style="width: 100%" href="/perusahaan/list/kandidat">Diterima</a>
                                         </div>

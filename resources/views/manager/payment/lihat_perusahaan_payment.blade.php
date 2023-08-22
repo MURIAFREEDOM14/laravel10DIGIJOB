@@ -49,12 +49,18 @@
                             </div>
                             <div class="col-4">
                                 <select name="stats_pembayaran" class="form-control" id="">
-                                    <option value="belum dibayar">Belum dibayar</option>
-                                    <option value="sudah dibayar">Sudah dibayar</option>
+                                    <option value="belum dibayar" @if ($pembayaran->stats_pembayaran == "belum dibayar")
+                                        selected
+                                    @endif>Belum dibayar</option>
+                                    <option value="sudah dibayar" @if ($pembayaran->stats_pembayaran == "sudah dibayar")
+                                        selected
+                                    @endif>Sudah dibayar</option>
                                 </select>
                             </div>
-                        </div> 
-                        <button class="btn btn-success" type="submit">Konfirmasi</button>
+                        </div>
+                        @if ($pembayaran->stats_pembayaran !== "sudah dibayar")
+                            <button class="btn btn-success" type="submit">Konfirmasi</button>                            
+                        @endif 
                     @endif                    
                     <a class="btn btn-danger" href="/manager/payment/perusahaan">Batal</a>
                 </form>

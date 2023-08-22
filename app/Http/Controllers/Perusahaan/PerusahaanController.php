@@ -1023,30 +1023,22 @@ class PerusahaanController extends Controller
     {
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
-        $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        $tglInterview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->first();
-        $total = $interview->count();
-        $ttlBayar = $total * 15000;
-        $tgl = Carbon::create($tglInterview->jadwal_interview)->isoformat('D MMM Y');
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $pembayaran = Pembayaran::where('id_pembayaran',$id)->first();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/pembayaran/pembayaran',compact('perusahaan','total','ttlBayar','notif','tgl','pembayaran','pesan','cabang','credit'));
+        return view('perusahaan/pembayaran/pembayaran',compact('perusahaan','notif','pembayaran','pesan','cabang','credit'));
     }
 
     public function paymentCheck(Request $request, $id)
     {
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
-        // $this->validate($request, [
-        //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
-        // ]);
         $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
         $pembayaran = $perusahaan->nama_perusahaan.time().'.'.$request->foto_pembayaran->extension();  
         $simpan_pembayaran = $request->file('foto_pembayaran');
-        $simpan_pembayaran->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Pembayaran/',$perusahaan->nama_perusahaan.time().'.'.$simpan_pembayaran);
+        $simpan_pembayaran->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Pembayaran/',$perusahaan->nama_perusahaan.time().'.'.$simpan_pembayaran->extension());
         $pembayaran = Pembayaran::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_pembayaran',$id)->update([
             'foto_pembayaran'=>$pembayaran
         ]);

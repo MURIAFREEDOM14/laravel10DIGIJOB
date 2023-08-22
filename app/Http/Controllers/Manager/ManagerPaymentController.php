@@ -8,6 +8,8 @@ use App\Models\Perusahaan;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Models\notifyPerusahaan;
+use App\Models\messagePerusahaan;
 
 class ManagerPaymentController extends Controller
 {
@@ -15,8 +17,8 @@ class ManagerPaymentController extends Controller
     {
         $user = Auth::user();
         $manager = User::where('referral_code',$user->referral_code)->where('type',5)->first();
-        $data_kandidat = Pembayaran::whereNotNull('id_kandidat')->count();
-        $data_perusahaan = Pembayaran::whereNotNull('id_perusahaan')->count();
+        $data_kandidat = Pembayaran::whereNotNull('id_kandidat')->where('stats_pembayaran','not like','%sudah dibayar%')->count();
+        $data_perusahaan = Pembayaran::whereNotNull('id_perusahaan')->where('stats_pembayaran','not like','%sudah dibayar%')->count();
         return view('manager/payment/index',compact('manager','data_kandidat','data_perusahaan'));
     }
 
@@ -48,7 +50,8 @@ class ManagerPaymentController extends Controller
         $user = Auth::user();
         $manager = User::where('referral_code',$user->referral_code)->where('type',5)->first();
         $pembayaran = Pembayaran::whereNotNull('id_perusahaan')->get();
-        return view('manager/payment/perusahaan_payment',compact('manager','pembayaran'));
+        $riwayat = Pembayaran::whereNotNull('id_perusahaan')->where('stats_pembayaran',"sudah dibayar")->get();
+        return view('manager/payment/perusahaan_payment',compact('manager','pembayaran','riwayat'));
     }
 
     public function lihatPerusahaanPayment($id)
@@ -63,5 +66,25 @@ class ManagerPaymentController extends Controller
     {
         $user = Auth::user();
         $manager = User::where('referral_code',$user->referral_code)->where('type',5)->first();
+        Pembayaran::where('id_pembayaran',$id)->update([
+            'stats_pembayaran' => $request->stats_pembayaran,
+        ]);
+        $pembayaran = Pembayaran::join(
+            'perusahaan', 'pembayaran.id_perusahaan','=','perusahaan.id_perusahaan'
+        )
+        ->where('pembayaran.id_pembayaran',$id)->first();
+        notifyPerusahaan::create([
+            'id_perusahaan' => $pembayaran->id_perusahaan,
+            'isi' => "Anda mendapat pesan masuk",
+            'pengirim' => "Sistem",
+            'url' => '/perusahaan/semua_pesan',
+        ]);
+        messagePerusahaan::create([
+            'id_perusahaan' => $pembayaran->id_perusahaan,
+            'pesan' => "Selamat pembayaran anda telah dikonfirmasi. Untuk selanjutnya silahkan anda untuk menentukan waktu interview",
+            'pengirim' => "Admin",
+            'kepada' => $pembayaran->nama_perusahaan,
+        ]);
+        return redirect('/manager/payment/perusahaan')->with('success',"Pembayaran Terverifikasi");
     }
 }

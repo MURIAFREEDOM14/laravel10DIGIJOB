@@ -16,6 +16,16 @@ use App\Models\User;
 
 class PaymentController extends Controller
 {
+    public function paymentConfirm($token)
+    {
+        $user = User::where('token',$token)->first();
+        if($user->type == 2){
+            return redirect('/perusahaan/list/pembayaran');
+        } elseif($user->type === 0) {
+            // return redirect('');
+        }
+    }
+
     public function paymentKandidat()
     {
         $id = Auth::user();

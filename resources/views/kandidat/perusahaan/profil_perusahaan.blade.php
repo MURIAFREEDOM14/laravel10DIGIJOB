@@ -53,7 +53,7 @@
                         <div class="card-body">
                             <div class="">Keluar Perusahaan</div>
                             <hr>
-                            <a href="/keluar_perusahaan/{{$perusahaan->id_perusahaan}}" class="btn btn-outline-danger mx-auto" onclick="outPerusahaan(event)">Permohonan Keluar</a>
+                            <a href="/keluar_perusahaan/{{$perusahaan->id_perusahaan}}" class="btn btn-outline-danger mx-auto" onclick="outPerusahaan(event)">Keluar Perusahaan</a>
                         </div>
                     </div>
                 @else    

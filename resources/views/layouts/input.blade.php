@@ -46,7 +46,6 @@
           display: none;
         }
       </style>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     </head>
     <body>
       <nav class="navbar navbar-expand-lg bg-warning">
@@ -93,6 +92,7 @@
       @livewireScripts
       <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
       <script type="text/javascript">
         function beranda(ev){
           ev.preventDefault();
@@ -191,9 +191,7 @@
             y.style.display = 'block';
           }
         }
-      </script>
 
-      <script type="text/javascript">
         $(document).ready(function() {
           $(document).on('change','#data_pengalaman',function() {
             var pengalaman = $(this).val();
@@ -216,12 +214,9 @@
         $(document).ready(function() {
           $(document).on('change','#anak',function() {
             var anak = $(this).val();
-            var kandidatAnak = document.getElementById('kandidatAnak');
             if (anak == "ya") {
               $('#data_anak').modal('show');
-            } else {
-              kandidatAnak.style.display = 'none';
-            }
+            } 
           })
         })
       </script>

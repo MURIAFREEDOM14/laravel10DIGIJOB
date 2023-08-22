@@ -140,9 +140,9 @@
                         </div>
                     </div>
                 </div>
-                @if ($kandidat->id_perusahaan !== null && $kandidat->stat_pemilik == "diterima")
+                {{-- @if ($kandidat->id_perusahaan !== null && $kandidat->stat_pemilik == "diterima") --}}
                     <a class="btn btn-success" href="/output_izin_waris">Cetak Surat Izin & Ahli waris</a>                    
-                @endif
+                {{-- @endif --}}
             </div>        
         </div>
     </div>        

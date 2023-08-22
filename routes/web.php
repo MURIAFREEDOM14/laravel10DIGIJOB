@@ -378,10 +378,13 @@ Route::controller(PerusahaanRecruitmentController::class)->group(function() {
     Route::get('/perusahaan/hapus_lowongan/{id}/{type}','hapusLowongan')->middleware('perusahaan');
 
     Route::get('/perusahaan/list_permohonan_lowongan','listPermohonanLowongan')->middleware('perusahaan');
+    Route::get('/perusahaan/kandidat_lowongan_dipilih/{id}','kandidatLowonganDipilih')->middleware('perusahaan');
     Route::get('/perusahaan/lowongan_kandidat_sesuai/{id}','lowonganKandidatSesuai')->middleware('perusahaan');
     Route::get('/perusahaan/lihat_permohonan_lowongan/{id}','lihatPermohonanLowongan')->middleware('perusahaan');
     Route::post('/perusahaan/terima_permohonan_lowongan/{id}','confirmPermohonanLowongan');
-    Route::post('/perusahaan/batal_permohonan_lowongan/{id}','cancelPermohonanLowongan');
+    Route::post('/perusahaan/kandidat_dipilih_interview/{id}','kandidatDipilihInterview');
+    Route::get('/perusahaan/batal_kandidat_lowongan/{id}','cancelKandidatLowongan');
+    Route::post('/perusahaan/batal_kandidat_lowongan/{id}','confirmCancelKandidatLowongan');
 
     Route::get('/perusahaan/jadwal_interview/{id}','jadwalInterview')->middleware('perusahaan');
     Route::post('/perusahaan/jadwal_interview/{id}','confirmJadwalInterview');
@@ -592,8 +595,8 @@ Route::controller(PaymentController::class)->group(function(){
     // USER AKADEMI //
     
     // USER PERUSAHAAN //
-    Route::view('/transfer','mail/transfer');
-
+    Route::view('/transfer','mail/pembayaran');
+    Route::get('/perusahaan/payment_confirm/{token}','paymentConfirm')->middleware('perusahaan')->name('payment.confirm');
     // USER MANAGER //
     
 });

@@ -34,18 +34,10 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-4">
-                                    <label for=""><b class="bold">Kandidat interview</b></label>
+                                    <label for=""><b class="bold">Waktu Transaksi Dibuat</b></label>
                                 </div>
                                 <div class="col-8">
-                                    <div class=""><b class="bold">: {{$total}}</b></div>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <div class="col-4">
-                                    <label for=""><b class="bold">Tanggal Interview Kandidat</b></label>
-                                </div>
-                                <div class="col-8">
-                                    <div class=""><b class="bold">: {{$tgl}}</b></div>
+                                    <div class=""><b class="bold">: {{date('d M Y | h:i:s',strtotime($pembayaran->created_at))}}</b></div>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -66,7 +58,7 @@
                                 <div class="col-8">
                                     <div class="input-group">
                                         <span class="input-group-text" id="basic-addon1" style="text-transform: uppercase; font-family:poppins;">Rp.</span>
-                                        <input type="number" disabled class="form-control disable" value="{{$ttlBayar}}">
+                                        <input type="number" disabled class="form-control disable" value="{{$pembayaran->nominal_pembayaran}}">
                                     </div>
                                 </div>
                             </div>

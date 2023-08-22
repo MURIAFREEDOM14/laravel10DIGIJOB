@@ -191,7 +191,7 @@ class RegisterController extends Controller
             'captcha' => 'required',
         ]);
 
-        $token = Str::random(64).$request->no_nis;
+        $token = Str::random(32).$request->no_nis;
         $password = Hash::make($request->password);
 
         $user = User::create([
@@ -241,7 +241,7 @@ class RegisterController extends Controller
             'captcha' => 'required',
         ]);
 
-        $token = Str::random(64).$request->no_nib;
+        $token = Str::random(32).$request->no_nib;
         $password = hash::make($request->password);
 
         $user = User::create([
