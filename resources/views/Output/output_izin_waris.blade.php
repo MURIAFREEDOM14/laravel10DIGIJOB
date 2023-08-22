@@ -16,6 +16,9 @@
                 border: 1px solid black;
                 border-radius: 2%;
             }
+            div {
+                line-height: 20px;
+            }
         </style>
     </head>
     <body>        
@@ -205,7 +208,7 @@
                 </div>
                 <div class="col-8">
                     <b class="bold">
-                        : {{$kandidat->negara}}
+                        : {{$negara->negara}}
                     </b>
                 </div>
             </div>
@@ -224,7 +227,7 @@
                 <div class="col-5"></div>
                 <div class="col-2"></div>
                 <div class="col-5 text-center">
-                    <b style="font-size: 11px; font-weight:bold; text-transform:uppercase; font-family:serif">
+                    <b style="font-size: 11px; font-weight:bold; text-transform:uppercase;">
                         {{$kandidat->kabupaten}}, 
                         {{$tgl_print}}</b>
                 </div>
@@ -245,7 +248,7 @@
                     <div class=""><b class="bold">Materai Rp. 10.000</b></div>
                 </div>
             </div>
-            <div class="row mt-4">
+            <div class="row mt-5">
                 <div class="col-5 text-center">
                     <b class="bold" style="border-bottom:1px solid black">
                         ( {{$kandidat->nama}} )
@@ -389,24 +392,16 @@
             </div>
             <p class="my-2"><b class="bold">Sebagai {{$kandidat->hubungan_perizin}} CPMI di atas yang selanjutnya sebagai penerima kuasa</b></p>
             @if ($kandidat->penempatan == "luar negeri")
-                @if($perusahaan !== null)
-                    <div class=""><b class="bold">Saya (CPMI) akan bekerja ke luar negeri dengan negara tujuan {{$negara->negara}}, selama kontrak...{{$kandidat->kontrak}}...(..........) tahun melalui {{$perusahaan->nama_perusahaan}} </b></div>            
-                @else
-                    <div class=""><b class="bold">Saya (CPMI) akan bekerja ke luar negeri dengan negara tujuan {{$negara->negara}}, selama kontrak.........(..........) tahun melalui .................... </b></div>            
-                @endif    
+                <div class=""><b class="bold">Saya (CPMI) akan bekerja ke luar negeri dengan negara tujuan {{$negara->negara}}, selama kontrak...{{$kandidat->kontrak}}...(..........) tahun melalui ................... </b></div>
             @elseif($kandidat->penempatan == "dalam negeri")
-                @if($perusahaan !== null)
-                    <div class=""><b class="bold">Saya (CPMI) akan bekerja ke dalam negeri dengan negara tujuan {{$negara->negara}}, selama kontrak...{{$kandidat->kontrak}}...(..........) tahun melalui {{$perusahaan->nama_perusahaan}} </b></div>            
-                @else
-                    <div class=""><b class="bold">Saya (CPMI) akan bekerja ke dalam negeri dengan negara tujuan {{$negara->negara}}, selama kontrak........(..........) tahun melalui .................... </b></div>            
-                @endif
-            @endif
+                <div class=""><b class="bold">Saya (CPMI) akan bekerja ke dalam negeri dengan negara tujuan {{$negara->negara}}, selama kontrak...{{$kandidat->kontrak}}...(..........) tahun melalui ................... </b></div>                
+            @endif            
             <div><b class="bold">apabila selama masa kontrak kerja di negara {{$kandidat->negara}} terjadi kecelakaan/ sakit/ meninggal dunia atas saya pribadi, maka untuk selanjutnya segala urusan tentang hak dan kewajiban saya, saya berikan kepada {{$kandidat->hubungan_perizin}} untuk mengurus, menerima hak dan kewajiban saya sesuai dengan aturan perundang - undangan yang berlaku</b></div>
             <div class="my-2"><b class="bold">demikian surat kuasa ahli waris ini saya buat dengan sadar tanpa paksaan dari pihak manapun dan dapat dipergunakan sebagaimana mestinya.</b></div>
             <div class="row">
                 <div class="col-5"></div>
                 <div class="col-2"></div>
-                <div class="col-5 text-center"><b class="" style="font-size: 11px; font-weight:bold; text-transform:uppercase; font-family:serif"> 
+                <div class="col-5 text-center"><b class="" style="font-size: 11px; font-weight:bold; text-transform:uppercase;"> 
                     {{$kandidat->kabupaten}}, 
                     {{$tgl_print}}</b></div>
             </div>
@@ -418,7 +413,7 @@
                 </div>
             </div>
             <br>
-            <div class="row mt-4">
+            <div class="row mt-5">
                 <div class="col-5 text-center">
                     <b class="bold" style="border-bottom:1px solid black;">( 
                         @if ($kandidat->nama_perizin == null)

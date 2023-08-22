@@ -391,7 +391,11 @@
                 </div>
             </div>
             <p class="my-2"><b class="bold">Sebagai {{$kandidat->hubungan_perizin}} CPMI di atas yang selanjutnya sebagai penerima kuasa</b></p>
-            <div class=""><b class="bold">Saya (CPMI) akan bekerja ke luar negeri dengan negara tujuan {{$negara->negara}}, selama kontrak...{{$kandidat->kontrak}}...(..........) tahun melalui ................... </b></div>
+            @if ($kandidat->penempatan == "luar negeri")
+                <div class=""><b class="bold">Saya (CPMI) akan bekerja ke luar negeri dengan negara tujuan {{$negara->negara}}, selama kontrak...{{$kandidat->kontrak}}...(..........) tahun melalui ................... </b></div>
+            @elseif($kandidat->penempatan == "dalam negeri")
+                <div class=""><b class="bold">Saya (CPMI) akan bekerja ke dalam negeri dengan negara tujuan {{$negara->negara}}, selama kontrak...{{$kandidat->kontrak}}...(..........) tahun melalui ................... </b></div>                
+            @endif            
             <div><b class="bold">apabila selama masa kontrak kerja di negara {{$kandidat->negara}} terjadi kecelakaan/ sakit/ meninggal dunia atas saya pribadi, maka untuk selanjutnya segala urusan tentang hak dan kewajiban saya, saya berikan kepada {{$kandidat->hubungan_perizin}} untuk mengurus, menerima hak dan kewajiban saya sesuai dengan aturan perundang - undangan yang berlaku</b></div>
             <div class="my-2"><b class="bold">demikian surat kuasa ahli waris ini saya buat dengan sadar tanpa paksaan dari pihak manapun dan dapat dipergunakan sebagaimana mestinya.</b></div>
             <div class="row">
