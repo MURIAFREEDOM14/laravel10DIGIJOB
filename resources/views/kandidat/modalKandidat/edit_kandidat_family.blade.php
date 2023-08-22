@@ -20,7 +20,7 @@
                         </div>
                         @if ($kandidat->stats_nikah == "Cerai hidup")
                             <div class="" id="punya_anak">
-                                <div class="row mb-3 g-3 align-items-center">
+                                {{-- <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
                                         <label for="" class="col-form-label">Apakah Anda Sudah Memiliki Anak?</label>
                                     </div>
@@ -34,8 +34,9 @@
                                             @endif>Ya</option>
                                         </select>
                                     </div>
-                                </div>
-                                @if ($keluarga->count() > 0)
+                                </div> --}}
+                                @if ($keluarga)
+                                {{-- @if ($keluarga->count() > 0) --}}
                                     <div class="row mb-3 g-3 align-items-center">
                                         <div class="col-md-4">
                                             <label for="" class="col-form-label">Usia Anak</label>
@@ -78,7 +79,7 @@
                             </div>
                         @elseif ($kandidat->stats_nikah == "Cerai mati") 
                             <div class="" id="punya_anak">
-                                <div class="row mb-3 g-3 align-items-center">
+                                {{-- <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
                                         <label for="" class="col-form-label">Apakah Anda Sudah Memiliki Anak?</label>
                                     </div>
@@ -92,8 +93,9 @@
                                             @endif>Ya</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
                                 @if ($keluarga->count() > 0)
+                                {{-- @if ($keluarga->count() > 0) --}}
                                     <div class="row mb-3 g-3 align-items-center">
                                         <div class="col-md-4">
                                             <label for="" class="col-form-label">Usia Anak</label>
@@ -173,7 +175,7 @@
                                 </div>
                             </div>
                             <div class="" id="punya_anak">
-                                <div class="row mb-3 g-3 align-items-center">
+                                {{-- <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
                                         <label for="" class="col-form-label">Apakah Anda Sudah Memiliki Anak?</label>
                                     </div>
@@ -187,8 +189,9 @@
                                             @endif>Ya</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
                                 @if ($keluarga)
+                                {{-- @if ($keluarga->count() > 0) --}}
                                     <div class="row mb-3 g-3 align-items-center">
                                         <div class="col-md-4">
                                             <label for="" class="col-form-label">Usia Anak</label>
