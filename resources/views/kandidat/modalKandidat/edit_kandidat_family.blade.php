@@ -188,7 +188,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                @if ($keluarga->count() > 0)
+                                @if ($keluarga)
                                     <div class="row mb-3 g-3 align-items-center">
                                         <div class="col-md-4">
                                             <label for="" class="col-form-label">Usia Anak</label>
