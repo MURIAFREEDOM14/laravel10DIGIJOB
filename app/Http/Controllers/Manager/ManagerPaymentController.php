@@ -27,7 +27,8 @@ class ManagerPaymentController extends Controller
         $user = Auth::user();
         $manager = User::where('referral_code',$user->referral_code)->where('type',5)->first();
         $pembayaran = Pembayaran::whereNotNull('id_kandidat')->get();
-        return view('manager/payment/kandidat_payment',compact('manager','pembayaran'));
+        $riwayat = Pembayaran::whereNotNull('id_kandidat')->where('stats_pembayaran',"sudah dibayar")->get();
+        return view('manager/payment/kandidat_payment',compact('manager','pembayaran','riwayat'));
     }
 
     public function lihatKandidatPayment($id)
