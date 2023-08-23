@@ -610,14 +610,9 @@ class PerusahaanRecruitmentController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        $pembayaran = Pembayaran::where('id_lowongan',$id)->first();
-        if($pembayaran){
-            $payment = $pembayaran;
-        } else {
-            $payment = null;
-        }
+        $interview = Interview::where('id_lowongan',$id)->first();
         $isi = $kandidat->count();
-        return view('perusahaan/lowongan/kandidat_lowongan_dipilih',compact('perusahaan','kandidat','notif','pesan','credit','id','payment','isi'));
+        return view('perusahaan/lowongan/kandidat_lowongan_dipilih',compact('perusahaan','kandidat','notif','pesan','credit','id','interview','isi'));
     }
 
     public function cancelKandidatLowongan($id)
@@ -662,7 +657,6 @@ class PerusahaanRecruitmentController extends Controller
         $kandidat = KandidatInterview::where('id_lowongan',$id)->get();
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();        
         $id_kandidat = $request->id_kandidat;
-
         $interview = Interview::create([
             'status' => "pilih",
             'id_lowongan' => $id,
@@ -691,18 +685,7 @@ class PerusahaanRecruitmentController extends Controller
         //     'id_lowongan' => $id,
         // ]);
         // Mail::mailer('payment')->to($perusahaan->email_perusahaan)->send(new Payment($perusahaan->nama_perusahaan, $token->token, $payment, 'Pembayaran Interview', 'digijobaccounting@ugiport.com', $nama_rec, $nomo_rec));
-        return redirect('/perusahaan/list/pembayaran')->with('success','Info pembayaran anda sudah dikirim di email anda');
-    }
-
-    public function lihatJadwalInterview($id)
-    {
-        $user = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$id)->first();
-        return view('perusahaan/lihat_jadwal_interview',compact('perusahaan','notif','pesan','lowongan','credit'));
+        return redirect('/perusahaan/jadwal_interview/'.$id)->with('success','Kandidat Telah ditentukan');
     }
 
     public function jadwalInterview($id)
@@ -762,6 +745,11 @@ class PerusahaanRecruitmentController extends Controller
     {
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
+        Interview::where('id_lowongan',$id)->where('id_perusahaan',$perusahaan->id_perusahaan)->update([
+            'status' => "terjadwal",
+        ]);
+        $interview = Interview::where('id_lowongan',$id)->where('id_perusahaan',$perusahaan->id_perusahaan)->first();
         $id_kandidat = $request->id_kandidat;
         $timer = $request->timer;
         $durasi = $request->durasi;
@@ -770,12 +758,13 @@ class PerusahaanRecruitmentController extends Controller
             KandidatInterview::where('id_lowongan',$id)->update([
                 'waktu_interview_awal' => $timer[$w],
                 'waktu_interview_akhir' => $waktu_akhir,
+                'durasi_interview' => $durasi[$w],
             ]);
             $kandidat = Kandidat::where('id_kandidat',$id_kandidat[$w])->first();
-            $data['id_kandidat'] = $kandidat->id_kandidat;
-            $data['nama_kandidat'] = $kandidat->nama;
-            $data['id_perusahaan'] = $perusahaan->id_perusahaan;
-            PersetujuanKandidat::create($data);
+            // $data['id_kandidat'] = $kandidat->id_kandidat;
+            // $data['nama_kandidat'] = $kandidat->nama;
+            // $data['id_perusahaan'] = $perusahaan->id_perusahaan;
+            // PersetujuanKandidat::create($data);
 
             notifyKandidat::create([
                 'id_kandidat' => $kandidat->id_kandidat,
@@ -810,7 +799,7 @@ class PerusahaanRecruitmentController extends Controller
             }
         }
 
-        $total = $kandidat->count();
+        $total = count($id_kandidat);
         $payment = 15000 * $total;
         $nama_rec = "HAMEPA";
         $nomo_rec = 4399997272;
@@ -822,9 +811,27 @@ class PerusahaanRecruitmentController extends Controller
             'stats_pembayaran' => "belum dibayar",
             'nib' => $perusahaan->no_nib,
             'id_lowongan' => $id,
+            'id_interview' => $interview->id_interview,
         ]);
         Mail::mailer('payment')->to($perusahaan->email_perusahaan)->send(new Payment($perusahaan->nama_perusahaan, $token->token, $payment, 'Pembayaran Interview', 'digijobaccounting@ugiport.com', $nama_rec, $nomo_rec));
         return redirect('/perusahaan/list/pembayaran')->with('success',"Interview Success");
+    }
+
+    public function lihatJadwalInterview($id)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$id)->first();
+        $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$id)->first();
+        $kandidat = KandidatInterview::where('id_interview',$interview->id_interview)->get();
+        if($interview->status == "terjadwal"){
+            return view('perusahaan/lihat_jadwal_interview',compact('perusahaan','notif','pesan','credit','kandidat'));
+        } else {
+            return redirect('/perusahaan/jadwal_interview/'.$lowongan->id_lowongan)->with('warning',"Harap selesaikan penjadwalan interview terlebih dahulu");
+        }
     }
 
     public function persetujuanKandidat()

@@ -182,16 +182,16 @@ class PerusahaanController extends Controller
             'negara_id' => $negara_id,
         ]);
 
-        PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->update([
-            'id_perusahaan' => $perusahaan->id_perusahaan,
-            'nama_perusahaan' => $perusahaan->nama_perusahaan,
-            'no_nib' => $perusahaan->no_nib,
-            'nama_pemimpin' => $request->nama_pemimpin,
-            'foto_perusahaan' => $foto_perusahaan,
-            'logo_perusahaan' => $logo_perusahaan,
-            'tmp_perusahaan' => $request->tmp_perusahaan,
-            'negara_id' => $negara_id,
-        ]);
+        // PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->update([
+        //     'id_perusahaan' => $perusahaan->id_perusahaan,
+        //     'nama_perusahaan' => $perusahaan->nama_perusahaan,
+        //     'no_nib' => $perusahaan->no_nib,
+        //     'nama_pemimpin' => $request->nama_pemimpin,
+        //     'foto_perusahaan' => $foto_perusahaan,
+        //     'logo_perusahaan' => $logo_perusahaan,
+        //     'tmp_perusahaan' => $request->tmp_perusahaan,
+        //     'negara_id' => $negara_id,
+        // ]);
         return redirect()->route('perusahaan.alamat')->with('success',"Data anda tersimpan");
     }
 
@@ -237,15 +237,15 @@ class PerusahaanController extends Controller
             'alamat' => $request->alamat,
         ]);
 
-        PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->update([
-            'provinsi'=>$provinsi,
-            'kota'=>$kota,
-            'kecamatan'=>$kecamatan,
-            'kelurahan'=>$kelurahan,
-            'no_telp_perusahaan'=>$request->no_telp_perusahaan,
-            'negara_id' => $negara_id,
-            'alamat' => $request->alamat,
-        ]);
+        // PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->update([
+        //     'provinsi'=>$provinsi,
+        //     'kota'=>$kota,
+        //     'kecamatan'=>$kecamatan,
+        //     'kelurahan'=>$kelurahan,
+        //     'no_telp_perusahaan'=>$request->no_telp_perusahaan,
+        //     'negara_id' => $negara_id,
+        //     'alamat' => $request->alamat,
+        // ]);
         return redirect()->route('perusahaan.operator')->with('success',"Data anda tersimpan");
     }
 
@@ -269,13 +269,13 @@ class PerusahaanController extends Controller
             'company_profile'=>$request->company_profile
         ]);
 
-        PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->update([
-            'nama_operator'=>$request->nama_operator,
-            'no_telp_operator'=>$request->no_telp_operator,
-            'email_operator'=>$request->email_operator,
-            // 'foto_operator'=>$foto_operetor,
-            'company_profile'=>$request->company_profile
-        ]);
+        // PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->update([
+        //     'nama_operator'=>$request->nama_operator,
+        //     'no_telp_operator'=>$request->no_telp_operator,
+        //     'email_operator'=>$request->email_operator,
+        //     // 'foto_operator'=>$foto_operetor,
+        //     'company_profile'=>$request->company_profile
+        // ]);
         return redirect()->route('perusahaan')->with('success',"Data anda tersimpan");
     }
 
@@ -718,234 +718,6 @@ class PerusahaanController extends Controller
         ->limit(15)->get();
         $isi = $kandidat->count();
         return view('perusahaan/kandidat/pilih_kandidat',compact('jk','perusahaan','kandidat','isi','notif','pesan','cabang','credit'));
-    }
-
-    public function pilihKandidat(Request $request)
-    {
-        $auth = Auth::user();
-        $id_kandidat = $request->id_kandidat;
-        $usia = $request->usia;
-        $jk = $request->jk;
-        $nama = $request->nama;
-        $pengalaman_kerja = $request->pengalaman_kerja;
-        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
-        $permohonan = PermohonanLowongan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('jabatan',)->get();
-        dd($permohonan);
-        if($id_kandidat == null){
-            return redirect('/perusahaan/list_permohonan_lowongan')->with('error','anda harus memilih minimal 1 kandidat');
-        } else {
-            for($a = 0; $a < count($id_kandidat); $a++){                
-                $input['id_kandidat'] = $id_kandidat[$a];
-                $input['nama_kandidat'] = $nama[$a];
-                $input['status'] = "pilih";
-                $input['usia'] = $usia[$a];
-                $input['jenis_kelamin'] = $jk[$a];
-                $input['pengalaman_kerja'] = $pengalaman_kerja[$a];
-                $input['id_perusahaan'] = $perusahaan->id_perusahaan;
-                Interview::create($input);
-                
-                $data['id_kandidat'] = $id_kandidat[$a];
-                $data['nama_kandidat'] = $nama[$a];
-                $data['id_perusahaan'] = $perusahaan->id_perusahaan;
-                PersetujuanKandidat::create($data);
-
-                Kandidat::where('id_kandidat',$id_kandidat[$a])->update([
-                    'stat_pemilik' => "kosong",
-                ]);
-                
-                $interview = Interview::where('id_kandidat',$id_kandidat[$a])->where('id_perusahaan',$perusahaan->id_perusahaan)->first();
-                // if(){
-
-                // } else {
-        
-                // }
-                notifyKandidat::create([
-                    'id_kandidat' => $id_kandidat[$a],
-                    'isi' => "Anda mendapat pesan masuk",
-                    'pengirim' => "Sistem",
-                    'url' => '/semua_pesan',
-                ]);
-
-                messageKandidat::create([
-                    'id_kandidat' => $id_kandidat[$a], 
-                    'pesan' => "Halo, Anda mendapat undangan interview dari ".$perusahaan->nama_perusahaan.".apakah anda menyetujuinya?",
-                    'pengirim' => "Sistem",
-                    'kepada' => $nama[$a],
-                    'id_interview' => $interview->id_interview,
-                ]);
-
-                $kandidat = Kandidat::where('id_kandidat',$id_kandidat[$a])->whereNotNull('id_akademi')->first();
-                if($kandidat !== null){
-                    notifyAkademi::create([
-                        'id_akademi' => $kandidat->id_akademi,
-                        'id_kandidat' => $kandidat->id_kandidat,
-                        'isi' => "Anda mendapat pesan masuk",
-                        'pengirim' => "Sistem",
-                        'url' => '/akademi/semua_notif',
-                    ]);
-
-                    messageAkademi::create([
-                        'id_akademi' => $kandidat->id_akademi,
-                        'id_kandidat' => $kandidat->id_kandidat,
-                        'pesan' => "Selamat kandidat atas nama ".$kandidat->nama." telah diterima di ".$perusahaan->nama_perusahaan,
-                        'pengirim' => "Sistem",
-                        'kepada' => $kandidat->id_akademi,
-                    ]);
-                }
-            }
-        }
-        return redirect('/perusahaan/persetujuan_kandidat');
-    }
-
-    public function JadwalInterview()
-    {
-        $auth = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        $pilih = null;
-        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->first();
-        $interview = Interview::join(
-            'permohonan_lowongan', 'interview.id_kandidat','=','permohonan_lowongan.id_kandidat'
-        )->where('interview.id_perusahaan',$perusahaan->id_perusahaan)->where('interview.status',"pilih")->get();
-        foreach($interview as $item){
-            if($item->status == "pilih"){
-                $pilih = 1;
-            } 
-        }
-        if($pilih !== null){
-            $pilih;
-        } else {
-            $pilih = null;
-        }
-        $terjadwal = Interview::join(
-            'permohonan_lowongan', 'interview.id_kandidat','=','permohonan_lowongan.id_kandidat'
-        )->where('interview.id_perusahaan',$perusahaan->id_perusahaan)->where('interview.status',"terjadwal")->get();
-        $jml_kandidat = $interview->count();
-        $biaya = 15000;
-        $total = $jml_kandidat * $biaya;
-        return view('perusahaan/interview',compact(
-            'perusahaan','interview',
-            'terjadwal','jml_kandidat',
-            'biaya','total','pilih','notif',
-            'pesan','cabang','credit',
-        ));
-    }
-
-    public function tentukanWaktu(Request $request, $id)
-    {
-        $auth = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
-        $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$id)->first();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();       
-        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->first();
-        $lowongan_awal = new Carbon($lowongan->tgl_interview_awal);
-        $lowongan_akhir = new Carbon($lowongan->tgl_interview_akhir);
-        $range = CarbonPeriod::create($lowongan_awal, $lowongan_akhir);
-        if($request->time !== null){
-            $time = $request->time;
-        } else {
-            $time = $lowongan_awal;
-        }
-        // $jadwal = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$id)->where('waktu_interview','not like',null)->first();
-        // if($jadwal){
-            
-        // } else {
-
-        // }
-        return view('perusahaan/jadwal_interview',compact('perusahaan','interview','notif','pesan','cabang','credit','range','time','id'));
-    }
-
-    public function simpanWaktu(Request $request, $id, $time)
-    {
-        $user = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-        $waktu = $request->waktu;
-        $tanggal = $request->tanggal;
-        Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$id)->update([
-            'jadwal_interview' => $time,
-            'waktu_interview' => $request->waktu,
-        ]);
-        return redirect('/perusahaan/jadwal_interview/'.$id)->with('success',"Waktu interview ditentukan");
-    }
-
-    public function tentukanJadwal(Request $request, $id)
-    {
-        $auth = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
-        $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();       
-        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->first();
-        $lowongan_awal = new Carbon($lowongan->tgl_interview_awal);
-        $lowongan_akhir = new Carbon($lowongan->tgl_interview_akhir);
-        $range = CarbonPeriod::create($lowongan_awal, $lowongan_akhir);
-        if($request->time !== null){
-            $time = $request->time;
-        } else {
-            $time = $lowongan_awal;
-        }
-        return view('perusahaan/jadwal_interview',compact('perusahaan','interview','notif','pesan','cabang','credit','range','time','id'));
-    }
-
-    public function simpanJadwal(Request $request)
-    {
-        $jadwal = $request->jadwal_interview;
-        $nama = $request->nama;
-        $auth = Auth::user();
-        $ttl_interview = count($nama);
-        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();        
-        $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->first();
-        for($i = 0; $i < count($jadwal); $i++){
-            $input['jadwal_interview'] = $jadwal[$i];
-            $input['status'] = "terjadwal";
-            $data['nama'] = $nama[$i];
-            $kandidat = Kandidat::where('nama','like','%'.$nama[$i].'%')->where('id_perusahaan',$perusahaan->id_perusahaan)->first();
-            Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('nama_kandidat',$nama[$i])->update($input);
-            $time = Carbon::create($jadwal[$i])->isoformat('D MMM Y | h A');
-            notifyKandidat::create([
-                'id_kandidat' => $kandidat->id_kandidat,
-                'id_perusahaan' => $perusahaan->id_perusahaan,
-                'isi' => "Anda mendapat jadwal interview dengan perusahaan. cek pesan anda.",
-                'pengirim' => "Admin",
-                'id_interview' => $interview->id_interview,
-                'url' => '/semua_pesan',
-            ]);
-
-            messageKandidat::create([
-                'id_kandidat'=>$kandidat->id_kandidat,
-                'id_perusahaan'=>$perusahaan->id_perusahaan,
-                'pesan'=>$perusahaan->nama_perusahaan." telah menentukan waktu interview anda pada ".$time.".",
-                'pengirim'=>$perusahaan->nama_perusahaan,
-                'kepada'=>$kandidat->nama,
-                'id_interview'=>$interview->id_interview,
-            ]);
-        }
-
-        $payment = 1500 * $ttl_interview;
-        $namarec = "Hamepa";
-        $nomorec = 4399997272;
-        $message = "Pembayaran Interview";
-        // Mail::mailer('transfer')->to($perusahaan->email_perusahaan)->send(new transfer($perusahaan->nama_perusahaan,$message,'Pembayaran','digijobaccounting@ugiport.com',$payment,$namarec,$nomorec));
-
-        $pembayaran = Pembayaran::create([
-            'id_perusahaan'=>$perusahaan->id_perusahaan,
-            'nama_pembayaran'=>$perusahaan->nama_perusahaan,
-            'nib'=>$perusahaan->no_nib,
-            'nominal_pembayaran'=>15000 * $ttl_interview,
-            'stats_pembayaran'=>"belum dibayar",
-        ]);
-
-        return redirect('/perusahaan/interview')
-        // return back()->with('success',"yay")
-        ->with('success','Tagihan sudah muncul di email anda, silahkan selesaikan pembayaran untuk melanjutkan');
     }
 
     public function editJadwalInterview($id)

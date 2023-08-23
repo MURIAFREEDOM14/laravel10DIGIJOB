@@ -66,6 +66,11 @@
                 width: 100%;
                 height: auto;
             }
+            #scrollInterview {
+                overflow: auto;
+                width: 100%;
+                height: auto;
+            }
             #jeda {
                 display: none;
             }
@@ -94,10 +99,9 @@
             <div class="main-header">
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="green">
-
-                    <a href="/" class="logo" style="background-color: #31ce36">
+                    {{-- <a href="/" class="logo" style="background-color: #31ce36">
                         <b class="" style="color: white;">DIGIJOB-UGIPORT</b>
-                    </a>
+                    </a> --}}
                     <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon">
                             <i class="icon-menu"></i>
@@ -368,56 +372,84 @@
                                 </span>
                                 <h4 class="text-section">Menu</h4>
                             </li>
-                            <li class="nav-item">
-                                <a data-toggle="collapse" href="#forms">
-                                    <i class="fas fa-flag"></i>
-                                    <p>Lowongan Pekerjaan</p>
-                                    <span class="caret"></span>
-                                </a>
-                                <div class="collapse" id="forms">
-                                    <ul class="nav nav-collapse">
-                                        <li class="nav-section">
-                                            <h4 class="text-section">Buat Lowongan Baru</h4>
-                                        </li>
-                                        @if ($perusahaan->penempatan_kerja == "Luar negeri")
-                                            <a href="/perusahaan/list/lowongan/{{"dalam"}}">
+                            @php
+                                $data = $perusahaan->logo_perusahaan;
+                                $alamat = $perusahaan->no_telp_perusahaan;
+                                $operator = $perusahaan->email_operator;
+                            @endphp
+                            @if ($data == null)
+                                <li class="nav-item">
+                                    <a href="/perusahaan/isi_perusahaan_data">
+                                        <i class="fas fa-pen-square"></i>
+                                        <p>Harap lengkapi data anda</p>
+                                    </a>
+                                </li>
+                            @elseif($alamat == null)
+                                <li class="nav-item">
+                                    <a href="/perusahaan/isi_perusahaan_alamat">
+                                        <i class="fas fa-pen-square"></i>
+                                        <p>Harap lengkapi data anda</p>
+                                    </a>
+                                </li>
+                            @elseif($operator == null)
+                                <li class="nav-item">
+                                    <a href="/perusahaan/isi_perusahaan_operator">
+                                        <i class="fas fa-pen-square"></i>
+                                        <p>Harap lengkapi data anda</p>
+                                    </a>    
+                                </li>
+                            @else
+                                <li class="nav-item">
+                                    <a data-toggle="collapse" href="#forms">
+                                        <i class="fas fa-flag"></i>
+                                        <p>Lowongan Pekerjaan</p>
+                                        <span class="caret"></span>
+                                    </a>
+                                    <div class="collapse" id="forms">
+                                        <ul class="nav nav-collapse">
+                                            <li class="nav-section">
+                                                <h4 class="text-section">Buat Lowongan Baru</h4>
+                                            </li>
+                                            @if ($perusahaan->penempatan_kerja == "Luar negeri")
+                                                <a href="/perusahaan/list/lowongan/{{"dalam"}}">
+                                                    <li class="nav-item">
+                                                        <i class="fas fa-pen-square"></i>
+                                                        <p>Dalam Negeri</p>
+                                                    </li>
+                                                </a>    
+                                                <a href="/perusahaan/list/lowongan/{{"luar"}}">
+                                                    <li class="nav-item">
+                                                        <i class="fas fa-pen-square"></i>
+                                                        <p>Luar Negeri</p>
+                                                    </li>
+                                                </a>
+                                            @elseif($perusahaan->penempatan_kerja == "Dalam negeri")
+                                                <a href="/perusahaan/list/lowongan/{{"dalam"}}">
+                                                    <li class="nav-item">
+                                                        <i class="fas fa-pen-square"></i>
+                                                        <p>Dalam Negeri</p>
+                                                    </li>
+                                                </a>    
+                                            @endif
+                                            <li class="nav-section">
+                                                <h4 class="text-section">Daftar Lowongan</h4>
+                                            </li>
+                                            <a href="/perusahaan/list_permohonan_lowongan">
                                                 <li class="nav-item">
                                                     <i class="fas fa-pen-square"></i>
-                                                    <p>Dalam Negeri</p>
-                                                </li>
-                                            </a>    
-                                            <a href="/perusahaan/list/lowongan/{{"luar"}}">
-                                                <li class="nav-item">
-                                                    <i class="fas fa-pen-square"></i>
-                                                    <p>Luar Negeri</p>
+                                                    <p>Daftar Lowongan</p>
                                                 </li>
                                             </a>
-                                        @elseif($perusahaan->penempatan_kerja == "Dalam negeri")
-                                            <a href="/perusahaan/list/lowongan/{{"dalam"}}">
-                                                <li class="nav-item">
-                                                    <i class="fas fa-pen-square"></i>
-                                                    <p>Dalam Negeri</p>
-                                                </li>
-                                            </a>    
-                                        @endif
-                                        <li class="nav-section">
-                                            <h4 class="text-section">Daftar Lowongan</h4>
-                                        </li>
-                                        <a href="/perusahaan/list_permohonan_lowongan">
-                                            <li class="nav-item">
-                                                <i class="fas fa-pen-square"></i>
-                                                <p>Daftar Lowongan</p>
-                                            </li>
-                                        </a>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/perusahaan/list/pembayaran">
-                                    <i class="fas fa-pen-square"></i>
-                                    <p>Data Pembayaran</p>
-                                </a>
-                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/perusahaan/list/pembayaran">
+                                        <i class="fas fa-pen-square"></i>
+                                        <p>Data Pembayaran</p>
+                                    </a>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                 </div>

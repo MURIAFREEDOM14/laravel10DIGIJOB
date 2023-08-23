@@ -29,9 +29,9 @@
                                         <div class=" mb-1">
                                             <a class="btn btn-info" style="width:100%" href="/perusahaan/kandidat_lowongan_dipilih/{{$item->id_lowongan}}">Dipilih</a>
                                         </div>
-                                        <div class=" mb-1">
+                                        {{-- <div class=" mb-1">
                                             <a class="btn btn-warning" style="width: 100%" href="/perusahaan/jadwal_interview/{{$item->id_lowongan}}">Interview</a>
-                                        </div>    
+                                        </div>     --}}
                                         <div class=" mb-1">
                                             <a class="btn btn-success" style="width: 100%" href="/perusahaan/list/kandidat">Diterima</a>
                                         </div>

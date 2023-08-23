@@ -39,9 +39,9 @@
                 <div class="row">
                     @foreach ($foto_pengalaman as $item)
                         <div class="col-3">
-                            <div class="card" style="border:2px solid #1269db">
+                            <div class="card" style="border:2px solid #1269db; border-radius: 10% 0% 10% 0%;">
                                 <a href="/lihat_galeri_pengalaman_kerja/{{$item->foto_kerja_id}}/{{"foto"}}">
-                                    <div class="card-body">
+                                    <div class="" style="padding: 7px">
                                         <img src="/gambar/Kandidat/{{$kandidat->nama}}/Pengalaman Kerja/{{$item->foto}}" class="img2" alt="">
                                     </div>    
                                 </a>
@@ -50,9 +50,9 @@
                     @endforeach
                     @foreach ($video_pengalaman as $item)
                         <div class="col-3">
-                            <div class="card" style="border:2px solid #1269db">
+                            <div class="card" style="border:2px solid #1269db; border-radius: 10% 0% 10% 0%;">
                                 <a href="/lihat_galeri_pengalaman_kerja/{{$item->video_kerja_id}}/{{"video"}}">
-                                    <div class="card-body">
+                                    <div class="" style="padding: 7px;">
                                         <video id="video">
                                             <source class="" src="/gambar/Kandidat/{{$kandidat->nama}}/Pengalaman Kerja/{{$item->video}}">
                                         </video>

@@ -253,7 +253,7 @@
                     <b class="bold" style="border-bottom:1px solid black">
                         ( {{$kandidat->nama}} )
                     </b>
-                    <p style="font-weight:600">CPMI</p>
+                    <p style="font-weight:600; text-transform:uppercase">CPMI</p>
                 </div>
                 <div class="col-2 text-center"><b class="bold">Mengetahui</b></div>
                 <div class="col-5 text-center">
@@ -264,7 +264,7 @@
                             {{$kandidat->nama_perizin}}
                         @endif )
                     </b>
-                    <p style="font-weight:600">{{$kandidat->hubungan_perizin}}</p>
+                    <p style="font-weight:600; text-transform:uppercase">{{$kandidat->hubungan_perizin}}</p>
                 </div>
             </div>
             <div class="row mb-5">
@@ -422,12 +422,12 @@
                             {{$kandidat->nama_perizin}}
                         @endif )
                     </b>
-                    <p class="" style="font-weight:600">{{$kandidat->hubungan_perizin}}</p>
+                    <p class="" style="font-weight:600; text-transform:uppercase;">{{$kandidat->hubungan_perizin}}</p>
                 </div>
                 <div class="col-2 text-center" style="border-bottom:1px solid black;"><b class="bold"></b></div>                
                 <div class="col-5 text-center">
                     <b class="bold" style="border-bottom:1px solid black;">( {{$kandidat->nama}} )</b>
-                    <p class="" style="font-weight:600">CPMI</p>
+                    <p class="" style="font-weight:600; text-transform:uppercase;">CPMI</p>
                 </div>
             </div>
             <div class="row">

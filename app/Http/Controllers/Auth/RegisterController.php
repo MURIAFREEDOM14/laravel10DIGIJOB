@@ -269,13 +269,13 @@ class RegisterController extends Controller
             'penempatan_kerja' => $request->penempatan_kerja,
         ]);
 
-        PerusahaanCabang::create([
-            'nama_perusahaan' => $request->name,
-            'no_nib' => $request->no_nib,
-            'referral_code' => $userId,
-            'email_perusahaan' => $request->email,
-            'penempatan_kerja' => $request->penempatan_kerja,
-        ]);
+        // PerusahaanCabang::create([
+        //     'nama_perusahaan' => $request->name,
+        //     'no_nib' => $request->no_nib,
+        //     'referral_code' => $userId,
+        //     'email_perusahaan' => $request->email,
+        //     'penempatan_kerja' => $request->penempatan_kerja,
+        // ]);
 
         Mail::mailer('verification')->to($request->email)->send(new Verification($request->name, $token, 'Email Verifikasi', 'no-reply@ugiport.com'));
         // Mail::send('mail.mail', ['token' => $token, 'nama' => $request->name], function($message) use($request){

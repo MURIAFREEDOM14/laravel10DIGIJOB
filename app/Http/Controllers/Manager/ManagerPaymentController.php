@@ -74,6 +74,7 @@ class ManagerPaymentController extends Controller
             'perusahaan', 'pembayaran.id_perusahaan','=','perusahaan.id_perusahaan'
         )
         ->where('pembayaran.id_pembayaran',$id)->first();
+
         notifyPerusahaan::create([
             'id_perusahaan' => $pembayaran->id_perusahaan,
             'isi' => "Anda mendapat pesan masuk",
@@ -82,7 +83,7 @@ class ManagerPaymentController extends Controller
         ]);
         messagePerusahaan::create([
             'id_perusahaan' => $pembayaran->id_perusahaan,
-            'pesan' => "Selamat pembayaran anda telah dikonfirmasi. Untuk selanjutnya silahkan anda untuk menentukan waktu interview",
+            'pesan' => "Selamat pembayaran anda telah dikonfirmasi. Harap tunggu hingga waktu interview tiba",
             'pengirim' => "Admin",
             'kepada' => $pembayaran->nama_perusahaan,
         ]);
