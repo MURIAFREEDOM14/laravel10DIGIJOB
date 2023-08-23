@@ -189,7 +189,7 @@
                 </div>
                 <hr>
                 @endif
-                @if ($lowongan->benefit !== null && $lowongan->mata_uang !== null)
+                @if ($lowongan->benefit == null && $lowongan->mata_uang == null)
                 @else
                     <div class="row">
                         <div class="col-12">
