@@ -25,6 +25,7 @@ use App\Models\CreditPerusahaan;
 use App\Models\LaporanPekerja;
 use App\Models\KandidatInterview;
 use App\Models\Pendidikan;
+use Carbon\Carbon;
 
 class KandidatPerusahaanController extends Controller
 {
@@ -146,6 +147,10 @@ class KandidatPerusahaanController extends Controller
         $permohonan = PermohonanLowongan::where('id_kandidat',$kandidat->id_kandidat)->first();
         $perusahaan = Perusahaan::where('id_perusahaan',$lowongan->id_perusahaan)->first();
         $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_kandidat',$kandidat->id_kandidat)->where('status','like',"terjadwal")->first();
+        $usia = Carbon::parse($kandidat->tgl_lahir)->age;
+        Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
+            'usia' => $usia,
+        ]);
         if($permohonan == null){
             $jabatan = null;
         } else {
