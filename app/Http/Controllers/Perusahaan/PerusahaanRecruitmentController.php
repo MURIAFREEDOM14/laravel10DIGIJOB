@@ -208,6 +208,9 @@ class PerusahaanRecruitmentController extends Controller
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        if($perusahaan->penempatan_kerja == "Dalam negeri"){
+            return redirect('/perusahaan/list/lowongan/dalam');
+        }
         if($type == "dalam"){
             $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('negara','like','%Indonesia%')->get();            
         } else {
@@ -226,6 +229,9 @@ class PerusahaanRecruitmentController extends Controller
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
         $benefit = Benefit::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
         $fasilitas = Fasilitas::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        if($perusahaan->penempatan_kerja == "Dalam negeri"){
+            return redirect('/perusahaan/buat_lowongan/dalam');
+        }
         if($type == "dalam"){
             $negara = Negara::where('negara','like',"%Indonesia%")->first();
         } else {
@@ -381,6 +387,9 @@ class PerusahaanRecruitmentController extends Controller
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $benefit = Benefit::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
         $fasilitas = Fasilitas::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        if($perusahaan->penempatan_kerja == "Dalam negeri"){
+            return redirect('/perusahaan/edit_lowongan/'.$id.'/dalam');
+        }
         if($type == "dalam") {
             $negara = Negara::where('negara','like',"%Indonesia%")->first();
         } else {
@@ -486,12 +495,18 @@ class PerusahaanRecruitmentController extends Controller
 
     public function hapusLowongan($id,$type)
     {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->delete();
         $datetime  = date('y-m-d');
         // if($lowongan->ttp_lowongan == 'y-m-d'){
         //     LowonganPekerjaan::where('ttp_lowongan',$datetime)->delete();
         // }
-        return redirect('/perusahaan/list/lowongan/'.$type)->with('success');
+        if($perusahaan->penempatan_kerja == "Dalam negeri"){
+            return redirect('/perusahaan/list/lowongan/dalam')->with('success','Lowongan telah dihapus');
+        } elseif($perusahaan->penempatan_kerja == "Luar negeri"){
+            return redirect('/perusahaan/list/lowongan/luar')->with('success','Lowongan telah dihapus');
+        }
     }
 
     public function lowonganKandidatSesuai($id)

@@ -379,18 +379,27 @@
                                         <li class="nav-section">
                                             <h4 class="text-section">Buat Lowongan Baru</h4>
                                         </li>
-                                        <a href="/perusahaan/list/lowongan/{{"dalam"}}">
-                                            <li class="nav-item">
-                                                <i class="fas fa-pen-square"></i>
-                                                <p>Dalam Negeri</p>
-                                            </li>
-                                        </a>
-                                        <a href="/perusahaan/list/lowongan/{{"luar"}}">
-                                            <li class="nav-item">
-                                                <i class="fas fa-pen-square"></i>
-                                                <p>Luar Negeri</p>
-                                            </li>
-                                        </a>
+                                        @if ($perusahaan->penempatan_kerja == "Luar negeri")
+                                            <a href="/perusahaan/list/lowongan/{{"dalam"}}">
+                                                <li class="nav-item">
+                                                    <i class="fas fa-pen-square"></i>
+                                                    <p>Dalam Negeri</p>
+                                                </li>
+                                            </a>    
+                                            <a href="/perusahaan/list/lowongan/{{"luar"}}">
+                                                <li class="nav-item">
+                                                    <i class="fas fa-pen-square"></i>
+                                                    <p>Luar Negeri</p>
+                                                </li>
+                                            </a>
+                                        @elseif($perusahaan->penempatan_kerja == "Dalam negeri")
+                                            <a href="/perusahaan/list/lowongan/{{"dalam"}}">
+                                                <li class="nav-item">
+                                                    <i class="fas fa-pen-square"></i>
+                                                    <p>Dalam Negeri</p>
+                                                </li>
+                                            </a>    
+                                        @endif
                                         <li class="nav-section">
                                             <h4 class="text-section">Daftar Lowongan</h4>
                                         </li>
