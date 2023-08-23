@@ -703,6 +703,17 @@ class PerusahaanRecruitmentController extends Controller
         return redirect('/perusahaan/list/pembayaran')->with('success','Info pembayaran anda sudah dikirim di email anda');
     }
 
+    public function lihatJadwalInterview($id)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$id)->first();
+        return view('perusahaan/lihat_jadwal_interview',compact('perusahaan','notif','pesan','lowongan','credit'));
+    }
+
     public function jadwalInterview($id)
     {
         $user = Auth::user();

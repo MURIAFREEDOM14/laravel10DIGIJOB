@@ -6,6 +6,7 @@
         <title>DIGIJOB-UGIPORT</title>
         <link rel="icon" href="/gambar/icon.ico" type="image/x-icon"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <link rel="stylesheet" href="/css/loader.css">
         @livewireStyles
       <style>
         .img {
@@ -15,6 +16,9 @@
         .img2 {
           width: 100%;
           height: auto;
+        }
+        .loader {
+          display: none;
         }
         video {
           width: 100%;
@@ -47,7 +51,7 @@
         }
       </style>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>      
-      <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+      {{-- <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> --}}
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     </head>

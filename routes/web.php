@@ -386,6 +386,7 @@ Route::controller(PerusahaanRecruitmentController::class)->group(function() {
     Route::get('/perusahaan/batal_kandidat_lowongan/{id}','cancelKandidatLowongan');
     Route::post('/perusahaan/batal_kandidat_lowongan/{id}','confirmCancelKandidatLowongan');
 
+    Route::get('/perusahaan/lihat_jadwal_interview/{id}','lihatJadwalInterview')->middleware('perusahaan');
     Route::get('/perusahaan/jadwal_interview/{id}','jadwalInterview')->middleware('perusahaan');
     Route::post('/perusahaan/jadwal_interview/{id}','confirmJadwalInterview');
     Route::get('/perusahaan/waktu_interview/{id}','waktuInterview')->middleware('perusahaan');
@@ -395,7 +396,6 @@ Route::controller(PerusahaanRecruitmentController::class)->group(function() {
     Route::post('/perusahaan/permohonan_lowongan_pekerjaan/{id}','confirmLowonganPekerjaan');    
     Route::get('/perusahaan/persetujuan_kandidat','persetujuanKandidat')->middleware('perusahaan');
     Route::post('/perusahaan/persetujuan_kandidat','confirmPersetujuanKandidat');
-
 });
 
 // DATA KANDIDAT //
