@@ -53,13 +53,13 @@
   <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo me-auto"><a href="/laman">ProyekPortal</a></h1>
+      <h1 class="logo me-auto"><a href="/laman">UGIPORT-DIGIJOB</a></h1>
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">Tentang</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Hubungi</a></li>
+          <li><a class="nav-link scrollto active" href="/manager_access">Home</a></li>
+          {{-- <li><a class="nav-link scrollto" href="#">Tentang</a></li> --}}
+          <li><a class="nav-link scrollto" href="/hubungi_kami">Hubungi</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
@@ -105,7 +105,7 @@
     <footer id="footer">
         <div class="container footer-bottom clearfix mt-4">
             <div class="copyright">
-                &copy; Copyright <strong><span>ProyekPortal</span></strong>. All Rights Reserved
+                &copy; Copyright <strong><span>UGIPORT-DIGIJOB</span></strong>. All Rights Reserved
             </div>
         </div>
     </footer><!-- End Footer -->
