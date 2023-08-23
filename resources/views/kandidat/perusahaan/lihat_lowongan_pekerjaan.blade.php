@@ -189,45 +189,48 @@
                 </div>
                 <hr>
                 @endif
-                <div class="row">
-                    <div class="col-12">
-                        <h5><b class="bold">Benefit</b></h5>
-                    </div>
-                </div>
-                <hr>
-                @if ($lowongan->benefit !== null)
-                    <div  class="row">
-                        <div class="col-md-3">
-                            <label for="" class="">Benefit Pekerjaan</label>
-                        </div>
-                        <div class="col-md-8">
-                            <div class=""><b class="bold">: {{($lowongan->benefit)}}</b></div>
-                        </div>
-                    </div>
-                    <hr>    
-                @endif
-                @if ($lowongan->mata_uang !== null)
+                @if ($lowongan->benefit !== null && $lowongan->mata_uang !== null)
+                @else
                     <div class="row">
-                        <div class="col-md-3">
-                            <label for="" class="">Mata Uang</label>
-                        </div>
-                        <div class="col-md-4">
-                            <div class=""><b class="bold">: {{($lowongan->mata_uang)}}</b></div>
+                        <div class="col-12">
+                            <h5><b class="bold">Benefit</b></h5>
                         </div>
                     </div>
                     <hr>
-                    <div  class="row">
-                        <div class="col-md-3">
-                            <label for="" class="">Informasi Gaji</label>
+                    @if ($lowongan->benefit !== null)
+                        <div  class="row">
+                            <div class="col-md-3">
+                                <label for="" class="">Benefit Pekerjaan</label>
+                            </div>
+                            <div class="col-md-8">
+                                <div class=""><b class="bold">: {{($lowongan->benefit)}}</b></div>
+                            </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class=""><b class="bold">: Gaji Minimum : {{($lowongan->gaji_minimum)}}</b></div>
+                        <hr>    
+                    @endif
+                    @if ($lowongan->mata_uang !== null)
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="" class="">Mata Uang</label>
+                            </div>
+                            <div class="col-md-4">
+                                <div class=""><b class="bold">: {{($lowongan->mata_uang)}}</b></div>
+                            </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class=""><b class="bold">Gaji Maksimum : {{($lowongan->gaji_maksimum)}}</b></div>
+                        <hr>
+                        <div  class="row">
+                            <div class="col-md-3">
+                                <label for="" class="">Informasi Gaji</label>
+                            </div>
+                            <div class="col-md-3">
+                                <div class=""><b class="bold">: Gaji Minimum : {{($lowongan->gaji_minimum)}}</b></div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class=""><b class="bold">Gaji Maksimum : {{($lowongan->gaji_maksimum)}}</b></div>
+                            </div>
                         </div>
-                    </div>
-                    <hr>
+                        <hr>
+                    @endif
                 @endif
                 <div  class="row">
                     <div class="col-md-3">
