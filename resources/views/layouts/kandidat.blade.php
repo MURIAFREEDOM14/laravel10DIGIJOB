@@ -25,7 +25,7 @@
         <link rel="stylesheet" href="/Atlantis/examples/assets/css/atlantis.min.css">
         <link rel="stylesheet" href="/cardSlide/style.css">
         <link rel="stylesheet" href="/captcha.css">    
-        
+        <link rel="stylesheet" href="/css/loader.css">
         <style>
             .bold{
                 font-size: 11px;
@@ -94,7 +94,7 @@
             }
         </style>
     </head>
-    <body>
+    <body onload="loadingPage()">
         <div class="wrapper">
             <div class="main-header">
                 <!-- Logo Header -->
@@ -414,7 +414,9 @@
                 </div>
             </div>
             <!-- End Sidebar -->
-
+            <div class="loading align">
+                <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+            </div>
             <div class="main-panel">
                 <div class="content">
                     <main class="px-1">
@@ -530,6 +532,7 @@
                 });
             });
         </script>
+        <script src="/js/loader.js"></script>
         <script type="text/javascript">
             // Alert Log out //
             function confirmation(ev)

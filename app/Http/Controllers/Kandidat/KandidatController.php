@@ -99,6 +99,9 @@ class KandidatController extends Controller
         ->where('referral_code',$id->referral_code)
         ->first();
         $usia = Carbon::parse($kandidat->tgl_lahir)->age;
+        Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
+            'usia' => $usia,
+        ]);
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
         $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
         $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->limit(3)->get();

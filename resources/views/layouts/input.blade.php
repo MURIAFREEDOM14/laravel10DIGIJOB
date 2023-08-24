@@ -17,9 +17,6 @@
           width: 100%;
           height: auto;
         }
-        .loader {
-          display: none;
-        }
         video {
           width: 100%;
           height: auto;
@@ -55,7 +52,7 @@
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     </head>
-    <body>
+    <body onload="loadingPage()">
       <nav class="navbar navbar-expand-lg bg-warning">
           <div class="container-fluid">
             <a class="navbar-brand" href="/">DIGIJOB</a>
@@ -91,12 +88,16 @@
             </div>
           </div>
       </nav>
+      <div class="loading align">
+        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+      </div>
       <main class="">
         <div class="container px-5">
           @yield('content')
         </div>
       </main>
       @livewireScripts
+      <script src="/js/loader.js"></script>
       <script type="text/javascript">
         function beranda(ev){
           ev.preventDefault();

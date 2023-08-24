@@ -21,6 +21,7 @@
         <!-- CSS Files -->
         <link rel="stylesheet" href="/Atlantis/examples/assets/css/bootstrap.min.css">
         <link rel="stylesheet" href="/Atlantis/examples/assets/css/atlantis.min.css">
+        <link rel="stylesheet" href="/css/loader.css">
         <style>
             .bold{
                 font-size: 11px;
@@ -43,7 +44,7 @@
             }
         </style>
     </head>
-    <body>
+    <body onload="loadingPage()">
         <div class="wrapper">
             <div class="main-header">
                 <!-- Logo Header -->
@@ -271,7 +272,9 @@
                 </div>
             </div>
             <!-- End Sidebar -->
-
+            <div class="loading align">
+                <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+            </div>
             <div class="main-panel">
                 <div class="content">
                     <main class="px-3">
@@ -393,7 +396,7 @@
                 });
             });
         </script>
-
+        <script src="/js/loader.js"></script>
         <script type="text/javascript">
             function confirmation(ev)
                 {
