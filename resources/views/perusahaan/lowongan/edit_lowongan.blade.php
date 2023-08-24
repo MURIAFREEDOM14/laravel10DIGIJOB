@@ -348,7 +348,7 @@
                         <div class="col-md-4 mb-2">
                             <div class="input-group flex-nowrap">
                                 <div class="input-group-prepend">
-                                  <span class="input-group-text" id="mata_uang2"></span>
+                                  <span class="input-group-text" id="mata_uang2">{{$lowongan->mata_uang}}</span>
                                 </div>
                                 <input type="number" required name="gaji_maksimum" value="{{$lowongan->gaji_maksimum}}" id="" placeholder="Gaji Maksimum" class="form-control">
                             </div>
