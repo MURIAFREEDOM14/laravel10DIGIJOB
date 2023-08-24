@@ -405,7 +405,7 @@
                                     <input type="checkbox" name="benefit[]" value="tiket pulang" aria-label="Checkbox for following text input">
                                     </div>
                                 </div>
-                                <span class="selectgroup-button">Tiket Pulang</span>
+                                <span class="selectgroup-button">Tiket Pulang Sehabis Kontrak</span>
                             </div>
                             @foreach ($benefit as $item)
                                 <div class="input-group mb-3">
