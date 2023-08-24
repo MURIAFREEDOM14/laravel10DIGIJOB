@@ -165,7 +165,7 @@ class LoginController extends Controller
                 $email = $request->email;
                 $password = $request->password;
             } else {
-                return back()->with('no_found',"Akun anda belum terdaftar. Harap Daftar");
+                return back()->with('info',"Akun anda belum terdaftar. Harap Daftar");
             }
         }
 
@@ -177,6 +177,9 @@ class LoginController extends Controller
             ]);
             return redirect()->route('laman')->with('success',"selamat datang");
         } elseif($user !== null) {
+            if($user->type == 3){
+                return back()->with('error',"Maaf akun tersebut tidak terdaftar");
+            }
             Auth::login($user);
             User::where('email',$email)->update([
                 'check_password' => $password,

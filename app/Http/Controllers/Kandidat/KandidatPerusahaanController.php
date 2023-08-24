@@ -187,10 +187,10 @@ class KandidatPerusahaanController extends Controller
                             if($kandidat->berat >= $lowongan->berat_min && $kandidat->berat <= $lowongan->berat_maks){
                                 return view('kandidat/perusahaan/permohonan_lowongan',compact('kandidat','notif','pesan','lowongan'));
                             } else {
-                                return redirect()->back()->with('warning',"Maaf berat badan anda belum cukup untuk lowongan ini");
+                                return redirect()->back()->with('warning',"Maaf berat badan anda tidak sesuai untuk lowongan ini");
                             }
                         } else {
-                            return redirect()->back()->with('warning',"Maaf usia anda belum sesuai untuk lowongan ini");
+                            return redirect()->back()->with('warning',"Maaf usia anda tidak sesuai untuk lowongan ini");
                         }
                     } else {
                         return redirect()->back()->with('warning',"Maaf pencarian kandidat ini tidak sesuai dengan tempat anda");
@@ -202,7 +202,7 @@ class KandidatPerusahaanController extends Controller
                 return redirect()->back()->with('warning',"Maaf pendidikan anda kurang untuk pekerjaan ini");
             }
         } else {
-            return redirect()->back()->with('warning',"Maaf anda tidak bisa melamar di pekerjaan ini");
+            return redirect()->back()->with('warning',"Maaf anda tidak bisa melamar di lowongan ini");
         }
     }
 
