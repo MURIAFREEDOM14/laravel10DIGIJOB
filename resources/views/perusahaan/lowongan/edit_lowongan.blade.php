@@ -340,7 +340,7 @@
                         <div class="col-md-4 mb-2">
                             <div class="input-group flex-nowrap">
                                 <div class="input-group-prepend" id="">
-                                  <span class="input-group-text" id="mata_uang1"></span>
+                                  <span class="input-group-text" id="mata_uang1">{{$lowongan->mata_uang}}</span>
                                 </div>
                                 <input type="number" required name="gaji_minimum" value="{{$lowongan->gaji_minimum}}" id="" placeholder="Gaji Minimum" class="form-control">
                             </div>
