@@ -20,7 +20,9 @@ use App\Models\LowonganPekerjaan;
 use App\Models\PermohonanLowongan;
 use App\Models\PersetujuanKandidat;
 use App\Models\messageKandidat;
+use App\Models\messagePerusahaan;
 use App\Models\notifyKandidat;
+use App\Models\notifyPerusahaan;
 use App\Models\FotoKerja;
 use App\Models\VideoKerja;
 use App\Models\ContactUsKandidat;
@@ -954,5 +956,63 @@ class ManagerKandidatController extends Controller
             'kandidat','laporan_pekerja.id_kandidat','=','kandidat.id_kandidat'
         )->where('kandidat.id_kandidat',$id)->first();
         return view('manager/kandidat/lihat_laporan_kandidat',compact('manager','laporan'));   
+    }
+
+    public function penerimaanPerusahaan()
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $kandidat = Kandidat::all();
+        return view('manager/kandidat/penerimaan_perusahaan',compact('manager','kandidat'));
+    }
+
+    public function lihatPenerimaanPerusahaan($id)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $perusahaan = null;
+        $kandidat = Kandidat::where('id_kandidat',$id)->first();
+        $semua_perusahaan = Perusahaan::all();
+        return view('manager/kandidat/lihat_penerimaan_perusahaan',compact('manager','perusahaan','kandidat','semua_perusahaan','id'));
+    }
+
+    public function cariPenerimaanPerusahaan(Request $request, $id)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $perusahaan = Perusahaan::where('id_perusahaan',$request->id_perusahaan)->first();
+        $kandidat = Kandidat::where('id_kandidat',$id)->first();
+        $semua_perusahaan = Perusahaan::all();
+        return view('manager/kandidat/lihat_penerimaan_perusahaan',compact('manager','perusahaan','kandidat','semua_perusahaan','id'));
+    }
+
+    public function konfirmasiPenerimaanPerusahaan(Request $request, $id)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $kandidat = Kandidat::where('id_kandidat',$request->id_kandidat)->first();
+        $perusahaan = Perusahaan::where('id_perusahaan',$request->id_perusahaan)->first();
+        notifyKandidat::create([
+            'id_kandidat' => $kandidat->id_kandidat,
+            'isi' => "Selamat!! anda diterima di sebuah perusahaan. periksa pesan untuk detail",
+            'pengirim' => "Admin",
+            'url' => '/semua_pesan',
+        ]);
+        notifyPerusahaan::create([
+            'id_perusahaan' => $perusahaan->id_perusahaan,
+            'isi' => "Selamat!! Ada mendapat kandidat baru di Perusahaan anda. periksa pesan untuk detail",
+            'pengirim' => "Admin",
+            'url' => "/perusahaan/semua_pesan",
+        ]);
+        messageKandidat::create([
+            'id_kandidat' => $kandidat->id_kandidat,
+            'pesan' => "Selamat anda kini telah di terima di Perusahaan ".$perusahaan->nama_perusahaan.". Untuk info selanjutnya, harap untuk selalu memeriksa pesan dari kami.",
+            'pengirim' => "Admin",
+            'kepada' => $kandidat->nama,
+        ]);
+        messagePerusahaan::create([
+            'id_perusahaan' => $perusahaan->id_perusahaan,
+            'pesan' => "Selamat anda mendapat kandidat baru atas nama ".$kandidat->nama.". kini kandidat tersebut bisa anda lihat biodatanya di kandidat perusahaan", 
+        ]);
     }
 }

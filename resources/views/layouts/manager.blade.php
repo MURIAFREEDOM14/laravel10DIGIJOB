@@ -247,6 +247,11 @@
                                             </a>
                                         </li> --}}
                                         <li>
+                                            <a class="btn" href="/manager/kandidat/penerimaan_perusahaan">
+                                                <span class="sub-item">Penerimaan Perusahaan</span>
+                                            </a>
+                                        </li>
+                                        <li>
                                             <a class="btn" href="/manager/surat_izin">
                                                 <span class="sub-item">Surat izin</span>
                                             </a>

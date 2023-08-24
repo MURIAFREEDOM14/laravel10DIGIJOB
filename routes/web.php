@@ -164,6 +164,11 @@ Route::controller(ManagerKandidatController::class)->group(function() {
     Route::get('/manager/kandidat/lihat_laporan_kandidat/{id}','lihatLaporanKandidat')->middleware('manager');
 
     Route::get('/manager/kandidat/lihat_video/{id}','lihatVideoKandidat');
+
+    Route::get('/manager/kandidat/penerimaan_perusahaan','penerimaanPerusahaan')->middleware('manager');
+    Route::get('/manager/kandidat/lihat_penerimaan_perusahaan/{id}','lihatPenerimaanPerusahaan')->middleware('manager');
+    Route::post('/manager/kandidat/cari_penerimaan_perusahaan/{id}','cariPenerimaanPerusahaan');
+    Route::post('/manager/kandidat/lihat_penerimaan_perusahaan/{id}','konfirmasiPenerimaanPerusahaan')->middleware('manager');
 });
 
 Route::controller(ManagerPaymentController::class)->group(function() {
