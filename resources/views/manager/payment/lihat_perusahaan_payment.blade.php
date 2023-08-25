@@ -40,7 +40,7 @@
                                 <label for="" class="col-form-label">Foto Pembayaran</label>
                             </div>
                             <div class="col-8">
-                                <img src="/gambar/Perusahaan/{{$pembayaran->nama_pembayaran}}/pembayaran/{{$pembayaran->foto_pembayaran}}" width="300" height="300" alt="">
+                                <img src="/gambar/Perusahaan/{{$pembayaran->nama_pembayaran}}/Pembayaran/{{$pembayaran->foto_pembayaran}}" width="300" height="300" alt="">
                             </div>
                         </div>
                         <div class="row mb-3">
