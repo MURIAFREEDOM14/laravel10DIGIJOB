@@ -1,4 +1,5 @@
 <form action="/simpan_kandidat_pengalaman_kerja">
+    @csrf
     <div class="">
         <div class="mb-2">
             <label for="exampleInputEmail1" class="form-label">Nama Perusahaan</label>

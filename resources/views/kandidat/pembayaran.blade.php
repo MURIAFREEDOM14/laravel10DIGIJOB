@@ -17,6 +17,7 @@
                 </div>
                 <div class="card-body">
                     <form action="" method="POST"></form>
+                    @csrf
                     <div class="row mb-3">
                         <div class="col-4">
                             <label for="" class="col-form-label">Nama Kandidat</label>
