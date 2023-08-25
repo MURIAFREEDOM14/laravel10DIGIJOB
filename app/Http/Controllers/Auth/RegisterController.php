@@ -167,12 +167,6 @@ class RegisterController extends Controller
         ]);
 
         Mail::mailer('verification')->to($request->email)->send(new Verification($request->name, $token, 'Email Verifikasi', 'no-reply@ugiport.com'));
-        // Mail::send('mail.mail', ['token' => $token,'nama' => $request->name], function($message) use($request){
-        //     $message->to($request->email);
-        //     $message->subject('Email Verification Mail');
-        // });
-
-        // Mail::mailer('verification')->to($request->email)->send(new Verification($request->name, $token, 'Email Verification','no-reply@ugiport.com'));
         Auth::login($user);       
         return redirect()->route('verifikasi')->with('success',"Email verifikasi telah terkirim ke Email anda");
     }

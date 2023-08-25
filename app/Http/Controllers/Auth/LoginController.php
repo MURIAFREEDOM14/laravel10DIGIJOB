@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Verification;
+use App\Mail\VerifyPassword;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -69,10 +71,11 @@ class LoginController extends Controller
                 'password'=>null,
                 'verify_confirmed'=>null,
             ]);
-            Mail::send('mail.verify',['token'=>$token,'nama'=>$request->name,'text'=>$text], function($message) use($request){
-                $message->to($request->email);
-                $message->subject('Email Verification Mail');
-            });
+            Mail::mailer('verification')->to($request->email)->send(new VerifyPassword($request->name, 'no-reply@ugiport.com', $token, $text, 'Verifikasi Lupa Password'));
+            // Mail::send('mail.verify',['token'=>$token,'nama'=>$request->name,'text'=>$text], function($message) use($request){
+            //     $message->to($request->email);
+            //     $message->subject('Email Verification Mail');
+            // });
             Auth::login($user);
             return redirect()->route('verifikasi')->with('success',"Anda akan segera mendapat Email verifikasi");
         } else {
