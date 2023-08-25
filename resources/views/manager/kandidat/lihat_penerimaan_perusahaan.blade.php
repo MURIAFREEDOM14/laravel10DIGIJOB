@@ -176,6 +176,28 @@
                             </div>
                         </div>
                         <hr>
+                        <form action="/manager/kandidat/lihat_penerimaan_perusahaan/{{$id}}" method="POST">
+                            @csrf
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="" style="text-transform: uppercase">Jabatan</label>
+                                </div>
+                                <div class="col-8">
+                                    <select name="jabatan" class="form-control" required id="">
+                                        <option value="">-- Pilih Jabatan --</option>
+                                        @foreach ($lowongan as $item)
+                                            <option value="{{$item->jabatan}}">{{$item->jabatan}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <hr>
+                            <input type="text" value="{{$perusahaan->id_perusahaan}}" name="id_perusahaan" hidden id="">
+                            <h3 class="">Dengan ini kandidat diatas telah terbukti sudah diterima pada perusahaan yang tertera diatas.</h3>
+                            <br>
+                            <h3>Apakah Data sudah valid dan benar adanya?</h3>
+                            <button type="submit" class="btn btn-secondary">Konfirmasi Penerimaan</button>    
+                        </form>
                     </div>
                 @endif
             </div>
@@ -186,14 +208,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <form action="/manager/kandidat/lihat_penerimaan_perusahaan/{{$id}}" method="POST">
-                            @csrf
-                            <input type="text" value="{{$perusahaan->id_perusahaan}}" name="id_perusahaan" hidden id="">
-                            <h3 class="">Dengan ini kandidat diatas telah terbukti sudah diterima pada perusahaan yang tertera diatas.</h3>
-                            <br>
-                            <h3>Apakah Data sudah valid dan benar adanya?</h3>
-                            <button type="submit" class="btn btn-secondary">Konfirmasi Penerimaan</button>    
-                        </form>
+                        
                     </div>
                 </div>
             </div>

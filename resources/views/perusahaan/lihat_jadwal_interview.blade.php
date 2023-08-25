@@ -44,6 +44,13 @@
                                     <p class="">: {{$item->waktu_interview_awal}} Sampai {{$item->waktu_interview_akhir}}</p>
                                 </div>
                             </div>
+                            @php
+                                $now = now();
+                            @endphp
+                            @if (date('d M Y',strtotime($item->jadwal_interview)) == date('d M Y',strtotime($now)) && date('h:i:s',strtotime($item->waktu_interview_awal.'-15 minutes')) == date('h:i:s',strtotime($now)))
+                                <label for="" class="form-label">Interview anda dengan kandidat akan segera dimulai. Harap segera masuk ke dalam portal</label>
+                                <a class="float-right btn btn-outline-success" style="padding: 10px; text-decoration:none; border:1px solid green; border-radius:0% 20% 0% 20%" href="">Masuk Portal</a>
+                            @endif
                         </div>
                     </div>
                 @endforeach

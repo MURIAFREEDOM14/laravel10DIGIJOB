@@ -986,7 +986,8 @@ class ManagerKandidatController extends Controller
         $perusahaan = Perusahaan::where('id_perusahaan',$request->id_perusahaan)->first();
         $kandidat = Kandidat::where('id_kandidat',$id)->first();
         $semua_perusahaan = Perusahaan::all();
-        return view('manager/kandidat/lihat_penerimaan_perusahaan',compact('manager','perusahaan','kandidat','semua_perusahaan','id'));
+        $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        return view('manager/kandidat/lihat_penerimaan_perusahaan',compact('manager','perusahaan','kandidat','semua_perusahaan','id','lowongan'));
     }
 
     public function konfirmasiPenerimaanPerusahaan(Request $request, $id)
@@ -1002,35 +1003,56 @@ class ManagerKandidatController extends Controller
         if($disnaker == null){
             return redirect('/manager/kandidat/lihat_penerimaan_perusahaan/'.$id)->with('error',"Maaf belum ada kontak disnaker dengan alamat ".$kandidat->kabupaten);
         }
-        notifyKandidat::create([
-            'id_kandidat' => $kandidat->id_kandidat,
-            'isi' => "Selamat!! anda diterima di sebuah perusahaan. periksa pesan untuk detail",
-            'pengirim' => "Admin",
-            'url' => '/semua_pesan',
-        ]);
-        notifyPerusahaan::create([
-            'id_perusahaan' => $perusahaan->id_perusahaan,
-            'isi' => "Selamat!! Ada mendapat kandidat baru di Perusahaan anda. periksa pesan untuk detail",
-            'pengirim' => "Admin",
-            'url' => "/perusahaan/semua_pesan",
-        ]);
-        messageKandidat::create([
-            'id_kandidat' => $kandidat->id_kandidat,
-            'pesan' => "Selamat anda kini telah di terima di Perusahaan ".$perusahaan->nama_perusahaan.". Untuk info selanjutnya, harap untuk selalu memeriksa pesan dari kami.",
-            'pengirim' => "Admin",
-            'kepada' => $kandidat->nama,
-        ]);
-        messagePerusahaan::create([
-            'id_perusahaan' => $perusahaan->id_perusahaan,
-            'pesan' => "Selamat anda mendapat kandidat baru atas nama ".$kandidat->nama.".",
-            'pengirim' => "Admin",
-            'kepada' => $perusahaan->nama_perusahaan, 
-        ]);    
+        $now = Carbon::create(now());
+        // LaporanPekerja::create([
+        //     'nama_kandidat' => $kandidat->nama,
+        //     'id_kandidat' => $kandidat->id_kandidat,
+        //     'tmp_bekerja' => $perusahaan->nama_perusahaan,
+        //     'jabatan' => $request->jabatan,
+        //     'tgl_kerja' => $now,
+        // ]);
+        // notifyKandidat::create([
+        //     'id_kandidat' => $kandidat->id_kandidat,
+        //     'isi' => "Selamat!! anda diterima di sebuah perusahaan. periksa pesan untuk detail",
+        //     'pengirim' => "Admin",
+        //     'url' => '/semua_pesan',
+        // ]);
+        // notifyPerusahaan::create([
+        //     'id_perusahaan' => $perusahaan->id_perusahaan,
+        //     'isi' => "Selamat!! Ada mendapat kandidat baru di Perusahaan anda. periksa pesan untuk detail",
+        //     'pengirim' => "Admin",
+        //     'url' => "/perusahaan/semua_pesan",
+        // ]);
+        // messageKandidat::create([
+        //     'id_kandidat' => $kandidat->id_kandidat,
+        //     'pesan' => "Selamat anda kini telah di terima di Perusahaan ".$perusahaan->nama_perusahaan.". Untuk info selanjutnya, harap untuk selalu memeriksa pesan dari kami.",
+        //     'pengirim' => "Admin",
+        //     'kepada' => $kandidat->nama,
+        // ]);
+        // messagePerusahaan::create([
+        //     'id_perusahaan' => $perusahaan->id_perusahaan,
+        //     'pesan' => "Selamat anda mendapat kandidat baru atas nama ".$kandidat->nama.".",
+        //     'pengirim' => "Admin",
+        //     'kepada' => $perusahaan->nama_perusahaan, 
+        // ]);    
+        
         $disnakerNama = $disnaker->nama_disnaker;
         $disnakerEmail = $disnaker->email_disnaker;
+        $disnakerAlamat = $disnaker->alamat_disnaker;
+        
         $kandidatNama = $kandidat->nama;
+        $kandidatNIK = $kandidat->nik;
+        $kandidatDSN = $kandidat->dusun;
+        $kandidatRT = $kandidat->rt;
+        $kandidatRW = $kandidat->rw;
+        $kandidatKEL = $kandidat->kelurahan;
+        $kandidatKEC = $kandidat->kecamatan;
+        $kandidatKAB = $kandidat->kabupaten;
+        $kandidatPROV = $kandidat->provinsi;
+        $kandidatAlamat = "DSN. ".$kandidatDSN.", RT. ".$kandidatRT.", RW. ".$kandidatRW.", KEL. ".$kandidatKEL.", KEC. ".$kandidatKEC.", KAB/KOTA. ".$kandidatKAB.", ".$kandidatPROV;
+        
         // Mail::mailer('verification')->to($disnakerEmail)->send(new DisnakerSender($disnakerNama, $kandidatNama, 'no-reply@ugiport.com', 'Konfirmasi Disnaker'));    
-        Mail::mailer('verification')->to($kandidat->email)->send(new DisnakerSender($disnakerNama, $kandidatNama, 'no-reply@ugiport.com', 'Konfirmasi Disnaker'));    
+        Mail::mailer('verification')->to($kandidat->email)->send(new DisnakerSender($disnakerNama, $disnakerEmail, $disnakerAlamat, $kandidatNama, $kandidatNIK, $kandidatAlamat,'no-reply@ugiport.com', 'Konfirmasi Disnaker'));    
         return redirect('/manager/kandidat/penerimaan_perusahaan')->with('success',"Kandidat sudah terverifikasi");
     }
 }

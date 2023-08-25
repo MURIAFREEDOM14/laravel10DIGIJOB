@@ -611,8 +611,13 @@ class PerusahaanRecruitmentController extends Controller
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
         $interview = Interview::where('id_lowongan',$id)->first();
+        if($interview !== null){
+            $pembayaran = Pembayaran::where('id_interview',$interview->id_interview)->where('stats_pembayaran',"sudah dibayar")->first();
+        } else {
+            $pembayaran = null;
+        }
         $isi = $kandidat->count();
-        return view('perusahaan/lowongan/kandidat_lowongan_dipilih',compact('perusahaan','kandidat','notif','pesan','credit','id','interview','isi'));
+        return view('perusahaan/lowongan/kandidat_lowongan_dipilih',compact('perusahaan','kandidat','notif','pesan','credit','id','interview','isi','pembayaran'));
     }
 
     public function cancelKandidatLowongan($id)
