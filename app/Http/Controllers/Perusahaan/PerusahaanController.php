@@ -808,11 +808,11 @@ class PerusahaanController extends Controller
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
         $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
-        $pembayaran = $perusahaan->nama_perusahaan.time().'.'.$request->foto_pembayaran->extension();  
+        $foto_pembayaran = $perusahaan->nama_perusahaan.time().'.'.$request->foto_pembayaran->extension();  
         $simpan_pembayaran = $request->file('foto_pembayaran');
         $simpan_pembayaran->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Pembayaran/',$perusahaan->nama_perusahaan.time().'.'.$simpan_pembayaran->extension());
         $pembayaran = Pembayaran::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_pembayaran',$id)->update([
-            'foto_pembayaran'=>$pembayaran
+            'foto_pembayaran'=>$foto_pembayaran
         ]);
         return redirect('/perusahaan')->with('success','Metode pembayaran sedang diproses mohon tunggu');
     }    
