@@ -349,6 +349,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="btn" href="/manager/disnaker_list">
+                                    <i class="fas fa-th-list"></i>
+                                    <p>Dinas Tenaga Kerja</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="btn" href="/manager/search_email">
                                     <i class="fas fa-th-list"></i>
                                     <p>Verifikasi Email</p>

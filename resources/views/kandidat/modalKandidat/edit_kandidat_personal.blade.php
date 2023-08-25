@@ -130,7 +130,7 @@
                         </div>
                         <hr>
                         {{-- <a class="btn btn-warning" href="{{route('document')}}">Lewati</a> --}}
-                        <button class="btn btn-primary float-end" type="submit">Selanjutnya</button>
+                        <button class="btn btn-primary float-end" id="submitBtn" type="submit" onclick="btnLoad()">Selanjutnya</button>
                     </form>
                 </div>
                 <hr>

@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('nama_disnaker')->nullable();
             $table->string('email_disnaker')->nullable();
             $table->string('alamat_disnaker')->nullable();
-            $table->integer('negara_id')->nullable();
-            // $table->timestamps();
+            $table->integer('kabupaten_id')->nullable();
+            $table->integer('provinsi_id')->nullable();
         });
     }
 

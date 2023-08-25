@@ -44,6 +44,7 @@ use App\Models\ReportUserIn;
 use App\Models\Jadwal;
 use App\Models\ReportNewUser;
 use App\Mail\Verification;
+use App\Models\DisnakerInfo;
 
 class ManagerController extends Controller
 {
@@ -920,5 +921,37 @@ class ManagerController extends Controller
             $alamat = $pengguna->kabupaten;
         }
         return redirect('/manager/search_email')->with('success',"Email Terkirim");
+    }
+
+    public function disnakerList()
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $disnaker = DisnakerInfo::all();
+        $prov = Provinsi::all();
+        return view('manager/disnaker_list',compact('manager','disnaker','prov'));
+    }
+
+    public function simpanDisnaker(Request $request)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $kabupaten = Kota::where('id',$request->kota)->first();
+        DisnakerInfo::create([
+            'nama_disnaker' => $request->nama,
+            'email_disnaker' => $request->email,
+            'alamat_disnaker' => $kabupaten->kota,
+            'kabupaten_id' => $kabupaten->id,
+            'provinsi_id' => $request->provinsi
+        ]);  
+        return redirect('/manager/disnaker_list')->with('success',"Data tersimpan");      
+    }
+
+    public function hapusDisnaker($id)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        DisnakerInfo::where('disnaker_id',$id)->delete();
+        return redirect('manager/disnaker_list')->with('success',"Data dihapus");
     }
 }

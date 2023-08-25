@@ -26,8 +26,6 @@ class Location extends Component
         $this->kelurahans = collect();
     }
     
-
-
     public function render()
     {
         return view('livewire.manager.location')->extends('layouts.manager');

@@ -28,6 +28,9 @@ use App\Models\VideoKerja;
 use App\Models\ContactUsKandidat;
 use App\Models\Interview;
 use App\Models\LaporanPekerja;
+use App\Models\DisnakerInfo;
+use App\Mail\DisnakerSender;
+use Illuminate\Support\Facades\Mail;
 
 class ManagerKandidatController extends Controller
 {
@@ -990,8 +993,15 @@ class ManagerKandidatController extends Controller
     {
         $user = Auth::user();
         $manager = User::where('referral_code',$user->referral_code)->first();
-        $kandidat = Kandidat::where('id_kandidat',$request->id_kandidat)->first();
         $perusahaan = Perusahaan::where('id_perusahaan',$request->id_perusahaan)->first();
+        Kandidat::where('id_kandidat',$id)->update([
+            'stat_pemilik' => "diterima",
+        ]);
+        $kandidat = Kandidat::where('id_kandidat',$id)->first();        
+        $disnaker = DisnakerInfo::where('alamat_disnaker','like','%'.$kandidat->kabupaten.'%')->first();
+        if($disnaker == null){
+            return redirect('/manager/kandidat/lihat_penerimaan_perusahaan/'.$id)->with('error',"Maaf belum ada kontak disnaker dengan alamat ".$kandidat->kabupaten);
+        }
         notifyKandidat::create([
             'id_kandidat' => $kandidat->id_kandidat,
             'isi' => "Selamat!! anda diterima di sebuah perusahaan. periksa pesan untuk detail",
@@ -1012,7 +1022,15 @@ class ManagerKandidatController extends Controller
         ]);
         messagePerusahaan::create([
             'id_perusahaan' => $perusahaan->id_perusahaan,
-            'pesan' => "Selamat anda mendapat kandidat baru atas nama ".$kandidat->nama.". kini kandidat tersebut bisa anda lihat biodatanya di kandidat perusahaan", 
-        ]);
+            'pesan' => "Selamat anda mendapat kandidat baru atas nama ".$kandidat->nama.".",
+            'pengirim' => "Admin",
+            'kepada' => $perusahaan->nama_perusahaan, 
+        ]);    
+        $disnakerNama = $disnaker->nama_disnaker;
+        $disnakerEmail = $disnaker->email_disnaker;
+        $kandidatNama = $kandidat->nama;
+        // Mail::mailer('verification')->to($disnakerEmail)->send(new DisnakerSender($disnakerNama, $kandidatNama, 'no-reply@ugiport.com', 'Konfirmasi Disnaker'));    
+        Mail::mailer('verification')->to($kandidat->email)->send(new DisnakerSender($disnakerNama, $kandidatNama, 'no-reply@ugiport.com', 'Konfirmasi Disnaker'));    
+        return redirect('/manager/kandidat/penerimaan_perusahaan')->with('success',"Kandidat sudah terverifikasi");
     }
 }

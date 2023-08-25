@@ -69,6 +69,10 @@ Route::controller(ManagerController::class)->group(function() {
     Route::get('/manager/email_verify/{id}','emailVerify')->middleware('manager');
     Route::post('/manager/email_verify/{id}','sendEmailVerify');
     
+    Route::get('/manager/disnaker_list','disnakerList')->middleware('manager');
+    Route::post('/manager/disnaker_list','simpanDisnaker');
+    Route::get('/manager/hapus_disnaker/{id}','hapusDisnaker')->middleware('manager');
+
     // DATA KANDIDAT // 
     Route::get('/manager/kandidat/lihat_profil/{id}','lihatProfil')->middleware('manager');
     Route::get('/manager/kandidat/galeri_kandidat/{id}','galeriKandidat')->middleware('manager');

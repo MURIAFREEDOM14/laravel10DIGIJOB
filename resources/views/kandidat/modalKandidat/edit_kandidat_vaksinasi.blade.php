@@ -24,7 +24,7 @@
                                     <label for="inputPassword6" class="col-form-label">Nama Vaksin Pertama</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <select name="vaksin1" required class="form-select" id="">
+                                    <select name="vaksin1" class="form-select" id="">
                                         <option value="">-- Pilih Nama Vaksin --</option>
                                         <option value="ASTRA ZENECA" @if ($kandidat->vaksin1 == "ASTRA ZENECA") selected @endif>ASTRA ZENECA</option>
                                         <option value="PFIZER" @if ($kandidat->vaksin1 == "PFIZER") selected @endif>PFIZER</option>
@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <label for="">Berikut contoh nomor Batch ID yang terdapat di sertifikat vaksin anda : </label><img class="mb-1 img" src="/gambar/batch_id.jpg" alt="">
-                                    <input type="text" required value="{{$kandidat->no_batch_v1}}" name="no_batch_v1" class="form-control">
+                                    <input type="text" value="{{$kandidat->no_batch_v1}}" name="no_batch_v1" class="form-control">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
@@ -50,7 +50,7 @@
                                     <label for="inputPassword6" class="col-form-label">Tanggal Vaksin Pertama</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="date" required value="{{$kandidat->tgl_vaksin1}}" name="tgl_vaksin1" class="form-control" autofocus>
+                                    <input type="date" value="{{$kandidat->tgl_vaksin1}}" name="tgl_vaksin1" class="form-control" autofocus>
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
@@ -59,12 +59,12 @@
                                 </div>
                                 <div class="col-md-8">
                                     @if ($kandidat->sertifikat_vaksin1 == "")
-                                        <input type="file" required value="{{$kandidat->sertifikat_vaksin1}}" name="sertifikat_vaksin1" class="form-control" accept="image/*">                                            
+                                        <input type="file" value="{{$kandidat->sertifikat_vaksin1}}" name="sertifikat_vaksin1" class="form-control" accept="image/*">                                            
                                     @elseif ($kandidat->sertifikat_vaksin1 !== null)
                                         <img src="/gambar/Kandidat/{{$kandidat->nama}}/Vaksin Pertama/{{$kandidat->sertifikat_vaksin1}}" width="150" height="150" alt="" class="img mb-1">
                                         <input type="file" value="{{$kandidat->sertifikat_vaksin1}}" name="sertifikat_vaksin1" class="form-control" accept="image/*">                                            
                                     @else
-                                        <input type="file" required value="{{$kandidat->sertifikat_vaksin1}}" name="sertifikat_vaksin1" class="form-control" accept="image/*">                                            
+                                        <input type="file" value="{{$kandidat->sertifikat_vaksin1}}" name="sertifikat_vaksin1" class="form-control" accept="image/*">                                            
                                     @endif
                                 </div>
                             </div>
@@ -76,7 +76,7 @@
                                     <label for="inputPassword6" class="col-form-label">Nama Vaksin Kedua</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <select name="vaksin2" required class="form-select" id="">
+                                    <select name="vaksin2" class="form-select" id="">
                                         <option value="">-- Pilih Nama Vaksin --</option>
                                         <option value="ASTRA ZENECA" @if ($kandidat->vaksin2 == "ASTRA ZENECA") selected @endif>ASTRA ZENECA</option>
                                         <option value="PFIZER" @if ($kandidat->vaksin2 == "PFIZER") selected @endif>PFIZER</option>
@@ -94,7 +94,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <label for="">Berikut contoh nomor Batch ID yang terdapat di sertifikat vaksin anda : </label><img class="mb-1 img" src="/gambar/batch_id.jpg" alt="">
-                                    <input type="text" required value="{{$kandidat->no_batch_v2}}" name="no_batch_v2" class="form-control">
+                                    <input type="text" value="{{$kandidat->no_batch_v2}}" name="no_batch_v2" class="form-control">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
@@ -102,7 +102,7 @@
                                     <label for="inputPassword6" class="col-form-label">Tanggal Vaksin Kedua</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="date" required value="{{$kandidat->tgl_vaksin2}}" name="tgl_vaksin2" class="form-control">
+                                    <input type="date" value="{{$kandidat->tgl_vaksin2}}" name="tgl_vaksin2" class="form-control">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
@@ -111,12 +111,12 @@
                                 </div>
                                 <div class="col-md-8">
                                     @if ($kandidat->sertifikat_vaksin2 == "")
-                                        <input type="file" required name="sertifikat_vaksin2" class="form-control" accept="image/*">                                            
+                                        <input type="file" name="sertifikat_vaksin2" class="form-control" accept="image/*">                                            
                                     @elseif ($kandidat->sertifikat_vaksin2 !== null)
                                         <img src="/gambar/Kandidat/{{$kandidat->nama}}/Vaksin Kedua/{{$kandidat->sertifikat_vaksin2}}" width="150" height="150" alt="" class="img mb-1">
                                         <input type="file" name="sertifikat_vaksin2" class="form-control" accept="image/*">                                            
                                     @else
-                                        <input type="file" required name="sertifikat_vaksin2" class="form-control" accept="image/*">                                            
+                                        <input type="file" name="sertifikat_vaksin2" class="form-control" accept="image/*">                                            
                                     @endif
                                 </div>
                             </div>
