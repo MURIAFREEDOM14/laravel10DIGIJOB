@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\LowonganPekerjaan;
 use Illuminate\Console\Command;
 use App\Models\User;
 use App\Models\Jadwal;   
@@ -33,6 +34,8 @@ class TimeJadwal extends Command
 
     public function handle()
     {
+        $timeNow = date('Y-m-d',strtotime(now()));
+        
         $reportLogin = ReportUserIn::all();
         foreach($reportLogin as $item){
             // $masuk = ReportUserIn::where('')->first();
@@ -54,6 +57,8 @@ class TimeJadwal extends Command
                 'status' => "baru"
             ]);
         }
+
+        LowonganPekerjaan::where('ttp_lowongan','like','%'.$timeNow.'%')->delete();
 
         // $time = date('Y-m-d');
         
