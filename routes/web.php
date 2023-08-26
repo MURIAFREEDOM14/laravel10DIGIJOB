@@ -395,17 +395,19 @@ Route::controller(PerusahaanRecruitmentController::class)->group(function() {
     Route::get('/perusahaan/batal_kandidat_lowongan/{id}','cancelKandidatLowongan');
     Route::post('/perusahaan/batal_kandidat_lowongan/{id}','confirmCancelKandidatLowongan');
 
-    Route::get('/perusahaan/lihat_jadwal_interview/{id}','lihatJadwalInterview')->middleware('perusahaan');
     Route::get('/perusahaan/lihat_kandidat_interview/{id}','lihatKandidatInterview')->middleware('perusahaan');
     Route::get('/perusahaan/jadwal_interview/{id}','jadwalInterview')->middleware('perusahaan');
     Route::post('/perusahaan/jadwal_interview/{id}','confirmJadwalInterview');
     Route::get('/perusahaan/waktu_interview/{id}','waktuInterview')->middleware('perusahaan');
     Route::post('/perusahaan/waktu_interview/{id}','confirmWaktuInterview');
-
-    Route::get('/perusahaan/permohonan_lowongan_pekerjaan/{id}','permohonanLowonganPekerjaan')->middleware('perusahaan');
-    Route::post('/perusahaan/permohonan_lowongan_pekerjaan/{id}','confirmLowonganPekerjaan');    
+    Route::get('/perusahaan/lihat_jadwal_interview/{id}','lihatJadwalInterview')->middleware('perusahaan');
     Route::get('/perusahaan/persetujuan_kandidat','persetujuanKandidat')->middleware('perusahaan');
-    Route::post('/perusahaan/persetujuan_kandidat','confirmPersetujuanKandidat');
+    Route::post('/perusahaan/persetujuan_kandidat','confirmPersetujuanKandidat');    
+    Route::get('/perusahaan/seleksi_kandidat/{id}','seleksiKandidat')->middleware('perusahaan');
+    Route::post('/perusahaan/seleksi_kandidat/{id}','terimaSeleksiKandidat');
+    
+    Route::get('/perusahaan/permohonan_lowongan_pekerjaan/{id}','permohonanLowonganPekerjaan')->middleware('perusahaan');
+    Route::post('/perusahaan/permohonan_lowongan_pekerjaan/{id}','confirmLowonganPekerjaan');        
 });
 
 // DATA KANDIDAT //

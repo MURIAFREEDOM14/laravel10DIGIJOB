@@ -10,7 +10,7 @@
         <div class="card-body">
             <div class="" id="scrollInterview">
                 @foreach ($kandidat as $item)
-                    <div class="card">
+                    <div class="card" style="background-color: aquamarine">
                         <div class="card-body">
                             <div class="text-center" style="border-bottom: 2px solid black; border-top: 2px solid black; text-transform:uppercase;">Data kandidat</div>
                             <div class="row my-3" style="text-transform: uppercase;">
@@ -37,11 +37,25 @@
                             <div class="row my-3" style="text-transform: uppercase;">
                                 <div class="col-md-3">
                                     <label for="" class="" style="font-weight:700">Tanggal Interview</label>
-                                    <p class="" style="font-weight:700">Waktu Interview</p>
+                                    <br>
+                                    <label class="" style="font-weight:700">Waktu Interview</label>
+                                    <br>
+                                    <label for="" class="" style="font-weight:700">Status</label>
                                 </div>
                                 <div class="col-md-9">
                                     <label for="" class="">: {{date('d M Y',strtotime($item->jadwal_interview))}}</label>
-                                    <p class="">: {{$item->waktu_interview_awal}} Sampai {{$item->waktu_interview_akhir}}</p>
+                                    <br>
+                                    <label class="">: {{$item->waktu_interview_awal}} Sampai {{$item->waktu_interview_akhir}}</label>
+                                    <br>
+                                    <label for="" class="">: 
+                                        @if ($item->status == "terjadwal")
+                                            Belum Interview
+                                        @elseif($item->status == "dimulai")
+                                            Sedang Interview
+                                        @elseif($item->status == "berakhir")
+                                            Sudah Interview
+                                        @endif                  
+                                    </label>    
                                 </div>
                             </div>
                             @php
@@ -57,5 +71,34 @@
             </div>
         </div>
     </div>
+    @if ($kandidat_berakhir->count() !== 0)
+        <div class="card">
+            <div class="card-header">
+                <b class="bold">Seleksi kandidat</b>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="">Kandidat Selesai Diinterview</div>
+                    </div>
+                </div>
+                @foreach ($kandidat_berakhir as $data)
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="" class="">Nama Kandidat</label>
+                        </div>
+                        <div class="col-md-8">
+                            <label for="" class="">{{$data->nama}}</label>
+                        </div>
+                    </div>                    
+                @endforeach
+                <div class="row">
+                    <div class="col">
+                        <a class="btn btn-outline-primary float-right" style="border-radius: 20% 0% 20% 0%" href="/perusahaan/seleksi_kandidat/{{$id}}">Seleksi kandidat</a>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    @endif
 </div>    
 @endsection

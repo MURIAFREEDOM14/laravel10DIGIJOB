@@ -34,7 +34,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="">
-                                <div class="text-center" style="background-color:#31ce36;">
+                                <div class="text-center" style="background-color:#31ce36; border-radius: 0% 15% 0% 15%">
                                     <div class="avatar avatar-xxl my-3">
                                         @if ($perusahaan->logo_perusahaan == null)
                                             <img src="/gambar/default_user.png" class="avatar-img rounded-circle" alt="">

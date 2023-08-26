@@ -31,7 +31,6 @@ use App\Models\notifyKandidat;
 use App\Models\messageKandidat;
 use App\Models\notifyAkademi;
 use App\Models\messageAkademi;
-use App\Models\PersetujuanKandidat;
 use App\Models\CreditPerusahaan;
 use App\Models\User;
 use App\Models\FotoKerja;

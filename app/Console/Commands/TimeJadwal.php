@@ -33,9 +33,7 @@ class TimeJadwal extends Command
     }
 
     public function handle()
-    {
-        $timeNow = date('Y-m-d',strtotime(now()));
-        
+    {        
         $reportLogin = ReportUserIn::all();
         foreach($reportLogin as $item){
             // $masuk = ReportUserIn::where('')->first();
@@ -57,9 +55,6 @@ class TimeJadwal extends Command
                 'status' => "baru"
             ]);
         }
-
-        LowonganPekerjaan::where('ttp_lowongan','like','%'.$timeNow.'%')->delete();
-
         // $time = date('Y-m-d');
         
         // $userNewK = User::where('created_at','like','%'.$time.'%')->where('type',0)->count();

@@ -3,13 +3,17 @@
 namespace App\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
+use App\Models\KandidatInterview;
 use App\Models\Pembayaran;
+use App\Models\PersetujuanKandidat;
 use App\Models\Perusahaan;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\notifyPerusahaan;
 use App\Models\messagePerusahaan;
+use App\Models\Interview;
+use App\Models\notifyKandidat;
 
 class ManagerPaymentController extends Controller
 {
@@ -87,6 +91,22 @@ class ManagerPaymentController extends Controller
             'pengirim' => "Admin",
             'kepada' => $pembayaran->nama_perusahaan,
         ]);
+        $interview = Interview::where('id_interview',$pembayaran->id_interview)->first();
+        $kandidat = KandidatInterview::where('id_interview',$interview->id_interview)->get();
+        foreach($kandidat as $key) {
+            PersetujuanKandidat::create([
+                'id_kandidat' => $key->id_kandidat,
+                'nama_kandidat' => $key->nama,
+                'id_perusahaan' => $key->id_perusahaan,
+            ]);
+
+            notifyKandidat::create([
+                'id_kandidat' => $key->id_kandidat,
+                'isi' => "Anda mendapat sebuah undangan interview.",
+                'pengirim' => "Sistem",
+                'url' => '/kandidat',
+            ]);
+        }
         return redirect('/manager/payment/perusahaan')->with('success',"Pembayaran Terverifikasi");
     }
 }

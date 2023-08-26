@@ -1025,7 +1025,7 @@ class ManagerKandidatController extends Controller
         // ]);
         // messageKandidat::create([
         //     'id_kandidat' => $kandidat->id_kandidat,
-        //     'pesan' => "Selamat anda kini telah di terima di Perusahaan ".$perusahaan->nama_perusahaan.". Untuk info selanjutnya, harap untuk selalu memeriksa pesan dari kami.",
+        //     'pesan' => "Selamat!! Anda kini telah di terima di Perusahaan ".$perusahaan->nama_perusahaan.". Untuk info selanjutnya, harap untuk selalu memeriksa pesan dari kami.",
         //     'pengirim' => "Admin",
         //     'kepada' => $kandidat->nama,
         // ]);

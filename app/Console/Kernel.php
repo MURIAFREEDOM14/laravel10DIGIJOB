@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -12,12 +13,14 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\TimeJadwal::class,
+        Commands\TimePerusahaan::class,
     ];
 
      protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
-        $schedule->command('app:time-jadwal')->daily();
+        $schedule->call(function() {Log::info("message");})->everyMinute(); 
+        // $schedule->command('app:time-jadwal')->daily();
+        $schedule->command('app:time-perusahaan')->daily();
     }
 
     /**

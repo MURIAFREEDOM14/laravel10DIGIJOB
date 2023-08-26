@@ -23,7 +23,10 @@ return new class extends Migration
             $table->integer('kesempatan')->nullable();
             $table->date('jadwal_interview')->nullable();
             $table->time('waktu_interview_awal')->nullable(); 
-            $table->time('waktu_interview_akhir')->nullable(); 
+            $table->time('waktu_interview_akhir')->nullable();
+            $table->integer('durasi_interview')->nullable();
+            $table->integer('urutan')->nullable();
+            $table->enum('status',['pilih','terjadwal','dimulai','berakhir'])->default('pilih'); 
             $table->timestamps();
         });
     }
