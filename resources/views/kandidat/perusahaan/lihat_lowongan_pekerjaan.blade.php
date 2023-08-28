@@ -274,13 +274,13 @@
                     <hr>
                 @endif
                 <a href="/kandidat" class="btn btn-danger">Kembali</a>
-                {{-- @if($interview == null)
+                @if($interview == null)
                     @if ($lowongan->id_lowongan == $jabatan)
-                        <a href="/permohonan_lowongan/{{$lowongan->id_lowongan}}" class="btn btn-primary float-right" onclick="return confirm('apakah anda ingin menganti lamaran sebelumnya?')">Melamar</a>                    
+                        <a href="/permohonan_lowongan/{{$lowongan->id_lowongan}}" class="btn btn-primary float-right" onclick="return confirm('apakah anda ingin menganti lamaran sebelumnya?')">Melamar1</a>                    
                     @else
-                        <a href="/permohonan_lowongan/{{$lowongan->id_lowongan}}" class="btn btn-primary float-right">Melamar</a>
+                        <a href="/permohonan_lowongan/{{$lowongan->id_lowongan}}" class="btn btn-primary float-right">Melamar2</a>
                     @endif
-                @endif --}}
+                @endif
                 <div class="float-right">Maaf Sistem pelamar lowongan saat ini sedang dalam perbaikan.</div> 
             </div>
         </div>
