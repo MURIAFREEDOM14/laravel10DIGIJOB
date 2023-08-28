@@ -281,7 +281,7 @@
                         <a href="/permohonan_lowongan/{{$lowongan->id_lowongan}}" class="btn btn-primary float-right">Melamar2</a>
                     @endif
                 @endif
-                <div class="float-right">Maaf Sistem pelamar lowongan saat ini sedang dalam perbaikan.</div> 
+                {{-- <div class="float-right">Maaf Sistem pelamar lowongan saat ini sedang dalam perbaikan.</div>  --}}
             </div>
         </div>
     </div>
