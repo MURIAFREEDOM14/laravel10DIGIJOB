@@ -1317,7 +1317,7 @@ class KandidatController extends Controller
             'rt_perizin' => 'required|max:3|min:3',
             'rw_perizin' => 'required|max:3|min:3',
             'nik_perizin' => 'required|max:16|min:16',
-            'foto_ktp_izin' => 'required|image',
+            'foto_ktp_izin' => 'image',
             'no_telp_perizin' => 'min:10|max:13'
         ]);
         $id = Auth::user();
