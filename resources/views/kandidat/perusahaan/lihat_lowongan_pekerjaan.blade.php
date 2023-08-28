@@ -275,7 +275,7 @@
                 @endif
                 <a href="/kandidat" class="btn btn-danger">Kembali</a>
                 @if($interview == null)
-                    @if ($lowongan->id_lowongan == $jabatan)
+                    @if ($jabatan !== null)
                         <a href="/permohonan_lowongan/{{$lowongan->id_lowongan}}" class="btn btn-primary float-right" onclick="return confirm('apakah anda ingin menganti lamaran sebelumnya?')">Melamar</a>                    
                     @else
                         <a href="/permohonan_lowongan/{{$lowongan->id_lowongan}}" class="btn btn-primary float-right">Melamar</a>

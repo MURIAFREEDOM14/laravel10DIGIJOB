@@ -144,9 +144,9 @@ class KandidatPerusahaanController extends Controller
         $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
-        $permohonan = PermohonanLowongan::where('id_kandidat',$kandidat->id_kandidat)->where('id_lowongan',$id)->first();
+        $permohonan = PermohonanLowongan::where('id_kandidat',$kandidat->id_kandidat)->first();
         $perusahaan = Perusahaan::where('id_perusahaan',$lowongan->id_perusahaan)->first();
-        $kandidat_interview = KandidatInterview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_kandidat',$kandidat->id_kandidat)->first();
+        $kandidat_interview = KandidatInterview::where('id_kandidat',$kandidat->id_kandidat)->first();
         $usia = Carbon::parse($kandidat->tgl_lahir)->age;
         Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
             'usia' => $usia,
@@ -154,7 +154,6 @@ class KandidatPerusahaanController extends Controller
         if($permohonan == null){
             $jabatan = null;
         } else {
-            // dd($permohonan, $kandidat_interview);
             $jabatan = $permohonan->id_lowongan;
         }
         if($kandidat_interview !== null){
