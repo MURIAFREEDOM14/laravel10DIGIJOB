@@ -405,7 +405,8 @@ Route::controller(PerusahaanRecruitmentController::class)->group(function() {
     Route::post('/perusahaan/persetujuan_kandidat','confirmPersetujuanKandidat');    
     Route::get('/perusahaan/seleksi_kandidat/{id}','seleksiKandidat')->middleware('perusahaan');
     Route::post('/perusahaan/seleksi_kandidat/{id}','terimaSeleksiKandidat');
-    
+    Route::get('/perusahaan/tolak_seleksi_kandidat/{id}','tolakSeleksiKandidat')->middleware('perusahaan');
+
     Route::get('/perusahaan/permohonan_lowongan_pekerjaan/{id}','permohonanLowonganPekerjaan')->middleware('perusahaan');
     Route::post('/perusahaan/permohonan_lowongan_pekerjaan/{id}','confirmLowonganPekerjaan');        
 });

@@ -1,5 +1,7 @@
 @extends('layouts.perusahaan')
 @section('content')
+@include('flash_message')
+@include('sweetalert::alert')
     <div class="container mt-5">
         <div class="card">
             <div class="card-header">

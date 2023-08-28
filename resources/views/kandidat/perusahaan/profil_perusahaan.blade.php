@@ -16,12 +16,12 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="card">
-                    <div class="card-header" style="background-color:#31ce36">
+                    <div class="card-header" style="background-color:#31ce36;">
                         <div class="text-white text-center"><b class="" style="text-transform: uppercase;">Foto Perusahaan</b></div>
                     </div>
                     <div class="card-body">
                         <div class="">
-                            <div class="text-center" style="background-color: #31ce36">
+                            <div class="text-center" style="background-color: #31ce36; border-radius:0% 15% 0% 15%">
                                 <div class="avatar avatar-xxl my-3">
                                     @if ($perusahaan->logo_perusahaan == null)
                                         <img src="/gambar/default_user.png" class="avatar-img rounded-circle" alt="">
@@ -40,7 +40,7 @@
                         @endif
                     </div>
                 </div>
-                @if ($kandidat->id_perusahaan == $perusahaan->id_perusahaan && $kandidat->stat_pemilik !== "diambil")
+                @if ($kandidat->id_perusahaan == $perusahaan->id_perusahaan && $kandidat->stat_pemilik == "diambil")
                     <div class="card">
                         <div class="card-body">
                             <div class="">Permohonan Lowongan sudah dikirimkan</div>
@@ -48,7 +48,7 @@
                             <a href="/keluar_perusahaan/{{$perusahaan->id_perusahaan}}" class="btn btn-outline-danger mx-auto" onclick="cancelLowongan(event)">Batalkan Lowongan</a>
                         </div>
                     </div>
-                @elseif($kandidat->id_perusahaan == $perusahaan->id_perusahaan && $kandidat->stat_pemilik == "diambil")
+                @elseif($kandidat->id_perusahaan == $perusahaan->id_perusahaan && $kandidat->stat_pemilik == "diterima")
                     <div class="card">
                         <div class="card-body">
                             <div class="">Keluar Perusahaan</div>
@@ -56,7 +56,6 @@
                             <a href="/keluar_perusahaan/{{$perusahaan->id_perusahaan}}" class="btn btn-outline-danger mx-auto" onclick="outPerusahaan(event)">Keluar Perusahaan</a>
                         </div>
                     </div>
-                @else    
                 @endif
             </div>
             <div class="col-md-9">

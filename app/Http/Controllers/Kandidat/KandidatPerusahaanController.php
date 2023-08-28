@@ -252,7 +252,7 @@ class KandidatPerusahaanController extends Controller
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $perusahaan = Perusahaan::where('id_perusahaan',$id)->first();
-        $interview = Interview::where('id_kandidat',$kandidat->id_kandidat)->where('id_perusahaan',$perusahaan->id_perusahaan)->where('status',"terjadwal")->first();
+        $interview = KandidatInterview::where('id_kandidat',$kandidat->id_kandidat)->where('id_perusahaan',$perusahaan->id_perusahaan)->where('status',"terjadwal")->first();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
         if($interview){
             notifyPerusahaan::create([
@@ -310,7 +310,7 @@ class KandidatPerusahaanController extends Controller
                     'id_kandidat' => $kandidat->id_kandidat,
                     'tmp_bekerja' => $request->tmp_bekerja,
                     'jabatan' => $request->jabatan,
-                    'tgl_kerja' => $request->tgl_kerja,
+                    'tgl_kerja' => $request->tgl_mulai_kerja,
                 ]);
             } else {
                 $validated = $request->validate([
@@ -339,15 +339,16 @@ class KandidatPerusahaanController extends Controller
                 'stat_pemilik' => null,
                 'id_perusahaan' => null,
             ]);
-            Interview::where('id_kandidat',$kandidat->id_kandidat)->where('id_perusahaan',$perusahaan->id_perusahaan)->delete();
+
+            KandidatInterview::where('id_kandidat',$kandidat->id_kandidat)->where('id_perusahaan',$perusahaan->id_perusahaan)->delete();
         }
-        PersetujuanKandidat::where('nama_kandidat',$nama)->where('id_kandidat',$kandidat->id_kandidat)->update([
-            'persetujuan' => $request->persetujuan,
-            'tmp_bekerja' => $request->tmp_bekerja,
-            'jabatan' => $request->jabatan,
-            'tgl_mulai_kerja' => $request->tgl_mulai_kerja,
-            'alasan_lain' => $request->alasan_lain,
-        ]);
+            PersetujuanKandidat::where('nama_kandidat',$nama)->where('id_kandidat',$kandidat->id_kandidat)->update([
+                'persetujuan' => $request->persetujuan,
+                'tmp_bekerja' => $request->tmp_bekerja,
+                'jabatan' => $request->jabatan,
+                'tgl_mulai_kerja' => $request->tgl_mulai_kerja,
+                'alasan_lain' => $request->alasan_lain,
+            ]);
         return redirect('/kandidat')->with('success',"Terima kasih atas konfirmasi anda");
     }
 }

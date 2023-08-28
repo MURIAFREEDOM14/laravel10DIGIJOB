@@ -10,7 +10,7 @@
         <div class="card-body">
             <div class="" id="scrollInterview">
                 @foreach ($kandidat as $item)
-                    <div class="card" style="background-color: aquamarine">
+                    <div class="card">
                         <div class="card-body">
                             <div class="text-center" style="border-bottom: 2px solid black; border-top: 2px solid black; text-transform:uppercase;">Data kandidat</div>
                             <div class="row my-3" style="text-transform: uppercase;">
@@ -71,24 +71,24 @@
             </div>
         </div>
     </div>
-    @if ($kandidat_berakhir->count() !== 0)
+    {{-- @if ($kandidat_berakhir->count() !== 0) --}}
         <div class="card">
             <div class="card-header">
-                <b class="bold">Seleksi kandidat</b>
+                <b class="bold">Kandidat Selesai Diinterview</b>
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="">Kandidat Selesai Diinterview</div>
-                    </div>
-                </div>
-                @foreach ($kandidat_berakhir as $data)
+                {{-- @foreach ($kandidat_berakhir as $data) --}}
+                @foreach ($kandidat as $data)
                     <div class="row">
                         <div class="col-md-4">
-                            <label for="" class="">Nama Kandidat</label>
+                            <label for="" class="" style="text-transform: uppercase; font-weight:400;">Nama Kandidat</label>
+                            <br>
+                            <label for="" style="text-transform: uppercase; font-weight:400">Status</label>
                         </div>
                         <div class="col-md-8">
-                            <label for="" class="">{{$data->nama}}</label>
+                            <label for="" style="font-weight: 400; text-transform:uppercase;" class="">{{$data->nama}}</label>
+                            <br>
+                            <label for="" style="font-weight: 400; text-transform:uppercase">{{$data->status}}</label>
                         </div>
                     </div>                    
                 @endforeach
@@ -99,6 +99,6 @@
                 </div>
             </div>
         </div>    
-    @endif
+    {{-- @endif --}}
 </div>    
 @endsection

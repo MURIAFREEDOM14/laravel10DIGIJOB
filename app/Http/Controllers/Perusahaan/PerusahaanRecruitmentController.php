@@ -573,7 +573,6 @@ class PerusahaanRecruitmentController extends Controller
         if($id_kandidat == null){
             return redirect()->back()->with('error','Anda harus memilih minimal 1 kandidat');
         }
-        
         for($a = 0; $a < count($id_kandidat); $a++){                
             $kandidat = Kandidat::where('id_kandidat',$id_kandidat[$a])->first();
             
@@ -677,20 +676,6 @@ class PerusahaanRecruitmentController extends Controller
             ]);    
         }
         
-        // $total = $kandidat->count();
-        // $payment = 15000 * $total;
-        // $nama_rec = "HAMEPA";
-        // $nomo_rec = 4399997272;
-        // $token = User::where('no_nib',$perusahaan->no_nib)->first();
-        // Pembayaran::create([
-        //     'id_perusahaan' => $perusahaan->id_perusahaan,
-        //     'nama_pembayaran' => $perusahaan->nama_perusahaan,
-        //     'nominal_pembayaran' => $payment,
-        //     'stats_pembayaran' => "belum dibayar",
-        //     'nib' => $perusahaan->no_nib,
-        //     'id_lowongan' => $id,
-        // ]);
-        // Mail::mailer('payment')->to($perusahaan->email_perusahaan)->send(new Payment($perusahaan->nama_perusahaan, $token->token, $payment, 'Pembayaran Interview', 'digijobaccounting@ugiport.com', $nama_rec, $nomo_rec));
         return redirect('/perusahaan/jadwal_interview/'.$id)->with('success','Kandidat Telah ditentukan');
     }
 
@@ -767,42 +752,6 @@ class PerusahaanRecruitmentController extends Controller
                 'durasi_interview' => $durasi[$w],
                 'status' => "terjadwal",
             ]);
-            // $data['id_kandidat'] = $kandidat->id_kandidat;
-            // $data['nama_kandidat'] = $kandidat->nama;
-            // $data['id_perusahaan'] = $perusahaan->id_perusahaan;
-            // PersetujuanKandidat::create($data);
-
-            // notifyKandidat::create([
-            //     'id_kandidat' => $kandidat->id_kandidat,
-            //     'isi' => "Anda mendapat pesan masuk",
-            //     'pengirim' => "Sistem",
-            //     'url' => '/semua_pesan',
-            // ]);
-
-            // messageKandidat::create([
-            //     'id_kandidat' => $kandidat->id_kandidat, 
-            //     'pesan' => "Halo, Anda mendapat undangan interview dari ".$perusahaan->nama_perusahaan.". Apakah anda menyetujuinya?",
-            //     'pengirim' => "Sistem",
-            //     'kepada' => $kandidat->nama,
-            // ]);
-            // $kandidat_akademi = Kandidat::where('id_kandidat',$id_kandidat[$w])->whereNotNull('id_akademi')->first();
-            // if($kandidat_akademi !== null){
-            //     notifyAkademi::create([
-            //         'id_akademi' => $kandidat_akademi->id_akademi,
-            //         'id_kandidat' => $kandidat_akademi->id_kandidat,
-            //         'isi' => "Anda mendapat pesan masuk",
-            //         'pengirim' => "Sistem",
-            //         'url' => '/akademi/semua_notif',
-            //     ]);
-
-            //     messageAkademi::create([
-            //         'id_akademi' => $kandidat_akademi->id_akademi,
-            //         'id_kandidat' => $kandidat_akademi->id_kandidat,
-            //         'pesan' => "Selamat kandidat atas nama ".$kandidat_akademi->nama." telah diterima di ".$perusahaan->nama_perusahaan,
-            //         'pengirim' => "Sistem",
-            //         'kepada' => $kandidat_akademi->id_akademi,
-            //     ]);
-            // }
         }
 
         $total = count($id_kandidat);
@@ -821,7 +770,7 @@ class PerusahaanRecruitmentController extends Controller
             'id_interview' => $interview->id_interview,
         ]);
         Mail::mailer('payment')->to($perusahaan->email_perusahaan)->send(new Payment($perusahaan->nama_perusahaan, $token->token, $payment, 'Pembayaran Interview', 'digijobaccounting@ugiport.com', $nama_rec, $nomo_rec, $bank));
-        return redirect('/perusahaan/list/pembayaran')->with('success',"Interview Success");
+        return redirect('/perusahaan/list/pembayaran')->with('success',"Proses Pembayaran sedang dikirimkan ke email anda.");
     }
 
 
@@ -844,90 +793,91 @@ class PerusahaanRecruitmentController extends Controller
         }
     }
 
-    public function persetujuanKandidat()
-    {
-        $user = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        $kandidat = Kandidat::join(
-            'perusahaan', 'kandidat.id_perusahaan','=','perusahaan.id_perusahaan'
-        )
-        ->join(
-            'persetujuan_kandidat','kandidat.id_kandidat','=','persetujuan_kandidat.id_kandidat'
-        )
-        ->where('kandidat.id_perusahaan',$perusahaan->id_perusahaan)->where('kandidat.stat_pemilik','not like',"diambil")
-        ->get();
-        $isi = $kandidat->count();
-        return view('perusahaan/recruitment/persetujuan_kandidat',compact('perusahaan','notif','pesan','cabang','kandidat','isi','credit'));
-    }
+    // public function persetujuanKandidat()
+    // {
+    //     $user = Auth::user();
+    //     $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+    //     $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+    //     $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+    //     $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+    //     $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+    //     $kandidat = Kandidat::join(
+    //         'perusahaan', 'kandidat.id_perusahaan','=','perusahaan.id_perusahaan'
+    //     )
+    //     ->join(
+    //         'persetujuan_kandidat','kandidat.id_kandidat','=','persetujuan_kandidat.id_kandidat'
+    //     )
+    //     ->where('kandidat.id_perusahaan',$perusahaan->id_perusahaan)->where('kandidat.stat_pemilik','not like',"diambil")
+    //     ->get();
+    //     $isi = $kandidat->count();
+    //     return view('perusahaan/recruitment/persetujuan_kandidat',compact('perusahaan','notif','pesan','cabang','kandidat','isi','credit'));
+    // }
 
-    public function confirmPersetujuanKandidat(Request $request)
-    {        
-        $user = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-        $id_kandidat = $request->menerima;
-        $kandidat_menolak = $request->menolak;
-        $persetujuan = PersetujuanKandidat::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
-        if($id_kandidat == null){
-            return redirect('/perusahaan/persetujuan_kandidat')->with('error',"Maaf belum ada kandidat yang menyetujui");
-        }
-        foreach($persetujuan as $key){
-            if($key->persetujuan == "ya"){
-                Kandidat::where('id_kandidat',$key->id_kandidat)->update([
-                    'stat_pemilik' => "diambil"
-                ]);
-                PersetujuanKandidat::where('id_kandidat',$key->id_kandidat)->delete();
-            } elseif($key->persetujuan == "tidak") {
-                Kandidat::where('id_kandidat',$key->id_kandidat)->update([
-                    'stat_pemilik' => null,
-                    'id_perusahaan' => null,
-                ]);
-                Interview::where('id_kandidat',$key->id_kandidat)->delete();
-            } else {
-                Kandidat::where('id_kandidat',$key->id_kandidat)->update([
-                    'stat_pemilik' => null,
-                    'id_perusahaan' => null,
-                ]);
-                Interview::where('id_kandidat',$key->id_kandidat)->delete();
-                notifyKandidat::create([
-                    'id_kandidat'=>$key->id_kandidat,
-                    'id_perusahaan'=>$key->id_perusahaan,
-                    'isi'=>"",
-                    'pengirim'=>"Admin",
-                    'url'=>'/semua_pesan',
-                ]);
-                messageKandidat::create([
-                    'id_kandidat'=>$key->id_kandidat,
-                    'id_perusahaan'=>$key->id_perusahaan,
-                    'pesan'=>"",
-                    'pengirim'=>"Admin",
-                    'kepada'=>$key->nama_kandidat,
-                ]);
-            }
-        }
-        for($k = 0; $k < count($persetujuan); $k++){
-            if($id_kandidat !== null){
+    // public function confirmPersetujuanKandidat(Request $request)
+    // {        
+    //     $user = Auth::user();
+    //     $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+    //     $id_kandidat = $request->menerima;
+    //     $kandidat_menolak = $request->menolak;
+    //     $persetujuan = PersetujuanKandidat::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+    //     if($id_kandidat == null){
+    //         return redirect('/perusahaan/persetujuan_kandidat')->with('error',"Maaf belum ada kandidat yang menyetujui");
+    //     }
+    //     foreach($persetujuan as $key){
+    //         if($key->persetujuan == "ya"){
+    //             Kandidat::where('id_kandidat',$key->id_kandidat)->update([
+    //                 'stat_pemilik' => "diambil"
+    //             ]);
+    //             PersetujuanKandidat::where('id_kandidat',$key->id_kandidat)->delete();
+    //         } elseif($key->persetujuan == "tidak") {
+    //             Kandidat::where('id_kandidat',$key->id_kandidat)->update([
+    //                 'stat_pemilik' => null,
+    //                 'id_perusahaan' => null,
+    //             ]);
+    //             KandidatInterview::where('id_kandidat',$key->id_kandidat)->delete();
+
+    //         } else {
+    //             Kandidat::where('id_kandidat',$key->id_kandidat)->update([
+    //                 'stat_pemilik' => null,
+    //                 'id_perusahaan' => null,
+    //             ]);
+    //             Interview::where('id_kandidat',$key->id_kandidat)->delete();
+    //             notifyKandidat::create([
+    //                 'id_kandidat'=>$key->id_kandidat,
+    //                 'id_perusahaan'=>$key->id_perusahaan,
+    //                 'isi'=>"",
+    //                 'pengirim'=>"Admin",
+    //                 'url'=>'/semua_pesan',
+    //             ]);
+    //             messageKandidat::create([
+    //                 'id_kandidat'=>$key->id_kandidat,
+    //                 'id_perusahaan'=>$key->id_perusahaan,
+    //                 'pesan'=>"",
+    //                 'pengirim'=>"Admin",
+    //                 'kepada'=>$key->nama_kandidat,
+    //             ]);
+    //         }
+    //     }
+    //     for($k = 0; $k < count($persetujuan); $k++){
+    //         if($id_kandidat !== null){
                 
-            } elseif($kandidat_menolak) {
+    //         } elseif($kandidat_menolak) {
 
-            }
-        }
-        for($t = 0; $t < count($kandidat_menolak); $t++){
-            $tolak['id_kandidat'] = $id_kandidat[$t];
-            Kandidat::where('id_kandidat',$id_kandidat[$t])->update([
-                'stat_pemilik' => null,
-                'id_perusahaan' => null,
-            ]);
-            $kandidat = Kandidat::where('id_kandidat',$id_kandidat[$t])->first();
-            Interview::where('id_kandidat',$kandidat->id_kandidat)->delete();
-            PersetujuanKandidat::where('id_kandidat',$kandidat->id_kandidat)->delete();
+    //         }
+    //     }
+    //     for($t = 0; $t < count($kandidat_menolak); $t++){
+    //         $tolak['id_kandidat'] = $id_kandidat[$t];
+    //         Kandidat::where('id_kandidat',$id_kandidat[$t])->update([
+    //             'stat_pemilik' => null,
+    //             'id_perusahaan' => null,
+    //         ]);
+    //         $kandidat = Kandidat::where('id_kandidat',$id_kandidat[$t])->first();
+    //         Interview::where('id_kandidat',$kandidat->id_kandidat)->delete();
+    //         PersetujuanKandidat::where('id_kandidat',$kandidat->id_kandidat)->delete();
 
-        }
-        return redirect('/perusahaan/interview')->with('success',"kandidat telah ditentukan");
-    }
+    //     }
+    //     return redirect('/perusahaan/interview')->with('success',"kandidat telah ditentukan");
+    // }
 
     public function seleksiKandidat($id)
     {
@@ -938,11 +888,12 @@ class PerusahaanRecruitmentController extends Controller
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
         $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$id)->first();
         $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$lowongan->id_lowongan)->first();
-        $kandidat_interview = KandidatInterview::join(
-            'kandidat', 'kandidat_interviews.id_kandidat','=','kandidat.id_kandidat'
-        )
-        ->where('kandidat_interviews.id_interview',$interview->id_interview)->where('kandidat_interviews.status',"berakhir")->get();
-        return view('perusahaan/lowongan/seleksi_kandidat',compact('perusahaan','lowongan','kandidat_interview','notif','pesan','credit'));
+        $kandidat = KandidatInterview::where('id_interview',$interview->id_interview)->where('id_lowongan',$id)->get();
+        // $kandidat_interview = KandidatInterview::join(
+        //     'kandidat', 'kandidat_interviews.id_kandidat','=','kandidat.id_kandidat'
+        // )
+        // ->where('kandidat_interviews.id_interview',$interview->id_interview)->where('kandidat_interviews.status',"berakhir")->get();
+        return view('perusahaan/lowongan/seleksi_kandidat',compact('perusahaan','lowongan','kandidat','notif','pesan','credit','id'));
     }
 
     public function terimaSeleksiKandidat(Request $request, $id)
@@ -952,9 +903,14 @@ class PerusahaanRecruitmentController extends Controller
         $id_kandidat = $request->id_kandidat;
         $now = date('Y-m-d');
         $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$id)->first();
+        $interview = Interview::where('id_lowongan',$id)->where('id_perusahaan',$perusahaan->id_perusahaan)->first();
+        if($id_kandidat == null){
+            return redirect()->back()->with('error',"Harap pilih setidaknya 1 kandidat");
+        }
         for($k = 0; $k < count($id_kandidat); $k++){
             Kandidat::where('id_kandidat',$id_kandidat[$k])->where('id_perusahaan',$perusahaan->id_perusahaan)->update([
                 'stat_pemilik' => "diterima", 
+                'jabatan_kandidat' => $lowongan->jabatan,
             ]);
 
             $kandidat = Kandidat::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_kandidat',$id_kandidat[$k])->first();
@@ -981,8 +937,33 @@ class PerusahaanRecruitmentController extends Controller
             'id_perusahaan' => $perusahaan->id_perusahaan,
             'isi' => "Selamat!! Ada mendapat kandidat baru di Perusahaan anda.",
             'pengirim' => "Admin",
-            'url' => '/perusahaan/semua_kandidat_perusahaan',
+            'url' => '/perusahaan/list/kandidat',
         ]);
-        
+
+        // KandidatInterview::where('id_interview',$interview->id_interview)->where('id_lowongan',$id)->delete();
+        // Interview::where('id_interview',$interview->id_interview)->delete();
+        return redirect('/perusahaan/semua_kandidat')->with('success',"Selammat!! Anda kini memiliki kandidat baru");
+    }
+
+    public function tolakSeleksiKandidat($id)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$id)->first();
+        $kandidat_interview = KandidatInterview::where('id_interview',$interview->id_interview)->where('id_lowongan',$id)->get();
+        foreach($kandidat_interview as $item){
+            Kandidat::where('id_kandidat',$item->id_kandidat)->update([
+                'stat_pemilik' => null,
+                'id_perusahaan' => null,
+            ]);
+
+            notifyKandidat::create([
+
+            ]);
+
+            messageKandidat::create([
+
+            ]);
+        }
     }
 }

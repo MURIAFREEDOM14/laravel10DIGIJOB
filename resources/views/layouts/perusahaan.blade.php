@@ -445,6 +445,12 @@
                                     </div>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="/perusahaan/list/kandidat">
+                                        <i class="fas fa-pen-square"></i>
+                                        <p>Data kandidat</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="/perusahaan/list/pembayaran">
                                         <i class="fas fa-pen-square"></i>
                                         <p>Data Pembayaran</p>
@@ -640,32 +646,32 @@
                 });
             }
 
-            // function batalData(ev) {
-            //     ev.preventDefault();
-            //     var url = ev.currentTarget.getAttribute('href');
-            //     console.log(url);
-            //     swal({
-            //         title: 'Apakah anda yakin ingin membatalkan?',
-            //         type: 'warning',
-            //         icon: 'warning',
-            //         buttons:{
-            //             confirm: {
-            //                 text : 'Iya',
-            //                 className : 'btn btn-success'
-            //             },
-            //             cancel: {
-            //                 visible: true,
-            //                 className: 'btn btn-danger'
-            //             }
-            //         }
-            //     }).then((Delete) => {
-            //         if (Delete) {
-            //             window.location.href = url;
-            //         } else {
-            //             swal.close();
-            //         }
-            //     });
-            // }
+            function tolakData(ev) {
+                ev.preventDefault();
+                var url = ev.currentTarget.getAttribute('href');
+                console.log(url);
+                swal({
+                    title: 'Apakah anda yakin ingin menolak?',
+                    type: 'warning',
+                    icon: 'warning',
+                    buttons:{
+                        confirm: {
+                            text : 'Iya',
+                            className : 'btn btn-success'
+                        },
+                        cancel: {
+                            visible: true,
+                            className: 'btn btn-danger'
+                        }
+                    }
+                }).then((Delete) => {
+                    if (Delete) {
+                        window.location.href = url;
+                    } else {
+                        swal.close();
+                    }
+                });
+            }
         </script>
         <script type="text/javascript">
             // mata uang lowongan //
