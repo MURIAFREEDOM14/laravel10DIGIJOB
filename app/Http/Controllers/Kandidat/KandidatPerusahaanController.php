@@ -144,9 +144,9 @@ class KandidatPerusahaanController extends Controller
         $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
-        $permohonan = PermohonanLowongan::where('id_kandidat',$kandidat->id_kandidat)->first();
+        $permohonan = PermohonanLowongan::where('id_kandidat',$kandidat->id_kandidat)->where('id_lowongan',$id)->first();
         $perusahaan = Perusahaan::where('id_perusahaan',$lowongan->id_perusahaan)->first();
-        $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_kandidat',$kandidat->id_kandidat)->where('status','like',"terjadwal")->first();
+        $kandidat_interview = KandidatInterview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_kandidat',$kandidat->id_kandidat)->first();
         $usia = Carbon::parse($kandidat->tgl_lahir)->age;
         Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
             'usia' => $usia,
@@ -154,10 +154,10 @@ class KandidatPerusahaanController extends Controller
         if($permohonan == null){
             $jabatan = null;
         } else {
-            $jabatan = $permohonan->jabatan;
+            $jabatan = $permohonan->id_lowongan;
         }
-        if($interview){
-            $interview = $interview;
+        if($kandidat_interview !== null){
+            $interview = $kandidat_interview;
         } else {
             $interview = null;
         }
@@ -221,8 +221,8 @@ class KandidatPerusahaanController extends Controller
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
-        $permohonan = PermohonanLowongan::where('id_kandidat',$kandidat->id_kandidat)->first();
-        if($permohonan !== null){
+        $permohonan = PermohonanLowongan::where('id_kandidat',$kandidat->id_kandidat)->where('id_lowongan',$id)->first();
+        if($permohonan !== null){  
             PermohonanLowongan::where('jabatan',$permohonan->jabatan)->where('id_perusahaan',$lowongan->id_perusahaan)->update([
                 'jabatan' => $lowongan->jabatan,
                 'nama_kandidat' => $kandidat->nama,
@@ -315,9 +315,9 @@ class KandidatPerusahaanController extends Controller
                 $validated = $request->validate([
                     'alasan_lain' => 'required',
                 ]);
-                // $request->validate([
-                //     'alasan_lain' => 'required'
-                // ]);
+                LaporanPekerja::create([
+                    'alasan_lain' => $request->alasan_lain,
+                ]);
             }
             notifyPerusahaan::create([
                 'id_perusahaan' => $kandidat->id_perusahaan,

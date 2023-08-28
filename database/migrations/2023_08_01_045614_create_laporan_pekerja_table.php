@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('tmp_bekerja')->nullable();
             $table->string('jabatan')->nullable();
             $table->date('tgl_kerja')->nullable();
+            $table->text('alasan_lain')->nullable();
             $table->timestamps();
         });
     }

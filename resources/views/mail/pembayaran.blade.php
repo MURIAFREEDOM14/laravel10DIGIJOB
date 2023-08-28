@@ -60,7 +60,7 @@
                 color: inherit !important;
                 text-decoration: none !important;
                 font-size: inherit !important;
-                font-family: Poppin !important;
+                font-family: 'Poppins' !important;
                 font-weight: inherit !important;
                 line-height: inherit !important;
             }
@@ -95,9 +95,9 @@
             </tr>
             <tr>
                 <td bgcolor="blue" align="center" style="padding: 0px 10px 0px 10px;">
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 950px;">
                         <tr>
-                            <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 4px; color: #111111; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 36px; font-weight: 600; letter-spacing: 4px; line-height: 48px;">
+                            <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 36px; font-weight: 600; letter-spacing: 4px; line-height: 48px;">
                                 <h1 style="font-size: 36px; font-weight: 600; margin: 2;">Metode Pembayaran</h1>
                             </td>
                         </tr>
@@ -106,35 +106,52 @@
             </tr>
             <tr>
                 <td bgcolor="#f4f4f4" align="center" style="padding: 0px 10px 0px 10px;">
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; margin-bottom:20px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 950px; margin-bottom:20px;">
                         <tr>
                             <td bgcolor="#ffffff" align="left">
                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                     <tr>
-                                        <td bgcolor="#ffffff" align="center" style="padding: 0px 30px 0px 30px;">
+                                        <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px;">
+                                            <div class="" style="text-transform:uppercase; padding: 0px 30px 10px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;">
+                                                Nama Bank
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 10px 30px;">
+                                            <div class="" style="text-transform:uppercase; padding: 0px 30px 10px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;">
+                                                {{$bank}}
+                                                {{-- {bank} --}}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px;">
                                             <div class="" style="text-transform:uppercase; padding: 0px 30px 10px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;">
                                                 Nama Pembayar
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td bgcolor="#ffffff" align="center" style="padding: 0px 30px 10px 30px;">
+                                        <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 10px 30px;">
                                             <div class="" style="text-transform:uppercase; padding: 0px 30px 10px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;">
                                                 {{$name}}
+                                                {{-- {$name} --}}
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td bgcolor="#ffffff" align="center" style="padding: 0px 30px 0px 30px;">
+                                        <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px;">
                                             <div class="" style="text-transform:uppercase; padding: 0px 30px 10px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;">
                                                 Nominal Pembayaran
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td bgcolor="#ffffff" align="center" style="padding: 0px 30px 10px 30px;">
+                                        <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 10px 30px;">
                                             <div class="" style="text-transform:uppercase; padding: 0px 30px 10px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;">
                                                 {{$payment}}
+                                                {{-- {$payment} --}}
                                             </div>
                                         </td>
                                     </tr>
@@ -153,37 +170,39 @@
                             </td>
                         </tr>
                         <tr>
-                            <td bgcolor="#ffffff" align="center" style="padding: 0px 30px 0px 30px;">
+                            <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px;">
                                 <div class="" style="text-transform:uppercase; padding: 0px 30px 10px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;">
                                     Nama Rekening
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td bgcolor="#ffffff" align="center" style="padding: 0px 30px 10px 30px;">
+                            <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 10px 30px;">
                                 <div class="" style="text-transform:uppercase; padding: 0px 30px 10px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;">
                                     {{$namarec}}
+                                    {{-- {$namarec} --}}
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td bgcolor="#ffffff" align="center" style="padding: 0px 30px 0px 30px;">
+                            <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px;">
                                 <div class="" style="text-transform:uppercase; padding: 0px 30px 10px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;">
                                     Nomor Rekening
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td bgcolor="#ffffff" align="center" style="padding: 0px 30px 10px 30px;">
+                            <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 10px 30px;">
                                 <div class="" style="text-transform:uppercase; padding: 0px 30px 10px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;">
                                     {{$nomorec}}
+                                    {{-- {$nomorec} --}}
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td bgcolor="white" align="center" style="padding: 0px 30px 0px 30px;">
-                                <h3 class="">Pemberitahuan</h3>
-                                <div class="">Informasi rekening diatas digunakan untuk anda melakukan pembayaran menggunakan rekening bank. Silahkan anda melakukan transfer melalui no rekening diatas. Jika anda sudah selesai melakukan tranfer, harap untuk mengambil foto sebagai bukti pembayaran, lalu silahkan untuk menuju link dibawah ini untuk konfirmasi pembayaran.</div>
+                                <h3 class="" style="font-family: poppins">Pemberitahuan</h3>
+                                <div class="" style="font-family: poppins">Informasi rekening diatas digunakan untuk anda melakukan pembayaran menggunakan rekening bank. Silahkan anda melakukan transfer melalui no rekening diatas. Jika anda sudah selesai melakukan tranfer, harap untuk mengambil foto sebagai bukti pembayaran, lalu silahkan untuk menuju link dibawah ini untuk konfirmasi pembayaran.</div>
                             </td>
                         </tr>
                         <tr>

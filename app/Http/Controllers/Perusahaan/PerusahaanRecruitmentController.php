@@ -807,7 +807,8 @@ class PerusahaanRecruitmentController extends Controller
 
         $total = count($id_kandidat);
         $payment = 15000 * $total;
-        $nama_rec = "HAMEPA";
+        $nama_rec = "PT HARAPAN MENTARI PAGI";
+        $bank = "PT Bank Central Asia Tbk";
         $nomo_rec = 4399997272;
         $token = User::where('no_nib',$perusahaan->no_nib)->first();
         Pembayaran::create([
@@ -819,7 +820,7 @@ class PerusahaanRecruitmentController extends Controller
             'id_lowongan' => $id,
             'id_interview' => $interview->id_interview,
         ]);
-        Mail::mailer('payment')->to($perusahaan->email_perusahaan)->send(new Payment($perusahaan->nama_perusahaan, $token->token, $payment, 'Pembayaran Interview', 'digijobaccounting@ugiport.com', $nama_rec, $nomo_rec));
+        Mail::mailer('payment')->to($perusahaan->email_perusahaan)->send(new Payment($perusahaan->nama_perusahaan, $token->token, $payment, 'Pembayaran Interview', 'digijobaccounting@ugiport.com', $nama_rec, $nomo_rec, $bank));
         return redirect('/perusahaan/list/pembayaran')->with('success',"Interview Success");
     }
 

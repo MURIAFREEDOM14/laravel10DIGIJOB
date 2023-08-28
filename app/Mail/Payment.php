@@ -21,11 +21,12 @@ class Payment extends Mailable
     public $payment;
     public $namarec;
     public $nomorec;
+    public $bank;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($nama, $token, $payment, $subject, $fromEmail, $namarec,$nomorec)
+    public function __construct($nama, $token, $payment, $subject, $fromEmail, $namarec,$nomorec, $bank)
     {
         $this->name = $nama;
         $this->token = $token;
@@ -34,6 +35,7 @@ class Payment extends Mailable
         $this->fromEmail = $fromEmail;
         $this->namarec = $namarec;
         $this->nomorec = $nomorec;
+        $this->bank = $bank;
         $this->fromName = "DIGIJOB-UGIPORT";
     }
 

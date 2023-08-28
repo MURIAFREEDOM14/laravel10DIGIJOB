@@ -909,13 +909,15 @@ class ManagerController extends Controller
                 // });    
             }
         } elseif($request->type == 1) {
-            $namarec = "Hamepa";
+            $namarec = "PT HARAPAN MENTARI PAGI";
+            $bank = "PT Bank Central Asia Tbk";
             $nomorec = 4399997272;
             $payment = 0;
+            $token = $pengguna->token;
             if($pengguna->type == 2){
-                Mail::mailer('payment')->to($request->email)->send(new Payment($pengguna->name_perusahaan, $payment, 'Pembayaran', 'digijobaccounting@ugiport.com', $namarec, $nomorec));
+                Mail::mailer('payment')->to($request->email)->send(new Payment($pengguna->name_perusahaan, $token, $payment, 'Pembayaran Interview', 'digijobaccounting@ugiport.com', $namarec, $nomorec, $bank));
             } else {
-                Mail::mailer('payment')->to($request->email)->send(new Payment($pengguna->name, $payment, 'Pembayaran', 'digijobaccounting@ugiport.com', $namarec, $nomorec));
+                Mail::mailer('payment')->to($request->email)->send(new Payment($pengguna->name, $token, $payment, 'Pembayaran Akun Prioritas', 'digijobaccounting@ugiport.com', $namarec, $nomorec, $bank));
             }
         } elseif($request->type == 2) {
             $alamat = $pengguna->kabupaten;

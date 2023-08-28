@@ -643,6 +643,8 @@ Route::controller(MailController::class)->group(function() {
     Route::get('send_email','sendEmail');
 });
 
+Route::view('/pembayaran','mail.pembayaran');
+
 Route::post('/kirim_email', [MailController::class, 'index']);
 Route::get('/user_referral', [ReferralController::class, 'user_referral'])->middleware('verify')->name('user_referral');
 
