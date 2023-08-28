@@ -285,6 +285,7 @@ class KandidatPerusahaanController extends Controller
         PermohonanLowongan::where('id_kandidat',$kandidat->id_kandidat)->where('id_perusahaan',$perusahaan->id_perusahaan)->delete();
         KandidatInterview::where('id_kandidat',$kandidat->id_kandidat)->where('id_perusahaan',$perusahaan->id_perusahaan)->delete();
         PersetujuanKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('id_perusahaan',$perusahaan->id_perusahaan)->delete();
+        KandidatInterview::where('id_kandidat',$kandidat->id_kandidat)->delete();
         Kandidat::where('id_perusahaan',$id)->where('id_kandidat',$kandidat->id_kandidat)->update([
             'id_perusahaan' => null,
             'stat_pemilik' => null
