@@ -40,10 +40,19 @@
                         @endif
                     </div>
                 </div>
-                @if ($kandidat->id_perusahaan == $perusahaan->id_perusahaan && $kandidat->stat_pemilik == "diambil")
+                @if($kandidat_interview !== null)
                     <div class="card">
                         <div class="card-body">
-                            <div class="">Permohonan Lowongan sudah dikirimkan</div>
+                            <div class="">Jadwal Interview Anda : </div>
+                            <div class="">{{date('d M Y',strtotime($kandidat_interview->jadwal_interview))}}</div>
+                            <div class="">Waktu Interview Anda :</div>
+                            <div class="">{{$kandidat_interview->waktu_interview_awal}} Sampai {{$kandidat_interview->waktu_interview_akhir}}</div>
+                        </div>
+                    </div>
+                @elseif ($kandidat->id_perusahaan == $perusahaan->id_perusahaan && $kandidat->stat_pemilik == "diambil")
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="">Permohonan Lowongan anda sedang dalam proses</div>
                             <hr>
                             <a href="/keluar_perusahaan/{{$perusahaan->id_perusahaan}}" class="btn btn-outline-danger mx-auto" onclick="cancelLowongan(event)">Batalkan Lowongan</a>
                         </div>
@@ -52,8 +61,6 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="">Anda harus memiliki persetujuan dari perusahaan untuk keluar perusahaan ini</div>
-                            {{-- <hr>
-                            <a href="/keluar_perusahaan/{{$perusahaan->id_perusahaan}}" class="btn btn-outline-danger mx-auto" onclick="outPerusahaan(event)">Keluar Perusahaan</a> --}}
                         </div>
                     </div>
                 @elseif($kandidat->id_perusahaan == $perusahaan->id_perusahaan || $kandidat->id_perusahaan !== null)
@@ -132,30 +139,6 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header" style="background-color:#31ce36">
-                        <div class="text-center text-white" style="text-transform:uppercase;"><b>Negara Tujuan</b></div>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            @foreach ($penempatan as $item)
-                                <div class="col-4 text-center">
-                                    <a class="" href="/lihat/perusahaan/pekerjaan/{{$item->negara_id}}/{{$perusahaan->nama_perusahaan}}">
-                                        <div class="card">
-                                            <div class="card-body btn btn-outline-success">
-                                                <div class="btn">{{$item->nama_negara}}</div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>    
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
         <div class="row">
             <div class="col-12">
                 <div class="card">
