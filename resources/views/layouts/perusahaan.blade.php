@@ -445,7 +445,7 @@
                                     </div>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="/perusahaan/list/kandidat">
+                                    <a href="/perusahaan/semua/kandidat">
                                         <i class="fas fa-pen-square"></i>
                                         <p>Data kandidat</p>
                                     </a>

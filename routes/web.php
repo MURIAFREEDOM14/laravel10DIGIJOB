@@ -332,8 +332,9 @@ Route::controller(PerusahaanController::class)->group(function(){
     Route::post('/perusahaan/payment/{id}','paymentCheck');
 
     // DATA KANDIDAT //
-    Route::get('/perusahaan/list/kandidat','kandidat')->middleware('perusahaan');
-    // Route::post('/perusahaan/list/kandidat','cariKandidat');
+    Route::get('/perusahaan/semua/kandidat','semuaKandidat')->middleware('perusahaan');
+    Route::get('/perusahaan/list/kandidat/lowongan/{id}','listKandidatLowongan')->middleware('perusahaan');
+    Route::post('/perusahaan/list/kandidat/lowongan/{id}','cariKandidatLowongan');
     Route::get('/perusahaan/cari/kandidat','pencarianKandidat')->middleware('perusahaan');
     Route::post('/perusahaan/cari/kandidat','cariKandidat');
     Route::post('/perusahaan/pilih/kandidat','pilihKandidat');
@@ -396,13 +397,18 @@ Route::controller(PerusahaanRecruitmentController::class)->group(function() {
     Route::post('/perusahaan/batal_kandidat_lowongan/{id}','confirmCancelKandidatLowongan');
 
     Route::get('/perusahaan/lihat_kandidat_interview/{id}','lihatKandidatInterview')->middleware('perusahaan');
+    
     Route::get('/perusahaan/jadwal_interview/{id}','jadwalInterview')->middleware('perusahaan');
     Route::post('/perusahaan/jadwal_interview/{id}','confirmJadwalInterview');
+    
     Route::get('/perusahaan/waktu_interview/{id}','waktuInterview')->middleware('perusahaan');
     Route::post('/perusahaan/waktu_interview/{id}','confirmWaktuInterview');
+    
+    Route::get('/perusahaan/persetujuan_kandidat/{id}','persetujuanKandidat')->middleware('perusahaan');
+    Route::post('/perusahaan/persetujuan_kandidat/{id}','confirmPersetujuanKandidat');    
+    
     Route::get('/perusahaan/lihat_jadwal_interview/{id}','lihatJadwalInterview')->middleware('perusahaan');
-    Route::get('/perusahaan/persetujuan_kandidat','persetujuanKandidat')->middleware('perusahaan');
-    Route::post('/perusahaan/persetujuan_kandidat','confirmPersetujuanKandidat');    
+    
     Route::get('/perusahaan/seleksi_kandidat/{id}','seleksiKandidat')->middleware('perusahaan');
     Route::post('/perusahaan/seleksi_kandidat/{id}','terimaSeleksiKandidat');
     Route::get('/perusahaan/tolak_seleksi_kandidat/{id}','tolakSeleksiKandidat')->middleware('perusahaan');

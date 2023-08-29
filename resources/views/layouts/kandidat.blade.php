@@ -389,13 +389,15 @@
                                     </div>
                                 </li>
                             @endif
-                            <li class="nav-item">
-                                <a class="btn" href="/list_lowongan_pekerjaan">
-                                    <i class="fas fa-clipboard-list"></i>
-                                    {{-- <i class="fas fa-crown" style="color: yellow"></i> --}}
-                                    <p>Lowongan Pekerjaan</p>
-                                </a>
-                            </li>
+                            @if ($kandidat->stat_pemilik !== "diambil")
+                                <li class="nav-item">
+                                    <a class="btn" href="/list_lowongan_pekerjaan">
+                                        <i class="fas fa-clipboard-list"></i>
+                                        {{-- <i class="fas fa-crown" style="color: yellow"></i> --}}
+                                        <p>Lowongan Pekerjaan</p>
+                                    </a>
+                                </li>    
+                            @endif
                             <li class="nav-item">
                                 <a class="btn disabled" href="/video_pelatihan">
                                     <i class="fas fa-clipboard-list"></i>

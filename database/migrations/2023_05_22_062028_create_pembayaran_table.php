@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('nominal_pembayaran')->nullable();
             $table->string('foto_pembayaran')->nullable();
             $table->enum('stats_pembayaran',['belum dibayar','sudah dibayar'])->nullable();
+            $table->integer('id_lowongan')->nullable();
+            $table->integer('id_interview')->nullable();
             $table->timestamps();
         });
     }

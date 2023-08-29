@@ -41,7 +41,8 @@
                             <button class="btn btn-success float-right" type="submit" id="">Konfirmasi kandidat</button>    
                             <a class="btn btn-danger float-right mx-1" href="/perusahaan/batal_kandidat_lowongan/{{$id}}">Batalkan kandidat</a>                            
                         @elseif($pembayaran !== null)
-                            <a class="btn btn-warning float-right" href="/perusahaan/lihat_jadwal_interview/{{$id}}">Lihat Jadwal Interview</a>                        
+                            {{-- <a class="btn btn-warning float-right" href="/perusahaan/persetujuan_kandidat/{{$id}}">Lihat Persetujuan Kandidat</a>                         --}}
+                            <a class="btn btn-warning float-right mx-1" href="/perusahaan/lihat_jadwal_interview/{{$id}}">Lihat Jadwal Interview</a>                        
                         @else
                             <a class="float-right btn btn-warning" href="/perusahaan/list/pembayaran">Selesaikan Pembayaran</a>
                         @endif

@@ -21,6 +21,8 @@ return new class extends Migration
             $table->date('tgl_mulai_kerja')->nullable();
             $table->text('alasan_lain')->nullable();
             $table->integer('id_perusahaan')->nullable();
+            $table->integer('id_interview')->nullable();
+            $table->integer('id_lowongan')->nullable();
             // $table->timestamps();
         });
     }

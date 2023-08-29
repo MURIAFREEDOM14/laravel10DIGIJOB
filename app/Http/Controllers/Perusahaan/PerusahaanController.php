@@ -585,17 +585,36 @@ class PerusahaanController extends Controller
     }
 
     // DATA KANDIDAT //
-    public function kandidat()
+    public function semuaKandidat()
     {
-        $id = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        $kandidat = Kandidat::where('id_perusahaan',$perusahaan->id_perusahaan)->where('stat_pemilik','diterima')->get();        
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        $kandidat = Kandidat::where('id_perusahaan',$perusahaan->id_perusahaan)->where('stat_pemilik','like','%diterima%')->get();
         $isi = $kandidat->count();
+        return view('perusahaan/kandidat/kandidat',compact('perusahaan','notif','pesan','credit','kandidat','isi'));
+    }
+
+    public function listKandidatLowongan($id)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/kandidat/kandidat',compact('kandidat','perusahaan','isi','notif','pesan','cabang','credit'));
+        $semua_lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
+        $kandidat = Kandidat::where('id_perusahaan',$perusahaan->id_perusahaan)->where('stat_pemilik','diterima')->where('jabatan_kandidat','like','%'.$lowongan->jabatan.'%')->get();        
+        $isi = $kandidat->count();
+        return view('perusahaan/kandidat/lowongan_kandidat',compact('kandidat','perusahaan','isi','notif','pesan','cabang','credit','lowongan','semua_lowongan','id'));
+    }
+
+    public function cariKandidatLowongan(Request $request, $id)
+    {
+        return redirect('/perusahaan/list/kandidat/lowongan/'.$request->id_lowongan);
     }
 
     public function lihatProfilKandidat($id)
@@ -809,9 +828,9 @@ class PerusahaanController extends Controller
         $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
         $foto_pembayaran = $perusahaan->nama_perusahaan.time().'.'.$request->foto_pembayaran->extension();  
         $simpan_pembayaran = $request->file('foto_pembayaran');
-        $simpan_pembayaran->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Pembayaran/',$perusahaan->nama_perusahaan.time().'.'.$simpan_pembayaran->extension());
+        $simpan_pembayaran->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Pembayaran/',$foto_pembayaran);
         $pembayaran = Pembayaran::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_pembayaran',$id)->update([
-            'foto_pembayaran'=>$foto_pembayaran
+            'foto_pembayaran'=>$foto_pembayaran,
         ]);
         return redirect('/perusahaan')->with('success','Metode pembayaran sedang diproses mohon tunggu');
     }    

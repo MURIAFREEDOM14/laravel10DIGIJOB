@@ -78,19 +78,38 @@ class ManagerPaymentController extends Controller
             'perusahaan', 'pembayaran.id_perusahaan','=','perusahaan.id_perusahaan'
         )
         ->where('pembayaran.id_pembayaran',$id)->first();
-
-        notifyPerusahaan::create([
-            'id_perusahaan' => $pembayaran->id_perusahaan,
-            'isi' => "Anda mendapat pesan masuk",
-            'pengirim' => "Sistem",
-            'url' => '/perusahaan/semua_pesan',
-        ]);
-        messagePerusahaan::create([
-            'id_perusahaan' => $pembayaran->id_perusahaan,
-            'pesan' => "Selamat pembayaran anda telah dikonfirmasi. Harap tunggu hingga waktu interview tiba",
-            'pengirim' => "Admin",
-            'kepada' => $pembayaran->nama_perusahaan,
-        ]);
+        if($request->stats_pembayaran == "sudah dibayar"){
+            notifyPerusahaan::create([
+                'id_perusahaan' => $pembayaran->id_perusahaan,
+                'isi' => "Anda mendapat pesan masuk",
+                'pengirim' => "Sistem",
+                'url' => '/perusahaan/semua_pesan',
+            ]);
+            messagePerusahaan::create([
+                'id_perusahaan' => $pembayaran->id_perusahaan,
+                'pesan' => "Selamat pembayaran anda telah dikonfirmasi. Harap tunggu hingga waktu interview tiba",
+                'pengirim' => "Admin",
+                'kepada' => $pembayaran->nama_perusahaan,
+            ]);
+        } else {
+            Pembayaran::where('id_pembayaran',$id)->update([
+                'stats_pembayaran' => $request->stats_pembayaran,
+                'foto_pembayaran' => null,
+            ]);
+            notifyPerusahaan::create([
+                'id_perusahaan' => $pembayaran->id_perusahaan,
+                'isi' => "Anda mendapat pesan masuk",
+                'pengirim' => "Sistem",
+                'url' => '/perusahaan/semua_pesan',
+            ]);
+            messagePerusahaan::create([
+                'id_perusahaan' => $pembayaran->id_perusahaan,
+                'pesan' => "Bukti pembayaran anda masih belum cocok. Silahkan mengirimkan bukti pembayaran yang valid dan benar.",
+                'pengirim' => "Admin",
+                'kepada' => $pembayaran->nama_perusahaan,
+            ]);
+        }
+        
         $interview = Interview::where('id_interview',$pembayaran->id_interview)->first();
         $kandidat = KandidatInterview::where('id_interview',$interview->id_interview)->get();
         foreach($kandidat as $key) {
@@ -98,6 +117,8 @@ class ManagerPaymentController extends Controller
                 'id_kandidat' => $key->id_kandidat,
                 'nama_kandidat' => $key->nama,
                 'id_perusahaan' => $key->id_perusahaan,
+                'id_lowongan' => $interview->id_lowongan,
+                'id_interview' => $interview->id_interview,
             ]);
 
             notifyKandidat::create([

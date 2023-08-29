@@ -244,6 +244,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
+                            <input type="text" hidden name="persetujuan_id" value="{{$persetujuan->persetujuan_id}}" id="">
                             <div class="text-center" id="terimaInterview">
                                 <h4 class="">Selamat anda mendapatkan udangan interview dari {{$persetujuan->nama_perusahaan}}</h4>
                                 <h5 class="">Apakah anda ingin menyetujuinya?</h5>

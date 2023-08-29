@@ -80,7 +80,17 @@
                                     : {{$kandidat->kabupaten}}
                             </b>
                         </div>
-                    </div>                                
+                    </div>
+                    @if ($kandidat->stat_pemilik == "diterima")
+                        <div class="row" style="line-height:20px">
+                            <div class="col-sm-4">
+                                <b class="bold">Jabatan Pekerjaan</b>
+                            </div>
+                            <div class="col-sm-5">
+                                <b class="bold">: {{$kandidat->jabatan_kandidat}}</b>
+                            </div>
+                        </div>    
+                    @endif
                 </div>
                 <div class="col-md-3">
                     <div class="float-right mt--5">

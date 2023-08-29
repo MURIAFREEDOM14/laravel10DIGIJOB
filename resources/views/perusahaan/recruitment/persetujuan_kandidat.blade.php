@@ -12,12 +12,12 @@
                     <form action="" method="POST">
                         @csrf
                         <div class="row">
-                            @foreach ($kandidat as $item)
+                            @foreach ($persetujuan as $item)
                                 @if ($item->persetujuan !== "tidak")
                                     <div class="col-4">
                                         <div class="card">
                                             <div class="card-header">
-                                                {{$item->nama}}
+                                                {{$item->nama_kandidat}}
                                                 <span class="float-right">
                                                     @if ($item->persetujuan == "ya")
                                                         <i class="far fa-check-circle" style="color: green"></i>                                            
@@ -47,7 +47,7 @@
                                 @endif
                             @endforeach
                         </div>
-                        <button type="submit" class="btn btn-primary">Tentukan Jadwal Interview</button>
+                        <button type="submit" class="btn btn-primary">Konfirmasi</button>
                     </form>
                 @else
                     <div class="row">
