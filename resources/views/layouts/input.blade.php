@@ -102,7 +102,6 @@
         function beranda(ev){
           ev.preventDefault();
           var url = ev.currentTarget.getAttribute('href');
-          console.log(url);
           swal({
               title: 'Apakah anda yakin ingin kembali ke beranda?',
               type: 'warning',
@@ -131,7 +130,6 @@
         {
           ev.preventDefault();
           var url = ev.currentTarget.getAttribute('href');
-          console.log(url);
           swal({
               title: 'Apakah anda yakin ingin keluar?',
               type: 'warning',
@@ -160,7 +158,6 @@
         {
           ev.preventDefault();
           var url = ev.currentTarget.getAttribute('href');
-          console.log(url);
           swal({
               title: 'Apakah anda yakin ingin Menghapus data ini?',
               type: 'warning',
@@ -202,7 +199,6 @@
             var pengalaman = $(this).val();
             var v = document.getElementById('video_pengalaman');
             var f = document.getElementById('foto_pengalaman');
-            console.log(pengalaman);
             if (pengalaman == "video") {
               v.style.display = 'block';
               f.style.display = 'none';

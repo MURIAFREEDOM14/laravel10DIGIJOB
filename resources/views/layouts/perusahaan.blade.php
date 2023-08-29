@@ -593,7 +593,6 @@
                 {
                 ev.preventDefault();
                 var url = ev.currentTarget.getAttribute('href');
-                console.log(url);
                 swal({
                     title: 'Apakah anda yakin ingin keluar?',
                     type: 'warning',
@@ -622,7 +621,6 @@
             {
                 ev.preventDefault();
                 var url = ev.currentTarget.getAttribute('href');
-                console.log(url);
                 swal({
                     title: 'Apakah anda yakin ingin menghapus data ini?',
                     type: 'warning',
@@ -649,7 +647,6 @@
             function tolakData(ev) {
                 ev.preventDefault();
                 var url = ev.currentTarget.getAttribute('href');
-                console.log(url);
                 swal({
                     title: 'Apakah anda yakin ingin menolak?',
                     type: 'warning',
@@ -681,13 +678,11 @@
                     var sp1 = document.getElementById("mata_uang1");
                     var sp2 = document.getElementById("mata_uang2");
                     var div = $(this).parent();
-                    console.log(negara);
                     $.ajax({
                         type:'get',
                         url:'{!!URL::to('/lowongan_negara')!!}',
                         data:{'negara':negara},
                         success:function(data){
-                            console.log(data.mata_uang);
                             sp1.textContent = data.mata_uang;
                             sp2.textContent = data.mata_uang;
                         }
@@ -740,7 +735,6 @@
                     url:'{!!URL::to('/benefit')!!}',
                     data:{'data':input},
                     success:function (data) {
-                        console.log(data.length);                        
                         benefit.style.display = 'none';
                         tambah.style.display = 'block';
                         location.reload();
@@ -771,7 +765,6 @@
                     url:'{!!URL::to('/fasilitas')!!}',
                     data:{'data':input},
                     success:function (data) {
-                        console.log(data.length);
                         fasilitas.style.display = 'none';
                         tambah.style.display = 'block';
                         location.reload();
@@ -783,10 +776,8 @@
             $(document).ready(function() {
                 $(document).on('change','#ideal', function() {
                     var ideal = this.value;
-                    console.log(ideal);
                     var btnUsia = document.getElementById('ideal').value;
                     var custom = document.getElementById('random');
-                    console.log(btnUsia);
                     if (btnUsia === 'kustom') {
                         custom.style.display = 'block';
                     } else {

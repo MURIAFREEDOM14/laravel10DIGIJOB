@@ -541,7 +541,6 @@
                 {
                 ev.preventDefault();
                 var url = ev.currentTarget.getAttribute('href');
-                console.log(url);
                 swal({
                     title: 'Apakah anda yakin ingin keluar?',
                     type: 'warning',
@@ -571,7 +570,6 @@
             {
                 ev.preventDefault();
                 var url = ev.currentTarget.getAttribute('href');
-                console.log(url);
                 swal({
                     title: 'Apakah anda yakin ingin Masuk lowongan ini?',
                     type: 'warning',
@@ -601,7 +599,6 @@
             {
                 ev.preventDefault();
                 var url = ev.currentTarget.getAttribute('href');
-                console.log(url);
                 swal({
                     title: 'Apakah anda yakin ingin Membatalkan lowongan ini?',
                     type: 'warning',
@@ -631,7 +628,6 @@
             {
                 ev.preventDefault();
                 var url = ev.currentTarget.getAttribute('href');
-                console.log(url);
                 swal({
                     title: 'Apakah anda yakin ingin Keluar dari perusahaan ini?',
                     type: 'warning',
@@ -660,7 +656,6 @@
             {
                 ev.preventDefault();
                 var url = ev.currentTarget.getAttribute('href');
-                console.log(url);
                 swal({
                     title: 'Apakah anda yakin ingin Menghapus data ini?',
                     type: 'warning',
@@ -688,9 +683,7 @@
             // Negara Tujuan //
             $(document).ready(function() {
                 $(document).on('change','#placement',function() {
-                    console.log("ditekan");
                     var getID = $(this).val();
-                    console.log(getID);
                     var div = $(this).parent();
                     var op = "";
                     var x = document.getElementById('hidetext');
@@ -702,7 +695,6 @@
                             url:'{!!URL::to('/penempatan')!!}',
                             data:{'stats':getID},
                             success:function (data) {
-                                console.log(data.length);
                                 x.style.display = 'block';
                                 y.style.display = 'block';
                                 btn.style.display = 'block';
@@ -712,7 +704,6 @@
                                 }
                                 div.find('#negara_tujuan').html(" ");
                                 div.find('#negara_tujuan').append(op);
-                                console.log(op);
                             },
                             error:function() {
 
@@ -725,7 +716,6 @@
                         op+='<option value="2" selected> Indonesia </option>';
                         div.find('#negara_tujuan').html(" ");
                         div.find('#negara_tujuan').append(op);
-                        console.log(op);
                     }
                 })
             });
@@ -749,9 +739,7 @@
 
             $(document).ready(function() {
                 $(document).on('change','#tolakInterview',function() {
-                    console.log("ditekan");
                     var getID = $(this).val();
-                    console.log(getID);
                     var div = $(this).parent();
                     var op = "";
                     var b = document.getElementById('bekerja');
