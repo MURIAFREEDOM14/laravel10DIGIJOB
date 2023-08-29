@@ -644,6 +644,33 @@
                 });
             }
 
+            function keluarkanKandidat(ev)
+            {
+                ev.preventDefault();
+                var url = ev.currentTarget.getAttribute('href');
+                swal({
+                    title: 'Apakah anda yakin ingin mengeluarkan kandidat ini?',
+                    type: 'warning',
+                    icon: 'warning',
+                    buttons:{
+                        confirm: {
+                            text : 'Iya',
+                            className : 'btn btn-success'
+                        },
+                        cancel: {
+                            visible: true,
+                            className: 'btn btn-danger'
+                        }
+                    }
+                }).then((Delete) => {
+                    if (Delete) {
+                        window.location.href = url;
+                    } else {
+                        swal.close();
+                    }
+                });
+            }
+
             function tolakData(ev) {
                 ev.preventDefault();
                 var url = ev.currentTarget.getAttribute('href');

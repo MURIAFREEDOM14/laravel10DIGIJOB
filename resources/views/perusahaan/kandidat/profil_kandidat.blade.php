@@ -147,6 +147,9 @@
                     </div>
                 </div>
             </div>
+            @if ($kandidat->stat_pemilik == "diterima")
+                <a href="/perusahaan/keluarkan_kandidat_perusahaan/{{$kandidat->id_kandidat}}/{{$kandidat->nama}}" class="btn btn-danger float-right" onclick="keluarkanKandidat(event)">Keluarkan Kandidat</a>                
+            @endif
             <a href="/perusahaan/list_permohonan_lowongan" class="btn btn-primary">Kembali</a>
         </div>        
     </div>

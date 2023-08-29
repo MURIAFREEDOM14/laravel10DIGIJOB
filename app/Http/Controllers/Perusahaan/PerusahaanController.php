@@ -646,6 +646,30 @@ class PerusahaanController extends Controller
         ));
     }
 
+    public function keluarkanKandidatPerusahaan($id, $nama)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        Kandidat::where('id_kandidat',$id)->where('stat_pemilik',"diterima")->where('id_perusahaan',$perusahaan->id_perusahaan)->update([
+            'stat_pemilik' => null,
+            'id_perusahaan' => null,
+            'jabatan_kandidat' => null,
+        ]);
+        notifyKandidat::create([
+            'id_kandidat' => $id,
+            'isi' => "Anda mendapat pesan dari perusahaan",
+            'pengirim' => "Sistem",
+            'url' => '/semua_pesan',
+        ]);
+        messageKandidat::create([
+            'id_kandidat' => $id,
+            'pesan' => "Mohon maaf, Anda telah dikeluarkan dari perusahan ".$perusahaan->nama_perusahaan.". ",
+            'pengirim' => "Admin",
+            'kepada' => $nama,
+        ]);
+        return redirect('/perusahaan/semua/kandidat')->with('success',"Kandidat telah diusir dari perusahaan anda");
+    }
+
     public function galeriKandidat($id)
     {
         $auth = Auth::user();

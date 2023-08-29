@@ -29,9 +29,14 @@
                                         <div class=" mb-1">
                                             <a class="btn btn-info" style="width:100%" href="/perusahaan/kandidat_lowongan_dipilih/{{$item->id_lowongan}}">Dipilih</a>
                                         </div>
-                                        {{-- <div class=" mb-1">
-                                            <a class="btn btn-warning" style="width: 100%" href="/perusahaan/jadwal_interview/{{$item->id_lowongan}}">Interview</a>
-                                        </div>     --}}
+                                        @if ($interview)
+                                            @if ($interview->id_lowongan == $item->id_lowongan && $interview->stats_pembayaran == "sudah dibayar")
+                                                <div class=" mb-1">
+                                                    <a class="btn btn-warning" style="width: 100%" href="/perusahaan/lihat_jadwal_interview/{{$item->id_lowongan}}">Interview</a>
+                                                </div>    
+                                            @endif
+                                        @endif
+                                            
                                         <div class=" mb-1">
                                             <a class="btn btn-success" style="width: 100%" href="/perusahaan/list/kandidat/lowongan/{{$item->id_lowongan}}">Diterima</a>
                                         </div>

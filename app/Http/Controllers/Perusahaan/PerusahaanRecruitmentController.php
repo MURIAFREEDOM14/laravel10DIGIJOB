@@ -543,7 +543,13 @@ class PerusahaanRecruitmentController extends Controller
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $lowongan = LowonganPekerjaan::where('lowongan_pekerjaan.id_perusahaan',$perusahaan->id_perusahaan)->get();
-        return view('perusahaan/lowongan/list_permohonan_lowongan',compact('perusahaan','lowongan','pesan','notif','cabang','credit'));
+        foreach($lowongan as $key){
+            $interview = Interview::join(
+                'pembayaran','interview.id_interview','=','pembayaran.id_interview'
+            )
+            ->where('interview.id_lowongan',$key->id_lowongan)->first();
+        }
+        return view('perusahaan/lowongan/list_permohonan_lowongan',compact('perusahaan','lowongan','pesan','notif','cabang','credit','interview'));
     }
 
     public function lihatPermohonanLowongan($id)
@@ -616,6 +622,7 @@ class PerusahaanRecruitmentController extends Controller
             $pembayaran = null;
         }
         $isi = $kandidat->count();
+
         return view('perusahaan/lowongan/kandidat_lowongan_dipilih',compact('perusahaan','kandidat','notif','pesan','credit','id','interview','isi','pembayaran'));
     }
 

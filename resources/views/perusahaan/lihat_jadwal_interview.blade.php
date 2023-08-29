@@ -74,7 +74,7 @@
     {{-- @if ($kandidat_berakhir->count() !== 0) --}}
         <div class="card">
             <div class="card-header">
-                <b class="bold">Kandidat Selesai Diinterview</b>
+                <b class="bold">Penentuan Kandidat</b>
             </div>
             <div class="card-body">
                 {{-- @foreach ($kandidat_berakhir as $data) --}}
@@ -94,7 +94,7 @@
                 @endforeach
                 <div class="row">
                     <div class="col">
-                        <a class="btn btn-outline-primary float-right" style="border-radius: 20% 0% 20% 0%" href="/perusahaan/seleksi_kandidat/{{$id}}">Seleksi kandidat</a>
+                        <a class="btn btn-outline-primary float-right" style="border-radius: 20% 0% 20% 0%" href="/perusahaan/seleksi_kandidat/{{$id}}">Tentukan Kandidat</a>
                     </div>
                 </div>
             </div>
