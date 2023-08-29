@@ -51,9 +51,9 @@
                 @elseif($kandidat->id_perusahaan == $perusahaan->id_perusahaan && $kandidat->stat_pemilik == "diterima")
                     <div class="card">
                         <div class="card-body">
-                            <div class="">Keluar Perusahaan</div>
-                            <hr>
-                            <a href="/keluar_perusahaan/{{$perusahaan->id_perusahaan}}" class="btn btn-outline-danger mx-auto" onclick="outPerusahaan(event)">Keluar Perusahaan</a>
+                            <div class="">Anda harus memiliki persetujuan dari perusahaan untuk keluar perusahaan ini</div>
+                            {{-- <hr>
+                            <a href="/keluar_perusahaan/{{$perusahaan->id_perusahaan}}" class="btn btn-outline-danger mx-auto" onclick="outPerusahaan(event)">Keluar Perusahaan</a> --}}
                         </div>
                     </div>
                 @elseif($kandidat->id_perusahaan == $perusahaan->id_perusahaan || $kandidat->id_perusahaan !== null)
