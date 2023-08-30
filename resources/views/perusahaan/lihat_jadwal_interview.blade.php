@@ -48,13 +48,13 @@
                                     <label class="">: {{$item->waktu_interview_awal}} Sampai {{$item->waktu_interview_akhir}}</label>
                                     <br>
                                     <label for="" class="">: 
-                                        @if ($item->status == "terjadwal")
+                                        {{-- @if ($item->status == "terjadwal")
                                             Belum Interview
                                         @elseif($item->status == "dimulai")
                                             Sedang Interview
-                                        @elseif($item->status == "berakhir")
+                                        @elseif($item->status == "berakhir") --}}
                                             Sudah Interview
-                                        @endif                  
+                                        {{-- @endif                   --}}
                                     </label>    
                                 </div>
                             </div>
@@ -83,12 +83,12 @@
                         <div class="col-md-4">
                             <label for="" class="" style="text-transform: uppercase; font-weight:400;">Nama Kandidat</label>
                             <br>
-                            <label for="" style="text-transform: uppercase; font-weight:400">Status</label>
+                            {{-- <label for="" style="text-transform: uppercase; font-weight:400">Status</label> --}}
                         </div>
                         <div class="col-md-8">
                             <label for="" style="font-weight: 400; text-transform:uppercase;" class="">{{$data->nama}}</label>
                             <br>
-                            <label for="" style="font-weight: 400; text-transform:uppercase">{{$data->status}}</label>
+                            {{-- <label for="" style="font-weight: 400; text-transform:uppercase">{{$data->status}}</label> --}}
                         </div>
                     </div>                    
                 @endforeach

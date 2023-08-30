@@ -13,7 +13,8 @@
                         <thead>
                             <tr class="text-center">
                                 <th>No.</th>
-                                <th>Pembayaran</th>
+                                <th>Judul pembayaran</th>
+                                <th>Nominal Pembayaran</th>
                                 <th>Waktu Transaksi Dibuat</th>
                                 <th>Bukti Pembayaran</th>
                             </tr>
@@ -22,6 +23,11 @@
                             @foreach ($pembayaran as $item)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
+                                    @if ($item->id_lowongan !== null)
+                                        <td>Interview {{$item->jabatan}}</td>
+                                    @else
+                                        <td>--</td>
+                                    @endif
                                     <td>{{$item->nominal_pembayaran}}</td>
                                     <td>{{date('d M Y|h:i:s ',strtotime($item->created_at))}}</td>
                                     <td>

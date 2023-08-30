@@ -399,9 +399,7 @@ Route::controller(PerusahaanRecruitmentController::class)->group(function() {
     Route::get('/perusahaan/lihat_kandidat_interview/{id}','lihatKandidatInterview')->middleware('perusahaan');
     
     Route::get('/perusahaan/jadwal_interview/{id}','jadwalInterview')->middleware('perusahaan');
-    Route::post('/perusahaan/jadwal_interview/{id}','confirmJadwalInterview');
-    
-    Route::get('/perusahaan/waktu_interview/{id}','waktuInterview')->middleware('perusahaan');
+    Route::post('/perusahaan/jadwal_interview/{id}','confirmJadwalInterview');    
     Route::post('/perusahaan/waktu_interview/{id}','confirmWaktuInterview');
     
     Route::get('/perusahaan/persetujuan_kandidat/{id}','persetujuanKandidat')->middleware('perusahaan');

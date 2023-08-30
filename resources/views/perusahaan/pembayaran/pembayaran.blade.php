@@ -36,6 +36,18 @@
                             </div>
                             <div class="row mb-3">
                                 <div class="col-4">
+                                    <label for=""><b class="bold">Judul Pembayaran</b></label>
+                                </div>
+                                <div class="col-8">
+                                    @if ($pembayaran->id_lowongan !== null)
+                                        <div class=""><b class="bold">: Interview {{$pembayaran->jabatan}}</b></div>                                        
+                                    @else
+                                        <div class=""><b class="bold">: --</b></div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-4">
                                     <label for=""><b class="bold">Waktu Transaksi Dibuat</b></label>
                                 </div>
                                 <div class="col-8">

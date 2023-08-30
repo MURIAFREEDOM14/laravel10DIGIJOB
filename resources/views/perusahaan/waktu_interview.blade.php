@@ -19,7 +19,7 @@
                         <h5 for="" style="text-transform: uppercase; font-weight:bold; border-bottom:1px solid black;" class="text-center">Durasi Interview</h5>
                     </div>
                 </div>
-                <form action="" method="POST">
+                <form action="/perusahaan/waktu_interview/{{$id}}" method="POST">
                     @csrf
                     @foreach ($kandidat as $item)
                         <div class="row mb-2">
@@ -39,7 +39,7 @@
                             </div>
                         </div>
                     @endforeach
-                    <button type="submit" class="btn text-white" style="background-color: green">Simpan</button>
+                    <button type="submit" class="btn btn-success">Simpan</button>
                 </form>                
             </div>
         </div>

@@ -13,10 +13,9 @@
                     @foreach ($kandidat as $item)
                         <div class="row" style="border-top: 0.1px solid #dfdfdf; padding: 10px; border-bottom:0.1px solid #dfdfdf">
                             <div class="col-md-1">
-                                <input type="checkbox" name="" id="">
+                                <input type="checkbox" name="id_kandidat[]" value="{{$item->id_kandidat}}" id="">
                             </div>
                             <div class="col-md-7">
-                                <input type="text" hidden name="id_kandidat[]" value="{{$item->id_kandidat}}" id="">
                                 <label for="" style="font-weight: 600; text-transform:uppercase;" class="">{{$item->nama}}</label>
                             </div>
                             <div class="col-md-4">

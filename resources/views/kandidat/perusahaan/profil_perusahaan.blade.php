@@ -40,37 +40,39 @@
                         @endif
                     </div>
                 </div>
-                @if($kandidat_interview !== null)
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="">Jadwal Interview Anda : </div>
-                            <div class="">{{date('d M Y',strtotime($kandidat_interview->jadwal_interview))}}</div>
-                            <div class="">Waktu Interview Anda :</div>
-                            <div class="">{{$kandidat_interview->waktu_interview_awal}} Sampai {{$kandidat_interview->waktu_interview_akhir}}</div>
+                @if ($kandidat->id_perusahaan == $perusahaan->id_perusahaan)
+                    @if($kandidat_interview !== null)
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="">Jadwal Interview Anda : </div>
+                                <div class="">{{date('d M Y',strtotime($kandidat_interview->jadwal_interview))}}</div>
+                                <div class="">Waktu Interview Anda :</div>
+                                <div class="">{{$kandidat_interview->waktu_interview_awal}} Sampai {{$kandidat_interview->waktu_interview_akhir}}</div>
+                            </div>
                         </div>
-                    </div>
-                @elseif ($kandidat->id_perusahaan == $perusahaan->id_perusahaan && $kandidat->stat_pemilik == "diambil")
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="">Permohonan Lowongan anda sedang dalam proses</div>
-                            <hr>
-                            <a href="/keluar_perusahaan/{{$perusahaan->id_perusahaan}}" class="btn btn-outline-danger mx-auto" onclick="cancelLowongan(event)">Batalkan Lowongan</a>
+                    @elseif ($kandidat->id_perusahaan == $perusahaan->id_perusahaan && $kandidat->stat_pemilik == "diambil")
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="">Permohonan Lowongan anda sedang dalam proses</div>
+                                <hr>
+                                <a href="/keluar_perusahaan/{{$perusahaan->id_perusahaan}}" class="btn btn-outline-danger mx-auto" onclick="cancelLowongan(event)">Batalkan Lowongan</a>
+                            </div>
                         </div>
-                    </div>
-                @elseif($kandidat->id_perusahaan == $perusahaan->id_perusahaan && $kandidat->stat_pemilik == "diterima")
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="">Anda harus memiliki persetujuan dari perusahaan untuk keluar perusahaan ini</div>
+                    @elseif($kandidat->id_perusahaan == $perusahaan->id_perusahaan && $kandidat->stat_pemilik == "diterima")
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="">Anda harus memiliki persetujuan dari perusahaan untuk keluar perusahaan ini</div>
+                            </div>
                         </div>
-                    </div>
-                @elseif($kandidat->id_perusahaan == $perusahaan->id_perusahaan || $kandidat->id_perusahaan !== null)
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="">Permohonan Lowongan sudah dikirimkan</div>
-                            <hr>
-                            <a href="/keluar_perusahaan/{{$perusahaan->id_perusahaan}}" class="btn btn-outline-danger mx-auto" onclick="cancelLowongan(event)">Batalkan Lowongan</a>
+                    @elseif($kandidat->id_perusahaan == $perusahaan->id_perusahaan || $kandidat->id_perusahaan !== null)
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="">Permohonan Lowongan sudah dikirimkan</div>
+                                <hr>
+                                <a href="/keluar_perusahaan/{{$perusahaan->id_perusahaan}}" class="btn btn-outline-danger mx-auto" onclick="cancelLowongan(event)">Batalkan Lowongan</a>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 @endif
             </div>
             <div class="col-md-9">

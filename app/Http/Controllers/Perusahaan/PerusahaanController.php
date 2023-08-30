@@ -24,7 +24,6 @@ use App\Models\LowonganPekerjaan;
 use App\Models\PMIID;
 use App\Models\PermohonanLowongan;
 use App\Models\PerusahaanNegara;
-use App\Models\Pekerjaan;
 use App\Mail\transfer;
 use Illuminate\Support\Facades\Mail;
 use App\Models\notifyKandidat;
@@ -36,6 +35,7 @@ use App\Models\User;
 use App\Models\FotoKerja;
 use App\Models\VideoKerja;
 use Carbon\CarbonPeriod;
+use App\Models\LaporanPekerja;
 
 class PerusahaanController extends Controller
 {
@@ -667,6 +667,7 @@ class PerusahaanController extends Controller
             'pengirim' => "Admin",
             'kepada' => $nama,
         ]);
+        LaporanPekerja::where('id_kandidat',$id)->where('nama_kandidat',$nama)->delete();
         return redirect('/perusahaan/semua/kandidat')->with('success',"Kandidat telah diusir dari perusahaan anda");
     }
 
@@ -823,8 +824,10 @@ class PerusahaanController extends Controller
     {
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-        $pembayaran = Pembayaran::
-        where('pembayaran.id_perusahaan',$perusahaan->id_perusahaan)
+        $pembayaran = Pembayaran::join(
+            'lowongan_pekerjaan','pembayaran.id_lowongan','=','lowongan_pekerjaan.id_lowongan'
+        )
+        ->where('pembayaran.id_perusahaan',$perusahaan->id_perusahaan)
         ->where('pembayaran.stats_pembayaran',"belum dibayar")->get();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
@@ -840,7 +843,10 @@ class PerusahaanController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        $pembayaran = Pembayaran::where('id_pembayaran',$id)->first();
+        $pembayaran = Pembayaran::join(
+            'lowongan_pekerjaan','pembayaran.id_lowongan','=','lowongan_pekerjaan.id_lowongan'
+        )
+        ->where('pembayaran.id_pembayaran',$id)->first();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
         return view('perusahaan/pembayaran/pembayaran',compact('perusahaan','notif','pembayaran','pesan','cabang','credit'));
     }

@@ -374,6 +374,10 @@ class KandidatPerusahaanController extends Controller
                 'kepada' => $kandidat->nama,
                 'id_interview' => $persetujuan->id_interview,
             ]);
+            Kandidat::where('id_kandidat',$kandidat->id_kandidat)->where('nama',$kandidat->nama)->update([
+                'stat_pemilik' => "diambil",
+                'id_perusahaan' => $perusahaan->id_perusahaan
+            ]);
         }
         PersetujuanKandidat::where('nama_kandidat',$nama)->where('id_kandidat',$kandidat->id_kandidat)->delete();
         $kandidat_interview = KandidatInterview::where('id_interview',$persetujuan->id_interview)->where('id_lowongan',$persetujuan->id_lowongan)->get();

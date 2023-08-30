@@ -110,7 +110,7 @@
                             </div>
                         </div>
                     @endforeach
-                    <button type="submit" class="btn btn-primary">Konfirmasi</button>
+                    <button type="submit" class="btn btn-success">Simpan</button>
                 </form>
             </div>
         </div>    
