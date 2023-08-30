@@ -772,11 +772,9 @@ class PerusahaanRecruitmentController extends Controller
             'id_lowongan' => $id,
             'id_interview' => $interview->id_interview,
         ]);
-        // Mail::mailer('payment')->to($perusahaan->email_perusahaan)->send(new Payment($perusahaan->nama_perusahaan, $token->token, $payment, 'Pembayaran Interview', 'digijobaccounting@ugiport.com', $nama_rec, $nomo_rec, $bank));
+        Mail::mailer('payment')->to($perusahaan->email_perusahaan)->send(new Payment($perusahaan->nama_perusahaan, $token->token, $payment, 'Pembayaran Interview', 'digijobaccounting@ugiport.com', $nama_rec, $nomo_rec, $bank));
         return redirect('/perusahaan/list/pembayaran')->with('success',"Proses Pembayaran sedang dikirimkan ke email anda.");
     }
-
-
 
     public function lihatJadwalInterview($id)
     {
