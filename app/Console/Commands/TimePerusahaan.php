@@ -31,6 +31,19 @@ class TimePerusahaan extends Command
     public function handle()
     {
         $timeNow = date('Y-m-d',strtotime(now()));
-        LowonganPekerjaan::where('ttp_lowongan','like','%'.$timeNow.'%')->delete();
+        LowonganPekerjaan::create([
+            'usia_min' => 20,
+            'jabatan' => "checked",
+            'pendidikan' => "SMP",
+            'jenis_kelamin' => "MF",
+            'berat_min' => '40',
+            'tinggi' => '156',
+            'pencarian_tmp' => "Se-indonesia",
+            'id_perusahaan' => "12",
+            'isi' => "checked",
+            'negara' => "indonesia",
+            'gaji_minimum' => "2000000",            
+            'gaji_maksimum' => "4000000",            
+        ]);
     }
 }
