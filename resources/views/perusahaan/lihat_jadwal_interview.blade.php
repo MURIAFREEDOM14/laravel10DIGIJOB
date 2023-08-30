@@ -11,6 +11,15 @@
             <div class="" id="scrollInterview">
                 @foreach ($kandidat as $item)
                     <div class="card">
+                        @if ($item->persetujuan == null)
+                            <small class="text-white" style="background-color:#FF6969; padding-left:2%; width:28%">Menunggu Persetujuan Kandidat
+                                <button type="button" style="border-radius: 50%; border:0.5px solid lightblue; background-color:white;" class="" data-toggle="tooltip" data-placement="right" title="Apabila kandidat belum menyetujui undangan interview sampai hari interview dimulai, maka kandidat akan dianggap menolak dari interview.">
+                                    ?
+                                </button>
+                            </small>
+                        @else
+                            <small class="text-white" style="background-color:#7EAA92; padding:5px;  width:27%">Kandidat Menyetujui</small>                            
+                        @endif
                         <div class="card-body">
                             <div class="text-center" style="border-bottom: 2px solid black; border-top: 2px solid black; text-transform:uppercase;">Data kandidat</div>
                             <div class="row my-3" style="text-transform: uppercase;">
@@ -61,7 +70,7 @@
                             @php
                                 $now = now();
                             @endphp
-                            @if (date('d M Y',strtotime($item->jadwal_interview)) == date('d M Y',strtotime($now)) && date('h:i:s',strtotime($item->waktu_interview_awal.'-15 minutes')) == date('h:i:s',strtotime($now)))
+                            @if (date('d M Y',strtotime($item->jadwal_interview)) == date('d M Y',strtotime($now)) && date('h:i:s',strtotime($item->waktu_interview_awal.'-15 minutes')) <= date('h:i:s',strtotime($now)))
                                 <label for="" class="form-label">Interview anda dengan kandidat akan segera dimulai. Harap segera masuk ke dalam portal</label>
                                 <a class="float-right btn btn-outline-success" style="padding: 10px; text-decoration:none; border:1px solid green; border-radius:0% 20% 0% 20%" href="">Masuk Portal</a>
                             @endif

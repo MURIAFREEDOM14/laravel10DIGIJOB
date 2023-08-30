@@ -113,21 +113,6 @@
                                     <tr>
                                         <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px;">
                                             <div class="" style="text-transform:uppercase; padding: 0px 30px 10px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;">
-                                                Nama Bank
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 10px 30px;">
-                                            <div class="" style="text-transform:uppercase; padding: 0px 30px 10px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;">
-                                                {{$bank}}
-                                                {{-- {bank} --}}
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px;">
-                                            <div class="" style="text-transform:uppercase; padding: 0px 30px 10px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;">
                                                 Nama Pembayar
                                             </div>
                                         </td>
@@ -167,6 +152,21 @@
                                         </td>
                                     </tr>
                                 </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 0px 30px;">
+                                <div class="" style="text-transform:uppercase; padding: 0px 30px 10px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;">
+                                    Nama Bank
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 10px 30px;">
+                                <div class="" style="text-transform:uppercase; padding: 0px 30px 10px 30px; color: #666666; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 20px;">
+                                    {{$bank}}
+                                    {{-- {bank} --}}
+                                </div>
                             </td>
                         </tr>
                         <tr>

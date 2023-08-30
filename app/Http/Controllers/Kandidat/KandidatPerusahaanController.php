@@ -147,7 +147,7 @@ class KandidatPerusahaanController extends Controller
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
         $permohonan = PermohonanLowongan::where('id_kandidat',$kandidat->id_kandidat)->first();
         $perusahaan = Perusahaan::where('id_perusahaan',$lowongan->id_perusahaan)->first();
-        $kandidat_interview = KandidatInterview::where('id_kandidat',$kandidat->id_kandidat)->first();
+        $kandidat_interview = KandidatInterview::where('id_kandidat',$kandidat->id_kandidat)->where('status',"terjadwal")->first();
         $usia = Carbon::parse($kandidat->tgl_lahir)->age;
         Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
             'usia' => $usia,
@@ -327,14 +327,14 @@ class KandidatPerusahaanController extends Controller
                 ]);
             }
             notifyPerusahaan::create([
-                'id_perusahaan' => $kandidat->id_perusahaan,
+                'id_perusahaan' => $perusahaan->id_perusahaan,
                 'id_kandidat' => $kandidat->id_kandidat,
                 'isi' => "Anda mendapat pesan tentang persetujuan kandidat. cek pesan anda",
                 'pengirim' => "Admin",
                 'url' => '/perusahaan/semua_pesan',
             ]);
             messagePerusahaan::create([
-                'id_perusahaan' => $kandidat->id_perusahaan,
+                'id_perusahaan' => $perusahaan->id_perusahaan,
                 'id_kandidat' => $kandidat->id_kandidat,
                 'pesan' => "Kandidat dengan nama ".$kandidat->nama." telah menolak persetujuan interview dengan perusahaan anda",
                 'pengirim' => "Admin",
@@ -377,6 +377,9 @@ class KandidatPerusahaanController extends Controller
             Kandidat::where('id_kandidat',$kandidat->id_kandidat)->where('nama',$kandidat->nama)->update([
                 'stat_pemilik' => "diambil",
                 'id_perusahaan' => $perusahaan->id_perusahaan
+            ]);
+            KandidatInterview::where('id_kandidat',$kandidat->id_kandidat)->where('id_perusahaan',$perusahaan->id_perusahaan)->update([
+                'persetujuan' => $request->persetujuan,
             ]);
         }
         PersetujuanKandidat::where('nama_kandidat',$nama)->where('id_kandidat',$kandidat->id_kandidat)->delete();

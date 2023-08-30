@@ -24,7 +24,7 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="card-body text-center" style="background-color: #1269DB">
+                                        <div class="text-center" style="background-color: #1269DB">
                                             <div class="mt-2" style="color: white; text-transform:uppercase">
                                                 {{$item->nama_panggilan}}
                                                 <input hidden type="text" name="id_kandidat[]" value="{{$item->id_kandidat}}" id="">

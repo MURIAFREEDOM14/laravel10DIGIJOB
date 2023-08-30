@@ -27,6 +27,7 @@ return new class extends Migration
             $table->integer('durasi_interview')->nullable();
             $table->integer('urutan')->nullable();
             $table->enum('status',['pilih','terjadwal','dimulai','berakhir'])->default('pilih'); 
+            $table->enum('persetujuan',['ya','tidak'])->nullable();
             $table->timestamps();
         });
     }

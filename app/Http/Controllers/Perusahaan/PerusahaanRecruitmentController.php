@@ -526,9 +526,6 @@ class PerusahaanRecruitmentController extends Controller
         ->where('kandidat.berat','>=',$lowongan->berat_min)
         ->where('kandidat.berat','<=',$lowongan->berat_maks)
         ->whereNull('kandidat.stat_pemilik')->get();
-        // dd("Tinggi == ".$kandidat->tinggi, "Lowongan tinggi == ".$lowongan->tinggi,
-        // "Usia == ".$kandidat->usia, "Lowongan Usia Min == ".$lowongan->usia_min, "Lowongan Usia Maks == ".$lowongan->usia_maks,
-        // "Berat == ".$kandidat->berat, "Lowongan Berat Min == ".$lowongan->berat_min, "Lowongan Berat Maks == ".$lowongan->berat_maks);
         $kandidat_interview = KandidatInterview::where('id_lowongan',$id)->get();
         $p_lowongan = Pendidikan::where('nama_pendidikan','like','%'.$lowongan->pendidikan.'%')->first();
         $isi = $kandidat->count();
@@ -581,8 +578,7 @@ class PerusahaanRecruitmentController extends Controller
         }
         
         for($a = 0; $a < count($id_kandidat); $a++){                
-            $kandidat = Kandidat::where('id_kandidat',$id_kandidat[$a])->first();
-            
+            $kandidat = Kandidat::where('id_kandidat',$id_kandidat[$a])->first();   
             $ki['id_lowongan'] = $id;
             $ki['id_perusahaan'] = $perusahaan->id_perusahaan;
             $ki['id_kandidat'] = $kandidat->id_kandidat;
@@ -591,13 +587,16 @@ class PerusahaanRecruitmentController extends Controller
             $ki['jenis_kelamin'] = $kandidat->jenis_kelamin;
             KandidatInterview::create($ki);
 
+            $k['stat_pemilik'] = "kosong";
+            Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update($k);
+
             $permohonan_data = PermohonanLowongan::where('id_kandidat',$kandidat->id_kandidat)->where('id_perusahaan',$perusahaan->id_perusahaan)->first();
                 if($permohonan_data !== null){
                     PermohonanLowongan::where('id_kandidat',$kandidat->id_kandidat)->where('id_perusahaan',$perusahaan->id_perusahaan)->update([
                         'confirm'=>$kandidat->id_kandidat,
                     ]);
                     Kandidat::where('id_kandidat',$id_kandidat[$a])->update([
-                        'stat_pemilik' => "diambil",
+                        'stat_pemilik' => "kosong",
                     ]);                    
                 } 
         }                  
@@ -773,7 +772,7 @@ class PerusahaanRecruitmentController extends Controller
             'id_lowongan' => $id,
             'id_interview' => $interview->id_interview,
         ]);
-        Mail::mailer('payment')->to($perusahaan->email_perusahaan)->send(new Payment($perusahaan->nama_perusahaan, $token->token, $payment, 'Pembayaran Interview', 'digijobaccounting@ugiport.com', $nama_rec, $nomo_rec, $bank));
+        // Mail::mailer('payment')->to($perusahaan->email_perusahaan)->send(new Payment($perusahaan->nama_perusahaan, $token->token, $payment, 'Pembayaran Interview', 'digijobaccounting@ugiport.com', $nama_rec, $nomo_rec, $bank));
         return redirect('/perusahaan/list/pembayaran')->with('success',"Proses Pembayaran sedang dikirimkan ke email anda.");
     }
 
@@ -788,7 +787,7 @@ class PerusahaanRecruitmentController extends Controller
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
         $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$id)->first();
         $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$id)->first();
-        $kandidat = KandidatInterview::where('id_interview',$interview->id_interview)->get();
+        $kandidat = KandidatInterview::where('id_interview',$interview->id_interview)->where('status',"terjadwal")->get();
         $kandidat_berakhir = KandidatInterview::where('status','like',"berakhir")->get();
         if($interview->status == "terjadwal"){
             return view('perusahaan/lihat_jadwal_interview',compact('perusahaan','notif','pesan','credit','kandidat','kandidat_berakhir','id'));
@@ -854,7 +853,7 @@ class PerusahaanRecruitmentController extends Controller
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
         $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$id)->first();
         $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$lowongan->id_lowongan)->first();
-        $kandidat = KandidatInterview::where('id_interview',$interview->id_interview)->where('id_lowongan',$id)->get();
+        $kandidat = KandidatInterview::where('id_interview',$interview->id_interview)->where('id_lowongan',$id)->where('persetujuan',"ya")->get();
         // $kandidat_interview = KandidatInterview::join(
         //     'kandidat', 'kandidat_interviews.id_kandidat','=','kandidat.id_kandidat'
         // )

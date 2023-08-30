@@ -10,7 +10,7 @@
             <div class="card-body">
                 <div class="row">
                     @foreach ($lowongan as $item)
-                        <div class="col-6">
+                        <div class="col-md-6">
                             <div class="card" style="border:1px solid green">
                                 <div class="card-body">
                                     @if ($item->negara == "Indonesia")
