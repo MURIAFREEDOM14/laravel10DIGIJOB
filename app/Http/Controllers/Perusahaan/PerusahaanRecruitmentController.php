@@ -749,7 +749,7 @@ class PerusahaanRecruitmentController extends Controller
         $durasi = $request->durasi;
         for($w = 0; $w < count($durasi); $w++){
             $waktu_akhir = Carbon::create($timer[$w])->addMinutes($durasi[$w]);
-            KandidatInterview::where('id_lowongan',$id)->update([
+            KandidatInterview::where('id_lowongan',$id)->where('id_kandidat',$id_kandidat[$w])->update([
                 'waktu_interview_awal' => $timer[$w],
                 'waktu_interview_akhir' => $waktu_akhir,
                 'durasi_interview' => $durasi[$w],
@@ -926,6 +926,11 @@ class PerusahaanRecruitmentController extends Controller
                     'pengirim' => "Admin",
                     'kepada' => $key->nama,
                 ]);
+                Kandidat::where('id_kandidat',$key->id_kandidat)->where('id_perusahaan',$perusahaan->id_perusahaan)->update([
+                    'stat_pemilik' => null, 
+                    'jabatan_kandidat' => null,
+                    'id_perusahaan' => null,
+                ]);
                 KandidatInterview::where('id_interview',$interview->id_interview)->where('id_lowongan',$id)->where('id_kandidat',$key->id_kandidat)->delete();
                 PermohonanLowongan::where('id_lowongan',$lowongan->id_lowongan)->where('id_kandidat',$key->id_kandidat)->delete();
             }
@@ -958,6 +963,7 @@ class PerusahaanRecruitmentController extends Controller
                 'kepada' => $key->nama,
             ]);
             KandidatInterview::where('id_interview',$interview->id_interview)->where('id_lowongan',$id)->where('id_kandidat',$key->id_kandidat)->delete();
+            PermohonanLowongan::where('id_lowongan',$id)->where('id_kandidat',$key->id_kandidat)->delete();
         }
         Interview::where('id_interview',$interview->id_interview)->delete();
         return redirect('/perusahaan')->with('success',"Penolakan kandidat interview berhasil");

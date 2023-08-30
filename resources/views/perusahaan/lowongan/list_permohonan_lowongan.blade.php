@@ -35,8 +35,7 @@
                                                     <a class="btn btn-warning" style="width: 100%" href="/perusahaan/lihat_jadwal_interview/{{$item->id_lowongan}}">Interview</a>
                                                 </div>    
                                             @endif
-                                        @endif
-                                            
+                                        @endif   
                                         <div class=" mb-1">
                                             <a class="btn btn-success" style="width: 100%" href="/perusahaan/list/kandidat/lowongan/{{$item->id_lowongan}}">Diterima</a>
                                         </div>

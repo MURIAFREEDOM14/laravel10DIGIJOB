@@ -24,7 +24,7 @@
                     @foreach ($kandidat as $item)
                         <div class="row mb-2">
                             <div class="col-3">
-                                <label for="" style="text-transform:uppercase;" class="col-form-label">{{$item->urutan}}. {{$item->nama}}</label>
+                                <label for="" style="text-transform:uppercase;" class="col-form-label">{{$loop->iteration}}. {{$item->nama}}</label>
                                 <input type="text" hidden name="id_kandidat[]" value="{{$item->id_kandidat}}" id="">
                             </div>
                             <div class="col-3">
