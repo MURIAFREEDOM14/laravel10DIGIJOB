@@ -15,7 +15,7 @@
                     @csrf    
                     <div class="row">
                         @foreach ($permohonan as $item)
-                            @foreach ($kandidat_interview as $data)
+                            @foreach ($interview as $data)
                                 @if ($item->id_kandidat !== $data->id_kandidat)
                                     <div class="col-md-3">
                                         <input type="checkbox" aria-label="Checkbox for following text input" name="id_kandidat[]" value="{{$item->id_kandidat}}">
