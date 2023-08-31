@@ -790,6 +790,7 @@ class PerusahaanRecruitmentController extends Controller
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
         $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$id)->first();
         $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$id)->first();
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->first();
         if($interview == null){
             return redirect('/perusahaan/list_permohonan_lowongan')->with('error',"Maaf tidak ada kandidat yang ingin interview");
         }
@@ -829,6 +830,18 @@ class PerusahaanRecruitmentController extends Controller
                         'kepada' => $perusahaan->nama_perusahaan,
                     ]);
                     KandidatInterview::where('id_kandidat',$key->id_kandidat)->where('id_lowongan',$key->id_lowongan)->delete();
+                    if($credit == null){
+                        CreditPerusahaan::create([
+                            'id_perusahaan' => $perusahaan->id_perusahaan,
+                            'nama_perusahaan' => $perusahaan->nama_perusahaan,
+                            'no_nib' => $perusahaan->no_nib,
+                            'credit' => 1,
+                        ]);
+                    } else {
+                        CreditPerusahaan::where('credit_id',$credit->credit_id)->update([
+                            'credit' => $credit->credit+1,                    
+                        ]);
+                    }
                 }
             }
         }
