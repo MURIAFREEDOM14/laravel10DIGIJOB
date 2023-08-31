@@ -18,7 +18,6 @@ class Kernel extends ConsoleKernel
 
      protected function schedule(Schedule $schedule): void
     {
-        $schedule->call(function() {Log::info("message");})->everyMinute(); 
         // $schedule->command('app:time-jadwal')->daily();
         $schedule->command('app:time-perusahaan')->daily()->timezone('Asia/Jakarta');
     }
