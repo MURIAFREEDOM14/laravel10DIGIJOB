@@ -389,4 +389,26 @@ class KandidatPerusahaanController extends Controller
         }
         return redirect('/kandidat')->with('success',"Terima kasih atas konfirmasi anda");
     }
+
+    public function interviewPerusahaan()
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        $notif = notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
+        $kandidat_interview = KandidatInterview::join(
+            'kandidat','kandidat_interviews.id_kandidat','=','kandidat.id_kandidat'
+        )
+        ->join(
+            'lowongan_pekerjaan','kandidat_interviews.id_lowongan','=','lowongan_pekerjaan.id_lowongan'
+        )
+        ->where('kandidat.id_kandidat',$kandidat->id_kandidat)->where('kandidat_interviews.status','like',"terjadwal")
+        ->where('kandidat_interviews.persetujuan','like','ya')->first();
+        if($kandidat_interview){
+            $interview = $kandidat_interview;
+        } else {
+            $interview = null;
+        }
+        return view('kandidat/perusahaan/interview_perusahaan',compact('kandidat','notif','pesan','interview'));
+    }
 }

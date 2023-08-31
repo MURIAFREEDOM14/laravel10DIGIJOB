@@ -11,7 +11,7 @@
                 <form action="" method="POST">
                     @csrf
                     @if ($kandidat->count() == 0)
-                        <h5 class="text-center" style="text-transform: uppercase;font-weight:600;">Maaf belum ada kandidat yang menyetujui interview</h5>
+                        <h5 class="text-center" style="text-transform: uppercase;font-weight:600;">Maaf belum ada kandidat yang menyetujui undangan interview</h5>
                     @else
                         @foreach ($kandidat as $item)
                             <div class="row" style="border-top: 0.1px solid #dfdfdf; padding: 10px; border-bottom:0.1px solid #dfdfdf">
@@ -36,8 +36,9 @@
                     <hr>
                     @if ($kandidat->count() !== 0)
                         <button class="btn btn-outline-success float-right" type="submit">Terima Kandidat</button>
+                        <a class="btn btn-outline-danger float-right mx-1" href="/perusahaan/tolak_seleksi_kandidat/{{$id}}" onclick="tolakData(event)">Tolak semua</a>                        
                     @endif
-                    <a class="btn btn-outline-danger float-right mx-1" href="/perusahaan/tolak_seleksi_kandidat/{{$id}}" onclick="tolakData(event)">Tolak semua</a>                        
+                    <a class="btn btn-danger" href="/perusahaan/lihat_jadwal_interview/{{$id}}">Kembali</a>
                 </form>
             </div>
         </div>

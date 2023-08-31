@@ -517,6 +517,7 @@ class PerusahaanRecruitmentController extends Controller
                 return redirect('/perusahaan/edit_lowongan/'.$id.'/luar')->with('warning',"Maaf data lowongan anda ada yang kosong. Harap lengkapi kembali lowongan anda");
             }
         }
+        $p_lowongan = Pendidikan::where('nama_pendidikan','like','%'.$lowongan->pendidikan.'%')->first();
         $kandidat = Kandidat::join(
             'pendidikans', 'kandidat.pendidikan','=','pendidikans.nama_pendidikan'
         )
@@ -525,11 +526,11 @@ class PerusahaanRecruitmentController extends Controller
         ->where('kandidat.usia','<=',$lowongan->usia_maks)
         ->where('kandidat.berat','>=',$lowongan->berat_min)
         ->where('kandidat.berat','<=',$lowongan->berat_maks)
-        ->whereNull('kandidat.stat_pemilik')->get();
+        ->whereNull('kandidat.stat_pemilik')
+        ->where('pendidikans.no_urutan','>=',$p_lowongan->no_urutan)
+        ->get();
         $kandidat_interview = KandidatInterview::where('id_lowongan',$id)->get();
-        $p_lowongan = Pendidikan::where('nama_pendidikan','like','%'.$lowongan->pendidikan.'%')->first();
-        $isi = $kandidat->count();
-        return view('perusahaan/lowongan/lowongan_sesuai',compact('perusahaan','lowongan','isi','kandidat','pesan','notif','credit','p_lowongan','id','kandidat_interview'));
+        return view('perusahaan/lowongan/lowongan_sesuai',compact('perusahaan','lowongan','kandidat','pesan','notif','credit','p_lowongan','id','kandidat_interview'));
     }
 
     public function listPermohonanLowongan()
@@ -545,7 +546,9 @@ class PerusahaanRecruitmentController extends Controller
             $interview = Interview::join(
                 'pembayaran','interview.id_interview','=','pembayaran.id_interview'
             )
-            ->where('interview.id_lowongan',$key->id_lowongan)->first();
+            ->join(
+                'lowongan_pekerjaan','interview.id_lowongan','=','lowongan_pekerjaan.id_lowongan'
+            )->where('pembayaran.stats_pembayaran','like',"sudah dibayar")->get();
         }
         return view('perusahaan/lowongan/list_permohonan_lowongan',compact('perusahaan','lowongan','pesan','notif','cabang','credit','interview'));
     }
@@ -573,10 +576,12 @@ class PerusahaanRecruitmentController extends Controller
         $id_kandidat = $request->id_kandidat;
         $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->where('id_perusahaan',$perusahaan->id_perusahaan)->first();
+        $interview = Interview::where('id_lowongan',$id)->where('id_perusahaan',$perusahaan->id_perusahaan)->first();
         if($id_kandidat == null){
             return redirect()->back()->with('error','Anda harus memilih minimal 1 kandidat');
+        } elseif($interview !== null){
+            return redirect()->back()->with('error',"Maaf anda masih memiliki jadwal interview di lowongan ini");
         }
-        
         for($a = 0; $a < count($id_kandidat); $a++){                
             $kandidat = Kandidat::where('id_kandidat',$id_kandidat[$a])->first();   
             $ki['id_lowongan'] = $id;
@@ -785,62 +790,58 @@ class PerusahaanRecruitmentController extends Controller
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
         $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$id)->first();
         $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$id)->first();
+        if($interview == null){
+            return redirect('/perusahaan/list_permohonan_lowongan')->with('error',"Maaf tidak ada kandidat yang ingin interview");
+        }
         $kandidat = KandidatInterview::where('id_interview',$interview->id_interview)->where('status',"terjadwal")->get();
-        $kandidat_berakhir = KandidatInterview::where('status','like',"berakhir")->get();
+        $time = date('h:i:s a');
+        $day = date('Y-m-d');
+        foreach($kandidat as $key){
+            if(date('Y-m-d',strtotime($key->jadwal_interview)) == $day){
+                if(date('h:i:s a',strtotime($key->waktu_interview_awal.('-5 minutes'))) <= $time && $key->persetujuan !== "ya"){
+                    Kandidat::where('id_kandidat',$key->id_kandidat)->update([
+                        'stat_pemilik' => null,
+                        'id_perusahaan' => $perusahaan->id_perusahaan,
+                    ]);
+                    PersetujuanKandidat::where('id_kandidat',$key->id_kandidat)->where('nama_kandidat',$key->nama)->delete();
+                    notifyKandidat::create([
+                        'id_kandidat' => $key->id_kandidat,
+                        'isi' => "Anda mendapat pesan masuk",
+                        'pengirim' => "Sistem",
+                        'url' => '/semua_pesan',
+                    ]);
+                    messageKandidat::create([
+                        'id_kandidat' => $key->id_kandidat,
+                        'pesan' => "Mohon maaf, Anda secara otomatis telah menolak undangan interview dari perusahaan ".$perusahaan->nama_perusahaan." karena belum konfirmasi sampai pada batas waktu. Harap kedepannya untuk selalu melihat pesan dan notifikasi anda agar tidak terlambat dalam konfirmasi undangan interview.",
+                        'pengirim' => "Admin",
+                        'kepada' => $key->nama,
+                    ]);
+                    notifyPerusahaan::create([
+                        'id_perusahaan' => $perusahaan->id_perusahaan,
+                        'isi' => "Anda mendapat pesan masuk",
+                        'pengirim' => "Sistem",
+                        'url' => '/perusahaan/semua_pesan',
+                    ]);
+                    messagePerusahaan::create([
+                        'id_perusahaan' => $perusahaan->id_perusahaan,
+                        'pesan' => "Maaf Kandidat atas nama ".$key->nama." secara otomatis telah menolak undangan interview anda karena belum ada konfirmasi persetujuan sampai batas waktu. Sebagai gantinya, kami akan memberikan anda credit yang dapat anda gunakan di interview berikutnya.",
+                        'pengirim' => "Admin",
+                        'kepada' => $perusahaan->nama_perusahaan,
+                    ]);
+                    KandidatInterview::where('id_kandidat',$key->id_kandidat)->where('id_lowongan',$key->id_lowongan)->delete();
+                }
+            }
+        }
+        $kandidat_interview_check = KandidatInterview::where('id_interview',$interview->id_interview)->where('status',"terjadwal")->get();
+        if($kandidat_interview_check->count() == 0){
+            Interview::where('id_interview',$interview->id_interview)->where('id_lowongan',$id)->delete();
+        }
         if($interview->status == "terjadwal"){
-            return view('perusahaan/lihat_jadwal_interview',compact('perusahaan','notif','pesan','credit','kandidat','kandidat_berakhir','id'));
+            return view('perusahaan/lihat_jadwal_interview',compact('perusahaan','notif','pesan','credit','kandidat','id'));
         } else {
             return redirect('/perusahaan/jadwal_interview/'.$lowongan->id_lowongan)->with('warning',"Harap selesaikan penjadwalan interview terlebih dahulu");
         }
     }
-
-    // public function persetujuanKandidat($id)
-    // {
-    //     $user = Auth::user();
-    //     $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-    //     $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-    //     $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-    //     $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-    //     $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-    //     $interview = Interview::where('id_lowongan',$id)->first();
-    //     $persetujuan = PersetujuanKandidat::where('id_lowongan',$id)->where('id_interview',$interview->id_interview)->get();
-    //     $isi = $persetujuan->count();
-    //     return view('perusahaan/recruitment/persetujuan_kandidat',compact('perusahaan','notif','pesan','cabang','persetujuan','isi','credit'));
-    // }
-
-    // public function confirmPersetujuanKandidat(Request $request,$id)
-    // {   
-    //     $user = Auth::user();
-    //     $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-    //     $kandidat_menerima = $request->menerima;
-    //     $kandidat_menolak = $request->menolak;
-    //     $interview = Interview::where('id_lowongan',$id)->first();
-    //     $persetujuan = PersetujuanKandidat::join(
-    //         'kandidat_interviews', 'persetujuan_kandidat.id_kandidat','=','kandidat_interviews.id_kandidat'
-    //     )->where('kandidat_interviews.id_interview',$interview->id_interview)->where('kandidat_interviews.id_lowongan',$id)->where('persetujuan_kandidat.persetujuan','like','ya')->get();
-    //     dd($persetujuan);
-    //     if($kandidat_menerima == null){
-    //         return redirect('/perusahaan/persetujuan_kandidat')->with('error',"Maaf belum ada kandidat yang menyetujui");
-    //     }
-    //     foreach($persetujuan as $key){
-    //         if($key->id_kandidat == $kandidat_interview)
-    //         notifyKandidat::create([
-    //             'id_kandidat' => $key->id_kandidat,
-    //             'isi' => "Anda mendapat pesan dari perusahaan",
-    //             'pengirim' => "Sistem",
-    //             'url' => '/semua_pesan',
-    //         ]);
-
-    //         messageKandidat::create([
-    //             'id_kandidat' => $key->id_kandidat,
-    //             'pesan' => "Terima kasih untuk konfirmasi persetujuan interview anda. Berikut ini adalah jadwal interview perusahaan untuk anda. Harap untuk mengigat jadwal interview ini dan jangan sampai terlambat. Jadwal interview anda : ".date('d m Y',strtotime($key->jadwal_interview)).", dan waktu interview anda : ".date('h:i:s',strtotime($key->waktu_interview_awal))." sampai ".date('h:i:s',strtotime($key->waktu_interview_akhir))." .",
-    //             'pengirim' => "Admin",
-    //             'kepada' => $key->nama_kandidat,
-    //             'id_interview' => $interview->id_interview,
-    //         ]);
-    //     }
-    //     return redirect('/perusahaan/lihat_jadwal_interview/'.$id)->with('success',"");
-    // }
 
     public function seleksiKandidat($id)
     {
@@ -908,10 +909,6 @@ class PerusahaanRecruitmentController extends Controller
         $kandidat_interview = KandidatInterview::where('id_interview',$interview->id_interview)->where('id_lowongan',$id)->get();
         if($kandidat_interview->count() !== 0){
             foreach($kandidat_interview as $key){
-                Kandidat::where('id_kandidat',$key->id_kandidat)->update([
-                    'stat_pemilik' => null,
-                    'id_perusahaan' => null,
-                ]);
                 notifyKandidat::create([
                     'id_kandidat' => $key->id_kandidat,
                     'isi' => "Anda mendapat pesan dari Perusahaan",

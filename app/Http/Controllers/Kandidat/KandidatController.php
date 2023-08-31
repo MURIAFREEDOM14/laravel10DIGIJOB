@@ -36,6 +36,7 @@ use App\Models\FotoKerja;
 use App\Models\ReportUserIn;
 use App\Models\ReportNewUser;
 use App\Models\DataKeluarga;
+use App\Models\KandidatInterview;
 
 class KandidatController extends Controller
 {
@@ -61,24 +62,29 @@ class KandidatController extends Controller
         } else {
             $perusahaan = null;
         }
-        $persetujuan = PersetujuanKandidat::join(
+        $persetujuan_kandidat = PersetujuanKandidat::join(
             'perusahaan', 'persetujuan_kandidat.id_perusahaan','=','perusahaan.id_perusahaan'
         )
         ->where('persetujuan_kandidat.nama_kandidat',$kandidat->nama)->where('persetujuan_kandidat.id_kandidat',$kandidat->id_kandidat)->first();
-        $interview = Interview::join(
-            'perusahaan', 'interview.id_perusahaan','=','perusahaan.id_perusahaan'
-        )->where('interview.id_kandidat',$kandidat->id_kandidat)->where('interview.id_perusahaan',$kandidat->id_perusahaan)->first();
-        if($persetujuan !== null){
-            if($persetujuan->persetujuan == null){
-                $persetujuan = $persetujuan;
+        $kandidat_interview = KandidatInterview::join(
+            'kandidat','kandidat_interviews.id_kandidat','=','kandidat.id_kandidat'
+        )
+        ->join(
+            'lowongan_pekerjaan','kandidat_interviews.id_lowongan','=','lowongan_pekerjaan.id_lowongan'
+        )
+        ->where('kandidat.id_kandidat',$kandidat->id_kandidat)->where('kandidat_interviews.status','like',"terjadwal")
+        ->where('kandidat_interviews.persetujuan','like','ya')->first();
+        if($persetujuan_kandidat !== null){
+            if($persetujuan_kandidat->persetujuan == null){
+                $persetujuan = $persetujuan_kandidat;
             } else {
                 $persetujuan = null;
             }
         } else {
-            $persetujuan == null;
+            $persetujuan = null;
         }
-        if($interview){
-            $interview = $interview;
+        if($kandidat_interview){
+            $interview = $kandidat_interview;
         } else {
             $interview = null;
         }
@@ -86,7 +92,7 @@ class KandidatController extends Controller
             'counter' => null,
         ]);
         return view('kandidat/index',compact('kandidat','notif','perusahaan_semua',
-        'perusahaan','pembayaran','pesan','lowongan','cari_perusahaan','persetujuan'));
+        'perusahaan','pembayaran','pesan','lowongan','cari_perusahaan','persetujuan','interview'));
     }
     
     public function profil()
@@ -113,13 +119,8 @@ class KandidatController extends Controller
             return redirect()->route('kandidat')->with('warning',"Harap tentukan tempat kerja anda");
         } else {
             return view('kandidat/profil_kandidat',compact(
-                'kandidat',
-                'negara',
-                'tgl_user',
-                'usia',
-                'notif',
-                'pesan',
-                'pembayaran',
+                'kandidat','negara','tgl_user',
+                'usia','notif','pesan','pembayaran',
                 'pengalaman_kerja',
             ));    
         }

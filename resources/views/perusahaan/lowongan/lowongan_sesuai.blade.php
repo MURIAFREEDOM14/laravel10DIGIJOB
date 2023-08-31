@@ -26,40 +26,36 @@
                     </div>
                     @else --}}
                         @foreach ($kandidat as $item)
-                            @if ($item->no_urutan >= $p_lowongan->no_urutan)
-                                @if ($item->jenis_kelamin == $lowongan->jenis_kelamin || $lowongan->jenis_kelamin == "MF")
-                                    @if ($item->kabupaten == $lowongan->pencarian_tmp || $item->provinsi == $lowongan->pencarian_tmp || $lowongan->pencarian_tmp == "Se-indonesia")
-                                        <div class="col-md-3">
-                                            <input type="checkbox" name="id_kandidat[]" value="{{$item->id_kandidat}}" id="">
-                                            <div class="card">
-                                                <a class="btn" style="border: 2px solid #1269DB; border-top-left-radius:10%;border-bottom-right-radius:10%" href="/perusahaan/lihat/kandidat/{{$item->id_kandidat}}">
-                                                    <div class="card-header text-center mt--5">
-                                                        <div class="avatar avatar-xl">
-                                                            @if ($item->foto_4x6 == null)
-                                                                <img src="/gambar/default_user.png" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                            
-                                                            @else
-                                                                <img src="/gambar/Kandidat/{{$item->nama}}/4x6/{{$item->foto_4x6}}" alt="" class="avatar-img rounded-circle">                                            
-                                                            @endif
-                                                        </div>
+                            @if ($item->jenis_kelamin == $lowongan->jenis_kelamin || $lowongan->jenis_kelamin == "MF")
+                                @if ($item->kabupaten == $lowongan->pencarian_tmp || $item->provinsi == $lowongan->pencarian_tmp || $lowongan->pencarian_tmp == "Se-indonesia")
+                                    <div class="col-md-3">
+                                        <input type="checkbox" name="id_kandidat[]" value="{{$item->id_kandidat}}" id="">
+                                        <div class="card">
+                                            <a class="btn" style="border: 2px solid #1269DB; border-top-left-radius:10%;border-bottom-right-radius:10%" href="/perusahaan/lihat/kandidat/{{$item->id_kandidat}}">
+                                                <div class="card-header text-center mt--5">
+                                                    <div class="avatar avatar-xl">
+                                                        @if ($item->foto_4x6 == null)
+                                                            <img src="/gambar/default_user.png" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                            
+                                                        @else
+                                                            <img src="/gambar/Kandidat/{{$item->nama}}/4x6/{{$item->foto_4x6}}" alt="" class="avatar-img rounded-circle">                                            
+                                                        @endif
                                                     </div>
-                                                    <div class="text-center" style="background-color: #1269DB">
-                                                        <div class="mt-2" style="color: white; text-transform:uppercase">
-                                                            {{$item->nama_panggilan}}
-                                                        </div>
+                                                </div>
+                                                <div class="text-center" style="background-color: #1269DB">
+                                                    <div class="mt-2" style="color: white; text-transform:uppercase">
+                                                        {{$item->nama_panggilan}}
                                                     </div>
-                                                </a>
-                                            </div>
+                                                </div>
+                                            </a>
                                         </div>
-                                    @endif                                    
-                                @endif
+                                    </div>
+                                @endif                                    
                             @endif
                         @endforeach
                     {{-- @endif --}}
                 </div>
                 <hr>
-                @if ($isi !== 0)
-                    <button class="float-right btn btn-success">Pilih Kandidat</button>
-                @endif
+                <button class="float-right btn btn-success">Pilih Kandidat</button>
                 <a href="/perusahaan/list_permohonan_lowongan" class="btn btn-danger float-left">Kembali</a>    
             </form>
             <div class="modal fade" id="cari_kandidat" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

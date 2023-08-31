@@ -48,13 +48,10 @@
                                 <label for="" class="col-form-label">Status Pembayaran</label>
                             </div>
                             <div class="col-4">
-                                <select name="stats_pembayaran" class="form-control" id="">
-                                    <option value="belum dibayar" @if ($pembayaran->stats_pembayaran == "belum dibayar")
-                                        selected
-                                    @endif>Belum dibayar</option>
-                                    <option value="sudah dibayar" @if ($pembayaran->stats_pembayaran == "sudah dibayar")
-                                        selected
-                                    @endif>Sudah dibayar</option>
+                                <select name="stats_pembayaran" required class="form-control" id="">
+                                    <option value="">-- Konfirmasi / Kirim ulang --</option>
+                                    <option value="belum dibayar" >Kirim Ulang Bukti</option>
+                                    <option value="sudah dibayar" >Konfirmasi Pembayaran</option>
                                 </select>
                             </div>
                         </div>

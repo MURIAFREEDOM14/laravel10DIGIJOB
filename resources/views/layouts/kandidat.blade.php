@@ -393,10 +393,16 @@
                                 <li class="nav-item">
                                     <a class="btn" href="/list_lowongan_pekerjaan">
                                         <i class="fas fa-clipboard-list"></i>
-                                        {{-- <i class="fas fa-crown" style="color: yellow"></i> --}}
                                         <p>Lowongan Pekerjaan</p>
                                     </a>
-                                </li>    
+                                </li>
+                            @else
+                                <li class="nav-item">
+                                    <a class="btn" href="/interview_perusahaan">
+                                        <i class="fas fa-clipboard-list"></i>
+                                        <p>Interview Perusahaan</p>
+                                    </a>
+                                </li>
                             @endif
                             <li class="nav-item">
                                 <a class="btn disabled" href="/video_pelatihan">

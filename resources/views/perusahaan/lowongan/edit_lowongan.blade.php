@@ -399,14 +399,16 @@
                                 </div>
                                 <span class="selectgroup-button">Asuransi</span>
                             </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                    <input type="checkbox" name="benefit[]" value="tiket pulang" aria-label="Checkbox for following text input">
+                            @if ($type == "luar")
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                        <input type="checkbox" name="benefit[]" value="tiket pulang" aria-label="Checkbox for following text input">
+                                        </div>
                                     </div>
-                                </div>
-                                <span class="selectgroup-button">Tiket Pulang Sehabis Kontrak</span>
-                            </div>
+                                    <span class="selectgroup-button">Tiket Pulang Sehabis Kontrak</span>
+                                </div>    
+                            @endif
                             @foreach ($benefit as $item)
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">

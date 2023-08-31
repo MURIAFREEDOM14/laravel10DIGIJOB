@@ -30,7 +30,7 @@ class TimePerusahaan extends Command
 
     public function handle()
     {
-        $timeNow = date('Y-m-d');
-        LowonganPekerjaan::where('ttp_lowongan','like','%'.$timeNow.'%')->delete();
+        $dayNow = date('Y-m-d');
+        LowonganPekerjaan::where('ttp_lowongan','>=','%'.$dayNow.'%')->delete();
     }
 }

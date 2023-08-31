@@ -20,7 +20,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(function() {Log::info("message");})->everyMinute(); 
         // $schedule->command('app:time-jadwal')->daily();
-        $schedule->command('app:time-perusahaan')->everyMinute();
+        $schedule->command('app:time-perusahaan')->daily()->timezone('Asia/Jakarta');
     }
 
     /**

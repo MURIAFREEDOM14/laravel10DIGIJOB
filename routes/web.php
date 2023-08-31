@@ -498,6 +498,8 @@ Route::controller(KandidatPerusahaanController::class)->group(function() {
     Route::post('/permohonan_lowongan/{id}','kirimPermohonan');
     Route::get('/keluar_perusahaan/{id}','keluarPerusahaan')->middleware('kandidat');
     Route::post('/persetujuan_kandidat/{nama}/{id}','persetujuanKandidat');
+
+    Route::get('/interview_perusahaan','interviewPerusahaan')->middleware('kandidat');
 });
 
 // data akun prioritas
