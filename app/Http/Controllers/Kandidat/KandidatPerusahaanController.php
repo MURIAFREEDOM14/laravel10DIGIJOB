@@ -407,7 +407,7 @@ class KandidatPerusahaanController extends Controller
         if($kandidat_interview){
             $interview = $kandidat_interview;
         } else {
-            $interview = null;
+            return redirect('/kandidat');
         }
         return view('kandidat/perusahaan/interview_perusahaan',compact('kandidat','notif','pesan','interview'));
     }

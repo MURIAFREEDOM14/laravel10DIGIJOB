@@ -31,16 +31,24 @@
             <div class="row my-3" style="text-transform: uppercase;">
                 <div class="col-md-3">
                     <label for="" class="" style="font-weight:700">Tanggal Interview</label>
-                    <br>
-                    <label class="" style="font-weight:700">Waktu Interview</label>
-                    <br>
-                    <label for="" class="" style="font-weight:700">Status</label>
                 </div>
                 <div class="col-md-9">
                     <label for="" class="">: {{date('d M Y',strtotime($interview->jadwal_interview))}}</label>
-                    <br>
+                </div>
+            </div>
+            <div class="row my-3" style="text-transform:uppercase;">
+                <div class="col-md-3">
+                    <label class="" style="font-weight:700">Waktu Interview</label>
+                </div>
+                <div class="col-md-9">
                     <label class="">: {{date('h:i:s a',strtotime($interview->waktu_interview_awal))}} Sampai {{date('h:i:s a',strtotime($interview->waktu_interview_akhir))}}</label>
-                    <br>
+                </div>
+            </div>
+            <div class="row my-3" style="text-transform: uppercase;">
+                <div class="col-md-3">
+                    <label for="" class="" style="font-weight:700">Status</label>
+                </div>
+                <div class="col-md-9">
                     <label for="" class="">: 
                         @if ($interview->status == "terjadwal")
                             Belum Interview
@@ -49,7 +57,7 @@
                         @elseif($interview->status == "berakhir")
                             Sudah Interview
                         @endif                  
-                    </label>    
+                    </label>
                 </div>
             </div>
             @php
@@ -61,7 +69,7 @@
             @endphp
             @if($tgl_now == $tgl_interview && $time_now > $time_interview_begin)
                 @if ($time_now > $time_interview_ended)
-                    <label for="" class="form-label">Waktu interview anda dengan kandidat ini telah habis.</label>
+                    <label for="" class="form-label">Waktu interview anda dengan perusahaan ini telah habis. Mohon tunggu keputusan dari pihak perusahaan.</label>
                 @else    
                     <label for="" class="form-label">Interview anda dengan kandidat akan segera dimulai. Harap segera masuk ke dalam portal</label>
                     <a class="float-right btn btn-outline-success" style="padding: 10px; text-decoration:none; border:1px solid green; border-radius:0% 20% 0% 20%" href="">Masuk Portal</a>
