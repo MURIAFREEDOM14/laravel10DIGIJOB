@@ -31,6 +31,6 @@ class TimePerusahaan extends Command
     public function handle()
     {
         $dayNow = date('Y-m-d');
-        LowonganPekerjaan::where('ttp_lowongan','>=','%'.$dayNow.'%')->delete();
+        // LowonganPekerjaan::where('ttp_lowongan','>=','%'.$dayNow.'%')->delete();
     }
 }
