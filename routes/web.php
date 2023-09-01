@@ -401,7 +401,9 @@ Route::controller(PerusahaanRecruitmentController::class)->group(function() {
     Route::get('/perusahaan/jadwal_interview/{id}','jadwalInterview')->middleware('perusahaan');
     Route::post('/perusahaan/jadwal_interview/{id}','confirmJadwalInterview');    
     Route::post('/perusahaan/waktu_interview/{id}','confirmWaktuInterview');
-    
+    Route::post('/perusahaan/konfirmasi_interview/{id}','konfirmasiInterview');
+    Route::post('/perusahaan/pembayaran_interview/{id}','pembayaranInterview');
+
     Route::get('/perusahaan/persetujuan_kandidat/{id}','persetujuanKandidat')->middleware('perusahaan');
     Route::post('/perusahaan/persetujuan_kandidat/{id}','confirmPersetujuanKandidat');    
     

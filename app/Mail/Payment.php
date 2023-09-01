@@ -26,7 +26,7 @@ class Payment extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct($nama, $token, $payment, $subject, $fromEmail, $namarec,$nomorec, $bank)
+    public function __construct($nama, $token, $payment, $subject, $fromEmail, $namarec, $nomorec, $bank)
     {
         $this->name = $nama;
         $this->token = $token;

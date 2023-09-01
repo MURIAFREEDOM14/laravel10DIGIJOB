@@ -206,9 +206,13 @@
                                         <div class="notif-scroll scrollbar-outer">
                                             <div class="notif-center">
                                                 @if ($credit->credit == null)
-                                                    <div class="ml-2 my-3">Credit Anda : 0</div>                                                    
+                                                    <div class="ml-2 my-3" style="text-transform: uppercase;">Credit Anda : 0</div>
+                                                    <div class="dropdown-divider"></div>
+                                                    <div style="font-size: 13px;" class="mx-2 my-3">Credit ini dapat anda gunakan saat anda melakukan interview</div>
                                                 @else
-                                                    <div class="ml-2 my-3">Credit Anda : {{$credit->credit}}</div>                                                    
+                                                    <div class="ml-2 my-3" style="text-transform: uppercase;">Credit Anda : {{$credit->credit}}</div>
+                                                    <div class="dropdown-divider"></div>
+                                                    <div style="font-size: 13px;" class="mx-2 my-3">Credit ini dapat anda gunakan saat anda melakukan interview</div>
                                                 @endif
                                             </div>
                                         </div>
