@@ -724,17 +724,10 @@ class PerusahaanRecruitmentController extends Controller
             KandidatInterview::where('id_lowongan',$id)->where('id_kandidat',$id_kandidat[$t])->update([
                 'jadwal_interview' => $jadwal[$t],
                 'urutan' => $flag[$t],
-            ]);
+            ]);            
         }
         $interview_awal = new Carbon ($lowongan->tgl_interview_awal);
         $interview_akhir = new Carbon ($lowongan->tgl_interview_akhir);
-        $kandidat = KandidatInterview::where('id_lowongan',$id)->where('jadwal_interview','like','jadwal_interview')->where('urutan','like','urutan')->get();        
-        dd($kandidat);
-        foreach($kandidat as $key){
-            if($key->urutan){
-
-            }
-        }
         $periode = CarbonPeriod::create($interview_awal, $interview_akhir);
         return view('perusahaan/interview/waktu_interview',compact('perusahaan','notif','pesan','credit','kandidat','id','periode'));
     }
