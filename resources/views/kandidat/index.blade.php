@@ -240,6 +240,10 @@
                             <input type="text" hidden name="persetujuan_id" value="{{$persetujuan->persetujuan_id}}" id="">
                             <div class="text-center" id="terimaInterview">
                                 <h4 class="">Selamat anda mendapatkan udangan interview dari {{$persetujuan->nama_perusahaan}}</h4>
+                                <h5 class="">Nama Perusahaan : {{$persetujuan->nama_perusahaan}}</h5>
+                                <h5 class="">Nama Lowongan : {{$persetujuan->jabatan}}</h5>
+                                <h5 class="">Sebagai : {{$persetujuan->lvl_pekerjaan}}</h5>
+                                <a href="/lihat_lowongan_pekerjaan/{{$persetujuan->id_lowongan}}" class="btn btn-outline-primary">Lihat Detail</a>
                                 <h5 class="">Apakah anda ingin menyetujuinya?</h5>
                                 <button type="submit" name="persetujuan" value="ya" class="btn btn-success" id="">Ya</button>
                                 <button type="button" onclick="tidakInterview()" class="btn btn-danger">Tidak</button>    
@@ -270,6 +274,7 @@
                                     <textarea name="alasan_lain" class="form-control" id=""></textarea>
                                 </div>
                                 <button type="submit" class="btn btn-success" name="persetujuan" value="tidak">Kirim Alasan</button>
+                                <button type="button" onclick="backButton()" class="btn btn-danger">Kembali</button>
                             </div>
                         </div>
                         <div class="modal-footer">

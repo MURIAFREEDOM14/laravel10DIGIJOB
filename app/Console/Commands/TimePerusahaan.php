@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\KandidatInterview;
 use Illuminate\Console\Command;
 use App\Models\LowonganPekerjaan;
 
@@ -31,6 +32,8 @@ class TimePerusahaan extends Command
     public function handle()
     {
         $dayNow = date('Y-m-d');
+        $timeNow = date('h:i:s');
         // LowonganPekerjaan::where('ttp_lowongan','>=','%'.$dayNow.'%')->delete();
+        // KandidatInterview::where('jadwal_interview','>=','%'.$dayNow.'%')->first();
     }
 }

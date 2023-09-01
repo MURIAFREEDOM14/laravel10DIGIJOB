@@ -743,6 +743,20 @@
                 }
             }
 
+            // Kembali tampilan pilihan interview
+            function backButton() {
+                var y = document.getElementById("terimaInterview");
+                var n = document.getElementById("batalInterview");
+                if (n.style.display == 'block') {
+                    y.style.display = 'block';
+                    n.style.display = 'none';
+                } else {
+                    y.style.display = 'block';
+                    n.style.display = 'none';
+                }
+            }
+
+            //pilihan alasan menolak interview
             $(document).ready(function() {
                 $(document).on('change','#tolakInterview',function() {
                     var getID = $(this).val();

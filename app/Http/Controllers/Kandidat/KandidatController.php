@@ -65,6 +65,9 @@ class KandidatController extends Controller
         $persetujuan_kandidat = PersetujuanKandidat::join(
             'perusahaan', 'persetujuan_kandidat.id_perusahaan','=','perusahaan.id_perusahaan'
         )
+        ->join(
+            'lowongan_pekerjaan', 'persetujuan_kandidat.id_lowongan','=','lowongan_pekerjaan.id_lowongan'
+        )
         ->where('persetujuan_kandidat.nama_kandidat',$kandidat->nama)->where('persetujuan_kandidat.id_kandidat',$kandidat->id_kandidat)->first();
         $kandidat_interview = KandidatInterview::join(
             'kandidat','kandidat_interviews.id_kandidat','=','kandidat.id_kandidat'
