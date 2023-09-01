@@ -74,7 +74,7 @@
                                 $time_interview_begin = date('h:i:s a',strtotime($item->waktu_interview_awal.('-15 minutes')));
                                 $time_interview_ended = date('h:i:s a',strtotime($item->waktu_interview_akhir));
                             @endphp
-                            @if($tgl_now == $tgl_interview && $time_now > $time_interview_begin)
+                            @if($tgl_now >= $tgl_interview && $time_now > $time_interview_begin)
                                 @if ($time_now > $time_interview_ended)
                                     <label for="" class="form-label">Waktu interview anda dengan kandidat ini telah habis.</label>
                                 @else    

@@ -67,7 +67,7 @@
                 $time_interview_begin = date('h:i:s a',strtotime($interview->waktu_interview_awal.('-15 minutes')));
                 $time_interview_ended = date('h:i:s a',strtotime($interview->waktu_interview_akhir));
             @endphp
-            @if($tgl_now == $tgl_interview && $time_now > $time_interview_begin)
+            @if($tgl_now >= $tgl_interview && $time_now > $time_interview_begin)
                 @if ($time_now > $time_interview_ended)
                     <label for="" class="form-label">Waktu interview anda dengan perusahaan ini telah habis. Mohon tunggu keputusan dari pihak perusahaan.</label>
                 @else    
