@@ -653,7 +653,7 @@ class PerusahaanRecruitmentController extends Controller
         $id_kandidat = $request->id_kandidat;
         for($a = 0; $a < count($id_kandidat); $a++){
             KandidatInterview::where('id_lowongan',$id)->where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_kandidat',$id_kandidat[$a])->delete();
-            Kandidat::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_kandidat',$id_kandidat[$a])->update([
+            Kandidat::where('id_kandidat',$id_kandidat[$a])->update([
                 'stat_pemilik' => null,
             ]);
         }
