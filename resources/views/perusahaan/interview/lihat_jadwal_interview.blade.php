@@ -21,7 +21,7 @@
                             <small class="text-white" style="background-color:#7EAA92; padding:5px; border-radius:0% 20% 0% 20%; width:28%"><i class="fas fa-check-circle">&nbsp;</i>Kandidat Menyetujui</small>                            
                         @endif
                         <div class="card-body">
-                            <div class="text-center" style="border-bottom: 2px solid black; border-top: 2px solid black; text-transform:uppercase;">Data kandidat</div>
+                            <div class="text-center" style="border-bottom: 2px solid black; border-top: 2px solid black; text-transform:uppercase;background-image: linear-gradient(#0C356A, #279EFF);color:white;">Data kandidat</div>
                             <div class="row my-3" style="text-transform: uppercase;">
                                 <div class="col-md-2">
                                     <label for="" class="" style="font-weight:700">Nama Kandidat</label>
@@ -42,7 +42,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="text-center" style="border-bottom: 2px solid black; border-top: 2px solid black; text-transform:uppercase;">Jadwal Interview</div>
+                            <div class="text-center" style="border-bottom: 2px solid black; border-top: 2px solid black; text-transform:uppercase; background-image: linear-gradient(#0C356A, #279EFF);color:white;">Jadwal Interview</div>
                             <div class="row my-3" style="text-transform: uppercase;">
                                 <div class="col-md-3">
                                     <label for="" class="" style="font-weight:700">Tanggal Interview</label>

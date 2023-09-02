@@ -147,7 +147,7 @@ class KandidatPerusahaanController extends Controller
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
         $permohonan = PermohonanLowongan::where('id_kandidat',$kandidat->id_kandidat)->first();
         $perusahaan = Perusahaan::where('id_perusahaan',$lowongan->id_perusahaan)->first();
-        $kandidat_interview = KandidatInterview::where('id_kandidat',$kandidat->id_kandidat)->where('status',"terjadwal")->first();
+        $persetujuan = PersetujuanKandidat::where('id_kandidat',$kandidat->id_kandidat)->first();
         $usia = Carbon::parse($kandidat->tgl_lahir)->age;
         Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
             'usia' => $usia,
@@ -157,8 +157,8 @@ class KandidatPerusahaanController extends Controller
         } else {
             $jabatan = $permohonan->id_lowongan;
         }
-        if($kandidat_interview !== null){
-            $interview = $kandidat_interview;
+        if($persetujuan !== null){
+            $interview = $persetujuan;
         } else {
             $interview = null;
         }
@@ -401,6 +401,9 @@ class KandidatPerusahaanController extends Controller
         )
         ->join(
             'lowongan_pekerjaan','kandidat_interviews.id_lowongan','=','lowongan_pekerjaan.id_lowongan'
+        )
+        ->join(
+            'perusahaan', 'lowongan_pekerjaan.id_perusahaan','=','perusahaan.id_perusahaan'
         )
         ->where('kandidat.id_kandidat',$kandidat->id_kandidat)->where('kandidat_interviews.status','like',"terjadwal")
         ->where('kandidat_interviews.persetujuan','like','ya')->first();

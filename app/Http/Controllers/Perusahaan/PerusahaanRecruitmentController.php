@@ -728,13 +728,7 @@ class PerusahaanRecruitmentController extends Controller
         }
         $interview_awal = new Carbon ($lowongan->tgl_interview_awal);
         $interview_akhir = new Carbon ($lowongan->tgl_interview_akhir);
-        $kandidat = KandidatInterview::where('id_lowongan',$id)->where('jadwal_interview','like','jadwal_interview')->where('urutan','like','urutan')->get();        
-        dd($kandidat);
-        foreach($kandidat as $key){
-            if($key->urutan){
-
-            }
-        }
+        $kandidat = KandidatInterview::where('id_lowongan',$id)->orderBy('urutan','asc')->get();        
         $periode = CarbonPeriod::create($interview_awal, $interview_akhir);
         return view('perusahaan/interview/waktu_interview',compact('perusahaan','notif','pesan','credit','kandidat','id','periode'));
     }
@@ -809,15 +803,17 @@ class PerusahaanRecruitmentController extends Controller
         $interview = Interview::where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_lowongan',$id)->first();
         if($request->konfirmasi == "ya"){
             $total = $credit - $biaya;
+            if($total > 0){
+                $payment = 0;
+                $credit_now = $total / 15000;
+            } else {
+                $payment = $total;
+                $credit_now = 0;
+            }
         } else {
             $total = $biaya;
-        }
-        if($total > 0){
-            $payment = 0;
-            $credit_now = $total / 15000;
-        } else {
-            $payment = $total;
-            $credit_now = 0;
+            $payment = $biaya;
+            $credit_now = $credit / 15000;
         }
         Pembayaran::create([
             'id_perusahaan' => $perusahaan->id_perusahaan,
@@ -852,7 +848,7 @@ class PerusahaanRecruitmentController extends Controller
         if($interview == null){
             return redirect('/perusahaan/list_permohonan_lowongan')->with('error',"Maaf tidak ada kandidat yang ingin interview");
         }
-        $kandidat = KandidatInterview::where('id_interview',$interview->id_interview)->where('status',"terjadwal")->get();
+        $kandidat = KandidatInterview::where('id_interview',$interview->id_interview)->where('status',"terjadwal")->orderBy('urutan','asc')->get();
         $time = date('h:i:s a');
         $day = date('Y-m-d');
         foreach($kandidat as $key){
@@ -860,7 +856,6 @@ class PerusahaanRecruitmentController extends Controller
                 if(date('h:i:s a',strtotime($key->waktu_interview_awal.('-5 minutes'))) <= $time && $key->persetujuan !== "ya"){
                     Kandidat::where('id_kandidat',$key->id_kandidat)->update([
                         'stat_pemilik' => null,
-                        'id_perusahaan' => $perusahaan->id_perusahaan,
                     ]);
                     PersetujuanKandidat::where('id_kandidat',$key->id_kandidat)->where('nama_kandidat',$key->nama)->delete();
                     notifyKandidat::create([
