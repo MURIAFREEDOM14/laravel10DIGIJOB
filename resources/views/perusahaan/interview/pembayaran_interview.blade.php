@@ -86,10 +86,10 @@
                         <div class="col-9">
                             <input type="text" hidden name="credit" value="{{$credit->credit}}" id="">
                             <label for="">: 
-                                @if ($credit->credit !== null || $credit->credit !== 0)
-                                    {{$credit->credit}}
-                                @else
+                                @if ($credit->credit == null || $credit->credit == 0)
                                     0
+                                @else
+                                    {{$credit->credit}}
                                 @endif
                             </label>
                             <hr>

@@ -102,7 +102,8 @@
                                 </select>
                             </div>
                             <div class="col-3">
-                                <select name="urutan[]" class="form-control" id="">
+                                <select name="urutan[]" required class="form-control" id="">
+                                    <option value="">-- Tentukan urutan --</option>
                                     @foreach ($kandidat as $item)
                                         <option value="{{$loop->iteration}}">{{$loop->iteration}}</option>
                                     @endforeach
