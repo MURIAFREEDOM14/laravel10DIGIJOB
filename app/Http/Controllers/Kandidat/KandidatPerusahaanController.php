@@ -146,6 +146,7 @@ class KandidatPerusahaanController extends Controller
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
         $permohonan = PermohonanLowongan::where('id_kandidat',$kandidat->id_kandidat)->first();
+        $kandidat_interview = KandidatInterview::where('id_kandidat',$kandidat->id_kandidat)->where('persetujuan',"ya")->first();
         $perusahaan = Perusahaan::where('id_perusahaan',$lowongan->id_perusahaan)->first();
         $persetujuan = PersetujuanKandidat::where('id_kandidat',$kandidat->id_kandidat)->first();
         $usia = Carbon::parse($kandidat->tgl_lahir)->age;
@@ -155,14 +156,19 @@ class KandidatPerusahaanController extends Controller
         if($permohonan == null){
             $jabatan = null;
         } else {
-            $jabatan = $permohonan->id_lowongan;
+            $jabatan = $permohonan;
         }
-        if($persetujuan !== null){
-            $interview = $persetujuan;
+        if($kandidat_interview !== null){
+            $interview = $kandidat_interview;
         } else {
             $interview = null;
         }
-        return view('kandidat/perusahaan/lihat_lowongan_pekerjaan',compact('kandidat','pesan','notif','lowongan','jabatan','perusahaan','interview'));
+        if($persetujuan !== null){
+            $konfirmasi = $persetujuan;
+        } else {
+            $konfirmasi = null;
+        }
+        return view('kandidat/perusahaan/lihat_lowongan_pekerjaan',compact('kandidat','pesan','notif','lowongan','jabatan','perusahaan','interview','konfirmasi'));
     }
 
     public function permohonanLowongan($id)
