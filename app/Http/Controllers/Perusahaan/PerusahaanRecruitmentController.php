@@ -831,7 +831,7 @@ class PerusahaanRecruitmentController extends Controller
         $bank = "PT Bank Central Asia Tbk";
         $nomo_rec = 4399997272;
         $token = User::where('no_nib',$perusahaan->no_nib)->first();
-        // Mail::mailer('payment')->to($perusahaan->email_perusahaan)->send(new Payment($perusahaan->nama_perusahaan, $token, $payment, "Pembayaran Interview", 'digijobaccounting@ugiport.com', $nama_rec, $nomo_rec, $bank));
+        Mail::mailer('payment')->to($perusahaan->email_perusahaan)->send(new Payment($perusahaan->nama_perusahaan, $token, $payment, "Pembayaran Interview", 'digijobaccounting@ugiport.com', $nama_rec, $nomo_rec, $bank));
         return redirect('/perusahaan/list/pembayaran')->with('success',"Proses Pembayaran sedang dikirimkan ke email anda.");
     }
 
