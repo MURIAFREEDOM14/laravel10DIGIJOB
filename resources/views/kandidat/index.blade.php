@@ -5,6 +5,7 @@
 @php
     $personal = $kandidat->tinggi;
     $document = $kandidat->foto_ijazah;
+    // $vaksin = $kandidat->sertifikat_vaksin2;
     $parent = $kandidat->tgl_lahir_ibu;
     $permission = $kandidat->hubungan_perizin;
     $negara = $kandidat->negara_id;                                
@@ -38,6 +39,20 @@
                 </div>
             </div>
         </div>
+    {{-- @elseif($vaksin == null)
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <b class="bold">Profil</b>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="text-center">Harap Lengkapi Profil Anda</h3>
+                        <div class="text-center"><a class="btn btn-outline-primary" href="/isi_kandidat_vaksin">Lengkapi Profil</a></div>                                                            
+                    </div>
+                </div>
+            </div>
+        </div> --}}
     @elseif($parent == null)
         <div class="row mt-2">
             <div class="col-md-12">

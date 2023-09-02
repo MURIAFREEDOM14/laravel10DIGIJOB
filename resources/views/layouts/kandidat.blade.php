@@ -317,7 +317,7 @@
                             @php
                                 $personal = $kandidat->tinggi;
                                 $document = $kandidat->foto_ijazah;
-                                $vaksin = $kandidat->sertifikat_vaksin2;
+                                // $vaksin = $kandidat->sertifikat_vaksin2;
                                 $parent = $kandidat->tgl_lahir_ibu;
                                 $permission = $kandidat->hubungan_perizin;                                
                             @endphp
@@ -335,13 +335,13 @@
                                     <p>Lengkapi Data Document</p>
                                 </a>
                             </li>
-                            @elseif($vaksin == null)
+                            {{-- @elseif($vaksin == null)
                                 <li class="nav-item">
                                     <a href="/isi_kandidat_vaksin">
                                         <i class="fas fa-pen-square"></i>
                                         <p>Lengkapi Data Vaksin</p>
                                     </a>
-                                </li>
+                                </li> --}}
                             @elseif($parent == null)
                                 <li class="nav-item">
                                     <a href="/isi_kandidat_parent">
