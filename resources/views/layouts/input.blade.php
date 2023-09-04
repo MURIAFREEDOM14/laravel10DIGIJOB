@@ -92,13 +92,14 @@
         <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
       </div>
       <main class="">
-        <div class="container px-5">
+        <div class="container px-3">
           @yield('content')
         </div>
       </main>
       @livewireScripts
       <script src="/js/loader.js"></script>
       <script type="text/javascript">
+        // alert konfirmasi menuju ke beranda
         function beranda(ev){
           ev.preventDefault();
           var url = ev.currentTarget.getAttribute('href');
@@ -126,6 +127,7 @@
           });
         }
         
+        // alert konfirmasi keluar / log out
         function confirmation(ev)
         {
           ev.preventDefault();
@@ -154,6 +156,7 @@
           });
         }
 
+        // alert konfirmasi menghapus data
         function hapusData(ev)
         {
           ev.preventDefault();
@@ -182,6 +185,7 @@
           });
         }
 
+        // fungsi tampilan ubah password
         function passwordBtn(){
           var x = document.getElementById('newPassword1');
           var y = document.getElementById('newPassword2')
@@ -194,6 +198,7 @@
           }
         }
 
+        // fungsi tampilan foto / video
         $(document).ready(function() {
           $(document).on('change','#data_pengalaman',function() {
             var pengalaman = $(this).val();
@@ -212,6 +217,7 @@
           })
         })
 
+        // fungsi tampilan modal untuk data anak yang berkeluarga
         $(document).ready(function() {
           $(document).on('change','#anak',function() {
             var anak = $(this).val();
@@ -223,9 +229,11 @@
       </script>
 
       <script>
+        // fungsi pemutaran video pengalaman kerja
         var video = document.getElementById("video");
         var btnPlay = document.getElementById('play');
         var btnJeda = document.getElementById('jeda');
+        // fungsi mulai video
         function play() {
           if (video.paused) {
           video.play();
@@ -234,6 +242,7 @@
           }
         }
 
+        // fungsi jeda video
         function pause() {
           if (video.play) {
           video.pause();

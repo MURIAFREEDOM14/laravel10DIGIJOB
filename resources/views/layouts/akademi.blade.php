@@ -398,6 +398,7 @@
         </script>
         <script src="/js/loader.js"></script>
         <script type="text/javascript">
+            // alert konfirmasi keluar / log out
             function confirmation(ev)
                 {
                 ev.preventDefault();

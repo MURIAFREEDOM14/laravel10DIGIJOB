@@ -542,7 +542,7 @@
         </script>
         <script src="/js/loader.js"></script>
         <script type="text/javascript">
-            // Alert Log out //
+            // Alert konfirmasi keluar / Log out //
             function confirmation(ev)
                 {
                 ev.preventDefault();
@@ -571,7 +571,7 @@
                 });    
             }
 
-            // Terima Lowongan //
+            // alert konfirmasi Terima Lowongan //
             function confirmLowongan(ev)
             {
                 ev.preventDefault();
@@ -600,7 +600,7 @@
                 });
             }
 
-            // Batal Lowongan //
+            // alert konfirmasi Batal Lowongan //
             function cancelLowongan(ev)
             {
                 ev.preventDefault();
@@ -629,7 +629,7 @@
                 });
             }
 
-            // Keluar Perusahaan //
+            // alert konfirmasi Keluar Perusahaan //
             function outPerusahaan(ev)
             {
                 ev.preventDefault();
@@ -658,6 +658,7 @@
                 });
             }
 
+            // alert konfirmasi hapus data
             function hapusData(ev)
             {
                 ev.preventDefault();
@@ -686,7 +687,7 @@
                 });
             }
 
-            // Negara Tujuan //
+            // fungsi tampilan pilihan Negara Tujuan //
             $(document).ready(function() {
                 $(document).on('change','#placement',function() {
                     var getID = $(this).val();
@@ -730,7 +731,7 @@
             $('#staticBackdrop').modal('show');                                                   
             });
 
-            // Konfirmasi Interview //
+            // fungsi tampilan pilihan Konfirmasi Interview //
             function tidakInterview() {
                 var y = document.getElementById("terimaInterview");
                 var n = document.getElementById("batalInterview");
@@ -743,7 +744,7 @@
                 }
             }
 
-            // Kembali tampilan pilihan interview
+            // fungsi tampilan pilihan interview Kembali
             function backButton() {
                 var y = document.getElementById("terimaInterview");
                 var n = document.getElementById("batalInterview");
@@ -756,7 +757,7 @@
                 }
             }
 
-            //pilihan alasan menolak interview
+            //fungsi tampilan pilihan alasan menolak interview
             $(document).ready(function() {
                 $(document).on('change','#tolakInterview',function() {
                     var getID = $(this).val();
@@ -775,6 +776,7 @@
             });
         </script>
         <script>
+            // fungsi tampilan mulai video
             var video = document.getElementById("video");
             var btnPlay = document.getElementById('play');
             var btnJeda = document.getElementById('jeda');
@@ -786,6 +788,7 @@
                 }
             }
 
+            // fungsi tampilan jeda video
             function pause() {
                 if (video.play) {
                 video.pause();

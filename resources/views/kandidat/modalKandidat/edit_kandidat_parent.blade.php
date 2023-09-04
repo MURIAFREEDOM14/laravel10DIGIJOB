@@ -7,9 +7,6 @@
         <div class="card-body">
             <div class="row">
                 <h4 class="text-center">PROFIL BIO DATA</h4>
-                {{-- <h6 class="text-center mb-5" style="text-transform: uppercase">
-                    {{$negara}}
-                </h6> --}}
                 <form action="/isi_kandidat_parent" method="POST">
                     @csrf
                     <div class="" id="parent">

@@ -733,17 +733,6 @@ class PerusahaanRecruitmentController extends Controller
         return view('perusahaan/interview/waktu_interview',compact('perusahaan','notif','pesan','credit','kandidat','id','periode'));
     }
 
-    // public function waktuInterview($id)
-    // {
-    //     $user = Auth::user();
-    //     $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-    //     $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-    //     $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-    //     $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-    //     $kandidat = KandidatInterview::where('id_lowongan',$id)->orderBy('urutan','asc')->get();
-    //     return view('perusahaan/waktu_interview',compact('perusahaan','notif','pesan','cabang','credit','kandidat'));
-    // }
-
     public function confirmWaktuInterview(Request $request, $id)
     {
         $user = Auth::user();

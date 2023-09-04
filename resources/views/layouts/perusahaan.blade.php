@@ -593,6 +593,7 @@
         </script>
         <script src="/js/loader.js"></script>
         <script type="text/javascript">
+            // alert konfirmasi keluar / log out
             function confirmation(ev)
                 {
                 ev.preventDefault();
@@ -621,6 +622,7 @@
                 });    
             }
 
+            // alert konfirmasi hapus data
             function hapusData(ev)
             {
                 ev.preventDefault();
@@ -648,6 +650,7 @@
                 });
             }
 
+            // alert konfirmasi keluarkan kandidat
             function keluarkanKandidat(ev)
             {
                 ev.preventDefault();
@@ -675,6 +678,7 @@
                 });
             }
 
+            // alert konfirmasi penolakan perusahaan
             function tolakData(ev) {
                 ev.preventDefault();
                 var url = ev.currentTarget.getAttribute('href');
@@ -702,7 +706,7 @@
             }
         </script>
         <script type="text/javascript">
-            // mata uang lowongan //
+            // fungsi tampilan pilihan mata uang lowongan //
             $(document).ready(function() {
                 $(document).on('change','#negara_tujuan', function() {
                     var negara = $(this).val();
@@ -722,7 +726,7 @@
             })
         </script>
         <script>
-            // video lowongan //
+            //fungsi tampilan mulai video //
             var video = document.getElementById("video");
             var btnPlay = document.getElementById('play');
             var btnJeda = document.getElementById('jeda');
@@ -734,6 +738,7 @@
                 }
             }
 
+            // fungsi tampilan jeda video
             function pause() {
                 if (video.play) {
                 video.pause();
@@ -742,7 +747,7 @@
                 }
             }
 
-            // benefit lowongan //
+            // fungsi tampilan benefit lowongan //
             function btnTambahBenefit() {
                 var tambah = document.getElementById('tambahBenefit');
                 var benefit = document.getElementById('benefitTambah');
@@ -772,7 +777,7 @@
                     }
                 })
             }
-             // fasilitas lowongan //
+             // fungsi tampilan fasilitas lowongan //
             function btnTambahFasilitas() {
                 var tambah = document.getElementById('tambahFasilitas');
                 var fasilitas = document.getElementById('fasilitasTambah');
@@ -803,7 +808,7 @@
                 })
             }
 
-            // usia lowongan //
+            // fungsi tampilan pilihan usia lowongan //
             $(document).ready(function() {
                 $(document).on('change','#ideal', function() {
                     var ideal = this.value;
@@ -816,12 +821,6 @@
                     }
                 })
             })
-        </script>
-        <script>
-            time.oninput = changeSpan;
-            function changeSpan() {
-                hasil.innerTime = time.value;
-            }
         </script>
         @livewireScripts
     </body>
