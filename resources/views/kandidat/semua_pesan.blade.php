@@ -39,7 +39,7 @@
                     </div>
                 @else
                     <div class="list-group">                        
-                        <a href="/kirim_balik/{{$item->id}}" class="link-list" style="font-weight:bold;background-color: #F1F0E8;">
+                        <a href="/kirim_balik/{{$item->id}}" class="link-list" style="font-weight:bold;">
                             <div class="mx-1">
                                 <h5 class="">{{$item->pengirim}}</h5>
                             </div>
