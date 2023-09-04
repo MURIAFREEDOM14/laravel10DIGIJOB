@@ -27,8 +27,8 @@ class MessagerController extends Controller
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         $semua_pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->where('check_click',"n")->get();
-        $notif = notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->where('check_click',"n")->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $notif = notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
         return view('kandidat/semua_pesan',compact('kandidat','pesan','semua_pesan','notif'));
     }
 
@@ -36,8 +36,8 @@ class MessagerController extends Controller
     {
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
-        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->where('check_click',"n")->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->where('check_click',"n")->get();
+        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
         messageKandidat::where('id',$id)->update([
             'check_click' => 'y',
         ]);
@@ -57,9 +57,9 @@ class MessagerController extends Controller
     {
         $user = Auth::user();
         $akademi = Akademi::where('referral_code',$user->referral_code)->first();
-        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->where('check_click',"n")->get();
+        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $semua_pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->get();
-        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->where('check_click',"n")->get();
+        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
         return view('akademi/semua_pesan',compact('akademi','pesan','semua_pesan','notif'));
     }
 
@@ -67,8 +67,8 @@ class MessagerController extends Controller
     {
         $auth = Auth::user();
         $akademi = akademi::where('referral_code',$auth->referral_code)->first();
-        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->where('check_click',"n")->get();
-        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->where('check_click',"n")->get();
+        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $pengirim = messageakademi::where('id',$id)->first();
         return view('akademi/kirim_pesan',compact('akademi','pesan','notif','pengirim'));
     }
@@ -77,8 +77,8 @@ class MessagerController extends Controller
     {
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('referral_code',$auth->referral_code)->first();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->where('check_click',"n")->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_Perusahaan)->orderBy('created_at','desc')->limit(3)->where('check_click',"n")->get();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_Perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
         messagePerusahaan::where('id',$id)->update([
             'check_click' => 'y',
         ]);
