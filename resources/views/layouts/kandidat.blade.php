@@ -325,35 +325,35 @@
                                 <li class="nav-item">
                                     <a href="/isi_kandidat_personal">
                                         <i class="fas fa-pen-square"></i>
-                                        <p>Lengkapi Data Personal</p>
+                                        <p>Data Personal</p>
                                     </a>
                                 </li> 
                             @elseif($document == null)
                             <li class="nav-item">
                                 <a href="/isi_kandidat_document">
                                     <i class="fas fa-pen-square"></i>
-                                    <p>Lengkapi Data Document</p>
+                                    <p>Data Document</p>
                                 </a>
                             </li>
                             {{-- @elseif($vaksin == null)
                                 <li class="nav-item">
                                     <a href="/isi_kandidat_vaksin">
                                         <i class="fas fa-pen-square"></i>
-                                        <p>Lengkapi Data Vaksin</p>
+                                        <p>Data Vaksin</p>
                                     </a>
                                 </li> --}}
                             @elseif($parent == null)
                                 <li class="nav-item">
                                     <a href="/isi_kandidat_parent">
                                         <i class="fas fa-pen-square"></i>
-                                        <p>Lengkapi Data Orang Tua / Wali</p>
+                                        <p>Data Orang Tua / Wali</p>
                                     </a>
                                 </li>
                             @elseif($permission == null)
                                 <li class="nav-item">
                                     <a href="/isi_kandidat_permission">
                                         <i class="fas fa-pen-square"></i>
-                                        <p>Lengkapi Data Kontak Darurat</p>
+                                        <p>Data Kontak Darurat</p>
                                     </a>
                                 </li>
                             @elseif($kandidat->negara_id !== null)
