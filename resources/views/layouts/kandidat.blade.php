@@ -160,12 +160,10 @@
                                 <a class="nav-link dropdown-toggle" href="/semua_notif">
                                     <i class="fa fa-bell"></i>
                                     @php
-                                        $ttl_notif = $notif->count();
                                         $ttl_pesan = $pesan->count();
-                                        $ttl = $ttl_notif + $ttl_pesan;
                                     @endphp
-                                    @if ($ttl_notif !== 0)
-                                        <span class="" style="background-color: red; padding:3px; border-radius:25%;">{{$ttl}}</span>                                        
+                                    @if ($ttl_pesan !== 0)
+                                        <span class="" style="background-color: red; padding:3px; border-radius:25%;">{{$ttl_pesan}}</span>                                        
                                     @endif
                                 </a>
                                 {{-- <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
