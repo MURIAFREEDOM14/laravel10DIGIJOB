@@ -160,13 +160,13 @@
                                 </ul> --}}
                             </li>
                             <li class="nav-item dropdown hidden-caret">
-                                <a class="nav-link dropdown-toggle" href="/semua_notif">
+                                <a class="nav-link dropdown-toggle" href="/semua_pesan">
                                     <i class="fa fa-bell"></i>
                                     @php
                                         $ttl_pesan = $pesan->count();
                                     @endphp
                                     @if ($ttl_pesan !== 0)
-                                        <span class="" style="background-color: red; padding:3px; border-radius:25%;">{{$ttl_pesan}}</span>                                        
+                                        <span class="" style="background-color: red; padding:3px; border-radius:25%;"></span>                                        
                                     @endif
                                 </a>
                                 {{-- <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">

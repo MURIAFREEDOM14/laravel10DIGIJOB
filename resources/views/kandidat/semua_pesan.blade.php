@@ -41,7 +41,7 @@
                     <div class="list-group">                        
                         <a href="/kirim_balik/{{$item->id}}" class="link-list" style="font-weight:bold;">
                             <div class="mx-1">
-                                <h5 class="">{{$item->pengirim}}</h5>
+                                <h5 class="" style="font-weight: bold;">{{$item->pengirim}}</h5>
                             </div>
                             <div class="mx-1">{{$item->pesan}}</div>
                             <div class="float-right mx-1">{{date('d-m-Y',strtotime($item->created_at))}}</div>
