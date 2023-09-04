@@ -99,9 +99,12 @@
             <div class="main-header">
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="blue2">
-                    <a href="/" class="logo">
-                        <b class="" style="color: white">DIGIJOB</b>
+                    <a href="/" class="logo" style="background-color: #1269db">
+                        <b class="" style="color: white;">DIGIJOB</b>
                     </a>
+                    {{-- <a href="/" class="logo">
+                        <b class="" style="color: white;">DIGIJOB</b>
+                    </a> --}}
                     <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon">
                             <i class="icon-menu"></i>
