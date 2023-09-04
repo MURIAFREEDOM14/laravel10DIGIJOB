@@ -163,7 +163,9 @@
                                     @php
                                         $ttl_pesan = $pesan->count();
                                     @endphp
-                                    <span class="" style="background-color: red;padding:3px; border-radius:25%;">{{$ttl_pesan}}</span>
+                                    @if ($ttl_pesan !== 0)
+                                        <span class="" style="background-color: red;padding:3px; border-radius:25%;">{{$ttl_pesan}}</span>                                        
+                                    @endif
                                 </a>
                                 {{-- <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
                                     <li>
@@ -371,7 +373,7 @@
                             <li class="nav-item active">
                                 <a href="/perusahaan" class="btn" aria-expanded="false">
                                     <i class="fas fa-home"></i>
-                                    <p>Beranda</p>
+                                    <p></p>
                                 </a>
                             </li>
                             <li class="nav-section">
