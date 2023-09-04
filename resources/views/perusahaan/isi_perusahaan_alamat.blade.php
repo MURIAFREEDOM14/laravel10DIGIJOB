@@ -11,10 +11,10 @@
     }
 </style>
     <div class="container mt-5">
-        <div class="card">
-            <div class="card-header">
+        <div class="">
+            <div class="">
             </div>
-            <div class="card-body">
+            <div class="">
                 <div class="row">
                     <h4 class="text-center">PERUSAHAAN BIO DATA</h4>
                 </div>

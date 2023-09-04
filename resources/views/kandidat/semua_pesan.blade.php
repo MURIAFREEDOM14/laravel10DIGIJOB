@@ -27,15 +27,41 @@
         </div>
         <div class="card-body">
             @foreach ($semua_pesan as $item)
-                <div class="list-group">                        
-                    <a href="/kirim_balik/{{$item->id}}" class="link-list">
-                        <div class="mx-1">
-                            <h5 class="">{{$item->pengirim}}</h5>
-                        </div>
-                        <div class="mx-1">{{$item->pesan}}</div>
-                        <div class="float-right mx-1">{{date('d-m-Y',strtotime($item->created_at))}}</div>
-                    </a>
-                </div>
+                @if ($item->check_click == "y")
+                    <div class="list-group">                        
+                        <a href="/kirim_balik/{{$item->id}}" class="link-list">
+                            <div class="mx-1">
+                                <h5 class="">{{$item->pengirim}}</h5>
+                            </div>
+                            <div class="mx-1">{{$item->pesan}}</div>
+                            @php
+                                $dayNow = date('Y-m-d');
+                            @endphp
+                            @if (date('Y-m-d',strtotime($item->created_at)) == $dayNow)
+                                <div class="float-right mx-1">{{date('h:i A',strtotime($item->created_at))}}</div>                                
+                            @else
+                                <div class="float-right mx-1">{{date('d-M',strtotime($item->created_at))}}</div>
+                            @endif
+                        </a>
+                    </div>
+                @else
+                    <div class="list-group">                        
+                        <a href="/kirim_balik/{{$item->id}}" class="link-list" style="font-weight:bold;">
+                            <div class="mx-1">
+                                <h5 class="" style="font-weight: bold;">{{$item->pengirim}}</h5>
+                            </div>
+                            <div class="mx-1">{{$item->pesan}}</div>
+                            @php
+                                $dayNow = date('Y-m-d');
+                            @endphp
+                            @if (date('Y-m-d',strtotime($item->created_at)) == $dayNow)
+                                <div class="float-right mx-1">{{date('h:i A',strtotime($item->created_at))}}</div>                                
+                            @else
+                                <div class="float-right mx-1">{{date('d-M',strtotime($item->created_at))}}</div>
+                            @endif
+                        </a>
+                    </div>
+                @endif
             @endforeach
         </div>
     </div>

@@ -11,7 +11,7 @@
                     @foreach ($kandidat_interview as $item)
                         <div class="card">
                             <div class="card-body">
-                                <div class="text-center" style="border-bottom: 2px solid black; border-top: 2px solid black; text-transform:uppercase;">Data kandidat</div>
+                                <div class="text-center" style="border-bottom: 2px solid black; border-top: 2px solid black; text-transform:uppercase; background-image: linear-gradient(#0C356A, #279EFF);color:white;">Data kandidat</div>
                                 <div class="row my-3" style="text-transform: uppercase">
                                     <div class="col-2">
                                         <label for="">Nama Kandidat</label>
@@ -33,7 +33,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="text-center" style="border-bottom: 2px solid black; border-top: 2px solid black; text-transform:uppercase;">Jadwal Interview</div>
+                                <div class="text-center" style="border-bottom: 2px solid black; border-top: 2px solid black; text-transform:uppercase; background-image: linear-gradient(#0C356A, #279EFF);color:white;">Jadwal Interview</div>
                                 <div class="row my-3" style="text-transform: uppercase;">
                                     <div class="col-md-3">
                                         <label for="" class="" style="font-weight:700">Tanggal Interview</label>

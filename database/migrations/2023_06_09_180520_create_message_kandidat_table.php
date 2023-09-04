@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('kepada')->nullable();
             $table->integer('id_interview')->nullable();
             $table->integer('id_akademi')->nullable();
+            $table->enum('check_click',['n','y'])->default('n');
             $table->timestamps();
         });
     }

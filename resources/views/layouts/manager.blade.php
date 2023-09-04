@@ -506,6 +506,7 @@
         </script>
         <script src="/js/loader.js"></script>
         <script type="text/javascript">
+            // alert konfirmasi keluar / log out
             function confirmation(ev)
                 {
                 ev.preventDefault();
@@ -535,6 +536,7 @@
                 });    
             }
 
+            // alert konfirmasi hapus data
             function hapusData(ev)
             {
                 ev.preventDefault();
@@ -564,6 +566,7 @@
                 });
             }
 
+            // alert konfirmasi hapus negara
             function hapusNegara(ev)
                 {
                 ev.preventDefault();
@@ -594,6 +597,7 @@
             }
         </script>
         <script>
+            // tampilan chart
             var multipleBarChart = document.getElementById('multipleBarChart').getContext('2d');
             var myMultipleBarChart = new Chart(multipleBarChart, {
                 type: 'bar',
@@ -643,6 +647,7 @@
             });
         </script>
         <script>
+            // fungsi tampilan mulai video
             var video = document.getElementById("video");
             var btnPlay = document.getElementById('play');
             var btnJeda = document.getElementById('jeda');
@@ -654,6 +659,7 @@
                 }
             }
 
+            // fungsi tampilan jeda video
             function pause() {
                 if (video.play) {
                 video.pause();

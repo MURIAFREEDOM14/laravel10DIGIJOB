@@ -5,7 +5,7 @@
 @php
     $personal = $kandidat->tinggi;
     $document = $kandidat->foto_ijazah;
-    $vaksin = $kandidat->sertifikat_vaksin2;
+    // $vaksin = $kandidat->sertifikat_vaksin2;
     $parent = $kandidat->tgl_lahir_ibu;
     $permission = $kandidat->hubungan_perizin;
     $negara = $kandidat->negara_id;                                
@@ -39,7 +39,7 @@
                 </div>
             </div>
         </div>
-    @elseif($vaksin == null)
+    {{-- @elseif($vaksin == null)
         <div class="row mt-2">
             <div class="col-md-12">
                 <div class="card">
@@ -52,7 +52,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     @elseif($parent == null)
         <div class="row mt-2">
             <div class="col-md-12">
@@ -117,6 +117,23 @@
                 </div>
             </div>
         </div>
+    @elseif($interview)
+        <div class="row">
+            <div class="col-md-12">
+                <a href="interview_perusahaan" style="text-decoration: none;">
+                    <div class="card" style="padding:20px; background-image:linear-gradient(#557A46, #7A9D54);color:white;font-size:17px; border-radius:5% 0% 5% 5%;">
+                        <div class="" style="margin-bottom:1.5vw; text-transform:uppercase; font-weight:600;">Interview Perusahaan</div>
+                        <div class="" style="border-bottom:1px solid white;"></div>
+                        <div class="" style="font-weight: 600;">Nama Lowongan :</div>
+                        <div class="">{{$interview->jabatan}}</div>
+                        <div class="" style="font-weight:600;">Jadwal Interview :</div>
+                        <div class="">{{date('d M Y',strtotime($interview->jadwal_interview))}}</div>
+                        <div class="" style="font-weight: 600;">Waktu Interview :</div>
+                        <div class="">{{date('h:i:s A',strtotime($interview->waktu_interview_awal))}} Sampai {{date('h:i:s A',strtotime($interview->waktu_interview_akhir))}}</div>
+                    </div>
+                </a>
+            </div>
+        </div>
     @else
         <div class="row mt-2">
             <div class="col-md-12">
@@ -167,28 +184,6 @@
                 </div>
             </div>
         </div>
-        @if ($interview)
-            <div class="row">
-                <div class="col-md-6">
-                </div>
-                <div class="col-md-6">
-                    <a href="interview_perusahaan" style="text-decoration: none;">
-                        <div class="card" style="padding:20px; background-image:linear-gradient(#557A46, #7A9D54);color:white;font-size:17px; border-radius:10% 0% 10% 10%;">
-                            <div class="" style="margin-bottom:1.5vw; text-transform:uppercase; font-weight:600;">Interview Perusahaan</div>
-                            <div class="" style="border-bottom:1px solid white;"></div>
-                            <div class="" style="font-weight: 600;">Nama Lowongan :</div>
-                            <div class="">{{$interview->jabatan}}</div>
-                            <div class="" style="font-weight:600;">Jadwal Interview :</div>
-                            <div class="">{{date('d M Y',strtotime($interview->jadwal_interview))}}</div>
-                            <div class="" style="font-weight: 600;">Waktu Interview :</div>
-                            <div class="">{{date('h:i:s a',strtotime($interview->waktu_interview_awal))}} Sampai {{date('h:i:s a',strtotime($interview->waktu_interview_akhir))}}</div>
-                        </div>
-                    </a>
-                    
-                </div>
-            </div>    
-        @endif
-        
     @endif
 </div>
 

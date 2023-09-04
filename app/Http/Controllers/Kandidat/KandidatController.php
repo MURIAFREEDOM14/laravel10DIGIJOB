@@ -47,8 +47,8 @@ class KandidatController extends Controller
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        $notif = notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
+        $notif = notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
         $notifyK = notifyKandidat::where('created_at','<',Carbon::now()->subDays(14))->delete();
         $lowongan = LowonganPekerjaan::join(
@@ -113,9 +113,9 @@ class KandidatController extends Controller
         ]);
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
         $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
-        $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->limit(3)->get();
-        $notif = notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
+        $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->get();
+        $notif = notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
         if($kandidat->hubungan_perizin == null){
             return redirect()->route('kandidat')->with('warning',"Harap lengkapi profil anda terlebih dahulu");
         } elseif($kandidat->negara_id == null) {
@@ -133,8 +133,8 @@ class KandidatController extends Controller
     {
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
-        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
+        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $pengalaman_kerja = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
         $video = VideoKerja::where('pengalaman_kerja_id',$id)->get();
         $foto = FotoKerja::where('pengalaman_kerja_id',$id)->get();
@@ -145,8 +145,8 @@ class KandidatController extends Controller
     {
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
-        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
+        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->get();
         if($type == "video"){
             $video = VideoKerja::where('video_kerja_id',$id)->first();
             $video_pengalaman = VideoKerja::where('pengalaman_kerja_id',$video->pengalaman_kerja_id)->get();
@@ -1495,8 +1495,8 @@ class KandidatController extends Controller
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
+        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
         return view('kandidat/contact_us',compact('kandidat','notif','pembayaran','pesan'));
     }
@@ -1505,8 +1505,8 @@ class KandidatController extends Controller
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
+        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $video = Pelatihan::where('negara_id',$kandidat->negara_id)->get();
         return view('kandidat/video_pelatihan',compact('kandidat','notif','pesan','video'));
     }
@@ -1515,8 +1515,8 @@ class KandidatController extends Controller
     {
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
-        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->limit(3)->get();
+        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $video = Pelatihan::where('id',$id)->first();
         $pelatihan = Pelatihan::where('negara_id',$kandidat->negara_id)->where('id','not like',$id)->get();
         return view('kandidat/lihat_video_pelatihan',compact('kandidat','notif','pesan','video','pelatihan'));

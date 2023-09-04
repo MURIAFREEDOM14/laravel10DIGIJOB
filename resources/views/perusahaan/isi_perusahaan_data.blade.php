@@ -3,10 +3,10 @@
 @include('sweetalert::alert')
 @include('flash_message')
     <div class="container mt-5">        
-        <div class="card mb-4">
-            <div class="card-header">
+        <div class="mb-4">
+            <div class="">
             </div>
-            <div class="card-body">
+            <div class="">
                 <div class="row">
                     <h4 class="text-center">PERUSAHAAN BIO DATA</h4>
                     <form action="/perusahaan/isi_perusahaan_data" method="POST" enctype="multipart/form-data">

@@ -24,16 +24,28 @@
             Semua Notifikasi
         </div>
         <div class="card-body">
-            @foreach ($notif as $item)
-                <div class="list-group">
-                    <a href="{{$item->url}}" class="link-list">
-                        <div class="mx-1">
-                            <h5 class="">{{$item->pengirim}}</h5>
-                        </div>
-                        <div class="mx-1">{{$item->isi}}</div>
-                        <div class="float-right mx-1">{{date('d-m-Y',strtotime($item->created_at))}}</div>
-                    </a>
-                </div>
+            @foreach ($semua_notif as $item)
+                @if ($item->check_click == "y")
+                    <div class="list-group">
+                        <a href="/lihat_notif_kandidat/{{$item->id_notify}}" class="link-list">
+                            <div class="mx-1">
+                                <div class="" style="font-weight:bold;">{{$item->pengirim}}</div>
+                            </div>
+                            <div class="mx-1">{{$item->isi}}</div>
+                            <div class="float-right mx-1">{{date('d-m-Y',strtotime($item->created_at))}}</div>
+                        </a>
+                    </div>    
+                @else
+                    <div class="list-group">
+                        <a href="/lihat_notif_kandidat/{{$item->id_notify}}" class="link-list" style="font-weight: bold;">
+                            <div class="mx-1">
+                                <div class="" style="font-weight: bold;">{{$item->pengirim}}</div>
+                            </div>
+                            <div class="mx-1">{{$item->isi}}</div>
+                            <div class="float-right mx-1">{{date('d-m-Y',strtotime($item->created_at))}}</div>
+                        </a>
+                    </div>
+                @endif
             @endforeach
             <div class="">Notifikasi akan terhapus dalam 2 minggu</div>
         </div>

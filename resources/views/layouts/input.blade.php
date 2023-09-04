@@ -55,17 +55,12 @@
     <body onload="loadingPage()">
       <nav class="navbar navbar-expand-lg bg-warning">
           <div class="container-fluid">
-            <a class="navbar-brand" href="/">DIGIJOB</a>
+            <a class="navbar-brand" href="/" onclick="beranda(event)">DIGIJOB</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                  @if (auth()->user()->verify_confirmed !== null)                      
-                    <a class="nav-link" style="color:black" href="/" onclick="beranda(event)">Beranda<span class="sr-only"></span></a>                      
-                  @endif
-                </li>
                 <li class="nav-item">
                   {{-- <a class="nav-link" style="color:black" href="/hubungi_kami">Contact Us</a> --}}
                 </li>
@@ -92,13 +87,14 @@
         <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
       </div>
       <main class="">
-        <div class="container px-5">
+        <div class="container px-3">
           @yield('content')
         </div>
       </main>
       @livewireScripts
       <script src="/js/loader.js"></script>
       <script type="text/javascript">
+        // alert konfirmasi menuju ke beranda
         function beranda(ev){
           ev.preventDefault();
           var url = ev.currentTarget.getAttribute('href');
@@ -126,6 +122,7 @@
           });
         }
         
+        // alert konfirmasi keluar / log out
         function confirmation(ev)
         {
           ev.preventDefault();
@@ -154,6 +151,7 @@
           });
         }
 
+        // alert konfirmasi menghapus data
         function hapusData(ev)
         {
           ev.preventDefault();
@@ -182,6 +180,7 @@
           });
         }
 
+        // fungsi tampilan ubah password
         function passwordBtn(){
           var x = document.getElementById('newPassword1');
           var y = document.getElementById('newPassword2')
@@ -194,6 +193,7 @@
           }
         }
 
+        // fungsi tampilan foto / video
         $(document).ready(function() {
           $(document).on('change','#data_pengalaman',function() {
             var pengalaman = $(this).val();
@@ -212,6 +212,7 @@
           })
         })
 
+        // fungsi tampilan modal untuk data anak yang berkeluarga
         $(document).ready(function() {
           $(document).on('change','#anak',function() {
             var anak = $(this).val();
@@ -223,9 +224,11 @@
       </script>
 
       <script>
+        // fungsi pemutaran video pengalaman kerja
         var video = document.getElementById("video");
         var btnPlay = document.getElementById('play');
         var btnJeda = document.getElementById('jeda');
+        // fungsi mulai video
         function play() {
           if (video.paused) {
           video.play();
@@ -234,6 +237,7 @@
           }
         }
 
+        // fungsi jeda video
         function pause() {
           if (video.play) {
           video.pause();

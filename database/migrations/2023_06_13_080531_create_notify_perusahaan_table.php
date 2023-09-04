@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('isi')->nullable();
             $table->text('url')->nullable();
             $table->string('pengirim')->nullable();
+            $table->enum('check_click',['n','y'])->default('n');
             $table->timestamps();
         });
     }

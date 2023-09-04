@@ -59,7 +59,7 @@
                             <hr>
                         </div>
                         <div class="col-9">
-                            <label for="">: 15000</label>
+                            <label for="">: 15000 X {{$total}}</label>
                             <hr>
                         </div>
                     </div>
@@ -85,12 +85,18 @@
                         </div>
                         <div class="col-9">
                             <input type="text" hidden name="credit" value="{{$credit->credit}}" id="">
-                            <label for="">: {{$credit->credit}}</label>
+                            <label for="">: 
+                                @if ($credit->credit == null || $credit->credit == 0)
+                                    0
+                                @else
+                                    {{$credit->credit}}
+                                @endif
+                            </label>
                             <hr>
                         </div>
                     </div>
                     @if ($credit->credit == 0)
-                        <button type="submit" name="konfirmasi" value="tidak">Konfirmasi Pembayaran</button>
+                        <button type="submit" class="btn btn-success" name="konfirmasi" value="tidak">Konfirmasi Pembayaran</button>
                     @else
                         <div class="text-center" style="text-transform: uppercase; border:2px solid #337CCF; padding:15px;">
                             <label for="">Apakah anda ingin menggunakan credit anda untuk pembayaran interview ini?</label>

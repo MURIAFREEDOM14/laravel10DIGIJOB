@@ -99,9 +99,12 @@
             <div class="main-header">
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="blue2">
-                    <a href="/" class="logo">
-                        {{-- <b class="" style="color: white">DIGIJOB-UGIPORT</b> --}}
+                    <a href="/" class="logo" style="background-color: #1269db">
+                        <b class="" style="color: white;">DIGIJOB</b>
                     </a>
+                    {{-- <a href="/" class="logo">
+                        <b class="" style="color: white;">DIGIJOB</b>
+                    </a> --}}
                     <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon">
                             <i class="icon-menu"></i>
@@ -122,7 +125,16 @@
                     <div class="container-fluid">
                         <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
                             <li class="nav-item dropdown hidden-caret">
-                                <a class="nav-link dropdown-toggle" href="/perbaikan" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle" href="/semua_pesan">
+                                        <i class="fa fa-envelope" style="color:white"></i>
+                                        @php
+                                            $ttl_pesan = $pesan->count();
+                                        @endphp
+                                        @if ($ttl_pesan !== 0)
+                                            <span class="notification" style="background-color: red;"></span>                                        
+                                        @endif
+                                    </a>
+                                {{-- <a class="nav-link dropdown-toggle" href="/perbaikan" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-envelope" style="color:white"></i>
                                 </a>
                                 <ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
@@ -151,17 +163,11 @@
                                     <li>
                                         <a class="see-all" href="/semua_pesan">Lihat Semua Pesan<i class="fa fa-angle-right"></i> </a>
                                     </li>
-                                </ul>
+                                </ul> --}}
                             </li>
-                            <li class="nav-item dropdown hidden-caret">
-                                <a class="nav-link dropdown-toggle" href="" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{-- <li class="nav-item dropdown hidden-caret">
+                                <a class="nav-link dropdown-toggle" href="/semua_pesan">
                                     <i class="fa fa-bell"></i>
-                                    @php
-                                        $ttl_notif = $notif->count();
-                                    @endphp
-                                    @if ($ttl_notif !== 0)
-                                        <span class="notification" style="background-color: red">{{$ttl_notif}}</span>                                        
-                                    @endif
                                 </a>
                                 <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
                                     <li>
@@ -171,21 +177,23 @@
                                         <div class="notif-scroll scrollbar-outer">
                                             <div class="notif-center">
                                                 @foreach ($notif as $item)
-                                                <a href="{{$item->url}}">
-                                                    <div class="row">
-                                                        <div class="col-2 mr-1">
-                                                            <div class="notif-icon notif-warning">
-                                                                <i class="fas fa-bell"></i>
+                                                    @if ($item->check_click == "n")
+                                                        <a href="/lihat_notif_kandidat/{{$item->id_notify}}">
+                                                            <div class="row">
+                                                                <div class="col-2 mr-1">
+                                                                    <div class="notif-icon notif-warning">
+                                                                        <i class="fas fa-bell"></i>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <div class="notif-content">
+                                                                        <div class="text1" style="">{{$item->isi}}</div>
+                                                                        <span class="time">{{date('d-M-Y | H:m',strtotime($item->created_at))}}</span>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col">
-                                                            <div class="notif-content">
-                                                                <div class="text1" style="">{{$item->isi}}</div>
-                                                                <span class="time">{{date('d-M-Y | H:m',strtotime($item->created_at))}}</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>    
+                                                        </a>                                                        
+                                                    @endif
                                                 @endforeach
                                             </div>
                                         </div>
@@ -194,7 +202,7 @@
                                         <a class="see-all" href="/semua_notif">Lihat Semua Notifikasi<i class="fa fa-angle-right"></i> </a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             <li class="nav-item dropdown hidden-caret">
                                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                                     <div class="avatar-sm">
@@ -305,7 +313,7 @@
                             <li class="nav-item active">
                                 <a href="/kandidat" class="btn" aria-expanded="false">
                                     <i class="fas fa-home"></i>
-                                    <p style="text-transform: uppercase">beranda</p>
+                                    <p style="text-transform: uppercase"></p>
                                 </a>
                             </li>
                             <li class="nav-section">
@@ -317,7 +325,7 @@
                             @php
                                 $personal = $kandidat->tinggi;
                                 $document = $kandidat->foto_ijazah;
-                                $vaksin = $kandidat->sertifikat_vaksin2;
+                                // $vaksin = $kandidat->sertifikat_vaksin2;
                                 $parent = $kandidat->tgl_lahir_ibu;
                                 $permission = $kandidat->hubungan_perizin;                                
                             @endphp
@@ -325,35 +333,35 @@
                                 <li class="nav-item">
                                     <a href="/isi_kandidat_personal">
                                         <i class="fas fa-pen-square"></i>
-                                        <p>Lengkapi Data Personal</p>
+                                        <p>Data Personal</p>
                                     </a>
                                 </li> 
                             @elseif($document == null)
                             <li class="nav-item">
                                 <a href="/isi_kandidat_document">
                                     <i class="fas fa-pen-square"></i>
-                                    <p>Lengkapi Data Document</p>
+                                    <p>Data Document</p>
                                 </a>
                             </li>
-                            @elseif($vaksin == null)
+                            {{-- @elseif($vaksin == null)
                                 <li class="nav-item">
                                     <a href="/isi_kandidat_vaksin">
                                         <i class="fas fa-pen-square"></i>
-                                        <p>Lengkapi Data Vaksin</p>
+                                        <p>Data Vaksin</p>
                                     </a>
-                                </li>
+                                </li> --}}
                             @elseif($parent == null)
                                 <li class="nav-item">
                                     <a href="/isi_kandidat_parent">
                                         <i class="fas fa-pen-square"></i>
-                                        <p>Lengkapi Data Orang Tua / Wali</p>
+                                        <p>Data Orang Tua / Wali</p>
                                     </a>
                                 </li>
                             @elseif($permission == null)
                                 <li class="nav-item">
                                     <a href="/isi_kandidat_permission">
                                         <i class="fas fa-pen-square"></i>
-                                        <p>Lengkapi Data Kontak Darurat</p>
+                                        <p>Data Kontak Darurat</p>
                                     </a>
                                 </li>
                             @elseif($kandidat->negara_id !== null)
@@ -388,21 +396,21 @@
                                         </ul>
                                     </div>
                                 </li>
-                            @endif
-                            @if ($kandidat->stat_pemilik !== "diambil")
-                                <li class="nav-item">
-                                    <a class="btn" href="/list_lowongan_pekerjaan">
-                                        <i class="fas fa-clipboard-list"></i>
-                                        <p>Lowongan Pekerjaan</p>
-                                    </a>
-                                </li>
-                            @else
-                                <li class="nav-item">
-                                    <a class="btn" href="/interview_perusahaan">
-                                        <i class="fas fa-clipboard-list"></i>
-                                        <p>Interview Perusahaan</p>
-                                    </a>
-                                </li>
+                                @if ($kandidat->stat_pemilik !== "diambil")
+                                    <li class="nav-item">
+                                        <a class="btn" href="/list_lowongan_pekerjaan">
+                                            <i class="fas fa-clipboard-list"></i>
+                                            <p>Lowongan Pekerjaan</p>
+                                        </a>
+                                    </li>
+                                @else
+                                    <li class="nav-item">
+                                        <a class="btn" href="/interview_perusahaan">
+                                            <i class="fas fa-clipboard-list"></i>
+                                            <p>Interview Perusahaan</p>
+                                        </a>
+                                    </li>
+                                @endif
                             @endif
                             <li class="nav-item">
                                 <a class="btn disabled" href="/video_pelatihan">
@@ -542,7 +550,7 @@
         </script>
         <script src="/js/loader.js"></script>
         <script type="text/javascript">
-            // Alert Log out //
+            // Alert konfirmasi keluar / Log out //
             function confirmation(ev)
                 {
                 ev.preventDefault();
@@ -571,7 +579,7 @@
                 });    
             }
 
-            // Terima Lowongan //
+            // alert konfirmasi Terima Lowongan //
             function confirmLowongan(ev)
             {
                 ev.preventDefault();
@@ -600,7 +608,7 @@
                 });
             }
 
-            // Batal Lowongan //
+            // alert konfirmasi Batal Lowongan //
             function cancelLowongan(ev)
             {
                 ev.preventDefault();
@@ -629,7 +637,7 @@
                 });
             }
 
-            // Keluar Perusahaan //
+            // alert konfirmasi Keluar Perusahaan //
             function outPerusahaan(ev)
             {
                 ev.preventDefault();
@@ -658,6 +666,7 @@
                 });
             }
 
+            // alert konfirmasi hapus data
             function hapusData(ev)
             {
                 ev.preventDefault();
@@ -686,7 +695,7 @@
                 });
             }
 
-            // Negara Tujuan //
+            // fungsi tampilan pilihan Negara Tujuan //
             $(document).ready(function() {
                 $(document).on('change','#placement',function() {
                     var getID = $(this).val();
@@ -730,7 +739,7 @@
             $('#staticBackdrop').modal('show');                                                   
             });
 
-            // Konfirmasi Interview //
+            // fungsi tampilan pilihan Konfirmasi Interview //
             function tidakInterview() {
                 var y = document.getElementById("terimaInterview");
                 var n = document.getElementById("batalInterview");
@@ -743,7 +752,7 @@
                 }
             }
 
-            // Kembali tampilan pilihan interview
+            // fungsi tampilan pilihan interview Kembali
             function backButton() {
                 var y = document.getElementById("terimaInterview");
                 var n = document.getElementById("batalInterview");
@@ -756,7 +765,7 @@
                 }
             }
 
-            //pilihan alasan menolak interview
+            //fungsi tampilan pilihan alasan menolak interview
             $(document).ready(function() {
                 $(document).on('change','#tolakInterview',function() {
                     var getID = $(this).val();
@@ -775,6 +784,7 @@
             });
         </script>
         <script>
+            // fungsi tampilan mulai video
             var video = document.getElementById("video");
             var btnPlay = document.getElementById('play');
             var btnJeda = document.getElementById('jeda');
@@ -786,6 +796,7 @@
                 }
             }
 
+            // fungsi tampilan jeda video
             function pause() {
                 if (video.play) {
                 video.pause();

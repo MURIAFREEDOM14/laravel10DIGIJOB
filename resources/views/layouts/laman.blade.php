@@ -5,7 +5,7 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <link rel="icon" href="/gambar/icon.ico" type="image/x-icon"/>
 
-  <title>DIGIJOB-UGIPORT</title>
+  <title>DIGIJOB</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -134,9 +134,11 @@
       grecaptcha.execute();
     </script>
     <script>
+      // modal tampilan tutorial video
       $(window).on('load',function() {
       $('#tutorial_kandidat').modal('show');                                                   
       });
+      // fungsi tampilan mulai video
       var video = document.getElementById('video');
       // video.autoplay = true;
       // video.load();
@@ -150,6 +152,7 @@
         }
       }
 
+      // fungsi tampilan jeda video
       function pause() {
         if (video.play) {
           video.pause();
@@ -158,6 +161,7 @@
         }
       }
 
+      // fungsi tampilan lihat password
       function seePassword() {
         var p = document.getElementById('password_input').type;
         if (p == "password") {
