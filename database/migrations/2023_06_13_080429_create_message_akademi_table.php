@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('pesan')->nullable();
             $table->string('pengirim')->nullable();
             $table->string('kepada')->nullable();
+            $table->enum('check_click',['n','y'])->default('n');
             $table->timestamps();
         });
     }

@@ -154,7 +154,7 @@
                                 </ul>
                             </li>
                             <li class="nav-item dropdown hidden-caret">
-                                <a class="nav-link dropdown-toggle" href="" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="/semua_notif">
                                     <i class="fa fa-bell"></i>
                                     @php
                                         $ttl_notif = $notif->count();
@@ -163,7 +163,7 @@
                                         <span class="notification" style="background-color: red">{{$ttl_notif}}</span>                                        
                                     @endif
                                 </a>
-                                <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
+                                {{-- <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
                                     <li>
                                         <div class="dropdown-title">Ada Notifikasi Baru</div>
                                     </li>
@@ -171,21 +171,23 @@
                                         <div class="notif-scroll scrollbar-outer">
                                             <div class="notif-center">
                                                 @foreach ($notif as $item)
-                                                <a href="{{$item->url}}">
-                                                    <div class="row">
-                                                        <div class="col-2 mr-1">
-                                                            <div class="notif-icon notif-warning">
-                                                                <i class="fas fa-bell"></i>
+                                                    @if ($item->check_click == "n")
+                                                        <a href="/lihat_notif_kandidat/{{$item->id_notify}}">
+                                                            <div class="row">
+                                                                <div class="col-2 mr-1">
+                                                                    <div class="notif-icon notif-warning">
+                                                                        <i class="fas fa-bell"></i>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <div class="notif-content">
+                                                                        <div class="text1" style="">{{$item->isi}}</div>
+                                                                        <span class="time">{{date('d-M-Y | H:m',strtotime($item->created_at))}}</span>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col">
-                                                            <div class="notif-content">
-                                                                <div class="text1" style="">{{$item->isi}}</div>
-                                                                <span class="time">{{date('d-M-Y | H:m',strtotime($item->created_at))}}</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>    
+                                                        </a>                                                        
+                                                    @endif
                                                 @endforeach
                                             </div>
                                         </div>
@@ -193,7 +195,7 @@
                                     <li>
                                         <a class="see-all" href="/semua_notif">Lihat Semua Notifikasi<i class="fa fa-angle-right"></i> </a>
                                     </li>
-                                </ul>
+                                </ul> --}}
                             </li>
                             <li class="nav-item dropdown hidden-caret">
                                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">

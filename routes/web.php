@@ -538,11 +538,40 @@ Route::controller(PrioritasController::class)->group(function(){
 Route::get('/download_file',[FileUploadController::class,'downloadFile']);
 Route::get('/send_email_kandidat',[FileUploadController::class, 'sendEmailFile']);
 
-// data notifikasi
+// DATA  NOTIFIKASI //
 Route::controller(NotifikasiController::class)->group(function() {
+    // route notif kandidat
     Route::get('/semua_notif','notifyKandidat')->middleware('kandidat');
+    Route::get('/lihat_notif_kandidat/{id}','lihatNotifKandidat')->middleware('kandidat');
+    
+    // route notif akademi
     Route::get('/akademi/semua_notif','notifyAkademi')->middleware('akademi');
+    Route::get('/akademi/lihat_notif_akademi/{id}','lihatNotifAkademi')->middleware('akademi');
+
+    // route notif perusahaan
     Route::get('/perusahaan/semua_notif','notifyPerusahaan')->middleware('perusahaan');
+    Route::get('/perusahaan/lihat_notif_perusahaan/{id}','lihatNotifPerusahaan')->middleware('perusahaan');
+});
+
+// DATA PESAN //
+Route::controller(MessagerController::class)->group(function() {
+    // DATA KANDIDAT //
+    Route::get('/semua_pesan','messageKandidat')->middleware('kandidat')->name('semuaPesan');
+    Route::get('/kirim_balik/{id}','sendMessageKandidat')->middleware('kandidat');
+    Route::post('/kirim_balik/{id}','sendMessageConfirmKandidat');
+    Route::get('/hapus_pesan/{id}','deleteMessageKandidat')->middleware('kandidat');
+
+    // DATA AKADEMI //
+    Route::get('/akademi/semua_pesan','messageAkademi')->middleware('akademi')->name('akademi.semuaPesan');
+    Route::get('/akademi/kirim_balik/{id}','sendMessageAkademi')->middleware('akademi');
+    Route::post('/akademi/kirim_balik/{id}','sendMessageConfirmAkademi');
+    Route::get('/akademi/hapus_pesan/{id}','deleteMessageAkademi')->middleware('akademi');
+
+    // DATA PERUSAHAAN //
+    Route::get('/perusahaan/semua_pesan','messagePerusahaan')->middleware('perusahaan')->name('perusahaan.semuaPesan');
+    Route::get('/perusahaan/kirim_balik/{id}','sendMessagePerusahaan')->middleware('perusahaan');
+    Route::post('/perusahaan/kirim_balik/{id}','sendMessageConfirmPerusahaan');
+    Route::get('/perusahaan/hapus_pesan/{id}','deleteMessagePerusahaan')->middleware('perusahaan');
 });
 
 // data login
@@ -649,27 +678,6 @@ Route::controller(PaymentController::class)->group(function(){
 Route::controller(GoogleController::class)->group(function(){
     Route::get('/auth/google', 'redirectToGoogle')->name('google.login');
     Route::get('/auth/google/callback', 'handleGoogleCallback')->name('google.callback');
-});
-
-Route::controller(MessagerController::class)->group(function() {
-    // DATA KANDIDAT //
-    Route::get('/semua_pesan','messageKandidat')->middleware('kandidat')->name('semuaPesan');
-    Route::get('/kirim_balik/{id}','sendMessageKandidat')->middleware('kandidat');
-    Route::post('/kirim_balik/{id}','sendMessageConfirmKandidat');
-    Route::get('/hapus_pesan/{id}','deleteMessageKandidat')->middleware('kandidat');
-
-    // DATA AKADEMI //
-    Route::get('/akademi/semua_pesan','messageAkademi')->middleware('akademi')->name('akademi.semuaPesan');
-    Route::get('/akademi/kirim_balik/{id}','sendMessageAkademi')->middleware('akademi');
-    Route::post('/akademi/kirim_balik/{id}','sendMessageConfirmAkademi');
-    Route::get('/akademi/hapus_pesan/{id}','deleteMessageAkademi')->middleware('akademi');
-
-    // DATA PERUSAHAAN //
-    Route::get('/perusahaan/semua_pesan','messagePerusahaan')->middleware('perusahaan')->name('perusahaan.semuaPesan');
-    Route::get('/perusahaan/kirim_balik/{id}','sendMessagePerusahaan')->middleware('perusahaan');
-    Route::post('/perusahaan/kirim_balik/{id}','sendMessageConfirmPerusahaan');
-    Route::get('/perusahaan/hapus_pesan/{id}','deleteMessagePerusahaan')->middleware('perusahaan');
-
 });
 
 Route::controller(MailController::class)->group(function() {
