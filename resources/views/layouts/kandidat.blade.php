@@ -122,7 +122,10 @@
                     <div class="container-fluid">
                         <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
                             <li class="nav-item dropdown hidden-caret">
-                                <a class="nav-link dropdown-toggle" href="/perbaikan" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="/semua_pesan">
+                                    <i class="fa fa-envelope" style="color:white"></i>
+                                </a>
+                                {{-- <a class="nav-link dropdown-toggle" href="/perbaikan" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-envelope" style="color:white"></i>
                                 </a>
                                 <ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
@@ -151,16 +154,18 @@
                                     <li>
                                         <a class="see-all" href="/semua_pesan">Lihat Semua Pesan<i class="fa fa-angle-right"></i> </a>
                                     </li>
-                                </ul>
+                                </ul> --}}
                             </li>
                             <li class="nav-item dropdown hidden-caret">
                                 <a class="nav-link dropdown-toggle" href="/semua_notif">
                                     <i class="fa fa-bell"></i>
                                     @php
                                         $ttl_notif = $notif->count();
+                                        $ttl_pesan = $pesan->count();
+                                        $ttl = $ttl_notif + $ttl_pesan;
                                     @endphp
                                     @if ($ttl_notif !== 0)
-                                        <span class="" style="background-color: red; padding:3px; border-radius:25%;">{{$ttl_notif}}</span>                                        
+                                        <span class="" style="background-color: red; padding:3px; border-radius:25%;">{{$ttl}}</span>                                        
                                     @endif
                                 </a>
                                 {{-- <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">

@@ -37,11 +37,11 @@ class MessagerController extends Controller
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
         messageKandidat::where('id',$id)->update([
             'check_click' => 'y',
         ]);
         $pengirim = messageKandidat::where('id',$id)->first();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
         return view('kandidat/kirim_pesan',compact('kandidat','pesan','notif','pengirim','id'));
     }
 

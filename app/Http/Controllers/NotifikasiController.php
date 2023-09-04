@@ -27,7 +27,7 @@ class NotifikasiController extends Controller
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         $notif = notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->limit(3)->where('check_click',"n")->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->where('check_click',"n")->get();
         $semua_notif = notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->get();
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
         if($pembayaran !== null){
@@ -57,7 +57,7 @@ class NotifikasiController extends Controller
         $akademi = Akademi::where('referral_code',$id->referral_code)->first();
         $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $semua_notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->get();
-        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->where('pengirim','not like',$akademi->nama_akademi)->limit(3)->where('check_click',"n")->get();
+        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->where('pengirim','not like',$akademi->nama_akademi)->where('check_click',"n")->get();
         return view('akademi/semua_notif', compact('notif','pesan','akademi','semua_notif'));
     }
 
@@ -77,7 +77,7 @@ class NotifikasiController extends Controller
         $perusahaan = Perusahaan::where('referral_code',$id->referral_code)->first();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $semua_notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('pengirim','not like',$perusahaan->nama_perusahaan)->limit(3)->where('check_click',"n")->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('pengirim','not like',$perusahaan->nama_perusahaan)->where('check_click',"n")->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
         return view('perusahaan/semua_notif',compact('perusahaan','notif','pesan','semua_notif','cabang','credit'));
