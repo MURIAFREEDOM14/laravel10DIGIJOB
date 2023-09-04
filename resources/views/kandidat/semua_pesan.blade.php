@@ -34,7 +34,14 @@
                                 <h5 class="">{{$item->pengirim}}</h5>
                             </div>
                             <div class="mx-1">{{$item->pesan}}</div>
-                            <div class="float-right mx-1">{{date('d-m-Y',strtotime($item->created_at))}}</div>
+                            @php
+                                $dayNow = date('Y-m-d');
+                            @endphp
+                            @if (date('Y-m-d',strtotime($item->created_at)) == $dayNow)
+                                <div class="float-right mx-1">{{date('h:i A',strtotime($item->created_at))}}</div>                                
+                            @else
+                                <div class="float-right mx-1">{{date('d-M',strtotime($item->created_at))}}</div>
+                            @endif
                         </a>
                     </div>
                 @else
@@ -44,7 +51,14 @@
                                 <h5 class="" style="font-weight: bold;">{{$item->pengirim}}</h5>
                             </div>
                             <div class="mx-1">{{$item->pesan}}</div>
-                            <div class="float-right mx-1">{{date('d-m-Y',strtotime($item->created_at))}}</div>
+                            @php
+                                $dayNow = date('Y-m-d');
+                            @endphp
+                            @if (date('Y-m-d',strtotime($item->created_at)) == $dayNow)
+                                <div class="float-right mx-1">{{date('h:i A',strtotime($item->created_at))}}</div>                                
+                            @else
+                                <div class="float-right mx-1">{{date('d-M',strtotime($item->created_at))}}</div>
+                            @endif
                         </a>
                     </div>
                 @endif
