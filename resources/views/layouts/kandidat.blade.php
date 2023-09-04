@@ -393,21 +393,21 @@
                                         </ul>
                                     </div>
                                 </li>
-                            @endif
-                            @if ($kandidat->stat_pemilik !== "diambil")
-                                <li class="nav-item">
-                                    <a class="btn" href="/list_lowongan_pekerjaan">
-                                        <i class="fas fa-clipboard-list"></i>
-                                        <p>Lowongan Pekerjaan</p>
-                                    </a>
-                                </li>
-                            @else
-                                <li class="nav-item">
-                                    <a class="btn" href="/interview_perusahaan">
-                                        <i class="fas fa-clipboard-list"></i>
-                                        <p>Interview Perusahaan</p>
-                                    </a>
-                                </li>
+                                @if ($kandidat->stat_pemilik !== "diambil")
+                                    <li class="nav-item">
+                                        <a class="btn" href="/list_lowongan_pekerjaan">
+                                            <i class="fas fa-clipboard-list"></i>
+                                            <p>Lowongan Pekerjaan</p>
+                                        </a>
+                                    </li>
+                                @else
+                                    <li class="nav-item">
+                                        <a class="btn" href="/interview_perusahaan">
+                                            <i class="fas fa-clipboard-list"></i>
+                                            <p>Interview Perusahaan</p>
+                                        </a>
+                                    </li>
+                                @endif
                             @endif
                             <li class="nav-item">
                                 <a class="btn disabled" href="/video_pelatihan">
