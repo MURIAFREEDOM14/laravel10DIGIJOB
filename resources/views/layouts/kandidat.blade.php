@@ -307,7 +307,7 @@
                             <li class="nav-item active">
                                 <a href="/kandidat" class="btn" aria-expanded="false">
                                     <i class="fas fa-home"></i>
-                                    <p style="text-transform: uppercase">beranda</p>
+                                    <p style="text-transform: uppercase"></p>
                                 </a>
                             </li>
                             <li class="nav-section">
