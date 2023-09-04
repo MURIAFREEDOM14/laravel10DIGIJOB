@@ -3,8 +3,8 @@
 @include('sweetalert::alert')
 @include('flash_message')
 <div class="container mt-5">        
-    <div class="card mb-5">
-        <div class="card-body">
+    <div class="">
+        <div class="">
             <div class="row">
                 <h4 class="text-center">PROFIL BIO DATA</h4>
                 <form action="/isi_kandidat_vaksin" method="POST" enctype="multipart/form-data">
