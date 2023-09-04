@@ -160,7 +160,7 @@
                                         $ttl_notif = $notif->count();
                                     @endphp
                                     @if ($ttl_notif !== 0)
-                                        <span class="notification" style="background-color: red">{{$ttl_notif}}</span>                                        
+                                        <span class="" style="background-color: red; padding:3px; border-radius:25%;">{{$ttl_notif}}</span>                                        
                                     @endif
                                 </a>
                                 {{-- <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
