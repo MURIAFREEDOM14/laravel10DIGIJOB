@@ -125,9 +125,15 @@
                     <div class="container-fluid">
                         <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
                             <li class="nav-item dropdown hidden-caret">
-                                <a class="nav-link dropdown-toggle" href="/semua_pesan">
-                                    <i class="fa fa-envelope" style="color:white"></i>
-                                </a>
+                                    <a class="nav-link dropdown-toggle" href="/semua_pesan">
+                                        <i class="fa fa-envelope" style="color:white"></i>
+                                        @php
+                                            $ttl_pesan = $pesan->count();
+                                        @endphp
+                                        @if ($ttl_pesan !== 0)
+                                            <span class="notification" style="background-color: red;"></span>                                        
+                                        @endif
+                                    </a>
                                 {{-- <a class="nav-link dropdown-toggle" href="/perbaikan" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-envelope" style="color:white"></i>
                                 </a>
@@ -159,17 +165,11 @@
                                     </li>
                                 </ul> --}}
                             </li>
-                            <li class="nav-item dropdown hidden-caret">
+                            {{-- <li class="nav-item dropdown hidden-caret">
                                 <a class="nav-link dropdown-toggle" href="/semua_pesan">
                                     <i class="fa fa-bell"></i>
-                                    @php
-                                        $ttl_pesan = $pesan->count();
-                                    @endphp
-                                    @if ($ttl_pesan !== 0)
-                                        <span class="" style="background-color: red; padding:3px; border-radius:25%;"></span>                                        
-                                    @endif
                                 </a>
-                                {{-- <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
+                                <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
                                     <li>
                                         <div class="dropdown-title">Ada Notifikasi Baru</div>
                                     </li>
@@ -201,8 +201,8 @@
                                     <li>
                                         <a class="see-all" href="/semua_notif">Lihat Semua Notifikasi<i class="fa fa-angle-right"></i> </a>
                                     </li>
-                                </ul> --}}
-                            </li>
+                                </ul>
+                            </li> --}}
                             <li class="nav-item dropdown hidden-caret">
                                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                                     <div class="avatar-sm">
