@@ -42,7 +42,7 @@ class MessagerController extends Controller
         ]);
         $pengirim = messageKandidat::where('id',$id)->first();
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        return view('kandidat/kirim_pesan',compact('kandidat','pesan','notif','pengirim','id'));
+        return view('kandidat/hapus_pesan',compact('kandidat','pesan','notif','pengirim','id'));
     }
 
     public function deleteMessageKandidat($id)
@@ -73,23 +73,37 @@ class MessagerController extends Controller
         return view('akademi/kirim_pesan',compact('akademi','pesan','notif','pengirim'));
     }
 
+    public function messagePerusahaan()
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();        
+        $semua_pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->get();
+        return view('perusahaan/semua_pesan',compact('perusahaan','notif','pesan','credit','semua_pesan'));
+    }
+
     public function sendMessagePerusahaan($id)
     {
         $auth = Auth::user();
         $perusahaan = Perusahaan::where('referral_code',$auth->referral_code)->first();
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_Perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
         messagePerusahaan::where('id',$id)->update([
             'check_click' => 'y',
         ]);
         $pengirim = messagePerusahaan::where('id',$id)->first();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/kirim_pesan',compact('perusahaan','pesan','notif','pengirim','cabang','credit'));
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        return view('perusahaan/hapus_pesan',compact('perusahaan','pesan','notif','pengirim','cabang','credit','id'));
     }
 
-    public function sendMessageConfirmPerusahaan()
-    { 
-        return redirect();
+    public function deleteMessagePerusahaan($id)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $hapus_pesan = messagePerusahaan::where('id',$id)->delete();
+        return redirect('/perusahaan/semua_pesan')->with('success',"Pesan telah dihapus");
     }
 }

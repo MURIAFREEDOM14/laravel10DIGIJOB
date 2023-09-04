@@ -100,9 +100,9 @@
             <div class="main-header">
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="green">
-                    {{-- <a href="/" class="logo" style="background-color: #31ce36">
-                        <b class="" style="color: white;">DIGIJOB-UGIPORT</b>
-                    </a> --}}
+                    <a href="/" class="logo" style="background-color: #31ce36">
+                        <b class="" style="color: white;">DIGIJOB</b>
+                    </a>
                     <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon">
                             <i class="icon-menu"></i>
@@ -119,11 +119,13 @@
 
                 <!-- Navbar Header -->
                 <nav class="navbar navbar-header navbar-expand-lg" data-background-color="green2">
-
                     <div class="container-fluid">
                         <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
                             <li class="nav-item dropdown hidden-caret">
-                                <a class="nav-link dropdown-toggle" href="#" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="/perusahaan/semua_pesan">
+                                    <i class="fa fa-envelope"></i>
+                                </a>
+                                {{-- <a class="nav-link dropdown-toggle" href="" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-envelope"></i>
                                 </a>
                                 <ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
@@ -152,17 +154,18 @@
                                     <li>
                                         <a class="see-all" href="/perusahaan/semua_pesan">Lihat Semua Pesan<i class="fa fa-angle-right"></i> </a>
                                     </li>
-                                </ul>
+                                </ul> --}}
                             </li>
                             <li class="nav-item dropdown hidden-caret">
-                                <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="/perusahaan/semua_notif">
+                                {{-- <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> --}}
                                     <i class="fa fa-bell"></i>
                                     @php
-                                        $ttl_notif = $notif->count();
+                                        $ttl_pesan = $pesan->count();
                                     @endphp
-                                    <span class="notification" style="background-color: red;">{{$ttl_notif}}</span>
+                                    <span class="" style="background-color: red;padding:3px; border-radius:25%;">{{$ttl_pesan}}</span>
                                 </a>
-                                <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
+                                {{-- <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
                                     <li>
                                         <div class="dropdown-title">Notifikasi</div>
                                     </li>
@@ -192,7 +195,7 @@
                                     <li>
                                         <a class="see-all" href="/perusahaan/semua_notif">Lihat Semua Notifikasi<i class="fa fa-angle-right"></i> </a>
                                     </li>
-                                </ul>
+                                </ul> --}}
                             </li>
                             <li class="nav-item dropdown hidden-caret">
                                 <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

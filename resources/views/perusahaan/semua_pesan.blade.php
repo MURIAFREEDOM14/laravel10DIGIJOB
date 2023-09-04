@@ -27,15 +27,27 @@
         </div>
         <div class="card-body">
             @foreach ($semua_pesan as $item)
-                <div class="list-group">                        
-                    <a href="/kirim_balik/{{$item->id}}" class="link-list">
-                        <div class="mx-1">
-                            <h5 class="">{{$item->pengirim}}</h5>
-                        </div>
-                        <div class="mx-1">{{$item->pesan}}</div>
-                        <div class="float-right mx-1">{{date('d-m-Y',strtotime($item->created_at))}}</div>
-                    </a>
-                </div>
+                @if ($item->check_click == "y")
+                    <div class="list-group">                        
+                        <a href="/perusahaan/kirim_balik/{{$item->id}}" class="link-list">
+                            <div class="mx-1">
+                                <h5 class="">{{$item->pengirim}}</h5>
+                            </div>
+                            <div class="mx-1">{{$item->pesan}}</div>
+                            <div class="float-right mx-1">{{date('d-m-Y',strtotime($item->created_at))}}</div>
+                        </a>
+                    </div>    
+                @else
+                    <div class="list-group">                        
+                        <a href="/perusahaan/kirim_balik/{{$item->id}}" class="link-list" style="font-weight:bold;background-color: #F1F0E8;">
+                            <div class="mx-1">
+                                <h5 class="">{{$item->pengirim}}</h5>
+                            </div>
+                            <div class="mx-1">{{$item->pesan}}</div>
+                            <div class="float-right mx-1">{{date('d-m-Y',strtotime($item->created_at))}}</div>
+                        </a>
+                    </div>
+                @endif
             @endforeach
         </div>
     </div>
