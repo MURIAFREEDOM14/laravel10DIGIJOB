@@ -72,6 +72,7 @@
                 display: none;
             }
             body{
+                margin-bottom: -50px;
                 background-color:#78C1F3;
             }
             #batalInterview{
@@ -95,352 +96,76 @@
         </style>
     </head>
     <body onload="loadingPage()">
-        <div class="wrapper">
-            <div class="main-header">
-                <!-- Logo Header -->
-                <div class="logo-header" data-background-color="blue2">
-                    <a href="/" class="logo" style="background-color: #1269db">
-                        <b class="" style="color: white;">DIGIJOB</b>
-                    </a>
-                    {{-- <a href="/" class="logo">
-                        <b class="" style="color: white;">DIGIJOB</b>
-                    </a> --}}
-                    <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon">
-                            <i class="icon-menu"></i>
-                        </span>
-                    </button>
-                    <button class="topbar-toggler more">
-                        <i class="icon-options-vertical"></i></button>
-                    <div class="nav-toggle">
-                        <button class="btn btn-toggle toggle-sidebar">
-                            <i class="icon-menu"></i>
-                        </button>
-                    </div>
+        <div class="">
+            <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+                {{-- nama logo --}}
+                <a class="navbar-brand" href="/" style="color: white; font-weight:bold; background-color:#1572e8">DIGIJOB</a>
+                {{-- Pembatas antar nama logo dan foto profil --}}
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 </div>
-                <!-- End Logo Header -->
-
-                <!-- Navbar Header -->
-                <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
-                    <div class="container-fluid">
-                        <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-                            <li class="nav-item dropdown hidden-caret">
-                                    <a class="nav-link dropdown-toggle" href="/semua_pesan">
-                                        <i class="fa fa-envelope" style="color:white"></i>
-                                        @php
-                                            $ttl_pesan = $pesan->count();
-                                        @endphp
-                                        @if ($ttl_pesan !== 0)
-                                            <span class="notification" style="background-color: red;"></span>                                        
-                                        @endif
-                                    </a>
-                                {{-- <a class="nav-link dropdown-toggle" href="/perbaikan" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-envelope" style="color:white"></i>
-                                </a>
-                                <ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
-                                    <li>
-                                        <div class="dropdown-title d-flex justify-content-between align-items-center">
-                                            Pesan
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="message-notif-scroll scrollbar-outer">
-                                            <div class="notif-center">
-                                                @foreach ($pesan as $item)
-                                                    <a href="/kirim_balik/{{$item->id}}">
-                                                        <div class="notif-content">
-                                                            <span class="subject">{{$item->pengirim}}</span>
-                                                            <span class="block">
-                                                                {{$item->pesan}}
-                                                            </span>
-                                                            <span class="time">{{date('d-M-Y | h:m',strtotime($item->created_at))}}</span>
-                                                        </div>
-                                                    </a>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a class="see-all" href="/semua_pesan">Lihat Semua Pesan<i class="fa fa-angle-right"></i> </a>
-                                    </li>
-                                </ul> --}}
-                            </li>
-                            {{-- <li class="nav-item dropdown hidden-caret">
-                                <a class="nav-link dropdown-toggle" href="/semua_pesan">
-                                    <i class="fa fa-bell"></i>
-                                </a>
-                                <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
-                                    <li>
-                                        <div class="dropdown-title">Ada Notifikasi Baru</div>
-                                    </li>
-                                    <li>
-                                        <div class="notif-scroll scrollbar-outer">
-                                            <div class="notif-center">
-                                                @foreach ($notif as $item)
-                                                    @if ($item->check_click == "n")
-                                                        <a href="/lihat_notif_kandidat/{{$item->id_notify}}">
-                                                            <div class="row">
-                                                                <div class="col-2 mr-1">
-                                                                    <div class="notif-icon notif-warning">
-                                                                        <i class="fas fa-bell"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <div class="notif-content">
-                                                                        <div class="text1" style="">{{$item->isi}}</div>
-                                                                        <span class="time">{{date('d-M-Y | H:m',strtotime($item->created_at))}}</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </a>                                                        
-                                                    @endif
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a class="see-all" href="/semua_notif">Lihat Semua Notifikasi<i class="fa fa-angle-right"></i> </a>
-                                    </li>
-                                </ul>
-                            </li> --}}
-                            <li class="nav-item dropdown hidden-caret">
-                                <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
-                                    <div class="avatar-sm">
-                                        @if ($kandidat->foto_4x6 !== null)
-                                            <img src="/gambar/Kandidat/{{$kandidat->nama}}/4x6/{{$kandidat->foto_4x6}}" alt="/Atlantis/examples." class="avatar-img rounded-circle">
-                                        @else
-                                            <img src="/gambar/default_user.png" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                            
-                                        @endif
-                                    </div>
-                                </a>
-                                <ul class="dropdown-menu dropdown-user animated fadeIn">
-                                    <div class="dropdown-user-scroll scrollbar-outer">
-                                        <li>
-                                            <div class="user-box">
-                                                <div class="avatar-lg">
-                                                    @if ($kandidat->foto_4x6 !== null)
-                                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/4x6/{{$kandidat->foto_4x6}}" alt="image profile" class="avatar-img rounded">
-                                                    @else
-                                                        <img src="/gambar/default_user.png" alt="image profile" class="avatar-img rounded">                                                        
-                                                    @endif
-                                                </div>
-                                                <div class="u-text">
-                                                    <b class="bold">{{$kandidat->nama}}</b>
-                                                    <p class="text-muted">{{$kandidat->email}}</p>
-                                                    @if (auth()->user()->verify_confirmed !== null)
-                                                        <span class="badge badge-pill badge-info">Terverifikasi</span>
-                                                    @endif
-                                                    @if ($kandidat->hubungan_perizin !== null)
-                                                        <span class="badge badge-pill badge-success">Profil</span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="/profil_kandidat">Profilku</a>
-                                            @if ($kandidat->hubungan_perizin == null)
-                                                <a class="dropdown-item" href="/isi_kandidat_personal">Lengkapi Profil</a>
-                                            @else
-                                                <a class="dropdown-item" href="/isi_kandidat_personal">Edit Profil</a>                                                
-                                            @endif
-                                            <div class="dropdown-divider"></div>
-                                            <a href="{{ route('logout') }}" class="dropdown-item" onclick="confirmation(event)">keluar</a>
-                                            {{-- <a class="dropdown-item" onclick="return confirm('Apakah anda yakin ingin keluar?')" href="{{ route('logout') }}"
-                                                onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">
-                                                Keluar
-                                            </a> --}}
-                                            <form id="logout-form" action="{{ route('logout') }}" method="get" class="d-none">
-                                                @csrf
-                                            </form>
-                                        </li>
-                                    </div>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-                <!-- End Navbar -->
-            </div>
-
-            <!-- Sidebar -->
-            <div class="sidebar sidebar-style-2">
-                <div class="sidebar-wrapper scrollbar scrollbar-inner">
-                    <div class="sidebar-content">
-                        {{-- <div class="user">
-                            <div class="avatar-sm float-left mr-2">
-                                @if ($kandidat->foto_4x6 !== null)
-                                    <img src="/gambar/Kandidat/{{$kandidat->nama}}/4x6/{{$kandidat->foto_4x6}}" alt="" class="avatar-img rounded-circle">                                    
-                                @else
-                                    <img src="/gambar/default_user.png" alt="" class="avatar-img rounded-circle">
-                                @endif
-                            </div>
-                            <div class="info">
-                                <a data-toggle="collapse" href="#collapseExample" class="btn" aria-expanded="true">
-                                    <span>
-                                        <span class="" style="text-transform: uppercase;"><b class="bold">{{$kandidat->nama_panggilan}}</b></span>
-                                        <span class="caret"></span>
-                                    </span>
-                                </a>
-                                <div class="clearfix"></div>
-                                <div class="collapse in" id="collapseExample">
-                                    <ul class="nav">
-                                        <li>
-                                            <a href="/profil_kandidat" class="dropdown-item">
-                                                <div class="link-collapse">Profilku <i class="fas fa-user-circle float-right"></i> </div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/isi_kandidat_personal" class="dropdown-item">
-                                                @if ($kandidat->hubungan_perizin == null)
-                                                    <div class="link-collapse"> Lengkapi Profil <i class="fas fa-exclamation-circle float-right"></i></div>
-                                                @else
-                                                    <div class="link-collapse"> Edit Profil <i class="fas fa-edit float-right"></i></div>
-                                                @endif
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{route('logout')}}" onclick="confirmation(event)" class="dropdown-item">
-                                                <div class="link-collapse"> Keluar <i class="fas fa-door-open float-right"></i></div>
-                                            </a>
-                                        </li>
-                                    </ul>
+                <div class="">
+                    <a class="float-left" style="color:white; margin-right:13px; margin-top:12%;" href="/semua_pesan">
+                        <i class="fas fa-envelope" style="font-size: 23px;"></i>
+                        @php
+                            $ttl_pesan = $pesan->count();
+                        @endphp
+                        @if ($ttl_pesan !== 0)
+                            <span style="background-color: red; width:12px; height:12px;border-radius:50%; display:inline-block;margin-left:-9px;"></span>                                                        
+                        @endif
+                    </a>
+                    <div class="dropdown float-right">
+                        <a class="" href="" role="button" data-toggle="dropdown" aria-expanded="false">
+                            <img src="/gambar/default_user.png" style="width:40px; height:40px; border-radius:50%;" alt="">
+                        </a>
+                        <div class="dropdown-menu" style="width:13rem; height:auto; padding:2.5px; margin-left:-10rem">
+                            <div class="" style="padding: 5px;">
+                                <div class="" style="border-radius: 15%; width:35%; height:auto;">
+                                    @if ($kandidat->foto_4x6 !== null)
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/4x6/{{$kandidat->foto_4x6}}" alt="image profile" class="avatar-img rounded">
+                                    @else
+                                        <img src="/gambar/default_user.png" alt="image profile" class="avatar-img rounded" style="width:50px; height:50px; border-radius:50%">                                                        
+                                    @endif
+                                </div>
+                                <div class="">
+                                    <b class="bold">{{$kandidat->nama}}</b>
+                                    <p class="text-muted">{{$kandidat->email}}</p>
+                                    @if (auth()->user()->verify_confirmed !== null)
+                                        <span class="badge badge-pill badge-info">Terverifikasi</span>
+                                    @endif
+                                    @if ($kandidat->hubungan_perizin !== null)
+                                        <span class="badge badge-pill badge-success">Profil</span>
+                                    @endif
                                 </div>
                             </div>
-                        </div> --}}
-                        <ul class="nav nav-primary">
-                            <li class="nav-item active">
-                                <a href="/kandidat" class="btn" aria-expanded="false">
-                                    <i class="fas fa-home"></i>
-                                    <p style="text-transform: uppercase"></p>
-                                </a>
-                            </li>
-                            <li class="nav-section">
-                                <span class="sidebar-mini-icon">
-                                    <i class="fa fa-ellipsis-h"></i>
-                                </span>
-                                <h4 class="text-section">Menu</h4>
-                            </li>
-                            @php
-                                $personal = $kandidat->tinggi;
-                                $document = $kandidat->foto_ijazah;
-                                // $vaksin = $kandidat->sertifikat_vaksin2;
-                                $parent = $kandidat->tgl_lahir_ibu;
-                                $permission = $kandidat->hubungan_perizin;                                
-                            @endphp
-                            @if ($personal == null)
-                                <li class="nav-item">
-                                    <a href="/isi_kandidat_personal">
-                                        <i class="fas fa-pen-square"></i>
-                                        <p>Data Personal</p>
-                                    </a>
-                                </li> 
-                            @elseif($document == null)
-                            <li class="nav-item">
-                                <a href="/isi_kandidat_document">
-                                    <i class="fas fa-pen-square"></i>
-                                    <p>Data Document</p>
-                                </a>
-                            </li>
-                            {{-- @elseif($vaksin == null)
-                                <li class="nav-item">
-                                    <a href="/isi_kandidat_vaksin">
-                                        <i class="fas fa-pen-square"></i>
-                                        <p>Data Vaksin</p>
-                                    </a>
-                                </li> --}}
-                            @elseif($parent == null)
-                                <li class="nav-item">
-                                    <a href="/isi_kandidat_parent">
-                                        <i class="fas fa-pen-square"></i>
-                                        <p>Data Orang Tua / Wali</p>
-                                    </a>
-                                </li>
-                            @elseif($permission == null)
-                                <li class="nav-item">
-                                    <a href="/isi_kandidat_permission">
-                                        <i class="fas fa-pen-square"></i>
-                                        <p>Data Kontak Darurat</p>
-                                    </a>
-                                </li>
-                            @elseif($kandidat->negara_id !== null)
-                                <li class="nav-item">
-                                    <a data-toggle="collapse" href="#forms">
-                                        <i class="fas fa-flag"></i>
-                                        <p>Tujuan Bekerja</p>
-                                        <span class="caret"></span>
-                                    </a>
-                                    <div class="collapse" id="forms">
-                                        <ul class="nav nav-collapse">
-                                            <li class="nav-section">
-                                                <h4 class="text-section">Tujuan Bekerja</h4>
-                                            </li>
-                                            <form action="/isi_kandidat_placement" method="POST">
-                                                @csrf
-                                                <select name="penempatan" id="placement" class="form-control">
-                                                    <option value="">-- Pilih Tujuan Bekerja --</option>
-                                                    <option value="dalam negeri">Dalam Negeri</option>
-                                                    <option value="luar negeri">Luar Negeri</option>
-                                                </select>
-                                                <li class="nav-section" id="hidetext">
-                                                    <h4 class="text-section">Negara Tujuan</h4>
-                                                </li>
-                                                <select name="negara_id" required class="form-control" id="negara_tujuan">
-                                                    <option value="">-- Pilih Negara Tujuan --</option>
-                                                </select>
-                                                <li class="nav-section mt-2">
-                                                    <button type="submit" class="btn btn-primary mt-2" id="hidebtn">Simpan</button>
-                                                </li>
-                                            </form>
-                                        </ul>
-                                    </div>
-                                </li>
-                                @if ($kandidat->stat_pemilik !== "diambil")
-                                    <li class="nav-item">
-                                        <a class="btn" href="/list_lowongan_pekerjaan">
-                                            <i class="fas fa-clipboard-list"></i>
-                                            <p>Lowongan Pekerjaan</p>
-                                        </a>
-                                    </li>
-                                @else
-                                    <li class="nav-item">
-                                        <a class="btn" href="/interview_perusahaan">
-                                            <i class="fas fa-clipboard-list"></i>
-                                            <p>Interview Perusahaan</p>
-                                        </a>
-                                    </li>
-                                @endif
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/profil_kandidat">Profilku</a>
+                            @if ($kandidat->hubungan_perizin == null)
+                                <a class="dropdown-item" href="/isi_kandidat_personal">Lengkapi Profil</a>
+                            @else
+                                <a class="dropdown-item" href="/isi_kandidat_personal">Edit Profil</a>                                                
                             @endif
-                            <li class="nav-item">
-                                <a class="btn disabled" href="/video_pelatihan">
-                                    <i class="fas fa-clipboard-list"></i>
-                                    {{-- <i class="fas fa-crown" style="color: yellow"></i> --}}
-                                    <p>Video Pelatihan</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn disabled" href="/akun_prioritas">
-                                    <i class="fas fa-crown"></i>
-                                    <p>Akun Prioritas</p>
-                                </a>
-                            </li>
-                        </ul>
+                            <div class="dropdown-divider"></div>
+                            <a href="{{ route('logout') }}" class="dropdown-item" onclick="confirmation(event)">keluar</a>
+                            <div class="dropdown-divider"></div>    
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- End Sidebar -->
+            </nav>
+            {{-- Sistem Loading --}}
             <div class="loading align">
                 <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
             </div>
-            <div class="main-panel">
+            {{-- <div class="main-panel">
                 <div class="content">
                     <main class="px-1">
                         @yield('content')
                     </main>
-                    {{--  --}}
                 </div>
-                <footer class="footer" style="background-color: #1269db;">
+            </div> --}}
+            <main class="py-5">
+                @yield('content')
+                <div class="" style="height: 60px;"></div>
+                <footer class="footer fixed-bottom" style="background-color: #1269db;">
                     <div class="container-fluid">
                         <nav class="pull-left">
                             <ul class="nav nav-primary">
@@ -458,7 +183,7 @@
                         </div>
                     </div>
                 </footer>
-            </div>
+            </main>
         </div>
         <!--   Core JS Files   -->
         <script src="/Atlantis/examples/assets/js/core/jquery.3.2.1.min.js"></script>
