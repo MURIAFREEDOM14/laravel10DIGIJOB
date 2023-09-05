@@ -117,23 +117,6 @@
                 </div>
             </div>
         </div>
-    @elseif($interview)
-        <div class="row">
-            <div class="col-md-12">
-                <a href="interview_perusahaan" style="text-decoration: none;">
-                    <div class="card" style="padding:20px; background-image:linear-gradient(#557A46, #7A9D54);color:white;font-size:17px; border-radius:5% 0% 5% 5%;">
-                        <div class="" style="margin-bottom:1.5vw; text-transform:uppercase; font-weight:600;">Interview Perusahaan</div>
-                        <div class="" style="border-bottom:1px solid white;"></div>
-                        <div class="" style="font-weight: 600;">Nama Lowongan :</div>
-                        <div class="">{{$interview->jabatan}}</div>
-                        <div class="" style="font-weight:600;">Jadwal Interview :</div>
-                        <div class="">{{date('d M Y',strtotime($interview->jadwal_interview))}}</div>
-                        <div class="" style="font-weight: 600;">Waktu Interview :</div>
-                        <div class="">{{date('h:i:s A',strtotime($interview->waktu_interview_awal))}} Sampai {{date('h:i:s A',strtotime($interview->waktu_interview_akhir))}}</div>
-                    </div>
-                </a>
-            </div>
-        </div>
     @else
         <div class="row mt-2">
             <div class="col-md-12">
@@ -148,6 +131,7 @@
                                     <tr class="text-center">
                                         <th style="width: 1px">No.</th>
                                         <th>Nama Perusahaan</th>
+                                        <th>Alamat</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -158,6 +142,11 @@
                                             <td>
                                                 {{$perusahaan->nama_perusahaan}}
                                             </td>
+                                            @if ($perusahaan->tmp_perusahaan == "Dalam negeri")
+                                                <td>{{$perusahaan->kota}}</td>    
+                                            @else
+                                                <td>{{$perusahaan->alamat}}</td>
+                                            @endif
                                             <td>
                                                 <a href="/profil_perusahaan/{{$perusahaan->id_perusahaan}}">Lihat</a>
                                             </td>
@@ -178,6 +167,39 @@
                                         @endforeach    
                                     </tbody>
                                 @endif
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <b class="bold">Informasi Lowongan</b>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="add-row" class="display table table-striped table-hover" >
+                                <thead>
+                                    <tr class="text-center">
+                                        <th style="width: 1px">No.</th>
+                                        <th>Lowongan</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="text-center">
+                                        <td>1</td>
+                                        <td>
+                                            {{$perusahaan->nama_perusahaan}}
+                                        </td>
+                                        <td>
+                                            <a href="/profil_perusahaan/{{$perusahaan->id_perusahaan}}">Lihat</a>
+                                        </td>
+                                    </tr>    
+                                </tbody>    
                             </table>
                         </div>
                     </div>
