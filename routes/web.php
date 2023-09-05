@@ -454,6 +454,8 @@ Route::controller(KandidatController::class)->group(function() {
     Route::post('/isi_kandidat_personal', 'simpan_kandidat_personal');
     
     Route::get('/edit_kandidat_password','edit_kandidat_password');
+    Route::post('/edit_password_confirm', 'edit_password_confirm');
+    Route::post('/ubah_kandidat_password', 'ubah_kandidat_password');
 
     Route::view('/edit_kandidat_no_telp','kandidat/modalKandidat/edit_no_telp');
     Route::post('/edit_kandidat_no_telp','ubah_kandidat_noTelp');

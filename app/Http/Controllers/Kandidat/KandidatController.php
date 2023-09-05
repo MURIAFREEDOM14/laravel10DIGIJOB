@@ -230,6 +230,47 @@ class KandidatController extends Controller
         // ->with('toast_success',"Data anda tersimpan");
     }
 
+    public function edit_kandidat_password()
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        $password = null;
+        return view('kandidat/modalKandidat/edit_kandidat_password',compact('kandidat','password'));
+    }
+
+    public function edit_password_confirm(Request $request)
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        $password = User::where('email',$request->email)->where('check_password',$request->password)->where('referral_code',$kandidat->referral_code)->first();
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password, 'referral_code' => $kandidat->referral_code])){
+            return view('kandidat/modalKandidat/edit_kandidat_password',compact('kandidat','password'));
+        } elseif ($password !== null) {
+            return view('kandidat/modalKandidat/edit_kandidat_password',compact('kandidat','password'));
+        } else {
+            return redirect()->back()->with('error',"Maaf Email atau Password anda salah. Silahkan coba lagi");
+        }
+    }
+
+    public function ubah_kandidat_password(Request $request)
+    {
+        $auth = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$auth->referral_code)->first();
+        $user = User::where('email',$kandidat->email)->first();
+        if ($request->password_new !== $request->password_confirm) {
+            return redirect('/edit_kandidat_password')->with('error',"Maaf, Password baru dengan Password konfirmasi anda tidak cocok. Harap teliti kembali.");
+        } elseif($user->check_password == $request->password_new) {
+            return redirect('/edit_kandidat_password')->with('error',"Maaf anda tidak bisa membuat password baru dengan password lama anda.");            
+        } else {
+            $hast = Hash::make($request->password_new);
+            User::where('email',$kandidat->email)->update([
+                'password' => $hast,
+                'check_password' => $request->password_new,
+            ]);
+        }
+        return redirect('isi_kandidat_personal')->with('success',"Password anda berhasil diperbarui.");
+    }
+
     public function ubah_kandidat_noTelp(Request $request)
     {
         $id = Auth::user();
