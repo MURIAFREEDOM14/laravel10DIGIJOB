@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Kandidat;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pendidikan;
 use Illuminate\Http\Request;
 use App\Models\Kandidat;
 use App\Models\User;
@@ -46,15 +47,23 @@ class KandidatController extends Controller
     public function index()
     {
         $id = Auth::user();
-        $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
+        $kandidat = Kandidat::where('kandidat.referral_code',$id->referral_code)->first();
         $notif = notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
-        $notifyK = notifyKandidat::where('created_at','<',Carbon::now()->subDays(14))->delete();
+        $notifyK = notifyKandidat::orderBy('created_at','desc')->limit(30)->get();
+        $pendidikan = Pendidikan::where('nama_pendidikan','like','%'.$kandidat->pendidikan.'%')->first();
         $lowongan = LowonganPekerjaan::join(
             'perusahaan', 'lowongan_pekerjaan.id_perusahaan','=','perusahaan.id_perusahaan'
         )
-        ->where('perusahaan.penempatan_kerja','like','%'.$kandidat->penempatan.'%')->get();
+        ->where('perusahaan.penempatan_kerja','like','%'.$kandidat->penempatan.'%')
+        ->where('lowongan_pekerjaan.jenis_kelamin','like','%'.$kandidat->jenis_kelamin.'%')
+        ->where('lowongan_pekerjaan.usia_min','<=',$kandidat->usia)
+        ->where('lowongan_pekerjaan.usia_maks','>=',$kandidat->usia)
+        ->where('lowongan_pekerjaan.berat_min','<=',$kandidat->berat)
+        ->where('lowongan_pekerjaan.berat_maks','>=',$kandidat->berat)
+        ->get();
+        dd($lowongan);
         $cari_perusahaan = null;
         $perusahaan_semua = Perusahaan::whereNotNull('email_operator')->where('penempatan_kerja','like','%'.$kandidat->penempatan.'%')->get();
         if($kandidat->id_perusahaan !== null){
@@ -95,7 +104,8 @@ class KandidatController extends Controller
             'counter' => null,
         ]);
         return view('kandidat/index',compact('kandidat','notif','perusahaan_semua',
-        'perusahaan','pembayaran','pesan','lowongan','cari_perusahaan','persetujuan','interview'));
+        'perusahaan','pembayaran','pesan','lowongan','cari_perusahaan','persetujuan',
+        'interview','pendidikan'));
     }
     
     public function profil()

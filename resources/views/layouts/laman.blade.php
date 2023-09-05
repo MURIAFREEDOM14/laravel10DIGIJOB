@@ -135,13 +135,11 @@
     </script>
     <script>
       // modal tampilan tutorial video
-      $(window).on('load',function() {
-      $('#tutorial_kandidat').modal('show');                                                   
-      });
+      // $(window).on('load',function() {
+      // $('#tutorial_kandidat').modal('show');                                                   
+      // });
       // fungsi tampilan mulai video
       var video = document.getElementById('video');
-      // video.autoplay = true;
-      // video.load();
       var btnPlay = document.getElementById('play');
       var btnJeda = document.getElementById('jeda');
       function play() {

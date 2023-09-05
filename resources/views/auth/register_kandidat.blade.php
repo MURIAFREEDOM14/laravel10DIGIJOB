@@ -120,17 +120,16 @@
 </div>
 <div class="modal fade" id="tutorial_kandidat" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                {{-- <h1 class="modal-title fs-5" id="exampleModalLabel">Tutorial Daftar Pencari Kerja / Kandidat</h1> --}}
+        <div class="modal-content" style="background-color:transparent;border:none;">
+            {{-- <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+            </div> --}}
             <div class="text-center">
-                <video id="video" style="width: 90%;">
+                <video id="video" style="width: 90%;" controls>
                     <source class="" src="/gambar/Manager/Tutorial/Register Kandidat/Registrasi DIGIJOB UGIPORT.mp4">
                 </video>
-                <button class="btn btn-success mx-auto mb-2" id="play" type="button" onclick="play()">Mulai</button>
-                <button class="btn btn-warning mx-auto mb-2" id="jeda" type="button" onclick="pause()">Jeda</button>
+                {{-- <button class="btn btn-success mx-auto mb-2" id="play" type="button" onclick="play()">Mulai</button>
+                <button class="btn btn-warning mx-auto mb-2" id="jeda" type="button" onclick="pause()">Jeda</button> --}}
             </div>
         </div>
     </div>

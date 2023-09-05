@@ -190,15 +190,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="text-center">
-                                        <td>1</td>
-                                        <td>
-                                            {{$perusahaan->nama_perusahaan}}
-                                        </td>
-                                        <td>
-                                            <a href="/profil_perusahaan/{{$perusahaan->id_perusahaan}}">Lihat</a>
-                                        </td>
-                                    </tr>    
+                                    @foreach ($lowongan as $item)
+                                        @if ($item->pendidikan == $pendidikan->nama_pendidikan)
+                                            @if ($item->pencarian_tmp == $kandidat->kabupaten)
+                                                
+                                            @endif
+                                            <tr class="text-center">
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>
+                                                    {{$item->jabatan}}
+                                                </td>
+                                                <td>
+                                                    <a href="/profil_perusahaan/{{$perusahaan->id_perusahaan}}">Lihat</a>
+                                                </td>
+                                            </tr>                                                
+                                        @endif
+                                    @endforeach
                                 </tbody>    
                             </table>
                         </div>
