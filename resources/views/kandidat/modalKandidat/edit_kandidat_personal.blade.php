@@ -116,7 +116,7 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <button type="button" class="btn btn-primary" onclick="passwordBtn()">Ganti Password Baru</button>
+                                    <a href="/edit_kandidat_password" class="btn btn-primary">Edit Password</a>
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">

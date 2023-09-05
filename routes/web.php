@@ -452,8 +452,12 @@ Route::controller(KandidatController::class)->group(function() {
 
     Route::get('/isi_kandidat_personal', 'isi_kandidat_personal')->middleware('kandidat')->name('personal');
     Route::post('/isi_kandidat_personal', 'simpan_kandidat_personal');
+    
+    Route::get('/edit_kandidat_password','edit_kandidat_password');
+
     Route::view('/edit_kandidat_no_telp','kandidat/modalKandidat/edit_no_telp');
     Route::post('/edit_kandidat_no_telp','ubah_kandidat_noTelp');
+    
     Route::post('/confirm_otp_code','confirmOTP');
     Route::post('/confirm_kandidat_otp_telp','confirm_kandidat_OTP_Telp');
 

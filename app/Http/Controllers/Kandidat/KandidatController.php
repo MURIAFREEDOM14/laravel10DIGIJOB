@@ -63,7 +63,6 @@ class KandidatController extends Controller
         ->where('lowongan_pekerjaan.berat_min','<=',$kandidat->berat)
         ->where('lowongan_pekerjaan.berat_maks','>=',$kandidat->berat)
         ->get();
-        dd($lowongan);
         $cari_perusahaan = null;
         $perusahaan_semua = Perusahaan::whereNotNull('email_operator')->where('penempatan_kerja','like','%'.$kandidat->penempatan.'%')->get();
         if($kandidat->id_perusahaan !== null){

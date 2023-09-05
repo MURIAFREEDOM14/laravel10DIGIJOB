@@ -120,7 +120,7 @@
     @else
         <div class="row mt-2">
             <div class="col-md-12">
-                <div class="card" style="border-radius: 0% 0% 8% 8%;">
+                <div class="card">
                     <div class="card-header">
                         <b class="bold">Informasi Perusahaan</b>
                     </div>
@@ -181,29 +181,28 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="add-row" class="display table table-striped table-hover" >
+                            <table id="basic-datatables" class="display table table-striped table-hover" >
                                 <thead>
                                     <tr class="text-center">
                                         <th style="width: 1px">No.</th>
                                         <th>Lowongan</th>
-                                        <th></th>
+                                        <th>Lihat</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($lowongan as $item)
                                         @if ($item->pendidikan == $pendidikan->nama_pendidikan)
                                             @if ($item->pencarian_tmp == $kandidat->kabupaten)
-                                                
+                                                <tr class="text-center">
+                                                    <td>{{$loop->iteration}}</td>
+                                                    <td>
+                                                        {{$item->jabatan}}
+                                                    </td>
+                                                    <td>
+                                                        <a href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat</a>
+                                                    </td>
+                                                </tr>    
                                             @endif
-                                            <tr class="text-center">
-                                                <td>{{$loop->iteration}}</td>
-                                                <td>
-                                                    {{$item->jabatan}}
-                                                </td>
-                                                <td>
-                                                    <a href="/profil_perusahaan/{{$perusahaan->id_perusahaan}}">Lihat</a>
-                                                </td>
-                                            </tr>                                                
                                         @endif
                                     @endforeach
                                 </tbody>    
