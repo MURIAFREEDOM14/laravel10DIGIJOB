@@ -25,12 +25,15 @@
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="" class="col-form-label">Tempat / Tanggal Lahir Ayah Kandung</label>
+                                <label for="" class="col-form-label">Tempat Lahir Ayah Kandung</label>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <input type="text" placeholder="Masukkan Tempat Lahir" required value="{{$kandidat->tmp_lahir_ayah}}" name="tmp_lahir_ayah" class="form-control" id="">
                             </div>
-                            <div class="col-md-4">
+                        </div>
+                        <div class="row mb-3 g-3 align-items-center">
+                            <label for="" class="col-form-label">Tanggal Lahir Ayah Kandung</label>
+                            <div class="col-md-6">
                                 <input type="date" placeholder="Masukkan Tanggal Lahir" required value="{{$kandidat->tgl_lahir_ayah}}" name="tgl_lahir_ayah" class="form-control" id="">
                             </div>
                         </div>
@@ -61,12 +64,17 @@
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="" class="col-form-label">Tempat / Tanggal Lahir Ibu Kandung</label>
+                                <label for="" class="col-form-label">Tempat Lahir Ibu Kandung</label>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <input type="text" placeholder="Masukkan Tempat Lahir" required value="{{$kandidat->tmp_lahir_ibu}}" name="tmp_lahir_ibu" class="form-control" id="">
                             </div>
+                        </div>
+                        <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
+                                <label for="" class="col-form-label">Tanggal Lahir Ibu Kandung</label>
+                            </div>
+                            <div class="col-md-6">
                                 <input type="date" placeholder="Masukkan Tanggal Lahir" required value="{{$kandidat->tgl_lahir_ibu}}" name="tgl_lahir_ibu" class="form-control" id="">
                             </div>
                         </div>
