@@ -219,6 +219,7 @@
                                     <tr class="text-center">
                                         <th style="width: 1px">No.</th>
                                         <th>Lowongan</th>
+                                        <th>Negara Tujuan</th>
                                         <th>Lihat</th>
                                     </tr>
                                 </thead>
@@ -234,6 +235,9 @@
                                                                 {{$item->jabatan}}
                                                             </td>
                                                             <td>
+                                                                {{$item->negara}}
+                                                            </td>
+                                                            <td>
                                                                 <a href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat</a>
                                                             </td>
                                                         </tr>
@@ -243,6 +247,7 @@
                                                             <td>
                                                                 {{$item->jabatan}}
                                                             </td>
+                                                            <td>{{$item->negara}}</td>
                                                             <td>
                                                                 <a href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat</a>
                                                             </td>
@@ -256,6 +261,9 @@
                                                                 {{$item->jabatan}}
                                                             </td>
                                                             <td>
+                                                                {{$item->negara}}
+                                                            </td>
+                                                            <td>
                                                                 <a href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat</a>
                                                             </td>
                                                         </tr>
@@ -264,6 +272,9 @@
                                                             <td>{{$loop->iteration}}</td>
                                                             <td>
                                                                 {{$item->jabatan}}
+                                                            </td>
+                                                            <td>
+                                                                {{$item->negara}}
                                                             </td>
                                                             <td>
                                                                 <a href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat</a>
