@@ -226,16 +226,50 @@
                                     @foreach ($lowongan as $item)
                                         @if ($item->pendidikan <= $pendidikan->nama_pendidikan)
                                             @if ($item->pencarian_tmp == $kandidat->kabupaten || $item->pencarian_tmp == "Se-indonesia")
-                                                @if ($item->berat_min <= $kandidat->berat && $item->berat_maks >= $kandidat->berat)
-                                                    <tr class="text-center">
-                                                        <td>{{$loop->iteration}}</td>
-                                                        <td>
-                                                            {{$item->jabatan}}
-                                                        </td>
-                                                        <td>
-                                                            <a href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat</a>
-                                                        </td>
-                                                    </tr>    
+                                                @if ($item->usia_min <= $kandidat->usia && $item->usia_maks >= $kandidat->usia)
+                                                    @if ($item->berat_min <= $kandidat->berat && $item->berat_maks >= $kandidat->berat)
+                                                        <tr class="text-center">
+                                                            <td>{{$loop->iteration}}</td>
+                                                            <td>
+                                                                {{$item->jabatan}}
+                                                            </td>
+                                                            <td>
+                                                                <a href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat</a>
+                                                            </td>
+                                                        </tr>
+                                                    @elseif($item->berat_min <= $kandidat->berat)
+                                                        <tr class="text-center">
+                                                            <td>{{$loop->iteration}}</td>
+                                                            <td>
+                                                                {{$item->jabatan}}
+                                                            </td>
+                                                            <td>
+                                                                <a href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat</a>
+                                                            </td>
+                                                        </tr>
+                                                    @endif
+                                                @elseif($item->usia_min <= $kandidat->usia)
+                                                    @if ($item->berat_min <= $kandidat->berat && $item->berat_maks >= $kandidat->berat)
+                                                        <tr class="text-center">
+                                                            <td>{{$loop->iteration}}</td>
+                                                            <td>
+                                                                {{$item->jabatan}}
+                                                            </td>
+                                                            <td>
+                                                                <a href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat</a>
+                                                            </td>
+                                                        </tr>
+                                                    @elseif($item->berat_min <= $kandidat->berat)
+                                                        <tr class="text-center">
+                                                            <td>{{$loop->iteration}}</td>
+                                                            <td>
+                                                                {{$item->jabatan}}
+                                                            </td>
+                                                            <td>
+                                                                <a href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat</a>
+                                                            </td>
+                                                        </tr>
+                                                    @endif
                                                 @endif
                                             @endif
                                         @endif
