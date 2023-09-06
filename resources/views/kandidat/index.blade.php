@@ -224,8 +224,8 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($lowongan as $item)
-                                        @if ($item->pendidikan == $pendidikan->nama_pendidikan)
-                                            @if ($item->pencarian_tmp == $kandidat->kabupaten)
+                                        @if ($item->pendidikan <= $pendidikan->nama_pendidikan)
+                                            @if ($item->pencarian_tmp == $kandidat->kabupaten || $item->pencarian_tmp == "Se-indonesia")
                                                 @if ($item->berat_min <= $kandidat->berat && $item->berat_maks >= $kandidat->berat)
                                                     <tr class="text-center">
                                                         <td>{{$loop->iteration}}</td>
