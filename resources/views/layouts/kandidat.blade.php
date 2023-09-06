@@ -164,7 +164,7 @@
             </div> --}}
             <main class="py-5">
                 @yield('content')
-                <div class="" style="height: 60px;"></div>
+                <div class="" style="height: 80px;"></div>
                 <footer class="footer fixed-bottom" style="background-color: #1269db;">
                     <div class="container-fluid">
                         <nav class="pull-left">
