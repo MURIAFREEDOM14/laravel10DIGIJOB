@@ -123,7 +123,7 @@
                         </a>
                         <div class="dropdown-menu" style="width:13rem; height:auto; padding:2.5px; margin-left:-10rem">
                             <div class="" style="padding: 5px;">
-                                <div class="" style="width:50%; height:50%;">
+                                <div class="" style="width:60%; height:auto;">
                                     @if ($kandidat->foto_4x6 !== null)
                                         <img src="/gambar/Kandidat/{{$kandidat->nama}}/4x6/{{$kandidat->foto_4x6}}" alt="" class="avatar-img rounded" style="">
                                     @else
