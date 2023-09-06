@@ -18,7 +18,7 @@
                                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <strong>{{ "Nama harus berisi kurang dari 255 kata" }}</strong>
                                         </span>
                                     @enderror
                                 </div>
@@ -27,7 +27,7 @@
                                     <input id="nik" type="number" class="form-control @error('nik') is-invalid @enderror" name="nik" value="{{ old('nik') }}" required autocomplete="nik" autofocus>
                                     @error('nik')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <strong>{{ "No. NIK harus berisi 16 angka" }}</strong>
                                         </span>
                                     @enderror
                                 </div>
@@ -36,7 +36,7 @@
                                     <input id="tgl" type="date" class="form-control @error('tgl') is-invalid @enderror" name="tgl" value="{{ old('tgl') }}" required autocomplete="tgl" autofocus>
                                     @error('tgl')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <strong>{{ "Tanggal lahir harus benar dan sesuai dengan data anda" }}</strong>
                                         </span>
                                     @enderror
                                 </div>
@@ -45,7 +45,7 @@
                                     <input id="no_telp" type="number" class="form-control @error('no_telp') is-invalid @enderror" name="no_telp" value="{{ old('no_telp') }}" required autocomplete="no_telp" autofocus>
                                     @error('no_telp')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <strong>{{ "No. Telp harus berisi min:10 angka dan mak:13 angka" }}</strong>
                                         </span>
                                     @enderror
                                 </div>
@@ -54,7 +54,7 @@
                                     <input id="nama_panggilan" type="text" placeholder="Maks 20 kata" class="form-control @error('nama_panggilan') is-invalid @enderror" name="nama_panggilan" value="{{ old('nama_panggilan') }}" required autocomplete="nama_panggilan">
                                     @error('nama_panggilan')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <strong>{{ "Nama panggilan tidak boleh lebih dari 20 kata" }}</strong>
                                         </span>
                                     @enderror
                                 </div>
@@ -63,7 +63,7 @@
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>Email sudah digunakan</strong>
+                                            <strong>{{ "Email sudah digunakan" }}</strong>
                                         </span>
                                     @enderror
                                 </div>
@@ -72,13 +72,18 @@
                                     <input id="password" type="text" placeholder="min 8 kata" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" required autocomplete="password">
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>password harus berisi min 8 digit dan max 20 digit</strong>
+                                            <strong>{{" Password harus berisi min:8 kata "}}</strong>
                                         </span>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="">{{ __('Konfirmasi Password') }}</label>
-                                    <input id="password" type="text" placeholder="Masukkan ulang password anda dengan benar" class="form-control" name="passwordConfirm" required autocomplete="password">
+                                    <input id="password" type="text" placeholder="Masukkan ulang password anda dengan benar" class="form-control @error('passwordConfirm') is_invalid @enderror" name="passwordConfirm" required autocomplete="password">
+                                    @error('passwordConfirm')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ "Password konfirmasi harus sama dengan buat password" }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="mb-3">
                                     <div class="slidercaptcha card">

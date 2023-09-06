@@ -111,19 +111,32 @@ class RegisterController extends Controller
 
     public function kandidat(Request $request)
     {
+        // Data Kandidat //
         $kandidat = Kandidat::where('email',$request->email)->where('nik',$request->nik)->first();
+        // Semua Data Kandidat //
+        $data_register = Kandidat::all();
+        // Mencari Usia //
+        $tgl = Carbon::parse($request->tgl)->age;        
+        
+        // Apabila sudah punya akun //
         if($kandidat !== null){
             return redirect('/login/migration')->with('warning',"Data anda sudah ada, Harap aktifkan akun");
         }
+        // Apabila password dengan password confirm tidak sama //
         if($request->password !== $request->passwordConfirm){
             return back()->with('error',"Maaf konfirmasi password anda salah");
         }
-        $data_register = Kandidat::all();
+        // Apabila nama panggilan sudah digunakan
         foreach($data_register as $key) {
             if($key->nama_panggilan == $request->nama_panggilan){
                 return back()->with('info',"Maaf nama panggilan ini sudah digunakan. Gunakan mana lain anda.");
             }    
         }
+        // Apabila usia pendaftar kurang dari 18 tahun //
+        if($tgl < 18){
+            return redirect('/register/kandidat')->with('warning',"Maaf umur anda belum cukup, syarat umur ialah 18 thn keatas");
+        }
+
         $validated = $request->validate([
             'name' => 'required|max:255',
             'nik' => 'required|max:16|min:16|unique:kandidat',
@@ -133,11 +146,6 @@ class RegisterController extends Controller
             'password' => 'required|min:8',
             'captcha' => 'required',
         ]);
-
-        $tgl = Carbon::parse($request->tgl)->age;
-        if($tgl < 18){
-            return redirect('/register/kandidat')->with('warning',"Maaf umur anda belum cukup, syarat umur ialah 18 thn keatas");
-        }
 
         $token = Str::random(32).$request->no_telp;
         $password = Hash::make($request->password);
@@ -181,7 +189,6 @@ class RegisterController extends Controller
         if($request->password !== $request->passwordConfirm){
             return back()->with('error',"Maaf konfirmasi password anda salah");
         }
-
         $validated = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|unique:users|max:255',
@@ -224,7 +231,6 @@ class RegisterController extends Controller
         if($request->password !== $request->passwordConfirm){
             return back()->with('error',"Maaf konfirmasi password anda salah");
         }
-
         $validated = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|unique:users|max:255',

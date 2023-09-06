@@ -18,7 +18,7 @@
                                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <strong>{{ "Nama harus berisi kurang dari 255 kata" }}</strong>
                                         </span>
                                     @enderror
                                 </div>
@@ -27,7 +27,7 @@
                                     <input id="no_nis" type="number" class="form-control @error('no_nis') is-invalid @enderror" name="no_nis" value="{{ old('no_nis') }}" required autocomplete="no_nis" autofocus>
                                     @error('no_nis')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <strong>{{ "No. NIS tidak boleh kosong" }}</strong>
                                         </span>
                                     @enderror
                                 </div>
@@ -36,7 +36,7 @@
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <strong>{{ "Email sudah digunakan" }}</strong>
                                         </span>
                                     @enderror
                                 </div>
@@ -45,7 +45,7 @@
                                     <input id="password" type="text" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" required autocomplete="password">
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>password harus berisi min 8 digit dan max 20 digit</strong>
+                                            <strong>{{ "Password harus berisi min:8 kata" }}</strong>
                                         </span>
                                     @enderror
                                 </div>
@@ -67,7 +67,7 @@
                                     <input type="text" hidden name="captcha" value="" id="confirmCaptcha">
                                     @error('captcha')
                                       <span class="invalid-feedback" role="alert">
-                                          <strong>Harap isi captcha anda</strong>
+                                          <strong>{{ "Harap isi captcha anda" }}</strong>
                                       </span>
                                     @enderror
                                 </div>
