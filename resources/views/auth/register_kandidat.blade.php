@@ -1,7 +1,5 @@
 @extends('layouts.laman')
 @section('content')
-@include('flash_message')
-@include('sweetalert::alert')
 <div class="container">
     <div class="row">
         <div class="col-md-3"></div>
@@ -142,10 +140,29 @@
     </div>
 </div>
 <script>
-    var name = document.getElementById('name').value;
-    var nik = document.getElementById('nik').value;
     function processing() {
-        console.log(name, nik);
+        var name = document.getElementById('name').value;
+        var nik = document.getElementById('nik').value;
+        var tgl = document.getElementById('tgl').value;
+        var telp = document.getElementById('no_telp').value;
+        var panggilan = document.getElementById('nama_panggilan').value;
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        var confirm = document.getElementById('password_confirm').value;
+        var captcha = document.getElementById('confirmCaptcha').value;
+        if (name !== '' && 
+            nik !== '' && 
+            tgl !== '' && 
+            telp !== '' && 
+            panggilan !== '' &&
+            email !== '' &&
+            password !== '' &&
+            confirm !== '' &&
+            captcha !== '') {
+            var viewLoad = document.getElementById('viewLoad').style.display = 'block';
+            const input = document.getElementsByClassName('form-control');
+            input[0].innerHTML = "Processing";
+        }
     }
 </script>
 @endsection

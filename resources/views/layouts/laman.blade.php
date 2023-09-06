@@ -53,7 +53,8 @@
   }
   #viewLoad {
     background-color: transparent;
-    display: none;
+    display: block;
+    align-content: center;
   }
 </style>
 </head>
@@ -83,9 +84,9 @@
       <section id="clients" class=" mt-5">
         <div class="container mt-5">
           <div class="content">
-            <div class="loading-align" id="viewLoad">
+            {{-- <div class="loading-align text-center" id="viewLoad">
               <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-            </div>
+            </div> --}}
             <main class="mb-3">
               @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
               @include('flash_message')
@@ -95,7 +96,8 @@
         </div>
       </section><!-- End Cliens Section -->
       <!-- ======= Footer ======= -->
-      <footer id="footer" style="background-color:#FFD966;">
+    </main><!-- End #main -->
+    <footer id="footer" style="background-color:#FFD966;">
         <div class="container footer-bottom clearfix" >
           <div class="copyright" style="color:black">
             &copy; Copyright <strong><span>DIGIJOB-UGIPORT</span></strong>. All Rights Reserved
@@ -109,7 +111,6 @@
           </div>
         </div>
       </footer><!-- End Footer -->
-    </main><!-- End #main -->
 
     <div id="preloader"></div>
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
