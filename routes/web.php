@@ -715,35 +715,6 @@ Route::get('/laman', [HomeController::class, 'managerHome'])->name('manager_home
 Route::get('webcam', [CaptureController::class, 'index']);
 Route::post('webcam', [CaptureController::class, 'store'])->name('webcam.capture');
 
-// Route::controller(PrototypeController::class)->group(function(){
-//     Route::get('/prototype','test')->name('prototype');
-//     Route::get('/select1','select');
-//     Route::post('/prototype','cek');
-//     Route::get('/proto_create','create');
-//     Route::get('/proto_store','store');
-//     Route::get('/proto_edit','edit');
-//     Route::get('/proto_update','update');
-//     Route::get('/prototype4','delete');
-//     Route::post('/proto_mail','email');
-//     Route::view('/prototype3','prototype3');
-    
-//     Route::get('/webcam','takePhoto');
-//     Route::post('/webcam','store')->name('webcam.capture');
-
-//     Route::get('/video/chat', function() {
-//         $users = User::where('id','<>', Auth::id())->get();
-//         return view('prototype/webcam',['users'=>$users]);
-//     });
-
-//     Route::post('/video/call-user','callingUser');
-//     Route::post('/video/accept-call','confirmCalling');
-
-//     Route::get('/make_captcha','captcha')->name('make.captcha');
-
-//     Route::view('/kirim_sms','prototype/sms');
-//     Route::post('/kirim_sms','sendSMS');
-// });
-
 Route::controller(CaptchaController::class)->group(function() {
 Route::get('/sliding-puzzle', [CaptchaController::class, 'showSlidingPuzzle']);
 Route::post('/sliding-puzzle/verify', [CaptchaController::class, 'verifySlidingPuzzle'])->name('sliding-puzzle.verify');

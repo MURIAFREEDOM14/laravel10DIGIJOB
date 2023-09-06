@@ -80,6 +80,7 @@
                             </span>
                         </div>
                         <div class="mt-3">Sudah punya akun?<a href="/login" class="ms-1">Login</a></div>
+                        {{-- <div class="">Bingung cara untuk daftar?<button type="button" data-bs-toggle="modal" data-bs-target="#tutorial_kandidat" class="btn btn-link">Yuk lihat video ini</button></div> --}}
                         <button type="submit" id="btn" disabled="true" class="btn btn-primary mt-3">
                             {{ __('Register') }}
                         </button>
@@ -92,17 +93,13 @@
 </div>
 <div class="modal fade" id="tutorial_kandidat" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                {{-- <h1 class="modal-title fs-5" id="exampleModalLabel">Tutorial Daftar Pencari Kerja / Kandidat</h1> --}}
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
+        <div class="modal-content" style="background-color:transparent; border:none;">
             <div class="text-center">
-                <video id="video" style="width: 90%;">
+                <video id="video" style="width: 90%;" controls>
                     <source class="" src="/gambar/Manager/Tutorial/Register Akademi/Registrasi DIGIJOB UGIPORT.mp4">
                 </video>
-                <button class="btn btn-success mx-auto mb-2" id="play" type="button" onclick="play()">Mulai</button>
-                <button class="btn btn-warning mx-auto mb-2" id="jeda" type="button" onclick="pause()">Jeda</button>
+                {{-- <button class="btn btn-success mx-auto mb-2" id="play" type="button" onclick="play()">Mulai</button>
+                <button class="btn btn-warning mx-auto mb-2" id="jeda" type="button" onclick="pause()">Jeda</button> --}}
             </div>
         </div>
     </div>

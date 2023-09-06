@@ -2,7 +2,7 @@
 <html lang="id">
     <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>DIGIJOB-UGIPORT</title>
+        <title>DIGIJOB</title>
         <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
         <link rel="icon" href="/Atlantis/examples/assets/img/icon.ico" type="image/x-icon"/>
         <!-- Fonts and icons -->
@@ -51,7 +51,7 @@
                 <div class="logo-header" data-background-color="orange">
 
                     <a href="/" class="logo">
-                        <b class="" style="color: white">DIGIJOB-UGIPORT</b>
+                        <b class="" style="color: white">DIGIJOB</b>
                     </a>
                     <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon">
@@ -185,14 +185,6 @@
                                             <a class="dropdown-item" href="/contact_us_akademi">Hubungi Kami</a>
                                             <div class="dropdown-divider"></div>
                                             <a href="{{route('logout')}}" class="dropdown-item" onclick="confirmation(event)">Keluar</a>
-                                            {{-- <a class="dropdown-item" onclick="return confirm('apakah anda yakin ingin keluar?')" href="{{ route('logout') }}"
-                                                onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">
-                                                Keluar
-                                            </a>
-                                            <form id="logout-form" action="{{ route('logout') }}" method="get" class="d-none">
-                                                @csrf
-                                            </form> --}}
                                         </li>
                                     </div>
                                 </ul>
@@ -204,55 +196,18 @@
             </div>
 
             <!-- Sidebar -->
+            @php
+                $data = $akademi->logo_akademi;
+                $operator = $akademi->no_telp_operator;
+            @endphp
             <div class="sidebar sidebar-style-2">
                 <div class="sidebar-wrapper scrollbar scrollbar-inner">
                     <div class="sidebar-content">
-                        {{-- <div class="user">
-                            <div class="avatar-sm float-left mr-2">
-                                @if ($akademi->logo_akademi !== null)
-                                    <img src="/gambar/Akademi/{{$akademi->nama_akademi}}/Logo Akademi/{{$akademi->logo_akademi}}" alt="" class="avatar-img rounded-circle">                                    
-                                @else
-                                    <img src="/gambar/default_user.png" alt="" class="avatar-img rounded-circle">
-                                @endif
-                            </div>
-                            <div class="info">
-                                <a data-toggle="collapse" href="#collapseExample" class="btn" aria-expanded="true">
-                                    <span>
-                                        <span class="" style="text-transform: uppercase;"><b class="bold">{{$akademi->nama_akademi}}</b></span>
-                                        <span class="caret"></span>
-                                    </span>
-                                </a>
-                                <div class="clearfix"></div>
-                                <div class="collapse in" id="collapseExample">
-                                    <ul class="nav">
-                                        <li>
-                                            <a href="/akademi/lihat/profil" class="dropdown-item">
-                                                <div class="link-collapse">Profil Akademi<i class="fas fa-user-circle float-right"></i></div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/akademi/edit/profil" class="dropdown-item">
-                                                @if ($akademi->nama_kepala_akademi == null)
-                                                    <div class="link-collapse"> Lengkapi Profil <i class="fas fa-exclamation-circle float-right"></i></div>
-                                                @else
-                                                    <div class="link-collapse"> Edit Profil <i class="fas fa-edit float-right"></i></div>
-                                                @endif
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{route('logout')}}" class="dropdown-item" onclick="confirmation(event)">
-                                                <div class="link-collapse"> Keluar <i class="fas fa-door-open float-right"></i></div>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div> --}}
                         <ul class="nav nav-primary">
                             <li class="nav-item active">
                                 <a href="/akademi" class="btn" aria-expanded="false">
                                     <i class="fas fa-home"></i>
-                                    <p>Beranda</p>
+                                    <p></p>
                                 </a>
                             </li>
                             <li class="nav-section">
@@ -261,12 +216,28 @@
                                 </span>
                                 <h4 class="text-section">Komponen</h4>
                             </li>
-                            <li class="nav-item">
-                                <a class="btn" href="/akademi/list_kandidat">
-                                    <i class="fas fa-layer-group"></i>
-                                    <p>Data Kandidat</p>
-                                </a>
-                            </li>
+                            @if ($data == null)
+                                <li class="nav-item">
+                                    <a class="btn" href="/akademi/list_kandidat">
+                                        <i class="fas fa-layer-group"></i>
+                                        <p>Lengkapi Data Akademi</p>
+                                    </a>
+                                </li>    
+                            @elseif($operator == null)
+                                <li class="nav-item">
+                                    <a class="btn" href="/akademi/list_kandidat">
+                                        <i class="fas fa-layer-group"></i>
+                                        <p>Lengkapi Data Operator</p>
+                                    </a>
+                                </li>
+                            @else
+                                <li class="nav-item">
+                                    <a class="btn" href="/akademi/list_kandidat">
+                                        <i class="fas fa-layer-group"></i>
+                                        <p>Data Kandidat</p>
+                                    </a>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -280,34 +251,33 @@
                     <main class="px-3">
                         @yield('content')
                     </main>
-                    <footer class="footer" style="background-color: #ff9e27">
-                        <div class="container-fluid">
-                            <nav class="pull-left">
-                                <ul class="nav nav-primary">
-                                    <li class="nav-item">
-                                        <div class="copyright" style="color:white;">
-                                            &copy; Copyright <strong><span>DIGIJOB-UGIPORT</span></strong>. All Rights Reserved
-                                        </div>
-                                    </li>
-                                    {{-- <li class="nav-item">
-                                        <a class="nav-link" href="#">
-                                            Help
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">
-                                            Licenses
-                                        </a>
-                                    </li> --}}
-                                </ul>
-                            </nav>
-                            <div class="copyright ml-auto">
-                                &nbsp;
-                                {{-- 2018, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">ThemeKita</a> --}}
-                            </div>
-                        </div>
-                    </footer>
                 </div>
+                <footer class="footer" style="background-color: #ff9e27">
+                    <div class="container-fluid">
+                        <nav class="pull-left">
+                            <ul class="nav nav-primary">
+                                <li class="nav-item">
+                                    <div class="copyright" style="color:white;">
+                                        &copy; Copyright <strong><span>DIGIJOB-UGIPORT</span></strong>. All Rights Reserved
+                                    </div>
+                                </li>
+                                {{-- <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        Help
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        Licenses
+                                    </a>
+                                </li> --}}
+                            </ul>
+                        </nav>
+                        <div class="copyright ml-auto">
+                            &nbsp;
+                        </div>
+                    </div>
+                </footer>
             </div>
         </div>
         <!--   Core JS Files   -->

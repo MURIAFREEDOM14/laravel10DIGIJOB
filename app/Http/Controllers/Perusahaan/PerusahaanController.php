@@ -68,23 +68,23 @@ class PerusahaanController extends Controller
         return view('perusahaan/index',compact('perusahaan','cabang','notif','interview','pesan','credit','penempatan','lowongan'));
     }
 
-    public function gantiPerusahaan($id)
-    {
-        $user = Auth::user();
-        $perusahaanData = PerusahaanCabang::where('no_nib',$user->no_nib)->where('id_perusahaan_cabang',$id)->first();
-        Perusahaan::where('no_nib',$perusahaanData->no_nib)->update([
-            'penempatan_kerja' => $perusahaanData->penempatan_kerja,
-            'nama_pemimpin' => $perusahaanData->nama_pemimpin,
-            'tmp_perusahaan' => $perusahaanData->tmp_perusahaan,
-            'foto_perusahaan' => $perusahaanData->foto_perusahaan,
-            'logo_perusahaan' => $perusahaanData->logo_perusahaan,
-            'alamat' => $perusahaanData->alamat,
-            'provinsi' => $perusahaanData->provinsi,
-            'kota' => $perusahaanData->kota,
-            'no_telp_perusahaan' => $perusahaanData->no_telp_perusahaan,
-        ]);
-        return redirect()->route('perusahaan')->with('success',"Beralih Perusahaan");
-    }
+    // public function gantiPerusahaan($id)
+    // {
+    //     $user = Auth::user();
+    //     $perusahaanData = PerusahaanCabang::where('no_nib',$user->no_nib)->where('id_perusahaan_cabang',$id)->first();
+    //     Perusahaan::where('no_nib',$perusahaanData->no_nib)->update([
+    //         'penempatan_kerja' => $perusahaanData->penempatan_kerja,
+    //         'nama_pemimpin' => $perusahaanData->nama_pemimpin,
+    //         'tmp_perusahaan' => $perusahaanData->tmp_perusahaan,
+    //         'foto_perusahaan' => $perusahaanData->foto_perusahaan,
+    //         'logo_perusahaan' => $perusahaanData->logo_perusahaan,
+    //         'alamat' => $perusahaanData->alamat,
+    //         'provinsi' => $perusahaanData->provinsi,
+    //         'kota' => $perusahaanData->kota,
+    //         'no_telp_perusahaan' => $perusahaanData->no_telp_perusahaan,
+    //     ]);
+    //     return redirect()->route('perusahaan')->with('success',"Beralih Perusahaan");
+    // }
 
     public function profil()
     {
@@ -108,7 +108,7 @@ class PerusahaanController extends Controller
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/isi_perusahaan_data',compact('perusahaan'));
+        return view('perusahaan/modalPerusahaan/isi_perusahaan_data',compact('perusahaan'));
     }
 
     public function simpan_perusahaan_data(Request $request)
@@ -199,7 +199,7 @@ class PerusahaanController extends Controller
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
         $negara = Negara::where('negara_id','not like',2)->get();
-        return view('perusahaan/isi_perusahaan_alamat',compact('perusahaan','negara'));
+        return view('perusahaan/modalPerusahaan/isi_perusahaan_alamat',compact('perusahaan','negara'));
     }
 
     public function simpan_perusahaan_alamat(Request $request)
@@ -252,7 +252,7 @@ class PerusahaanController extends Controller
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        return view('perusahaan/isi_perusahaan_operator',compact('perusahaan'));
+        return view('perusahaan/modalPerusahaan/isi_perusahaan_operator',compact('perusahaan'));
     }
 
     public function simpan_perusahaan_operator(Request $request)
@@ -278,143 +278,133 @@ class PerusahaanController extends Controller
         return redirect()->route('perusahaan')->with('success',"Data anda tersimpan");
     }
 
-    public function tambahCabangData()
-    {
-        $id = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        return view('perusahaan/cabang/tambah_perusahaan_data',compact('perusahaan'));
-    }
+    // public function tambahCabangData()
+    // {
+    //     $id = Auth::user();
+    //     $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
+    //     return view('perusahaan/cabang/tambah_perusahaan_data',compact('perusahaan'));
+    // }
 
-    public function simpanCabangData(Request $request)
-    {
-        $id = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();        
+    // public function simpanCabangData(Request $request)
+    // {
+    //     $id = Auth::user();
+    //     $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();        
 
-        if($request->file('foto_perusahaan') !== null){
-            // $this->validate($request, [
-            //     'foto_perusahaan' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
-            // ]);
-            $hapus_foto_perusahaan = public_path('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Foto Perusahaan/').$perusahaan->foto_perusahaan;
-            if(file_exists($hapus_foto_perusahaan)){
-                @unlink($hapus_foto_perusahaan);
-            }
-            $photo_perusahaan = $perusahaan->nama_perusahaan.time().'.'.$request->foto_perusahaan->extension();  
-            $simpan_photo_perusahaan = $request->file('foto_perusahaan');
-            $simpan_photo_perusahaan->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Foto Perusahaan/',$perusahaan->nama_perusahaan.time().'.'.$simpan_photo_perusahaan->extension());
-        } else {
-            if($perusahaan->foto_perusahaan !== null){
-                $photo_perusahaan = $perusahaan->foto_perusahaan;                
-            } else {
-                $photo_perusahaan = null;    
-            }
-        }
+    //     if($request->file('foto_perusahaan') !== null){
+    //         // $this->validate($request, [
+    //         //     'foto_perusahaan' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
+    //         // ]);
+    //         $hapus_foto_perusahaan = public_path('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Foto Perusahaan/').$perusahaan->foto_perusahaan;
+    //         if(file_exists($hapus_foto_perusahaan)){
+    //             @unlink($hapus_foto_perusahaan);
+    //         }
+    //         $photo_perusahaan = $perusahaan->nama_perusahaan.time().'.'.$request->foto_perusahaan->extension();  
+    //         $simpan_photo_perusahaan = $request->file('foto_perusahaan');
+    //         $simpan_photo_perusahaan->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Foto Perusahaan/',$perusahaan->nama_perusahaan.time().'.'.$simpan_photo_perusahaan->extension());
+    //     } else {
+    //         if($perusahaan->foto_perusahaan !== null){
+    //             $photo_perusahaan = $perusahaan->foto_perusahaan;                
+    //         } else {
+    //             $photo_perusahaan = null;    
+    //         }
+    //     }
 
-        if($request->file('logo_perusahaan') !== null){
-            // $this->validate($request, [
-            //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
-            // ]);
-            $hapus_logo_perusahaan = public_path('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Logo Perusahaan/').$perusahaan->logo_perusahaan;
-            if(file_exists($hapus_logo_perusahaan)){
-                @unlink($hapus_logo_perusahaan);
-            }
-            $logo = $perusahaan->nama_perusahaan.time().'.'.$request->logo_perusahaan->extension();  
-            $simpan_logo = $request->file('logo_perusahaan');
-            $simpan_logo->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Logo Perusahaan/',$perusahaan->nama_perusahaan.time().'.'.$simpan_logo->extension());
-        } else {
-            if($perusahaan->logo_perusahaan !== null){
-                $logo = $perusahaan->logo_perusahaan;                
-            } else {
-                $logo = null;    
-            }
-        }
+    //     if($request->file('logo_perusahaan') !== null){
+    //         // $this->validate($request, [
+    //         //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
+    //         // ]);
+    //         $hapus_logo_perusahaan = public_path('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Logo Perusahaan/').$perusahaan->logo_perusahaan;
+    //         if(file_exists($hapus_logo_perusahaan)){
+    //             @unlink($hapus_logo_perusahaan);
+    //         }
+    //         $logo = $perusahaan->nama_perusahaan.time().'.'.$request->logo_perusahaan->extension();  
+    //         $simpan_logo = $request->file('logo_perusahaan');
+    //         $simpan_logo->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Logo Perusahaan/',$perusahaan->nama_perusahaan.time().'.'.$simpan_logo->extension());
+    //     } else {
+    //         if($perusahaan->logo_perusahaan !== null){
+    //             $logo = $perusahaan->logo_perusahaan;                
+    //         } else {
+    //             $logo = null;    
+    //         }
+    //     }
 
-        if ($photo_perusahaan !== null) {
-            $foto_perusahaan = $photo_perusahaan;
-        } else {
-            $foto_perusahaan = null;
-        }
+    //     if ($photo_perusahaan !== null) {
+    //         $foto_perusahaan = $photo_perusahaan;
+    //     } else {
+    //         $foto_perusahaan = null;
+    //     }
 
-        if ($logo !== null) {
-            $logo_perusahaan = $logo;
-        } else {
-            $logo_perusahaan = null;
-        }
+    //     if ($logo !== null) {
+    //         $logo_perusahaan = $logo;
+    //     } else {
+    //         $logo_perusahaan = null;
+    //     }
 
-        if($request->tmp_perusahaan == "Dalam negeri"){
-            $negara_id = 2;
-        } else {
-            $negara_id = null;
-        }
+    //     if($request->tmp_perusahaan == "Dalam negeri"){
+    //         $negara_id = 2;
+    //     } else {
+    //         $negara_id = null;
+    //     }
         
-        PerusahaanCabang::create([
-            'id_perusahaan' => $perusahaan->id_perusahaan,
-            'nama_perusahaan' => $request->nama_perusahaan,
-            'no_nib' => $perusahaan->no_nib,
-            'referral_code' => $perusahaan->referral_code,
-            'email_perusahaan' => $perusahaan->email_perusahaan,
-            'penempatan_kerja' => $request->penempatan_kerja,
-            'nama_pemimpin' => $request->nama_pemimpin,
-            'foto_perusahaan' => $foto_perusahaan,
-            'logo_perusahaan' => $logo_perusahaan,
-            'tmp_perusahaan' => $request->tmp_perusahaan,
-            'negara_id' => $negara_id,        
-        ]);
-        return redirect()->route('cabang.alamat')->with('success',"Data anda tersimpan");
-    }
+    //     PerusahaanCabang::create([
+    //         'id_perusahaan' => $perusahaan->id_perusahaan,
+    //         'nama_perusahaan' => $request->nama_perusahaan,
+    //         'no_nib' => $perusahaan->no_nib,
+    //         'referral_code' => $perusahaan->referral_code,
+    //         'email_perusahaan' => $perusahaan->email_perusahaan,
+    //         'penempatan_kerja' => $request->penempatan_kerja,
+    //         'nama_pemimpin' => $request->nama_pemimpin,
+    //         'foto_perusahaan' => $foto_perusahaan,
+    //         'logo_perusahaan' => $logo_perusahaan,
+    //         'tmp_perusahaan' => $request->tmp_perusahaan,
+    //         'negara_id' => $negara_id,        
+    //     ]);
+    //     return redirect()->route('cabang.alamat')->with('success',"Data anda tersimpan");
+    // }
 
-    public function tambahCabangAlamat()
-    {
-        $id = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        $negara = Negara::where('negara_id','not like',2)->get();
-        return view('perusahaan/isi_perusahaan_alamat',compact('perusahaan','negara'));
-    }
+    // public function tambahCabangAlamat()
+    // {
+    //     $id = Auth::user();
+    //     $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
+    //     $negara = Negara::where('negara_id','not like',2)->get();
+    //     return view('perusahaan/isi_perusahaan_alamat',compact('perusahaan','negara'));
+    // }
 
-    public function simpanCabangAlamat(Request $request)
-    {
-        $id = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
+    // public function simpanCabangAlamat(Request $request)
+    // {
+    //     $id = Auth::user();
+    //     $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
         
-        if($perusahaan->tmp_perusahaan == "Dalam negeri"){
-            $cari_provinsi = Provinsi::where('id',$request->provinsi_id)->first();
-            $cari_kota = Kota::where('id',$request->kota_id)->first();
-            $cari_kecamatan = Kecamatan::where('id',$request->kecamatan_id)->first();
-            $cari_kelurahan = kelurahan::where('id',$request->kelurahan_id)->first();    
+    //     if($perusahaan->tmp_perusahaan == "Dalam negeri"){
+    //         $cari_provinsi = Provinsi::where('id',$request->provinsi_id)->first();
+    //         $cari_kota = Kota::where('id',$request->kota_id)->first();
+    //         $cari_kecamatan = Kecamatan::where('id',$request->kecamatan_id)->first();
+    //         $cari_kelurahan = kelurahan::where('id',$request->kelurahan_id)->first();    
 
-            $provinsi = $cari_provinsi->provinsi;
-            $kota = $cari_kota->kota;
-            $kecamatan = $cari_kecamatan->kecamatan;
-            $kelurahan = $cari_kelurahan->kelurahan;
-            $negara_id = 2;
-        } else {
-            $provinsi = null;
-            $kota = null;
-            $kecamatan = null;
-            $kelurahan = null;
-            $negara_id = $request->negara_id;
-        }
+    //         $provinsi = $cari_provinsi->provinsi;
+    //         $kota = $cari_kota->kota;
+    //         $kecamatan = $cari_kecamatan->kecamatan;
+    //         $kelurahan = $cari_kelurahan->kelurahan;
+    //         $negara_id = 2;
+    //     } else {
+    //         $provinsi = null;
+    //         $kota = null;
+    //         $kecamatan = null;
+    //         $kelurahan = null;
+    //         $negara_id = $request->negara_id;
+    //     }
 
-        Perusahaan::where('no_nib',$id->no_nib)->update([
-            'provinsi'=>$provinsi,
-            'kota'=>$kota,
-            'kecamatan'=>$kecamatan,
-            'kelurahan'=>$kelurahan,
-            'no_telp_perusahaan'=>$request->no_telp_perusahaan,
-            'negara_id' => $negara_id,
-            'alamat' => $request->alamat,
-        ]);
-        return redirect()->route('cabang.operator')->with('success',"Data anda tersimpan");
-    }
-
-    public function tambahCabangOperator()
-    {
-
-    }
-
-    public function simpanCabangOperator()
-    {
-
-    }
+    //     Perusahaan::where('no_nib',$id->no_nib)->update([
+    //         'provinsi'=>$provinsi,
+    //         'kota'=>$kota,
+    //         'kecamatan'=>$kecamatan,
+    //         'kelurahan'=>$kelurahan,
+    //         'no_telp_perusahaan'=>$request->no_telp_perusahaan,
+    //         'negara_id' => $negara_id,
+    //         'alamat' => $request->alamat,
+    //     ]);
+    //     return redirect()->route('cabang.operator')->with('success',"Data anda tersimpan");
+    // }
 
     public function contactUsPerusahaan()
     {
@@ -655,12 +645,12 @@ class PerusahaanController extends Controller
             'id_perusahaan' => null,
             'jabatan_kandidat' => null,
         ]);
-        notifyKandidat::create([
-            'id_kandidat' => $id,
-            'isi' => "Anda mendapat pesan dari perusahaan",
-            'pengirim' => "Sistem",
-            'url' => '/semua_pesan',
-        ]);
+        // notifyKandidat::create([
+        //     'id_kandidat' => $id,
+        //     'isi' => "Anda mendapat pesan dari perusahaan",
+        //     'pengirim' => "Sistem",
+        //     'url' => '/semua_pesan',
+        // ]);
         messageKandidat::create([
             'id_kandidat' => $id,
             'pesan' => "Mohon maaf, Anda telah dikeluarkan dari perusahan ".$perusahaan->nama_perusahaan.". ",

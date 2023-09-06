@@ -192,7 +192,6 @@ class RegisterController extends Controller
 
         $token = Str::random(32).$request->no_nis;
         $password = Hash::make($request->password);
-
         $user = User::create([
             'name_akademi' => $request->name,
             'email' => $request->email,
@@ -202,10 +201,8 @@ class RegisterController extends Controller
             'check_password' => $request->password,
             'token' => $token,
         ]);
-
         $id = $user->id;
         $userId = \Hashids::encode($id.$request->no_nis);
-
         User::where('id',$id)->update([
             'referral_code'=>$userId
         ]);
@@ -218,11 +215,7 @@ class RegisterController extends Controller
         ]);
 
         Mail::mailer('verification')->to($request->email)->send(new Verification($request->name, $token, 'Email Verifikasi', 'no-reply@ugiport.com'));
-        // Mail::send('mail.mail', ['token' => $token, 'nama' => $request->name], function($message) use($request){
-        //     $message->to($request->email);
-        //     $message->subject('Email Verification Mail');
-        // });
-        // Auth::login($user);
+        Auth::login($user);
         return redirect()->route('verifikasi')->with('success',"Cek email anda untuk verifikasi");
     }
 

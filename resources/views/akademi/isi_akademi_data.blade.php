@@ -3,10 +3,8 @@
 @include('sweetalert::alert')
 @include('flash_message')
     <div class="container mt-5">
-            <div class="card mb-4">
-                <div class="card-header">
-                </div>
-                <div class="card-body">
+            <div class="mb-4">
+                <div class="">
                     <div class="row">
                         <h4 class="text-center">AKADEMI BIO DATA</h4>
                         <form action="/akademi/isi_akademi_data" method="POST" enctype="multipart/form-data">

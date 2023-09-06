@@ -99,29 +99,4 @@ class LamanController extends Controller
         Mail::to($request->email)->send(new DemoMail($pengirim));
         return redirect('login_info');
     }
-
-    public function digijobSystem()
-    {
-        return view('digijob_system');
-    }
-
-    public function benefits()
-    {
-        return view('benefits');
-    }
-
-    public function features()
-    {
-        return view('features');
-    }
-
-    public function contact()
-    {
-        return view('contact_us');
-    }
-
-    public function about()
-    {
-        return view('about_us');
-    }
 }

@@ -19,31 +19,31 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Nama Perusahaan</label>
+                                    <label for="" class="col-form-label">Nama Perusahaan</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" disabled required value="{{$perusahaan->nama_perusahaan}}" name="nama_perusahaan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input type="text" disabled required value="{{$perusahaan->nama_perusahaan}}" name="nama_perusahaan" id="" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">NIB Perusahaan</label>
+                                    <label for="" class="col-form-label">NIB Perusahaan</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="number" disabled required value="{{$perusahaan->no_nib}}" name="no_nib" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input type="text" disabled required value="{{$perusahaan->no_nib}}" name="no_nib" id="" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Nama Pemimpin</label>
+                                    <label for="" class="col-form-label">Nama Pemimpin</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" required value="{{$perusahaan->nama_pemimpin}}" name="nama_pemimpin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input type="text" required value="{{$perusahaan->nama_pemimpin}}" name="nama_pemimpin" id="" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Alamat Perusahaan</label>
+                                    <label for="" class="col-form-label">Alamat Perusahaan</label>
                                 </div>
                                 <div class="col-md-8">
                                     <select name="tmp_perusahaan" class="form-select" required id="">
@@ -59,31 +59,31 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Foto Perusahaan</label>
+                                    <label for="" class="col-form-label">Foto Perusahaan</label>
                                 </div>
                                 <div class="col-md-8">
                                     @if ($perusahaan->foto_perusahaan == "")
-                                        <input type="file" required class="form-control"  name="foto_perusahaan" value="{{$perusahaan->foto_perusahaan}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                        <input type="file" required class="form-control"  name="foto_perusahaan" value="{{$perusahaan->foto_perusahaan}}" id="" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @elseif ($perusahaan->foto_perusahaan !== null)
                                         <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Foto Perusahaan/{{$perusahaan->foto_perusahaan}}" width="150" height="150" alt="" class="mb-1">
-                                        <input type="file" class="form-control"  name="foto_perusahaan" value="{{$perusahaan->foto_perusahaan}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                        <input type="file" class="form-control"  name="foto_perusahaan" value="{{$perusahaan->foto_perusahaan}}" id="" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @else
-                                        <input type="file" required class="form-control"  name="foto_perusahaan" value="{{$perusahaan->foto_perusahaan}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                        <input type="file" required class="form-control"  name="foto_perusahaan" value="{{$perusahaan->foto_perusahaan}}" id="" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @endif
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Logo Perusahaan</label>
+                                    <label for="" class="col-form-label">Logo Perusahaan</label>
                                 </div>
                                 <div class="col-md-8">
                                     @if ($perusahaan->logo_perusahaan == "")
-                                        <input type="file" required class="form-control"  name="logo_perusahaan" value="{{$perusahaan->logo_perusahaan}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                        <input type="file" required class="form-control"  name="logo_perusahaan" value="{{$perusahaan->logo_perusahaan}}" id="" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @elseif ($perusahaan->logo_perusahaan !== null)
                                         <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Logo Perusahaan/{{$perusahaan->logo_perusahaan}}" width="150" height="150" alt="" class="mb-1">
-                                        <input type="file" class="form-control"  name="logo_perusahaan" value="{{$perusahaan->logo_perusahaan}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                        <input type="file" class="form-control"  name="logo_perusahaan" value="{{$perusahaan->logo_perusahaan}}" id="" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @else
-                                        <input type="file" required class="form-control"  name="logo_perusahaan" value="{{$perusahaan->logo_perusahaan}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                        <input type="file" required class="form-control"  name="logo_perusahaan" value="{{$perusahaan->logo_perusahaan}}" id="" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @endif
                                 </div>
                             </div>

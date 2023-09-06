@@ -44,7 +44,7 @@
                                 <label for="">Masukkan alamat</label>
                             </div>
                             <div class="col-md-8">
-                                <textarea name="alamat" id="" class="form-control"></textarea>
+                                <textarea name="alamat" id="" class="form-control">{{$perusahaan->alamat}}</textarea>
                             </div>
                         </div>
                     @endif
