@@ -78,7 +78,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="">{{ __('Konfirmasi Password') }}</label>
-                                    <input id="password" type="text" placeholder="Masukkan ulang password anda dengan benar" class="form-control @error('passwordConfirm') is_invalid @enderror" name="passwordConfirm" required autocomplete="password">
+                                    <input id="password_confirm" type="text" placeholder="Masukkan ulang password anda dengan benar" class="form-control @error('passwordConfirm') is_invalid @enderror" name="passwordConfirm" required autocomplete="password">
                                     @error('passwordConfirm')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ "Password konfirmasi harus sama dengan buat password" }}</strong>
@@ -113,7 +113,7 @@
                         </div>
                         <div class="mt-3">Sudah punya akun?<a href="/login" class="ms-1 btn btn-link">Login</a></div>
                         <div class="">Bingung cara untuk daftar?<button type="button" data-bs-toggle="modal" data-bs-target="#tutorial_kandidat" class="btn btn-link">Yuk lihat video ini</button></div>
-                        <button type="submit" id="btn" disabled="true" class="btn btn-primary mt-3">
+                        <button type="submit" id="btn" disabled="true" class="btn btn-primary mt-3" onclick="processing(event)">
                             {{ __('Register') }}
                         </button>
                     </form>

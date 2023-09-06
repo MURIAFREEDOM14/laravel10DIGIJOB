@@ -50,6 +50,10 @@
   #play {
     display: block;
   }
+  #pageLoading {
+    background-color: #468B97;
+    display: block;
+  }
 </style>
 </head>
   <body>
@@ -78,7 +82,7 @@
       <section id="clients" class=" mt-5">
         <div class="container mt-5">
           <div class="content">
-            <main class="mb-3">
+            <main class="mb-3" id="pageLoading">
               @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
               @include('flash_message')
               @yield('content')
@@ -121,7 +125,7 @@
 
     <!-- Template Main JS File -->
     <script src="/Arsha/assets/js/main.js"></script>
-    <script>
+    <script type="text/javascript">
       function enable() {
         var check = document.getElementById("check");
         var btn = document.getElementById("btn");
@@ -132,8 +136,12 @@
         }
       }
       grecaptcha.execute();
-    </script>
-    <script>
+
+      var page = document.getElementById('pageLoading');
+      function processing(e) {
+        console.log(page);
+        page.style.display = 'block';
+      }
       // modal tampilan tutorial video
       // $(window).on('load',function() {
       // $('#tutorial_kandidat').modal('show');                                                   

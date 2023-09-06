@@ -110,7 +110,7 @@ class RegisterController extends Controller
     }
 
     public function kandidat(Request $request)
-    {
+    {        
         // Data Kandidat //
         $kandidat = Kandidat::where('email',$request->email)->where('nik',$request->nik)->first();
         // Semua Data Kandidat //
@@ -150,37 +150,37 @@ class RegisterController extends Controller
         $token = Str::random(32).$request->no_telp;
         $password = Hash::make($request->password);
         
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'no_telp' => $request->no_telp,
-            'number_phone' => $request->no_telp,
-            'password' => $password,
-            'check_password' => $request->password,
-            'token' => $token,
-        ]);
+        // $user = User::create([
+        //     'name' => $request->name,
+        //     'email' => $request->email,
+        //     'no_telp' => $request->no_telp,
+        //     'number_phone' => $request->no_telp,
+        //     'password' => $password,
+        //     'check_password' => $request->password,
+        //     'token' => $token,
+        // ]);
 
-        $id = $user->id;
-        $userId = \Hashids::encode($id.$request->no_telp);
+        // $id = $user->id;
+        // $userId = \Hashids::encode($id.$request->no_telp);
 
-        User::where('id',$id)->update([
-            'referral_code' => $userId
-        ]);
+        // User::where('id',$id)->update([
+        //     'referral_code' => $userId
+        // ]);
 
-        Kandidat::create([
-            'id' => $id,
-            'nama' => $request->name,
-            'referral_code' => $userId,
-            'email' => $request->email,
-            'no_telp' => $request->no_telp,
-            'tgl_lahir' => $request->tgl,
-            'usia' => $tgl,
-            'nama_panggilan' => $request->nama_panggilan,
-            'nik' => $request->nik,
-        ]);
+        // Kandidat::create([
+        //     'id' => $id,
+        //     'nama' => $request->name,
+        //     'referral_code' => $userId,
+        //     'email' => $request->email,
+        //     'no_telp' => $request->no_telp,
+        //     'tgl_lahir' => $request->tgl,
+        //     'usia' => $tgl,
+        //     'nama_panggilan' => $request->nama_panggilan,
+        //     'nik' => $request->nik,
+        // ]);
 
         Mail::mailer('verification')->to($request->email)->send(new Verification($request->name, $token, 'Email Verifikasi', 'no-reply@ugiport.com'));
-        Auth::login($user);       
+        // Auth::login($user);       
         return redirect()->route('verifikasi')->with('success',"Email verifikasi telah terkirim ke Email anda");
     }
 
