@@ -69,8 +69,9 @@
         </div>
     @elseif($negara == null)
         <div class="row mt-2">
-            <div class="col-12">
-                <div class="card">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="card" >
                     <div class="card-header">
                         <b class="bold">Profil</b>
                     </div>
@@ -78,8 +79,7 @@
                         <h3 class="text-center">Tujuan Bekerja</h3>
                         <div class="text-center">
                             <div class="row">
-                                <div class="col-4"></div>
-                                <div class="col-4">
+                                <div class="col-12">
                                     <form action="/isi_kandidat_placement" method="POST">
                                         @csrf
                                         <select name="penempatan" id="placement" class="form-control">
@@ -87,21 +87,21 @@
                                             <option value="dalam negeri">Dalam Negeri</option>
                                             <option value="luar negeri">Luar Negeri</option>
                                         </select>
-                                        <div class="" id="hidetext">
+                                        <div class="my-3" id="hidetext">
                                             <h4 class="">Negara Tujuan</h4>
                                         </div>
                                         <select name="negara_id" required class="form-control" id="negara_tujuan">
                                             <option value="">-- Pilih Negara --</option>
                                         </select>
-                                        <button type="submit" class="btn btn-primary" id="hidebtn">Simpan</button>
+                                        <button type="submit" class="btn btn-primary mt-3" id="hidebtn">Simpan</button>
                                     </form>
                                 </div>
-                                <div class="col-4"></div>
                             </div>
                         </div>                                                            
                     </div>
                 </div>
             </div>
+            <div class="col-md-3"></div>
         </div>
     {{-- @elseif($interview !== null)
         <div class="row">
@@ -216,6 +216,33 @@
                                 </tbody>    
                             </table>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <b class="bold">Penempatan Kerja</b>
+                    </div>
+                    <div class="card-body">
+                        <form action="/isi_kandidat_placement" method="POST">
+                            @csrf
+                            <select name="penempatan" id="placement" class="form-control">
+                                <option value="">-- Pilih Tujuan Bekerja --</option>
+                                <option value="dalam negeri">Dalam Negeri</option>
+                                <option value="luar negeri">Luar Negeri</option>
+                            </select>
+                            <div class="text-center my-3" id="hidetext">
+                                <h4 class="">Negara Tujuan</h4>
+                            </div>
+                            <select name="negara_id" required class="form-control" id="negara_tujuan">
+                                <option value="">-- Pilih Negara --</option>
+                            </select>
+                            <button type="submit" class="btn btn-primary" id="hidebtn">Simpan</button>
+                        </form>
                     </div>
                 </div>
             </div>
