@@ -119,11 +119,11 @@
                         </a>
                         <div class="dropdown-menu" style="width:13rem; height:auto; padding:2.5px; margin-left:-10rem">
                             <div class="" style="padding: 5px;">
-                                <div class="" style="border-radius: 15%; width:35%; height:auto;">
+                                <div class="" style="width:50%; height:50%;">
                                     @if ($kandidat->foto_4x6 !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/4x6/{{$kandidat->foto_4x6}}" alt="image profile" class="avatar-img rounded">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/4x6/{{$kandidat->foto_4x6}}" alt="image profile" class="avatar-img rounded" style="">
                                     @else
-                                        <img src="/gambar/default_user.png" alt="image profile" class="avatar-img rounded" style="width:50px; height:50px; border-radius:50%">                                                        
+                                        <img src="/gambar/default_user.png" alt="image profile" class="avatar-img rounded" style="">                                                        
                                     @endif
                                 </div>
                                 <div class="">
