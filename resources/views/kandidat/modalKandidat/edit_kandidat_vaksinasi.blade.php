@@ -18,7 +18,7 @@
                         <div class="" id="vaksin1">
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Nama Vaksin Pertama</label>
+                                    <label for="" class="col-form-label">Nama Vaksin Pertama</label>
                                 </div>
                                 <div class="col-md-8">
                                     <select name="vaksin1" class="form-select" id="">
@@ -35,7 +35,7 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Batch ID Pertama</label>
+                                    <label for="" class="col-form-label">Batch ID Pertama</label>
                                 </div>
                                 <div class="col-md-8">
                                     <label for="">Berikut contoh nomor Batch ID yang terdapat di sertifikat vaksin anda : </label><img class="mb-1 img" src="/gambar/batch_id.jpg" alt="">
@@ -44,7 +44,7 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Tanggal Vaksin Pertama</label>
+                                    <label for="" class="col-form-label">Tanggal Vaksin Pertama</label>
                                 </div>
                                 <div class="col-md-8">
                                     <input type="date" value="{{$kandidat->tgl_vaksin1}}" name="tgl_vaksin1" class="form-control" autofocus>
@@ -52,7 +52,7 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Sertifikat Vaksin</label>
+                                    <label for="" class="col-form-label">Sertifikat Vaksin</label>
                                 </div>
                                 <div class="col-md-8">
                                     @if ($kandidat->sertifikat_vaksin1 == "")
@@ -70,7 +70,7 @@
                         <div class="" id="vaksin2">
                             <div class="row my-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Nama Vaksin Kedua</label>
+                                    <label for="" class="col-form-label">Nama Vaksin Kedua</label>
                                 </div>
                                 <div class="col-md-8">
                                     <select name="vaksin2" class="form-select" id="">
@@ -87,7 +87,7 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Batch ID Kedua</label>
+                                    <label for="" class="col-form-label">Batch ID Kedua</label>
                                 </div>
                                 <div class="col-md-8">
                                     <label for="">Berikut contoh nomor Batch ID yang terdapat di sertifikat vaksin anda : </label><img class="mb-1 img" src="/gambar/batch_id.jpg" alt="">
@@ -96,7 +96,7 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Tanggal Vaksin Kedua</label>
+                                    <label for="" class="col-form-label">Tanggal Vaksin Kedua</label>
                                 </div>
                                 <div class="col-md-8">
                                     <input type="date" value="{{$kandidat->tgl_vaksin2}}" name="tgl_vaksin2" class="form-control">
@@ -104,7 +104,7 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Sertifikat Vaksin</label>
+                                    <label for="" class="col-form-label">Sertifikat Vaksin</label>
                                 </div>
                                 <div class="col-md-8">
                                     @if ($kandidat->sertifikat_vaksin2 == "")
@@ -122,7 +122,7 @@
                         <div class="" id="vaksin3">
                             <div class="row my-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Nama Vaksin Ketiga</label>
+                                    <label for="" class="col-form-label">Nama Vaksin Ketiga</label>
                                 </div>
                                 <div class="col-md-8">
                                     <select name="vaksin3" class="form-select" id="">
@@ -139,7 +139,7 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Batch ID Ketiga</label>
+                                    <label for="" class="col-form-label">Batch ID Ketiga</label>
                                 </div>
                                 <div class="col-md-8">
                                     <label for="">Berikut contoh nomor Batch ID yang terdapat di sertifikat vaksin anda : </label><img class="mb-1 img" src="/gambar/batch_id.jpg" alt="">
@@ -148,7 +148,7 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Tanggal Vaksin Ketiga</label>
+                                    <label for="" class="col-form-label">Tanggal Vaksin Ketiga</label>
                                 </div>
                                 <div class="col-md-8">
                                     <input type="date" value="{{$kandidat->tgl_vaksin3}}" name="tgl_vaksin3" class="form-control">
@@ -156,7 +156,7 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Sertifikat Vaksin</label>
+                                    <label for="" class="col-form-label">Sertifikat Vaksin</label>
                                 </div>
                                 <div class="col-md-8">
                                     @if ($kandidat->sertifikat_vaksin3 == "")

@@ -17,18 +17,18 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Nama Lengkap</label>
+                                    <label for="" class="col-form-label">Nama Lengkap</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" value="{{$user->name}}" name="nama" id="inputPassword6" class="form-control" disabled aria-labelledby="passwordHelpInline">
+                                    <input type="text" value="{{$user->name}}" name="nama" id="" class="form-control" disabled aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Nama Panggilan</label>
+                                    <label for="" class="col-form-label">Nama Panggilan</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" disabled value="{{$kandidat->nama_panggilan}}" placeholder="Maksimal 10 kata" name="nama_panggilan" id="inputPassword6" class="form-control @error('nama_panggilan') is-invalid @enderror" aria-labelledby="passwordHelpInline">
+                                    <input type="text" disabled value="{{$kandidat->nama_panggilan}}" placeholder="Maksimal 10 kata" name="nama_panggilan" id="" class="form-control @error('nama_panggilan') is-invalid @enderror" aria-labelledby="passwordHelpInline">
                                     @error('nama_panggilan')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -38,7 +38,7 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Jenis Kelamin</label>
+                                    <label for="" class="col-form-label">Jenis Kelamin</label>
                                 </div>
                                 <div class="col-md-8">
                                     <select name="jenis_kelamin" required class="form-select" id="">
@@ -50,22 +50,22 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Tempat & Tanggal Lahir</label>
+                                    <label for="" class="col-form-label">Tempat & Tanggal Lahir</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" required placeholder="Masukkan Tempat Lahir" value="{{$kandidat->tmp_lahir}}" name="tmp_lahir" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input type="text" required placeholder="Masukkan Tempat Lahir" value="{{$kandidat->tmp_lahir}}" name="tmp_lahir" id="" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="date" required value="{{$kandidat->tgl_lahir}}" name="tgl_lahir" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input type="date" required value="{{$kandidat->tgl_lahir}}" name="tgl_lahir" id="" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">No Telepon</label>
+                                    <label for="" class="col-form-label">No Telepon</label>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="input-group">
-                                        <input type="number" disabled value="{{$user->no_telp}}" name="no_telp" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                        <input type="number" disabled value="{{$user->no_telp}}" name="no_telp" id="" class="form-control" aria-labelledby="passwordHelpInline">
                                         {{-- <div class="input-group-append">
                                             <a class="btn btn-warning" href="/edit_kandidat_no_telp" id="button-addon2">Ubah</a>
                                         </div> --}}
@@ -74,7 +74,7 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Agama</label>
+                                    <label for="" class="col-form-label">Agama</label>
                                 </div>
                                 <div class="col-md-8">
                                     <select name="agama" required class="form-select" id="">
@@ -91,7 +91,7 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Berat & Tinggi Badan</label>
+                                    <label for="" class="col-form-label">Berat & Tinggi Badan</label>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="input-group">
@@ -108,10 +108,10 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Email</label>
+                                    <label for="" class="col-form-label">Email</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="email" disabled required value="{{$user->email}}" name="email" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input type="email" disabled required value="{{$user->email}}" name="email" id="" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
@@ -121,7 +121,7 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" id="newPassword1" class="col-form-label">Password baru</label>
+                                    <label for="" id="newPassword1" class="col-form-label">Password baru</label>
                                 </div>
                                 <div class="col-md-8">
                                     <input type="text" name="password" placeholder="Harap ingat password anda" id="newPassword2" class="form-control" aria-labelledby="passwordHelpInline">

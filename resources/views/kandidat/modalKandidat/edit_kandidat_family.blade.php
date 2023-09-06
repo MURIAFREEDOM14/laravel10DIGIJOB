@@ -63,7 +63,7 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Surat Keterangan Cerai</label>
+                                    <label for="" class="col-form-label">Surat Keterangan Cerai</label>
                                 </div>
                                 <div class="col-md-8">
                                     @if ($kandidat->foto_cerai !== null)
@@ -122,7 +122,7 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Akta Kematian Pasangan</label>
+                                    <label for="" class="col-form-label">Akta Kematian Pasangan</label>
                                 </div>
                                 <div class="col-md-8">
                                     @if ($kandidat->foto_kematian_pasangan !== null)
@@ -136,28 +136,28 @@
                         @else
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Foto Buku Nikah</label>
+                                    <label for="" class="col-form-label">Foto Buku Nikah</label>
                                 </div>
                                 <div class="col-md-8">
                                     @if ($kandidat->foto_buku_nikah !== null)
                                         <img src="/gambar/Kandidat/{{$kandidat->nama}}/Buku Nikah/{{$kandidat->foto_buku_nikah}}" width="150" height="150" alt="" class="img mb-1">
-                                        <input type="file" name="foto_buku_nikah" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">
+                                        <input type="file" name="foto_buku_nikah" id="" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">
                                     @else
-                                        <input type="file" required name="foto_buku_nikah" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                        <input type="file" required name="foto_buku_nikah" id="" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @endif
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Nama Pasangan</label>
+                                    <label for="" class="col-form-label">Nama Pasangan</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" required value="{{$kandidat->nama_pasangan}}" name="nama_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input type="text" required value="{{$kandidat->nama_pasangan}}" name="nama_pasangan" id="" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Tanggal Lahir Pasangan</label>
+                                    <label for="" class="col-form-label">Tanggal Lahir Pasangan</label>
                                 </div>
                                 <div class="col-md-2">
                                     <input type="date" required class="form-control" name="tgl_lahir_pasangan" value="{{$kandidat->tgl_lahir_pasangan}}" id="">
@@ -165,10 +165,10 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Pekerjaan Pasangan</label>
+                                    <label for="" class="col-form-label">Pekerjaan Pasangan</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" required value="{{$kandidat->pekerjaan_pasangan}}" name="pekerjaan_pasangan" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input type="text" required value="{{$kandidat->pekerjaan_pasangan}}" name="pekerjaan_pasangan" id="" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
                             <div class="" id="punya_anak">

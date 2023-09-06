@@ -18,7 +18,7 @@
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="inputPassword6" class="col-form-label">Hubungan Kontak Darurat</label>
+                                <label for="" class="col-form-label">Hubungan Kontak Darurat</label>
                             </div>
                             <div class="col-md-4">
                                 @if ($kandidat->stats_nikah == "Menikah" || $kandidat->stats_nikah == "Cerai hidup" || $kandidat->stats_nikah == "Cerai mati")
@@ -44,22 +44,22 @@
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="inputPassword6" class="col-form-label">Nama Kontak Darurat</label>
+                                <label for="" class="col-form-label">Nama Kontak Darurat</label>
                             </div>
                             <div class="col-md-8">
                                 {{-- @if ($kandidat->stats_nikah == "Menikah")
-                                    <input type="text" value="{{$kandidat->nama_pasangan}}"  name="nama_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">                                    
+                                    <input type="text" value="{{$kandidat->nama_pasangan}}"  name="nama_perizin" id="" class="form-control" aria-labelledby="passwordHelpInline">                                    
                                 @else --}}
-                                    <input type="text" required value="{{$kandidat->nama_perizin}}" name="nama_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">  
+                                    <input type="text" required value="{{$kandidat->nama_perizin}}" name="nama_perizin" id="" class="form-control" aria-labelledby="passwordHelpInline">  
                                 {{-- @endif --}}
                             </div>
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="inputPassword6" class="col-form-label">NIK Kontak Darurat</label>
+                                <label for="" class="col-form-label">NIK Kontak Darurat</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="number" required value="{{$kandidat->nik_perizin}}" name="nik_perizin" id="inputPassword6" class="form-control @error('nik_perizin') is-invalid @enderror" aria-labelledby="passwordHelpInline">
+                                <input type="number" required value="{{$kandidat->nik_perizin}}" name="nik_perizin" id="" class="form-control @error('nik_perizin') is-invalid @enderror" aria-labelledby="passwordHelpInline">
                                 @error('nik_perizin')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>Harap isi no. nik 16 digit</strong>
@@ -69,10 +69,10 @@
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="inputPassword6" class="col-form-label">No. Telp / HP</label>
+                                <label for="" class="col-form-label">No. Telp / HP</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="number" value="{{$kandidat->no_telp_perizin}}" name="no_telp_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                <input type="number" value="{{$kandidat->no_telp_perizin}}" name="no_telp_perizin" id="" class="form-control" aria-labelledby="passwordHelpInline">
                                 @error('no_telp_perizin')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>Harap isi no. telp min 10 digit dan max 13 digit</strong>
@@ -82,27 +82,27 @@
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="inputPassword6" class="col-form-label">Tempat / Tanggal Lahir Kontak Darurat</label>
+                                <label for="" class="col-form-label">Tempat / Tanggal Lahir Kontak Darurat</label>
                             </div>
                             <div class="col-md-4">
-                                <input type="text" value="{{$kandidat->tmp_lahir_perizin}}" name="tmp_lahir_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                <input type="text" value="{{$kandidat->tmp_lahir_perizin}}" name="tmp_lahir_perizin" id="" class="form-control" aria-labelledby="passwordHelpInline">
                             </div>
                             <div class="col-md-4">
-                                <input type="date" value="{{$kandidat->tgl_lahir_perizin}}" name="tgl_lahir_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">                                        
+                                <input type="date" value="{{$kandidat->tgl_lahir_perizin}}" name="tgl_lahir_perizin" id="" class="form-control" aria-labelledby="passwordHelpInline">                                        
                             </div>
                         </div>
                         <div class="row g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="inputPassword6" class="col-form-label">Alamat Lengkap Kontak Darurat</label>
+                                <label for="" class="col-form-label">Alamat Lengkap Kontak Darurat</label>
                             </div>
                         </div>
                         @livewire('location-permission')
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="inputPassword6" class="col-form-label">RT</label>
+                                <label for="" class="col-form-label">RT</label>
                             </div>
                             <div class="col-md-2">
-                                <input type="number" required value="{{$kandidat->rt_perizin}}" placeholder="maks 3 digit" pattern="[0-3]{3}" name="rt_perizin" id="inputPassword6" class="form-control @error('rt_perizin') is-invalid @enderror" aria-labelledby="passwordHelpInline">
+                                <input type="number" required value="{{$kandidat->rt_perizin}}" placeholder="maks 3 digit" pattern="[0-3]{3}" name="rt_perizin" id="" class="form-control @error('rt_perizin') is-invalid @enderror" aria-labelledby="passwordHelpInline">
                                 @error('rt_perizin')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>No. RT harus berisi 3 digit</strong>
@@ -110,10 +110,10 @@
                                 @enderror
                             </div>
                             <div class="col-md-2">
-                                <label for="inputPassword6" class="col-form-label">RW</label>
+                                <label for="" class="col-form-label">RW</label>
                             </div>
                             <div class="col-md-2">
-                                <input type="number" required value="{{$kandidat->rw_perizin}}" placeholder="maks 3 digit" pattern="[0-3]{3}" name="rw_perizin" id="inputPassword6" class="form-control @error('rw_perizin') is-invalid @enderror" aria-labelledby="passwordHelpInline">
+                                <input type="number" required value="{{$kandidat->rw_perizin}}" placeholder="maks 3 digit" pattern="[0-3]{3}" name="rw_perizin" id="" class="form-control @error('rw_perizin') is-invalid @enderror" aria-labelledby="passwordHelpInline">
                                 @error('rw_perizin')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>No. RW harus berisi 3 digit</strong>
@@ -123,11 +123,11 @@
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="inputPassword6" class="col-form-label">Foto KTP Kontak Darurat</label>
+                                <label for="" class="col-form-label">Foto KTP Kontak Darurat</label>
                             </div>
                             <div class="col-md-8">
                                 @if ($kandidat->foto_ktp_izin == "")
-                                    <input type="file" required class="form-control @error('foto_ktp_izin') is-invalid @enderror"  name="foto_ktp_izin" value="{{$kandidat->foto_ktp_izin}}" id="inputPassword6" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                    <input type="file" required class="form-control @error('foto_ktp_izin') is-invalid @enderror"  name="foto_ktp_izin" value="{{$kandidat->foto_ktp_izin}}" id="" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @error('foto_ktp_izin')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -135,14 +135,14 @@
                                     @enderror
                                 @elseif ($kandidat->foto_ktp_izin !== null)
                                     <img src="/gambar/Kandidat/{{$kandidat->nama}}/KTP Perizin/{{$kandidat->foto_ktp_izin}}" width="150" height="150" alt="" class="img mb-1">
-                                    <input type="file" class="form-control @error('foto_ktp_izin') is-invalid @enderror"  name="foto_ktp_izin" value="{{$kandidat->foto_ktp_izin}}" id="inputPassword6" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                    <input type="file" class="form-control @error('foto_ktp_izin') is-invalid @enderror"  name="foto_ktp_izin" value="{{$kandidat->foto_ktp_izin}}" id="" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @error('foto_ktp_izin')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 @else
-                                    <input type="file" class="form-control @error('foto_ktp_izin') is-invalid @enderror" required name="foto_ktp_izin" value="{{$kandidat->foto_ktp_izin}}" id="inputPassword6" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                    <input type="file" class="form-control @error('foto_ktp_izin') is-invalid @enderror" required name="foto_ktp_izin" value="{{$kandidat->foto_ktp_izin}}" id="" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                     @error('foto_ktp_izin')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -153,7 +153,7 @@
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="inputPassword6" class="col-form-label">Apakah anda memiliki Paspor</label>
+                                <label for="" class="col-form-label">Apakah anda memiliki Paspor</label>
                             </div>
                             <div class="col-md-3">
                                 <select name="confirm" class="form-select" id="">
