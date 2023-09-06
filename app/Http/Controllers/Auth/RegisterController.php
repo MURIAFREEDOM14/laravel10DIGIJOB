@@ -118,7 +118,12 @@ class RegisterController extends Controller
         if($request->password !== $request->passwordConfirm){
             return back()->with('error',"Maaf konfirmasi password anda salah");
         }
-
+        $data_register = Kandidat::all();
+        foreach($data_register as $key) {
+            if($key->nama_panggilan == $request->nama_panggilan){
+                return back()->with('info',"Maaf nama panggilan ini sudah digunakan. Gunakan mana lain anda.");
+            }    
+        }
         $validated = $request->validate([
             'name' => 'required|max:255',
             'nik' => 'required|max:16|min:16|unique:kandidat',
