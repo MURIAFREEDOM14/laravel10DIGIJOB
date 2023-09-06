@@ -82,12 +82,17 @@
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
-                                <label for="" class="col-form-label">Tempat / Tanggal Lahir Kontak Darurat</label>
+                                <label for="" class="col-form-label">Tempat Lahir Kontak Darurat</label>
                             </div>
-                            <div class="col-4">
+                            <div class="col-md-6">
                                 <input type="text" value="{{$kandidat->tmp_lahir_perizin}}" name="tmp_lahir_perizin" id="" class="form-control" aria-labelledby="passwordHelpInline">
                             </div>
-                            <div class="col-4">
+                        </div>
+                        <div class="row mb-3 g-3 align-items-center">
+                            <div class="col-md-4">
+                                <label for="" class="col-form-label">Tanggal Lahir Kontak Darurat</label>
+                            </div>
+                            <div class="col-md-6">
                                 <input type="date" value="{{$kandidat->tgl_lahir_perizin}}" name="tgl_lahir_perizin" id="" class="form-control" aria-labelledby="passwordHelpInline">                                        
                             </div>
                         </div>
