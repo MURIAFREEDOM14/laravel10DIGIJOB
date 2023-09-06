@@ -19,7 +19,7 @@
                                 <label for="" class="col-form-label">Masukkan Email</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" required class="form-control" name="email" id="">
+                                <input type="email" required class="form-control" name="email" id="">
                             </div>
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
