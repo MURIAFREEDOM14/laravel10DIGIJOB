@@ -133,8 +133,12 @@
                             @csrf
                             <select name="penempatan" id="placement" class="form-control">
                                 <option value="">-- Pilih Tujuan Bekerja --</option>
-                                <option value="dalam negeri">Dalam Negeri</option>
-                                <option value="luar negeri">Luar Negeri</option>
+                                <option value="dalam negeri" @if ($kandidat->penempatan == "dalam negeri")
+                                    selected
+                                @endif>Dalam Negeri</option>
+                                <option value="luar negeri" @if ($kandidat->penempatan == "luar negeri")
+                                    selected
+                                @endif>Luar Negeri</option>
                             </select>
                             <div class="text-center my-3" id="hidetext">
                                 <h4 class="">Negara Tujuan</h4>
