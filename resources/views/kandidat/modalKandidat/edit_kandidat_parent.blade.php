@@ -31,7 +31,7 @@
                                 <input type="text" placeholder="Masukkan Tempat Lahir" required value="{{$kandidat->tmp_lahir_ayah}}" name="tmp_lahir_ayah" class="form-control" id="">
                             </div>
                             <div class="col-md-4">
-                                <input type="date" required value="{{$kandidat->tgl_lahir_ayah}}" name="tgl_lahir_ayah" class="form-control" id="">
+                                <input type="date" placeholder="Masukkan Tanggal Lahir" required value="{{$kandidat->tgl_lahir_ayah}}" name="tgl_lahir_ayah" class="form-control" id="">
                             </div>
                         </div>
                         {{-- <div class="row mb-3 g-3 align-items-center">
@@ -67,7 +67,7 @@
                                 <input type="text" placeholder="Masukkan Tempat Lahir" required value="{{$kandidat->tmp_lahir_ibu}}" name="tmp_lahir_ibu" class="form-control" id="">
                             </div>
                             <div class="col-md-4">
-                                <input type="date" required value="{{$kandidat->tgl_lahir_ibu}}" name="tgl_lahir_ibu" class="form-control" id="">
+                                <input type="date" placeholder="Masukkan Tanggal Lahir" required value="{{$kandidat->tgl_lahir_ibu}}" name="tgl_lahir_ibu" class="form-control" id="">
                             </div>
                         </div>
                         @livewire('kandidat.parent-location')
