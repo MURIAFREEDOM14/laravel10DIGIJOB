@@ -115,15 +115,19 @@
                     </a>
                     <div class="dropdown float-right">
                         <a class="" href="" role="button" data-toggle="dropdown" aria-expanded="false" style="background-color:#1572e8; text-decoration:none;">
-                            <img src="/gambar/default_user.png" style="width:40px; height:40px; border-radius:50%;" alt="">
+                            @if ($kandidat->foto_4x6 !== null)
+                                <img src="/gambar/Kandidat/{{$kandidat->nama}}/4x6/{{$kandidat->foto_4x6}}" style="width:40px; height:40px; border-radius:50%;" alt="">
+                            @else
+                                <img src="/gambar/default_user.png" style="width:40px; height:40px; border-radius:50%;" alt="">
+                            @endif
                         </a>
                         <div class="dropdown-menu" style="width:13rem; height:auto; padding:2.5px; margin-left:-10rem">
                             <div class="" style="padding: 5px;">
                                 <div class="" style="width:50%; height:50%;">
                                     @if ($kandidat->foto_4x6 !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/4x6/{{$kandidat->foto_4x6}}" alt="image profile" class="avatar-img rounded" style="">
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/4x6/{{$kandidat->foto_4x6}}" alt="" class="avatar-img rounded" style="">
                                     @else
-                                        <img src="/gambar/default_user.png" alt="image profile" class="avatar-img rounded" style="">                                                        
+                                        <img src="/gambar/default_user.png" alt="" class="avatar-img rounded" style="">                                                        
                                     @endif
                                 </div>
                                 <div class="">
