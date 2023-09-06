@@ -5,8 +5,6 @@
     <div class="container mt-5">        
         <div class="mb-4">
             <div class="">
-            </div>
-            <div class="">
                 <div class="row">
                     <h4 class="text-center">PERUSAHAAN BIO DATA</h4>
                     <form action="/perusahaan/isi_perusahaan_data" method="POST" enctype="multipart/form-data">

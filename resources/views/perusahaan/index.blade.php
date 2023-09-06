@@ -34,12 +34,12 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="">
-                                <div class="text-center" style="background-color:#31ce36; border-radius: 0% 15% 0% 15%">
+                                <div class="text-center" style="background-color:#31ce36; border-radius: 0% 15% 0% 15%; width:100% height:auto;">
                                     <div class="avatar avatar-xxl my-3">
                                         @if ($perusahaan->logo_perusahaan == null)
-                                            <img src="/gambar/default_user.png" class="avatar-img rounded-circle" alt="">
+                                            <img src="/gambar/default_user.png" class="avatar-img rounded-circle" alt="" style="width:100%; height:auto;">
                                         @else
-                                            <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Logo Perusahaan/{{$perusahaan->logo_perusahaan}}" alt="..." class="avatar-img rounded-circle">                                        
+                                            <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Logo Perusahaan/{{$perusahaan->logo_perusahaan}}" alt="..." class="avatar-img rounded-circle" style="width: 100%; height:auto;">                                        
                                         @endif
                                     </div>
                                 </div>
