@@ -60,8 +60,6 @@ class KandidatController extends Controller
         ->where('lowongan_pekerjaan.jenis_kelamin','like','%'.$kandidat->jenis_kelamin.'%')
         ->where('lowongan_pekerjaan.usia_min','<=',$kandidat->usia)
         ->where('lowongan_pekerjaan.usia_maks','>=',$kandidat->usia)
-        ->where('lowongan_pekerjaan.berat_min','<=',$kandidat->berat)
-        ->where('lowongan_pekerjaan.berat_maks','>=',$kandidat->berat)
         ->get();
         $cari_perusahaan = null;
         $perusahaan_semua = Perusahaan::whereNotNull('email_operator')->where('penempatan_kerja','like','%'.$kandidat->penempatan.'%')->get();

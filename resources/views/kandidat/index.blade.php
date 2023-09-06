@@ -39,20 +39,6 @@
                 </div>
             </div>
         </div>
-    {{-- @elseif($vaksin == null)
-        <div class="row mt-2">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <b class="bold">Profil</b>
-                    </div>
-                    <div class="card-body">
-                        <h3 class="text-center">Harap Lengkapi Profil Anda</h3>
-                        <div class="text-center"><a class="btn btn-outline-primary" href="/isi_kandidat_vaksin">Lengkapi Profil</a></div>                                                            
-                    </div>
-                </div>
-            </div>
-        </div> --}}
     @elseif($parent == null)
         <div class="row mt-2">
             <div class="col-md-12">
@@ -210,15 +196,17 @@
                                     @foreach ($lowongan as $item)
                                         @if ($item->pendidikan == $pendidikan->nama_pendidikan)
                                             @if ($item->pencarian_tmp == $kandidat->kabupaten)
-                                                <tr class="text-center">
-                                                    <td>{{$loop->iteration}}</td>
-                                                    <td>
-                                                        {{$item->jabatan}}
-                                                    </td>
-                                                    <td>
-                                                        <a href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat</a>
-                                                    </td>
-                                                </tr>    
+                                                @if ($item->berat_min <= $kandidat->berat && $item->berat_maks >= $kandidat->berat)
+                                                    <tr class="text-center">
+                                                        <td>{{$loop->iteration}}</td>
+                                                        <td>
+                                                            {{$item->jabatan}}
+                                                        </td>
+                                                        <td>
+                                                            <a href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat</a>
+                                                        </td>
+                                                    </tr>    
+                                                @endif
                                             @endif
                                         @endif
                                     @endforeach
