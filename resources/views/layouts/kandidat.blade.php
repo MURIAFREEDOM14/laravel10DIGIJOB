@@ -104,8 +104,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 </div>
                 <div class="">
-                    <a class="float-left" style="color:white; margin-right:13px; margin-top:12%;" href="/semua_pesan">
-                        <i class="fas fa-envelope" style="font-size: 23px;"></i>
+                    <a class="float-left" style="color:white; margin-right:13px; margin-top:12%; background-color:#1572e8; text-decoration:none;" href="/semua_pesan">
+                        <i class="fas fa-envelope" style="font-size:23px; background-color:#1572e8;"></i>
                         @php
                             $ttl_pesan = $pesan->count();
                         @endphp
