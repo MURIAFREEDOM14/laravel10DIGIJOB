@@ -164,6 +164,9 @@
                                                     {{$item->nama_perusahaan}}
                                                 </td>
                                                 <td>
+                                                    {{$item->kota}}
+                                                </td>
+                                                <td>
                                                     <a href="/profil_perusahaan/{{$item->id_perusahaan}}">Lihat</a>
                                                 </td>
                                             </tr>    
