@@ -114,7 +114,7 @@
                         @endif
                     </a>
                     <div class="dropdown float-right">
-                        <a class="" href="" role="button" data-toggle="dropdown" aria-expanded="false">
+                        <a class="" href="" role="button" data-toggle="dropdown" aria-expanded="false" style="background-color:#1572e8; text-decoration:none;">
                             <img src="/gambar/default_user.png" style="width:40px; height:40px; border-radius:50%;" alt="">
                         </a>
                         <div class="dropdown-menu" style="width:13rem; height:auto; padding:2.5px; margin-left:-10rem">
