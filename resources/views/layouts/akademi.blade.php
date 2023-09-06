@@ -49,8 +49,7 @@
             <div class="main-header">
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="orange">
-
-                    <a href="/" class="logo">
+                    <a href="/" class="logo" style="background-color: transparent;">
                         <b class="" style="color: white">DIGIJOB</b>
                     </a>
                     <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -73,7 +72,7 @@
                     <div class="container-fluid">
                         <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
                             <li class="nav-item dropdown hidden-caret">
-                                <a class="" style="color: white" href="/akademi/semua_pesan">
+                                <a class="" style="color: white; background-color:transparent;" href="/akademi/semua_pesan">
                                     <i class="fa fa-envelope" style="font-size:23px; background-color:transparent;"></i>
                                     @php
                                         $ttl_pesan = $pesan->count();
@@ -148,7 +147,7 @@
                                 </ul>
                             </li> --}}
                             <li class="nav-item dropdown hidden-caret">
-                                <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
+                                <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false" style="background-color: transparent;">
                                     <div class="avatar-sm">
                                         @if ($akademi->logo_akademi !== null)
                                             <img src="/gambar/Akademi/{{$akademi->nama_akademi}}/Logo Akademi/{{$akademi->logo_akademi}}" alt="/Atlantis/examples." class="avatar-img rounded-circle">

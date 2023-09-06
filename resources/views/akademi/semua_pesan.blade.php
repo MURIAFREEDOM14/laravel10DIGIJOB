@@ -28,7 +28,7 @@
         <div class="card-body">
             @foreach ($semua_pesan as $item)
                 @if ($item->check_click == "y")
-                    @if ($item->id_akademi !== null)
+                    @if ($item->id_kandidat !== null)
                         <div class="list-group">                        
                             <a href="/kirim_balik/{{$item->id}}" class="link-list">
                                 <div class="mx-1">
@@ -81,7 +81,7 @@
                         </div>
                     @endif 
                 @else
-                    @if ($item->id_akademi !== null)
+                    @if ($item->id_kandidat !== null)
                         <div class="list-group">                        
                             <a href="/kirim_balik/{{$item->id}}" class="link-list" style="font-weight:bold;">
                                 <div class="mx-1">
