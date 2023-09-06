@@ -217,7 +217,7 @@
                             <table id="basic-datatables" class="display table table-striped table-hover" >
                                 <thead>
                                     <tr class="text-center">
-                                        <th style="width: 1px">No.</th>
+                                        {{-- <th style="width: 1px">No.</th> --}}
                                         <th>Lowongan</th>
                                         <th>Negara Tujuan</th>
                                         <th>Lihat</th>
@@ -230,7 +230,7 @@
                                                 @if ($item->usia_min <= $kandidat->usia && $item->usia_maks >= $kandidat->usia)
                                                     @if ($item->berat_min <= $kandidat->berat && $item->berat_maks >= $kandidat->berat)
                                                         <tr class="text-center">
-                                                            <td>{{$loop->iteration}}</td>
+                                                            {{-- <td>{{$loop->iteration}}</td> --}}
                                                             <td>
                                                                 {{$item->jabatan}}
                                                             </td>
@@ -243,7 +243,7 @@
                                                         </tr>
                                                     @elseif($item->berat_min <= $kandidat->berat)
                                                         <tr class="text-center">
-                                                            <td>{{$loop->iteration}}</td>
+                                                            {{-- <td>{{$loop->iteration}}</td> --}}
                                                             <td>
                                                                 {{$item->jabatan}}
                                                             </td>
@@ -256,7 +256,7 @@
                                                 @elseif($item->usia_min <= $kandidat->usia)
                                                     @if ($item->berat_min <= $kandidat->berat && $item->berat_maks >= $kandidat->berat)
                                                         <tr class="text-center">
-                                                            <td>{{$loop->iteration}}</td>
+                                                            {{-- <td>{{$loop->iteration}}</td> --}}
                                                             <td>
                                                                 {{$item->jabatan}}
                                                             </td>
@@ -269,7 +269,7 @@
                                                         </tr>
                                                     @elseif($item->berat_min <= $kandidat->berat)
                                                         <tr class="text-center">
-                                                            <td>{{$loop->iteration}}</td>
+                                                            {{-- <td>{{$loop->iteration}}</td> --}}
                                                             <td>
                                                                 {{$item->jabatan}}
                                                             </td>
