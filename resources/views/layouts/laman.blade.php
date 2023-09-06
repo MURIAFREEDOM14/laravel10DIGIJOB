@@ -26,6 +26,7 @@
   <link href="/Arsha/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <link rel="stylesheet" href="/css/captcha.css">
+  <link rel="stylesheet" href="/css/loader.css">
   <!-- Template Main CSS File -->
   <link href="/Arsha/assets/css/style.css" rel="stylesheet">
 
@@ -50,9 +51,9 @@
   #play {
     display: block;
   }
-  #pageLoading {
-    background-color: #468B97;
-    display: block;
+  #viewLoad {
+    background-color: transparent;
+    display: none;
   }
 </style>
 </head>
@@ -82,7 +83,10 @@
       <section id="clients" class=" mt-5">
         <div class="container mt-5">
           <div class="content">
-            <main class="mb-3" id="pageLoading">
+            <div class="loading-align" id="viewLoad">
+              <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+            </div>
+            <main class="mb-3">
               @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
               @include('flash_message')
               @yield('content')
@@ -120,7 +124,7 @@
     <script src="/Arsha/assets/vendor/php-email-form/validate.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.26.9/dist/sweetalert2.all.min.js"></script>
     <script src="/js/captcha.js"></script>
-
+    <script src="/js/loader.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
     <!-- Template Main JS File -->
@@ -137,11 +141,6 @@
       }
       grecaptcha.execute();
 
-      var page = document.getElementById('pageLoading');
-      function processing(e) {
-        console.log(page);
-        page.style.display = 'block';
-      }
       // modal tampilan tutorial video
       // $(window).on('load',function() {
       // $('#tutorial_kandidat').modal('show');                                                   

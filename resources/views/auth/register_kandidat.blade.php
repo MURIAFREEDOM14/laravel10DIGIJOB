@@ -1,5 +1,7 @@
 @extends('layouts.laman')
 @section('content')
+@include('flash_message')
+@include('sweetalert::alert')
 <div class="container">
     <div class="row">
         <div class="col-md-3"></div>
@@ -113,7 +115,7 @@
                         </div>
                         <div class="mt-3">Sudah punya akun?<a href="/login" class="ms-1 btn btn-link">Login</a></div>
                         <div class="">Bingung cara untuk daftar?<button type="button" data-bs-toggle="modal" data-bs-target="#tutorial_kandidat" class="btn btn-link">Yuk lihat video ini</button></div>
-                        <button type="submit" id="btn" disabled="true" class="btn btn-primary mt-3" onclick="processing(event)">
+                        <button type="submit" id="btn" disabled="true" class="btn btn-primary mt-3" onclick="processing()">
                             {{ __('Register') }}
                         </button>
                     </form>
@@ -139,4 +141,11 @@
         </div>
     </div>
 </div>
+<script>
+    var name = document.getElementById('name').value;
+    var nik = document.getElementById('nik').value;
+    function processing() {
+        console.log(name, nik);
+    }
+</script>
 @endsection
