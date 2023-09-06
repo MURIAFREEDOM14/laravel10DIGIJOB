@@ -15,9 +15,9 @@ use App\Models\Perusahaan;
 use App\Models\Notification;
 use App\Mail\DemoMail;
 use Illuminate\Support\Facades\Mail;
-use App\Models\notifyAkademi;
-use App\Models\notifyKandidat;
-use App\Models\notifyPerusahaan;
+use App\Models\messageAkademi;
+use App\Models\messageKandidat;
+use App\Models\messagePerusahaan;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 
@@ -117,16 +117,17 @@ class VerifikasiController extends Controller
                 $user = Auth::user();
                 if($user->password == null){
                     $data['id_kandidat'] = $kandidat->id_kandidat;
-                    $data['isi'] = "Selamat datang kembali ".$user->name;
+                    $data['pesan'] = "Selamat datang kembali ".$user->name;
                     $data['pengirim'] = "Admin";
-                    notifyKandidat::create($data);
+                    $data['kepada'] = $user->name;
+                    messageKandidat::create($data);
                     return redirect('/nomor_id')->with('success',"Akun anda teridentifikasi");
                 } else {
                     $data['id_kandidat'] = $kandidat->id_kandidat;
-                    $data['isi'] = "Harap lengkapi data profil anda";
+                    $data['pesan'] = "Harap lengkapi data profil anda";
                     $data['pengirim'] = "Admin";
-                    $data['url'] = ('/isi_kandidat_personal');
-                    notifyKandidat::create($data);
+                    $data['kepada'] = $user->name;
+                    messageKandidat::create($data);
                     return redirect()->route('kandidat')->with('success',"Selamat Datang");
                 }
             
@@ -140,16 +141,17 @@ class VerifikasiController extends Controller
                 $user = Auth::user();
                 if($user->password == null){
                     $data['id_akademi'] = $akademi->id_akademi;
-                    $data['isi'] = "Selamat datang kembali ".$user->name_akademi;
+                    $data['pesan'] = "Selamat datang kembali ".$user->name_akademi;
                     $data['pengirim'] = "Admin";
-                    notifyAkademi::create($data);    
+                    $data['kepada'] = $user->name_akademi;
+                    messageAkademi::create($data);    
                     return redirect('/nomor_id')->with('success',"Akun akademi teridentifikasi");
                 } else {
                     $data['id_akademi'] = $akademi->id_akademi;
-                    $data['isi'] = "Harap lengkapi data profil akademi";
+                    $data['pesan'] = "Harap lengkapi data profil akademi";
                     $data['pengirim'] = "Admin";
-                    $data['url'] = ('/akademi/isi_akademi_data');
-                    notifyAkademi::create($data);
+                    $data['kepada'] = $user->name_akademi;
+                    messageAkademi::create($data);
                     return redirect()->route('akademi')->with('success',"Selamat Datang");
                 }
             } elseif($verifyUser->type == 2){    
@@ -162,16 +164,17 @@ class VerifikasiController extends Controller
                 $user = Auth::user();
                 if($user->password == null){
                     $data['id_perusahaan'] = $perusahaan->id_perusahaan;
-                    $data['isi'] = "Selamat datang kembali ".$user->name_perusahaan;
-                    $data['pengirim'] = "Admin";    
-                    notifyperusahaan::create($data);
+                    $data['pesan'] = "Selamat datang kembali ".$user->name_perusahaan;
+                    $data['pengirim'] = "Admin";
+                    $data['kepada'] = $user->name_perusahaan;    
+                    messagePerusahaan::create($data);
                     return redirect('/nomor_id')->with('success',"Akun akademi teridentifikasi");
                 } else {
                     $data['id_perusahaan'] = $perusahaan->id_perusahaan;
-                    $data['isi'] = "Harap lengkapi data profil perusahaan";
+                    $data['pesan'] = "Harap lengkapi data profil perusahaan";
                     $data['pengirim'] = "Admin";
-                    $data['url'] = ('/perusahaan/isi_perusahaan_data');
-                    notifyperusahaan::create($data);
+                    $data['kepada'] = $user->name_perusahaan;
+                    messagePerusahaan::create($data);
                     return redirect()->route('perusahaan')->with('success',"Selamat Datang");
                 }
             } else {
