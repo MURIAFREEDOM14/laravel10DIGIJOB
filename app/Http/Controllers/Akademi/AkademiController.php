@@ -28,7 +28,7 @@ class AkademiController extends Controller
         $id = Auth::user();
         $akademi = Akademi::where('referral_code',$id->referral_code)->first();
         $perusahaan = Perusahaan::whereNotNull('email_operator')->get();
-        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
         $akademi_kandidat = Kandidat::where('id_akademi',$akademi->id_akademi)->limit(10)->get();
         $notifiA = notifyAkademi::where('created_at','<',Carbon::now()->subDays(14))->delete();
@@ -141,7 +141,7 @@ class AkademiController extends Controller
     {
         $id = Auth::user();
         $akademi = Akademi::where('referral_code',$id->referral_code)->first();
-        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
         return view('akademi/contact_us',compact('akademi','pesan','notif'));
     }
@@ -150,7 +150,7 @@ class AkademiController extends Controller
     {
         $user = Auth::user();
         $akademi = Akademi::where('referral_code',$user->referral_code)->first();
-        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
         if($akademi->nama_kepala_akademi == null){
             return redirect()->route('akademi')->with('warning',"Harap lengkapi profil akademi terlebih dahulu");
@@ -159,17 +159,12 @@ class AkademiController extends Controller
         }
     }
 
-    public function editProfilAkademi()
-    {
-        return redirect()->route('akademi.data');
-    }
-
     public function lihatProfilPerusahaan($id)
     {
         $user = Auth::user();
         $akademi = Akademi::where('referral_code',$user->referral_code)->first();
         $perusahaan = Perusahaan::where('id_perusahaan',$id)->first();
-        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
         $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
         return view('akademi/lihat_profil_perusahaan',compact('akademi','perusahaan','pesan','notif','lowongan'));
@@ -180,7 +175,7 @@ class AkademiController extends Controller
         $auth = Auth::user();
         $akademi = Akademi::where('referral_code',$auth->referral_code)->first();
         $kandidat = Kandidat::where('id_akademi',$akademi->id_akademi)->get();
-        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
         return view('akademi/list_kandidat',compact('akademi','kandidat','pesan','notif'));
     }
@@ -191,7 +186,7 @@ class AkademiController extends Controller
         $akademi = Akademi::where('referral_code',$auth->referral_code)->first();
         $kandidat = Kandidat::where('id',$id)->where('nama',$nama)->first();
         $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
-        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
         $negara = Negara::join(
             'akademi_kandidat','ref_negara.negara_id','=','akademi_kandidat.negara_id'

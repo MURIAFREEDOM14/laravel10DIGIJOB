@@ -73,10 +73,16 @@
                     <div class="container-fluid">
                         <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
                             <li class="nav-item dropdown hidden-caret">
-                                <a class="nav-link dropdown-toggle" href="/perbaikan" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-envelope"></i>
+                                <a class="" style="color: white" href="/akademi/semua_pesan">
+                                    <i class="fa fa-envelope" style="font-size:23px; background-color:transparent;"></i>
+                                    @php
+                                        $ttl_pesan = $pesan->count();
+                                    @endphp
+                                    @if ($ttl_pesan !== 0)
+                                        <span style="background-color: red; width:12px; height:12px; border-radius:50%; display:inline-block; margin-left:-9px;"></span>                                        
+                                    @endif
                                 </a>
-                                <ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
+                                {{-- <ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
                                     <li>
                                         <div class="dropdown-title d-flex justify-content-between align-items-center">
                                             Pesan
@@ -102,17 +108,12 @@
                                     <li>
                                         <a class="see-all" href="/akademi/semua_pesan">Lihat Semua Pesan<i class="fa fa-angle-right"></i> </a>
                                     </li>
-                                </ul>
+                                </ul> --}}
                             </li>
-                            <li class="nav-item dropdown hidden-caret">
+                            {{-- <li class="nav-item dropdown hidden-caret">
                                 <a class="nav-link dropdown-toggle" href="/perbaikan" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-bell"></i>
-                                    @php
-                                        $ttl_notif = $notif->count();
-                                    @endphp
-                                    @if ($ttl_notif !== 0)
-                                        <span class="notification" style="background-color: red">{{$ttl_notif}}</span>                                        
-                                    @endif
+                                    
                                 </a>
                                 <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
                                     <li>
@@ -145,7 +146,7 @@
                                         <a class="see-all" href="/akademi/semua_notif">Lihat Semua Notifikasi<i class="fa fa-angle-right"></i> </a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             <li class="nav-item dropdown hidden-caret">
                                 <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                                     <div class="avatar-sm">
@@ -170,21 +171,26 @@
                                                 <div class="u-text">
                                                     <b class="bold">{{$akademi->nama_akademi}}</b>
                                                     <p class="text-muted">{{$akademi->email}}</p>
+                                                @if (auth()->user()->verify_confirmed !== null)
+                                                    <span class="badge badge-pill badge-info">Terverifikasi</span>
+                                                @endif
+                                                @if ($akademi->no_telp_operator !== null)
+                                                    <span class="badge badge-pill badge-success">Profil</span>
+                                                @endif
                                                 </div>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="/akademi/lihat/profil">Profil Akademi</a>
-                                            @if ($akademi->nama_kepala_akademi == null)
+                                            @if ($akademi->no_telp_operator == null)
                                                 <a class="dropdown-item" href="/akademi/isi_akademi_data">Lengkapi Profil</a>
                                             @else
                                                 <a class="dropdown-item" href="/akademi/isi_akademi_data">Edit Profil</a>
                                             @endif
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="/contact_us_akademi">Hubungi Kami</a>
-                                            <div class="dropdown-divider"></div>
                                             <a href="{{route('logout')}}" class="dropdown-item" onclick="confirmation(event)">Keluar</a>
+                                            <div class="dropdown-divider"></div>
                                         </li>
                                     </div>
                                 </ul>
@@ -261,20 +267,11 @@
                                         &copy; Copyright <strong><span>DIGIJOB-UGIPORT</span></strong>. All Rights Reserved
                                     </div>
                                 </li>
-                                {{-- <li class="nav-item">
-                                    <a class="nav-link" href="#">
-                                        Help
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">
-                                        Licenses
-                                    </a>
-                                </li> --}}
                             </ul>
                         </nav>
                         <div class="copyright ml-auto">
                             &nbsp;
+                            <strong><a class="" href="/contact_us_akademi" style="color: white; background-color:transparent; text-decoration:none; text-transform:uppercase;">Hubungi Kami</a></strong>
                         </div>
                     </div>
                 </footer>

@@ -182,7 +182,7 @@
                         </nav>
                         <div class="copyright ml-auto">
                             &nbsp;
-                            <strong><a class="" style="color:white; background-color:#1269db; text-decoration:none;" href="/contact_us_kandidat" style="text-transform: uppercase">Hubungi Kami</a></strong>
+                            <strong><a class="" style="color:white; background-color:#1269db; text-decoration:none; text-transform: uppercase;" href="/contact_us_kandidat">Hubungi Kami</a></strong>
                             {{-- 2018, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">ThemeKita</a> --}}
                         </div>
                     </div>

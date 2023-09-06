@@ -69,12 +69,27 @@
                                     </div>
                                     <div class="col-md-8">
                                         @if ($akademi->foto_akademi == "")
-                                            <input type="file" required name="foto_akademi" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                            <input type="file" required name="foto_akademi" id="inputPassword6" class="form-control @error('foto_akademi') is_invalid @enderror" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                            @error('foto_akademi')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         @elseif ($akademi->foto_akademi !== null)
-                                            <img src="/gambar/Akademi/{{$akademi->nama_akademi}}/Foto/{{$akademi->foto_akademi}}" width="150" height="150" alt="">
-                                            <input type="file" name="foto_akademi" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                            <img src="/gambar/Akademi/{{$akademi->nama_akademi}}/Foto Akademi/{{$akademi->foto_akademi}}" width="150" height="150" alt="" class="img mb-1">
+                                            <input type="file" name="foto_akademi" id="inputPassword6" class="form-control @error('foto_akademi') is_invalid @enderror" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                            @error('foto_akademi')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         @else
-                                            <input type="file" required name="foto_akademi" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">
+                                            <input type="file" required name="foto_akademi" id="inputPassword6" class="form-control @error('foto_akademi') is_invalid @enderror" aria-labelledby="passwordHelpInline" accept="image/*">
+                                            @error('foto_akademi')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         @endif
                                     </div>
                                 </div>
@@ -84,12 +99,27 @@
                                     </div>
                                     <div class="col-md-8">
                                         @if ($akademi->logo_akademi == "")
-                                            <input type="file" required name="logo_akademi" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                            <input type="file" required name="logo_akademi" id="inputPassword6" class="form-control @error('logo_akademi') is_invalid @enderror" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                            @error('logo_akademi')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         @elseif ($akademi->logo_akademi !== null)
-                                            <img src="/gambar/Akademi/{{$akademi->nama_akademi}}/Logo/{{$akademi->logo_akademi}}" width="150" height="150" alt="">
-                                            <input type="file" name="logo_akademi" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                            <img src="/gambar/Akademi/{{$akademi->nama_akademi}}/Logo Akademi/{{$akademi->logo_akademi}}" width="150" height="150" alt="" class="img mb-1">
+                                            <input type="file" name="logo_akademi" id="inputPassword6" class="form-control @error('logo_akademi') is_invalid @enderror" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                            @error('logo_akademi')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         @else
-                                            <input type="file" required name="logo_akademi" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">
+                                            <input type="file" required name="logo_akademi" id="inputPassword6" class="form-control @error('logo_akademi') is_invalid @enderror" aria-labelledby="passwordHelpInline" accept="image/*">
+                                            @error('logo_akademi')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         @endif
                                     </div>
                                 </div>
