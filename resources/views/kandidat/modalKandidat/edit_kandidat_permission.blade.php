@@ -84,10 +84,10 @@
                             <div class="col-md-4">
                                 <label for="" class="col-form-label">Tempat / Tanggal Lahir Kontak Darurat</label>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-4">
                                 <input type="text" value="{{$kandidat->tmp_lahir_perizin}}" name="tmp_lahir_perizin" id="" class="form-control" aria-labelledby="passwordHelpInline">
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-4">
                                 <input type="date" value="{{$kandidat->tgl_lahir_perizin}}" name="tgl_lahir_perizin" id="" class="form-control" aria-labelledby="passwordHelpInline">                                        
                             </div>
                         </div>
