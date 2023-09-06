@@ -331,13 +331,13 @@ class KandidatPerusahaanController extends Controller
                     'alasan_lain' => $request->alasan_lain,
                 ]);
             }
-            notifyPerusahaan::create([
-                'id_perusahaan' => $perusahaan->id_perusahaan,
-                'id_kandidat' => $kandidat->id_kandidat,
-                'isi' => "Anda mendapat pesan tentang persetujuan kandidat. cek pesan anda",
-                'pengirim' => "Admin",
-                'url' => '/perusahaan/semua_pesan',
-            ]);
+            // notifyPerusahaan::create([
+            //     'id_perusahaan' => $perusahaan->id_perusahaan,
+            //     'id_kandidat' => $kandidat->id_kandidat,
+            //     'isi' => "Anda mendapat pesan tentang persetujuan kandidat. cek pesan anda",
+            //     'pengirim' => "Admin",
+            //     'url' => '/perusahaan/semua_pesan',
+            // ]);
             messagePerusahaan::create([
                 'id_perusahaan' => $perusahaan->id_perusahaan,
                 'id_kandidat' => $kandidat->id_kandidat,
@@ -365,12 +365,12 @@ class KandidatPerusahaanController extends Controller
             }
             KandidatInterview::where('id_kandidat',$kandidat->id_kandidat)->where('id_perusahaan',$perusahaan->id_perusahaan)->delete();
         } else {
-            notifyKandidat::create([
-                'id_kandidat' => $kandidat->id_kandidat,
-                'isi' => "Anda mendapat pesan dari perusahaan",
-                'pengirim' => "Sistem",
-                'url' => '/semua_pesan',
-            ]);
+            // notifyKandidat::create([
+            //     'id_kandidat' => $kandidat->id_kandidat,
+            //     'isi' => "Anda mendapat pesan dari perusahaan",
+            //     'pengirim' => "Sistem",
+            //     'url' => '/semua_pesan',
+            // ]);
 
             messageKandidat::create([
                 'id_kandidat' => $kandidat->id_kandidat,

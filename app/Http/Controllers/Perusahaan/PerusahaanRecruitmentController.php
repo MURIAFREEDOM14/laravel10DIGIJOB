@@ -847,12 +847,12 @@ class PerusahaanRecruitmentController extends Controller
                         'stat_pemilik' => null,
                     ]);
                     PersetujuanKandidat::where('id_kandidat',$key->id_kandidat)->where('nama_kandidat',$key->nama)->delete();
-                    notifyKandidat::create([
-                        'id_kandidat' => $key->id_kandidat,
-                        'isi' => "Anda mendapat pesan masuk",
-                        'pengirim' => "Sistem",
-                        'url' => '/semua_pesan',
-                    ]);
+                    // notifyKandidat::create([
+                    //     'id_kandidat' => $key->id_kandidat,
+                    //     'isi' => "Anda mendapat pesan masuk",
+                    //     'pengirim' => "Sistem",
+                    //     'url' => '/semua_pesan',
+                    // ]);
                     messageKandidat::create([
                         'id_kandidat' => $key->id_kandidat,
                         'pesan' => "Mohon maaf, Anda secara otomatis telah menolak undangan interview dari perusahaan ".$perusahaan->nama_perusahaan." karena belum konfirmasi sampai pada batas waktu. Harap kedepannya untuk selalu melihat pesan dan notifikasi anda agar tidak terlambat dalam konfirmasi undangan interview.",
@@ -940,16 +940,17 @@ class PerusahaanRecruitmentController extends Controller
             $data['tgl_kerja'] = $now;
             LaporanPekerja::create($data);
 
-            $notyK['id_kandidat'] = $id_kandidat[$k];
-            $notyK['isi'] = "Selamat!! Anda diterima di sebuah perusahaan. Periksa pesan untuk detail";
-            $notyK['pengirim'] = "Admin";
-            $notyK['url'] = '/semua_pesan';
-            notifyKandidat::create($notyK);
+            // $notyK['id_kandidat'] = $id_kandidat[$k];
+            // $notyK['isi'] = "Selamat!! Anda diterima di sebuah perusahaan. Periksa pesan untuk detail";
+            // $notyK['pengirim'] = "Admin";
+            // $notyK['url'] = '/semua_pesan';
+            // notifyKandidat::create($notyK);
 
             $mesgeK['id_kandidat'] = $id_kandidat[$k];
             $mesgeK['pesan'] = "Selamat!! Anda kini telah di terima di Perusahaan ".$perusahaan->nama_perusahaan.". Untuk info selanjutnya, harap untuk selalu memeriksa pesan dari kami.";
-            $mesgeK['pengirim'] = "Admin";
+            $mesgeK['pengirim'] = $perusahaan->nama_perusahaan;
             $mesgeK['kepada'] = $kandidat->nama;
+            $mesgeK['id_perusahaan'] = $perusahaan->id_perusahaan;
             messageKandidat::create($mesgeK);
             
             PermohonanLowongan::where('id_lowongan',$lowongan->id_lowongan)->where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_kandidat',$id_kandidat[$k])->delete();
@@ -964,17 +965,18 @@ class PerusahaanRecruitmentController extends Controller
         $kandidat_interview = KandidatInterview::where('id_interview',$interview->id_interview)->where('id_lowongan',$id)->get();
         if($kandidat_interview->count() !== 0){
             foreach($kandidat_interview as $key){
-                notifyKandidat::create([
-                    'id_kandidat' => $key->id_kandidat,
-                    'isi' => "Anda mendapat pesan dari Perusahaan",
-                    'pengirim' => "Admin",
-                    'url' => '/semua_pesan',
-                ]);
+                // notifyKandidat::create([
+                //     'id_kandidat' => $key->id_kandidat,
+                //     'isi' => "Anda mendapat pesan dari Perusahaan",
+                //     'pengirim' => "Admin",
+                //     'url' => '/semua_pesan',
+                // ]);
                 messageKandidat::create([
                     'id_kandidat' => $key->id_kandidat,
                     'pesan' => "Mohon maaf, Anda tidak diterima dalam perusahaan ".$perusahaan->nama_perusahaan.". Jangan terlalu cepat menyerah, dan cobalah untuk melamar di perusahaan lain yang masih membutuhkan kandidat seperti anda.",
-                    'pengirim' => "Admin",
+                    'pengirim' => $perusahaan->nama_perusahaan,
                     'kepada' => $key->nama,
+                    'id_perusahaan' => $perusahaan->id_perusahaan,
                 ]);
                 Kandidat::where('id_kandidat',$key->id_kandidat)->where('id_perusahaan',$perusahaan->id_perusahaan)->update([
                     'stat_pemilik' => null, 
@@ -1000,17 +1002,18 @@ class PerusahaanRecruitmentController extends Controller
                 'stat_pemilik' => null,
                 'id_perusahaan' => null,
             ]);
-            notifyKandidat::create([
-                'id_kandidat' => $key->id_kandidat,
-                'isi' => "Anda mendapat pesan dari Perusahaan",
-                'pengirim' => "Admin",
-                'url' => '/semua_pesan',
-            ]);
+            // notifyKandidat::create([
+            //     'id_kandidat' => $key->id_kandidat,
+            //     'isi' => "Anda mendapat pesan dari Perusahaan",
+            //     'pengirim' => "Admin",
+            //     'url' => '/semua_pesan',
+            // ]);
             messageKandidat::create([
                 'id_kandidat' => $key->id_kandidat,
                 'pesan' => "Mohon maaf, Anda tidak diterima dalam perusahaan ".$perusahaan->nama_perusahaan.". Jangan terlalu cepat menyerah, dan cobalah untuk melamar di perusahaan lain yang masih membutuhkan kandidat seperti anda.",
-                'pengirim' => "Admin",
+                'pengirim' => $perusahaan->nama_perusahaan,
                 'kepada' => $key->nama,
+                'id_perusahaan' => $perusahaan->id_perusahaan,
             ]);
             KandidatInterview::where('id_interview',$interview->id_interview)->where('id_lowongan',$id)->where('id_kandidat',$key->id_kandidat)->delete();
             PermohonanLowongan::where('id_lowongan',$id)->where('id_kandidat',$key->id_kandidat)->delete();

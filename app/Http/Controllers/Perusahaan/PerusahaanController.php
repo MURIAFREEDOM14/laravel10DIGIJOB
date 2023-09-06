@@ -654,8 +654,9 @@ class PerusahaanController extends Controller
         messageKandidat::create([
             'id_kandidat' => $id,
             'pesan' => "Mohon maaf, Anda telah dikeluarkan dari perusahan ".$perusahaan->nama_perusahaan.". ",
-            'pengirim' => "Admin",
+            'pengirim' => $perusahaan->nama_perusahaan,
             'kepada' => $nama,
+            'id_perusahaan' => $perusahaan->id_perusahaan,
         ]);
         LaporanPekerja::where('id_kandidat',$id)->where('nama_kandidat',$nama)->delete();
         return redirect('/perusahaan/semua/kandidat')->with('success',"Kandidat telah diusir dari perusahaan anda");
@@ -722,14 +723,14 @@ class PerusahaanController extends Controller
             return back()->with('warning',"Maaf kesempatan anda mengubah jadwal telah habis. Harap hubungi admin");
         }
         if($interview->jadwal_interview !== $request->jadwal){
-            notifyKandidat::create([
-                'id_kandidat' => $interview->id_kandidat,
-                'id_perusahaan' => $interview->id_perusahaan,
-                'isi' => "Ada perubahan jadwal interview anda dengan perusahaan. cek pesan anda.",
-                'pengirim' => "Admin",
-                'id_interview' => $interview->id_interview,
-                'url' => '/semua_pesan',
-            ]);
+            // notifyKandidat::create([
+            //     'id_kandidat' => $interview->id_kandidat,
+            //     'id_perusahaan' => $interview->id_perusahaan,
+            //     'isi' => "Ada perubahan jadwal interview anda dengan perusahaan. cek pesan anda.",
+            //     'pengirim' => "Admin",
+            //     'id_interview' => $interview->id_interview,
+            //     'url' => '/semua_pesan',
+            // ]);
             $time = Carbon::create($request->jadwal)->isoformat('D MMM Y | h A');
             messageKandidat::create([
                 'id_kandidat'=>$interview->id_kandidat,
