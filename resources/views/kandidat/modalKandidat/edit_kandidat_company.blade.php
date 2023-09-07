@@ -126,7 +126,7 @@
                                 <label for="exampleInputEmail1" class="form-label">Alasan Berhenti</label>
                                 <input type="text" required name="alasan_berhenti" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                             </div>
-                            {{-- <div class="mb-2">
+                            <div class="mb-2">
                                 <label for="" class="form-label">Galeri Pengalaman Kerja</label>
                                 <select name="type" class="form-select" id="data_pengalaman">
                                     <option value="">-- Tentukan Tipe Inputan --</option>
@@ -141,7 +141,7 @@
                             <div class="mb-2" id="foto_pengalaman">
                                 <label for="exampleInputEmail1" class="form-label">Foto Pengalaman Kerja</label>
                                 <input type="file" name="foto" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" accept="image/*">
-                            </div>     --}}
+                            </div>    
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Tambah</button>
