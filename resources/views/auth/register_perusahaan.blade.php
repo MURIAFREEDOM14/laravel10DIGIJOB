@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="inputPassword6" class="col-form-label">{{ __('Perusahaan Anda menempatkan pekerja di:') }}</label>
-                                    <select name="penempatan_kerja" class="form-select" required id="">
+                                    <select name="penempatan_kerja" class="form-select" required id="penempatan">
                                         <option value="">-- Pilih Penempatan Kerja --</option>
                                         <option value="Dalam negeri">Dalam Negeri</option>
                                         <option value="Luar Negeri">Luar Negeri</option>
@@ -59,10 +59,10 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="password" class="">{{ __('Konfirmasi Password') }}</label>
-                                    <input id="password" type="text" class="form-control @error('password') is-invalid @enderror" name="passwordConfirm" value="{{ old('password') }}" required autocomplete="password">
+                                    <input id="password_confirm" type="text" class="form-control @error('password') is-invalid @enderror" name="passwordConfirm" value="{{ old('password') }}" required autocomplete="password">
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ "Password konfirmasi harus samma dengan buat password" }}</strong>
+                                            <strong>{{ "Password konfirmasi harus sama dengan buat password" }}</strong>
                                         </span>
                                     @enderror
                                 </div>
@@ -77,7 +77,8 @@
                                         </div>
                                       </div>
                                     </div>
-                                    <input type="text" hidden name="captcha" value="" id="confirmCaptcha">
+                                    <div id="confirm_captcha"></div>
+                                    <input type="text" hidden name="captcha" value="" id="captcha">
                                     @error('captcha')
                                       <span class="invalid-feedback" role="alert">
                                           <strong>{{ "Harap isi captcha anda" }}</strong>
@@ -95,11 +96,10 @@
                         {{-- <a href="/login/perusahaan" class="btn btn-secondary">Kembali</a> --}}
                         <div class="mt-3">Sudah punya akun?<a href="/login" class="ms-1">Login</a></div>
                         <div class="">Bingung cara untuk daftar?<button type="button" data-bs-toggle="modal" data-bs-target="#tutorial_kandidat" class="btn btn-link">Yuk lihat video ini</button></div>
-                        <button type="submit" id="btn" disabled="true" class="btn btn-primary mt-3">
+                        <button type="submit" id="btn" disabled="true" class="btn btn-primary mt-3" onclick="processing()">
                             {{ __('Register') }}
                         </button>
                     </form>
-                    
                 </div>
             </div>
         </div>
@@ -119,4 +119,30 @@
         </div>
     </div>
 </div>
+<script>
+    function processing() {
+        var name = document.getElementById('name').value;
+        var nib = document.getElementById('nib').value;
+        var penempatan = document.getElementById('penempatan').value;
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        var confirm = document.getElementById('password_confirm').value;
+        var captcha = document.getElementById('captcha').value;
+        var confirm_captcha = document.getElementById('confirm_captcha');
+        if (captcha == '') {
+            confirm_captcha.innerHTML = "Harap selesaikan kode captcha terlebih dahulu"
+            confirm_captcha.style.color = 'red';
+        }
+        if (name !== '' &&
+            nib !== '' &&
+            penempatan !== '' &&
+            email !== '' &&
+            password !== '' &&
+            confirm !== '' &&
+            captcha !== '') {
+            var viewLoad = document.getElementById('viewLoad').style.display = 'block';
+            var submit = document.getElementById('btn').style.display = 'none';
+        }
+    }
+</script>
 @endsection

@@ -24,7 +24,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="no_nis" class="">{{ __('No. NIS') }}</label>
-                                    <input id="no_nis" type="number" class="form-control @error('no_nis') is-invalid @enderror" name="no_nis" value="{{ old('no_nis') }}" required autocomplete="no_nis" autofocus>
+                                    <input id="nis" type="number" class="form-control @error('no_nis') is-invalid @enderror" name="no_nis" value="{{ old('no_nis') }}" required autocomplete="no_nis" autofocus>
                                     @error('no_nis')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ "No. NIS tidak boleh kosong" }}</strong>
@@ -51,7 +51,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="">{{ __('Konfirmasi Password') }}</label>
-                                    <input id="password" type="text" class="form-control " name="passwordConfirm" required autocomplete="password">
+                                    <input id="password_confirm" type="text" class="form-control " name="passwordConfirm" required autocomplete="password">
                                 </div>
                                 <div class="mb-3">
                                     <div class="slidercaptcha card">
@@ -64,6 +64,7 @@
                                         </div>
                                       </div>
                                     </div>
+                                    <div id="confirm_captcha"></div>
                                     <input type="text" hidden name="captcha" value="" id="confirmCaptcha">
                                     @error('captcha')
                                       <span class="invalid-feedback" role="alert">
@@ -81,7 +82,7 @@
                         </div>
                         <div class="mt-3">Sudah punya akun?<a href="/login" class="ms-1">Login</a></div>
                         {{-- <div class="">Bingung cara untuk daftar?<button type="button" data-bs-toggle="modal" data-bs-target="#tutorial_kandidat" class="btn btn-link">Yuk lihat video ini</button></div> --}}
-                        <button type="submit" id="btn" disabled="true" class="btn btn-primary mt-3">
+                        <button type="submit" id="btn" disabled="true" class="btn btn-primary mt-3" onclick="processing()">
                             {{ __('Register') }}
                         </button>
                     </form>
@@ -104,4 +105,28 @@
         </div>
     </div>
 </div>
+<script>
+    function processing() {
+        var name = document.getElementById('name').value;
+        var nis = document.getElementById('nis').value;
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        var confirm = document.getElementById('password_confirm').value;
+        var captcha = document.getElementById('confirmCaptcha').value;
+        var confirm_captcha = document.getElementById('confirm_captcha');
+        if (captcha == '') {
+            confirm_captcha.innerHTML = "Harap selesaikan kode captcha terlebih dahulu"
+            confirm_captcha.style.color = 'red';
+        }
+        if (name !== '' &&
+            nis !== '' &&
+            email !== '' &&
+            password !== '' &&
+            confirm !== '' &&
+            captcha !== '') {
+            var viewLoad = document.getElementById('viewLoad').style.display = 'block';
+            var submit = document.getElementById('btn').style.display = 'none';
+        }
+    }
+</script>
 @endsection
