@@ -153,7 +153,7 @@
         var captcha = document.getElementById('confirmCaptcha').value;
         var confirm_captcha = document.getElementById('confirm_captcha');        
         if (captcha == '') {
-            confirm_captcha.innerHTML = "Harap selesaikan kode captcha terlebih dahulu"
+            confirm_captcha.innerHTML = "Harap selesaikan kode captcha terlebih dahulu";
             confirm_captcha.style.color = 'red';
         }
         if (name !== '' && 

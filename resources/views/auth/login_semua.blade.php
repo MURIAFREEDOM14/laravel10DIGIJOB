@@ -16,7 +16,7 @@
                             <div class="col-md-12">
                               <div class="mb-3">
                                   <label for="exampleInputPassword1">Masukkan Email</label>
-                                  <input name="email" type="email" class="form-control" value="{{old('email')}}" required id="exampleInputPassword1">
+                                  <input name="email" type="email" class="form-control" value="{{old('email')}}" required id="email">
                               </div>
                               <div class="mb-3">
                                   <label for="exampleInputPassword1">Masukkan Password</label>
@@ -40,7 +40,8 @@
                                       </div>
                                     </div>
                                   </div>
-                                  <input type="text" hidden name="captcha" value="" id="confirmCaptcha">
+                                  <div class="" id="confirm_captcha"></div>
+                                  <input type="text" name="captcha" hidden required value="" id="confirmCaptcha">
                                 </div>
                                 @error('captcha')
                                   <span class="invalid-feedback" role="alert">
@@ -54,7 +55,7 @@
                         <div class="">Belum punya akun?
                         <a href="/register" class="btn btn-link mb-2" >Daftar yuk!!</a>
                         </div>
-                        <button type="submit" class="btn btn-primary float-right mr-2">Masuk</button>
+                        <button type="submit" class="btn btn-primary float-right mr-2" id="btn" onclick="processing()">Masuk</button>
                     </form> 
                 </div>
             </div>
@@ -63,5 +64,32 @@
     </div>
     <div class="mt-2" style="height: 3rem"></div>
 </div>
+<script>
+  // fungsi tampilan lihat password
+  function seePassword() {
+    var p = document.getElementById('password_input').type;
+    if (p == "password") {
+      document.getElementById('password_input').type = 'text';
+    } else {
+      document.getElementById('password_input').type = 'password';
+    }
+  }
 
+  function processing() {
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password_input').value;
+    var captcha = document.getElementById('confirmCaptcha').value;
+    var confirm_captcha = document.getElementById('confirm_captcha');
+    if (captcha == '') {
+      confirm_captcha.innerHTML = "Harap selesaikan kode captcha terlebih dahulu";
+      confirm_captcha.style.color = 'red';
+    }
+    if (email !== '' &&
+        password !== '' &&
+        captcha !== '') {
+        var viewLoad = document.getElementById('viewLoad').style.display = 'block';
+        var submit = document.getElementById('btn').style.display = 'none';
+    }
+  }
+</script>
 @endsection

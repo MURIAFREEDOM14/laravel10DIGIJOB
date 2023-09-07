@@ -127,7 +127,7 @@
         var email = document.getElementById('email').value;
         var password = document.getElementById('password').value;
         var confirm = document.getElementById('password_confirm').value;
-        var captcha = document.getElementById('captcha').value;
+        var captcha = document.getElementById('confirmCaptcha').value;
         var confirm_captcha = document.getElementById('confirm_captcha');
         if (captcha == '') {
             confirm_captcha.innerHTML = "Harap selesaikan kode captcha terlebih dahulu"
