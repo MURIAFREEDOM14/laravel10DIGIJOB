@@ -85,7 +85,7 @@
         <div class="container mt-5">
           <div class="content">
             <main class="mb-3">
-              @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
+              {{-- @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"]) --}}
               @include('flash_message')
               @yield('content')
             </main>
