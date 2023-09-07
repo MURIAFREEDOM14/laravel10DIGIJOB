@@ -20,7 +20,7 @@
                                     <label for="" class="col-form-label">Nama Lengkap</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" value="{{$user->name}}" name="nama" id="" class="form-control" disabled aria-labelledby="passwordHelpInline">
+                                    <input type="text" value="{{$user->name}}" name="nama" id="nama" class="form-control" disabled aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
@@ -28,7 +28,7 @@
                                     <label for="" class="col-form-label">Nama Panggilan</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="text" disabled value="{{$kandidat->nama_panggilan}}" placeholder="Maksimal 10 kata" name="nama_panggilan" id="" class="form-control @error('nama_panggilan') is-invalid @enderror" aria-labelledby="passwordHelpInline">
+                                    <input type="text" disabled value="{{$kandidat->nama_panggilan}}" placeholder="Maksimal 10 kata" name="nama_panggilan" id="panggilan" class="form-control @error('nama_panggilan') is-invalid @enderror" aria-labelledby="passwordHelpInline">
                                     @error('nama_panggilan')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -41,7 +41,7 @@
                                     <label for="" class="col-form-label">Jenis Kelamin</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <select name="jenis_kelamin" required class="form-select" id="">
+                                    <select name="jenis_kelamin" required class="form-select" id="jenis_kelamin">
                                         <option value="">-- Pilih Jenis Kelamin --</option>
                                         <option value="M" @if ($kandidat->jenis_kelamin == "M") selected @endif>Laki-laki</option>
                                         <option value="F" @if ($kandidat->jenis_kelamin == "F") selected @endif>perempuan</option>
@@ -50,13 +50,18 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="" class="col-form-label">Tempat & Tanggal Lahir</label>
+                                    <label for="" class="col-form-label">Tempat Lahir</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" required placeholder="Masukkan Tempat Lahir" value="{{$kandidat->tmp_lahir}}" name="tmp_lahir" id="" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input type="text" required placeholder="Masukkan Tempat Lahir" value="{{$kandidat->tmp_lahir}}" name="tmp_lahir" id="tmp_lahir" class="form-control" aria-labelledby="passwordHelpInline">
+                                </div>
+                            </div>
+                            <div class="row mb-3 g-3 align-items-center">
+                                <div class="col-md-4">
+                                    <label for="" class="col-form-label">Tanggal Lahir</label>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="date" required value="{{$kandidat->tgl_lahir}}" name="tgl_lahir" id="" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input type="date" required value="{{$kandidat->tgl_lahir}}" name="tgl_lahir" id="tgl_lahir" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
@@ -65,7 +70,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="input-group">
-                                        <input type="number" disabled value="{{$user->no_telp}}" name="no_telp" id="" class="form-control" aria-labelledby="passwordHelpInline">
+                                        <input type="number" disabled value="{{$user->no_telp}}" name="no_telp" id="telp" class="form-control" aria-labelledby="passwordHelpInline">
                                         {{-- <div class="input-group-append">
                                             <a class="btn btn-warning" href="/edit_kandidat_no_telp" id="button-addon2">Ubah</a>
                                         </div> --}}
@@ -77,7 +82,7 @@
                                     <label for="" class="col-form-label">Agama</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <select name="agama" required class="form-select" id="">
+                                    <select name="agama" required class="form-select" id="agama">
                                         <option value="">-- Pilih Agama --</option>
                                         <option value="islam" @if ($kandidat->agama == "islam") selected @endif>Islam</option>
                                         <option value="kristen" @if ($kandidat->agama == "kristen") selected @endif>Kristen</option>
@@ -95,13 +100,13 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="input-group">
-                                        <input type="number" required value="{{$kandidat->berat}}" placeholder="Masukkan berat badan" name="berat" class="form-control">
+                                        <input type="number" required value="{{$kandidat->berat}}" placeholder="Masukkan berat badan" name="berat" class="form-control" id="berat">
                                         <span class="input-group-text" id="basic-addon2">Kg</span> 
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="input-group">
-                                        <input type="number" required value="{{$kandidat->tinggi}}" placeholder="Masukkan tinggi badan" name="tinggi" class="form-control">
+                                        <input type="number" required value="{{$kandidat->tinggi}}" placeholder="Masukkan tinggi badan" name="tinggi" class="form-control" id="tinggi">
                                         <span class="input-group-text" id="basic-addon2">Cm</span>                                     
                                     </div>
                                 </div>
@@ -111,7 +116,7 @@
                                     <label for="" class="col-form-label">Email</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="email" disabled required value="{{$user->email}}" name="email" id="" class="form-control" aria-labelledby="passwordHelpInline">
+                                    <input type="email" disabled required value="{{$user->email}}" name="email" id="email" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
@@ -119,22 +124,35 @@
                                     <a href="/edit_kandidat_password" class="btn btn-primary">Edit Password</a>
                                 </div>
                             </div>
-                            <div class="row mb-3 g-3 align-items-center">
-                                <div class="col-md-4">
-                                    <label for="" id="newPassword1" class="col-form-label">Password baru</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" name="password" placeholder="Harap ingat password anda" id="newPassword2" class="form-control" aria-labelledby="passwordHelpInline">
-                                </div>
-                            </div>
                         </div>
                         <hr>
                         {{-- <a class="btn btn-warning" href="{{route('document')}}">Lewati</a> --}}
-                        <button class="btn btn-primary float-end" id="submitBtn" type="submit" onclick="btnLoad()">Selanjutnya</button>
+                        <button class="btn btn-primary float-end" id="btn" type="submit" onclick="processing()">Selanjutnya</button>
+                        <button type="button" class="btn btn-primary float-end mr-2" id="btnload"><div class="spinner-border text-light" role="status"></div></button>
                     </form>
                 </div>
                 <hr>
             </div>
         </div>
-    </div>    
+    </div> 
+<script>
+    function processing() {
+        var jenis_kelamin = document.getElementById('jenis_kelamin').value;
+        var tmp_lahir = document.getElementById('tmp_lahir').value;
+        var tgl_lahir = document.getElementById('tgl_lahir').value;
+        var agama = document.getElementById('agama').value;
+        var berat = document.getElementById('berat').value;
+        var tinggi = document.getElementById('tinggi').value;
+        if (jenis_kelamin !== '' &&
+            tmp_lahir !== '' &&
+            tgl_lahir !== '' &&
+            agama !== '' &&
+            berat !== '' &&
+            tinggi !== '') {
+            var submit = document.getElementById('btn').style.display = 'none';
+            var btnLoad = document.getElementById('btnload').style.display = 'block';
+        }
+    }
+    
+</script>   
 @endsection

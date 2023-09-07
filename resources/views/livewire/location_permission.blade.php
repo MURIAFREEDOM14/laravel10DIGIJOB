@@ -4,7 +4,7 @@
             <label for="inputPassword6" class="col-form-label">Provinsi</label>
         </div>
         <div class="col-md-8">
-            <select wire:model="kota" required class="form-select" name="provinsi_perizin">
+            <select wire:model="kota" required class="form-select" name="provinsi_perizin" id="provinsi">
                 <option value="">-- Pilih Provinsi --</option>
                 @foreach($provinsis as $item)
                     <option value="{{ $item->id }}" >{{ $item->provinsi }}</option>
@@ -18,7 +18,7 @@
             <label for="inputPassword6" class="col-form-label">Kabupaten / Kota</label>
         </div>
         <div class="col-md-8">
-            <select class="form-select" required wire:model="kecamatan" name="kota_perizin">
+            <select class="form-select" required wire:model="kecamatan" name="kota_perizin" id="kota">
                 @if (!is_null($kota))
                     <option value="">-- Pilih Kabupaten / Kota --</option>
                     @foreach($kotas as $item)
@@ -38,7 +38,7 @@
             <label for="inputPassword6" class="col-form-label">Kecamatan</label>
         </div>
         <div class="col-md-8">
-            <select class="form-select" required wire:model="kelurahan" name="kecamatan_perizin">
+            <select class="form-select" required wire:model="kelurahan" name="kecamatan_perizin" id="kecamatan">
                 @if (!is_null($kecamatan))
                     <option value="">-- Pilih Kecamatan --</option>
                     @foreach($kecamatans as $item)
@@ -58,7 +58,7 @@
             <label for="inputPassword6" class="col-form-label">Kelurahan</label>
         </div>
         <div class="col-md-8">
-            <select class="form-select" required name="kelurahan_perizin">
+            <select class="form-select" required name="kelurahan_perizin" id="kelurahan">
                 @if (!is_null($kelurahan))
                     <option value="">-- Pilih Kelurahan --</option>
                     @foreach($kelurahans as $item)
@@ -78,7 +78,7 @@
             <label for="inputPassword6" class="col-form-label">Dusun</label>
         </div>
         <div class="col-md-8">
-            <input type="text" class="form-control" value="{{$kandidat->dusun_perizin}}" name="dusun_perizin" required placeholder="Masukkan Alamat Dusun">
+            <input type="text" class="form-control" value="{{$kandidat->dusun_perizin}}" name="dusun_perizin" required placeholder="Masukkan Alamat Dusun" id="dusun">
         </div>
     </div>
 </div>

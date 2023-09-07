@@ -20,7 +20,7 @@
                                 <label for="" class="col-form-label">Nama Ayah Kandung</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" required value="{{$kandidat->nama_ayah}}" name="nama_ayah" id="" class="form-control" aria-labelledby="passwordHelpInline">
+                                <input type="text" required value="{{$kandidat->nama_ayah}}" name="nama_ayah" id="namaAyah" class="form-control" aria-labelledby="passwordHelpInline">
                             </div>
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
@@ -28,7 +28,7 @@
                                 <label for="" class="col-form-label">Tempat Lahir Ayah Kandung</label>
                             </div>
                             <div class="col-md-6">
-                                <input type="text" placeholder="Masukkan Tempat Lahir" required value="{{$kandidat->tmp_lahir_ayah}}" name="tmp_lahir_ayah" class="form-control" id="">
+                                <input type="text" placeholder="Masukkan Tempat Lahir" required value="{{$kandidat->tmp_lahir_ayah}}" name="tmp_lahir_ayah" class="form-control" id="tmpLahirAyah">
                             </div>
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
@@ -47,29 +47,12 @@
                                 <input type="date" placeholder="Masukkan Tanggal Lahir" value="{{$kandidat->tgl_lahir_ayah}}" name="tgl_lahir_ayah" class="form-control" id="ket_hidup_ayah">
                             </div>
                         </div>
-                        {{-- <div class="row mb-3 g-3 align-items-center">
-                            <div class="col-md-4">
-                                <label for="" class="col-form-label">Umur Ayah</label>
-                            </div>
-                            <div class="col-md-4">
-                                <select name="umur_ayah" class="form-select" id="pilihanAyah">
-                                    <option value="">-- tentukan umur --</option>
-                                    <option value="ayah1">Umur</option>
-                                    <option value="wafat">Sudah Wafat</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="" id="inputAyah">
-                                    <input type="text" id="ayah1" style="display: none;" value="{{$kandidat->umur_ayah}}" name="umur_ayah" id="" class="form-control" aria-labelledby="passwordHelpInline">
-                                </div>
-                            </div>
-                        </div> --}}
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="" class="col-form-label">Nama Ibu Kandung</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="text" required value="{{$kandidat->nama_ibu}}" name="nama_ibu" class="form-control" id="">
+                                <input type="text" required value="{{$kandidat->nama_ibu}}" name="nama_ibu" class="form-control" id="namaIbu">
                             </div>
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
@@ -77,7 +60,7 @@
                                 <label for="" class="col-form-label">Tempat Lahir Ibu Kandung</label>
                             </div>
                             <div class="col-md-6">
-                                <input type="text" placeholder="Masukkan Tempat Lahir" required value="{{$kandidat->tmp_lahir_ibu}}" name="tmp_lahir_ibu" class="form-control" id="">
+                                <input type="text" placeholder="Masukkan Tempat Lahir" required value="{{$kandidat->tmp_lahir_ibu}}" name="tmp_lahir_ibu" class="form-control" id="tmpLahirIbu">
                             </div>
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
@@ -97,29 +80,12 @@
                             </div>
                         </div>
                         @livewire('kandidat.parent-location')
-                        {{-- <div class="row mb-3 g-3 align-items-center">
-                            <div class="col-md-4">
-                                <label for="" class="col-form-label">Umur Ibu</label>
-                            </div>
-                            <div class="col-md-4">
-                                <select name="umur_ibu" class="form-select" id="pilihanIbu">
-                                    <option value="">-- tentukan umur --</option>
-                                    <option value="ibu1">Umur</option>
-                                    <option value="wafat">Sudah Wafat</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="" id="inputIbu">
-                                    <input type="text" id="ibu1" style="display: none;" value="{{$kandidat->umur_ayah}}" name="umur_ayah" id="" class="form-control" aria-labelledby="passwordHelpInline">
-                                </div>
-                            </div>
-                        </div> --}}
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="" class="col-form-label">RT</label>
                             </div>
                             <div class="col-md-2">
-                                <input type="number" required value="{{$kandidat->rt_parent}}" placeholder="maks 3 digit" pattern="[0-3]{3}" name="rt" id="" class="form-control @error('rt') is-invalid @enderror" aria-labelledby="passwordHelpInline">
+                                <input type="number" required value="{{$kandidat->rt_parent}}" placeholder="maks 3 digit" pattern="[0-3]{3}" name="rt" id="rtKeluarga" class="form-control @error('rt') is-invalid @enderror" aria-labelledby="passwordHelpInline">
                                 @error('rt')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>No. RT harus berisi 3 digit</strong>
@@ -130,7 +96,7 @@
                                 <label for="" class="col-form-label">RW</label>
                             </div>
                             <div class="col-md-2">
-                                <input type="number" required value="{{$kandidat->rw_parent}}" placeholder="maks 3 digit" pattern="[0-3]{3}" name="rw" id="" class="form-control @error ('rw') is-invalid @enderror" aria-labelledby="passwordHelpInline">
+                                <input type="number" required value="{{$kandidat->rw_parent}}" placeholder="maks 3 digit" pattern="[0-3]{3}" name="rw" id="rwKeluarga" class="form-control @error ('rw') is-invalid @enderror" aria-labelledby="passwordHelpInline">
                                 @error('rw')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>No. RW harus berisi 3 digit</strong>
@@ -143,7 +109,7 @@
                                 <label for="" class="col-form-label">Jumlah Saudara Laki-laki</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="number" required value="{{$kandidat->jml_sdr_lk}}" name="jml_sdr_lk" id="" class="form-control" aria-labelledby="passwordHelpInline">
+                                <input type="number" required value="{{$kandidat->jml_sdr_lk}}" name="jml_sdr_lk" id="jmlSdrLk" class="form-control" aria-labelledby="passwordHelpInline">
                             </div>
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
@@ -151,7 +117,7 @@
                                 <label for="" class="col-form-label">Jumlah Saudara Perempuan</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="number" required value="{{$kandidat->jml_sdr_lk}}" name="jml_sdr_pr" id="" class="form-control" aria-labelledby="passwordHelpInline">
+                                <input type="number" required value="{{$kandidat->jml_sdr_lk}}" name="jml_sdr_pr" id="jmlSdrPr" class="form-control" aria-labelledby="passwordHelpInline">
                             </div>
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
@@ -159,30 +125,73 @@
                                 <label for="" class="col-form-label">Anak Ke</label>
                             </div>
                             <div class="col-md-2">
-                                <input type="number" required value="{{$kandidat->anak_ke}}" name="anak_ke" id="" class="form-control" aria-labelledby="passwordHelpInline">                                        
+                                <input type="number" required value="{{$kandidat->anak_ke}}" name="anak_ke" id="anakKe" class="form-control" aria-labelledby="passwordHelpInline">                                        
                             </div>
                         </div>
-                        {{-- <div class="row mb-3 g-3 align-items-center">
-                            <div class="col-md-4">
-                                <label for="" class="col-form-label">Apakah Anda Pernah memiliki Pengalaman Kerja?</label>
-                            </div>
-                            <div class="col-md-2">
-                                <select name="confirm" class="form-select" id="">
-                                    <option value="0">Tidak</option>
-                                    <option value="1" @if ($kandidat->nama_perusahaan1 !== null)
-                                        selected
-                                    @endif>Ya</option>
-                                </select>
-                            </div>
-                        </div> --}}
                     </div>
                     <hr>
                     {{-- <a class="btn btn-warning" href="{{route('company')}}">Lewati</a> --}}
-                    <button class="btn btn-primary float-end" type="submit">Selanjutnya</button>
+                    <button class="btn btn-primary float-end" type="submit" onclick="processing()" id="btn">Selanjutnya</button>
+                    <button type="button" class="btn btn-primary float-end mr-2" id="btnload"><div class="spinner-border text-light" role="status"></div></button>
                 </form>
             </div>
             <hr>
         </div>
     </div>
 </div>
+<script>
+    function processing() {
+        var namaAyah = document.getElementById('namaAyah').value;
+        var tmpLahirAyah = document.getElementById('tmpLahirAyah').value;
+        var ketKeadaanAyah = document.getElementById('ket_keadaan_ayah').value;
+        var tglLahirAyah = document.getElementById('ket_hidup_ayah').value;
+        var namaIbu = document.getElementById('namaIbu').value;
+        var tmpLahirIbu = document.getElementById('tmpLahirIbu').value;
+        var ketKeadaanIbu = document.getElementById('ket_keadaan_ibu').value;
+        var tglLahirIbu = document.getElementById('ket_hidup_ibu').value;
+        var provinsi = document.getElementById('provinsi').value;
+        var kota = document.getElementById('kota').value;
+        var kecamatan = document.getElementById('kecamatan').value;
+        var kelurahan = document.getElementById('kelurahan').value;
+        var dusun = document.getElementById('dusun').value;
+        var rt = document.getElementById('rtKeluarga').value;
+        var rw = document.getElementById('rwKeluarga').value;
+        var jmlSdrLk = document.getElementById('jmlSdrLk').value;
+        var jmlSdrPr = document.getElementById('jmlSdrPr').value;
+        var anakKe = document.getElementById('anakKe').value;
+        if (namaAyah !== '' &&
+            tmpLahirAyah !== '' &&
+            namaIbu !== '' &&
+            tmpLahirIbu !== '' &&
+            provinsi !== '' &&
+            kota !== '' &&
+            kecamatan !== '' &&
+            kelurahan !== '' &&
+            dusun !== '' &&
+            rt !== '' &&
+            rw !== '' &&
+            jmlSdrLk !== '' &&
+            jmlSdrPr !== '' &&
+            anakKe !== '') {
+            if (ketKeadaanAyah == "hidup") {
+                if (tglLahirAyah !== '') {
+                    var submit = document.getElementById('btn').style.display = 'none';
+                    var btnLoad = document.getElementById('btnload').style.display = 'block';
+                }
+            } else {
+                var submit = document.getElementById('btn').style.display = 'none';
+                var btnLoad = document.getElementById('btnload').style.display = 'block';
+            }
+            if (ketKeadaanIbu == "hidup") {
+                if (tglLahirIbu !== '') {
+                    var submit = document.getElementById('btn').style.display = 'none';
+                    var btnLoad = document.getElementById('btnload').style.display = 'block';       
+                }
+            } else {
+                var submit = document.getElementById('btn').style.display = 'none';
+                var btnLoad = document.getElementById('btnload').style.display = 'block';
+            }
+        }
+    }
+</script>
 @endsection
