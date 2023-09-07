@@ -751,14 +751,14 @@ class KandidatController extends Controller
             'foto_cerai' => $foto_cerai,
             'foto_kematian_pasangan' => $foto_kematian_pasangan,
         ]);
-
-        for($a = 0; $a < count($id_anak); $a++){
-            $usia = Carbon::parse($tgl_anak[$a])->age;
-            DataKeluarga::where('id_keluarga',$id_anak[$a])->update([
-                'usia' => $usia,
-            ]);
+        if($id_anak !== null){
+            for($a = 0; $a < count($id_anak); $a++){
+                $usia = Carbon::parse($tgl_anak[$a])->age;
+                DataKeluarga::where('id_keluarga',$id_anak[$a])->update([
+                    'usia' => $usia,
+                ]);
+            }
         }
-        
         return redirect('/isi_kandidat_vaksin')
         // ->with('toast_success',"Data anda tersimpan");
         ->with('success',"Data anda tersimpan");
