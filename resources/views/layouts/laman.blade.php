@@ -56,6 +56,9 @@
     display: none;
     align-content: center;
   }
+  #btnload {
+    display: none;
+  }
 </style>
 </head>
   <body>

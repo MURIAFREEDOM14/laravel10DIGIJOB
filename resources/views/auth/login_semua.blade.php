@@ -13,49 +13,50 @@
                     <form action="/login" method="POST">
                         @csrf
                         <div class="row">
-                            <div class="col-md-12">
-                              <div class="mb-3">
-                                  <label for="exampleInputPassword1">Masukkan Email</label>
-                                  <input name="email" type="email" class="form-control" value="{{old('email')}}" required id="email">
-                              </div>
-                              <div class="mb-3">
-                                  <label for="exampleInputPassword1">Masukkan Password</label>
-                                  {{-- <div class="input-group"> --}}
-                                    <input name="password" type="password" class="form-control" value="{{old('password')}}" required id="password_input">
-                                    {{-- <button type="button" class="btn btn-primary" onclick="seePassword()"><img src="/gambar/seeing.png" style="width: 15px; height:auto; color:white;" alt=""></button> --}}
-                                  {{-- </div> --}}
-                                  <div class="my-2">
-                                    <input type="checkbox" class="me-1" name="" onclick="seePassword()" id=""><span>Tampilkan Password</span>
-                                  </div>
-                              </div>
-                              <div class="row mb-3">
-                                <div class="col-md-12">
-                                  <div class="slidercaptcha card">
-                                    <div class="card-header">
-                                        <span>Kode Captcha</span>
-                                    </div>
-                                    <div class="card-body">
-                                      <div class="@error('captcha') is-invalid @enderror" id="captcha"></div>
-                                      <div class="text-center mt-5" id="confirm">
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="" id="confirm_captcha"></div>
-                                  <input type="text" name="captcha" hidden required value="" id="confirmCaptcha">
-                                </div>
-                                @error('captcha')
-                                  <span class="invalid-feedback" role="alert">
-                                      <strong>Harap isi captcha anda</strong>
-                                  </span>
-                                @enderror
-                              </div>
+                          <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1">Masukkan Email</label>
+                                <input name="email" type="email" class="form-control" value="{{old('email')}}" required id="email">
                             </div>
-                        </div>
-                        <div class=""><button type="button" class="btn btn-link mb-2" data-bs-toggle="modal" data-bs-target="#forgotPassword">Lupa Password</button></div>
-                        <div class="">Belum punya akun?
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1">Masukkan Password</label>
+                                {{-- <div class="input-group"> --}}
+                                  <input name="password" type="password" class="form-control" value="{{old('password')}}" required id="password_input">
+                                  {{-- <button type="button" class="btn btn-primary" onclick="seePassword()"><img src="/gambar/seeing.png" style="width: 15px; height:auto; color:white;" alt=""></button> --}}
+                                {{-- </div> --}}
+                                <div class="my-2">
+                                  <input type="checkbox" class="me-1" name="" onclick="seePassword()" id=""><span>Tampilkan Password</span>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                              <div class="col-md-12">
+                                <div class="slidercaptcha card">
+                                  <div class="card-header">
+                                      <span>Kode Captcha</span>
+                                  </div>
+                                  <div class="card-body">
+                                    <div class="@error('captcha') is-invalid @enderror" id="captcha"></div>
+                                    <div class="text-center mt-5" id="confirm">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="" id="confirm_captcha"></div>
+                                <input type="text" name="captcha" hidden required value="" id="confirmCaptcha">
+                              </div>
+                              @error('captcha')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>Harap isi captcha anda</strong>
+                                </span>
+                              @enderror
+                            </div>
+                          </div>
+                      </div>
+                      <div class=""><button type="button" class="btn btn-link mb-2" data-bs-toggle="modal" data-bs-target="#forgotPassword">Lupa Password</button></div>
+                      <div class="">Belum punya akun?
                         <a href="/register" class="btn btn-link mb-2" >Daftar yuk!!</a>
-                        </div>
-                        <button type="submit" class="btn btn-primary float-right mr-2" id="btn" onclick="processing()">Masuk</button>
+                      </div>
+                      <button type="submit" class="btn btn-primary float-right mr-2" id="btn" onclick="processing()">Masuk</button>
+                      <button type="button" class="btn btn-primary float-right mr-2" id="btnload"><div class="spinner-border text-light" role="status"></div></button>
                     </form> 
                 </div>
             </div>
@@ -87,8 +88,9 @@
     if (email !== '' &&
         password !== '' &&
         captcha !== '') {
-        var viewLoad = document.getElementById('viewLoad').style.display = 'block';
+        // var viewLoad = document.getElementById('viewLoad').style.display = 'block';
         var submit = document.getElementById('btn').style.display = 'none';
+        var btnLoad = document.getElementById('btnload').style.display = 'block';
     }
   }
 </script>

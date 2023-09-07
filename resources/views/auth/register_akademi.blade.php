@@ -85,6 +85,7 @@
                         <button type="submit" id="btn" disabled="true" class="btn btn-primary mt-3" onclick="processing()">
                             {{ __('Register') }}
                         </button>
+                        <button type="button" class="btn btn-primary float-right mr-2" id="btnload"><div class="spinner-border text-light" role="status"></div></button>
                     </form>
                 </div>
             </div>
@@ -124,8 +125,9 @@
             password !== '' &&
             confirm !== '' &&
             captcha !== '') {
-            var viewLoad = document.getElementById('viewLoad').style.display = 'block';
+            // var viewLoad = document.getElementById('viewLoad').style.display = 'block';
             var submit = document.getElementById('btn').style.display = 'none';
+            var btnLoad = document.getElementById('btnload').style.display = 'block';
         }
     }
 </script>
