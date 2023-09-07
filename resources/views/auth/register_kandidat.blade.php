@@ -96,6 +96,7 @@
                                         </div>
                                       </div>
                                     </div>
+                                    <div class="" id="confirm_captcha"></div>
                                     <input type="text" hidden name="captcha" value="" id="confirmCaptcha" required>
                                     @error('captcha')
                                       <span class="invalid-feedback" role="alert">
@@ -150,6 +151,11 @@
         var password = document.getElementById('password').value;
         var confirm = document.getElementById('password_confirm').value;
         var captcha = document.getElementById('confirmCaptcha').value;
+        var confirm_captcha = document.getElementById('confirm_captcha');        
+        if (captcha == '') {
+            confirm_captcha.innerHTML = "Harap selesaikan kode captcha terlebih dahulu"
+            confirm_captcha.style.color = 'red';
+        }
         if (name !== '' && 
             nik !== '' && 
             tgl !== '' && 
@@ -160,8 +166,7 @@
             confirm !== '' &&
             captcha !== '') {
             var viewLoad = document.getElementById('viewLoad').style.display = 'block';
-            const input = document.getElementsByClassName('form-control');
-            input[0].innerHTML = "Processing";
+            var submit = document.getElementById('btn').style.display = 'none';
         }
     }
 </script>
