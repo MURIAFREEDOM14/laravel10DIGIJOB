@@ -56,7 +56,19 @@
                                         <div class="col-md-4">
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#data_anak">Tambah Data</button>
                                         </div>
-                                    </div>    
+                                    </div>
+                                @else
+                                    <div class="row mb-3 g-3 align-items-center">
+                                        <div class="col-md-4">
+                                            <label for="" class="col-form-label">Apakah anda sudah memiliki anak?</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select name="" class="form-select" id="anak">
+                                                <option value="tidak">Tidak</option>
+                                                <option value="ya">Ya</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 @endif
                             </div>
                         @elseif ($kandidat->stats_nikah == "Cerai mati") 
@@ -101,6 +113,18 @@
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#data_anak">Tambah Data</button>
                                         </div>
                                     </div>    
+                                @else
+                                    <div class="row mb-3 g-3 align-items-center">
+                                        <div class="col-md-4">
+                                            <label for="" class="col-form-label">Apakah anda sudah memiliki anak?</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select name="" class="form-select" id="anak">
+                                                <option value="tidak">Tidak</option>
+                                                <option value="ya">Ya</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 @endif
                             </div>
                         @else
@@ -168,7 +192,19 @@
                                         <div class="col-md-4">
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#data_anak">Tambah Data</button>
                                         </div>
-                                    </div>    
+                                    </div>                                    
+                                @else
+                                    <div class="row mb-3 g-3 align-items-center">
+                                        <div class="col-md-4">
+                                            <label for="" class="col-form-label">Apakah anda sudah memiliki anak?</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select name="" class="form-select" id="anak">
+                                                <option value="tidak">Tidak</option>
+                                                <option value="ya">Ya</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 @endif
                             </div>
                         @endif
