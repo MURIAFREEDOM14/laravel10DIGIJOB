@@ -159,8 +159,8 @@
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Tanggal Lahir Pasangan</label>
                                 </div>
-                                <div class="col-md-2">
-                                    <input type="date" required class="form-control" name="tgl_lahir_pasangan" value="{{$kandidat->tgl_lahir_pasangan}}" id="">
+                                <div class="col-md-4">
+                                    <input type="date" required class="form-control" name="tgl_lahir_pasangan" value="{{$kandidat->tgl_lahir_pasangan}}" id="ket_hidup">
                                 </div>
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
@@ -261,4 +261,5 @@
         </div>
     </div>
 </div>
+
 @endsection

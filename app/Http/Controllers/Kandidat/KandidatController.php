@@ -893,24 +893,37 @@ class KandidatController extends Controller
             'rt' => 'required|max:3|min:3',
             'rw' => 'required|max:3|min:3',
         ]);
-        $umurAyah = Carbon::parse($request->tgl_lahir_ayah)->age;
-        $umurIbu = Carbon::parse($request->tgl_lahir_ibu)->age;
-        // dd($umur);
         $id = Auth::user();
         
         $provinsi = Provinsi::where('id',$request->provinsi_id)->first();
         $kota = Kota::where('id',$request->kota_id)->first();
         $kecamatan = Kecamatan::where('id',$request->kecamatan_id)->first();
         $kelurahan = kelurahan::where('id',$request->kelurahan_id)->first();
-        
+
+        if($request->ket_keadaan_ayah == "hidup"){
+            $tgl_lahir_ayah = $request->tgl_lahir_ayah;
+            $umurAyah = Carbon::parse($request->tgl_lahir_ayah)->age;
+        } else {
+            $tgl_lahir_ayah = null;
+            $umurAyah = null;
+        }
+
+        if($request->ket_keadaan_ibu == "hidup"){
+            $tgl_lahir_ibu = $request->tgl_lahir_ibu;
+            $umurIbu = Carbon::parse($request->tgl_lahir_ibu)->age;
+        } else {
+            $tgl_lahir_ibu = null;
+            $umurIbu = null;
+        }
+
         Kandidat::where('referral_code', $id->referral_code)->update([
             'nama_ayah' => $request->nama_ayah,
             'umur_ayah' => $umurAyah,
-            'tgl_lahir_ayah' => $request->tgl_lahir_ayah,
+            'tgl_lahir_ayah' => $tgl_lahir_ayah,
             'tmp_lahir_ayah' => $request->tmp_lahir_ayah,
             'nama_ibu' => $request->nama_ibu,
             'umur_ibu' => $umurIbu,
-            'tgl_lahir_ibu' => $request->tgl_lahir_ibu,
+            'tgl_lahir_ibu' => $tgl_lahir_ibu,
             'tmp_lahir_ibu' => $request->tmp_lahir_ibu,
             'rt_parent' => $request->rt,
             'rw_parent' => $request->rw,

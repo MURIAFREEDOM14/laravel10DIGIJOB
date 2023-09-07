@@ -83,14 +83,14 @@
             </div>
           </div>
       </nav>
-      <div class="loading align">
-        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-      </div>
       <main class="">
         <div class="container px-3">
           @yield('content')
         </div>
       </main>
+      <div class="loading align">
+        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+      </div>
       @livewireScripts
       <script src="/js/loader.js"></script>
       <script type="text/javascript">
@@ -219,6 +219,30 @@
             if (anak == "ya") {
               $('#data_anak').modal('show');
             } 
+          })
+        })
+
+        $(document).ready(function() {
+          $(document).on('change','#ket_keadaan_ayah',function() {
+            var Keterangan = $(this).val();
+            var hidup = document.getElementById('ket_hidup_ayah');
+            if (Keterangan == "hidup") {
+              hidup.style.display = 'block';
+            } else {
+              hidup.style.display = 'none';
+            }
+          })
+        })
+
+        $(document).ready(function() {
+          $(document).on('change','#ket_keadaan_ibu',function() {
+            var Keterangan = $(this).val();
+            var hidup = document.getElementById('ket_hidup_ibu');
+            if (Keterangan == "hidup") {
+              hidup.style.display = 'block';
+            } else {
+              hidup.style.display = 'none';
+            }
           })
         })
       </script>

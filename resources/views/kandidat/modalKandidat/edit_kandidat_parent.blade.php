@@ -36,7 +36,15 @@
                                 <label for="" class="col-form-label">Tanggal Lahir Ayah Kandung</label>
                             </div>
                             <div class="col-md-6">
-                                <input type="date" placeholder="Masukkan Tanggal Lahir" required value="{{$kandidat->tgl_lahir_ayah}}" name="tgl_lahir_ayah" class="form-control" id="">
+                                <select name="ket_keadaan_ayah" class="form-select mb-3" id="ket_keadaan_ayah">
+                                    <option value="hidup" @if ($kandidat->tgl_lahir_ayah !== null && $kandidat->nama_ayah !== null)
+                                        selected
+                                    @endif>Hidup</option>
+                                    <option value="meninggal" @if ($kandidat->tgl_lahir_ayah == null && $kandidat->nama_ayah !== null)
+                                        selected
+                                    @endif>Meninggal</option>
+                                </select>
+                                <input type="date" placeholder="Masukkan Tanggal Lahir" value="{{$kandidat->tgl_lahir_ayah}}" name="tgl_lahir_ayah" class="form-control" id="ket_hidup_ayah">
                             </div>
                         </div>
                         {{-- <div class="row mb-3 g-3 align-items-center">
@@ -77,7 +85,15 @@
                                 <label for="" class="col-form-label">Tanggal Lahir Ibu Kandung</label>
                             </div>
                             <div class="col-md-6">
-                                <input type="date" placeholder="Masukkan Tanggal Lahir" required value="{{$kandidat->tgl_lahir_ibu}}" name="tgl_lahir_ibu" class="form-control" id="">
+                                <select name="ket_keadaan_ibu" class="form-select mb-3" id="ket_keadaan_ibu">
+                                    <option value="hidup" @if ($kandidat->tgl_lahir_ibu !== null && $kandidat->nama_ibu !== null)
+                                        selected
+                                    @endif>Hidup</option>
+                                    <option value="meninggal" @if ($kandidat->tgl_lahir_ibu == null && $kandidat->nama_ibu !== null)
+                                        selected
+                                    @endif>Meninggal</option>
+                                </select>
+                                <input type="date" placeholder="Masukkan Tanggal Lahir" value="{{$kandidat->tgl_lahir_ibu}}" name="tgl_lahir_ibu" class="form-control" id="ket_hidup_ibu">
                             </div>
                         </div>
                         @livewire('kandidat.parent-location')

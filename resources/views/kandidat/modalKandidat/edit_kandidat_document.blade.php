@@ -282,5 +282,8 @@
                 <hr>
             </div>
         </div>
-    </div>    
+    </div>
+    <script>
+        
+    </script> 
 @endsection
