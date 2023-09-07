@@ -124,17 +124,17 @@ class RegisterController extends Controller
         }
         // Apabila password dengan password confirm tidak sama //
         if($request->password !== $request->passwordConfirm){
-            return redirect()->back()->with('error',"Maaf konfirmasi password anda salah");
+            return back()->with('error',"Maaf konfirmasi password anda salah");
         }
         // Apabila nama panggilan sudah digunakan
         foreach($data_register as $key) {
             if($key->nama_panggilan == $request->nama_panggilan){
-                return redirect()->back()->with('info',"Maaf nama panggilan ini sudah digunakan. Gunakan mana lain anda.");
+                return back()->with('info',"Maaf nama panggilan ini sudah digunakan. Gunakan mana lain anda.");
             }    
         }
         // Apabila usia pendaftar kurang dari 18 tahun //
         if($tgl < 18){
-            return redirect('/register/kandidat')->with('warning',"Maaf umur anda belum cukup, syarat umur ialah 18 thn keatas");
+            return back()->with('warning',"Maaf umur anda belum cukup, syarat umur ialah 18 thn keatas");
         }
 
         $validated = $request->validate([
