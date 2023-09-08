@@ -206,7 +206,6 @@ class PerusahaanController extends Controller
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        
         if($perusahaan->tmp_perusahaan == "Dalam negeri"){
             $cari_provinsi = Provinsi::where('id',$request->provinsi_id)->first();
             $cari_kota = Kota::where('id',$request->kota_id)->first();

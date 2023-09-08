@@ -20,7 +20,7 @@
                                         <label for="inputPassword6" class="col-form-label">Nama Akademi</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="text" value="{{$akademi->nama_akademi}}" disabled name="nama_akademi" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                        <input type="text" value="{{$akademi->nama_akademi}}" disabled name="nama_akademi" id="akademi" class="form-control" aria-labelledby="passwordHelpInline">
                                     </div>
                                 </div>
                                 <div class="row mb-3 g-3 align-items-center">
@@ -28,7 +28,7 @@
                                         <label for="inputPassword6" class="col-form-label">No. NIS</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="number" disabled value="{{$akademi->no_nis}}" name="no_nis" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                        <input type="number" disabled value="{{$akademi->no_nis}}" name="no_nis" id="NIS" class="form-control" aria-labelledby="passwordHelpInline">
                                     </div>
                                 </div>
                                 <div class="row mb-3 g-3 align-items-center">
@@ -36,7 +36,7 @@
                                         <label for="inputPassword6" class="col-form-label">No. Surat Izin </label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="number" required value="{{$akademi->no_surat_izin}}" name="no_surat_izin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                        <input type="number" required value="{{$akademi->no_surat_izin}}" name="no_surat_izin" id="suratIzin" class="form-control" aria-labelledby="passwordHelpInline">
                                     </div>
                                 </div>
                                 <div class="row mb-3 g-3 align-items-center">
@@ -44,7 +44,7 @@
                                         <label for="inputPassword6" class="col-form-label">No Telepon Akademi</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="number" required value="{{$akademi->no_telp_akademi}}" name="no_telp_akademi" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                        <input type="number" required value="{{$akademi->no_telp_akademi}}" name="no_telp_akademi" id="telp" class="form-control" aria-labelledby="passwordHelpInline">
                                     </div>
                                 </div>
                                 <div class="row mb-3 g-3 align-items-center">
@@ -52,16 +52,16 @@
                                         <label for="inputPassword6" class="col-form-label">Email</label>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="email" disabled value="{{$akademi->email}}" name="email" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
+                                        <input type="email" disabled value="{{$akademi->email}}" name="email" id="email" class="form-control" aria-labelledby="passwordHelpInline">
                                     </div>
                                 </div>
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
                                         <label for="inputPassword6" class="col-form-label">Alamat Akademi</label>
                                     </div>
-                                    <div class="col-md-8">
-                                        <textarea name="alamat_akademi" id="" class="form-control">{{$akademi->alamat_akademi}}</textarea>
-                                    </div>
+                                </div>
+                                <div class="row mb-3 g-3 align-items-center">
+                                    @livewire('akademi.location')
                                 </div>
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
@@ -69,7 +69,7 @@
                                     </div>
                                     <div class="col-md-8">
                                         @if ($akademi->foto_akademi == "")
-                                            <input type="file" required name="foto_akademi" id="inputPassword6" class="form-control @error('foto_akademi') is_invalid @enderror" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                            <input type="file" required name="foto_akademi" id="f_akademi" class="form-control @error('foto_akademi') is_invalid @enderror" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                             @error('foto_akademi')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -78,13 +78,14 @@
                                         @elseif ($akademi->foto_akademi !== null)
                                             <img src="/gambar/Akademi/{{$akademi->nama_akademi}}/Foto Akademi/{{$akademi->foto_akademi}}" width="150" height="150" alt="" class="img mb-1">
                                             <input type="file" name="foto_akademi" id="inputPassword6" class="form-control @error('foto_akademi') is_invalid @enderror" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                            <input type="text" hidden name="" value="foto_akademi" id="f_akademi">
                                             @error('foto_akademi')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
                                         @else
-                                            <input type="file" required name="foto_akademi" id="inputPassword6" class="form-control @error('foto_akademi') is_invalid @enderror" aria-labelledby="passwordHelpInline" accept="image/*">
+                                            <input type="file" required name="foto_akademi" id="f_akademi" class="form-control @error('foto_akademi') is_invalid @enderror" aria-labelledby="passwordHelpInline" accept="image/*">
                                             @error('foto_akademi')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -99,7 +100,7 @@
                                     </div>
                                     <div class="col-md-8">
                                         @if ($akademi->logo_akademi == "")
-                                            <input type="file" required name="logo_akademi" id="inputPassword6" class="form-control @error('logo_akademi') is_invalid @enderror" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                            <input type="file" required name="logo_akademi" id="l_akademi" class="form-control @error('logo_akademi') is_invalid @enderror" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                             @error('logo_akademi')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -108,13 +109,14 @@
                                         @elseif ($akademi->logo_akademi !== null)
                                             <img src="/gambar/Akademi/{{$akademi->nama_akademi}}/Logo Akademi/{{$akademi->logo_akademi}}" width="150" height="150" alt="" class="img mb-1">
                                             <input type="file" name="logo_akademi" id="inputPassword6" class="form-control @error('logo_akademi') is_invalid @enderror" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                            <input type="text" hidden value="logo_akademi" name="" id="l_akademi">
                                             @error('logo_akademi')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
                                         @else
-                                            <input type="file" required name="logo_akademi" id="inputPassword6" class="form-control @error('logo_akademi') is_invalid @enderror" aria-labelledby="passwordHelpInline" accept="image/*">
+                                            <input type="file" required name="logo_akademi" id="l_akademi" class="form-control @error('logo_akademi') is_invalid @enderror" aria-labelledby="passwordHelpInline" accept="image/*">
                                             @error('logo_akademi')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -124,7 +126,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <button class="btn btn-primary my-3 float-end" type="submit">Selanjutnya</button>
+                            <button class="btn btn-primary my-3 float-end" type="submit" onclick="processing()" id="btn">Selanjutnya</button>
+                            <button type="button" class="btn btn-primary float-end mr-2" id="btnload"><div class="spinner-border text-light" role="status"></div></button>
                         </form>
                     </div>
                     <hr>
@@ -132,4 +135,27 @@
             </div>
         </div>        
     </div>
+    <script>
+        function processing() {
+            var suratIzin = document.getElementById('suratIzin').value;
+            var telp = document.getElementById('telp').value;
+            var provinsi = document.getElementById('provinsi').value;
+            var kota = document.getElementById('kota').value;
+            var kecamatan = document.getElementById('kecamatan').value;
+            var kelurahan = document.getElementById('kelurahan').value;
+            var fakademi = document.getElementById('f_akademi').value;
+            var lakademi = document.getElementById('l_akademi').value;
+            if (suratIzin !== '' &&
+                telp !== '' &&
+                provinsi !== '' &&
+                kota !== '' &&
+                kecamatan !== '' &&
+                kelurahan !== '' &&
+                fakademi !== '' &&
+                lakademi !== '') {
+                var submit = document.getElementById('btn').style.display = 'none';
+                var btnLoad = document.getElementById('btnload').style.display = 'block';
+            }
+        }
+    </script>
 @endsection

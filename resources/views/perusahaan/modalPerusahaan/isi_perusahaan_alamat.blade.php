@@ -20,6 +20,7 @@
                         <div class="row mb-3">
                             <label for="">Alamat Perusahaan</label>
                         </div>
+                        <input type="text" hidden name="" value="{{$perusahaan->tmp_perusahaan}}" id="penempatan">
                         @if ($perusahaan->tmp_perusahaan == "Dalam negeri")
                             @livewire('company-location')                                                
                         @else
@@ -28,7 +29,7 @@
                                     <label for="">Pilih Nama Negara</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <select name="negara_id" class="form-control" required id="">
+                                    <select name="negara_id" class="form-control" required id="negara">
                                         <option value="">-- Pilih Negara --</option>
                                         @foreach ($negara as $item)
                                             <option value="{{$item->negara_id}}">{{$item->negara}}</option>
@@ -41,7 +42,7 @@
                                     <label for="">Masukkan alamat</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <textarea name="alamat" id="" class="form-control">{{$perusahaan->alamat}}</textarea>
+                                    <textarea name="alamat" id="alamat" class="form-control">{{$perusahaan->alamat}}</textarea>
                                 </div>
                             </div>
                         @endif
@@ -50,7 +51,7 @@
                                     <label for="">Email Perusahaan</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="email" disabled value="{{$perusahaan->email_perusahaan}}" class="form-control" name="email_perusahaan" id="">
+                                    <input type="email" disabled value="{{$perusahaan->email_perusahaan}}" class="form-control" name="email_perusahaan" id="email">
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -58,15 +59,45 @@
                                     <label for="">No. Telp Perusahaan</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="number" required value="{{$perusahaan->no_telp_perusahaan}}" class="form-control" name="no_telp_perusahaan" id="">
+                                    <input type="number" required value="{{$perusahaan->no_telp_perusahaan}}" class="form-control" name="no_telp_perusahaan" id="telp">
                                 </div>
                             </div>
                         <a class="btn btn-danger" href="/perusahaan/isi_perusahaan_data">Kembali</a>
-                        <button class="btn btn-primary float-end" type="submit">Simpan</button>
+                        <button class="btn btn-primary float-end" type="submit" onclick="processing()" id="btn">Simpan</button>
+                        <button type="button" class="btn btn-primary float-end mr-2" id="btnload"><div class="spinner-border text-light" role="status"></div></button>
                     </form>
                 </div>
                 <hr>
             </div>
         </div>
     </div>
+    <script>
+        function processing() {
+            var penempatan = document.getElementById('penempatan').value;
+            var telp = document.getElementById('telp').value;
+            if (penempatan == "Dalam negeri") {
+                var provinsi = document.getElementById('provinsi').value;
+                var kota = document.getElementById('kota').value;
+                var kecamatan = document.getElementById('kecamatan').value;
+                var kelurahan = document.getElementById('kelurahan').value;
+                if (provinsi !== '' &&
+                    kota !== '' &&
+                    kecamatan !== '' &&
+                    kelurahan !== '' &&
+                    telp !== '') {
+                    var submit = document.getElementById('btn').style.display = 'none';
+                    var btnLoad = document.getElementById('btnload').style.display = 'block';
+                }
+            } else {
+                var negara = document.getElementById('negara').value;
+                var alamat = document.getElementById('alamat').value;
+                if (negara !== '' &&
+                    alamat !== '' &&
+                    telp !== '') {
+                    var submit = document.getElementById('btn').style.display = 'none';
+                    var btnLoad = document.getElementById('btnload').style.display = 'block';
+                }
+            }            
+        }
+    </script>
 @endsection

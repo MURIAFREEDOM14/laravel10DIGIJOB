@@ -42,7 +42,7 @@ class AkademiController extends Controller
     {
         $id = Auth::user();
         $akademi = Akademi::where('referral_code',$id->referral_code)->first();
-        return view('akademi/isi_akademi_data',compact('akademi'));
+        return view('akademi/modalAkademi/isi_akademi_data',compact('akademi'));
     }
 
     public function simpan_akademi_data(Request $request)
@@ -99,6 +99,10 @@ class AkademiController extends Controller
         } else {
             $logos_akademi = null;
         }
+        $prov = Provinsi::where('id',$request->provinsi_id)->first();
+        $kota = Kota::where('id',$request->kota_id)->first();
+        $kec = Kecamatan::where('id',$request->kecamatan_id)->first();
+        $kel = Kelurahan::where('id',$request->kelurahan_id)->first();
 
         $akademi = Akademi::where('referral_code',$id->referral_code)->update([
             'no_surat_izin' => $request->no_surat_izin,
@@ -106,6 +110,10 @@ class AkademiController extends Controller
             'no_telp_akademi' => $request->no_telp_akademi,
             'foto_akademi' => $photo_akademi,
             'logo_akademi' => $logos_akademi,
+            'provinsi' => $prov->provinsi,
+            'kota' => $kota->kota,
+            'kecamatan' => $kec->kecamatan,
+            'kelurahan' => $kel->kelurahan,
         ]);
 
         // User::where('referral_code',$id->referral_code)->update([
@@ -122,7 +130,7 @@ class AkademiController extends Controller
     {
         $id = Auth::user();
         $akademi = Akademi::where('referral_code',$id->referral_code)->first();
-        return view('akademi/isi_akademi_operator',compact('akademi'));
+        return view('akademi/modalAkademi/isi_akademi_operator',compact('akademi'));
     }
 
     public function simpan_akademi_operator(Request $request)

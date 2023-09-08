@@ -4,7 +4,7 @@
             <label for="inputPassword6" class="col-form-label">Provinsi</label>
         </div>
         <div class="col-md-8">
-            <select wire:model="kota" required class="form-select" name="provinsi_id">
+            <select wire:model="kota" required class="form-select" name="provinsi_id" id="provinsi">
                 <option value="">-- Pilih Provinsi --</option>
                 @foreach($provinsis as $item)
                     <option value="{{ $item->id }}">{{ $item->provinsi }}</option>
@@ -18,7 +18,7 @@
             <label for="inputPassword6" class="col-form-label">Kabupaten / Kota</label>
         </div>
         <div class="col-md-8">
-            <select class="form-select" required wire:model="kecamatan" name="kota_id">
+            <select class="form-select" required wire:model="kecamatan" name="kota_id" id="kota">
                 @if (!is_null($kota))
                     <option value="">-- Pilih Kabupaten / Kota --</option>
                     @foreach($kotas as $item)
@@ -36,7 +36,7 @@
             <label for="inputPassword6" class="col-form-label">Kecamatan</label>
         </div>
         <div class="col-md-8">
-            <select class="form-select" required wire:model="kelurahan" name="kecamatan_id">
+            <select class="form-select" required wire:model="kelurahan" name="kecamatan_id" id="kecamatan">
                 @if (!is_null($kecamatan))
                     <option value="">-- Pilih Kecamatan --</option>
                     @foreach($kecamatans as $item)
@@ -54,7 +54,7 @@
             <label for="inputPassword6" class="col-form-label">Kelurahan</label>
         </div>
         <div class="col-md-8">
-            <select class="form-select" required name="kelurahan_id">
+            <select class="form-select" required name="kelurahan_id" id="kelurahan">
                 @if (!is_null($kelurahan))
                     <option value="">-- Pilih Kelurahan --</option>
                     @foreach($kelurahans as $item)
@@ -62,8 +62,7 @@
                     @endforeach
                 @else
                     <option value="">-- Harap Pilih Kecamatan Dahulu --</option>
-                @endif
-                
+                @endif                
             </select>
         </div>
     </div>
