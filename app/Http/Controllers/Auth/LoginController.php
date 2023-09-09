@@ -49,6 +49,7 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    // halaman login semua pengguna
     public function loginSemua()
     {
         return view('auth/login_semua');

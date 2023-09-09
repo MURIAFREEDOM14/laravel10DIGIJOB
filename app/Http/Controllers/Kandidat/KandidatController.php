@@ -95,6 +95,14 @@ class KandidatController extends Controller
         } else {
             $interview = null;
         }
+
+        $allMessage = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->get();
+        $total = 30;
+        if ($allMessage->count() > $total) {
+            $operator = $allMessage->count() - $total;
+            messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('id','asc')->limit($operator)->delete();
+        }
+
         User::where('referral_code',$kandidat->referral_code)->update([
             'counter' => null,
         ]);
@@ -957,11 +965,6 @@ class KandidatController extends Controller
             'pengalaman_kerja'=>$pengalaman_kerja,
             'negara'=>$negara,
         ]);
-    }
-
-    public function tambahPengalamanKerja()
-    {
-        return view('kandidat/modalKandidat/tambah_pengalaman_kerja');
     }
 
     public function simpanPengalamanKerja(Request $request)

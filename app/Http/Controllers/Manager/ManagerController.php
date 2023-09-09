@@ -48,11 +48,14 @@ use App\Models\DisnakerInfo;
 
 class ManagerController extends Controller
 {
+    //===== Manager =====//
+    // halaman login akun manager
     public function login()
     {
         return view('manager/manager_access');
     }
 
+    // authentikasi / pengecekan login
     public function authenticate(Request $request)
     {
         $this->validate($request, [
@@ -82,6 +85,7 @@ class ManagerController extends Controller
         }   
     }
 
+    // beranda manager
     public function index()
     {
         $id = Auth::user();
@@ -112,18 +116,6 @@ class ManagerController extends Controller
         $negara_tujuan = Negara::all();
         $kandidat = Kandidat::all();
 
-        // $reportNew = ReportUserIn::all();
-        // foreach($reportNew as $key) {
-        //     $total_K = ReportUserIn::where('type',0)->distinct()->count();
-        //     $total_A = ReportUserIn::where('type',1)->count();
-        //     $total_P = ReportUserIn::where('type',2)->count();
-        // }
-        // $total = array(
-        //     'data_K' => $total_K,
-        //     'data_A' => $total_A,
-        //     'data_P' => $total_P,
-        // );
-        // $json = json_encode($total);
         return view('manager/manager_home',compact(
             'manager','data','negara_tujuan','kandidat',
             'login_kandidat','total_kandidat','semua_kandidat','kandidat_baru','ttl_baru_kandidat',
@@ -136,6 +128,7 @@ class ManagerController extends Controller
         ));
     }
 
+    // halaman laporan pengguna masuk / baru
     public function laporanPengguna()
     {
         $user = Auth::user();
@@ -145,6 +138,7 @@ class ManagerController extends Controller
         return view('manager/laporan_pengguna',compact('manager','jadwalIn','jadwalNew'));
     }
 
+    // muat ulang halaman laporan pengguna
     public function perbaruiLaporanPengguna()
     {
         $user = Auth::user();
@@ -175,6 +169,355 @@ class ManagerController extends Controller
         return redirect()->route('manager')->with('success',"Data Laporan diperbarui");
     }
 
+    // halaman data pengiriman pesan lewat email
+    public function searchEmail()
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $pengguna = User::all();
+        return view('manager/email_verify',compact('manager','pengguna'));        
+    }
+
+    // halaman pengiriman pesan email dengan tujuan
+    public function emailVerify($id)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $pengguna = User::where('id',$id)->first();
+        return view('manager/send_email',compact('manager','pengguna'));
+    }    
+
+    // proses pengiriman email kepada para pengguna aplikasi (kecuali manager)
+    public function sendEmailVerify(Request $request, $id)
+    {
+        $pengguna = User::where('email',$request->email)->first();
+        if($request->type == 0){
+            if($pengguna->type == 2){
+                Mail::mailer('verification')->to($request->email)->send(new Verification($pengguna->name_perusahaan, $pengguna->token, 'Email Verifikasi', 'no-reply@ugiport.com'));
+            } elseif($pengguna->type == 1) {
+                Mail::mailer('verification')->to($request->email)->send(new Verification($pengguna->name_akademi, $pengguna->token, 'Email Verifikasi', 'no-reply@ugiport.com'));
+            } elseif($pengguna->type == 0) {
+                Mail::mailer('verification')->to($request->email)->send(new Verification($pengguna->name, $pengguna->token, 'Email Verifikasi','no-reply@ugiport.com'));
+            }
+        } elseif($request->type == 1) {
+            $namarec = "PT HARAPAN MENTARI PAGI";
+            $bank = "PT Bank Central Asia Tbk";
+            $nomorec = 4399997272;
+            $payment = 0;
+            $token = $pengguna->token;
+            if($pengguna->type == 2){
+                Mail::mailer('payment')->to($request->email)->send(new Payment($pengguna->name_perusahaan, $token, $payment, 'Pembayaran Interview', 'digijobaccounting@ugiport.com', $namarec, $nomorec, $bank));
+            } else {
+                Mail::mailer('payment')->to($request->email)->send(new Payment($pengguna->name, $token, $payment, 'Pembayaran Akun Prioritas', 'digijobaccounting@ugiport.com', $namarec, $nomorec, $bank));
+            }
+        } elseif($request->type == 2) {
+            $alamat = $pengguna->kabupaten;
+        }
+        return redirect('/manager/search_email')->with('success',"Email Terkirim");
+    }
+
+    // halaman data disnaker
+    public function disnakerList()
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $disnaker = DisnakerInfo::all();
+        $prov = Provinsi::all();
+        return view('manager/disnaker_list',compact('manager','disnaker','prov'));
+    }
+
+    // proses simpan data disnaker
+    public function simpanDisnaker(Request $request)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $kabupaten = Kota::where('id',$request->kota)->first();
+        DisnakerInfo::create([
+            'nama_disnaker' => $request->nama,
+            'email_disnaker' => $request->email,
+            'alamat_disnaker' => $kabupaten->kota,
+            'kabupaten_id' => $kabupaten->id,
+            'provinsi_id' => $request->provinsi
+        ]);  
+        return redirect('/manager/disnaker_list')->with('success',"Data tersimpan");      
+    }
+
+    // hapus data disnaker
+    public function hapusDisnaker($id)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        DisnakerInfo::where('disnaker_id',$id)->delete();
+        return redirect('manager/disnaker_list')->with('success',"Data dihapus");
+    }
+
+    //===== KANDIDAT ===== //
+    // halaman lihat profil kandidat
+    public function lihatProfilKandidat($id)
+    {
+        $manager = Auth::user();
+        $negara = Negara::join(
+            'kandidat','ref_negara.negara_id','=','kandidat.negara_id'
+        )->first();
+        $kandidat = Kandidat::where('id_kandidat',$id)->first();
+        $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
+        $usia = Carbon::parse($kandidat->tgl_lahir)->age;
+        $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$id)->get();
+        if($kandidat->negara_id == null){
+            Kandidat::where('id_kandidat',$id)->update([
+                'penempatan' => "dalam negeri",
+                'negara_id' => 2,
+            ]);
+        }
+        return view('manager/kandidat/lihat_profil',compact(
+            'kandidat',
+            'negara',
+            'tgl_user',
+            'usia',
+            'manager',
+            'pengalaman_kerja',
+        ));
+    }
+
+    // halaman galeri kandidat
+    public function galeriKandidat($id)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
+        $video = VideoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->get();
+        $foto = FotoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->get();
+        return view('manager/kandidat/galeri_kandidat',compact('manager','pengalaman','foto','video'));
+    }
+
+    // halaman lihat galeri kandidat
+    public function lihatGaleriKandidat($id, $type)
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        if($type == "video"){
+            $video = VideoKerja::where('video_kerja_id',$id)->first();
+            $video_pengalaman = VideoKerja::where('pengalaman_kerja_id',$video->pengalaman_kerja_id)->get();
+            $foto_pengalaman = FotoKerja::where('pengalaman_kerja_id',$video->pengalaman_kerja_id)->get();
+            $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$video->pengalaman_kerja_id)->first();
+            return view('manager/kandidat/lihat_galeri_kandidat',compact('manager','type','id','video_pengalaman','video','foto_pengalaman','pengalaman'));
+        } elseif($type == "foto") {
+            $foto = FotoKerja::where('foto_kerja_id',$id)->first();
+            $foto_pengalaman = FotoKerja::where('pengalaman_kerja_id',$foto->pengalaman_kerja_id)->get();
+            $video_pengalaman = VideoKerja::where('pengalaman_kerja_id',$foto->pengalaman_kerja_id)->get();
+            $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$foto->pengalaman_kerja_id)->first();
+            return view('manager/kandidat/lihat_galeri_kandidat',compact('manager','type','id','foto_pengalaman','foto','video_pengalaman','pengalaman'));
+        }
+    }
+
+    // halaman video pelatihan untuk kandidat
+    public function pelatihan()
+    {
+        $auth = Auth::user();
+        $manager = User::where('referral_code',$auth->referral_code)->first();      
+        $pelatihan = TemaPelatihan::all();
+        return view('manager/kandidat/pelatihan',compact('manager','pelatihan'));
+    }
+
+    // proses simpan tema video pelatihan
+    public function simpanTemaPelatihan(Request $request)
+    {
+        $auth = Auth::user();
+        $manager = User::where('referral_code',$auth->referral_code)->first();        
+        TemaPelatihan::create([
+            'tema_pelatihan' => $request->tema,
+        ]);
+        return redirect('/manager/kandidat/pelatihan')->with('success',"Tema pelatihan ditambahkan");
+    }
+
+    // halaman video pelatihan
+    public function lihatVideoPelatihan($id)
+    {
+        $auth = Auth::user();
+        $manager = User::where('referral_code',$auth->referral_code)->first();        
+        $pelatihan = TemaPelatihan::where('tema_pelatihan_id',$id)->first();
+        $video = Pelatihan::where('tema',$pelatihan->tema_pelatihan)->get();
+        return view('manager/kandidat/video_pelatihan',compact('manager','pelatihan','video'));
+    }
+
+    // halaman edit tema pelatihan
+    public function editTemaPelatihan($id)
+    {
+        $auth = Auth::user();
+        $manager = User::where('referral_code',$auth->referral_code)->first();
+        $pelatihan = TemaPelatihan::where('tema_pelatihan_id',$id)->first();
+        $video = Pelatihan::where('tema',$pelatihan->tema_pelatihan)->get();
+        return view('manager/kandidat/edit_tema_pelatihan',compact('manager','pelatihan','video'));
+    }
+
+    // proses ubah / edit tema pelatihan
+    public function updateTemaPelatihan(Request $request,$id)
+    {
+        $auth = Auth::user();
+        $manager = User::where('referral_code',$auth->referral_code)->first();
+        TemaPelatihan::where('tema_pelatihan_id',$id)->update([
+            'tema_pelatihan'=>$request->tema,
+        ]);
+        Pelatihan::where('tema_pelatihan_id',$id)->update([
+            'tema_pelatihan_id'=>$id,
+            'tema'=>$request->tema,
+        ]);
+        return redirect('/manager/kandidat/pelatihan')->with('success',"Tema berhasil diubah");
+    }
+
+    // hapus data tema pelatihan
+    public function hapusTemaPelatihan($id)
+    {
+        $hapus = Pelatihan::where('tema_pelatihan_id',$id)->first();
+        $file = public_path('/gambar/Manager/Pelatihan/'.$hapus->judul.'/Thumbnail/').$hapus->thumbnail;
+        if(file_exists($file)){
+            @unlink($file);
+        }
+        $hapus_video = public_path('/gambar/Manager/Pelatihan/'.$hapus->judul.'/Video/').$hapus->video;
+            if(file_exists($hapus_video)){
+                @unlink($hapus_video);
+            }
+        $auth = Auth::user();
+        $manager = User::where('referral_code',$auth->referral_code)->first();
+        TemaPelatihan::where('tema_pelatihan_id',$id)->delete();
+        Pelatihan::where('tema_pelatihan_id',$id)->delete();
+        return redirect('/manager/kandidat/pelatihan')->with('success',"Tema berhasil dihapus");
+    }
+
+    // halaman tambah video pelatihan
+    public function tambahVideoPelatihan($tema,$id)
+    {
+        $auth = Auth::user();
+        $manager = User::where('referral_code',$auth->referral_code)->first();
+        $negara = Negara::all();
+        $pelatihan = TemaPelatihan::where('tema_pelatihan',$tema)->where('tema_pelatihan_id',$id)->first();
+        return view('manager/kandidat/tambah_pelatihan',compact('manager','negara','pelatihan'));
+    }
+
+    // proses simpan video pelatihan
+    public function simpanVideoPelatihan(Request $request,$tema,$id)
+    {
+        $auth = Auth::user();
+        $manager = User::where('referral_code',$auth->referral_code)->first();
+        
+        // THUMBNAIL //
+        if($request->file('thumbnail') !== null){
+            $thumbnail = $request->judul.time().'.'.$request->thumbnail->extension();  
+            $request->thumbnail->move(public_path('/gambar/Manager/Pelatihan/'.$request->judul.'/Thumbnail/'), $thumbnail);
+        } else {
+            $thumbnail = null;
+        }
+
+        // VIDEO PELATIHAN //
+        $validated = $request->validate([
+            'video' => 'mimes:mp4,mov,ogg,qt',
+        ]);
+        $video = $request->file('video');
+        $video->move('gambar/Manager/Pelatihan/'.$request->judul.'/Video/',$request->judul.$video->getClientOriginalName());
+        $simpanVideo = $request->judul.$video->getClientOriginalName();
+        
+        Pelatihan::create([
+            'judul'=>$request->judul,
+            'video'=>$simpanVideo,
+            'deskripsi'=>$request->deskripsi,
+            'thumbnail'=>$thumbnail,
+            'url'=>$request->url,
+            'negara_id'=>$request->negara_id,
+            'tema'=>$tema,
+            'tema_pelatihan_id'=>$id,
+        ]);
+        return redirect('/manager/kandidat/lihat_video_pelatihan/'.$id);
+    }
+
+    // halaman edit video pelatihan
+    public function editVideoPelatihan($tema,$id)
+    {
+        $auth = Auth::user();
+        $manager = User::where('referral_code',$auth->referral_code)->first();
+        $pelatihan = Pelatihan::where('tema',$tema)->where('id',$id)->first();
+        $negara = Negara::all();
+        return view('manager/kandidat/edit_pelatihan',compact('pelatihan','manager','negara'));
+    }
+
+    // proses edit / ubah video pelatihan
+    public function updateVideoPelatihan(Request $request,$tema,$id)
+    {
+        $auth = Auth::user();
+        $manager = User::where('referral_code',$auth->referral_code)->first();
+        $pelatihan = Pelatihan::where('tema',$tema)->where('id',$id)->first();
+        
+        // THUMBNAIL //
+        if ($request->file('thumbnail') !== null) {    
+            $hapus_thumbnail = public_path('/gambar/Manager/Pelatihan/'.$pelatihan->judul.'/Thumbnail/').$pelatihan->thumbnail;
+            if(file_exists($hapus_thumbnail)){
+                @unlink($hapus_thumbnail);
+            }
+            $thumbnail = $request->judul.time().'.'.$request->thumbnail->extension();  
+            $request->thumbnail->move(public_path('/gambar/Manager/Pelatihan/'.$request->judul.'/Thumbnail/'), $thumbnail);
+        } else {
+            if ($pelatihan->thumbnail !== null) {
+                $thumbnail = $pelatihan->thumbnail;
+            } else {
+                $thumbnail = null;
+            }
+        }
+
+        // VIDEO PELATIHAN //
+        if($request->file('video') !== null){
+            $validated = $request->validate([
+                'video' => 'mimes:mp4,mov,ogg,qt | max:3000',
+            ]);
+            $hapus_video = public_path('/gambar/Manager/Pelatihan/'.$pelatihan->judul.'/Video/').$pelatihan->video;
+            if(file_exists($hapus_video)){
+                @unlink($hapus_video);
+            }
+            $video = $request->file('video');
+            $video->move('gambar/Manager/Pelatihan/'.$request->judul.'/Video/',$request->judul.time().'.'.$video->getClientOriginalName());
+            $simpan_video = $request->judul.time().'.'.$video->getClientOriginalName();
+        } else {
+            if($pelatihan->video !== null){
+                $simpan_video = $pelatihan->video;
+            } else {
+                $simpan_video = null;
+            }
+        }
+        
+        // Cek thumbnail //
+        if($thumbnail !== null){
+            $thumbnailPelatihan = $thumbnail;
+        } else {
+            $thumbnailPelatihan = null;
+        }
+        // Cek video //
+        if($simpan_video !== null){
+            $videoPelatihan = $simpan_video;
+        } else {
+            $videoPelatihan = null;
+        }
+        Pelatihan::where('id',$id)->update([
+            'judul'=>$request->judul,
+            'video'=>$videoPelatihan,
+            'deskripsi'=>$request->deskripsi,
+            'thumbnail'=>$thumbnailPelatihan,
+            'url'=>$request->url,
+            'negara_id'=>$request->negara_id,
+        ]);
+        return redirect('/manager/kandidat/pelatihan');
+    }
+
+    // hapus data video pelatihan
+    public function hapusVideoPelatihan($temaid,$id)
+    {
+        $hapus = Pelatihan::findorfail($id);
+        $file = public_path('/gambar/Manager/Pelatihan/'.$hapus->judul.'/Thumbnail/').$hapus->thumbnail;
+        if(file_exists($file)){
+            @unlink($file);
+        }
+        Pelatihan::where('id',$id)->delete();
+        return redirect('/manager/kandidat/lihat_video_pelatihan/'.$temaid);
+    }
+
+    // halaman surat izin / list surat izin
     public function suratIzin()
     {
         $id = Auth::user();
@@ -183,6 +526,7 @@ class ManagerController extends Controller
         return view('/manager/kandidat/surat_izin',compact('manager','suratIzin'));
     }
 
+    // halaman buat surat izin
     public function buatSuratIzin()
     {
         $id = Auth::user();
@@ -191,6 +535,7 @@ class ManagerController extends Controller
         return view('manager/kandidat/buat_surat_izin',compact('manager','negara'));
     }
 
+    // proses pembuatan surat izin + pembuatan data kandidat dalam aplikasi
     public function simpanSuratIzin(Request $request)
     {
         $validated = $request->validate([
@@ -198,7 +543,6 @@ class ManagerController extends Controller
             'nik' => 'unique:kandidat',
             'email' => 'unique:users',
         ]);
-        // dd($request);
         $provinsi = Provinsi::where('id',$request->provinsi_id)->first('provinsi');
         $kota = Kota::where('id',$request->kota_id)->first();
         $kecamatan = Kecamatan::where('id',$request->kecamatan_id)->first();
@@ -269,19 +613,10 @@ class ManagerController extends Controller
             'negara_perizin'=>"Indonesia",
             'penempatan'=>$penempatan,
         ]);
-
-        // dd($kandidat);
-        // $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->first();
-        // if($pengalaman_kerja == null){
-        //     PengalamanKerja::create([
-        //         'id_kandidat' => $kandidat->id_kandidat,
-        //         'pengalaman_kerja'=>"",
-        //         'lama_kerja'=>"",
-        //     ]);
-        // }
         return redirect('/manager/surat_izin')->with('success', 'Data berhasil ditambahkan');
     }
 
+    // halaman cetak surat izin
     public function cetakSurat($id)
     {
         $kandidat = Kandidat::where('id_kandidat',$id)->first();
@@ -305,81 +640,38 @@ class ManagerController extends Controller
         ));
     }
 
+    // cetak surat izin kosong
     public function cetakSuratKosong()
     {
         
         $tgl_print = Carbon::now()->isoFormat('D MMM Y');
-        // $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
-        // $tgl_perizin = Carbon::create($kandidat->tgl_lahir_perizin)->isoFormat('D MMM Y');
         return view('manager/kandidat/surat_izin_waris', compact(
-            // 'kandidat',
             'tgl_print',
-            // 'tgl_user',
-            // 'tgl_perizin',
         ));
     }
 
-    public function barcode()
+    //===== AKADEMI ===== //
+    // halaman data akademi
+    public function akademi()
     {
-        return view('barcode');
+        $id = Auth::user();
+        $manager = User::where('referral_code',$id->referral_code)->where('type',3)->first();
+        $akademi = Akademi::all();
+        return view('manager/akademi/list_akademi',compact('manager','akademi'));
     }
 
-    public function lihatProfil($id)
-    {
-        $manager = Auth::user();
-        $negara = Negara::join(
-            'kandidat','ref_negara.negara_id','=','kandidat.negara_id'
-        )->first();
-        $kandidat = Kandidat::where('id_kandidat',$id)->first();
-        $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
-        $usia = Carbon::parse($kandidat->tgl_lahir)->age;
-        $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$id)->get();
-        if($kandidat->negara_id == null){
-            Kandidat::where('id_kandidat',$id)->update([
-                'penempatan' => "dalam negeri",
-                'negara_id' => 2,
-            ]);
-        }
-        return view('manager/kandidat/lihat_profil',compact(
-            'kandidat',
-            'negara',
-            'tgl_user',
-            'usia',
-            'manager',
-            'pengalaman_kerja',
-        ));
-    }
-
-    public function galeriKandidat($id)
+    // halaman lihat profil akademi
+    public function lihatProfilAkademi($id)
     {
         $user = Auth::user();
         $manager = User::where('referral_code',$user->referral_code)->first();
-        $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
-        $video = VideoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->get();
-        $foto = FotoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->get();
-        return view('manager/kandidat/galeri_kandidat',compact('manager','pengalaman','foto','video'));
+        $akademi = Akademi::where('id_akademi',$id)->first();
+        $kandidat = Kandidat::where('id_akademi',$akademi->id_akademi)->get();
+        return view('manager/akademi/lihat_profil_akademi',compact('akademi','manager','kandidat'));
     }
 
-    public function lihatGaleriKandidat($id, $type)
-    {
-        $user = Auth::user();
-        $manager = User::where('referral_code',$user->referral_code)->first();
-        if($type == "video"){
-            $video = VideoKerja::where('video_kerja_id',$id)->first();
-            $video_pengalaman = VideoKerja::where('pengalaman_kerja_id',$video->pengalaman_kerja_id)->get();
-            $foto_pengalaman = FotoKerja::where('pengalaman_kerja_id',$video->pengalaman_kerja_id)->get();
-            $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$video->pengalaman_kerja_id)->first();
-            return view('manager/kandidat/lihat_galeri_kandidat',compact('manager','type','id','video_pengalaman','video','foto_pengalaman','pengalaman'));
-        } elseif($type == "foto") {
-            $foto = FotoKerja::where('foto_kerja_id',$id)->first();
-            $foto_pengalaman = FotoKerja::where('pengalaman_kerja_id',$foto->pengalaman_kerja_id)->get();
-            $video_pengalaman = VideoKerja::where('pengalaman_kerja_id',$foto->pengalaman_kerja_id)->get();
-            $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$foto->pengalaman_kerja_id)->first();
-            return view('manager/kandidat/lihat_galeri_kandidat',compact('manager','type','id','foto_pengalaman','foto','video_pengalaman','pengalaman'));
-        }
-    }
-
-    // Perusahaan Data //
+    //===== Perusahaan =====//
+    // halaman data perusahaan
     public function perusahaan()
     {
         $id = Auth::user();
@@ -388,6 +680,7 @@ class ManagerController extends Controller
         return view('manager/perusahaan/list_perusahaan',compact('manager','perusahaan'));
     }
 
+    // halaman lihat profil perusahaan
     public function lihatProfilPerusahaan($id)
     {
         $user = Auth::user();
@@ -398,6 +691,7 @@ class ManagerController extends Controller
         return view('manager/perusahaan/lihat_profil_perusahaan',compact('perusahaan','manager','lowongan','kandidat'));
     }
 
+    // halaman lihat lowongan dari perusahaan + kandidat di dalamnya
     public function lihatLowonganPekerjaan($id)
     {
         $user = Auth::user();
@@ -407,6 +701,7 @@ class ManagerController extends Controller
         return view('manager/perusahaan/lihat_lowongan',compact('lowongan','manager','perusahaan'));
     }
 
+    // halaman data list PMI ID
     public function IDPMI()
     {
         $user = Auth::user();
@@ -422,6 +717,7 @@ class ManagerController extends Controller
         return view('manager/perusahaan/listIDPMI',compact('manager','kandidat','id_kandidat','pmi_id'));
     }
 
+    // halaman pembuatan surat PMI ID
     public function buatIDPMI(Request $request)
     {
         $user = Auth::user();
@@ -440,6 +736,7 @@ class ManagerController extends Controller
         return view('manager/perusahaan/listIDPMI',compact('manager','kandidat','id_kandidat','tgl','negara','perusahaan','pmi_id'));
     }
 
+    // proses simpan data PMI ID
     public function simpanIDPMI(Request $request)
     {
         // $perusahaan
@@ -463,6 +760,7 @@ class ManagerController extends Controller
         return redirect('/manager/perusahaan/pembuatan_id_pmi');
     }
 
+    // halaman lihat data PMI ID
     public function lihatIDPMI($id)
     {
         $user = Auth::user();
@@ -478,482 +776,5 @@ class ManagerController extends Controller
         $berlaku = Carbon::create($pmi_id->berlaku)->isoformat('d MMM Y');
         $habis_berlaku = Carbon::create($pmi_id->habis_berlaku)->isoformat('d MMM Y');
         return view('manager/perusahaan/lihat_PMIID',compact('manager','pmi_id','berlaku','habis_berlaku'));
-    }
-
-    // Akademi Data //
-    public function akademi()
-    {
-        $id = Auth::user();
-        $manager = User::where('referral_code',$id->referral_code)->where('type',3)->first();
-        $akademi = Akademi::all();
-        return view('manager/akademi/list_akademi',compact('manager','akademi'));
-    }
-
-    public function lihatProfilAkademi($id)
-    {
-        $user = Auth::user();
-        $manager = User::where('referral_code',$user->referral_code)->first();
-        $akademi = Akademi::where('id_akademi',$id)->first();
-        $kandidat = Kandidat::where('id_akademi',$akademi->id_akademi)->get();
-        return view('manager/akademi/lihat_profil_akademi',compact('akademi','manager','kandidat'));
-    }
-
-    public function pelatihan()
-    {
-        $auth = Auth::user();
-        $manager = User::where('referral_code',$auth->referral_code)->first();      
-        $pelatihan = TemaPelatihan::all();
-        return view('manager/kandidat/pelatihan',compact('manager','pelatihan'));
-    }
-
-    public function tambahTemaPelatihan()
-    {
-        $auth = Auth::user();
-        $manager = User::where('referral_code',$auth->referral_code)->first();
-        return view('manager/kandidat/tambah_tema_pelatihan',compact('manager'));
-    }
-
-    public function simpanTemaPelatihan(Request $request)
-    {
-        $auth = Auth::user();
-        $manager = User::where('referral_code',$auth->referral_code)->first();        
-        TemaPelatihan::create([
-            'tema_pelatihan' => $request->tema,
-        ]);
-        return redirect('/manager/kandidat/pelatihan')->with('success',"Tema pelatihan ditambahkan");
-    }
-
-    public function lihatVideoPelatihan($id)
-    {
-        $auth = Auth::user();
-        $manager = User::where('referral_code',$auth->referral_code)->first();        
-        $pelatihan = TemaPelatihan::where('tema_pelatihan_id',$id)->first();
-        $video = Pelatihan::where('tema',$pelatihan->tema_pelatihan)->get();
-        return view('manager/kandidat/video_pelatihan',compact('manager','pelatihan','video'));
-    }
-
-    public function editTemaPelatihan($id)
-    {
-        $auth = Auth::user();
-        $manager = User::where('referral_code',$auth->referral_code)->first();
-        $pelatihan = TemaPelatihan::where('tema_pelatihan_id',$id)->first();
-        $video = Pelatihan::where('tema',$pelatihan->tema_pelatihan)->get();
-        return view('manager/kandidat/edit_tema_pelatihan',compact('manager','pelatihan','video'));
-    }
-
-    public function updateTemaPelatihan(Request $request,$id)
-    {
-        $auth = Auth::user();
-        $manager = User::where('referral_code',$auth->referral_code)->first();
-        TemaPelatihan::where('tema_pelatihan_id',$id)->update([
-            'tema_pelatihan'=>$request->tema,
-        ]);
-        Pelatihan::where('tema_pelatihan_id',$id)->update([
-            'tema_pelatihan_id'=>$id,
-            'tema'=>$request->tema,
-        ]);
-        return redirect('/manager/kandidat/pelatihan')->with('success',"Tema berhasil diubah");
-    }
-
-    public function hapusTemaPelatihan($id)
-    {
-        $hapus = Pelatihan::where('tema_pelatihan_id',$id)->first();
-        $file = public_path('/gambar/Manager/Pelatihan/'.$hapus->judul.'/Thumbnail/').$hapus->thumbnail;
-        if(file_exists($file)){
-            @unlink($file);
-        }
-        $hapus_video = public_path('/gambar/Manager/Pelatihan/'.$hapus->judul.'/Video/').$hapus->video;
-            if(file_exists($hapus_video)){
-                @unlink($hapus_video);
-            }
-        $auth = Auth::user();
-        $manager = User::where('referral_code',$auth->referral_code)->first();
-        TemaPelatihan::where('tema_pelatihan_id',$id)->delete();
-        Pelatihan::where('tema_pelatihan_id',$id)->delete();
-        return redirect('/manager/kandidat/pelatihan')->with('success',"Tema berhasil dihapus");
-    }
-
-    public function tambahVideoPelatihan($tema,$id)
-    {
-        $auth = Auth::user();
-        $manager = User::where('referral_code',$auth->referral_code)->first();
-        $negara = Negara::all();
-        $pelatihan = TemaPelatihan::where('tema_pelatihan',$tema)->where('tema_pelatihan_id',$id)->first();
-        return view('manager/kandidat/tambah_pelatihan',compact('manager','negara','pelatihan'));
-    }
-
-    public function simpanVideoPelatihan(Request $request,$tema,$id)
-    {
-        $auth = Auth::user();
-        $manager = User::where('referral_code',$auth->referral_code)->first();
-        
-        // THUMBNAIL //
-        if($request->file('thumbnail') !== null){
-            $thumbnail = $request->judul.time().'.'.$request->thumbnail->extension();  
-            $request->thumbnail->move(public_path('/gambar/Manager/Pelatihan/'.$request->judul.'/Thumbnail/'), $thumbnail);
-        } else {
-            $thumbnail = null;
-        }
-
-        // VIDEO PELATIHAN //
-        $validated = $request->validate([
-            'video' => 'mimes:mp4,mov,ogg,qt',
-        ]);
-        $video = $request->file('video');
-        $video->move('gambar/Manager/Pelatihan/'.$request->judul.'/Video/',$request->judul.$video->getClientOriginalName());
-        $simpanVideo = $request->judul.$video->getClientOriginalName();
-        
-        Pelatihan::create([
-            'judul'=>$request->judul,
-            'video'=>$simpanVideo,
-            'deskripsi'=>$request->deskripsi,
-            'thumbnail'=>$thumbnail,
-            'url'=>$request->url,
-            'negara_id'=>$request->negara_id,
-            'tema'=>$tema,
-            'tema_pelatihan_id'=>$id,
-        ]);
-        return redirect('/manager/kandidat/lihat_video_pelatihan/'.$id);
-    }
-
-    public function editVideoPelatihan($tema,$id)
-    {
-        $auth = Auth::user();
-        $manager = User::where('referral_code',$auth->referral_code)->first();
-        $pelatihan = Pelatihan::where('tema',$tema)->where('id',$id)->first();
-        $negara = Negara::all();
-        return view('manager/kandidat/edit_pelatihan',compact('pelatihan','manager','negara'));
-    }
-
-    public function updateVideoPelatihan(Request $request,$tema,$id)
-    {
-        $auth = Auth::user();
-        $manager = User::where('referral_code',$auth->referral_code)->first();
-        $pelatihan = Pelatihan::where('tema',$tema)->where('id',$id)->first();
-        
-        // THUMBNAIL //
-        if ($request->file('thumbnail') !== null) {    
-            $hapus_thumbnail = public_path('/gambar/Manager/Pelatihan/'.$pelatihan->judul.'/Thumbnail/').$pelatihan->thumbnail;
-            if(file_exists($hapus_thumbnail)){
-                @unlink($hapus_thumbnail);
-            }
-            $thumbnail = $request->judul.time().'.'.$request->thumbnail->extension();  
-            $request->thumbnail->move(public_path('/gambar/Manager/Pelatihan/'.$request->judul.'/Thumbnail/'), $thumbnail);
-        } else {
-            if ($pelatihan->thumbnail !== null) {
-                $thumbnail = $pelatihan->thumbnail;
-            } else {
-                $thumbnail = null;
-            }
-        }
-
-        // VIDEO PELATIHAN //
-        if($request->file('video') !== null){
-            $validated = $request->validate([
-                'video' => 'mimes:mp4,mov,ogg,qt | max:3000',
-            ]);
-            $hapus_video = public_path('/gambar/Manager/Pelatihan/'.$pelatihan->judul.'/Video/').$pelatihan->video;
-            if(file_exists($hapus_video)){
-                @unlink($hapus_video);
-            }
-            $video = $request->file('video');
-            $video->move('gambar/Manager/Pelatihan/'.$request->judul.'/Video/',$request->judul.time().'.'.$video->getClientOriginalName());
-            $simpan_video = $request->judul.time().'.'.$video->getClientOriginalName();
-        } else {
-            if($pelatihan->video !== null){
-                $simpan_video = $pelatihan->video;
-            } else {
-                $simpan_video = null;
-            }
-        }
-        
-        // Cek thumbnail //
-        if($thumbnail !== null){
-            $thumbnailPelatihan = $thumbnail;
-        } else {
-            $thumbnailPelatihan = null;
-        }
-        // Cek video //
-        if($simpan_video !== null){
-            $videoPelatihan = $simpan_video;
-        } else {
-            $videoPelatihan = null;
-        }
-        Pelatihan::where('id',$id)->update([
-            'judul'=>$request->judul,
-            'video'=>$videoPelatihan,
-            'deskripsi'=>$request->deskripsi,
-            'thumbnail'=>$thumbnailPelatihan,
-            'url'=>$request->url,
-            'negara_id'=>$request->negara_id,
-        ]);
-        return redirect('/manager/kandidat/pelatihan');
-    }
-
-    public function hapusVideoPelatihan($temaid,$id)
-    {
-        $hapus = Pelatihan::findorfail($id);
-        $file = public_path('/gambar/Manager/Pelatihan/'.$hapus->judul.'/Thumbnail/').$hapus->thumbnail;
-        if(file_exists($file)){
-            @unlink($file);
-        }
-        Pelatihan::where('id',$id)->delete();
-        return redirect('/manager/kandidat/lihat_video_pelatihan/'.$temaid);
-    }
-
-    public function permohonanStaff()
-    {
-        $id = Auth::user();
-        $manager = User::where('type',3)->first();
-        $permohonan = PencarianStaff::join(
-            'perusahaan', 'pencarian_staff.id_perusahaan','=','perusahaan.id_perusahaan',
-        )->get();
-        return view('manager/kandidat/permohonan_staff',compact('manager','permohonan'));
-    }
-
-    public function lihatPermohonanStaff($id)
-    {
-        $user = Auth::user();
-        $manager = User::where('type',3)->first();
-        $permohonan = PencarianStaff::where('pencarian_staff_id',$id)->first();
-        $staff = Kandidat::where('penempatan','like',"dalam negeri")->get();
-        return view('manager/kandidat/lihat_permohonan_staff',compact('manager','permohonan','staff'));
-    }
-
-    public function simpanPermohonanStaff($id)
-    {
-        $kandidat = Kandidat::where('id_kandidat',$id)->first();
-        dd($kandidat);
-        return redirect('/perusahaan/permohonan_pencarian_staff')->with('success',"Staff Terkirim");
-    }
-
-    public function pilihPermohonanStaff()
-    {
-        return view();
-    }
-
-    public function kirimPermohonanStaff()
-    {
-        return redirect();
-    }
-    
-    // Pembayaran Data //
-    public function pembayaranKandidat()
-    {
-        $id = Auth::user();
-        $manager = User::where('referral_code',$id->referral_code)->first();
-        $pembayaran = Pembayaran::join(
-            'kandidat','pembayaran.id_kandidat','=','kandidat.id_kandidat'
-        )
-        ->where('stats_pembayaran',"belum dibayar")->get();
-        return view('manager/kandidat/pembayaran',compact('manager','pembayaran'));
-    }
-
-    public function cekPembayaranKandidat($id){
-        $manager = Auth::user();
-        $pembayaran = Pembayaran::where('id_pembayaran',$id)->first();
-        return view('manager/kandidat/cek_pembayaran',compact('manager','pembayaran'));
-    }
-
-    public function cekConfirmKandidat($id)
-    {
-        Pembayaran::where('id_pembayaran',$id)->update([
-            'stats_pembayaran'=>"sudah dibayar"
-        ]);
-        return redirect('manager/pembayaran/kandidat');
-    }
-
-    public function pembayaranPerusahaan()
-    {
-        $id = Auth::user();
-        $manager = User::where('referral_code',$id->referral_code)->first();
-        $pembayaran = Pembayaran::join(
-            'perusahaan', 'pembayaran.id_perusahaan','=','perusahaan.id_perusahaan'
-        )
-        ->where('pembayaran.stats_pembayaran',"belum dibayar")->get();
-        return view('manager/perusahaan/pembayaran',compact('manager','pembayaran'));
-    }
-
-    public function cekPembayaranPerusahaan($id)
-    {
-        $auth = Auth::user();
-        $manager = User::where('referral_code',$auth->referral_code)->first();
-        $pembayaran = Pembayaran::join(
-            'perusahaan', 'pembayaran.id_perusahaan','=','perusahaan.id_perusahaan'
-        )
-        ->where('pembayaran.id_pembayaran',$id)->first();
-        $interview = Interview::join(
-            'kandidat', 'interview.id_kandidat','=','kandidat.id_kandidat'
-        )
-        ->where('interview.id_perusahaan',$pembayaran->id_perusahaan)->get();
-        return view('manager/perusahaan/cek_pembayaran',compact('manager','pembayaran','interview'));
-    }
-
-    public function cekConfirmPerusahaan(Request $request, $id)
-    {
-        // dd($request);
-        $id_kandidat = $request->id_kandidat;
-        $id_perusahaan = $request->id_perusahaan;
-        $id_interview = $request->id_interview;
-        $nama = $request->nama;
-        $auth = Auth::user();
-        $manager = User::where('type',3)->first();
-        $perusahaan = Perusahaan::join(
-            'pembayaran','perusahaan.id_perusahaan','=','pembayaran.id_perusahaan'
-        )
-        ->where('pembayaran.id_pembayaran',$id)->first();
-           
-        // sudah dibayar //
-        $pembayaran = Pembayaran::where('id_pembayaran',$id)->update([
-            'stats_pembayaran'=>$request->stats_pembayaran
-        ]);
-        $interview = Interview::join(
-            'kandidat', 'interview.id_kandidat','=','kandidat.id_kandidat'
-        )
-        ->where('interview.id_perusahaan',$pembayaran->id_perusahaan)->get();
-        foreach($interview as $item){
-            $id_kandidat = $item->id_kandidat;
-            $id_perusahaan = $item->id_perusahaan;
-            $id_interview = $item->id_interview;
-            $nama = $item->nama;
-        }
-
-        if($request->stats_pembayaran == "sudah dibayar"){
-            // notifikasi kepada perusahaan //
-            // $notifyCompany = Notification::create([
-            //     'pengirim_notifikasi'=>"Admin",
-            //     'isi'=>"Selamat pembayaran anda telah selesai",
-            //     'id_perusahaan'=>$perusahaan->id_perusahaan,
-            // ]);
-
-            // notifikasi kepada kandidat //
-            for($n = 0; $n < count($id_kandidat); $n++){
-                $data1['id_kandidat'] = $id_kandidat[$n];
-                $data1['id_perusahaan'] = $id_perusahaan;
-                $data1['isi'] = "anda mendapat pesan dari perusahaan";
-                $data1['pengirim_notifikasi'] = "Admin";
-                $data1['id_interview'] = $id_interview[$n];
-                notifyKandidat::create($data1);
-            }
-
-            // pesan kepada kandidat //
-            for($m = 0; $m < count($id_kandidat); $m++){
-                $data2['id_kandidat'] = $id_kandidat[$m];
-                $data2['id_perusahaan'] = $id_perusahaan;
-                $data2['pesan'] = "Anda mendapat undangan interview. Apakah anda menyetujuinya?";
-                $data2['pengirim'] = "Admin";
-                $data2['kepada'] = $nama[$m];
-                $data2['id_interview'] = $id_interview[$m];
-                messageKandidat::create($data2);
-            }
-            return redirect('/manager/pembayaran/perusahaan')->with('toast_success',"pembayaran telah selesai");    
-        } else {
-            return redirect('/manager/pembayaran/perusahaan');
-        }
-        
-    }
-
-    public function riwayatKandidat()
-    {
-        $id = Auth::user();
-        $manager = User::where('referral_code',$id->referral_code)->first();
-        $pembayaran = Pembayaran::where('stats_pembayaran',"sudah dibayar")->where('type','like',0)->get();
-        return view('manager/riwayat_pembayaran_kandidat',compact('manager','pembayaran'));
-    }
-
-    public function riwayatPerusahaan()
-    {
-        $id = Auth::user();
-        $manager = User::where('referral_code',$id->referral_code)->first();
-        $pembayaran = Pembayaran::where('stats_pembayaran',"sudah dibayar")->where('type','like',2)->get();
-        return view('manager/riwayat_pembayaran_perusahaan',compact('manager','pembayaran'));        
-    }
-
-    public function searchEmail()
-    {
-        $user = Auth::user();
-        $manager = User::where('referral_code',$user->referral_code)->first();
-        $pengguna = User::all();
-        return view('manager/email_verify',compact('manager','pengguna'));        
-    }
-
-    public function emailVerify($id)
-    {
-        $user = Auth::user();
-        $manager = User::where('referral_code',$user->referral_code)->first();
-        $pengguna = User::where('id',$id)->first();
-        return view('manager/send_email',compact('manager','pengguna'));
-    }    
-
-    public function sendEmailVerify(Request $request, $id)
-    {
-        $pengguna = User::where('email',$request->email)->first();
-        if($request->type == 0){
-            if($pengguna->type == 2){
-                Mail::mailer('verification')->to($request->email)->send(new Verification($pengguna->name_perusahaan, $pengguna->token, 'Email Verifikasi', 'no-reply@ugiport.com'));
-                // Mail::send('mail.mail', ['token' => $pengguna->token,'nama' => $pengguna->name_perusahaan], function($message) use($request){
-                //     $message->to($request->email);
-                //     $message->subject('Email Verification Mail');
-                // });    
-            } elseif($pengguna->type == 1) {
-                Mail::mailer('verification')->to($request->email)->send(new Verification($pengguna->name_akademi, $pengguna->token, 'Email Verifikasi', 'no-reply@ugiport.com'));
-                // Mail::send('mail.mail', ['token' => $pengguna->token,'nama' => $pengguna->name_akademi], function($message) use($request){
-                //     $message->to($request->email);
-                //     $message->subject('Email Verification Mail');
-                // });
-            } elseif($pengguna->type == 0) {
-                Mail::mailer('verification')->to($request->email)->send(new Verification($pengguna->name, $pengguna->token, 'Email Verifikasi','no-reply@ugiport.com'));
-                // Mail::send('mail.mail', ['token' => $pengguna->token,'nama' => $pengguna->name], function($message) use($request){
-                //     $message->to($request->email);
-                //     $message->subject('Email Verification Mail');
-                // });    
-            }
-        } elseif($request->type == 1) {
-            $namarec = "PT HARAPAN MENTARI PAGI";
-            $bank = "PT Bank Central Asia Tbk";
-            $nomorec = 4399997272;
-            $payment = 0;
-            $token = $pengguna->token;
-            if($pengguna->type == 2){
-                Mail::mailer('payment')->to($request->email)->send(new Payment($pengguna->name_perusahaan, $token, $payment, 'Pembayaran Interview', 'digijobaccounting@ugiport.com', $namarec, $nomorec, $bank));
-            } else {
-                Mail::mailer('payment')->to($request->email)->send(new Payment($pengguna->name, $token, $payment, 'Pembayaran Akun Prioritas', 'digijobaccounting@ugiport.com', $namarec, $nomorec, $bank));
-            }
-        } elseif($request->type == 2) {
-            $alamat = $pengguna->kabupaten;
-        }
-        return redirect('/manager/search_email')->with('success',"Email Terkirim");
-    }
-
-    public function disnakerList()
-    {
-        $user = Auth::user();
-        $manager = User::where('referral_code',$user->referral_code)->first();
-        $disnaker = DisnakerInfo::all();
-        $prov = Provinsi::all();
-        return view('manager/disnaker_list',compact('manager','disnaker','prov'));
-    }
-
-    public function simpanDisnaker(Request $request)
-    {
-        $user = Auth::user();
-        $manager = User::where('referral_code',$user->referral_code)->first();
-        $kabupaten = Kota::where('id',$request->kota)->first();
-        DisnakerInfo::create([
-            'nama_disnaker' => $request->nama,
-            'email_disnaker' => $request->email,
-            'alamat_disnaker' => $kabupaten->kota,
-            'kabupaten_id' => $kabupaten->id,
-            'provinsi_id' => $request->provinsi
-        ]);  
-        return redirect('/manager/disnaker_list')->with('success',"Data tersimpan");      
-    }
-
-    public function hapusDisnaker($id)
-    {
-        $user = Auth::user();
-        $manager = User::where('referral_code',$user->referral_code)->first();
-        DisnakerInfo::where('disnaker_id',$id)->delete();
-        return redirect('manager/disnaker_list')->with('success',"Data dihapus");
     }
 }

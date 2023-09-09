@@ -657,6 +657,12 @@ class PerusahaanController extends Controller
             'kepada' => $nama,
             'id_perusahaan' => $perusahaan->id_perusahaan,
         ]);
+        $allMessage = messageKandidat::where('id_kandidat',$id)->get();
+        $total = 30;
+        if ($allMessage->count() > $total) {
+            $operator = $allMessage->count() - $total;
+            messageKandidat::where('id_kandidat',$id)->orderBy('id','asc')->limit($operator)->delete();
+        }
         LaporanPekerja::where('id_kandidat',$id)->where('nama_kandidat',$nama)->delete();
         return redirect('/perusahaan/semua/kandidat')->with('success',"Kandidat telah diusir dari perusahaan anda");
     }
@@ -739,6 +745,12 @@ class PerusahaanController extends Controller
                 'kepada'=>$kandidat->nama,
                 'id_interview'=>$interview->id_interview,
             ]);
+            $allMessage = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->get();
+            $total = 30;
+            if ($allMessage->count() > $total) {
+                $operator = $allMessage->count() - $total;
+                messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('id','asc')->limit($operator)->delete();
+            }
         }
         Interview::where('id_interview',$id)->update([
             'jadwal_interview'=>$request->jadwal,

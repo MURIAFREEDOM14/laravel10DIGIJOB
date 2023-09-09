@@ -124,21 +124,6 @@ class ContactUsController extends Controller
         }
     }
 
-    public function contactUsGuestList()
-    {
-        $user = Auth::user();
-        $admin = User::where('type',4)->first();
-        $semua_guest = ContactUs::where('no_telp','is not null')->where('email','is not null')->get();
-        return view('manager/contactService/guest_list',compact('admin','semua_guest'));
-    }
-
-    public function contactUsGuestLihat($id)
-    {
-        $user = Auth::user();
-        $admin = User::where('type',4)->first();
-        $kandidat = ContactUsKandidat::where('id',$id)->first();           
-    }
-
     public function contactUsKandidatList()
     {
         $user = Auth::user();

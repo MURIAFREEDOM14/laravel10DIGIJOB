@@ -379,6 +379,12 @@ class KandidatPerusahaanController extends Controller
                 'kepada' => $kandidat->nama,
                 'id_interview' => $persetujuan->id_interview,
             ]);
+            $allMessage = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->get();
+            $total = 30;
+            if ($allMessage->count() > $total) {
+                $operator = $allMessage->count() - $total;
+                messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('id','asc')->limit($operator)->delete();
+            }
             Kandidat::where('id_kandidat',$kandidat->id_kandidat)->where('nama',$kandidat->nama)->update([
                 'stat_pemilik' => "diambil",
                 'id_perusahaan' => $perusahaan->id_perusahaan

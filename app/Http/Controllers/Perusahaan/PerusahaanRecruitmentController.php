@@ -859,6 +859,12 @@ class PerusahaanRecruitmentController extends Controller
                         'pengirim' => "Admin",
                         'kepada' => $key->nama,
                     ]);
+                    $allMessage = messageKandidat::where('id_kandidat',$key->id_kandidat)->get();
+                    $total = 30;
+                    if ($allMessage->count() > $total) {
+                        $operator = $allMessage->count() - $total;
+                        messageKandidat::where('id_kandidat',$key->id_kandidat)->orderBy('id','asc')->limit($operator)->delete();
+                    }
                     notifyPerusahaan::create([
                         'id_perusahaan' => $perusahaan->id_perusahaan,
                         'isi' => "Anda mendapat pesan masuk",
@@ -952,6 +958,12 @@ class PerusahaanRecruitmentController extends Controller
             $mesgeK['kepada'] = $kandidat->nama;
             $mesgeK['id_perusahaan'] = $perusahaan->id_perusahaan;
             messageKandidat::create($mesgeK);
+            $allMessage = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->get();
+            $total = 30;
+            if ($allMessage->count() > $total) {
+                $operator = $allMessage->count() - $total;
+                messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('id','asc')->limit($operator)->delete();
+            }
             
             PermohonanLowongan::where('id_lowongan',$lowongan->id_lowongan)->where('id_perusahaan',$perusahaan->id_perusahaan)->where('id_kandidat',$id_kandidat[$k])->delete();
             KandidatInterview::where('id_interview',$interview->id_interview)->where('id_lowongan',$id)->delete();
@@ -978,6 +990,12 @@ class PerusahaanRecruitmentController extends Controller
                     'kepada' => $key->nama,
                     'id_perusahaan' => $perusahaan->id_perusahaan,
                 ]);
+                $allMessage = messageKandidat::where('id_kandidat',$key->id_kandidat)->get();
+                $total = 30;
+                if ($allMessage->count() > $total) {
+                    $operator = $allMessage->count() - $total;
+                    messageKandidat::where('id_kandidat',$key->id_kandidat)->orderBy('id','asc')->limit($operator)->delete();
+                }
                 Kandidat::where('id_kandidat',$key->id_kandidat)->where('id_perusahaan',$perusahaan->id_perusahaan)->update([
                     'stat_pemilik' => null, 
                     'jabatan_kandidat' => null,
@@ -1015,6 +1033,12 @@ class PerusahaanRecruitmentController extends Controller
                 'kepada' => $key->nama,
                 'id_perusahaan' => $perusahaan->id_perusahaan,
             ]);
+            $allMessage = messageKandidat::where('id_kandidat',$key->id_kandidat)->get();
+            $total = 30;
+            if ($allMessage->count() > $total) {
+                $operator = $allMessage->count() - $total;
+                messageKandidat::where('id_kandidat',$key->id_kandidat)->orderBy('id','asc')->limit($operator)->delete();
+            }
             KandidatInterview::where('id_interview',$interview->id_interview)->where('id_lowongan',$id)->where('id_kandidat',$key->id_kandidat)->delete();
             PermohonanLowongan::where('id_lowongan',$id)->where('id_kandidat',$key->id_kandidat)->delete();
         }
