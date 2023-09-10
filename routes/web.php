@@ -300,11 +300,19 @@ Route::controller(LoginController::class)->group(function() {
 
 // DATA REGISTER
 Route::controller(RegisterController::class)->group(function() {
+    // route register kandidat
+    Route::view('/register/kandidat', 'auth/register_kandidat');
     Route::post('/register/kandidat', 'kandidat');
     
     // Route::get('/kandidat_umur/{nama}','umurKandidat')->middleware('guest');
     Route::post('/kandidat_umur/{nama}','syaratUmur');
+    
+    // route register akademi
+    Route::view('/register/akademi', 'auth/register_akademi');
     Route::post('/register/akademi', 'akademi');
+    
+    // route register perusahaan
+    Route::view('/register/perusahaan', 'auth/register_perusahaan');
     Route::post('/register/perusahaan', 'perusahaan');
 });
 
