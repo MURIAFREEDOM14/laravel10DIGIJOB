@@ -526,6 +526,7 @@ class ManagerKandidatController extends Controller
     public function simpanPengalamanKerja(Request $request,$id)
     {
         $kandidat = Kandidat::where('id_kandidat',$id)->first();
+        $jabatan = $request->jabatan;
         if($request->file('video') !== null){
             // $validated = $request->validate([
             //     'video' => 'mimes:mp4,mov,ogg,qt',
@@ -586,6 +587,8 @@ class ManagerKandidatController extends Controller
                 'jabatan'=>$request->jabatan,
             ]);
         }
+
+        return redirect('/manager/edit/kandidat/company/'.$id)->with('success',"Data pengalaman kerja ditambahkan");
     }
 
     // proses simpan data kandidat company / pengalaman kerja dari manager

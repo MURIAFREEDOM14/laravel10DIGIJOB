@@ -20,25 +20,28 @@
                                 <label for="" class="col-form-label">Hubungan Kontak Darurat</label>
                             </div>
                             <div class="col-md-4">
-                                @if ($kandidat->stats_nikah == "Menikah" || $kandidat->stats_nikah == "Cerai hidup" || $kandidat->stats_nikah == "Cerai mati")
-                                    <select name="hubungan_perizin" required class="form-select" id="hubKontakDarurat">
-                                        <option value="">-- Masukkan Hubungan Kontak Darurat --</option>
-                                        <option value="pasangan" @if ($kandidat->hubungan_perizin == "pasangan")
+                                <select name="hubungan_perizin" required class="form-select" id="hubKontakDarurat">
+                                    <option value="">-- Masukkan Hubungan Kontak Darurat --</option>
+                                    @if ($kandidat->stats_nikah == "Menikah")
+                                        <option value="pasangan" @if ($kandidat->stats_nikah == "pasangan")
                                             selected
                                         @endif>Pasangan</option>
-                                        <option value="wali">Wali</option>
-                                        @if ($anak)
-                                            <option value="anak">Anak</option>
-                                        @endif
-                                    </select>
-                                @else
-                                    <select name="hubungan_perizin" required class="form-select" id="hubKontakDarurat">
-                                        <option value="">-- Masukkan Hubungan Kontak Darurat --</option>
-                                        <option value="ayah">Ayah</option>
-                                        <option value="ibu">Ibu</option>
-                                        <option value="wali">Wali</option>
-                                    </select>    
-                                @endif
+                                    @endif
+                                    <option value="wali" @if ($kandidat->stats_nikah == "wali")
+                                        selected
+                                    @endif>Wali</option>
+                                    @if ($anak)
+                                        <option value="anak" @if ($kandidat->hubungan_perizin == "anak")
+                                            selected
+                                        @endif>Anak</option>
+                                    @endif
+                                    <option value="ayah" @if ($kandidat->hubungan_perizin == "ayah")
+                                        selected
+                                    @endif>Ayah</option>
+                                    <option value="ibu" @if ($kandidat->stats_nikah == "ibu")
+                                        selected
+                                    @endif>Ibu</option>
+                                </select>    
                             </div>
                         </div>
                         <div class="row mb-3 g-3 align-items-center">
@@ -67,7 +70,7 @@
                                 <label for="" class="col-form-label">No. Telp / HP</label>
                             </div>
                             <div class="col-md-8">
-                                <input type="number" value="{{$kandidat->no_telp_perizin}}" name="no_telp_perizin" id="telpHubungan" class="form-control" aria-labelledby="passwordHelpInline">
+                                <input type="number" value="{{$kandidat->no_telp_perizin}}" name="no_telp_perizin" id="telpHubungan" class="form-control @error('no_telp_perizin') is-invalid @enderror" aria-labelledby="passwordHelpInline">
                                 @error('no_telp_perizin')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>Harap isi no. telp min 10 digit dan max 13 digit</strong>
@@ -105,7 +108,7 @@
                                 <input type="number" required value="{{$kandidat->rt_perizin}}" placeholder="maks 3 digit" pattern="[0-3]{3}" name="rt_perizin" id="rtHubungan" class="form-control @error('rt_perizin') is-invalid @enderror" aria-labelledby="passwordHelpInline">
                                 @error('rt_perizin')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>No. RT harus berisi 3 digit</strong>
+                                        <strong>No. RT harus berisi 3 angka</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -116,7 +119,7 @@
                                 <input type="number" required value="{{$kandidat->rw_perizin}}" placeholder="maks 3 digit" pattern="[0-3]{3}" name="rw_perizin" id="rwHubungan" class="form-control @error('rw_perizin') is-invalid @enderror" aria-labelledby="passwordHelpInline">
                                 @error('rw_perizin')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>No. RW harus berisi 3 digit</strong>
+                                        <strong>No. RW harus berisi 3 angka</strong>
                                     </span>
                                 @enderror
                             </div>

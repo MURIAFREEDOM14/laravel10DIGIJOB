@@ -29,34 +29,7 @@ use Carbon\Carbon;
 
 class KandidatPerusahaanController extends Controller
 {
-    public function listPerusahaan()
-    {
-        $id = Auth::user();
-        $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        $notif = notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $perusahaan = Perusahaan::where('penempatan_kerja','like','%'.$kandidat->penempatan.'%')->whereNotNull('email_operator')->get();
-        $cari_perusahaan = null;
-        return view('kandidat/perusahaan/list_informasi_perusahaan',compact('kandidat','perusahaan','notif','pesan','cari_perusahaan'));
-    }
-
-    public function cari_perusahaan(Request $request)
-    {
-        $id = Auth::user();
-        $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        $notif = notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
-        $lowongan = LowonganPekerjaan::all();
-        $cari_perusahaan = Perusahaan::where('referral_code',$request->referral_code)->whereNotNull('email_operator')->first();
-        if($kandidat->negara_id == null){
-            $perusahaan = Perusahaan::where('penempatan_kerja','Dalam negeri')->limit(5)->get();    
-        } else {
-            $perusahaan = Perusahaan::where('penempatan_kerja','like',"%".$kandidat->penempatan."%")->whereNotNull('email_operator')->limit(5)->get();
-        }
-        return view('kandidat/perusahaan/list_informasi_perusahaan',compact('kandidat','notif','perusahaan','pembayaran','pesan','lowongan','cari_perusahaan'));
-    }
-
+    // halaman lihat profil perusahaan
     public function Perusahaan($id)
     {
         $user = Auth::user();
@@ -75,56 +48,7 @@ class KandidatPerusahaanController extends Controller
         }
     }
 
-    public function lihatPekerjaanPerusahaan($negaraid,$nama)
-    {
-        $user = Auth::user();
-        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
-        $perusahaan = Perusahaan::where('nama_perusahaan',$nama)->first();
-        $lowongan = LowonganPekerjaan::where('negara_id',$negaraid)->where('id_perusahaan',$perusahaan->id_perusahaan)->get();
-        $negara = Negara::where('negara_id',$negaraid)->first();
-        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $pekerjaan = Pekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
-        return view('kandidat/perusahaan/perusahaan_pekerjaan',compact('kandidat','perusahaan','pekerjaan','notif','pesan','negara','nama'));
-    }
-
-    public function detailPekerjaanPerusahaan($id,$nama)
-    {
-        $user = Auth::user();
-        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
-        $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
-        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        return view('kandidat/perusahaan/detail_pekerjaan',compact('kandidat','lowongan','notif','pesan'));
-    }
-
-    public function terimaPekerjaanPerusahaan(Request $request, $kerjaid, $nama)
-    {
-        $user = Auth::user();
-        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
-        $perusahaan = Perusahaan::where('nama_perusahaan',$nama)->first();
-        $pekerjaan = Pekerjaan::where('id_pekerjaan',$kerjaid)->first();
-        PekerjaPerusahaan::create([
-            'id_kandidat' => $kandidat->id_kandidat,
-            'id_perusahaan' => $perusahaan->id_perusahaan,
-            'nama_pekerjaan' => $pekerjaan->nama_pekerjaan,
-        ]);
-
-        Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
-            'id_perusahaan' => $perusahaan->id_perusahaan,
-            'jabatan_kandidat' => $pekerjaan->nama_pekerjaan,
-        ]);
-        notifyPerusahaan::create([
-            'id_perusahaan' => $perusahaan->id_perusahaan,
-            'id_kandidat' => $kandidat->id_kandidat,
-            'isi' => "Kandidat baru telah masuk kedalam perusahaan anda",
-            'pengirim' => "System",
-            'url' => '/perusahaan/lihat/kandidat/'.$kandidat->id_kandidat,
-        ]);
-        Alert::success('Selamat',"Anda telah masuk dalam Perusahaan ".$nama);
-        return redirect('/profil_perusahaan/'.$perusahaan->id_perusahaan);
-    }
-
+    // halaman data lowongan pekerjaan perusahaan
     public function listLowonganPekerjaan()
     {
         $user = Auth::user();
@@ -138,6 +62,7 @@ class KandidatPerusahaanController extends Controller
         return view('kandidat/perusahaan/list_lowongan_pekerjaan',compact('kandidat','lowongan','notif','pesan'));
     }
 
+    // halaman lihat lowongan pekerjaan perusahaan
     public function LowonganPekerjaan($id)
     {
         $user = Auth::user();
@@ -171,6 +96,7 @@ class KandidatPerusahaanController extends Controller
         return view('kandidat/perusahaan/lihat_lowongan_pekerjaan',compact('kandidat','pesan','notif','lowongan','jabatan','perusahaan','interview','konfirmasi'));
     }
 
+    // halaman kirim permohonan lowongan dari kandidat 
     public function permohonanLowongan($id)
     {
         $user = Auth::user();
@@ -178,30 +104,40 @@ class KandidatPerusahaanController extends Controller
         $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
+        $perusahaan = Perusahaan::where('id_perusahaan',$lowongan->id_perusahaan)->first();
         $pendidikan_lowongan = Pendidikan::where('nama_pendidikan','like','%'.$lowongan->pendidikan.'%')->first();
         $pendidikan_kandidat = Pendidikan::where('nama_pendidikan','like','%'.$kandidat->pendidikan.'%')->first();
+        
+        // bagian filterisasi data kandidat dengan syarat lowongan
         $data = Kandidat::
         where('referral_code',$user->referral_code)
+        // apabila tinggi kandidat lebih tinggi daripada syarat tinggi lowongan
         ->where('tinggi','>=',$lowongan->tinggi)
         ->first();
-        
+
+        // apabila kondisi terpenuhi / ada
         if($data){
+            // apabila pendidikan kandidat lebih tinggi dari syarat pendidikan lowongan
             if($pendidikan_kandidat >= $pendidikan_lowongan){
+                // apabila jenis kelamin kandidat sesuai dengan syarat jenis kelamin lowongan
                 if($kandidat->jenis_kelamin == $lowongan->jenis_kelamin || $lowongan->jenis_kelamin == "MF"){
+                    // apabila tempat tinggal kandidat sesuai dengan syarat tempat / lokasi lowongan
                     if($kandidat->kabupaten == $lowongan->pencarian_tmp || $kandidat->provinsi == $lowongan->pencarian_tmp || $lowongan->pencarian_tmp == "Se-indonesia"){
+                        // apabila usia kandidat sesuai dengan syarat lowongan
                         if($kandidat->usia >= $lowongan->usia_min && $kandidat->usia <= $lowongan->usia_maks){
+                            // apabila berat kandidat sesuai dengan syarat lowongan
                             if($kandidat->berat >= $lowongan->berat_min && $kandidat->berat <= $lowongan->berat_maks){
-                                return view('kandidat/perusahaan/permohonan_lowongan',compact('kandidat','notif','pesan','lowongan'));
+                                return view('kandidat/perusahaan/permohonan_lowongan',compact('kandidat','notif','pesan','lowongan','perusahaan'));
                             } elseif($kandidat->berat >= $lowongan->berat_min) {
-                                return view('kandidat/perusahaan/permohonan_lowongan',compact('kandidat','notif','pesan','lowongan'));                                
+                                return view('kandidat/perusahaan/permohonan_lowongan',compact('kandidat','notif','pesan','lowongan','perusahaan'));                                
                             } else {
                                 return redirect()->back()->with('warning',"Maaf berat badan anda tidak sesuai untuk lowongan ini");
                             }
                         } elseif($kandidat->usia >= $lowongan->usia_min) {
                             if($kandidat->berat >= $lowongan->berat_min && $kandidat->berat <= $lowongan->berat_maks){
-                                return view('kandidat/perusahaan/permohonan_lowongan',compact('kandidat','notif','pesan','lowongan'));
+                                return view('kandidat/perusahaan/permohonan_lowongan',compact('kandidat','notif','pesan','lowongan','perusahaan'));
                             } elseif($kandidat->berat >= $lowongan->berat_min) {
-                                return view('kandidat/perusahaan/permohonan_lowongan',compact('kandidat','notif','pesan','lowongan'));                                
+                                return view('kandidat/perusahaan/permohonan_lowongan',compact('kandidat','notif','pesan','lowongan','perusahaan'));                                
                             } else {
                                 return redirect()->back()->with('warning',"Maaf berat badan anda tidak sesuai untuk lowongan ini");                                
                             }
@@ -222,6 +158,7 @@ class KandidatPerusahaanController extends Controller
         }
     }
 
+    // sistem kirim permohonan lowongan kepada perusahaan
     public function kirimPermohonan(Request $request,$id)
     {
         $user = Auth::user();
@@ -253,6 +190,7 @@ class KandidatPerusahaanController extends Controller
         return redirect('/kandidat')->with('success',"Permohonan anda terkirim");
     }
 
+    // sistem keluar perusahaan / batal lowongan
     public function keluarPerusahaan($id)
     {
         $user = Auth::user();
@@ -275,6 +213,7 @@ class KandidatPerusahaanController extends Controller
                 'pengirim' => "Admin",
                 'kepada' => $perusahaan->nama_perusahaan,
             ]);
+            // jika keluar perusahaan dalam kondisi sudah terdaftar dalam interview, maka perusahaan akan mendapat credit.
             if($credit){
                 CreditPerusahaan::where('credit_id',$credit->credit_id)->update([
                     'credit' => $credit->credit+1,                    
@@ -299,6 +238,7 @@ class KandidatPerusahaanController extends Controller
         return redirect('/kandidat')->with('success',"Anda telah keluar dari ".$perusahaan->nama_perusahaan);
     }
 
+    // sistem persetujuan kandidat ketika mendapat undangan interview dari perusahaan
     public function persetujuanKandidat(Request $request, $nama, $id)
     {
         $user = Auth::user();
@@ -309,13 +249,16 @@ class KandidatPerusahaanController extends Controller
         ->where('persetujuan_kandidat.persetujuan_id',$request->persetujuan_id)->where('persetujuan_kandidat.id_kandidat',$kandidat->id_kandidat)->first();
         $perusahaan = Perusahaan::where('id_perusahaan',$persetujuan->id_perusahaan)->first();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        // apabila menolak
         if($request->persetujuan == "tidak"){
+            // sebab bekerja
             if($request->pilih == "bekerja"){
                 $validated = $request->validate([
                     'tmp_bekerja' => 'required',
                     'jabatan' => 'required',
                     'tgl_mulai_kerja' => 'required'
                 ]);
+                // akan terdata dalam laporan kandidat telah bekerja
                 LaporanPekerja::create([
                     'nama_kandidat' => $kandidat->nama,
                     'id_kandidat' => $kandidat->id_kandidat,
@@ -323,6 +266,7 @@ class KandidatPerusahaanController extends Controller
                     'jabatan' => $request->jabatan,
                     'tgl_kerja' => $request->tgl_mulai_kerja,
                 ]);
+            // sebab alasan lain
             } else {
                 $validated = $request->validate([
                     'alasan_lain' => 'required',
@@ -331,13 +275,6 @@ class KandidatPerusahaanController extends Controller
                     'alasan_lain' => $request->alasan_lain,
                 ]);
             }
-            // notifyPerusahaan::create([
-            //     'id_perusahaan' => $perusahaan->id_perusahaan,
-            //     'id_kandidat' => $kandidat->id_kandidat,
-            //     'isi' => "Anda mendapat pesan tentang persetujuan kandidat. cek pesan anda",
-            //     'pengirim' => "Admin",
-            //     'url' => '/perusahaan/semua_pesan',
-            // ]);
             messagePerusahaan::create([
                 'id_perusahaan' => $perusahaan->id_perusahaan,
                 'id_kandidat' => $kandidat->id_kandidat,
@@ -364,14 +301,9 @@ class KandidatPerusahaanController extends Controller
                 ]);
             }
             KandidatInterview::where('id_kandidat',$kandidat->id_kandidat)->where('id_perusahaan',$perusahaan->id_perusahaan)->delete();
+        // apabila menerima
         } else {
-            // notifyKandidat::create([
-            //     'id_kandidat' => $kandidat->id_kandidat,
-            //     'isi' => "Anda mendapat pesan dari perusahaan",
-            //     'pengirim' => "Sistem",
-            //     'url' => '/semua_pesan',
-            // ]);
-
+            // mendapat tanggal & waktu interview
             messageKandidat::create([
                 'id_kandidat' => $kandidat->id_kandidat,
                 'pesan' => "Terima kasih untuk konfirmasi persetujuan interview anda. Berikut ini adalah jadwal interview perusahaan untuk anda. Harap untuk mengigat jadwal interview ini dan jangan sampai terlambat. Jadwal interview anda : ".date('d-m-Y',strtotime($persetujuan->jadwal_interview)).", dan waktu interview anda : ".date('h:i:s',strtotime($persetujuan->waktu_interview_awal))." sampai ".date('h:i:s',strtotime($persetujuan->waktu_interview_akhir))." .",
@@ -379,6 +311,7 @@ class KandidatPerusahaanController extends Controller
                 'kepada' => $kandidat->nama,
                 'id_interview' => $persetujuan->id_interview,
             ]);
+            // sistem pembatasan 30 pesan 
             $allMessage = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->get();
             $total = 30;
             if ($allMessage->count() > $total) {
@@ -401,6 +334,7 @@ class KandidatPerusahaanController extends Controller
         return redirect('/kandidat')->with('success',"Terima kasih atas konfirmasi anda");
     }
 
+    // halaman jadwal interview dengan perusahaan
     public function interviewPerusahaan()
     {
         $user = Auth::user();

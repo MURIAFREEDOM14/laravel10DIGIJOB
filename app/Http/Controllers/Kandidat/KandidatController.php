@@ -44,7 +44,8 @@ class KandidatController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    // halaman beranda kandidat
+     public function index()
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('kandidat.referral_code',$id->referral_code)->first();
@@ -53,8 +54,12 @@ class KandidatController extends Controller
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
         $notifyK = notifyKandidat::orderBy('created_at','desc')->limit(30)->get();
         $pendidikan = Pendidikan::where('nama_pendidikan','like','%'.$kandidat->pendidikan.'%')->first();
+        
+        // menampilkan lowongan pekerjaan + filterisasi dengan data kandidat
         $lowongan = LowonganPekerjaan::join(
             'perusahaan', 'lowongan_pekerjaan.id_perusahaan','=','perusahaan.id_perusahaan'
+        )->join(
+            'pendidikans', 'lowongan_pekerjaan.pendidikan','=','pendidikans.nama_pendidikan'
         )
         ->where('perusahaan.penempatan_kerja','like','%'.$kandidat->penempatan.'%')
         ->where('lowongan_pekerjaan.jenis_kelamin','like','%'.$kandidat->jenis_kelamin.'%')
@@ -96,6 +101,7 @@ class KandidatController extends Controller
             $interview = null;
         }
 
+        // sistem pembatasan data pesan kandidat hanya 30 pesan
         $allMessage = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->get();
         $total = 30;
         if ($allMessage->count() > $total) {
@@ -103,6 +109,7 @@ class KandidatController extends Controller
             messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('id','asc')->limit($operator)->delete();
         }
 
+        // sistem reset catatan data kesalahan dalam login
         User::where('referral_code',$kandidat->referral_code)->update([
             'counter' => null,
         ]);
@@ -111,6 +118,7 @@ class KandidatController extends Controller
         'interview','pendidikan'));
     }
     
+    // halaman profil kandidat    
     public function profil()
     {
         $id = Auth::user();
@@ -142,6 +150,7 @@ class KandidatController extends Controller
         }
     }
 
+    // halaman galeri kandidat
     public function galeri($id)
     {
         $user = Auth::user();
@@ -154,18 +163,22 @@ class KandidatController extends Controller
         return view('kandidat/modalKandidat/galeri',compact('kandidat','notif','pesan','pengalaman_kerja','video','foto'));
     }
 
+    // halaman lihat isi galeri kandidat
     public function lihatGaleri($id,$type)
     {
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->get();
+        
+        // jika video
         if($type == "video"){
             $video = VideoKerja::where('video_kerja_id',$id)->first();
             $video_pengalaman = VideoKerja::where('pengalaman_kerja_id',$video->pengalaman_kerja_id)->get();
             $foto_pengalaman = FotoKerja::where('pengalaman_kerja_id',$video->pengalaman_kerja_id)->get();
             $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$video->pengalaman_kerja_id)->first();
             return view('kandidat/modalKandidat/lihat_galeri',compact('kandidat','type','id','video_pengalaman','video','foto_pengalaman','pesan','notif','pengalaman'));
+        // jika foto
         } elseif($type == "foto"){
             $foto = FotoKerja::where('foto_kerja_id',$id)->first();
             $foto_pengalaman = FotoKerja::where('pengalaman_kerja_id',$foto->pengalaman_kerja_id)->get();
@@ -174,30 +187,29 @@ class KandidatController extends Controller
             return view('kandidat/modalKandidat/lihat_galeri',compact('kandidat','type','id','foto_pengalaman','foto','video_pengalaman','pesan','notif','pengalaman'));
         }
     }
-
-    public function edit()
-    {
-        return redirect()->route('personal');
+    
+    // sistem simpan data informasi aplikasi ini didapat 
+     public function simpanInfoConnect(Request $request, $nama, $id)
+     {
+         $user = Auth::user();
+         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+         Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
+             'info' => $request->info,
+         ]);
+         return redirect()->route('kandidat')->with('success',"Data anda tersimpan");
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function isi_kandidat_personal()
+    // halaman isi data kandidat personal
+     public function isi_kandidat_personal()
     {
         $timeNow = Carbon::now();
         $id = Auth::user();
         $user = User::where('id',$id->id)->first();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        $show_negara = Negara::where('negara_id',$kandidat->negara_id)->first();
-        if($show_negara == null){
-            $negara = null;
-        } else {
-            $negara = $show_negara->negara;    
-        }
-        return view('kandidat/modalKandidat/edit_kandidat_personal',compact('timeNow','user','kandidat','negara'));
+        return view('kandidat/modalKandidat/edit_kandidat_personal',compact('timeNow','user','kandidat'));
     }
 
+    // sistem simpan data kandidat personal
     public function simpan_kandidat_personal(Request $request)
     {
         $usia = Carbon::parse($request->tgl_lahir)->age;
@@ -234,6 +246,7 @@ class KandidatController extends Controller
         // ->with('toast_success',"Data anda tersimpan");
     }
 
+    // halaman edit data kandidat password
     public function edit_kandidat_password()
     {
         $user = Auth::user();
@@ -242,6 +255,7 @@ class KandidatController extends Controller
         return view('kandidat/modalKandidat/edit_kandidat_password',compact('kandidat','password'));
     }
 
+    // sistem pengecekan konfirmasi kandidat
     public function edit_password_confirm(Request $request)
     {
         $user = Auth::user();
@@ -256,6 +270,7 @@ class KandidatController extends Controller
         }
     }
 
+    // sistem simpan & ubah data kandidat password
     public function ubah_kandidat_password(Request $request)
     {
         $auth = Auth::user();
@@ -275,71 +290,75 @@ class KandidatController extends Controller
         return redirect('isi_kandidat_personal')->with('success',"Password anda berhasil diperbarui.");
     }
 
-    public function ubah_kandidat_noTelp(Request $request)
-    {
-        $id = Auth::user();
-        $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        User::where('referral_code',$id->referral_code)->update([
-            'number_phone'=>$request->no_telp,
-        ]);
-        $verifyOTP = $this->confirmOTP($request->no_telp);
+    // halaman edit data kandidat no telp
+    // public function ubah_kandidat_noTelp(Request $request)
+    // {
+    //     $id = Auth::user();
+    //     $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
+    //     User::where('referral_code',$id->referral_code)->update([
+    //         'number_phone'=>$request->no_telp,
+    //     ]);
+    //     $verifyOTP = $this->confirmOTP($request->no_telp);
 
-        $locate = "+62";
-        $no_telp = $locate.$request->no_telp;
+    //     $locate = "+62";
+    //     $no_telp = $locate.$request->no_telp;
 
-        // Your Account SID and Auth Token from console.twilio.com
-        $sid = "ACb06a8933697ab7c78fb43bcb61277dda";
-        $token = "bb18df3cb8e369ee635189c9fd3e0a22";
+    //     // Your Account SID and Auth Token from console.twilio.com
+    //     $sid = "ACb06a8933697ab7c78fb43bcb61277dda";
+    //     $token = "bb18df3cb8e369ee635189c9fd3e0a22";
 
-        $client = new Client($sid, $token);
-        // Use the Client to make requests to the Twilio REST API
-        $message = $client->messages->create(
-            // The number you'd like to send the message to
-            $no_telp,
-            [
-                // A Twilio phone number you purchased at https://console.twilio.com
-                'from' => '+12294045420',
-                // The body of the text message you'd like to send
-                'body' => $verifyOTP->otp,
-            ]
-        );
+    //     $client = new Client($sid, $token);
+    //     // Use the Client to make requests to the Twilio REST API
+    //     $message = $client->messages->create(
+    //         // The number you'd like to send the message to
+    //         $no_telp,
+    //         [
+    //             // A Twilio phone number you purchased at https://console.twilio.com
+    //             'from' => '+12294045420',
+    //             // The body of the text message you'd like to send
+    //             'body' => $verifyOTP->otp,
+    //         ]
+    //     );
 
-        return view('kandidat/modalKandidat/otp_code',compact('kandidat'));
-    }
+    //     return view('kandidat/modalKandidat/otp_code',compact('kandidat'));
+    // }
 
-    public function confirmOTP()
-    {
-        $id = Auth::user();
-        $user = User::where('no_telp',$id->no_telp)->where('number_phone',$id->number_phone)->first();
-        $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        $verifyOTP = VerifyOTP::where('id',$user->id)->latest()->first();
+    // sistem pembuatan kode otp untuk no telp kandidat
+    // public function confirmOTP()
+    // {
+    //     $id = Auth::user();
+    //     $user = User::where('no_telp',$id->no_telp)->where('number_phone',$id->number_phone)->first();
+    //     $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
+    //     $verifyOTP = VerifyOTP::where('id',$user->id)->latest()->first();
 
-        $now = Carbon::now();
-        if($verifyOTP && $now->isBefore($verifyOTP->expire_at)){
-            return $verifyOTP;
-        }
+    //     $now = Carbon::now();
+    //     if($verifyOTP && $now->isBefore($verifyOTP->expire_at)){
+    //         return $verifyOTP;
+    //     }
 
-        return VerifyOTP::create([
-            'id' => $user->id,
-            'otp' => rand(123456789, 999999),
-            'expire_at' => Carbon::now()->addMinutes(10),
-        ]);
-    }
+    //     return VerifyOTP::create([
+    //         'id' => $user->id,
+    //         'otp' => rand(123456789, 999999),
+    //         'expire_at' => Carbon::now()->addMinutes(10),
+    //     ]);
+    // }
 
-    public function confirm_kandidat_OTP_Telp(Request $request)
-    {
-        $id = Auth::user();
-        $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        $verifyOTP = VerifyOTP::where('id',$id->id)->where('otp',$request->otp)->first();
-        $now = Carbon::now();
-        if($verifyOTP && $now->isAfter($verifyOTP->expire_at)){
-            return back()->with('error',"Masa berlaku Kode OTP telah habis");
-        }
+    // sistem konfirmasi kode otp no telp
+    // public function confirm_kandidat_OTP_Telp(Request $request)
+    // {
+    //     $id = Auth::user();
+    //     $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
+    //     $verifyOTP = VerifyOTP::where('id',$id->id)->where('otp',$request->otp)->first();
+    //     $now = Carbon::now();
+    //     if($verifyOTP && $now->isAfter($verifyOTP->expire_at)){
+    //         return back()->with('error',"Masa berlaku Kode OTP telah habis");
+    //     }
 
-        $user = User::whereId($id->id)->first();
-        return redirect()->route('document')->with('success',"No Telp anda diperbarui");
-    }
+    //     $user = User::whereId($id->id)->first();
+    //     return redirect()->route('document')->with('success',"No Telp anda diperbarui");
+    // }
 
+    // halaman isi data kandidat document / dokumen
     public function isi_kandidat_document()
     {
         $id = Auth::user();
@@ -348,16 +367,10 @@ class KandidatController extends Controller
         $kecamatan = Kecamatan::all();
         $kota = Kota::all();
         $provinsi = Provinsi::all();
-        // $negara = Negara::all();
-        $show_negara = Negara::where('negara_id',$kandidat->negara_id)->first();
-        if($show_negara == null){
-            $negara = null;
-        } else {
-            $negara = $show_negara->negara;    
-        }
-        return view('kandidat/modalKandidat/edit_kandidat_document',compact('kandidat','kelurahan','kecamatan','kota','provinsi','negara'));
+        return view('kandidat/modalKandidat/edit_kandidat_document',compact('kandidat','kelurahan','kecamatan','kota','provinsi'));
     }
 
+    // sistem simpan data document / dokumen
     public function simpan_kandidat_document(Request $request)
     {
         $validated = $request->validate([
@@ -378,14 +391,14 @@ class KandidatController extends Controller
             if(file_exists($hapus_ktp)){
                 @unlink($hapus_ktp);
             }
-            $ktp = $kandidat->nama.time().'.'.$request->foto_ktp->extension();
-            $simpan_ktp = $request->file('foto_ktp');  
-            $simpan_ktp->move('gambar/Kandidat/'.$kandidat->nama.'/KTP/',$kandidat->nama.time().'.'.$simpan_ktp->extension());           
+            $ktp = $request->file('foto_ktp');  
+            $simpan_ktp = $kandidat->nama.time().'.'.$ktp->extension();
+            $ktp->move('gambar/Kandidat/'.$kandidat->nama.'/KTP/',$simpan_ktp);           
         } else {
             if($kandidat->foto_ktp !== null){
-                $ktp = $kandidat->foto_ktp;
+                $simpan_ktp = $kandidat->foto_ktp;
             } else {
-                $ktp = null;
+                $simpan_ktp = null;
             }
         }
         // cek foto kk
@@ -394,14 +407,14 @@ class KandidatController extends Controller
             if(file_exists($hapus_kk)){
                 @unlink($hapus_kk);
             }
-            $kk = $kandidat->nama.time().'.'.$request->foto_kk->extension();  
-            $simpan_kk = $request->file('foto_kk');
-            $simpan_kk->move('gambar/Kandidat/'.$kandidat->nama.'/KK/',$kandidat->nama.time().'.'.$simpan_kk->extension());
+            $kk = $request->file('foto_kk');
+            $simpan_kk = $kandidat->nama.time().'.'.$kk->extension();  
+            $kk->move('gambar/Kandidat/'.$kandidat->nama.'/KK/',$simpan_kk);
         } else {
             if ($kandidat->foto_kk !== null) {
-                $kk = $kandidat->foto_kk;
+                $simpan_kk = $kandidat->foto_kk;
             } else {
-                $kk = null;
+                $simpan_kk = null;
             }
         }
         // cek foto set badan
@@ -410,14 +423,14 @@ class KandidatController extends Controller
             if(file_exists($hapus_set_badan)){
                 @unlink($hapus_set_badan);
             }
-            $set_badan = $kandidat->nama.time().'.'.$request->foto_set_badan->extension();
-            $simpan_set_badan = $request->file('foto_set_badan');
-            $simpan_set_badan->move('gambar/Kandidat/'.$kandidat->nama.'/Set_badan/',$kandidat->nama.time().'.'.$simpan_set_badan->extension());
+            $set_badan = $request->file('foto_set_badan');
+            $simpan_set_badan = $kandidat->nama.time().'.'.$set_badan->extension();
+            $set_badan->move('gambar/Kandidat/'.$kandidat->nama.'/Set_badan/',$simpan_set_badan);
         } else {
             if ($kandidat->foto_set_badan !== null) {
-                $set_badan = $kandidat->foto_set_badan;   
+                $simpan_set_badan = $kandidat->foto_set_badan;   
             } else {
-                $set_badan = null;    
+                $simpan_set_badan = null;    
             }
         }
         // cek foto 4x6
@@ -426,14 +439,14 @@ class KandidatController extends Controller
             if(file_exists($hapus_4x6)){
                 @unlink($hapus_4x6);
             }
-            $foto_4x6 = $kandidat->nama.time().'.'.$request->foto_4x6->extension();  
-            $simpan_foto_4x6 = $request->file('foto_4x6');
-            $simpan_foto_4x6->move('gambar/Kandidat/'.$kandidat->nama.'/4x6/',$kandidat->nama.time().'.'.$simpan_foto_4x6->extension());
+            $foto_4x6 = $request->file('foto_4x6');
+            $simpan_foto_4x6 = $kandidat->nama.time().'.'.$foto_4x6->extension();  
+            $foto_4x6->move('gambar/Kandidat/'.$kandidat->nama.'/4x6/',$simpan_foto_4x6);
         } else {
             if ($kandidat->foto_4x6 !== null) {
-                $foto_4x6 = $kandidat->foto_4x6;
+                $simpan_foto_4x6 = $kandidat->foto_4x6;
             } else {
-                $foto_4x6 = null;
+                $simpan_foto_4x6 = null;
             }
         }
         // cek foto ket lahir
@@ -442,14 +455,14 @@ class KandidatController extends Controller
             if(file_exists($hapus_ket_lahir)){
                 @unlink($hapus_ket_lahir);
             }
-            $ket_lahir = $kandidat->nama.time().'.'.$request->foto_ket_lahir->extension();  
-            $simpan_ket_lahir = $request->file('foto_ket_lahir');
-            $simpan_ket_lahir->move('gambar/Kandidat/'.$kandidat->nama.'/Ket_lahir/',$kandidat->nama.time().'.'.$simpan_ket_lahir->extension());
+            $ket_lahir = $request->file('foto_ket_lahir');
+            $simpan_ket_lahir = $kandidat->nama.time().'.'.$ket_lahir->extension();  
+            $ket_lahir->move('gambar/Kandidat/'.$kandidat->nama.'/Ket_lahir/',$simpan_ket_lahir);
         } else {
             if ($kandidat->foto_ket_lahir !== null) {
-                $ket_lahir = $kandidat->foto_ket_lahir;    
+                $simpan_ket_lahir = $kandidat->foto_ket_lahir;    
             } else {
-                $ket_lahir = null;
+                $simpan_ket_lahir = null;
             }
         }
         // cek foto ijazah
@@ -458,49 +471,49 @@ class KandidatController extends Controller
             if(file_exists($hapus_ijazah)){
                 @unlink($hapus_ijazah);
             }
-            $ijazah = $kandidat->nama.time().'.'.$request->foto_ijazah->extension();
-            $simpan_ijazah = $request->file('foto_ijazah');  
-            $simpan_ijazah->move('gambar/Kandidat/'.$kandidat->nama.'/Ijazah',$kandidat->nama.time().'.'.$simpan_ijazah->extension());            
+            $ijazah = $request->file('foto_ijazah');  
+            $simpan_ijazah = $kandidat->nama.time().'.'.$ijazah->extension();
+            $ijazah->move('gambar/Kandidat/'.$kandidat->nama.'/Ijazah',$simpan_ijazah);            
         } else {
             if ($kandidat->foto_ijazah !== null) {
-                $ijazah = $kandidat->foto_ijazah;
+                $simpan_ijazah = $kandidat->foto_ijazah;
             } else {
-                $ijazah = null;                   
+                $simpan_ijazah = null;                   
             }
         }
-
-        if ($ktp !== null) {
-            $foto_ktp = $ktp;
+        // cek foto ktp jika ada
+        if ($simpan_ktp !== null) {
+            $foto_ktp = $simpan_ktp;
         } else {
             $foto_ktp = null;
         }
-        
-        if ($kk !== null) {
-            $foto_kk = $kk;
+        // cek foto kk jika ada
+        if ($simpan_kk !== null) {
+            $foto_kk = $simpan_kk;
         } else {
             $foto_kk = null;
         }
-        
-        if ($set_badan !== null) {
-            $foto_set_badan = $set_badan;
+        // cek foto set badan jika ada
+        if ($simpan_set_badan !== null) {
+            $foto_set_badan = $simpan_set_badan;
         } else {
             $foto_set_badan = null;
         }
-        
-        if ($foto_4x6 !== null) {
-            $photo_4x6 = $foto_4x6;
+        // cek foto 4x6 jika ada
+        if ($simpan_foto_4x6 !== null) {
+            $photo_4x6 = $simpan_foto_4x6;
         } else {
             $photo_4x6 = null;
         }
-        
-        if ($ket_lahir !== null) {
-            $foto_ket_lahir = $ket_lahir;
+        // cek foto ket lahir jika ada
+        if ($simpan_ket_lahir !== null) {
+            $foto_ket_lahir = $simpan_ket_lahir;
         } else {
             $foto_ket_lahir = null;
         }
-        
-        if ($ijazah !== null) {
-            $foto_ijazah = $ijazah;
+        // cek foto ijazah jika ada
+        if ($simpan_ijazah !== null) {
+            $foto_ijazah = $simpan_ijazah;
         } else {
             $foto_ijazah = null;
         }
@@ -519,7 +532,6 @@ class KandidatController extends Controller
             'kecamatan' => $kecamatan->kecamatan,
             'kabupaten' => $kota->kota,
             'provinsi' => $provinsi->provinsi,
-            // 'stats_negara' => "Indonesia",
             'foto_ktp' => $foto_ktp,
             'foto_kk' => $foto_kk,
             'foto_set_badan' => $foto_set_badan,
@@ -529,11 +541,16 @@ class KandidatController extends Controller
             'stats_nikah' => $request->stats_nikah
         ]);
 
+        // apabila memilih menikah / kawin
         if ($request->stats_nikah == "Menikah") {
             return redirect()->route('family')
             // ->with('toast_success',"Data anda tersimpan");
             ->with('success',"Data anda tersimpan");
+        
+        // apabila memilih cerai hidup
         } elseif($request->stats_nikah == "Cerai hidup"){
+            
+            // mereset data keluarga / family sebelumnya 
             $hapus_buku_nikah = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/').$kandidat->foto_buku_nikah;
             if(file_exists($hapus_buku_nikah)){
                 @unlink($hapus_buku_nikah);
@@ -559,6 +576,8 @@ class KandidatController extends Controller
             // ->with('toast_success',"Data anda tersimpan");
             ->with('success',"Data anda tersimpan");
         } elseif($request->stats_nikah == "Cerai mati"){
+            
+            // mereset data keluarga / family sebelumnya 
             $hapus_buku_nikah = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/').$kandidat->foto_buku_nikah;
             if(file_exists($hapus_buku_nikah)){
                 @unlink($hapus_buku_nikah);
@@ -584,6 +603,8 @@ class KandidatController extends Controller
             // ->with('toast_success',"Data anda tersimpan");
             ->with('success',"Data anda tersimpan");
         } else {
+            
+            // mereset data keluarga / family sebelumnya 
             $hapus_buku_nikah = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/').$kandidat->foto_buku_nikah;
             if(file_exists($hapus_buku_nikah)){
                 @unlink($hapus_buku_nikah);
@@ -615,18 +636,14 @@ class KandidatController extends Controller
         }        
     }
 
+    // halaman isi data kandidat keluarga / family
     public function isi_kandidat_family()
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        $show_negara = Negara::where('negara_id',$kandidat->negara_id)->first();
         $keluarga = DataKeluarga::where('id_kandidat',$kandidat->id_kandidat)->get();
         
-        if($show_negara == null){
-            $negara = null;
-        } else {
-            $negara = $show_negara->negara;    
-        }
+        // update data usia anak
         if($keluarga->count() !== 0){
             foreach($keluarga as $key){
                 $usia = Carbon::parse($key->tgl_lahir_anak)->age;
@@ -638,12 +655,13 @@ class KandidatController extends Controller
         if ($kandidat->stats_nikah == null) {
             return redirect()->route('vaksin');
         } elseif($kandidat->stats_nikah !== "Single") {
-            return view('kandidat/modalKandidat/edit_kandidat_family',compact('kandidat','negara','keluarga'));    
+            return view('kandidat/modalKandidat/edit_kandidat_family',compact('kandidat','keluarga'));    
         } else {
             return redirect('/isi_kandidat_vaksin');
         }
     }
 
+    // sistem tambah & simpan data kandidat anak (jika sudah punya)
     public function simpan_kandidat_anak(Request $request)
     {
         $user = Auth::user();
@@ -661,6 +679,7 @@ class KandidatController extends Controller
         return redirect()->back()->with('success',"Data ditambahkan");
     }
 
+    // sistem simpan data kandidat family / keluarga
     public function simpan_kandidat_family(Request $request)
     {
         $id = Auth::user();
@@ -670,6 +689,8 @@ class KandidatController extends Controller
         $tgl_anak = $request->tgl_anak;
         $anak_lk = 0;
         $anak_pr = 0;
+
+        // menghitung data anak kandidat
         foreach($keluarga as $data){
             if($data->jenis_kelamin == "M"){
                 $data_lk = DataKeluarga::where('jenis_kelamin',"M")->where('id_kandidat',$kandidat->id_kandidat)->get();
@@ -679,71 +700,76 @@ class KandidatController extends Controller
                 $anak_pr = count($data_pr);
             }
         }
-
         // cek buku nikah
         if($request->file('foto_buku_nikah') !== null){
+            // cek foto sebelumnya dan hapus jika ada
             $hapus_buku_nikah = public_path('gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/').$kandidat->foto_buku_nikah;
             if(file_exists($hapus_buku_nikah)){
                 @unlink($hapus_buku_nikah);
             }
-            $buku_nikah = $kandidat->nama.time().'.'.$request->foto_buku_nikah->extension();
-            $simpan_buku_nikah = $request->file('foto_buku_nikah');  
-            $simpan_buku_nikah->move('gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/',$kandidat->nama.time().'.'.$simpan_buku_nikah->extension());
+            $buku_nikah = $request->file('foto_buku_nikah');  
+            $simpan_buku_nikah = $kandidat->nama.time().'.'.$buku_nikah->extension();
+            $buku_nikah->move('gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/',$simpan_buku_nikah);
         } else {
             if($kandidat->foto_buku_nikah !== null){
-                $buku_nikah = $kandidat->foto_buku_nikah;
+                $simpan_buku_nikah = $kandidat->foto_buku_nikah;
             } else {
-                $buku_nikah = null;
+                $simpan_buku_nikah = null;
             }
         }
-        if($request->file('foto_cerai')){
+        // cek buku cerai hidup
+        if($request->file('foto_cerai') !== null){
+            // cek foto sebelumnya dan hapus jika ada
             $hapus_foto_cerai = public_path('gambar/Kandidat/'.$kandidat->nama.'/Cerai/').$kandidat->foto_cerai;
             if(file_exists($hapus_foto_cerai)){
                 @unlink($hapus_foto_cerai);
             }
-            $cerai = $kandidat->nama.time().'.'.$request->foto_cerai->extension();
-            $simpan_cerai = $request->file('foto_cerai');  
-            $simpan_cerai->move('gambar/Kandidat/'.$kandidat->nama.'/Cerai/',$kandidat->nama.time().'.'.$simpan_cerai->extension());
+            $cerai = $request->file('foto_cerai');  
+            $simpan_cerai = $kandidat->nama.time().'.'.$cerai->extension();
+            $cerai->move('gambar/Kandidat/'.$kandidat->nama.'/Cerai/',$simpan_cerai);
         } else {
             if($kandidat->foto_cerai !== null){
-                $cerai = $kandidat->foto_buku_nikah;
+                $simpan_cerai = $kandidat->foto_cerai;
             } else {
-                $cerai = null;
+                $simpan_cerai = null;
             }
         }
-        if($request->file('foto_kematian_pasangan')){
+        // cek buku foto kematian pasangan
+        if($request->file('foto_kematian_pasangan') !== null){
+            // cek foto sebelumnya dan hapus jika ada
             $hapus_kematian_pasangan = public_path('gambar/Kandidat/'.$kandidat->nama.'/Kematian Pasangan/').$kandidat->foto_kematian_pasangan;
             if(file_exists($hapus_kematian_pasangan)){
                 @unlink($hapus_kematian_pasangan);
             }
-            $kematian_pasangan = $kandidat->nama.time().'.'.$request->foto_kematian_pasangan->extension();
-            $simpan_kematian_pasangan = $request->file('foto_kematian_pasangan');  
-            $simpan_kematian_pasangan->move('gambar/Kandidat/'.$kandidat->nama.'/Kematian Pasangan/',$kandidat->nama.time().'.'.$simpan_kematian_pasangan->extension());
+            $kematian_pasangan = $request->file('foto_kematian_pasangan');  
+            $simpan_kematian_pasangan = $kandidat->nama.time().'.'.$kematian_pasangan->extension();
+            $kematian_pasangan->move('gambar/Kandidat/'.$kandidat->nama.'/Kematian Pasangan/',$simpan_kematian_pasangan);
         } else {
             if($kandidat->foto_kematian_pasangan !== null){
-                $kematian_pasangan = $kandidat->foto_buku_nikah;
+                $simpan_kematian_pasangan = $kandidat->foto_kematian_pasangan;
             } else {
-                $kematian_pasangan = null;
+                $simpan_kematian_pasangan = null;
             }
         }
-        
-        if($buku_nikah !== null){
-            $foto_buku_nikah = $buku_nikah;
+        // cek buku nikah jika sudah ada
+        if($simpan_buku_nikah !== null){
+            $foto_buku_nikah = $simpan_buku_nikah;
         } else {
             $foto_buku_nikah = null;
         }
-        
-        if($cerai !== null){
-            $foto_cerai = $cerai;
+        // cek buku cerai jika sudah ada        
+        if($simpan_cerai !== null){
+            $foto_cerai = $simpan_cerai;
         } else {
             $foto_cerai = null;
         }
-
-        if($kematian_pasangan !== null){
-            $foto_kematian_pasangan = $kematian_pasangan;
+        // cek buku kematian pasangan jika sudah ada
+        if($simpan_kematian_pasangan !== null){
+            $foto_kematian_pasangan = $simpan_kematian_pasangan;
         } else {
             $foto_kematian_pasangan = null;
         }
+        // mencari umur pasangan melalui tgl lahir pasangan
         $umur = Carbon::parse($request->tgl_lahir_pasangan)->age;
 
         Kandidat::where('referral_code', $id->referral_code)->update([
@@ -759,6 +785,7 @@ class KandidatController extends Controller
             'foto_cerai' => $foto_cerai,
             'foto_kematian_pasangan' => $foto_kematian_pasangan,
         ]);
+        //update data usia anak
         if($id_anak !== null){
             for($a = 0; $a < count($id_anak); $a++){
                 $usia = Carbon::parse($tgl_anak[$a])->age;
@@ -772,86 +799,85 @@ class KandidatController extends Controller
         ->with('success',"Data anda tersimpan");
     }
 
+    // halaman isi data kandidat vaksin
     public function isi_kandidat_vaksin()
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code', $id->referral_code)->first(); 
-        $show_negara = Negara::where('negara_id',$kandidat->negara_id)->first();
-        if($show_negara == null){
-            $negara = null;
-        } else {
-            $negara = $show_negara->negara;    
-        }
-        return view('kandidat/modalKandidat/edit_kandidat_vaksinasi',['kandidat'=>$kandidat,'negara'=>$negara]);
+        return view('kandidat/modalKandidat/edit_kandidat_vaksinasi',['kandidat'=>$kandidat]);
     }
 
+    // sistem simpan data kandidat vaksin
     public function simpan_kandidat_vaksin(Request $request)
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         // cek vaksin1
         if($request->file('sertifikat_vaksin1') !== null){
+            // cek foto sebelumnya dan hapus jika ada
             $hapus_sertifikat_vaksin1 = public_path('gambar/Kandidat/'.$kandidat->nama.'/Vaksin Pertama/').$kandidat->sertifikat_vaksin1;
             if(file_exists($hapus_sertifikat_vaksin1)){
                 @unlink($hapus_sertifikat_vaksin1);
             }
-            $sertifikat_vaksin1 = $kandidat->nama.time().'.'.$request->sertifikat_vaksin1->extension();
-            $simpan_sertifikat_vaksin1 = $request->file('sertifikat_vaksin1');  
-            $simpan_sertifikat_vaksin1->move('gambar/Kandidat/'.$kandidat->nama.'/Vaksin Pertama/',$kandidat->nama.time().'.'.$simpan_sertifikat_vaksin1->extension());
+            $sertifikat_vaksin1 = $request->file('sertifikat_vaksin1');  
+            $simpan_sertifikat_vaksin1 = $kandidat->nama.time().'.'.$sertifikat_vaksin1->extension();
+            $sertifikat_vaksin1->move('gambar/Kandidat/'.$kandidat->nama.'/Vaksin Pertama/',$simpan_sertifikat_vaksin1);
         } else {
             if($kandidat->sertifikat_vaksin1 !== null){
-                $sertifikat_vaksin1 = $kandidat->sertifikat_vaksin1;
+                $simpan_sertifikat_vaksin1 = $kandidat->sertifikat_vaksin1;
             } else {
-                $sertifikat_vaksin1 = null;
+                $simpan_sertifikat_vaksin1 = null;
             }
         }
         // cek vaksin2
         if($request->file('sertifikat_vaksin2') !== null){
+            // cek foto sebelumnya dan hapus jika ada
             $hapus_sertifikat_vaksin2 = public_path('gambar/Kandidat/'.$kandidat->nama.'/Vaksin Kedua/').$kandidat->sertifikat_vaksin2;
             if(file_exists($hapus_sertifikat_vaksin2)){
                 @unlink($hapus_sertifikat_vaksin2);
             }
-            $sertifikat_vaksin2 = $kandidat->nama.time().'.'.$request->sertifikat_vaksin2->extension();
-            $simpan_sertifikat_vaksin2 = $request->file('sertifikat_vaksin2');  
-            $simpan_sertifikat_vaksin2->move('gambar/Kandidat/'.$kandidat->nama.'/Vaksin Kedua/',$kandidat->nama.time().'.'.$simpan_sertifikat_vaksin2->extension());    
+            $sertifikat_vaksin2 = $request->file('sertifikat_vaksin2');  
+            $simpan_sertifikat_vaksin2 = $kandidat->nama.time().'.'.$sertifikat_vaksin2->extension();
+            $sertifikat_vaksin2->move('gambar/Kandidat/'.$kandidat->nama.'/Vaksin Kedua/',$simpan_sertifikat_vaksin2);    
         } else {
             if($kandidat->sertifikat_vaksin2 !== null){
-                $sertifikat_vaksin2 = $kandidat->sertifikat_vaksin2;
+                $simpan_sertifikat_vaksin2 = $kandidat->sertifikat_vaksin2;
             } else {
-                $sertifikat_vaksin2 = null;
+                $simpan_sertifikat_vaksin2 = null;
             }
         }
         // cek vaksin3
         if($request->file('sertifikat_vaksin3') !== null){
+            // cek foto sebelumnya dan hapus jika ada
             $hapus_sertifikat_vaksin3 = public_path('gambar/Kandidat/'.$kandidat->nama.'/Vaksin Ketiga/').$kandidat->sertifikat_vaksin3;
             if(file_exists($hapus_sertifikat_vaksin3)){
                 @unlink($hapus_sertifikat_vaksin3);
             }
-            $sertifikat_vaksin3 = $kandidat->nama.time().'.'.$request->sertifikat_vaksin3->extension();
-            $simpan_sertifikat_vaksin3 = $request->file('sertifikat_vaksin3');  
-            $simpan_sertifikat_vaksin3->move('gambar/Kandidat/'.$kandidat->nama.'/Vaksin Ketiga/',$kandidat->nama.time().'.'.$simpan_sertifikat_vaksin3->extension());
+            $sertifikat_vaksin3 = $request->file('sertifikat_vaksin3');  
+            $simpan_sertifikat_vaksin3 = $kandidat->nama.time().'.'.$sertifikat_vaksin3->extension();
+            $sertifikat_vaksin3->move('gambar/Kandidat/'.$kandidat->nama.'/Vaksin Ketiga/',$simpan_sertifikat_vaksin3);
         } else {
             if($kandidat->sertifikat_vaksin3 !== null){
-                $sertifikat_vaksin3 = $kandidat->sertifikat_vaksin3;
+                $simpan_sertifikat_vaksin3 = $kandidat->sertifikat_vaksin3;
             } else {
-                $sertifikat_vaksin3 = null;
+                $simpan_sertifikat_vaksin3 = null;
             }
         }
-        
-        if($sertifikat_vaksin1 !== null){
-            $foto_sertifikat_vaksin1 = $sertifikat_vaksin1;
+        // cek jika foto ada atau tidak
+        if($simpan_sertifikat_vaksin1 !== null){
+            $foto_sertifikat_vaksin1 = $simpan_sertifikat_vaksin1;
         } else {
             $foto_sertifikat_vaksin1 = null;
         }
-
-        if($sertifikat_vaksin2 !== null){
-            $foto_sertifikat_vaksin2 = $sertifikat_vaksin2;
+        // cek jika foto ada atau tidak
+        if($simpan_sertifikat_vaksin2 !== null){
+            $foto_sertifikat_vaksin2 = $simpan_sertifikat_vaksin2;
         } else {
             $foto_sertifikat_vaksin2 = null;
         }
-
-        if($sertifikat_vaksin3 !== null){
-            $foto_sertifikat_vaksin3 = $sertifikat_vaksin3;
+        // cek jika foto ada atau tidak
+        if($simpan_sertifikat_vaksin3 !== null){
+            $foto_sertifikat_vaksin3 = $simpan_sertifikat_vaksin3;
         } else {
             $foto_sertifikat_vaksin3 = null;
         }
@@ -861,40 +887,30 @@ class KandidatController extends Controller
             'vaksin1' => $request->vaksin1,
             'no_batch_v1' => $request->no_batch_v1,
             'tgl_vaksin1' => $request->tgl_vaksin1,
-            'sertifikat_vaksin1' => 
-            // null ,
-            $foto_sertifikat_vaksin1,
+            'sertifikat_vaksin1' => $foto_sertifikat_vaksin1,
             'vaksin2' => $request->vaksin2,
             'no_batch_v2' => $request->no_batch_v2,
             'tgl_vaksin2' => $request->tgl_vaksin2,
-            'sertifikat_vaksin2' => 
-            // null,
-            $foto_sertifikat_vaksin2,
+            'sertifikat_vaksin2' => $foto_sertifikat_vaksin2,
             'vaksin3' => $request->vaksin3,
             'no_batch_v3' => $request->no_batch_v3,
             'tgl_vaksin3' => $request->tgl_vaksin3,
-            'sertifikat_vaksin3' => 
-            // null,
-            $foto_sertifikat_vaksin3
+            'sertifikat_vaksin3' => $foto_sertifikat_vaksin3
         ]);
         return redirect('/isi_kandidat_parent')
         // ->with('toast_success',"Data anda tersimpan");
         ->with('success',"Data anda tersimpan");
     }
 
+    // halaman isi data kandidat parent / orang tua
     public function isi_kandidat_parent()
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code', $id->referral_code)->first();
-        $show_negara = Negara::where('negara_id',$kandidat->negara_id)->first();
-        if($show_negara == null){
-            $negara = null;
-        } else {
-            $negara = $show_negara->negara;    
-        }
-        return view('kandidat/modalKandidat/edit_kandidat_parent',['kandidat'=>$kandidat,'negara'=>$negara]);
+        return view('kandidat/modalKandidat/edit_kandidat_parent',['kandidat'=>$kandidat]);
     }
 
+    // sistem simpan data kandidat parent / orang tua
     public function simpan_kandidat_parent(Request $request)
     {
         $validated = $request->validate([
@@ -902,12 +918,12 @@ class KandidatController extends Controller
             'rw' => 'required|max:3|min:3',
         ]);
         $id = Auth::user();
-        
         $provinsi = Provinsi::where('id',$request->provinsi_id)->first();
         $kota = Kota::where('id',$request->kota_id)->first();
         $kecamatan = Kecamatan::where('id',$request->kecamatan_id)->first();
         $kelurahan = kelurahan::where('id',$request->kelurahan_id)->first();
 
+        // mencari umur ayah melalui tgl lahir
         if($request->ket_keadaan_ayah == "hidup"){
             $tgl_lahir_ayah = $request->tgl_lahir_ayah;
             $umurAyah = Carbon::parse($request->tgl_lahir_ayah)->age;
@@ -916,6 +932,7 @@ class KandidatController extends Controller
             $umurAyah = null;
         }
 
+        // mencari umur ayah melalui tgl lahir
         if($request->ket_keadaan_ibu == "hidup"){
             $tgl_lahir_ibu = $request->tgl_lahir_ibu;
             $umurIbu = Carbon::parse($request->tgl_lahir_ibu)->age;
@@ -949,61 +966,59 @@ class KandidatController extends Controller
         ->with('success',"Data anda tersimpan");
     }
 
+    // halaman isi data kandidat company / pengalaman kerja
     public function isi_kandidat_company()
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code', $id->referral_code)->first();
-        $show_negara = Negara::where('negara_id',$kandidat->negara_id)->first();
-        if($show_negara == null){
-            $negara = null;
-        } else {
-            $negara = $show_negara->negara;    
-        }
         $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->get();
         return view('kandidat/modalKandidat/edit_kandidat_company', [
             'kandidat'=>$kandidat,
             'pengalaman_kerja'=>$pengalaman_kerja,
-            'negara'=>$negara,
         ]);
     }
 
-    public function simpanPengalamanKerja(Request $request)
+    // sistem tambah pengalaman kerja
+    public function tambahPengalamanKerja(Request $request)
     {
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $jabatan = $request->jabatan;
         $video_kandidat = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->first();
         
+        // simpan data video jika ada
         if($request->file('video') !== null){
             // $validated = $request->validate([
             //     'video' => 'mimes:mp4,mov,ogg,qt',
             // ]);
             $video = $request->file('video');
-            $video->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.$jabatan.$video->getClientOriginalName());
             $simpan_video = $kandidat->nama.$jabatan.$video->getClientOriginalName();
+            $video->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.$jabatan.$video->getClientOriginalName());
         } else {
             $simpan_video = null;
         }
+        // pengecekan jika data video ada
         if($simpan_video !== null){
             $video_pengalaman = $simpan_video;
         } else {
             $video_pengalaman = null;
         }
 
+        // simpan data foto jika ada
         if($request->file('foto') !== null){
-            $simpan_foto = $kandidat->nama.time().'.'.$request->foto->extension();
             $foto = $request->file('foto');  
-            $foto->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.time().'.'.$foto->extension());
+            $simpan_foto = $kandidat->nama.time().'.'.$foto->extension();
+            $foto->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$simpan_foto);
         } else {            
             $simpan_foto = null;
         }
-
+        // pengecekan jika data foto ada
         if($simpan_foto !== null){
             $foto_pengalaman = $simpan_foto;
         } else {
             $foto_pengalaman = null;
         }
-
+        // mencari interval bekerja dari awal tahun ke akhir tahun
         $periodeAwal = new \Datetime($request->periode_awal);
         $periodeAkhir = new \DateTime($request->periode_akhir);
         $tahun = $periodeAkhir->diff($periodeAwal)->y;
@@ -1021,12 +1036,14 @@ class KandidatController extends Controller
             'deskripsi' => $request->deskripsi,
         ]);
 
+        // sistem simpan data video (jika terdeteksi)
         if($request->type == "video"){
             VideoKerja::create([
                 'video' => $video_pengalaman,
                 'pengalaman_kerja_id' => $pengalaman->id,
                 'jabatan' => $request->jabatan,
             ]);
+        // sistem simpan data foto (jika terdeteksi)
         } elseif($request->type == "foto") {
             FotoKerja::create([
                 'foto'=> $foto_pengalaman,
@@ -1040,6 +1057,7 @@ class KandidatController extends Controller
         ->with('success',"Data anda tersimpan");
     }
 
+    // halaman lihat pengalaman kerja
     public function lihatPengalamanKerja($id)
     {
         $user = Auth::user();
@@ -1050,6 +1068,7 @@ class KandidatController extends Controller
         return view('kandidat/modalKandidat/lihat_pengalaman_kerja',compact('kandidat','pengalaman','id','video','foto'));
     }
 
+    // halaman tambah video / foto, portofolio
     public function tambahPortofolio($id, $type)
     {
         $user = Auth::user();
@@ -1062,19 +1081,21 @@ class KandidatController extends Controller
         } 
     }
 
+    // sistem simpan data portofolio
     public function simpanPortofolio(Request $request,$id,$type)
     {
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$id)->first(); 
+        // apabila terdeteksi file video
         if($type == "video"){
             if($request->file('video') !== null){
                 $validated = $request->validate([
                     'video' => 'mimes:mp4,mov,ogg,qt',
                 ]);
                 $video_kerja = $request->file('video');
-                $video_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.$pengalaman->jabatan.$video_kerja->getClientOriginalName());
                 $simpan_kerja = $kandidat->nama.$pengalaman->jabatan.$video_kerja->getClientOriginalName();
+                $video_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$simpan_kerja);
             } else {
                 $simpan_kerja = null;
             }
@@ -1089,17 +1110,18 @@ class KandidatController extends Controller
                 'pengalaman_kerja_id' => $pengalaman->pengalaman_kerja_id,
                 'jabatan' => $pengalaman->jabatan,
             ]);
+        // apabila terdeteksi file foto
         } elseif($type == "foto"){
             if($request->file('foto') !== null){
-                $foto_kerja = $kandidat->nama.time().'.'.$request->foto->extension();
-                $simpan_foto_kerja = $request->file('foto');  
-                $simpan_foto_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.time().'.'.$simpan_foto_kerja->extension());
+                $foto_kerja = $request->file('foto');  
+                $simpan_foto_kerja = $kandidat->nama.time().'.'.$request->foto->extension();
+                $foto_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$simpan_foto_kerja);
             } else {            
-                $foto_kerja = null;
+                $simpan_foto_kerja = null;
             }
     
-            if($foto_kerja !== null){
-                $foto = $foto_kerja;
+            if($simpan_foto_kerja !== null){
+                $foto = $simpan_foto_kerja;
             } else {
                 $foto = null;
             }
@@ -1112,6 +1134,7 @@ class KandidatController extends Controller
         return redirect('/lihat_kandidat_pengalaman_kerja/'.$id)->with('success',"Portofolio ditambahkan");      
     }
 
+    // halaman edit data portofolio
     public function editPortofolio($id,$type)
     {
         $user = Auth::user();
@@ -1128,23 +1151,27 @@ class KandidatController extends Controller
         }
     }
 
+    // sistem edit data file portofolio
     public function ubahPortofolio(Request $request,$id,$type)
     {   
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        // apabila video
         if($type == "video"){
             $video = VideoKerja::where('video_kerja_id',$id)->first();
             if($request->file('video') !== null){
                 $validated = $request->validate([
                     'video' => 'mimes:mp4,mov,ogg,qt',
                 ]);
+                // cek data sebelumnya dan hapus jika ada
                 $hapus_video_kerja = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$video->video;
                 if(file_exists($hapus_video_kerja)){
                     @unlink($hapus_video_kerja);
                 }
+                // masukkan data di aplikasi
                 $video_kerja = $request->file('video');
-                $video_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.$video_kerja->getClientOriginalName());
                 $simpan_kerja = $kandidat->nama.$video_kerja->getClientOriginalName();
+                $video_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$simpan_kerja);
             } else {
                 if($video->video !== null){
                     $simpan_kerja = $video->video;
@@ -1152,7 +1179,7 @@ class KandidatController extends Controller
                     $simpan_kerja = null;
                 }
             }
-    
+            // pengecekan data file
             if($simpan_kerja !== null){
                 $video_pengalaman = $simpan_kerja;
             } else {
@@ -1162,13 +1189,16 @@ class KandidatController extends Controller
                 'video'=>$video_pengalaman,
             ]);
             return redirect('/lihat_kandidat_pengalaman_kerja/'.$video->pengalaman_kerja_id)->with('success',"Data diubah");
+        // apabila foto
         } elseif($type == "foto"){
             $foto = FotoKerja::where('foto_kerja_id',$id)->first();
             if($request->file('foto') !== null){
+                // cek data sebelumnya dan hapus jika ada
                 $hapus_foto = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$foto->foto;
                 if(file_exists($hapus_foto)){
                     @unlink($hapus_foto);
                 }
+                // memasukkan data file ke aplikasi
                 $foto_kerja = $kandidat->nama.time().'.'.$request->foto->extension();
                 $simpan_foto_kerja = $request->file('foto');  
                 $simpan_foto_kerja->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.time().'.'.$simpan_foto_kerja->extension());
@@ -1192,6 +1222,7 @@ class KandidatController extends Controller
         }
     }
 
+    // hapus portofolio
     public function hapusPortofolio($id,$type)
     {
         $user = Auth::user();
@@ -1216,12 +1247,14 @@ class KandidatController extends Controller
         return redirect('/lihat_kandidat_pengalaman_kerja/'.$pengalaman->pengalaman_kerja_id)->with('success',"Data Telah dihapus");
     }
 
+    // halaman edit data pengalaman kerja
     public function editPengalamanKerja($id)
     {
         $pengalaman_kerja = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
         return view('kandidat/modalKandidat/edit_pengalaman_kerja', compact('pengalaman_kerja'));
     }
 
+    // sistem ubah data pengalaman kerja
     public function updatePengalamanKerja(Request $request, $id)
     {
         $user = Auth::user();
@@ -1248,12 +1281,12 @@ class KandidatController extends Controller
         ->with('success',"Data anda tersimpan");
     }
 
+    // hapus pengalaman kerja
     public function hapusPengalamanKerja($id)
     {
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$id)->first();
-        // $portofolio = Portofolio::where('pengalaman_kerja_id',$id)->get();
         
         $video = VideoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->first();
         if($video){
@@ -1270,19 +1303,20 @@ class KandidatController extends Controller
             }
         }
            
-        // Portofolio::where('pengalaman_kerja_id',$id)->delete();
         VideoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->delete();
         FotoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->delete();    
         PengalamanKerja::where('pengalaman_kerja_id',$id)->delete();
         return redirect()->route('company')->with('success',"Data berhasi dihapus");
     }
 
+    // sistem simpan data pengalaman kerja
     public function simpan_kandidat_company(Request $request)
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         $jabatan = $request->jabatan;
         $lama_kerja = $request->lama_kerja;
+        // merubah data pengalaman kerja dalam bentuk column database menjadi string (jadi 1 colomn dari beberapa banyak column)
         if($jabatan !== null){
             $jabatanValues = implode(", ",$jabatan);
             $lamaKerjaValues = array_sum($lama_kerja);
@@ -1300,60 +1334,7 @@ class KandidatController extends Controller
         ->with('success',"Data anda tersimpan");
     }
 
-    public function isi_kandidat_placement()
-    {
-        $negara_id = "";
-        $id = Auth::user();
-        $kandidat = Kandidat::where('referral_code', $id->referral_code)->first();
-        $show_negara = Negara::where('negara_id',$kandidat->negara_id)->first();
-        if($show_negara == null){
-            $negara = null;
-        } else {
-            $negara = $show_negara->negara;    
-        }
-        $semua_negara = Negara::all();
-        $pekerjaan = Pekerjaan::where('negara_id',$negara_id)->get();
-        return view('kandidat/modalKandidat/edit_kandidat_placement',compact('negara','semua_negara','kandidat','pekerjaan','negara_id'));
-    }
-
-    public function placement(Request $request)
-    {
-        $data = Negara::where('negara_id','not like',2)->get();
-        return response()->json($data);
-    }
-
-    public function deskripsiNegara(Request $request)
-    {
-        $data = Negara::where('negara_id',$request->dks)->first();
-        return response()->json($data);
-    }
-
-    public function simpan_kandidat_placement(Request $request)
-    {
-        $id = Auth::user();
-        $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        if($kandidat->id_perusahaan !== null){
-            return redirect()->route('kandidat')
-            // ->with('toast_error',"Maaf anda tidak bisa berganti penempatan kerja karena sudah masuk dalam lowonngan perusahaan");
-            ->with('error',"Maaf anda tidak bisa berganti penempatan kerja karena sudah masuk dalam lowonngan perusahaan");
-        }
-
-        Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
-            'negara_id' => $request->negara_id,
-            'penempatan' => $request->penempatan,
-        ]);
-
-        if($kandidat->negara_id == null)
-        {
-            Alert::success('Selamat','Semua data profil anda sudah lengkap');
-            return redirect()->route('kandidat');
-        } else {
-            return redirect()->route('kandidat')
-            // ->with('toast_success','Data anda tersimpan');
-            ->with('success','Data anda tersimpan');
-        }
-    }
-
+    // halaman isi data kandidat permission / kontak darurat
     public function isi_kandidat_permission()
     {
         $id = Auth::user();
@@ -1362,21 +1343,17 @@ class KandidatController extends Controller
         $kota = Kota::all();
         $kecamatan = Kecamatan::all();
         $kelurahan = Kelurahan::all();
-        $show_negara = Negara::where('negara_id',$kandidat->negara_id)->first();
-        if($show_negara == null){
-            $negara = null;
-        } else {
-            $negara = $show_negara->negara;    
-        }
+        // mendeteksi data kandidat apabila memiliki anak di atas 17 thn
         $hubungan_anak = DataKeluarga::where('id_kandidat',$kandidat->id_kandidat)->where('usia','>=',17)->first();
         if($hubungan_anak){
             $anak = $hubungan_anak;
         } else {
             $anak = null;
         }
-        return view('kandidat/modalKandidat/edit_kandidat_permission',compact('kandidat','provinsi','kecamatan','kelurahan','kota','negara','anak'));
+        return view('kandidat/modalKandidat/edit_kandidat_permission',compact('kandidat','provinsi','kecamatan','kelurahan','kota','anak'));
     }
 
+    // sistem simpan data kandidat permission / kontak darurat
     public function simpan_kandidat_permission(Request $request)
     {
         $validated = $request->validate([
@@ -1397,19 +1374,19 @@ class KandidatController extends Controller
             if(file_exists($hapus_foto_ktp_izin)){
                 @unlink($hapus_foto_ktp_izin);
             }
-            $ktp_izin = $kandidat->nama.time().'.'.$request->foto_ktp_izin->extension();
-            $simpan_ktp_izin = $request->file('foto_ktp_izin');
-            $simpan_ktp_izin->move('gambar/Kandidat/'.$kandidat->nama.'/KTP Perizin/',$kandidat->nama.time().'.'.$simpan_ktp_izin->extension());
+            $ktp_izin = $request->file('foto_ktp_izin');
+            $simpan_ktp_izin = $kandidat->nama.time().'.'.$ktp_izin->extension();
+            $ktp_izin->move('gambar/Kandidat/'.$kandidat->nama.'/KTP Perizin/',$simpan_ktp_izin);
         } else {
             if($kandidat->foto_ktp_izin !== null){
-                $ktp_izin = $kandidat->foto_ktp_izin;                
+                $simpan_ktp_izin = $kandidat->foto_ktp_izin;                
             } else {
-                $ktp_izin = null;    
+                $simpan_ktp_izin = null;    
             }
         }
 
-        if ($ktp_izin !== null) {
-            $foto_ktp_izin = $ktp_izin;
+        if ($simpan_ktp_izin !== null) {
+            $foto_ktp_izin = $simpan_ktp_izin;
         } else {
             $foto_ktp_izin = null;
         }
@@ -1418,15 +1395,9 @@ class KandidatController extends Controller
         $kota = Kota::where('id',$request->kota_perizin)->first();
         $kecamatan = Kecamatan::where('id',$request->kecamatan_perizin)->first();
         $kelurahan = Kelurahan::where('id',$request->kelurahan_perizin)->first();
-
-        if($kandidat->stats_nikah == "Menikah"){
-            $perizin = $kandidat->nama_pasangan;
-        } else {
-            $perizin = $request->nama_perizin;
-        }
         
         Kandidat::where('referral_code', $id->referral_code)->update([
-            'nama_perizin' => $perizin,
+            'nama_perizin' => $request->nama_perizin,
             'nik_perizin' => $request->nik_perizin,
             'no_telp_perizin' => $request->no_telp_perizin,
             'tmp_lahir_perizin' => $request->tmp_lahir_perizin,
@@ -1439,10 +1410,10 @@ class KandidatController extends Controller
             'kabupaten_perizin' => $kota->kota,
             'provinsi_perizin' => $provinsi->provinsi,
             'negara_perizin' => "Indonesia",
-            'foto_ktp_izin' => 
-            $foto_ktp_izin,
+            'foto_ktp_izin' => $foto_ktp_izin,
             'hubungan_perizin' => $request->hubungan_perizin
         ]);
+        // apabila kandidat memiliki passport
         if($request->confirm == "ya"){
             if($kandidat->no_paspor == null){
                 $paspor = 0;
@@ -1460,24 +1431,20 @@ class KandidatController extends Controller
         }
     }
 
+    // halaman isi data kandidat passport
     public function isi_kandidat_paspor()
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        $show_negara = Negara::where('negara_id',$kandidat->negara_id)->first();
-        if($show_negara == null){
-            $negara = null;
-        } else {
-            $negara = $show_negara->negara;    
-        }
 
         if($kandidat->no_paspor == null){
             return redirect()->route('kandidat');
         } else {
-            return view('kandidat/modalKandidat/edit_kandidat_paspor',compact('kandidat','negara'));
+            return view('kandidat/modalKandidat/edit_kandidat_paspor',compact('kandidat'));
         }
     }
 
+    // sistem simpan data kandidat passport
     public function simpan_kandidat_paspor(Request $request)
     {
         $id = Auth::user();
@@ -1519,50 +1486,52 @@ class KandidatController extends Controller
         return redirect('/kandidat')->with('success',"Data anda tersimpan");
     }
 
-    public function isi_kandidat_job()
+    // Ajax seleksi penempatan negara luar negeri
+    public function placement(Request $request)
+    {
+        $data = Negara::where('negara_id','not like',2)->get();
+        return response()->json($data);
+    }
+
+    // sistem simpan data kandidat penempatan negara tujuan bekerja
+    public function simpan_kandidat_placement(Request $request)
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        $umur = Carbon::parse($kandidat->tgl_lahir)->age;
-            $pekerjaan = Pekerjaan::join(
-                'ref_negara', 'pekerjaan.negara_id','=','ref_negara.negara_id'
-            )
-            ->where('pekerjaan.negara_id',$kandidat->negara_id)
-            ->where('pekerjaan.syarat_umur','>=',$umur)
-            ->get();
-        return view('kandidat/isi_kandidat_job',compact('pekerjaan','kandidat'));
-    }
+        if($kandidat->id_perusahaan !== null){
+            return redirect()->route('kandidat')
+            // ->with('toast_error',"Maaf anda tidak bisa berganti penempatan kerja karena sudah masuk dalam lowonngan perusahaan");
+            ->with('error',"Maaf anda tidak bisa berganti penempatan kerja karena sudah masuk dalam lowonngan perusahaan");
+        }
 
-    public function simpan_kandidat_job(Request $request)
-    {
-        $id = Auth::user();
-        $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        Kandidat::where('referral_code',$id->referral_code)->update([
-            'id_pekerjaan'=> $request->id_pekerjaan
-        ]);
-        return redirect('/');
-    }
-
-    public function simpanInfoConnect(Request $request, $nama, $id)
-    {
-        $user = Auth::user();
-        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
-            'info' => $request->info,
+            'negara_id' => $request->negara_id,
+            'penempatan' => $request->penempatan,
         ]);
-        return redirect()->route('kandidat')->with('success',"Data anda tersimpan");
+
+        if($kandidat->negara_id == null)
+        {
+            Alert::success('Selamat','Semua data profil anda sudah lengkap');
+            return redirect()->route('kandidat');
+        } else {
+            return redirect()->route('kandidat')
+            // ->with('toast_success','Data anda tersimpan');
+            ->with('success','Data anda tersimpan');
+        }
     }
 
-    public function contactUsKandidat()
-    {
-        $id = Auth::user();
-        $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
-        return view('kandidat/contact_us',compact('kandidat','notif','pembayaran','pesan'));
-    }
+    // halaman hub. kami / bantuan bagian kandidat
+    // public function contactUsKandidat()
+    // {
+    //     $id = Auth::user();
+    //     $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
+    //     $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
+    //     $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
+    //     $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
+    //     return view('kandidat/contact_us',compact('kandidat','notif','pembayaran','pesan'));
+    // }
 
+    // halaman data video pelatihan untuk kandidat
     public function videoPelatihan()
     {
         $id = Auth::user();
@@ -1573,6 +1542,7 @@ class KandidatController extends Controller
         return view('kandidat/video_pelatihan',compact('kandidat','notif','pesan','video'));
     }
 
+    // halaman lihat video pelatihan kandidat
     public function lihatVideoPelatihan($id)
     {
         $user = Auth::user();

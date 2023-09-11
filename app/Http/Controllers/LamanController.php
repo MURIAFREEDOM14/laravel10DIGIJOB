@@ -16,6 +16,7 @@ class LamanController extends Controller
         return view('laman');
     }
 
+    // sistem login dengan Google (masih belum selesai)
     // public function login_gmail()
     // {
     //     return view('login_gmail');

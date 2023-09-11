@@ -41,118 +41,6 @@ use App\Models\LaporanPekerja;
 
 class PerusahaanRecruitmentController extends Controller
 {
-    public function negaraTujuan()
-    {
-        $id = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        $negara_perusahaan = PerusahaanNegara::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
-        $negara = Negara::where('negara_id','not like',2)->get();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/recruitment/negara_tujuan',compact('perusahaan','negara_perusahaan','notif','pesan','negara','cabang','credit'));
-    }
-
-    public function tambahNegaraTujuan()
-    {
-        $id = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/recruitment/tambah_negara_tujuan',compact('perusahaan','notif','pesan','cabang','credit'));
-    }
-
-    public function simpanNegaraTujuan(Request $request)
-    {
-        $id = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        $negara = Negara::where('negara_id',$request->negara_id)->first();
-        PerusahaanNegara::create([
-            'nama_negara' => $negara->negara,
-            'negara_id' => $negara->negara_id,
-            'id_perusahaan' => $perusahaan->id_perusahaan,
-            'mata_uang' => $negara->mata_uang,
-        ]);
-        return redirect()->route('perusahaan.negara');
-    }
-
-    public function lihatPerusahaanJob($id, $nama)
-    {
-        $user = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        $pekerjaan = Pekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('negara_id',$id)->get();
-        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/recruitment/lihat_job',compact('id','nama','perusahaan','notif','pesan','pekerjaan','cabang','credit'));
-    }
-
-    public function tambahPerusahaanJob($id, $nama)
-    {
-        $user = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/recruitment/tambah_job',compact('perusahaan','notif','pesan','id','nama','cabang','credit'));
-    }
-
-    public function simpanPerusahaanJob(Request $request,$id,$nama)
-    {
-        $user = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-        Pekerjaan::create([
-            'nama_pekerjaan' => $request->nama_pekerjaan,
-            'syarat_umur' => $request->syarat_umur,
-            'syarat_kelamin' => $request->syarat_kelamin,
-            'negara_id' => $id,
-            'id_perusahaan' => $perusahaan->id_perusahaan,
-        ]);
-        return redirect('/perusahaan/pekerjaan/'.$id.'/'.$nama)
-        // ->with('toast_success',"Data Ditambahkan");
-        ->with('success',"Data Ditambahkan");
-    }
-
-    public function editPerusahaanJob($kerjaid,$id)
-    {
-        $user = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $pekerjaan = Pekerjaan::where('id_pekerjaan',$kerjaid)->first();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/recruitment/edit_job',compact('perusahaan','notif','pesan','pekerjaan','id','kerjaid','cabang','credit'));
-    }
-
-    public function ubahPerusahaanJob(Request $request, $kerjaid,$id)
-    {
-        $user = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-        $negara = Negara::where('negara_id',$id)->first();
-        Pekerjaan::where('id_pekerjaan',$kerjaid)->update([
-            'nama_pekerjaan' => $request->nama_pekerjaan,
-            'syarat_umur' => $request->syarat_umur,
-            'syarat_kelamin' => $request->syarat_kelamin,
-        ]);
-        return redirect('/perusahaan/pekerjaan/'.$negara->negara_id.'/'.$negara->negara)
-        // ->with('toast_success',"Data diubah");
-        ->with('success',"Data diubah");
-    }
-
-    public function hapusPerusahaanJob($kerjaid)
-    {
-        Pekerjaan::where('id_pekerjaan',$kerjaid)->delete();
-        return back()
-        // ->with('toast_success','Pekerjaan Berhasil Dihapus');
-        ->with('success','Pekerjaan Berhasil Dihapus');
-    }
-
     public function cariKandidatStaff()
     {
         $id = Auth::user();
@@ -201,6 +89,7 @@ class PerusahaanRecruitmentController extends Controller
         return view('perusahaan/kandidat/cari_staff',compact('perusahaan','notif','pesan','cabang','isi','credit'));
     }
 
+    // halaman data lowongan pekerjaan dalam / luar negeri
     public function lowonganPekerjaan($type)
     {
         $user = Auth::user();
@@ -217,6 +106,7 @@ class PerusahaanRecruitmentController extends Controller
         return view('perusahaan/lowongan/lowongan_pekerjaan',compact('perusahaan','notif','pesan','lowongan','cabang','credit','type'));
     }
 
+    // halaman tambah lowongan pekerjaan dalam / luar negeri
     public function tambahLowongan($type)
     {
         $user = Auth::user();
@@ -236,12 +126,14 @@ class PerusahaanRecruitmentController extends Controller
         return view('perusahaan/lowongan/tambah_lowongan',compact('perusahaan','notif','pesan','cabang','credit','negara','jenis_pekerjaan','type','benefit','fasilitas'));
     }
 
+    // Ajax lowongan negara tujuan
     protected function lowonganNegara(Request $request)
     {
         $data = Negara::where('negara',$request->negara)->first();
         return response()->json($data);
     }
 
+    // Ajax tambah data benefit
     protected function lowonganBenefit(Request $request)
     {
         $user = Auth::user();
@@ -257,6 +149,7 @@ class PerusahaanRecruitmentController extends Controller
         return response()->json($data);
     }
 
+    // Ajax tambah data fasilitas
     protected function lowonganFasilitas(Request $request)
     {
         $user = Auth::user();
@@ -272,21 +165,27 @@ class PerusahaanRecruitmentController extends Controller
         return response()->json($data);
     }
 
+    // sistem simpan data lowongan
     public function simpanLowongan(Request $request,$type)
     {
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
         $penempatan = Negara::where('negara',$request->penempatan)->first();
+        // mengecekan apabila lowongan berada dalam / luar negeri
         if($type == "dalam"){
+            // dalam negeri
             $lvl_pekerjaan = $request->lvl_pekerjaan;
         } else {
+            // luar negeri
             $jenis_pekerjaan = JenisPekerjaan::where('judul',$request->lvl_pekerjaan)->first();
             $lvl_pekerjaan = $jenis_pekerjaan->nama;
         }
+        // apabila pilihan berat badan ideal
         if($request->berat_badan == "ideal"){
             $berat_min = $request->tinggi - 110;
             $berat_maks = $request->tinggi - 90;
         } else {
+            // apabila pilihan berat badan kustom / diatur manual
             $validated = $request->validate([
                 'berat_min' => 'required',
                 'berat_maks' => 'required',
@@ -294,6 +193,7 @@ class PerusahaanRecruitmentController extends Controller
             $berat_min = $request->berat_min;
             $berat_maks = $request->berat_maks;
         }
+        // mengubah banyak column menjadi 1 colomn dan dalam bentuk string
         if($request->benefit !== null){
             $benefit = implode(", ",$request->benefit); 
         } else {
@@ -309,19 +209,22 @@ class PerusahaanRecruitmentController extends Controller
         } else {
             $pengalaman = null;
         }
+        // cek foto / gambar flyer
         if($request->file('gambar') !== null) {
-            $gambar = $perusahaan->nama_perusahaan.$request->jabatan.time().'.'.$request->gambar->extension();  
-            $gambar_lowongan = $request->file('gambar');
-            $gambar_lowongan->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Lowongan Pekerjaan/',$perusahaan->nama_perusahaan.$request->jabatan.time().'.'.$gambar_lowongan->extension());
+            // memasukkan file gambar ke dalam aplikasi
+            $gambar = $request->file('gambar');
+            $gambar_lowongan = $perusahaan->nama_perusahaan.$request->jabatan.time().'.'.$gambar->extension();  
+            $gambar->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Lowongan Pekerjaan/',$gambar_lowongan);
         } else {
-            $gambar = null;
+            $gambar_lowongan = null;
         }
-        if($gambar !== null) {
-            $gambar_flyer = $gambar;
+        // cek file gambar
+        if($gambar_lowongan !== null) {
+            $gambar_flyer = $gambar_lowongan;
         } else {
             $gambar_flyer = null;
         }
-
+        // cek penempatan negara lowongan
         if ($penempatan !== null) {
             $mata_uang = $penempatan->mata_uang;
             $negara_id = $penempatan->negara_id;
@@ -360,6 +263,7 @@ class PerusahaanRecruitmentController extends Controller
         return redirect('perusahaan/list/lowongan/'.$type)->with('success');
     }
 
+    // halaman lihat lowongan dalam / luar negeri
     public function lihatLowongan($id,$type)
     {
         $user = Auth::user();
@@ -372,6 +276,7 @@ class PerusahaanRecruitmentController extends Controller
         return view('perusahaan/lowongan/lihat_lowongan',compact('perusahaan','lowongan','pesan','notif','cabang','credit','type'));
     }
 
+    // halaman edit lowongan dalam / luar negeri
     public function editLowongan($id,$type)
     {
         $user = Auth::user();
@@ -392,6 +297,7 @@ class PerusahaanRecruitmentController extends Controller
         return view('perusahaan/lowongan/edit_lowongan',compact('perusahaan','pesan','notif','lowongan','cabang','negara','credit','jenis_pekerjaan','type','benefit','fasilitas'));
     }
 
+    // sistem ubah lowongan dalam / luar negeri
     public function updateLowongan(Request $request, $id, $type)
     {
         $user = Auth::user();
@@ -399,26 +305,31 @@ class PerusahaanRecruitmentController extends Controller
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
         $penempatan = Negara::where('negara',$request->penempatan)->first();
         if($request->file('gambar') !== null){
+            // sistem validasi
             // $this->validate($request, [
             //     'foto_perusahaan' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
             // ]);
+            
+            // cek file gambar sebelumnya dan hapus bila ada
             $hapus_gambar_lowongan = public_path('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Lowongan Pekerjaan/').$lowongan->gambar_lowongan;
             if(file_exists($hapus_gambar_lowongan)){
                 @unlink($hapus_gambar_lowongan);
             }
-            $gambar = $perusahaan->nama_perusahaan.$request->jabatan.time().'.'.$request->gambar->extension();  
-            $gambar_lowongan = $request->file('gambar');
-            $gambar_lowongan->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Lowongan Pekerjaan/',$perusahaan->nama_perusahaan.$request->jabatan.time().'.'.$gambar_lowongan->extension());
+            $gambar = $request->file('gambar');
+            $gambar_lowongan = $perusahaan->nama_perusahaan.$request->jabatan.time().'.'.$request->gambar->extension();  
+            $gambar->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Lowongan Pekerjaan/',$gambar_lowongan);
         } else {
             if($lowongan->gambar_lowongan !== null){
-                $gambar = $lowongan->gambar_lowongan;                
+                $gambar_lowongan = $lowongan->gambar_lowongan;                
             } else {
-                $gambar = null;    
+                $gambar_lowongan = null;    
             }
         }
+        // cek pilihan berat badan ideal 
         if($request->berat_badan == "ideal"){
             $berat_min = $request->tinggi - 110;
             $berat_maks = $request->tinggi - 90;
+        // cek pilihan berar badan kustom / manual
         } else {
             $validated = $request->validate([
                 'berat_min' => 'required',

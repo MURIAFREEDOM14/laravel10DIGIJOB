@@ -10,6 +10,14 @@
                     @csrf
                     <div class="row mb-3">
                         <div class="col-md-4">
+                            <label for="" class="col-form-label">Nama Perusahaan</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" name="" class="form-control" disabled value="{{$perusahaan->nama_perusahaan}}" id="">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4">
                             <label for="" class="col-form-label">Nama Jabatan</label>
                         </div>
                         <div class="col-md-8">

@@ -39,7 +39,7 @@ use App\Models\LaporanPekerja;
 
 class PerusahaanController extends Controller
 {
-    // DATA PERUSAHAAN //
+    // halaman awal / dashboard perusahaan
     public function index()
     {
         $id = Auth::user();
@@ -55,6 +55,7 @@ class PerusahaanController extends Controller
         )
         ->where('pekerjaan.id_perusahaan',$perusahaan->id_perusahaan)->get();
         $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
+        // apabila belum terdaftar memiliki credit
         if(!$credit){
             $credit = CreditPerusahaan::create([
                 'id_perusahaan' => $perusahaan->id_perusahaan,
@@ -68,24 +69,7 @@ class PerusahaanController extends Controller
         return view('perusahaan/index',compact('perusahaan','cabang','notif','interview','pesan','credit','penempatan','lowongan'));
     }
 
-    // public function gantiPerusahaan($id)
-    // {
-    //     $user = Auth::user();
-    //     $perusahaanData = PerusahaanCabang::where('no_nib',$user->no_nib)->where('id_perusahaan_cabang',$id)->first();
-    //     Perusahaan::where('no_nib',$perusahaanData->no_nib)->update([
-    //         'penempatan_kerja' => $perusahaanData->penempatan_kerja,
-    //         'nama_pemimpin' => $perusahaanData->nama_pemimpin,
-    //         'tmp_perusahaan' => $perusahaanData->tmp_perusahaan,
-    //         'foto_perusahaan' => $perusahaanData->foto_perusahaan,
-    //         'logo_perusahaan' => $perusahaanData->logo_perusahaan,
-    //         'alamat' => $perusahaanData->alamat,
-    //         'provinsi' => $perusahaanData->provinsi,
-    //         'kota' => $perusahaanData->kota,
-    //         'no_telp_perusahaan' => $perusahaanData->no_telp_perusahaan,
-    //     ]);
-    //     return redirect()->route('perusahaan')->with('success',"Beralih Perusahaan");
-    // }
-
+    // halaman data profil perusahaan
     public function profil()
     {
         $id = Auth::user();
@@ -103,6 +87,7 @@ class PerusahaanController extends Controller
         }
     }
 
+    // halaman isi data perusahaan 
     public function isi_perusahaan_data()
     {
         $id = Auth::user();
@@ -111,18 +96,23 @@ class PerusahaanController extends Controller
         return view('perusahaan/modalPerusahaan/isi_perusahaan_data',compact('perusahaan'));
     }
 
+    // halaman simpan data perusahaan
     public function simpan_perusahaan_data(Request $request)
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
+        // cek foto perusahaan
         if($request->file('foto_perusahaan') !== null){
+            // sistem validasi data perusahaan
             // $this->validate($request, [
             //     'foto_perusahaan' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
             // ]);
+            // mencari dan menghapus data foto sebelumnya bila ada
             $hapus_foto_perusahaan = public_path('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Foto Perusahaan/').$perusahaan->foto_perusahaan;
             if(file_exists($hapus_foto_perusahaan)){
                 @unlink($hapus_foto_perusahaan);
             }
+            // memasukkan data file ke aplikasi
             $photo_perusahaan = $perusahaan->nama_perusahaan.time().'.'.$request->foto_perusahaan->extension();  
             $simpan_photo_perusahaan = $request->file('foto_perusahaan');
             $simpan_photo_perusahaan->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Foto Perusahaan/',$perusahaan->nama_perusahaan.time().'.'.$simpan_photo_perusahaan->extension());
@@ -133,7 +123,7 @@ class PerusahaanController extends Controller
                 $photo_perusahaan = null;    
             }
         }
-
+        // cek logo perusahaan
         if($request->file('logo_perusahaan') !== null){
             // $this->validate($request, [
             //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
@@ -152,7 +142,7 @@ class PerusahaanController extends Controller
                 $logo = null;    
             }
         }
-
+        // cek foto perusahaan 
         if ($photo_perusahaan !== null) {
             $foto_perusahaan = $photo_perusahaan;
         } else {
@@ -165,6 +155,7 @@ class PerusahaanController extends Controller
             $logo_perusahaan = null;
         }
 
+        // seleksi apabila tempat perusahaan = dalam negeri, maka negara = indonesia (2)
         if($request->tmp_perusahaan == "Dalam negeri"){
             $negara_id = 2;
         } else {
@@ -180,20 +171,10 @@ class PerusahaanController extends Controller
             'tmp_perusahaan' => $request->tmp_perusahaan,
             'negara_id' => $negara_id,
         ]);
-
-        // PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->update([
-        //     'id_perusahaan' => $perusahaan->id_perusahaan,
-        //     'nama_perusahaan' => $perusahaan->nama_perusahaan,
-        //     'no_nib' => $perusahaan->no_nib,
-        //     'nama_pemimpin' => $request->nama_pemimpin,
-        //     'foto_perusahaan' => $foto_perusahaan,
-        //     'logo_perusahaan' => $logo_perusahaan,
-        //     'tmp_perusahaan' => $request->tmp_perusahaan,
-        //     'negara_id' => $negara_id,
-        // ]);
         return redirect()->route('perusahaan.alamat')->with('success',"Data anda tersimpan");
     }
 
+    // halaman isi data perusahaan alamat
     public function isi_perusahaan_alamat()
     {
         $id = Auth::user();
@@ -202,10 +183,12 @@ class PerusahaanController extends Controller
         return view('perusahaan/modalPerusahaan/isi_perusahaan_alamat',compact('perusahaan','negara'));
     }
 
+    // simpan data perusahaan alamat
     public function simpan_perusahaan_alamat(Request $request)
     {
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
+        // apabila tempat perusahaan dalam negeri
         if($perusahaan->tmp_perusahaan == "Dalam negeri"){
             $cari_provinsi = Provinsi::where('id',$request->provinsi_id)->first();
             $cari_kota = Kota::where('id',$request->kota_id)->first();
@@ -217,6 +200,7 @@ class PerusahaanController extends Controller
             $kecamatan = $cari_kecamatan->kecamatan;
             $kelurahan = $cari_kelurahan->kelurahan;
             $negara_id = 2;
+        // apabila luar negeri
         } else {
             $provinsi = null;
             $kota = null;
@@ -234,19 +218,10 @@ class PerusahaanController extends Controller
             'negara_id' => $negara_id,
             'alamat' => $request->alamat,
         ]);
-
-        // PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->update([
-        //     'provinsi'=>$provinsi,
-        //     'kota'=>$kota,
-        //     'kecamatan'=>$kecamatan,
-        //     'kelurahan'=>$kelurahan,
-        //     'no_telp_perusahaan'=>$request->no_telp_perusahaan,
-        //     'negara_id' => $negara_id,
-        //     'alamat' => $request->alamat,
-        // ]);
         return redirect()->route('perusahaan.operator')->with('success',"Data anda tersimpan");
     }
 
+    // halaman isi data perusahaan operator
     public function isi_perusahaan_operator()
     {
         $id = Auth::user();
@@ -254,6 +229,7 @@ class PerusahaanController extends Controller
         return view('perusahaan/modalPerusahaan/isi_perusahaan_operator',compact('perusahaan'));
     }
 
+    // sistem simpan data perusahaan operator
     public function simpan_perusahaan_operator(Request $request)
     {
         $id = Auth::user();
@@ -266,314 +242,23 @@ class PerusahaanController extends Controller
             // 'foto_operator'=>$foto_operetor,
             'company_profile'=>$request->company_profile
         ]);
-
-        // PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->update([
-        //     'nama_operator'=>$request->nama_operator,
-        //     'no_telp_operator'=>$request->no_telp_operator,
-        //     'email_operator'=>$request->email_operator,
-        //     // 'foto_operator'=>$foto_operetor,
-        //     'company_profile'=>$request->company_profile
-        // ]);
         return redirect()->route('perusahaan')->with('success',"Data anda tersimpan");
     }
 
-    // public function tambahCabangData()
+    // halaman hub. kami / bantuan perusahaan
+    // public function contactUsPerusahaan()
     // {
     //     $id = Auth::user();
     //     $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-    //     return view('perusahaan/cabang/tambah_perusahaan_data',compact('perusahaan'));
+    //     $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like','%'.$perusahaan->penempatan_kerja.'%')->get();
+    //     $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+    //     $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
+    //     $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+    //     return view('perusahaan/contact_us',compact('perusahaan','notif','pesan','cabang','credit'));
     // }
-
-    // public function simpanCabangData(Request $request)
-    // {
-    //     $id = Auth::user();
-    //     $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();        
-
-    //     if($request->file('foto_perusahaan') !== null){
-    //         // $this->validate($request, [
-    //         //     'foto_perusahaan' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
-    //         // ]);
-    //         $hapus_foto_perusahaan = public_path('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Foto Perusahaan/').$perusahaan->foto_perusahaan;
-    //         if(file_exists($hapus_foto_perusahaan)){
-    //             @unlink($hapus_foto_perusahaan);
-    //         }
-    //         $photo_perusahaan = $perusahaan->nama_perusahaan.time().'.'.$request->foto_perusahaan->extension();  
-    //         $simpan_photo_perusahaan = $request->file('foto_perusahaan');
-    //         $simpan_photo_perusahaan->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Foto Perusahaan/',$perusahaan->nama_perusahaan.time().'.'.$simpan_photo_perusahaan->extension());
-    //     } else {
-    //         if($perusahaan->foto_perusahaan !== null){
-    //             $photo_perusahaan = $perusahaan->foto_perusahaan;                
-    //         } else {
-    //             $photo_perusahaan = null;    
-    //         }
-    //     }
-
-    //     if($request->file('logo_perusahaan') !== null){
-    //         // $this->validate($request, [
-    //         //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
-    //         // ]);
-    //         $hapus_logo_perusahaan = public_path('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Logo Perusahaan/').$perusahaan->logo_perusahaan;
-    //         if(file_exists($hapus_logo_perusahaan)){
-    //             @unlink($hapus_logo_perusahaan);
-    //         }
-    //         $logo = $perusahaan->nama_perusahaan.time().'.'.$request->logo_perusahaan->extension();  
-    //         $simpan_logo = $request->file('logo_perusahaan');
-    //         $simpan_logo->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Logo Perusahaan/',$perusahaan->nama_perusahaan.time().'.'.$simpan_logo->extension());
-    //     } else {
-    //         if($perusahaan->logo_perusahaan !== null){
-    //             $logo = $perusahaan->logo_perusahaan;                
-    //         } else {
-    //             $logo = null;    
-    //         }
-    //     }
-
-    //     if ($photo_perusahaan !== null) {
-    //         $foto_perusahaan = $photo_perusahaan;
-    //     } else {
-    //         $foto_perusahaan = null;
-    //     }
-
-    //     if ($logo !== null) {
-    //         $logo_perusahaan = $logo;
-    //     } else {
-    //         $logo_perusahaan = null;
-    //     }
-
-    //     if($request->tmp_perusahaan == "Dalam negeri"){
-    //         $negara_id = 2;
-    //     } else {
-    //         $negara_id = null;
-    //     }
-        
-    //     PerusahaanCabang::create([
-    //         'id_perusahaan' => $perusahaan->id_perusahaan,
-    //         'nama_perusahaan' => $request->nama_perusahaan,
-    //         'no_nib' => $perusahaan->no_nib,
-    //         'referral_code' => $perusahaan->referral_code,
-    //         'email_perusahaan' => $perusahaan->email_perusahaan,
-    //         'penempatan_kerja' => $request->penempatan_kerja,
-    //         'nama_pemimpin' => $request->nama_pemimpin,
-    //         'foto_perusahaan' => $foto_perusahaan,
-    //         'logo_perusahaan' => $logo_perusahaan,
-    //         'tmp_perusahaan' => $request->tmp_perusahaan,
-    //         'negara_id' => $negara_id,        
-    //     ]);
-    //     return redirect()->route('cabang.alamat')->with('success',"Data anda tersimpan");
-    // }
-
-    // public function tambahCabangAlamat()
-    // {
-    //     $id = Auth::user();
-    //     $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-    //     $negara = Negara::where('negara_id','not like',2)->get();
-    //     return view('perusahaan/isi_perusahaan_alamat',compact('perusahaan','negara'));
-    // }
-
-    // public function simpanCabangAlamat(Request $request)
-    // {
-    //     $id = Auth::user();
-    //     $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        
-    //     if($perusahaan->tmp_perusahaan == "Dalam negeri"){
-    //         $cari_provinsi = Provinsi::where('id',$request->provinsi_id)->first();
-    //         $cari_kota = Kota::where('id',$request->kota_id)->first();
-    //         $cari_kecamatan = Kecamatan::where('id',$request->kecamatan_id)->first();
-    //         $cari_kelurahan = kelurahan::where('id',$request->kelurahan_id)->first();    
-
-    //         $provinsi = $cari_provinsi->provinsi;
-    //         $kota = $cari_kota->kota;
-    //         $kecamatan = $cari_kecamatan->kecamatan;
-    //         $kelurahan = $cari_kelurahan->kelurahan;
-    //         $negara_id = 2;
-    //     } else {
-    //         $provinsi = null;
-    //         $kota = null;
-    //         $kecamatan = null;
-    //         $kelurahan = null;
-    //         $negara_id = $request->negara_id;
-    //     }
-
-    //     Perusahaan::where('no_nib',$id->no_nib)->update([
-    //         'provinsi'=>$provinsi,
-    //         'kota'=>$kota,
-    //         'kecamatan'=>$kecamatan,
-    //         'kelurahan'=>$kelurahan,
-    //         'no_telp_perusahaan'=>$request->no_telp_perusahaan,
-    //         'negara_id' => $negara_id,
-    //         'alamat' => $request->alamat,
-    //     ]);
-    //     return redirect()->route('cabang.operator')->with('success',"Data anda tersimpan");
-    // }
-
-    public function contactUsPerusahaan()
-    {
-        $id = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like','%'.$perusahaan->penempatan_kerja.'%')->get();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/contact_us',compact('perusahaan','notif','pesan','cabang','credit'));
-    }
-
-    public function permohonanLowonganPekerjaan()
-    {
-
-    }
-
-    public function listPmiID()
-    {
-        $user = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like','%'.$perusahaan->penempatan_kerja.'%')->get();
-        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        $pmi_id = PMIID::join(
-            'kandidat', 'perusahaan_kebutuhan.id_kandidat','=','kandidat.id_kandidat'
-        )->where('perusahaan_kebutuhan.id_perusahaan',$perusahaan->id_perusahaan)->get();
-        return view('perusahaan/list_pmi_id',compact('perusahaan','pmi_id','pesan','notif','cabang','credit'));
-    }
-
-    public function pembuatanPmiID(Request $request)
-    {
-        $user = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-        $kandidat = Kandidat::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $id_kandidat = null;
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like','%'.$perusahaan->penempatan_kerja.'%')->get();
-        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/pembuatan_pmi_id',compact('perusahaan','kandidat','pesan','notif','id_kandidat','cabang','credit'));
-    }
-
-    public function selectKandidatID(Request $request)
-    {
-        $user = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-        $id_kandidat = Kandidat::where('id_kandidat',$request->id_kandidat)->first();
-        $kandidat = Kandidat::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $tgl = Carbon::create($id_kandidat->tgl_lahir)->isoformat('d MMM Y');
-        $negara = Negara::all();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like','%'.$perusahaan->penempatan_kerja.'%')->get();
-        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/pembuatan_pmi_id',compact('perusahaan','kandidat','pesan','notif','id_kandidat','tgl','negara','cabang','credit'));
-    }
-
-    public function simpanPembuatanPmiID(Request $request)
-    {
-        $user = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-        PMIID::create([
-            'isi' => $request->isi,
-            'agency' => $request->agency,
-            'jabatan' => $request->jabatan,
-            'sektor_usaha' => $request->sektor_usaha,
-            'nominal' => $request->nominal,
-            'berlaku' => $request->berlaku,
-            'habis_berlaku' => $request->habis_berlaku,
-            'id_perusahaan' => $perusahaan->id_perusahaan,
-            'id_kandidat' => $request->id_kandidat,
-            'negara_id' => $request->negara_id,
-        ]);
-
-        Kandidat::where('id_kandidat',$request->id_kandidat)->update([
-            'negara_id' => $request->negara_id,
-        ]);
-        return redirect('/perusahaan/list/pmi_id')->with('success',"Data anda tersimpan");
-    }
-
-    public function lihatPmiID($id)
-    {
-        $user = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-        $pmi_id = PMIID::join(
-            'kandidat', 'perusahaan_kebutuhan.id_kandidat','=','kandidat.id_kandidat'
-        )
-        ->join(
-            'ref_negara', 'perusahaan_kebutuhan.negara_id','=','ref_negara.negara_id'
-        )
-        ->where('perusahaan_kebutuhan.pmi_id',$id)->first();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $berlaku = Carbon::create($pmi_id->berlaku)->isoformat('d MMM Y');
-        $habis_berlaku = Carbon::create($pmi_id->habis_berlaku)->isoformat('d MMM Y');
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/lihat_pmi_id',compact('perusahaan','pmi_id','notif','pesan','berlaku','habis_berlaku','cabang','credit'));
-    }
-
-    public function editPmiID($id)
-    {
-        $user = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-        $pmi_id = PMIID::join(
-            'kandidat', 'perusahaan_kebutuhan.id_kandidat','=','kandidat.id_kandidat'
-        )
-        ->where('pmi_id',$id)->first();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $tgl = Carbon::create($pmi_id->tgl_lahir)->isoformat('d MMM Y');
-        $negara = Negara::all();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/edit_pmi_id',compact('perusahaan','pmi_id','pesan','notif','tgl','negara','cabang','credit'));
-    }
-
-    public function updatePmiID(Request $request, $id)
-    {
-        $user = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-        $pmi_id = PMIID::where('pmi_id',$id)->update([
-            'isi' => $request->isi,
-            'agency' => $request->agency,
-            'jabatan' => $request->jabatan,
-            'sektor_usaha' => $request->sektor_usaha,
-            'nominal' => $request->nominal,
-            'berlaku' => $request->berlaku,
-            'habis_berlaku' => $request->habis_berlaku,
-            'negara_id' => $request->negara_id,
-        ]);
-        Kandidat::where('id_kandidat',$request->id_kandidat)->update([
-            'negara_id' => $request->negara_id,
-        ]);
-        return redirect('/perusahaan/list/pmi_id')->with('success',"Data anda tersimpan");
-    }
-
-    public function hapusPmiID($id)
-    {
-        PMIID::where('pmi_id',$id)->delete();
-        return redirect('/perusahaan/list/pmi_id')->with('success',"Data telah dihapus");
-    }
-
-    public function akademi()
-    {
-        $user = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-        $akademi = Akademi::all();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/akademi/list_akademi', compact('perusahaan','akademi','notif','pesan','cabang','credit'));
-    }
-
-    public function lihatProfilAkademi($id)
-    {
-        $user = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $akademi = Akademi::where('id_akademi',$id)->first();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
-        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/akademi/profil_akademi',compact('perusahaan','akademi','notif','pesan','cabang','credit'));
-    }
 
     // DATA KANDIDAT //
+    // halaman data semua kandidat yang diterima
     public function semuaKandidat()
     {
         $user = Auth::user();
@@ -586,6 +271,7 @@ class PerusahaanController extends Controller
         return view('perusahaan/kandidat/kandidat',compact('perusahaan','notif','pesan','credit','kandidat','isi'));
     }
 
+    // halaman lihat kandidat dari lowongan tujuan
     public function listKandidatLowongan($id)
     {
         $user = Auth::user();
@@ -601,11 +287,13 @@ class PerusahaanController extends Controller
         return view('perusahaan/kandidat/lowongan_kandidat',compact('kandidat','perusahaan','isi','notif','pesan','cabang','credit','lowongan','semua_lowongan','id'));
     }
 
+    // mengarahkan ke pencarian kandidat lowongan tujuan
     public function cariKandidatLowongan(Request $request, $id)
     {
         return redirect('/perusahaan/list/kandidat/lowongan/'.$request->id_lowongan);
     }
 
+    // halaman lihat profil kandidat
     public function lihatProfilKandidat($id)
     {
         $auth = Auth::user();
@@ -620,13 +308,7 @@ class PerusahaanController extends Controller
         $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
         $interview = Interview::where('id_kandidat',$kandidat->id_kandidat)->first();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        
-        // $semua_kandidat = Kandidat::join(
-        //     'permohonan_lowongan', 'kandidat.id_kandidat','=','permohonan_lowongan.id_kandidat'
-        // )
-        // ->where('kandidat.id_perusahaan','like','%'.$perusahaan->id_perusahaan.'%')
-        // ->where('kandidat.id_kandidat','not like',$id)->whereNull('stat_pemilik')->limit(12)->get();
-        
+                
         return view('perusahaan/kandidat/profil_kandidat',compact(
             'kandidat','pengalaman_kerja_kandidat','perusahaan',
             'usia','tgl_user','pesan',
@@ -635,6 +317,7 @@ class PerusahaanController extends Controller
         ));
     }
 
+    // sistem keluarkan kandidat dari perusahaan
     public function keluarkanKandidatPerusahaan($id, $nama)
     {
         $user = Auth::user();
@@ -644,12 +327,6 @@ class PerusahaanController extends Controller
             'id_perusahaan' => null,
             'jabatan_kandidat' => null,
         ]);
-        // notifyKandidat::create([
-        //     'id_kandidat' => $id,
-        //     'isi' => "Anda mendapat pesan dari perusahaan",
-        //     'pengirim' => "Sistem",
-        //     'url' => '/semua_pesan',
-        // ]);
         messageKandidat::create([
             'id_kandidat' => $id,
             'pesan' => "Mohon maaf, Anda telah dikeluarkan dari perusahan ".$perusahaan->nama_perusahaan.". ",
@@ -667,6 +344,7 @@ class PerusahaanController extends Controller
         return redirect('/perusahaan/semua/kandidat')->with('success',"Kandidat telah diusir dari perusahaan anda");
     }
 
+    // halaman galeri kandidat
     public function galeriKandidat($id)
     {
         $auth = Auth::user();
@@ -683,6 +361,7 @@ class PerusahaanController extends Controller
         return view('perusahaan/kandidat/galeri_kandidat',compact('perusahaan','pengalaman_kandidat','pengalaman_kerja','cabang','pesan','notif','credit','video','foto','semua_video'));
     }
 
+    // halaman lihat galeri kandidat
     public function lihatGaleriKandidat($id,$type)
     {
         $auth = Auth::user();
@@ -706,18 +385,20 @@ class PerusahaanController extends Controller
         }
     }
 
-    public function editJadwalInterview($id)
-    {
-        $auth = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
-        $interview = Interview::where('id_interview',$id)->first();
-        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
-        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('check_click',"n")->get();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();       
-        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/edit_interview',compact('perusahaan','interview','notif','pesan','cabang','credit'));
-    }
+    // halaman edit jadwal interview
+    // public function editJadwalInterview($id)
+    // {
+    //     $auth = Auth::user();
+    //     $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
+    //     $interview = Interview::where('id_interview',$id)->first();
+    //     $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
+    //     $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('check_click',"n")->get();
+    //     $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();       
+    //     $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+    //     return view('perusahaan/edit_interview',compact('perusahaan','interview','notif','pesan','cabang','credit'));
+    // }
 
+    // sistem ubah jadwal interview
     public function ubahJadwalInterview(Request $request,$id)
     { 
         $auth = Auth::user();
@@ -728,14 +409,6 @@ class PerusahaanController extends Controller
             return back()->with('warning',"Maaf kesempatan anda mengubah jadwal telah habis. Harap hubungi admin");
         }
         if($interview->jadwal_interview !== $request->jadwal){
-            // notifyKandidat::create([
-            //     'id_kandidat' => $interview->id_kandidat,
-            //     'id_perusahaan' => $interview->id_perusahaan,
-            //     'isi' => "Ada perubahan jadwal interview anda dengan perusahaan. cek pesan anda.",
-            //     'pengirim' => "Admin",
-            //     'id_interview' => $interview->id_interview,
-            //     'url' => '/semua_pesan',
-            // ]);
             $time = Carbon::create($request->jadwal)->isoformat('D MMM Y | h A');
             messageKandidat::create([
                 'id_kandidat'=>$interview->id_kandidat,
@@ -759,16 +432,7 @@ class PerusahaanController extends Controller
         return redirect('/perusahaan/interview')->with('success',"Jadwal berhasil diubah");
     }
 
-    public function deleteJadwalInterview($id)
-    {
-        $interview = Interview::where('id_interview',$id)->first();
-        Interview::where('id_interview',$id)->delete();
-        Kandidat::where('id_kandidat',$interview->id_kandidat)->where('id_perusahaan',$interview->id_perusahaan)->update([
-            'stat_pemilik'=>"kosong"
-        ]);
-        return redirect('/perusahaan/interview')->with('error',"Jadwal Interview Dibatalkan");
-    }
-
+    // halaman data pembayaran perusahaan
     public function pembayaran()
     {
         $user = Auth::user();
@@ -785,6 +449,7 @@ class PerusahaanController extends Controller
         return view('perusahaan/pembayaran/list_pembayaran', compact('perusahaan','pembayaran','notif','pesan','cabang','credit'));
     }
 
+    // halaman lihat detail pembayaran perusahaan
     public function Payment($id)
     {
         $auth = Auth::user();
@@ -800,6 +465,7 @@ class PerusahaanController extends Controller
         return view('perusahaan/pembayaran/pembayaran',compact('perusahaan','notif','pembayaran','pesan','cabang','credit'));
     }
 
+    // sistem konfirmasi bukti pembayaran perusahaan
     public function paymentCheck(Request $request, $id)
     {
         $auth = Auth::user();

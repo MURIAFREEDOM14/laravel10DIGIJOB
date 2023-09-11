@@ -6,7 +6,7 @@
     $personal = $kandidat->tinggi;
     $document = $kandidat->foto_ijazah;
     // $vaksin = $kandidat->sertifikat_vaksin2;
-    $parent = $kandidat->tgl_lahir_ibu;
+    $parent = $kandidat->rw_parent;
     $permission = $kandidat->hubungan_perizin;
     $negara = $kandidat->negara_id;                                
 @endphp
@@ -229,12 +229,11 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($lowongan as $item)
-                                        @if ($item->pendidikan <= $pendidikan->nama_pendidikan)
+                                        @if ($item->no_urutan <= $pendidikan->no_urutan)
                                             @if ($item->pencarian_tmp == $kandidat->kabupaten || $item->pencarian_tmp == "Se-indonesia")
                                                 @if ($item->usia_min <= $kandidat->usia && $item->usia_maks >= $kandidat->usia)
                                                     @if ($item->berat_min <= $kandidat->berat && $item->berat_maks >= $kandidat->berat)
                                                         <tr class="text-center">
-                                                            {{-- <td>{{$loop->iteration}}</td> --}}
                                                             <td>
                                                                 {{$item->jabatan}}
                                                             </td>
@@ -247,7 +246,6 @@
                                                         </tr>
                                                     @elseif($item->berat_min <= $kandidat->berat)
                                                         <tr class="text-center">
-                                                            {{-- <td>{{$loop->iteration}}</td> --}}
                                                             <td>
                                                                 {{$item->jabatan}}
                                                             </td>

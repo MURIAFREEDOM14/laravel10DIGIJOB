@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AkademiController extends Controller
 {
+    // halaman beranda / dashboard akademi
     public function index()
     {
         $id = Auth::user();
@@ -38,6 +39,7 @@ class AkademiController extends Controller
         return view('/akademi/index',compact('akademi','perusahaan','akademi_kandidat','pesan','notif'));
     } 
 
+    // halaman isi akademi data
     public function isi_akademi_data()
     {
         $id = Auth::user();
@@ -45,30 +47,36 @@ class AkademiController extends Controller
         return view('akademi/modalAkademi/isi_akademi_data',compact('akademi'));
     }
 
+    // sistem simpan data akademi
     public function simpan_akademi_data(Request $request)
     {
-        // dd($request);
         $id = Auth::user();
         $akademi = Akademi::where('referral_code',$id->referral_code)->first();
+        // cek foto akademi
         if($request->file('foto_akademi') !== null){
+            // sistem validasi data input
             // $this->validate($request, [
             //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
             // ]);
+
+            // pengecekan data foto sebelumnya dan hapus jika ada
             $hapus_foto_akademi = public_path('/gambar/Akademi/'.$akademi->nama_akademi.'/Foto Akademi/').$akademi->foto_akademi;
             if(file_exists($hapus_foto_akademi)){
                 @unlink($hapus_foto_akademi);
             }
-            $foto_akademi = $akademi->nama_akademi.time().'.'.$request->foto_akademi->extension();  
-            $simpan_foto_akademi = $request->file('foto_akademi');
-            $simpan_foto_akademi->move('gambar/Akademi/'.$akademi->nama_akademi.'/Foto Akademi/',$akademi->nama_akademi.time().'.'.$simpan_foto_akademi->extension());
+            // memasukkan data file foto ke dalam aplikasi
+            $foto_akademi = $request->file('foto_akademi');
+            $simpan_foto_akademi = $akademi->nama_akademi.time().'.'.$foto_akademi->extension();  
+            $foto_akademi->move('gambar/Akademi/'.$akademi->nama_akademi.'/Foto Akademi/',$akademi->nama_akademi.time().'.'.$simpan_foto_akademi);
         } else {
+            // pengecekan data foto ada atau tidak
             if($akademi->foto_akademi !== null){
-                $foto_akademi = $akademi->foto_akademi;                
+                $simpan_foto_akademi = $akademi->foto_akademi;                
             } else {
-                $foto_akademi = null;                        
+                $simpan_foto_akademi = null;                        
             }
         }
-        
+        // cek logo akademi
         if($request->file('logo_akademi') !== null){
             // $this->validate($request, [
             //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
@@ -77,17 +85,17 @@ class AkademiController extends Controller
             if(file_exists($hapus_logo_akademi)){
                 @unlink($hapus_logo_akademi);
             }
-            $logo_akademi = $akademi->nama_akademi.time().'.'.$request->logo_akademi->extension();  
-            $simpan_logo_akademi = $request->file('logo_akademi');
-            $simpan_logo_akademi->move('gambar/Akademi/'.$akademi->nama_akademi.'/Logo Akademi/',$akademi->nama_akademi.time().'.'.$simpan_logo_akademi->extension());
+            $logo_akademi = $request->file('logo_akademi');
+            $simpan_logo_akademi = $akademi->nama_akademi.time().'.'.$request->logo_akademi->extension();  
+            $logo_akademi->move('gambar/Akademi/'.$akademi->nama_akademi.'/Logo Akademi/',$simpan_logo_akademi);
         } else {
             if($akademi->logo_akademi !== null){
-                $logo_akademi = $akademi->logo_akademi;                
+                $simpan_logo_akademi = $akademi->logo_akademi;                
             } else {
-                $logo_akademi = null;                        
+                $simpan_logo_akademi = null;                        
             }
         }
-
+        // cek data foto ada atau kosong
         if ($foto_akademi !== null) {
             $photo_akademi = $foto_akademi;
         } else {
@@ -99,6 +107,7 @@ class AkademiController extends Controller
         } else {
             $logos_akademi = null;
         }
+        // mencari alamat dengan id
         $prov = Provinsi::where('id',$request->provinsi_id)->first();
         $kota = Kota::where('id',$request->kota_id)->first();
         $kec = Kecamatan::where('id',$request->kecamatan_id)->first();
@@ -116,16 +125,12 @@ class AkademiController extends Controller
             'kelurahan' => $kel->kelurahan,
         ]);
 
-        // User::where('referral_code',$id->referral_code)->update([
-        //     'name_akademi'=>$request->nama,
-        //     'no_nis' => $request->no_nis,
-        //     'email' => $request->email,
-        // ]);
         return redirect()->route('akademi.operator')
         // ->with('toast_success',"Data anda tersimpan");
         ->with('success',"Data anda tersimpan");
     }
 
+    // halaman isi data akademi operator
     public function isi_akademi_operator()
     {
         $id = Auth::user();
@@ -133,6 +138,7 @@ class AkademiController extends Controller
         return view('akademi/modalAkademi/isi_akademi_operator',compact('akademi'));
     }
 
+    // sistem simpan data akademi operator
     public function simpan_akademi_operator(Request $request)
     {
         $id = Auth::user();
@@ -145,15 +151,17 @@ class AkademiController extends Controller
         return redirect('/akademi')->with('success',"Data anda tersimpan");
     }
 
-    public function contactUsAkademi()
-    {
-        $id = Auth::user();
-        $akademi = Akademi::where('referral_code',$id->referral_code)->first();
-        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
-        return view('akademi/contact_us',compact('akademi','pesan','notif'));
-    }
+    // halaman hub. kami / bantuan bagian akademi
+    // public function contactUsAkademi()
+    // {
+    //     $id = Auth::user();
+    //     $akademi = Akademi::where('referral_code',$id->referral_code)->first();
+    //     $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
+    //     $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
+    //     return view('akademi/contact_us',compact('akademi','pesan','notif'));
+    // }
 
+    // halaman lihat profil akademi
     public function lihatProfilAkademi()
     {
         $user = Auth::user();
@@ -167,6 +175,7 @@ class AkademiController extends Controller
         }
     }
 
+    // halaman lihat profil perusahaan
     public function lihatProfilPerusahaan($id)
     {
         $user = Auth::user();
@@ -178,6 +187,7 @@ class AkademiController extends Controller
         return view('akademi/lihat_profil_perusahaan',compact('akademi','perusahaan','pesan','notif','lowongan'));
     }
 
+    // halaman data kandidat dalam akademi
     public function listKandidat()
     {
         $auth = Auth::user();
@@ -188,6 +198,7 @@ class AkademiController extends Controller
         return view('akademi/list_kandidat',compact('akademi','kandidat','pesan','notif'));
     }
 
+    // halaman lihat profil kandidat
     public function lihatProfilKandidat($nama, $id)
     {
         $auth = Auth::user();
