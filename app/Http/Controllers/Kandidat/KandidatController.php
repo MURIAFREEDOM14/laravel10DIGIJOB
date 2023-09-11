@@ -1350,7 +1350,6 @@ class KandidatController extends Controller
         } else {
             $anak = null;
         }
-        dd("hello world");
         return view('kandidat/modalKandidat/edit_kandidat_permission',compact('kandidat','provinsi','kecamatan','kelurahan','kota','anak'));
     }
 
