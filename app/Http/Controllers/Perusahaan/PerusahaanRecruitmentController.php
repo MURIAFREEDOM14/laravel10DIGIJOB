@@ -758,22 +758,17 @@ class PerusahaanRecruitmentController extends Controller
                         'stat_pemilik' => null,
                     ]);
                     PersetujuanKandidat::where('id_kandidat',$key->id_kandidat)->where('nama_kandidat',$key->nama)->delete();
-                    // notifyKandidat::create([
-                    //     'id_kandidat' => $key->id_kandidat,
-                    //     'isi' => "Anda mendapat pesan masuk",
-                    //     'pengirim' => "Sistem",
-                    //     'url' => '/semua_pesan',
-                    // ]);
                     messageKandidat::create([
                         'id_kandidat' => $key->id_kandidat,
+                        'id_perusahaan' => $perusahaan->id_perusahaan,
                         'pesan' => "Mohon maaf, Anda secara otomatis telah menolak undangan interview dari perusahaan ".$perusahaan->nama_perusahaan." karena belum konfirmasi sampai pada batas waktu. Harap kedepannya untuk selalu melihat pesan dan notifikasi anda agar tidak terlambat dalam konfirmasi undangan interview.",
-                        'pengirim' => "Admin",
+                        'pengirim' => $perusahaan->nama_perusahaan,
                         'kepada' => $key->nama,
                     ]);
-                    $allMessage = messageKandidat::where('id_kandidat',$key->id_kandidat)->get();
+                    $allMessageKandidat = messageKandidat::where('id_kandidat',$key->id_kandidat)->get();
                     $total = 30;
-                    if ($allMessage->count() > $total) {
-                        $operator = $allMessage->count() - $total;
+                    if ($allMessageKandidat->count() > $total) {
+                        $operator = $allMessageKandidat->count() - $total;
                         messageKandidat::where('id_kandidat',$key->id_kandidat)->orderBy('id','asc')->limit($operator)->delete();
                     }
                     notifyPerusahaan::create([
@@ -784,10 +779,17 @@ class PerusahaanRecruitmentController extends Controller
                     ]);
                     messagePerusahaan::create([
                         'id_perusahaan' => $perusahaan->id_perusahaan,
+                        'id_kandidat' => $key->id_kandidat,
                         'pesan' => "Maaf Kandidat atas nama ".$key->nama." secara otomatis telah menolak undangan interview anda karena belum ada konfirmasi persetujuan sampai batas waktu. Sebagai gantinya, kami akan memberikan anda credit yang dapat anda gunakan di interview berikutnya.",
-                        'pengirim' => "Admin",
+                        'pengirim' => $key->nama,
                         'kepada' => $perusahaan->nama_perusahaan,
                     ]);
+                    $allMessagePerusahaan = messagePerusahaan::where('id_kandidat',$key->id_kandidat)->get();
+                    $total = 30;
+                    if ($allMessagePerusahaan->count() > $total) {
+                        $operator = $allMessagePerusahaan->count() - $total;
+                        messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('id','asc')->limit($operator)->delete();
+                    }
                     KandidatInterview::where('id_kandidat',$key->id_kandidat)->where('id_lowongan',$key->id_lowongan)->delete();
                     if($credit == null){
                         CreditPerusahaan::create([

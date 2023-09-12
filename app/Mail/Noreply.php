@@ -18,6 +18,7 @@ class Noreply extends Mailable
     public $text;
     public $subject;
     public $email;
+    public $fromName;
 
     /**
      * Create a new message instance.
@@ -29,12 +30,15 @@ class Noreply extends Mailable
         $this->text = $text;
         $this->subject = $subject;
         $this->email = $email;
+        $this->fromName = "DIGIJOB-UGIPORT";
     }
 
     public function build()
     {
-        return $this->from();
-    }
+        return $this->from($this->email,$this->fromName)
+        ->subject($this->text)
+        ->view('mail');
+    }   
 
     /**
      * Get the message envelope.

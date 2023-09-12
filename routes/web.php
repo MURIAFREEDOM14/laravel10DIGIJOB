@@ -1,10 +1,10 @@
 <?php
 
-// use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Akademi\AkademiController;
 use App\Http\Controllers\Akademi\AkademiKandidatController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\VerifikasiController;
 use App\Http\Controllers\Manager\ManagerController;
 use App\Http\Controllers\Manager\ManagerPaymentController;
 use App\Http\Controllers\Manager\Kandidat\ManagerKandidatController;
@@ -21,8 +21,6 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PekerjaanController;
 use App\Http\Controllers\PrioritasController;
 use App\Http\Controllers\NotifikasiController;
-use App\Http\Controllers\VerifikasiController;
-use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\LamanController;
 use App\Http\Livewire\Location;
 use App\Http\Livewire\LocationPermission;
@@ -213,11 +211,6 @@ Route::controller(ManagerPaymentController::class)->group(function() {
 
 // DATA MANAGER CONTACT US //
 Route::controller(ContactUsController::class)->group(function() {
-    // route manager
-    Route::get('/manager/contact_us_admin','contactUsAdmin')->middleware('manager');
-    Route::post('/manager/contact_us_admin','tambahContactUsAdmin');
-    Route::get('/manager/hapus_contact_us_admin','hapusContactUsAdmin');
-
     // route manager contact us
     Route::get('/manager/contact_us','contactUs')->middleware('contact.service')->name('cs');
     Route::post('/manager/contact_us','sendContactUs');
@@ -226,7 +219,7 @@ Route::controller(ContactUsController::class)->group(function() {
     Route::get('/manager/contact_us_kandidat','contactUsKandidatList')->middleware('contact.service');
     Route::get('/manager/lihat/contact_kandidat/{id}','contactUsKandidatLihat')->middleware('contact.service');
     Route::post('/manager/lihat/contact_kandidat/{id}','contactUsKandidatJawab');
-   
+    
     // route manager contact us akademi
     Route::get('/manager/contact_us_akademi','contactUsAkademiList')->middleware('contact.service');
     Route::get('/manager/lihat/contact_akademi/{id}','contactUsAkademiLihat')->middleware('contact.service');
@@ -237,6 +230,7 @@ Route::controller(ContactUsController::class)->group(function() {
     Route::get('/manager/lihat/contact_perusahaan/{id}','contactUsPerusahaanLihat')->middleware('contact.service');
     Route::post('/manager/lihat/contact_perusahaan/{id}','contactUsPerusahaanJawab');
 
+    // route verifikasi kandidat
     Route::get('/manager/verification_kandidat','verifyKandidatList')->middleware('contact.service');
     Route::get('/manager/lihat/verifikasi_kandidat/{id}','lihatVerifyKandidat')->middleware('contact.service');
     Route::post('/manager/lihat/verifikasi_kandidat/{id}','confirmVerifyKandidat');
@@ -268,7 +262,7 @@ Route::controller(LamanController::class)->group(function() {
     Route::view('/about_us','about_us')->middleware('guest');
 });
 
-// DATA LOGIN
+// DATA LOGIN //
 Route::controller(LoginController::class)->group(function() {
     // route halaman awal login
     Route::get('/login','loginSemua')->middleware('guest');
@@ -289,14 +283,13 @@ Route::controller(LoginController::class)->group(function() {
     // route  akun yang sudah ada di dalam
     Route::get('/login/migration','loginMigration')->middleware('guest');
     Route::post('/login/migration','checkLoginMigration');
-    Route::get('/login/migration/confirm', 'tambahLoginMigration');
     Route::post('/login/migration/confirm', 'confirmLoginMigration');
     
     // route log out / keluar aplikasi
     Route::get('/logout','logout')->name('logout');
 });
 
-// DATA REGISTER
+// DATA REGISTER //
 Route::controller(RegisterController::class)->group(function() {
     // route register kandidat
     Route::view('/register/kandidat', 'auth/register_kandidat');
@@ -312,6 +305,25 @@ Route::controller(RegisterController::class)->group(function() {
     // route register perusahaan
     Route::view('/register/perusahaan', 'auth/register_perusahaan');
     Route::post('/register/perusahaan', 'perusahaan');
+});
+
+// DATA VERIFIKASI PENDAFTAR / PENGGUNA //
+Route::controller(VerifikasiController::class)->group(function(){
+    // route verifikasi
+    Route::get('/verifikasi','verifikasi')->name('verifikasi')->middleware('verify');
+    Route::get('/ulang_verifikasi','ulang_verifikasi')->middleware('verify');
+    Route::get('/verify_account/{token}','verifyAccount')->name('users_verification')->middleware('verify');
+    Route::get('/identify_account/{token}','identifyAccount')->name('identify_account');
+    Route::get('/identify_id','identifyID');
+    Route::post('/identify_id','confirmIdentifyID');
+    
+
+    Route::get('/user_code_id','userCodeID')->name('nomorID');
+    Route::post('/user_code_id','confirmUserCodeID');
+    Route::post('/kirim_verifikasi_diri','confirmVerifikasiDiri');
+    Route::post('/new_password','confirmPassword');
+    Route::view('/confirm_alternative_id','auth/passwords/confirm_alternative_id');
+    Route::post('/kirim_verifikasi_diri','confirmVerifikasiDiri');
 });
 
 // DATA KANDIDAT //
@@ -638,23 +650,6 @@ Route::controller(OutputController::class)->group(function() {
     Route::get('/manager/perusahaan/cetak_pmi_id/{id}','cetakPmiID')->middleware('manager');
 });
 
-// data verifikasi
-Route::controller(VerifikasiController::class)->group(function(){
-    Route::get('/verifikasi','verifikasi')->name('verifikasi')->middleware('verify');
-    Route::post('/verifikasi','masukVerifikasi');
-    Route::get('/ulang_verifikasi','ulang_verifikasi')->middleware('verify');
-    Route::get('/verify_account/{token}','verifyAccount')->name('users_verification')->middleware('verify');
-    Route::get('/identify_account/{token}','identifyAccount')->name('identify_account');
-    Route::get('/identify_id','identifyID');
-    Route::post('/identify_id','confirmIdentifyID');
-    Route::get('/nomor_id','nomorID')->name('nomorID');
-    Route::post('/nomor_id','confirmNomorID');
-    Route::post('/kirim_verifikasi_diri','confirmVerifikasiDiri');
-    Route::post('/new_password','confirmPassword');
-    Route::view('/confirm_alternative_id','auth/passwords/confirm_alternative_id');
-    Route::post('/kirim_verifikasi_diri','confirmVerifikasiDiri');
-});
-
 Route::controller(NegaraController::class)->group(function() {
     Route::get('/manager/negara_tujuan','index')->middleware('manager')->name('negara');
     Route::get('/manager/lihat_negara/{id}','lihatNegara')->middleware('manager');
@@ -691,11 +686,6 @@ Route::controller(PaymentController::class)->group(function(){
     Route::get('/perusahaan/payment_confirm/{token}','paymentConfirm')->middleware('perusahaan')->name('payment.confirm');
     // USER MANAGER //
     
-});
-
-Route::controller(GoogleController::class)->group(function(){
-    Route::get('/auth/google', 'redirectToGoogle')->name('google.login');
-    Route::get('/auth/google/callback', 'handleGoogleCallback')->name('google.callback');
 });
 
 Route::controller(MailController::class)->group(function() {

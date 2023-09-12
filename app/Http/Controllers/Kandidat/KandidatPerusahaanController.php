@@ -210,7 +210,7 @@ class KandidatPerusahaanController extends Controller
                 'id_perusahaan' => $perusahaan->id_perusahaan,
                 'id_kandidat' => $kandidat->id_kandidat,
                 'pesan' => "Maaf Kandidat dengan atas nama ".$kandidat->nama." telah mengundurkan diri dari jadwal interview anda. Maka dari hal tersebut anda akan mendapatkan Credit yang dapat anda gunakan pada interview kandidat berikutnya.",
-                'pengirim' => "Admin",
+                'pengirim' => $kandidat->nama,
                 'kepada' => $perusahaan->nama_perusahaan,
             ]);
             // jika keluar perusahaan dalam kondisi sudah terdaftar dalam interview, maka perusahaan akan mendapat credit.
@@ -279,7 +279,7 @@ class KandidatPerusahaanController extends Controller
                 'id_perusahaan' => $perusahaan->id_perusahaan,
                 'id_kandidat' => $kandidat->id_kandidat,
                 'pesan' => "Kandidat dengan nama ".$kandidat->nama." telah menolak persetujuan interview dengan perusahaan anda",
-                'pengirim' => "Admin",
+                'pengirim' => $kandidat->nama,
                 'kepada' => $perusahaan->nama_perusahaan,
             ]);
 
@@ -306,8 +306,9 @@ class KandidatPerusahaanController extends Controller
             // mendapat tanggal & waktu interview
             messageKandidat::create([
                 'id_kandidat' => $kandidat->id_kandidat,
+                'id_perusahaan' => $perusahaan->id_perusahaan,
                 'pesan' => "Terima kasih untuk konfirmasi persetujuan interview anda. Berikut ini adalah jadwal interview perusahaan untuk anda. Harap untuk mengigat jadwal interview ini dan jangan sampai terlambat. Jadwal interview anda : ".date('d-m-Y',strtotime($persetujuan->jadwal_interview)).", dan waktu interview anda : ".date('h:i:s',strtotime($persetujuan->waktu_interview_awal))." sampai ".date('h:i:s',strtotime($persetujuan->waktu_interview_akhir))." .",
-                'pengirim' => "Admin",
+                'pengirim' => $perusahaan->nama_perusahaan,
                 'kepada' => $kandidat->nama,
                 'id_interview' => $persetujuan->id_interview,
             ]);

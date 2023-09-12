@@ -109,6 +109,7 @@ class RegisterController extends Controller
         }
     }
 
+    // DATA KANDIDAT //
     public function kandidat(Request $request)
     {        
         // Data Kandidat //
@@ -137,6 +138,7 @@ class RegisterController extends Controller
             return back()->with('warning',"Maaf umur anda belum cukup, syarat umur ialah 18 thn keatas");
         }
 
+        // sistem validasi data
         $validated = $request->validate([
             'name' => 'required|max:255',
             'nik' => 'required|max:16|min:16|unique:kandidat',
@@ -147,7 +149,10 @@ class RegisterController extends Controller
             'captcha' => 'required',
         ]);
 
+        // menampilkan 32 huruf secara acak
         $token = Str::random(32).$request->no_telp;
+        
+        // sistem hashing data password
         $password = Hash::make($request->password);
         
         $user = User::create([
@@ -160,7 +165,10 @@ class RegisterController extends Controller
             'token' => $token,
         ]);
 
+        // mengambil data user id
         $id = $user->id;
+        
+        // sistem merubah data angka menjadi seperti kode
         $userId = \Hashids::encode($id.$request->no_telp);
 
         User::where('id',$id)->update([
@@ -179,11 +187,17 @@ class RegisterController extends Controller
             'nik' => $request->nik,
         ]);
 
+        // mengirim pesan email kepada kandidat
         Mail::mailer('verification')->to($request->email)->send(new Verification($request->name, $token, 'Email Verifikasi', 'no-reply@ugiport.com'));
-        Auth::login($user);       
+        
+        // aktivasi akun sbg pengguna
+        Auth::login($user);
+        
+        // menuju halaman verifikasi
         return redirect()->route('verifikasi')->with('success',"Email verifikasi telah terkirim ke Email anda");
     }
 
+    // DATA AKADEMI //
     protected function akademi(Request $request)
     {
         if($request->password !== $request->passwordConfirm){
@@ -266,20 +280,7 @@ class RegisterController extends Controller
             'email_perusahaan' => $request->email,
             'penempatan_kerja' => $request->penempatan_kerja,
         ]);
-
-        // PerusahaanCabang::create([
-        //     'nama_perusahaan' => $request->name,
-        //     'no_nib' => $request->no_nib,
-        //     'referral_code' => $userId,
-        //     'email_perusahaan' => $request->email,
-        //     'penempatan_kerja' => $request->penempatan_kerja,
-        // ]);
-
         Mail::mailer('verification')->to($request->email)->send(new Verification($request->name, $token, 'Email Verifikasi', 'no-reply@ugiport.com'));
-        // Mail::send('mail.mail', ['token' => $token, 'nama' => $request->name], function($message) use($request){
-        //     $message->to($request->email);
-        //     $message->subject('Email Verification Mail');
-        // });
         Auth::login($user);
         return redirect()->route('verifikasi')->with('success',"Cek email anda untuk verifikasi");
     }

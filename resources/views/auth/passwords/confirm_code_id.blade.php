@@ -19,19 +19,19 @@
                         </h4>
                     </div>
                     <div class="card-body">
-                        <form action="/nomor_id" method="POST">
+                        <form action="" method="POST">
                             @csrf
                             <div class="row mb-3">
                                 <div class="col-md-12">
                                     @if ($user->type == 2)
                                         <label for="col-form-label">No. NIB</label>
-                                        <input type="number" name="no" disabled class="form-control" value="{{$user->no_nib}}" id="">
+                                        <input type="text" name="no" disabled class="form-control" value="{{$user->no_nib}}" id="">
                                     @elseif($user->type == 1)
                                         <label for="col-form-label">No. NIS</label>
-                                        <input type="number" name="no" disabled class="form-control" value="{{$user->no_nis}}" id="">
+                                        <input type="text" name="no" disabled class="form-control" value="{{$user->no_nis}}" id="">
                                     @else
                                         <label for="col-form-label">No. Telp</label>
-                                        <input type="number" name="no" disabled class="form-control" value="{{$user->no_telp}}" id="">
+                                        <input type="text" name="no" disabled class="form-control" value="{{$user->no_telp}}" id="">
                                     @endif
                                 </div>
                             </div>
@@ -43,9 +43,9 @@
                             </div>
                             <button type="submit" class="btn btn-primary float-end">Lanjut</button>
                         </form>
-                        @if ($user->type == 0)
+                        {{-- @if ($user->type == 0)
                             <div class="">Apakah No. Telp anda mati atau tidak bisa digunakan? Gunakan <a class="" href="/confirm_alternative_id">cara ini</a></div>                            
-                        @endif
+                        @endif --}}
                     </div>
                 </div>
             </div>

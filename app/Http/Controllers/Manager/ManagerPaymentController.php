@@ -91,16 +91,16 @@ class ManagerPaymentController extends Controller
                 'pengirim' => "Admin",
                 'kepada' => $pembayaran->nama_perusahaan,
             ]);
+            $allMessagePerusahaan = messagePerusahaan::where('id_perusahaan',$pembayaran->id_perusahaan)->get();
+            $total = 30;
+            if ($allMessagePerusahaan->count() > $total) {
+                $operator = $allMessagePerusahaan->count() - $total;
+                messagePerusahaan::where('id_perusahaan',$pembayaran->id_perusahaan)->orderBy('id','asc')->limit($operator)->delete();
+            }
         } else {
             Pembayaran::where('id_pembayaran',$id)->update([
                 'stats_pembayaran' => $request->stats_pembayaran,
                 'foto_pembayaran' => null,
-            ]);
-            notifyPerusahaan::create([
-                'id_perusahaan' => $pembayaran->id_perusahaan,
-                'isi' => "Anda mendapat pesan masuk",
-                'pengirim' => "Sistem",
-                'url' => '/perusahaan/semua_pesan',
             ]);
             messagePerusahaan::create([
                 'id_perusahaan' => $pembayaran->id_perusahaan,
@@ -108,6 +108,12 @@ class ManagerPaymentController extends Controller
                 'pengirim' => "Admin",
                 'kepada' => $pembayaran->nama_perusahaan,
             ]);
+            $allMessagePerusahaan = messagePerusahaan::where('id_perusahaan',$pembayaran->id_perusahaan)->get();
+            $total = 30;
+            if ($allMessagePerusahaan->count() > $total) {
+                $operator = $allMessagePerusahaan->count() - $total;
+                messagePerusahaan::where('id_perusahaan',$pembayaran->id_perusahaan)->orderBy('id','asc')->limit($operator)->delete();
+            }
         }
         
         $interview = Interview::where('id_interview',$pembayaran->id_interview)->first();

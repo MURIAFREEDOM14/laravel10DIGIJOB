@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Manager;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Noreply;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -230,6 +231,7 @@ class ContactUsController extends Controller
         return redirect('/manager/lihat/contact_perusahaan/'.$id)->with('success',"Pesan Terkirim");
     }
 
+    // halaman hub. kami / bantuan verifikasi data kandidat
     public function verifyKandidatList()
     {
         $user = Auth::user();
@@ -243,6 +245,7 @@ class ContactUsController extends Controller
         return view('manager/contactService/verify_kandidat_list',compact('admin','verification','riwayat'));
     }
 
+    // halaman hub. kami / bantuan lihat verifikasi kandidat
     public function lihatVerifyKandidat($id)
     {
         $user = Auth::user();
@@ -253,6 +256,7 @@ class ContactUsController extends Controller
         return view('manager/contactService/lihat_verify_kandidat',compact('admin','verification'));
     }
 
+    // halaman hub. kami / bantuan konfirmasi verifikasi kandidat
     public function confirmVerifyKandidat(Request $request,$id)
     {
         $user = Auth::user();
@@ -261,22 +265,18 @@ class ContactUsController extends Controller
             'users','verifikasi_diri.id','=','users.id'
         )->where('verify_id',$id)->first();
         if($request->answer == "ya"){
+            $text = "Anda terbukti telah terdaftar dalam aplikasi ini. Silahkan menekan tombol dibawah ini untuk melanjutkan.";
             VerifikasiDiri::where('verify_id',$id)->update([
                 'confirmation'=>$request->answer,
             ]);
-            Mail::send('mail.accept', ['token'=>$verification->token,'nama'=>$verification->name], function($message) use($verification){
-                $message->to($verification->email);
-                $message->subject('Kandidat Verification');
-            });
+            Mail::mailer('verification')->to($verification->email)->to(new Noreply($verification->name, $verification->token, $text, 'Email Verifikasi Ulang', 'no-reply@ugiport.com'));
             return back()->with('success',"Kandidat Teridentifikasi");
         } else {
+            $text = "Anda terbukti telah terdaftar dalam aplikasi ini. Silahkan menekan tombol dibawah ini untuk melanjutkan.";
             VerifikasiDiri::where('verify_id',$id)->update([
                 'confirmation'=>$request->answer,
             ]);
-            Mail::send('mail.denied', ['token'=>$verification->token, 'nama'=>$verification->name], function($message) use($verification){
-                $message->to($verification->email);
-                $message->subject('Kandidat Verification');
-            });
+            Mail::mailer('verification')->to($verification->email)->send(new Noreply($verification->name, $verification->token, $text, 'Email Verifikasi Ulang', 'no-reply@ugiport.com'));
             return back()->with('success',"Kandidat Tidak dikenali");
         }
     }

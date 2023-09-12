@@ -122,82 +122,15 @@
                     <div class="container-fluid">
                         <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
                             <li class="nav-item dropdown hidden-caret">
-                                <a class="nav-link dropdown-toggle" href="/perusahaan/semua_pesan">
-                                    <i class="fa fa-envelope"></i>
-                                </a>
-                                {{-- <a class="nav-link dropdown-toggle" href="" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-envelope"></i>
-                                </a>
-                                <ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
-                                    <li>
-                                        <div class="dropdown-title d-flex justify-content-between align-items-center">
-                                            Pesan
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="message-notif-scroll scrollbar-outer">
-                                            <div class="notif-center">
-                                                @foreach ($pesan as $item)
-                                                    <a href="/perusahaan/kirim_balik/{{$item->id}}">
-                                                        <div class="notif-content">
-                                                            <span class="subject">{{$item->pengirim}}</span>
-                                                            <span class="block">
-                                                                {{$item->pesan}}
-                                                            </span>
-                                                            <span class="time">{{date('d-M-Y | H:m',strtotime($item->created_at))}}</span>
-                                                        </div>
-                                                    </a>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a class="see-all" href="/perusahaan/semua_pesan">Lihat Semua Pesan<i class="fa fa-angle-right"></i> </a>
-                                    </li>
-                                </ul> --}}
-                            </li>
-                            <li class="nav-item dropdown hidden-caret">
-                                <a class="nav-link dropdown-toggle" href="/perusahaan/semua_notif">
-                                {{-- <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> --}}
-                                    <i class="fa fa-bell"></i>
+                                <a class="" href="/perusahaan/semua_pesan" style="color: white; background-color:#2bb930;">
+                                    <i class="fa fa-envelope" style="font-size: 23px; background-color:#2bb930;"></i>
                                     @php
                                         $ttl_pesan = $pesan->count();
                                     @endphp
                                     @if ($ttl_pesan !== 0)
-                                        <span class="" style="background-color: red;padding:3px; border-radius:25%;">{{$ttl_pesan}}</span>                                        
+                                        <span style="background-color: red; width:12px; height:12px; border-radius:50%; display:inline-block; margin-left:-9px"></span>
                                     @endif
                                 </a>
-                                {{-- <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
-                                    <li>
-                                        <div class="dropdown-title">Notifikasi</div>
-                                    </li>
-                                    <li>
-                                        <div class="notif-scroll scrollbar-outer">
-                                            <div class="notif-center">
-                                                @foreach ($notif as $item)
-                                                    <a href="{{$item->url}}">
-                                                        <div class="row">
-                                                            <div class="col-2 mr-1">
-                                                                <div class="notif-icon notif-warning"> 
-                                                                    <i class="fa fa-bell"></i> 
-                                                                </div>
-                                                            </div>
-                                                            <div class="col">
-                                                                <div class="notif-content">
-                                                                    <div class="text1" style="">{{$item->isi}}</div>
-                                                                    <span class="time">{{date('d-M-Y | H:m',strtotime($item->created_at))}}</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>    
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a class="see-all" href="/perusahaan/semua_notif">Lihat Semua Notifikasi<i class="fa fa-angle-right"></i> </a>
-                                    </li>
-                                </ul> --}}
                             </li>
                             <li class="nav-item dropdown hidden-caret">
                                 <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -287,14 +220,6 @@
                                                 </li>
                                             @endif --}}
                                             <a href="{{route('logout')}}" class="dropdown-item" onclick="confirmation(event)">Keluar</a>
-                                            {{-- <a class="dropdown-item" onclick="return confirm('apakah anda yakin ingin keluar?')" href="{{ route('logout') }}"
-                                                onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">
-                                                Keluar
-                                            </a>
-                                            <form id="logout-form" action="{{ route('logout') }}" method="get" class="d-none">
-                                                @csrf
-                                            </form> --}}
                                         </li>
                                     </div>
                                 </ul>
@@ -309,66 +234,6 @@
             <div class="sidebar sidebar-style-2">
                 <div class="sidebar-wrapper scrollbar scrollbar-inner">
                     <div class="sidebar-content">
-                        {{-- <div class="user">
-                            <div class="avatar-sm float-left mr-2">
-                                @if ($perusahaan->logo_perusahaan !== null)
-                                    <img src="/gambar/Perusahaan/{{$perusahaan->nama_perusahaan}}/Logo Perusahaan/{{$perusahaan->logo_perusahaan}}" alt="" class="avatar-img rounded-circle">                                    
-                                @else
-                                    <img src="/gambar/default_user.png" alt="" class="avatar-img rounded-circle">
-                                @endif
-                            </div>
-                            <div class="info">
-                                <a data-toggle="collapse" class="btn" href="#collapseExample" aria-expanded="true">
-                                    <span>
-                                        <span class="text1" style="text-transform: uppercase;"><b class="bold">{{$perusahaan->nama_perusahaan}}</b></span>
-                                        <span class="caret"></span>
-                                    </span>
-                                </a>
-                                <div class="clearfix"></div>
-                                <div class="collapse in" id="collapseExample">
-                                    <ul class="nav">
-                                        <li>
-                                            <a href="/perusahaan/lihat/perusahaan" class="dropdown-item">
-                                                <div class="link-collapse">Profil Perusahaan <i class="fas fa-user-circle float-right"></i></div>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="/perusahaan/isi_perusahaan_data" class="dropdown-item">
-                                                @if ($perusahaan->email_operator == null)
-                                                    <div class="link-collapse"> Lengkapi Profil<i class="fas fa-exclamation-circle float-right"></i></div>
-                                                @else
-                                                    <div class="link-collapse"> Edit Profil <i class="fas fa-edit float-right"></i></div>
-                                                @endif
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{route('logout')}}" class="dropdown-item" onclick="confirmation(event)">
-                                                <div class="link-collapse">Keluar <i class="fas fa-door-open float-right"></i></div>
-                                            </a>
-                                        </li>
-                                        <hr>
-                                        @if ($perusahaan->email_operator !== null)
-                                            <li>
-                                                <a href="/perusahaan/tambah/cabang_data" class="dropdown-item">
-                                                    <div class="link-collapse">Tambah Cabang <i class="fas fa-user-circle float-right"></i></div>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                @foreach ($cabang as $item)
-                                                    <a href="/perusahaan/ganti/cabang_perusahaan/{{$item->id_perusahaan_cabang}}" class="dropdown-item">
-                                                        <div class="link-collapse">
-                                                            <b class="bold">
-                                                                {{$item->nama_perusahaan}} <span class="badge badge-pill badge-primary">{{$item->penempatan_kerja}}</span>
-                                                            </b>  
-                                                        </div>
-                                                    </a>
-                                                @endforeach
-                                            </li>
-                                        @endif
-                                    </ul>
-                                </div>
-                            </div>
-                        </div> --}}
                         <ul class="nav nav-primary">
                             <li class="nav-item active">
                                 <a href="/perusahaan" class="btn" aria-expanded="false">
