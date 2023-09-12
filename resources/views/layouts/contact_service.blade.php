@@ -210,19 +210,8 @@
                                                 <span class="sub-item">Contact Us Perusahaan</span>
                                             </a>
                                         </li>
-                                        <li>
-                                            <a class="btn" href="/manager/contact_us_guest">
-                                                <span class="sub-item">Contact Us Guest / Tamu</span>
-                                            </a>
-                                        </li>
                                     </ul>
                                 </div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="btn" href="/manager/verification_kandidat">
-                                    <i class="fas fa-clipboard-list"></i>
-                                    <p>Verifikasi Kandidat</p>
-                                </a>
                             </li>
                         </ul>
                     </div>

@@ -229,11 +229,6 @@ Route::controller(ContactUsController::class)->group(function() {
     Route::get('/manager/contact_us_perusahaan','contactUsPerusahaanList')->middleware('contact.service');
     Route::get('/manager/lihat/contact_perusahaan/{id}','contactUsPerusahaanLihat')->middleware('contact.service');
     Route::post('/manager/lihat/contact_perusahaan/{id}','contactUsPerusahaanJawab');
-
-    // route verifikasi kandidat
-    Route::get('/manager/verification_kandidat','verifyKandidatList')->middleware('contact.service');
-    Route::get('/manager/lihat/verifikasi_kandidat/{id}','lihatVerifyKandidat')->middleware('contact.service');
-    Route::post('/manager/lihat/verifikasi_kandidat/{id}','confirmVerifyKandidat');
 });
 
 // DATA LAMAN //
