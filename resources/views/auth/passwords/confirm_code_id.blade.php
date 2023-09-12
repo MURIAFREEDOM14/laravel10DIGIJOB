@@ -8,14 +8,8 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="text-center">
-                            @if ($user->type == 2)
-                                No. NIB
-                            @elseif($user->type == 1)
-                                No. NIS
-                            @else
-                                No. Telp
-                            @endif
+                        <h4 class="text-center">                            
+                            Kode Verifikasi Pengguna
                         </h4>
                     </div>
                     <div class="card-body">
