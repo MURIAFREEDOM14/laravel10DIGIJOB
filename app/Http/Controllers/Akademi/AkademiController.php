@@ -39,6 +39,20 @@ class AkademiController extends Controller
         return view('/akademi/index',compact('akademi','perusahaan','akademi_kandidat','pesan','notif'));
     } 
 
+    // halaman lihat profil akademi
+    public function lihatProfilAkademi()
+    {
+        $user = Auth::user();
+        $akademi = Akademi::where('referral_code',$user->referral_code)->first();
+        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
+        if($akademi->nama_kepala_akademi == null){
+            return redirect()->route('akademi')->with('warning',"Harap lengkapi profil akademi terlebih dahulu");
+        } else {
+            return view('akademi/lihat_profil_akademi',compact('akademi','pesan','notif'));
+        }
+    }
+
     // halaman isi akademi data
     public function isi_akademi_data()
     {
@@ -160,32 +174,6 @@ class AkademiController extends Controller
     //     $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
     //     return view('akademi/contact_us',compact('akademi','pesan','notif'));
     // }
-
-    // halaman lihat profil akademi
-    public function lihatProfilAkademi()
-    {
-        $user = Auth::user();
-        $akademi = Akademi::where('referral_code',$user->referral_code)->first();
-        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
-        if($akademi->nama_kepala_akademi == null){
-            return redirect()->route('akademi')->with('warning',"Harap lengkapi profil akademi terlebih dahulu");
-        } else {
-            return view('akademi/lihat_profil_akademi',compact('akademi','pesan','notif'));
-        }
-    }
-
-    // halaman lihat profil perusahaan
-    public function lihatProfilPerusahaan($id)
-    {
-        $user = Auth::user();
-        $akademi = Akademi::where('referral_code',$user->referral_code)->first();
-        $perusahaan = Perusahaan::where('id_perusahaan',$id)->first();
-        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
-        $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
-        return view('akademi/lihat_profil_perusahaan',compact('akademi','perusahaan','pesan','notif','lowongan'));
-    }
 
     // halaman data kandidat dalam akademi
     public function listKandidat()

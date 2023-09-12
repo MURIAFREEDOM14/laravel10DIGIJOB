@@ -169,47 +169,6 @@ class VerifikasiController extends Controller
         }
     }
 
-    public function identifyAccount($token)
-    {
-        $verifyUser = User::where('token',$token)->first();
-        if( !is_null($verifyUser) ){
-            $dataUser = \Hashids::encode($verifyUser->id.$verifyUser->no_telp);
-            User::where('token',$token)->update([
-                'verify_confirmed' => $dataUser,
-                'referral_code' => $dataUser,
-            ]);
-            Auth::login($verifyUser);
-            return redirect('/identify_id');
-        } else {
-            return redirect()->route('laman')->with('error',"Maaf link alamat tidak valid");
-        }
-    }
-
-    public function identifyID()
-    {
-        $user = Auth::user();
-        return view('auth/passwords/identify_id',compact('user'));
-    }
-
-    public function confirmIdentifyID(Request $request)
-    {
-        $user = Auth::user();
-        $check = User::where('email',$user->email)->first();
-        if($request->password == $check->check_password){
-            return back()->with('warning',"Anda tidak bisa menggunakan password anda sebelumnya");
-        }
-        $password = Hash::make($request->password);
-        User::where('referral_code',$user->referral_code)->update([
-            'password'=>$password,
-            'check_password'=>$request->password,
-            'counter'=>null,
-        ]);
-        Kandidat::where('email',$user->email)->update([
-            'referral_code'=>$user->referral_code,
-        ]);
-        return redirect()->route('kandidat')->with('success',"Selamat Datang Kembali");
-    }
-
     // halaman isi kode kandidat / akademi / perusahaan
     public function userCodeID()
     {

@@ -309,21 +309,16 @@ Route::controller(RegisterController::class)->group(function() {
 
 // DATA VERIFIKASI PENDAFTAR / PENGGUNA //
 Route::controller(VerifikasiController::class)->group(function(){
-    // route verifikasi
+    // route kirim email verifikasi pengguna
     Route::get('/verifikasi','verifikasi')->name('verifikasi')->middleware('verify');
     Route::get('/ulang_verifikasi','ulang_verifikasi')->middleware('verify');
-    Route::get('/verify_account/{token}','verifyAccount')->name('users_verification')->middleware('verify');
-    Route::get('/identify_account/{token}','identifyAccount')->name('identify_account');
-    Route::get('/identify_id','identifyID');
-    Route::post('/identify_id','confirmIdentifyID');
-    
+    Route::get('/verify_account/{token}','verifyAccount')->name('users_verification')->middleware('verify');    
 
+    // route sistem konfirmasi verifikasi pengguna
     Route::get('/user_code_id','userCodeID')->name('nomorID');
     Route::post('/user_code_id','confirmUserCodeID');
     Route::post('/kirim_verifikasi_diri','confirmVerifikasiDiri');
     Route::post('/new_password','confirmPassword');
-    Route::view('/confirm_alternative_id','auth/passwords/confirm_alternative_id');
-    Route::post('/kirim_verifikasi_diri','confirmVerifikasiDiri');
 });
 
 // DATA KANDIDAT //
@@ -461,13 +456,9 @@ Route::controller(AkademiController::class)->group(function() {
     
     // DATA KANDIDAT //
     {
+        // route list kandidat dalam akademi
         Route::get('/akademi/list_kandidat','listKandidat')->middleware('akademi')->middleware('akademi');
         Route::get('/akademi/kandidat/lihat_profil/{nama}/{id}','lihatProfilKandidat')->middleware('akademi');    
-    }
-
-    // DATA PERUSAHAAN //
-    {
-        Route::get('/akademi/lihat/profil_perusahaan/{id}','lihatProfilPerusahaan')->middleware('akademi');
     }
 });
 
