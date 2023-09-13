@@ -13,15 +13,10 @@ return new class extends Migration
     {
         Schema::create('contact_us', function (Blueprint $table) {
             $table->id('id');
-            $table->string('dari');
-            $table->text('isi');
-            $table->enum('balas',['dibaca','belum dibaca']);
             $table->integer('id_kandidat')->nullable();
             $table->integer('id_akademi')->nullable();
             $table->integer('id_perusahaan')->nullable();
-            $table->text('gambar')->nullable();
-            $table->string('email')->nullable();
-            $table->string('no_telp')->nullable();
+            $table->string('dari')->nullable();
             $table->timestamps();
         });
     }
