@@ -23,11 +23,11 @@
                                 <select name="hubungan_perizin" required class="form-select" id="hubKontakDarurat">
                                     <option value="">-- Masukkan Hubungan Kontak Darurat --</option>
                                     @if ($kandidat->stats_nikah == "Menikah")
-                                        <option value="pasangan" @if ($kandidat->stats_nikah == "pasangan")
+                                        <option value="pasangan" @if ($kandidat->hubungan_perizin == "pasangan")
                                             selected
                                         @endif>Pasangan</option>
                                     @endif
-                                    <option value="wali" @if ($kandidat->stats_nikah == "wali")
+                                    <option value="wali" @if ($kandidat->hubungan_perizin == "wali")
                                         selected
                                     @endif>Wali</option>
                                     @if ($anak)
