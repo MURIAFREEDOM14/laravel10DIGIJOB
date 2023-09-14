@@ -7,7 +7,6 @@
         <link rel="icon" href="/gambar/icon.ico" type="image/x-icon"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
         <link rel="stylesheet" href="/css/loader.css">
-        @livewireStyles
       <style>
         .img {
           width: 50%;
@@ -61,6 +60,7 @@
       {{-- Script Boostrap --}}
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     
+    @livewireStyles
     </head>
     <body onload="loadingPage()">
       <nav class="navbar navbar-expand-lg bg-warning">
@@ -102,7 +102,6 @@
       <div class="loading align">
         <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
       </div>
-      @livewireScripts
       <script src="/js/loader.js"></script>
       <script type="text/javascript">
         // alert konfirmasi menuju ke beranda
@@ -281,5 +280,6 @@
           }
         }
       </script>
+      @livewireScripts
     </body>
 </html>
