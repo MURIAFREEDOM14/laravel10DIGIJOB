@@ -98,7 +98,7 @@
           @yield('content')
         </div>
       </main>
-      <button style="">Contact Us</button>
+      {{-- <button style="">Contact Us</button> --}}
       <div class="loading align">
         <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
       </div>
