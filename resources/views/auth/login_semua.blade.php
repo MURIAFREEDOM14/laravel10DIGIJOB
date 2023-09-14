@@ -56,10 +56,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class=""><button type="button" class="btn btn-link mb-2" data-bs-toggle="modal"
-                                    data-bs-target="#forgotPassword">Lupa Password</button></div>
+                            <div class=""><button type="button" class="btn btn-link mb-2" style="text-decoration: none;" data-bs-toggle="modal" data-bs-target="#forgotPassword">Lupa Password</button></div>
                             <div class="">Belum punya akun?
-                                <a href="/register" class="btn btn-link mb-2">Daftar yuk!!</a>
+                                <a href="/register" style="text-decoration:none;" class="btn btn-link mb-2">Daftar yuk!!</a>
                             </div>
                             <button type="submit" class="btn btn-primary float-right mr-2" id="btn"
                                 onclick="processing()">Masuk</button>
