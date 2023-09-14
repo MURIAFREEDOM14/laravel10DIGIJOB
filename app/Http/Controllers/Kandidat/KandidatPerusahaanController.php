@@ -105,8 +105,8 @@ class KandidatPerusahaanController extends Controller
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
         $perusahaan = Perusahaan::where('id_perusahaan',$lowongan->id_perusahaan)->first();
-        $pendidikan_lowongan = Pendidikan::where('nama_pendidikan','like','%'.$lowongan->pendidikan.'%')->first();
-        $pendidikan_kandidat = Pendidikan::where('nama_pendidikan','like','%'.$kandidat->pendidikan.'%')->first();
+        $pendidikan_lowongan = Pendidikan::where('pendidikan','like','%'.$lowongan->pendidikan.'%')->first();
+        $pendidikan_kandidat = Pendidikan::where('pendidikan','like','%'.$kandidat->pendidikan.'%')->first();
         
         // bagian filterisasi data kandidat dengan syarat lowongan
         $data = Kandidat::

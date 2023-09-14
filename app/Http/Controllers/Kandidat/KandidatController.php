@@ -53,13 +53,14 @@ class KandidatController extends Controller
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
         $notifyK = notifyKandidat::orderBy('created_at','desc')->limit(30)->get();
-        $pendidikan = Pendidikan::where('nama_pendidikan','like','%'.$kandidat->pendidikan.'%')->first();
-        
+        $pendidikan = Pendidikan::where('pendidikan','like','%'.$kandidat->pendidikan.'%')->first();
+        // dd($pendidikan);
+
         // menampilkan lowongan pekerjaan + filterisasi dengan data kandidat
         $lowongan = LowonganPekerjaan::join(
             'perusahaan', 'lowongan_pekerjaan.id_perusahaan','=','perusahaan.id_perusahaan'
         )->join(
-            'pendidikans', 'lowongan_pekerjaan.pendidikan','=','pendidikans.nama_pendidikan'
+            'pendidikans', 'lowongan_pekerjaan.pendidikan','=','pendidikans.pendidikan'
         )
         ->where('perusahaan.penempatan_kerja','like','%'.$kandidat->penempatan.'%')
         ->where('lowongan_pekerjaan.jenis_kelamin','like','%'.$kandidat->jenis_kelamin.'%')

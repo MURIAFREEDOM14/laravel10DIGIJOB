@@ -428,9 +428,9 @@ class PerusahaanRecruitmentController extends Controller
                 return redirect('/perusahaan/edit_lowongan/'.$id.'/luar')->with('warning',"Maaf data lowongan anda ada yang kosong. Harap lengkapi kembali lowongan anda");
             }
         }
-        $p_lowongan = Pendidikan::where('nama_pendidikan','like','%'.$lowongan->pendidikan.'%')->first();
+        $p_lowongan = Pendidikan::where('pendidikan','like','%'.$lowongan->pendidikan.'%')->first();
         $kandidat = Kandidat::join(
-            'pendidikans', 'kandidat.pendidikan','=','pendidikans.nama_pendidikan'
+            'pendidikans', 'kandidat.pendidikan','=','pendidikans.pendidikan'
         )
         ->where('kandidat.tinggi','>=',$lowongan->tinggi)
         ->where('kandidat.usia','>=',$lowongan->usia_min)
