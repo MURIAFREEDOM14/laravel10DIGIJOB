@@ -4,7 +4,7 @@
             <label for="inputPassword6" class="col-form-label">Provinsi Perizin</label>
         </div>
         <div class="col-md-8">
-            <select wire:model="kota" required class="form-control" name="provinsi_perizin">
+            <select wire:model.live="kota" required class="form-control" name="provinsi_perizin">
                 <option value="">-- Pilih Provinsi --</option>
                 @foreach($provinsis as $item)
                     <option value="{{ $item->id }}" >{{ $item->provinsi }}</option>
@@ -18,7 +18,7 @@
             <label for="inputPassword6" class="col-form-label">Kabupaten / Kota Perizin</label>
         </div>
         <div class="col-md-8">
-            <select class="form-control" required wire:model="kecamatan" name="kota_perizin">
+            <select class="form-control" required wire:model.live="kecamatan" name="kota_perizin">
                 @if (!is_null($kota))
                     <option value="">-- Pilih Kabupaten / Kota --</option>
                     @foreach($kotas as $item)
@@ -36,7 +36,7 @@
             <label for="inputPassword6" class="col-form-label">Kecamatan Perizin</label>
         </div>
         <div class="col-md-8">
-            <select class="form-control" required wire:model="kelurahan" name="kecamatan_perizin">
+            <select class="form-control" required wire:model.live="kelurahan" name="kecamatan_perizin">
                 @if (!is_null($kecamatan))
                     <option value="">-- Pilih Kecamatan --</option>
                     @foreach($kecamatans as $item)

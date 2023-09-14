@@ -4,7 +4,7 @@
             <label for="inputPassword6" class="col-form-label">Provinsi</label>
         </div>
         <div class="col-md-8">
-            <select wire:model="kota" required class="form-control" name="provinsi">
+            <select wire:model.live="kota" required class="form-control" name="provinsi">
                 <option value="">-- Pilih Provinsi --</option>
                 @foreach($provinsis as $item)
                     <option value="{{ $item->id }}" >{{ $item->provinsi }}</option>

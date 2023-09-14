@@ -10,10 +10,12 @@
                         <h4 class="text-center">Login</h4>
                     </div>
                     <div class="card-body">
+                        <!-- Form post menuju web php ('/login', 'authenticateLogin') -->
                         <form action="/login" method="POST">
                             @csrf
                             <div class="row">
                                 <div class="col-md-12">
+                                    <!-- Mengambil data input email -->
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1">Masukkan Email</label>
                                         <input name="email" type="email" class="form-control"
@@ -21,11 +23,8 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputPassword1">Masukkan Password</label>
-                                        {{-- <div class="input-group"> --}}
                                         <input name="password" type="password" class="form-control"
                                             value="{{ old('password') }}" required id="password_input">
-                                        {{-- <button type="button" class="btn btn-primary" onclick="seePassword()"><img src="/gambar/seeing.png" style="width: 15px; height:auto; color:white;" alt=""></button> --}}
-                                        {{-- </div> --}}
                                         <div class="my-2">
                                             <input type="checkbox" class="me-1" name="" onclick="seePassword()"
                                                 id=""><span>Tampilkan Password</span>
