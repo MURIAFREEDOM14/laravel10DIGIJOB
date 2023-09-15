@@ -114,24 +114,24 @@
                                 <input type="text" required name="alasan_berhenti" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                             </div>
                             <!-- input pilihan tambah foto / video -->
-                            <div class="mb-2">
+                            {{-- <div class="mb-2">
                                 <label for="" class="form-label">Galeri Pengalaman Kerja</label>
                                 <select name="type" class="form-select" id="data_pengalaman">
                                     <option value="">-- Tentukan Tipe Inputan --</option>
                                     <option value="video">Video</option>
                                     <option value="foto">Foto</option>
                                 </select>
-                            </div>
+                            </div> --}}
                             <!-- input video -->
-                            <div class="mb-2" id="video_pengalaman">
+                            {{-- <div class="mb-2" id="video_pengalaman">
                                 <label for="" class="form-label">Video Pengalaman Kerja</label>
                                 <input type="file" name="video" class="form-control" id="" aria-describedby="emailHelp" accept="video/*">
-                            </div> 
+                            </div>  --}}
                             <!-- input foto -->   
-                            <div class="mb-2" id="foto_pengalaman">
+                            {{-- <div class="mb-2" id="foto_pengalaman">
                                 <label for="" class="form-label">Foto Pengalaman Kerja</label>
                                 <input type="file" name="foto" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" accept="image/*">
-                            </div>    
+                            </div>     --}}
                         </div>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">Tambah</button>

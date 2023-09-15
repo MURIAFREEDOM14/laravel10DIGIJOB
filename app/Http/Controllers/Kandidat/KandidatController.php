@@ -1070,7 +1070,7 @@ class KandidatController extends Controller
         $periodeAkhir = new \DateTime($request->periode_akhir);
         $tahun = $periodeAkhir->diff($periodeAwal)->y;
 
-        dd($request->nama_perusahaan, $request->alamat_perusahaan, $request->jabatan, $request->periode_awal, $request->periode_akhir, $request->alasan_berhenti, $tahun, $request->deskripsi);        
+        // dd($request->nama_perusahaan, $request->alamat_perusahaan, $request->jabatan, $request->periode_awal, $request->periode_akhir, $request->alasan_berhenti, $tahun, $request->deskripsi);        
         // membuat data pengalaman kerja
         $pengalaman = PengalamanKerja::create([
             'nama_perusahaan'=>$request->nama_perusahaan,
@@ -1086,20 +1086,20 @@ class KandidatController extends Controller
         ]);
 
         // sistem simpan data video (jika terdeteksi)
-        if($request->type == "video"){
-            VideoKerja::create([
-                'video' => $video_pengalaman,
-                'pengalaman_kerja_id' => $pengalaman->id,
-                'jabatan' => $request->jabatan,
-            ]);
+        // if($request->type == "video"){
+        //     VideoKerja::create([
+        //         'video' => $video_pengalaman,
+        //         'pengalaman_kerja_id' => $pengalaman->id,
+        //         'jabatan' => $request->jabatan,
+        //     ]);
         // sistem simpan data foto (jika terdeteksi)
-        } elseif($request->type == "foto") {
-            FotoKerja::create([
-                'foto'=> $foto_pengalaman,
-                'pengalaman_kerja_id' => $pengalaman->id,
-                'jabatan'=>$request->jabatan,
-            ]);
-        }
+        // } elseif($request->type == "foto") {
+        //     FotoKerja::create([
+        //         'foto'=> $foto_pengalaman,
+        //         'pengalaman_kerja_id' => $pengalaman->id,
+        //         'jabatan'=>$request->jabatan,
+        //     ]);
+        // }
         
         return redirect()->route('company')
         // ->with('toast_success',"Data anda tersimpan");
