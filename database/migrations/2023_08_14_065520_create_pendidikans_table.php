@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pendidikans', function (Blueprint $table) {
             $table->id('pendidikan_id');
-            $table->string('nama_pendidikan')->nullable();
+            $table->string('pendidikan')->nullable();
             $table->integer('no_urutan')->nullable();
             // $table->timestamps();
         });

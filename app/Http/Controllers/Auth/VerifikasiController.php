@@ -25,12 +25,6 @@ use Illuminate\Support\Facades\Hash;
 
 class VerifikasiController extends Controller
 {
-    // halaman verifikasi
-    public function verifikasi()
-    {
-        return view('verifikasi');
-    }
-
     // sistem kirim ulang email verifikasi
     public function ulang_verifikasi()
     {

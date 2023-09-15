@@ -15,157 +15,7 @@
                                 <h6 class="ms-5">Data Berkeluarga</h6> 
                             </div>
                         </div>
-                        @if ($kandidat->stats_nikah == "Cerai hidup")
-                            <div class="row mb-3 g-3 align-items-center">
-                                <div class="col-md-4">
-                                    <label for="" class="col-form-label">Surat Keterangan Cerai</label>
-                                </div>
-                                <div class="col-md-8">
-                                    @if ($kandidat->foto_cerai !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Cerai/{{$kandidat->foto_cerai}}" width="150" height="150" alt="" class="img mb-1">
-                                        <input type="file" class="form-control" name="foto_cerai" accept="image/*" id="">                                        
-                                        <input type="text" name="" hidden id="f_cerai" value="foto_cerai">
-                                    @else
-                                        <input type="file" required class="form-control" name="foto_cerai" accept="image/*" id="f_cerai">
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="" id="punya_anak">
-                                @if ($keluarga->count() > 0)
-                                    <div class="row mb-3 g-3 align-items-center">
-                                        <div class="col-md-4">
-                                            <label for="" class="col-form-label">Usia Anak</label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <ul class="list-group">
-                                                @foreach ($keluarga as $item)
-                                                    <li class="list-group-item">Anak Ke {{$item->anak_ke}} | Usia {{$item->usia}} Tahun | 
-                                                        @if ($item->jenis_kelamin == "M")
-                                                            Laki-laki 
-                                                        @else
-                                                            Perempuan
-                                                        @endif
-                                                    </li>
-                                                    <div class="" hidden>
-                                                        <input type="number" name="id_anak[]" value="{{$item->id_keluarga}}" id="">
-                                                        <input type="date" name="tgl_anak[]" value="{{$item->tgl_lahir_anak}}" id="">    
-                                                    </div>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#data_anak">Tambah Data</button>
-                                        </div>
-                                    </div>
-                                @else
-                                    <div class="row mb-3 g-3 align-items-center">
-                                        <div class="col-md-4">
-                                            <label for="" class="col-form-label">Apakah anda sudah memiliki anak?</label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <select name="" class="form-select" id="anak">
-                                                <option value="tidak">Tidak</option>
-                                                <option value="ya">Ya</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                @endif
-                            </div>
-                        @elseif ($kandidat->stats_nikah == "Cerai mati") 
-                            <div class="row mb-3 g-3 align-items-center">
-                                <div class="col-md-4">
-                                    <label for="" class="col-form-label">Akta Kematian Pasangan</label>
-                                </div>
-                                <div class="col-md-8">
-                                    @if ($kandidat->foto_kematian_pasangan !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Kematian Pasangan/{{$kandidat->foto_kematian_pasangan}}" width="150" height="150" alt="" class="img mb-1">
-                                        <input type="file" class="form-control" name="foto_kematian_pasangan" accept="image/*" id="">
-                                        <input type="text" name="" hidden id="f_kematianPasangan" value="foto_kematian_pasangan">
-                                    @else
-                                        <input type="file" required class="form-control" name="foto_kematian_pasangan" accept="image/*" id="f_kematianPasangan">
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="" id="punya_anak">
-                                @if ($keluarga->count() > 0)
-                                    <div class="row mb-3 g-3 align-items-center">
-                                        <div class="col-md-4">
-                                            <label for="" class="col-form-label">Usia Anak</label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <ul class="list-group">
-                                                @foreach ($keluarga as $item)
-                                                    <li class="list-group-item">Anak Ke {{$item->anak_ke}} | Usia {{$item->usia}} Tahun | 
-                                                        @if ($item->jenis_kelamin == "M")
-                                                            Laki-laki 
-                                                        @else
-                                                            Perempuan
-                                                        @endif
-                                                    </li>
-                                                    <div class="" hidden>
-                                                        <input type="number" name="id_anak[]" value="{{$item->id_keluarga}}" id="">
-                                                        <input type="date" name="tgl_anak[]" value="{{$item->tgl_lahir_anak}}" id="">    
-                                                    </div>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#data_anak">Tambah Data</button>
-                                        </div>
-                                    </div>    
-                                @else
-                                    <div class="row mb-3 g-3 align-items-center">
-                                        <div class="col-md-4">
-                                            <label for="" class="col-form-label">Apakah anda sudah memiliki anak?</label>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <select name="" class="form-select" id="anak">
-                                                <option value="tidak">Tidak</option>
-                                                <option value="ya">Ya</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                @endif
-                            </div>
-                        @else
-                            <div class="row mb-3 g-3 align-items-center">
-                                <div class="col-md-4">
-                                    <label for="" class="col-form-label">Foto Buku Nikah</label>
-                                </div>
-                                <div class="col-md-8">
-                                    @if ($kandidat->foto_buku_nikah !== null)
-                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Buku Nikah/{{$kandidat->foto_buku_nikah}}" width="150" height="150" alt="" class="img mb-1">
-                                        <input type="file" name="foto_buku_nikah" id="" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">
-                                        <input type="text" name="" hidden id="f_nikah" value="foto_nikah">
-                                    @else
-                                        <input type="file" required name="foto_buku_nikah" id="f_nikah" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="row mb-3 g-3 align-items-center">
-                                <div class="col-md-4">
-                                    <label for="" class="col-form-label">Nama Pasangan</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" required value="{{$kandidat->nama_pasangan}}" name="nama_pasangan" id="namaPasangan" class="form-control" aria-labelledby="passwordHelpInline">
-                                </div>
-                            </div>
-                            <div class="row mb-3 g-3 align-items-center">
-                                <div class="col-md-4">
-                                    <label for="" class="col-form-label">Tanggal Lahir Pasangan</label>
-                                </div>
-                                <div class="col-md-4">
-                                    <input type="date" required class="form-control" name="tgl_lahir_pasangan" value="{{$kandidat->tgl_lahir_pasangan}}" id="tglPasangan">
-                                </div>
-                            </div>
-                            <div class="row mb-3 g-3 align-items-center">
-                                <div class="col-md-4">
-                                    <label for="" class="col-form-label">Pekerjaan Pasangan</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" required value="{{$kandidat->pekerjaan_pasangan}}" name="pekerjaan_pasangan" id="kerjaPasangan" class="form-control" aria-labelledby="passwordHelpInline">
-                                </div>
-                            </div>
+                        @if ($kandidat->stats_nikah == "Menikah")
                             <div class="" id="punya_anak">
                                 @if ($keluarga->count() > 0)
                                     <div class="row mb-3 g-3 align-items-center">
@@ -207,6 +57,156 @@
                                     </div>
                                 @endif
                             </div>
+                            <div class="row mb-3 g-3 align-items-center">
+                                <div class="col-md-4">
+                                    <label for="" class="col-form-label">Foto Buku Nikah</label>
+                                </div>
+                                <div class="col-md-8">
+                                    @if ($kandidat->foto_buku_nikah !== null)
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Buku Nikah/{{$kandidat->foto_buku_nikah}}" width="150" height="150" alt="" class="img mb-1">
+                                        <input type="file" name="foto_buku_nikah" id="" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">
+                                        <input type="text" name="" hidden id="f_nikah" value="foto_nikah">
+                                    @else
+                                        <input type="file" required name="foto_buku_nikah" id="f_nikah" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row mb-3 g-3 align-items-center">
+                                <div class="col-md-4">
+                                    <label for="" class="col-form-label">Nama Pasangan</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" required value="{{$kandidat->nama_pasangan}}" name="nama_pasangan" id="namaPasangan" class="form-control" aria-labelledby="passwordHelpInline">
+                                </div>
+                            </div>
+                            <div class="row mb-3 g-3 align-items-center">
+                                <div class="col-md-4">
+                                    <label for="" class="col-form-label">Tanggal Lahir Pasangan</label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="date" required class="form-control" name="tgl_lahir_pasangan" value="{{$kandidat->tgl_lahir_pasangan}}" id="tglPasangan">
+                                </div>
+                            </div>
+                            <div class="row mb-3 g-3 align-items-center">
+                                <div class="col-md-4">
+                                    <label for="" class="col-form-label">Pekerjaan Pasangan</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" required value="{{$kandidat->pekerjaan_pasangan}}" name="pekerjaan_pasangan" id="kerjaPasangan" class="form-control" aria-labelledby="passwordHelpInline">
+                                </div>
+                            </div>
+                        @elseif ($kandidat->stats_nikah == "Cerai hidup")
+                            <div class="" id="punya_anak">
+                                @if ($keluarga->count() > 0)
+                                    <div class="row mb-3 g-3 align-items-center">
+                                        <div class="col-md-4">
+                                            <label for="" class="col-form-label">Usia Anak</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <ul class="list-group">
+                                                @foreach ($keluarga as $item)
+                                                    <li class="list-group-item">Anak Ke {{$item->anak_ke}} | Usia {{$item->usia}} Tahun | 
+                                                        @if ($item->jenis_kelamin == "M")
+                                                            Laki-laki 
+                                                        @else
+                                                            Perempuan
+                                                        @endif
+                                                    </li>
+                                                    <div class="" hidden>
+                                                        <input type="number" name="id_anak[]" value="{{$item->id_keluarga}}" id="">
+                                                        <input type="date" name="tgl_anak[]" value="{{$item->tgl_lahir_anak}}" id="">    
+                                                    </div>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#data_anak">Tambah Data</button>
+                                        </div>
+                                    </div>
+                                @else
+                                    <div class="row mb-3 g-3 align-items-center">
+                                        <div class="col-md-4">
+                                            <label for="" class="col-form-label">Apakah anda sudah memiliki anak?</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select name="" class="form-select" id="anak">
+                                                <option value="tidak">Tidak</option>
+                                                <option value="ya">Ya</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="row mb-3 g-3 align-items-center">
+                                <div class="col-md-4">
+                                    <label for="" class="col-form-label">Surat Keterangan Cerai</label>
+                                </div>
+                                <div class="col-md-8">
+                                    @if ($kandidat->foto_cerai !== null)
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Cerai/{{$kandidat->foto_cerai}}" width="150" height="150" alt="" class="img mb-1">
+                                        <input type="file" class="form-control" name="foto_cerai" accept="image/*" id="">                                        
+                                        <input type="text" name="" hidden id="f_cerai" value="foto_cerai">
+                                    @else
+                                        <input type="file" required class="form-control" name="foto_cerai" accept="image/*" id="f_cerai">
+                                    @endif
+                                </div>
+                            </div>
+                        @elseif ($kandidat->stats_nikah == "Cerai mati") 
+                            <div class="" id="punya_anak">
+                                @if ($keluarga->count() > 0)
+                                    <div class="row mb-3 g-3 align-items-center">
+                                        <div class="col-md-4">
+                                            <label for="" class="col-form-label">Usia Anak</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <ul class="list-group">
+                                                @foreach ($keluarga as $item)
+                                                    <li class="list-group-item">Anak Ke {{$item->anak_ke}} | Usia {{$item->usia}} Tahun | 
+                                                        @if ($item->jenis_kelamin == "M")
+                                                            Laki-laki 
+                                                        @else
+                                                            Perempuan
+                                                        @endif
+                                                    </li>
+                                                    <div class="" hidden>
+                                                        <input type="number" name="id_anak[]" value="{{$item->id_keluarga}}" id="">
+                                                        <input type="date" name="tgl_anak[]" value="{{$item->tgl_lahir_anak}}" id="">    
+                                                    </div>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#data_anak">Tambah Data</button>
+                                        </div>
+                                    </div>    
+                                @else
+                                    <div class="row mb-3 g-3 align-items-center">
+                                        <div class="col-md-4">
+                                            <label for="" class="col-form-label">Apakah anda sudah memiliki anak?</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select name="" class="form-select" id="anak">
+                                                <option value="tidak">Tidak</option>
+                                                <option value="ya">Ya</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="row mb-3 g-3 align-items-center">
+                                <div class="col-md-4">
+                                    <label for="" class="col-form-label">Akta Kematian Pasangan</label>
+                                </div>
+                                <div class="col-md-8">
+                                    @if ($kandidat->foto_kematian_pasangan !== null)
+                                        <img src="/gambar/Kandidat/{{$kandidat->nama}}/Kematian Pasangan/{{$kandidat->foto_kematian_pasangan}}" width="150" height="150" alt="" class="img mb-1">
+                                        <input type="file" class="form-control" name="foto_kematian_pasangan" accept="image/*" id="">
+                                        <input type="text" name="" hidden id="f_kematianPasangan" value="foto_kematian_pasangan">
+                                    @else
+                                        <input type="file" required class="form-control" name="foto_kematian_pasangan" accept="image/*" id="f_kematianPasangan">
+                                    @endif
+                                </div>
+                            </div>
                         @endif
                     </div>
                     <hr>
@@ -221,7 +221,7 @@
     </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="data_anak" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="data_anak" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form action="/isi_kandidat_anak" method="POST">

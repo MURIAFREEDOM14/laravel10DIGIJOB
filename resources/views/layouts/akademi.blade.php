@@ -5,6 +5,7 @@
         <title>DIGIJOB</title>
         <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
         <link rel="icon" href="/Atlantis/examples/assets/img/icon.ico" type="image/x-icon"/>
+        
         <!-- Fonts and icons -->
         <script src="/Atlantis/examples/assets/js/plugin/webfont/webfont.min.js"></script>
         <script>

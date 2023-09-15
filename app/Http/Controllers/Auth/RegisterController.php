@@ -110,7 +110,7 @@ class RegisterController extends Controller
     }
 
     // DATA KANDIDAT //
-    public function kandidat(Request $request)
+    protected function kandidat(Request $request)
     {        
         // Data Kandidat //
         $kandidat = Kandidat::where('email',$request->email)->where('nik',$request->nik)->first();

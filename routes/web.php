@@ -22,8 +22,6 @@ use App\Http\Controllers\PekerjaanController;
 use App\Http\Controllers\PrioritasController;
 use App\Http\Controllers\NotifikasiController;
 use App\Http\Controllers\LamanController;
-use App\Livewire\Location;
-use App\Livewire\LocationPermission;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReferralController;
@@ -305,7 +303,7 @@ Route::controller(RegisterController::class)->group(function() {
 // DATA VERIFIKASI PENDAFTAR / PENGGUNA //
 Route::controller(VerifikasiController::class)->group(function(){
     // route kirim email verifikasi pengguna
-    Route::get('/verifikasi','verifikasi')->name('verifikasi')->middleware('verify');
+    Route::view('/verifikasi','auth/verifikasi')->name('verifikasi')->middleware('verify');
     Route::get('/ulang_verifikasi','ulang_verifikasi')->middleware('verify');
     Route::get('/verify_account/{token}','verifyAccount')->name('users_verification')->middleware('verify');    
 
@@ -707,9 +705,6 @@ Route::controller(CaptchaController::class)->group(function() {
 Route::get('/sliding-puzzle', [CaptchaController::class, 'showSlidingPuzzle']);
 Route::post('/sliding-puzzle/verify', [CaptchaController::class, 'verifySlidingPuzzle'])->name('sliding-puzzle.verify');
 });
-
-Route::get('/linewire',Location::class)->middleware('verify');
-Route::get('/linewire_permission',LocationPermission::class)->middleware('verify');
 
 Route::view('/perbaikan','dalam_proses');
 Route::view('/mail', 'mail/mail');
