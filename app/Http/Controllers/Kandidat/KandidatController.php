@@ -1040,7 +1040,7 @@ class KandidatController extends Controller
         if($request->file('video') !== null){
             $video = $request->file('video');
             $simpan_video = $kandidat->nama.$jabatan.$video->getClientOriginalName();
-            $video->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.$jabatan.$video->getClientOriginalName());
+            $video->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$simpan_video);
         } else {
             $simpan_video = null;
         }
@@ -1070,6 +1070,7 @@ class KandidatController extends Controller
         $periodeAkhir = new \DateTime($request->periode_akhir);
         $tahun = $periodeAkhir->diff($periodeAwal)->y;
 
+        dd($request->nama_perusahaan, $request->alamat_perusahaan, $request->jabatan, $request->periode_awal, $request->periode_akhir, $request->alasan_berhenti, $tahun, $request->deskripsi);        
         // membuat data pengalaman kerja
         $pengalaman = PengalamanKerja::create([
             'nama_perusahaan'=>$request->nama_perusahaan,
