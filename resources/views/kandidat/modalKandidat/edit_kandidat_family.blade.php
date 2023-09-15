@@ -7,6 +7,7 @@
         <div class="">
             <div class="row">
                 <h4 class="text-center">PROFIL BIO DATA</h4>
+                <!-- form(post) KandidatController => simpan_kandidat_family -->
                 <form action="/isi_kandidat_family" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="" id="family_background">
@@ -15,8 +16,10 @@
                                 <h6 class="ms-5">Data Berkeluarga</h6> 
                             </div>
                         </div>
+                        <!-- apabila stats_nikah "menikah" -->
                         @if ($kandidat->stats_nikah == "Menikah")
                             <div class="" id="punya_anak">
+                                <!-- jika mempunyai anak -->
                                 @if ($keluarga->count() > 0)
                                     <div class="row mb-3 g-3 align-items-center">
                                         <div class="col-md-4">
@@ -32,6 +35,7 @@
                                                             Perempuan
                                                         @endif
                                                     </li>
+                                                    <!-- input id anak & tgl anak -->
                                                     <div class="" hidden>
                                                         <input type="number" name="id_anak[]" value="{{$item->id_keluarga}}" id="">
                                                         <input type="date" name="tgl_anak[]" value="{{$item->tgl_lahir_anak}}" id="">    
@@ -40,6 +44,7 @@
                                             </ul>
                                         </div>
                                         <div class="col-md-4">
+                                            <!-- tombol modal tambah data anak -->
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#data_anak">Tambah Data</button>
                                         </div>
                                     </div>                                    
@@ -49,6 +54,7 @@
                                             <label for="" class="col-form-label">Apakah anda sudah memiliki anak?</label>
                                         </div>
                                         <div class="col-md-4">
+                                            <!-- pilihan modal tambah data anak -->
                                             <select name="" class="form-select" id="anak">
                                                 <option value="tidak">Tidak</option>
                                                 <option value="ya">Ya</option>
@@ -57,6 +63,7 @@
                                     </div>
                                 @endif
                             </div>
+                            <!-- input buku foto nikah -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Foto Buku Nikah</label>
@@ -71,6 +78,7 @@
                                     @endif
                                 </div>
                             </div>
+                            <!-- input nama pasangan -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Nama Pasangan</label>
@@ -79,6 +87,7 @@
                                     <input type="text" required value="{{$kandidat->nama_pasangan}}" name="nama_pasangan" id="namaPasangan" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input tanggal lahir pasangan -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Tanggal Lahir Pasangan</label>
@@ -87,6 +96,7 @@
                                     <input type="date" required class="form-control" name="tgl_lahir_pasangan" value="{{$kandidat->tgl_lahir_pasangan}}" id="tglPasangan">
                                 </div>
                             </div>
+                            <!-- input pekerjaan pasangan-->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Pekerjaan Pasangan</label>
@@ -95,8 +105,11 @@
                                     <input type="text" required value="{{$kandidat->pekerjaan_pasangan}}" name="pekerjaan_pasangan" id="kerjaPasangan" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+
+                        <!-- apabila stats_nikah "Cerai hidup" -->
                         @elseif ($kandidat->stats_nikah == "Cerai hidup")
                             <div class="" id="punya_anak">
+                                <!-- jika mempunyai anak -->
                                 @if ($keluarga->count() > 0)
                                     <div class="row mb-3 g-3 align-items-center">
                                         <div class="col-md-4">
@@ -112,6 +125,7 @@
                                                             Perempuan
                                                         @endif
                                                     </li>
+                                                    <!-- input id anak & tgl anak -->
                                                     <div class="" hidden>
                                                         <input type="number" name="id_anak[]" value="{{$item->id_keluarga}}" id="">
                                                         <input type="date" name="tgl_anak[]" value="{{$item->tgl_lahir_anak}}" id="">    
@@ -120,6 +134,7 @@
                                             </ul>
                                         </div>
                                         <div class="col-md-4">
+                                            <!-- tombol modal tambah data anak -->
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#data_anak">Tambah Data</button>
                                         </div>
                                     </div>
@@ -129,6 +144,7 @@
                                             <label for="" class="col-form-label">Apakah anda sudah memiliki anak?</label>
                                         </div>
                                         <div class="col-md-4">
+                                            <!-- pilihan modal tambah data anak -->
                                             <select name="" class="form-select" id="anak">
                                                 <option value="tidak">Tidak</option>
                                                 <option value="ya">Ya</option>
@@ -137,6 +153,7 @@
                                     </div>
                                 @endif
                             </div>
+                            <!-- input foto cerai -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Surat Keterangan Cerai</label>
@@ -151,8 +168,10 @@
                                     @endif
                                 </div>
                             </div>
+                        <!-- apabila stats_nikah "Cerai mati" -->
                         @elseif ($kandidat->stats_nikah == "Cerai mati") 
                             <div class="" id="punya_anak">
+                                <!-- jika mempunyai anak -->
                                 @if ($keluarga->count() > 0)
                                     <div class="row mb-3 g-3 align-items-center">
                                         <div class="col-md-4">
@@ -168,6 +187,7 @@
                                                             Perempuan
                                                         @endif
                                                     </li>
+                                                    <!-- input id anak & tgl anak -->
                                                     <div class="" hidden>
                                                         <input type="number" name="id_anak[]" value="{{$item->id_keluarga}}" id="">
                                                         <input type="date" name="tgl_anak[]" value="{{$item->tgl_lahir_anak}}" id="">    
@@ -176,6 +196,7 @@
                                             </ul>
                                         </div>
                                         <div class="col-md-4">
+                                            <!-- tombol modal tambah data anak -->
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#data_anak">Tambah Data</button>
                                         </div>
                                     </div>    
@@ -185,6 +206,7 @@
                                             <label for="" class="col-form-label">Apakah anda sudah memiliki anak?</label>
                                         </div>
                                         <div class="col-md-4">
+                                            <!-- pilihan modal tambah data anak -->
                                             <select name="" class="form-select" id="anak">
                                                 <option value="tidak">Tidak</option>
                                                 <option value="ya">Ya</option>
@@ -193,6 +215,7 @@
                                     </div>
                                 @endif
                             </div>
+                            <!-- input foto bukti kematian pasangan -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Akta Kematian Pasangan</label>
@@ -224,16 +247,19 @@
 <div class="modal fade" id="data_anak" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
+            <!-- form(post) KandidatController => simpan_kandidat_anak -->
             <form action="/isi_kandidat_anak" method="POST">
                 @csrf
                 <div class="modal-header">
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <!-- input anak ke -->
                     <div class="form-group mb-2">
                         <label for="" class="">Anak Ke</label>
                         <input type="number" name="anak_ke" required class="form-control" id="">
                     </div>
+                    <!-- input jenis kelamin anak -->
                     <div class="form-group mb-2">
                         <label for="" class="">Jenis Kelamin</label>
                         <select name="jk" class="form-select" id="" required>
@@ -242,6 +268,7 @@
                             <option value="F">Perempuan</option>
                         </select>
                     </div>
+                    <!-- input tanggal lahir anak -->
                     <div class="form-group mb-2">
                         <label for="" class="">Tanggal Lahir Anak</label>
                         <input type="date" required name="tgl_lahir_anak" id="" class="form-control">
@@ -254,6 +281,7 @@
         </div>
     </div>
 </div>
+<!-- fungsi tombol loading -->
 <script>
     function processing() {
         var statsNikah = document.getElementById('stats_nikah').value;

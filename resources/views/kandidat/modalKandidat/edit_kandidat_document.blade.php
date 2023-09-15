@@ -7,6 +7,7 @@
             <div class="">
                 <div class="row">
                     <h4 class="text-center">PROFIL BIO DATA</h4>
+                    <!-- form(post) KandidatController => simpan_kandidat_document -->
                     <form action="/isi_kandidat_document" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="" id="document">
@@ -15,6 +16,7 @@
                                     <h6 class="ms-4">DOCUMENT BIO DATA</h6> 
                                 </div>
                             </div>
+                            <!-- input nik -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">NIK</label>
@@ -28,6 +30,7 @@
                                     @enderror
                                 </div>
                             </div>
+                            <!-- input pendidikan -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Pendidikan Terakhir</label>
@@ -44,15 +47,17 @@
                                     </select>
                                 </div>
                             </div>
+                            <!-- input alamat -->
                             <div class="row g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Alamat Lengkap</label>
                                 </div>
-                                {{-- <div class="col-md-8">
-                                    <input name="alamat" value="{{$kandidat->alamat}}" class="form-control" id="" cols="" rows="">
-                                </div> --}}
                             </div>
-                            @livewire('location')
+                            <!-- menggunakan livewire -->
+                            <!-- lokasi livewire : app/Http/Livewire/Kandidat/location -->
+                            <!-- lokasi livewire view : resources/views/livewire/kandidat/location -->
+                            @livewire('kandidat.location')
+                            <!-- input rt & rw -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">RT</label>
@@ -77,6 +82,7 @@
                                     @enderror
                                 </div>
                             </div>
+                            <!-- input foto ktp -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Foto KTP</label>
@@ -108,6 +114,7 @@
                                     @endif
                                 </div>
                             </div>
+                            <!-- input foto kk -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Foto Kartu Keluarga</label>
@@ -139,6 +146,7 @@
                                     @endif
                                 </div>
                             </div>
+                            <!-- input foto set. badan -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Foto Setengah Badan</label>
@@ -170,6 +178,7 @@
                                     @endif
                                 </div>
                             </div>
+                            <!-- input foto 4x6 -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Foto 4x6</label>
@@ -201,6 +210,7 @@
                                     @endif
                                 </div>
                             </div>
+                            <!-- input foto ket. lahir -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">
@@ -235,6 +245,7 @@
                                     @endif
                                 </div>
                             </div>
+                            <!-- input foto ijazah -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Foto Ijazah Terakhir</label>
@@ -266,6 +277,7 @@
                                     @endif
                                 </div>
                             </div>
+                            <!-- input status nikah / perkawinan -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Status Pernikahan</label>
@@ -290,6 +302,7 @@
             </div>
         </div>
     </div>
+    <!-- fungsi tombol loading -->
     <script>
         function processing() {
             var pendidikan = document.getElementById('pendidikan').value;

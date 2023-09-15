@@ -7,6 +7,7 @@
                 <h5 class="" style="">Tambah Portofolio</h5>
             </div>
             <div class="card-body">
+                <!-- form(post) KandidatController => simpanPortofolio -->
                 <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row mb-3">
@@ -28,6 +29,7 @@
                 <h5>Edit Portofolio</h5>
             </div>
             <div class="card-body">
+                <!-- form(post) KandidatController => ubahPortofolio -->
                 <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row mb-3">

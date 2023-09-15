@@ -77,7 +77,9 @@
                 $time_interview_ended = date('h:i:s a',strtotime($interview->waktu_interview_akhir));
             @endphp
             <div class="row">
+                <!-- apabila tgl sekarang lebih besar dari tanggal interview & waktu sekarang lebih dari dengan waktu interview dimulai -->
                 @if($tgl_now >= $tgl_interview && $time_now > $time_interview_begin)
+                    <!-- apabila waktu sekarang lebih dari waktu interview berakhir -->
                     @if ($time_now > $time_interview_ended)
                         <div class="col-md-8">
                             <label for="" class="form-label">Waktu interview anda dengan perusahaan ini telah habis. Mohon tunggu keputusan dari pihak perusahaan.</label>                            

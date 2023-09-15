@@ -2,12 +2,18 @@
 @section('content')
 @include('sweetalert::alert')
 @include('flash_message')
+
+<!-- Pengelompokkan data input -->
 @php
+    // Dari isi_kandidat_personal
     $personal = $kandidat->tinggi;
+    // Dari isi_kandidat_document
     $document = $kandidat->foto_ijazah;
-    // $vaksin = $kandidat->sertifikat_vaksin2;
+    // Dari isi_kandidat_parent
     $parent = $kandidat->rw_parent;
+    // Dari isi_kandidat_permission
     $permission = $kandidat->hubungan_perizin;
+    // Dari negara tujuan
     $negara = $kandidat->negara_id;                                
 @endphp
 <div class="container mt-5 my-3">
@@ -80,8 +86,10 @@
                         <div class="text-center">
                             <div class="row">
                                 <div class="col-12">
+                                    <!-- form(post) KandidatController => simpan_kandidat_placement -->
                                     <form action="/isi_kandidat_placement" method="POST">
                                         @csrf
+                                        <!-- input pilihan AJAX penempatan -->
                                         <select name="penempatan" id="placement" class="form-control">
                                             <option value="">-- Pilih Tujuan Bekerja --</option>
                                             <option value="dalam negeri">Dalam Negeri</option>
@@ -90,6 +98,7 @@
                                         <div class="my-3" id="hidetext">
                                             <h4 class="">Negara Tujuan</h4>
                                         </div>
+                                        <!-- input pilihan AJAX negara tujuan -->
                                         <select name="negara_id" required class="form-control" id="negara_tujuan">
                                             <option value="">-- Pilih Negara --</option>
                                         </select>
@@ -129,8 +138,10 @@
                         <b class="bold">Penempatan Kerja</b>
                     </div>
                     <div class="card-body">
+                        <!-- form(post) KandidatController => simpan_kandidat_placement -->
                         <form action="/isi_kandidat_placement" method="POST">
                             @csrf
+                            <!-- input pilihan AJAX penempatan -->
                             <select name="penempatan" id="placement" class="form-control">
                                 <option value="">-- Pilih Tujuan Bekerja --</option>
                                 <option value="dalam negeri" @if ($kandidat->penempatan == "dalam negeri")
@@ -143,6 +154,7 @@
                             <div class="text-center my-3" id="hidetext">
                                 <h4 class="">Negara Tujuan</h4>
                             </div>
+                            <!-- input pilihan AJAX negara tujuan -->
                             <select name="negara_id" required class="form-control" id="negara_tujuan">
                                 <option value="">-- Pilih Negara --</option>
                             </select>
@@ -169,6 +181,7 @@
                                         <th></th>
                                     </tr>
                                 </thead>
+                                <!-- apabila kandidat telah masuk / mengirim lowongan ke perusahaan -->
                                 @if ($kandidat->id_perusahaan !== null)
                                     <tbody>
                                         <tr class="text-center">
@@ -228,10 +241,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <!-- lowongan pekerjaan-->
                                     @foreach ($lowongan as $item)
+                                        <!-- filterisasi data lowongan dengan data kandidat -->
+                                        <!-- apabila lowongan pendidikan lebih kecil dari pendidikan kandidat -->
                                         @if ($item->no_urutan <= $pendidikan->no_urutan)
+                                            <!-- apabila pencarian tempat lowongan sama dengan data kandidat, atau apabila pencarian tempat lowongan "se-indonesia" -->
                                             @if ($item->pencarian_tmp == $kandidat->kabupaten || $item->pencarian_tmp == "Se-indonesia")
+                                                <!-- apabila usia min lowongan lebih kecil dari data kandidat dan usia maks lowongan lebih besar dari data kandidat -->
                                                 @if ($item->usia_min <= $kandidat->usia && $item->usia_maks >= $kandidat->usia)
+                                                    <!-- apabila berat min lowongan lebih kecil dari data kandidat dan berat maks lowongan lebih besar dari data kandidat -->
                                                     @if ($item->berat_min <= $kandidat->berat && $item->berat_maks >= $kandidat->berat)
                                                         <tr class="text-center">
                                                             <td>
@@ -244,6 +263,7 @@
                                                                 <a href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat</a>
                                                             </td>
                                                         </tr>
+                                                    <!-- apabila berat min lowongan lebih kecil dari data kandidat -->   
                                                     @elseif($item->berat_min <= $kandidat->berat)
                                                         <tr class="text-center">
                                                             <td>
@@ -255,10 +275,11 @@
                                                             </td>
                                                         </tr>
                                                     @endif
+                                                <!-- apabila usia min lowongan lebih kecil dari data kandidat -->
                                                 @elseif($item->usia_min <= $kandidat->usia)
+                                                    <!-- apabila berat min lowongan lebih kecil dari data kandidat dan berat maks lowongan lebih besar dari data kandidat -->
                                                     @if ($item->berat_min <= $kandidat->berat && $item->berat_maks >= $kandidat->berat)
                                                         <tr class="text-center">
-                                                            {{-- <td>{{$loop->iteration}}</td> --}}
                                                             <td>
                                                                 {{$item->jabatan}}
                                                             </td>
@@ -269,9 +290,9 @@
                                                                 <a href="/lihat_lowongan_pekerjaan/{{$item->id_lowongan}}">Lihat</a>
                                                             </td>
                                                         </tr>
+                                                    <!-- apabila berat min lowongan lebih kecil dari data kandidat -->
                                                     @elseif($item->berat_min <= $kandidat->berat)
                                                         <tr class="text-center">
-                                                            {{-- <td>{{$loop->iteration}}</td> --}}
                                                             <td>
                                                                 {{$item->jabatan}}
                                                             </td>
@@ -296,22 +317,17 @@
         </div>
     @endif
 </div>
-
-    <!-- Button trigger modal -->
-    {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Launch demo modal
-    </button> --}}
   
+    <!-- apabila kandidat di info masih kosong -->
     <!-- Modal -->
-
     @if ($kandidat->info == null)
-        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="info" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
+                    <!-- form(post) KandidatController => simpanInfoConnect -->
                     <form action="/info_connect/{{$kandidat->nama}}/{{$kandidat->id_kandidat}}" method="post">
                         @csrf
                         <div class="modal-header">
-                            {{-- <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5> --}}
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -328,11 +344,12 @@
             </div>
         </div>
     @endif
-
+    <!-- apabila data persetujuan tidak kosong -->
     @if($persetujuan !== null)
         <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
+                    <!-- form(post) KandidatController => persetujuanKandidat -->
                     <form action="/persetujuan_kandidat/{{$kandidat->nama}}/{{$kandidat->id_kandidat}}" method="post">
                         @csrf
                         <div class="modal-header">
@@ -342,6 +359,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
+                            <!-- input id persetujuan secara sembunyi -->
                             <input type="text" hidden name="persetujuan_id" value="{{$persetujuan->persetujuan_id}}" id="">
                             <div class="text-center" id="terimaInterview">
                                 <h4 class="">Selamat anda mendapatkan udangan interview dari {{$persetujuan->nama_perusahaan}}</h4>
@@ -355,25 +373,30 @@
                             </div>
                             <div class="" id="batalInterview">
                                 <h5 class="text-center">Jelaskan alasan anda menolak undangan interview</h5>
+                                <!-- pilihan alasan menolak interview -->
                                 <select name="pilih" class="form-control my-3" id="tolakInterview">
                                     <option value="">-- Tentukan Pilihanmu --</option>
                                     <option value="bekerja">Sudah bekerja</option>
                                     <option value="alasan">Alasan Lain</option>
                                 </select>
                                 <div class="" id="bekerja">
+                                    <!-- input tempat bekerja -->
                                     <div class="form-group">
                                         <label for="">Dimana anda Bekerja?</label>
                                         <input type="text" name="tmp_bekerja" class="form-control" id="">
                                     </div>
+                                    <!-- input jabatan -->
                                     <div class="form-group">
                                         <label for="">Anda sekarang bekerja sebagai:</label>
                                         <input type="text" name="jabatan" class="form-control" id="">                                    
                                     </div>
+                                    <!-- input tgl_mulai_kerja -->
                                     <div class="form-group">
                                         <label for="">Sejak kapan anda bekerja</label>
                                         <input type="date" name="tgl_mulai_kerja" class="form-control" id="">                                    
                                     </div>
                                 </div>
+                                <!-- input alasan lain -->
                                 <div class="form-group" id="alasan">
                                     <label for="">Alasan lain</label>
                                     <textarea name="alasan_lain" class="form-control" id=""></textarea>

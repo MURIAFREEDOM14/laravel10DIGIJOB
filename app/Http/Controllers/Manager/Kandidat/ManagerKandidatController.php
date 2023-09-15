@@ -95,16 +95,17 @@ class ManagerKandidatController extends Controller
             'usia'=> $usia,
         ]);
         $kandidat = Kandidat::where('id_kandidat',$id)->first();
+        // apabila penempatan di data kandidat "dalam negeri" 
         if($kandidat->penempatan == "dalam negeri")
-            {
-                Kandidat::where('id_kandidat',$id)->update([
-                    'negara_id' => 2
-                ]);
-            } else {
-                Kandidat::where('id_kandidat',$id)->update([
-                    'negara_id' => null,
-                ]);
-            }
+        {
+            Kandidat::where('id_kandidat',$id)->update([
+                'negara_id' => 2
+            ]);
+        } else {
+            Kandidat::where('id_kandidat',$id)->update([
+                'negara_id' => null,
+            ]);
+        }
 
         $userId = Kandidat::where('id_kandidat',$id)->first();
         User::where('referral_code', $userId->referral_code)->update([
@@ -133,12 +134,15 @@ class ManagerKandidatController extends Controller
     public function simpan_document(Request $request,$id)
     {
         $kandidat = Kandidat::where('id_kandidat', $id)->first();    
-        // cek foto ktp + simpan data
+        // cek foto ktp
+        // apabila ada inputan
         if($request->file('foto_ktp') !== null){
+            // cari file dan hapus bila ada
             $hapus_ktp = public_path('/gambar/Kandidat/'.$kandidat->nama.'/KTP/').$kandidat->foto_ktp;
             if(file_exists($hapus_ktp)){
                 @unlink($hapus_ktp);
             }
+            // memasukkan data ke dalam aplikasi
             $ktp = $kandidat->nama.time().'.'.$request->foto_ktp->extension();  
             $request->foto_ktp->move(public_path('/gambar/Kandidat/'.$kandidat->nama.'/KTP/'), $ktp);
         } else {
@@ -148,12 +152,15 @@ class ManagerKandidatController extends Controller
                 $ktp = null;
             }
         }
-        // cek foto kk + simpan data
+        // cek foto kk
+        // apabila ada inputan
         if ($request->file('foto_kk') !== null) {    
+            // cari file dan hapus bila ada
             $hapus_kk = public_path('/gambar/Kandidat/'.$kandidat->nama.'/KK/').$kandidat->foto_kk;
             if(file_exists($hapus_kk)){
                 @unlink($hapus_kk);
             }
+            // memasukkan data ke dalam aplikasi
             $kk = $kandidat->nama.time().'.'.$request->foto_kk->extension();  
             $request->foto_kk->move(public_path('/gambar/Kandidat/KK'), $kk);
         } else {
@@ -163,12 +170,15 @@ class ManagerKandidatController extends Controller
                 $kk = null;
             }
         }
-        // cek foto set badan + simpan data
+        // cek foto set badan
+        // apabila ada inputan
         if($request->file('foto_set_badan') !== null){
+            // cari file dan hapus bila ada
             $hapus_set_badan = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Set_badan/').$kandidat->foto_set_badan;
             if(file_exists($hapus_set_badan)){
                 @unlink($hapus_set_badan);
             }
+            // memasukkan data ke dalam aplikasi
             $set_badan = $kandidat->nama.time().'.'.$request->foto_set_badan->extension();  
             $request->foto_set_badan->move(public_path('/gambar/Kandidat/Set_badan'), $set_badan);
         } else {
@@ -178,12 +188,15 @@ class ManagerKandidatController extends Controller
                 $set_badan = null;    
             }
         }
-        // cek foto 4x6 + simpan data
+        // cek foto 4x6
+        // apabila ada inputan
         if($request->file('foto_4x6') !== null){
+            // cari file dan hapus bila ada
             $hapus_4x6 = public_path('/gambar/Kandidat/'.$kandidat->nama.'/4x6/').$kandidat->foto_4x6;
             if(file_exists($hapus_4x6)){
                 @unlink($hapus_4x6);
             }
+            // memasukkan data ke dalam aplikasi
             $foto_4x6 = $kandidat->nama.time().'.'.$request->foto_4x6->extension();  
             $request->foto_4x6->move(public_path('/gambar/Kandidat/4x6'), $foto_4x6);
         } else {
@@ -193,12 +206,15 @@ class ManagerKandidatController extends Controller
                 $foto_4x6 = null;
             }
         }
-        // cek foto ket lahir + simpan data
+        // cek foto ket lahir
+        // apabila ada inputan
         if($request->file('foto_ket_lahir') !== null){
+            // cari file dan hapus bila ada
             $hapus_ket_lahir = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Ket_lahir/').$kandidat->foto_ket_lahir;
             if(file_exists($hapus_ket_lahir)){
                 @unlink($hapus_ket_lahir);
             }
+            // memasukkan data ke dalam aplikasi
             $ket_lahir = $kandidat->nama.time().'.'.$request->foto_ket_lahir->extension();  
             $request->foto_ket_lahir->move(public_path('/gambar/Kandidat/Ket_lahir'), $ket_lahir);
         } else {
@@ -208,12 +224,15 @@ class ManagerKandidatController extends Controller
                 $ket_lahir = null;
             }
         }
-        // cek foto ijazah + simpan data
+        // cek foto ijazah
+        // apabila ada inputan
         if($request->file('foto_ijazah') !== null){
+            // cari file dan hapus bila ada
             $hapus_ijazah = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Ijazah/').$kandidat->foto_ijazah;
             if(file_exists($hapus_ijazah)){
                 @unlink($hapus_ijazah);
             }
+            // memasukkan data ke dalam aplikasi
             $ijazah = $kandidat->nama.time().'.'.$request->foto_ijazah->extension();  
             $request->foto_ijazah->move(public_path('/gambar/Kandidat/Ijazah'), $ijazah);            
         } else {
@@ -275,21 +294,15 @@ class ManagerKandidatController extends Controller
             'kecamatan' => $kecamatan->kecamatan,
             'kabupaten' => $kota->kota,
             'provinsi' => $provinsi->provinsi,
-            'foto_ktp' => 
-            $foto_ktp,
-            'foto_kk' => 
-            $foto_kk,
-            'foto_set_badan' => 
-            $foto_set_badan,
-            'foto_4x6' => 
-            $photo_4x6,
-            'foto_ket_lahir' =>
-            $foto_ket_lahir,
-            'foto_ijazah' => 
-            $foto_ijazah,
+            'foto_ktp' => $foto_ktp,
+            'foto_kk' => $foto_kk,
+            'foto_set_badan' => $foto_set_badan,
+            'foto_4x6' => $photo_4x6,
+            'foto_ket_lahir' =>$foto_ket_lahir,
+            'foto_ijazah' => $foto_ijazah,
             'stats_nikah' => $request->stats_nikah
         ]);
-            return redirect('/manager/kandidat/lihat_profil/'.$id);
+        return redirect('/manager/kandidat/lihat_profil/'.$id);
     }
 
     // halaman edit data kandidat family / keluarga jika sudah berkeluarga dari manager

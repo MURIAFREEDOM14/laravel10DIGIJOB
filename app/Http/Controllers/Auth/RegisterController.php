@@ -74,16 +74,6 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            // 'name' => ['required', 'string', 'max:255'],
-            // // 'username' => ['required', 'string', 'unique:users', 'alpha_dash', 'min:5', 'max:30'],
-            // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            // 'password' => ['required', 'string'],
-            // 'no_telp' => ['required', 'unique:users', 'max:12']
-        ]);
-    }
 
     /**
      * Create a new user instance after a valid registration.
@@ -91,23 +81,23 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
-    {
-        $password = Hash::make($data['password']);
-        if($data !== null)
-        {
-            return User::create([
-                'name_perusahaan' => $data['name'],
-                'email' => $data['email'],
-                'no_nib' => $data['no_nib'],
-                'type' => 2,
-                'password' => $password,
-                'check_password' => $data['password'],
-            ]);
-        } else {
-            return redirect()->route('laman');
-        }
-    }
+    // protected function create(array $data)
+    // {
+    //     $password = Hash::make($data['password']);
+    //     if($data !== null)
+    //     {
+    //         return User::create([
+    //             'name_perusahaan' => $data['name'],
+    //             'email' => $data['email'],
+    //             'no_nib' => $data['no_nib'],
+    //             'type' => 2,
+    //             'password' => $password,
+    //             'check_password' => $data['password'],
+    //         ]);
+    //     } else {
+    //         return redirect()->route('laman');
+    //     }
+    // }
 
     // DATA KANDIDAT //
     protected function kandidat(Request $request)
@@ -152,9 +142,10 @@ class RegisterController extends Controller
         // menampilkan 32 huruf secara acak
         $token = Str::random(32).$request->no_telp;
         
-        // sistem hashing data password
+        // sistem hashing data password menjadi data kode acak
         $password = Hash::make($request->password);
         
+        // membuat data pengguna
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -168,13 +159,15 @@ class RegisterController extends Controller
         // mengambil data user id
         $id = $user->id;
         
-        // sistem merubah data angka menjadi seperti kode
+        // sistem membuat kode kunci dari data id + no telp (tipe data integer / angka)
         $userId = \Hashids::encode($id.$request->no_telp);
 
+        // menambahkan kode ke dalam data pengguna yang baru dibuat
         User::where('id',$id)->update([
             'referral_code' => $userId
         ]);
 
+        // membuat data kandidat baru
         Kandidat::create([
             'id' => $id,
             'nama' => $request->name,
@@ -190,7 +183,7 @@ class RegisterController extends Controller
         // mengirim pesan email kepada kandidat
         Mail::mailer('verification')->to($request->email)->send(new Verification($request->name, $token, 'Email Verifikasi', 'no-reply@ugiport.com'));
         
-        // aktivasi akun sbg pengguna
+        // aktivasi login / masuk akun sbg pengguna
         Auth::login($user);
         
         // menuju halaman verifikasi
@@ -200,9 +193,12 @@ class RegisterController extends Controller
     // DATA AKADEMI //
     protected function akademi(Request $request)
     {
+        // apabila password dan password verifikasi tidak sama
         if($request->password !== $request->passwordConfirm){
+            // kembali menuju halaman sebelumnya
             return back()->with('error',"Maaf konfirmasi password anda salah");
         }
+        // sistem validasi / pengecekan
         $validated = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|unique:users|max:255',
@@ -211,8 +207,11 @@ class RegisterController extends Controller
             'captcha' => 'required',
         ]);
 
+        // membuat data huruf secara acak sebanyak 32
         $token = Str::random(32).$request->no_nis;
+        // mengubah password yang dimasukkan menjadi bentuk kode acak
         $password = Hash::make($request->password);
+        // membuat data pengguna
         $user = User::create([
             'name_akademi' => $request->name,
             'email' => $request->email,
@@ -222,12 +221,16 @@ class RegisterController extends Controller
             'check_password' => $request->password,
             'token' => $token,
         ]);
+        // mencari id dari data pengguna yang baru dibuat
         $id = $user->id;
+        // membuat kode kunci dari data id + no nis (tipe integer / angka)
         $userId = \Hashids::encode($id.$request->no_nis);
+        // memasukkan kode kedalam data pengguna
         User::where('id',$id)->update([
             'referral_code'=>$userId
         ]);
 
+        // membuat data akademi
         Akademi::create([
             'nama_akademi' => $request->name,
             'referral_code' => $userId,
@@ -235,16 +238,22 @@ class RegisterController extends Controller
             'no_nis' => $request->no_nis,
         ]);
 
+        // mengirimkan pesan email verifikasi
         Mail::mailer('verification')->to($request->email)->send(new Verification($request->name, $token, 'Email Verifikasi', 'no-reply@ugiport.com'));
+        // aktivasi login / masuk
         Auth::login($user);
+        // menuju halaman verifikasi selagi menunggu verifikasi email
         return redirect()->route('verifikasi')->with('success',"Cek email anda untuk verifikasi");
     }
 
+    // DATA PERUSAHAAN //
     protected function perusahaan(Request $request)
     {
+        // apabila input password tidak sama dengan password konfirmasi
         if($request->password !== $request->passwordConfirm){
             return back()->with('error',"Maaf konfirmasi password anda salah");
         }
+        // sistem validasi / pengecekan input
         $validated = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|unique:users|max:255',
@@ -253,9 +262,11 @@ class RegisterController extends Controller
             'captcha' => 'required',
         ]);
 
+        // membuat data berisi huruf acak sebanyak 32
         $token = Str::random(32).$request->no_nib;
+        // merubah data password menjadi kode acak
         $password = hash::make($request->password);
-
+        // menambah data pengguna
         $user = User::create([
             'name_perusahaan' => $request->name,
             'email' => $request->email,
@@ -266,13 +277,16 @@ class RegisterController extends Controller
             'token' => $token,
         ]);
 
+        // mencari data id dari data pengguna diatas
         $id = $user->id;
+        // membuat kode kunci dari id + no nib (tipe integer / angka)
         $userId = \Hashids::encode($id.$request->nib);
-
+        // menambah kode kedalam data pengguna
         User::where('id',$id)->update([
             'referral_code' => $userId,
         ]);
 
+        // membuat data perusahaan 
         Perusahaan::create([
             'nama_perusahaan' => $request->name,
             'no_nib' => $request->no_nib,
@@ -280,8 +294,11 @@ class RegisterController extends Controller
             'email_perusahaan' => $request->email,
             'penempatan_kerja' => $request->penempatan_kerja,
         ]);
+        // mengirimkan email verifikasi
         Mail::mailer('verification')->to($request->email)->send(new Verification($request->name, $token, 'Email Verifikasi', 'no-reply@ugiport.com'));
+        // aktivasi login / masuk
         Auth::login($user);
+        // menuju halaman verifikasi selagi menunggu email di verifikasi
         return redirect()->route('verifikasi')->with('success',"Cek email anda untuk verifikasi");
     }
 }

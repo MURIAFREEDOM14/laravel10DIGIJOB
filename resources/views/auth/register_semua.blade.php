@@ -1,6 +1,7 @@
 @extends('layouts.laman')
 @section('content')
     <div class="container">
+        <!-- Route(view) LamanController => '/register' -->
         <div class="row mb-3">
             <div class="col-md-10 mx-auto">
                 <div class="card" style="border-top: 10px solid #19A7CE">
@@ -35,7 +36,6 @@
             <div class="col-md-10 mx-auto">
                 <div class="card" style="border-top: 10px solid #45CFDD">
                     <div class="card-body text-center">
-                        {{-- <p style="text-transform:uppercase">Masuk Aplikasi</p> --}}
                         <a class="btn btn-outline-primary" href="/login">Login</a>
                     </div>
                 </div>

@@ -12,7 +12,6 @@ use App\Http\Controllers\Manager\ContactUsController;
 use App\Http\Controllers\Manager\NegaraController;
 use App\Http\Controllers\Kandidat\KandidatPerusahaanController;
 use App\Http\Controllers\Kandidat\KandidatController;
-use App\Http\Controllers\Kandidat\FileUploadController;
 use App\Http\Controllers\Perusahaan\PerusahaanController;
 use App\Http\Controllers\Perusahaan\PerusahaanRecruitmentController;
 use App\Http\Controllers\CaptureController;
@@ -262,15 +261,15 @@ Route::controller(LoginController::class)->group(function() {
     Route::post('/login','AuthenticateLogin');
     
     // route kandidat lupa password
-    Route::get('/forgot_password/kandidat','forgotPasswordKandidat')->middleware('guest');
+    Route::view('/forgot_password/kandidat','auth/passwords/forgot_password_kandidat')->middleware('guest');
     Route::post('/forgot_password/kandidat','confirmAccountKandidat');
     
     // route akademi lupa password
-    Route::get('/forgot_password/akademi','forgotPasswordAkademi')->middleware('guest');
+    Route::view('/forgot_password/akademi','auth/passwords/forgot_password_akademi')->middleware('guest');
     Route::post('/forgot_password/akademi','confirmAccountAkademi');
     
     // route perusahaan lupa password
-    Route::get('/forgot_password/perusahaan','forgotPasswordPerusahaan')->middleware('guest');
+    Route::view('/forgot_password/perusahaan','auth/passwords/forgot_password_perusahaan')->middleware('guest');
     Route::post('/forgot_password/perusahaan','confirmAccountPerusahaan');
 
     // route  akun yang sudah ada di dalam
@@ -349,6 +348,11 @@ Route::controller(KandidatController::class)->group(function() {
     Route::get('/isi_kandidat_document', 'isi_kandidat_document')->middleware('kandidat')->name('document');
     Route::post('/isi_kandidat_document', 'simpan_kandidat_document');
 
+    // route isi data family / keluarga (apabila pernah berkeluarga)
+    Route::get('/isi_kandidat_family', 'isi_kandidat_family')->middleware('kandidat')->name('family');
+    Route::post('/isi_kandidat_anak', 'simpan_kandidat_anak');
+    Route::post('/isi_kandidat_family', 'simpan_kandidat_family');    
+
     // route isi data vaksin
     Route::get('/isi_kandidat_vaksin', 'isi_kandidat_vaksin')->middleware('kandidat')->name('vaksin');
     Route::post('/isi_kandidat_vaksin', 'simpan_kandidat_vaksin');
@@ -356,11 +360,6 @@ Route::controller(KandidatController::class)->group(function() {
     // route isi data parent / keluarga
     Route::get('/isi_kandidat_parent', 'isi_kandidat_parent')->middleware('kandidat')->name('parent');
     Route::post('/isi_kandidat_parent', 'simpan_kandidat_parent');
-
-    // route isi data family / keluarga (apabila pernah berkeluarga)
-    Route::get('/isi_kandidat_family', 'isi_kandidat_family')->middleware('kandidat')->name('family');
-    Route::post('/isi_kandidat_anak', 'simpan_kandidat_anak');
-    Route::post('/isi_kandidat_family', 'simpan_kandidat_family');
 
     // route isi data company / perusahaan
     Route::get('/isi_kandidat_company', 'isi_kandidat_company')->middleware('kandidat')->name('company');
@@ -390,7 +389,7 @@ Route::controller(KandidatController::class)->group(function() {
     Route::get('/isi_kandidat_paspor', 'isi_kandidat_paspor')->middleware('kandidat')->name('paspor');
     Route::post('/isi_kandidat_paspor', 'simpan_kandidat_paspor');    
 
-    // route penentuan penempatan kerja
+    // route penentuan penempatan kerja kandidat
     Route::get('/penempatan', 'placement');
     Route::post('/isi_kandidat_placement', 'simpan_kandidat_placement');
 
@@ -585,9 +584,6 @@ Route::controller(PrioritasController::class)->group(function(){
     Route::get('/kandidat/prioritas','prioritas')->middleware('prioritas')->name('prioritas');
     Route::get('/pelatihan_interview','interview')->middleware('prioritas');
 });
-
-Route::get('/download_file',[FileUploadController::class,'downloadFile']);
-Route::get('/send_email_kandidat',[FileUploadController::class, 'sendEmailFile']);
 
 // DATA  NOTIFIKASI //
 Route::controller(NotifikasiController::class)->group(function() {

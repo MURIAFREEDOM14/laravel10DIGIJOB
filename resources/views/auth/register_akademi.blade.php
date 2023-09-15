@@ -9,6 +9,7 @@
                     <h4 class="text-center">{{ __('Register Akademi') }}</h4>
                 </div>
                 <div class="card-body">
+                    <!-- form(post) RegisterController => akademi -->
                     <form method="POST" action="/register/akademi">
                         @csrf
                         <div class="row">

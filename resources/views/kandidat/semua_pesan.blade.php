@@ -26,8 +26,11 @@
             Semua Pesan
         </div>
         <div class="card-body">
+            <!-- menampilkan semua pesan -->
             @foreach ($semua_pesan as $item)
+                <!-- apabila pesan telah dibaca -->
                 @if ($item->check_click == "y")
+                    <!-- apabila pesan akademi ada -->
                     @if ($item->id_akademi !== null)
                         <div class="list-group">                        
                             <a href="/kirim_balik/{{$item->id}}" class="link-list">
@@ -38,6 +41,7 @@
                                 @php
                                     $dayNow = date('Y-m-d');
                                 @endphp
+                                <!-- apabila tanggal pesan dibuat sama dengan tanggal hari itu -->
                                 @if (date('Y-m-d',strtotime($item->created_at)) == $dayNow)
                                     <div class="float-right mx-1">{{date('h:i A',strtotime($item->created_at))}}</div>                                
                                 @else
@@ -45,6 +49,7 @@
                                 @endif
                             </a>
                         </div>
+                    <!-- apabila pesan perusahaan ada -->
                     @elseif($item->id_perusahaan !== null)
                         <div class="list-group">                        
                             <a href="/kirim_balik/{{$item->id}}" class="link-list">
@@ -55,6 +60,7 @@
                                 @php
                                     $dayNow = date('Y-m-d');
                                 @endphp
+                                <!-- apabila tanggal pesan dibuat sama dengan tanggal hari itu -->
                                 @if (date('Y-m-d',strtotime($item->created_at)) == $dayNow)
                                     <div class="float-right mx-1">{{date('h:i A',strtotime($item->created_at))}}</div>                                
                                 @else
@@ -62,6 +68,7 @@
                                 @endif
                             </a>
                         </div>
+                    <!-- apabila pesan dari admin -->
                     @else
                         <div class="list-group">                        
                             <a href="/kirim_balik/{{$item->id}}" class="link-list">
@@ -72,6 +79,7 @@
                                 @php
                                     $dayNow = date('Y-m-d');
                                 @endphp
+                                <!-- apabila tanggal pesan dibuat sama dengan tanggal hari itu -->
                                 @if (date('Y-m-d',strtotime($item->created_at)) == $dayNow)
                                     <div class="float-right mx-1">{{date('h:i A',strtotime($item->created_at))}}</div>                                
                                 @else
@@ -81,6 +89,7 @@
                         </div>
                     @endif 
                 @else
+                    <!-- apabila pesan akademi ada --> 
                     @if ($item->id_akademi !== null)
                         <div class="list-group">                        
                             <a href="/kirim_balik/{{$item->id}}" class="link-list" style="font-weight:bold;">
@@ -91,6 +100,7 @@
                                 @php
                                     $dayNow = date('Y-m-d');
                                 @endphp
+                                <!-- apabila tanggal pesan dibuat sama dengan tanggal hari itu -->
                                 @if (date('Y-m-d',strtotime($item->created_at)) == $dayNow)
                                     <div class="float-right mx-1">{{date('h:i A',strtotime($item->created_at))}}</div>                                
                                 @else
@@ -98,6 +108,7 @@
                                 @endif
                             </a>
                         </div>
+                    <!-- apabila pesan perusahaan ada -->
                     @elseif($item->id_perusahaan !== null)
                         <div class="list-group">                        
                             <a href="/kirim_balik/{{$item->id}}" class="link-list" style="font-weight:bold;">
@@ -108,6 +119,7 @@
                                 @php
                                     $dayNow = date('Y-m-d');
                                 @endphp
+                                <!-- apabila tanggal pesan dibuat sama dengan tanggal hari itu -->
                                 @if (date('Y-m-d',strtotime($item->created_at)) == $dayNow)
                                     <div class="float-right mx-1">{{date('h:i A',strtotime($item->created_at))}}</div>                                
                                 @else
@@ -115,6 +127,7 @@
                                 @endif
                             </a>
                         </div>
+                    <!-- apabila pesan dari admin -->
                     @else
                         <div class="list-group">                        
                             <a href="/kirim_balik/{{$item->id}}" class="link-list" style="font-weight:bold;">
@@ -125,6 +138,7 @@
                                 @php
                                     $dayNow = date('Y-m-d');
                                 @endphp
+                                <!-- apabila tanggal pesan dibuat sama dengan tanggal hari itu -->
                                 @if (date('Y-m-d',strtotime($item->created_at)) == $dayNow)
                                     <div class="float-right mx-1">{{date('h:i A',strtotime($item->created_at))}}</div>                                
                                 @else

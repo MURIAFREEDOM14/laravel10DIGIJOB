@@ -10,6 +10,7 @@
                     <h4 class="text-center">Login</h4>
                 </div>
                 <div class="card-body">
+                    <!-- form(post) LoginController => confirmLoginMigration -->
                     <form action="/login/migration/confirm" method="POST">
                         @csrf
                         <div class="row my-3">
@@ -20,16 +21,19 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
+                                <!-- input nik -->
                                 <div class="mb-3">
-                                    <label for="exampleInputPassword1">No. NIK Anda</label>
+                                    <label for="">No. NIK Anda</label>
                                     <input name="" disabled type="number" class="form-control" value="{{$kandidat->nik}}" id="exampleInputPassword1">
                                 </div>
+                                <!-- input email -->
                                 <div class="mb-3">
-                                    <label for="exampleInputPassword1">Email Anda</label>
+                                    <label for="">Email Anda</label>
                                     <input name="email" type="email" class="form-control" value="{{$kandidat->email}}" id="exampleInputPassword1">
                                 </div>
+                                <!-- input password -->
                                 <div class="mb-3">
-                                    <label for="exampleInputPassword1">Masukkan Password</label>
+                                    <label for="">Masukkan Password</label>
                                     <input name="password" placeholder="Buat Password Aplikasi" type="text" class="form-control" id="exampleInputPassword1">
                                 </div>
                             </div>

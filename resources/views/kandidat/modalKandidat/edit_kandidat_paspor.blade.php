@@ -7,6 +7,7 @@
         <div class="">
             <div class="row">
                 <h4 class="text-center">PROFIL BIO DATA</h4>
+                <!-- form(post) KandidatController => simpan_kandidat_paspor -->
                 <form action="/isi_kandidat_paspor" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="" id="perizin">
@@ -15,6 +16,7 @@
                                 <h6 class="ms-5">Data Paspor</h6> 
                             </div>
                         </div>
+                        <!-- input no. paspor -->
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="" class="col-form-label">No. Paspor</label>
@@ -23,6 +25,7 @@
                                 <input type="text" required value="{{$kandidat->no_paspor}}" name="no_paspor" id="noPasport" class="form-control" aria-labelledby="passwordHelpInline">
                             </div>
                         </div>
+                        <!-- input nama pemilik paspor -->
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="" class="col-form-label">Nama Pemilik Paspor</label>
@@ -31,6 +34,7 @@
                                 <input type="text" disabled value="{{$kandidat->nama}}" name="pemilik_paspor" id="" class="form-control" aria-labelledby="passwordHelpInline">
                             </div>
                         </div>
+                        <!-- input tanggal terbit -->
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="" class="col-form-label">Tanggal Terbit</label>
@@ -39,6 +43,7 @@
                                 <input type="date" required value="{{$kandidat->tgl_terbit_paspor}}" name="tgl_terbit_paspor" id="tglTerbit" class="form-control" aria-labelledby="passwordHelpInline">
                             </div>
                         </div>
+                        <!-- input tanggal akhir -->
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="" class="col-form-label">Tanggal Akhir</label>
@@ -47,6 +52,7 @@
                                 <input type="date" required value="{{$kandidat->tgl_akhir_paspor}}" name="tgl_akhir_paspor" id="tglAkhirPasport" class="form-control" aria-labelledby="passwordHelpInline">
                             </div>
                         </div>
+                        <!-- input tempat penerbitan -->
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="" class="col-form-label">Tempat Penerbitan</label>
@@ -55,6 +61,7 @@
                                 <input type="text" required value="{{$kandidat->tmp_paspor}}" name="tmp_paspor" id="tmpTerbit" class="form-control" aria-labelledby="passwordHelpInline">
                             </div>
                         </div>
+                        <!-- input foto paspor -->
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="" class="col-form-label">Foto Paspor</label>
@@ -82,6 +89,7 @@
         </div>
     </div>
 </div>
+<!-- fungsi tombol loading -->
 <script>
     function processing() {
         var noPasport = document.getElementById('noPasport').value;

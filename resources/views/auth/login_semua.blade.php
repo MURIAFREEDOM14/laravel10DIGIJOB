@@ -15,14 +15,15 @@
                             @csrf
                             <div class="row">
                                 <div class="col-md-12">
-                                    <!-- Mengambil data input email -->
+                                    <!-- input email -->
                                     <div class="mb-3">
-                                        <label for="exampleInputPassword1">Masukkan Email</label>
+                                        <label for="">Masukkan Email</label>
                                         <input name="email" type="email" class="form-control"
                                             value="{{ old('email') }}" required id="email">
                                     </div>
+                                    <!-- input password -->
                                     <div class="mb-3">
-                                        <label for="exampleInputPassword1">Masukkan Password</label>
+                                        <label for="">Masukkan Password</label>
                                         <input name="password" type="password" class="form-control"
                                             value="{{ old('password') }}" required id="password_input">
                                         <div class="my-2">
@@ -30,6 +31,7 @@
                                                 id=""><span>Tampilkan Password</span>
                                         </div>
                                     </div>
+                                    <!-- input kode captcha -->
                                     <div class="row mb-3">
                                         <div class="col-md-12">
                                             <div class="slidercaptcha card">

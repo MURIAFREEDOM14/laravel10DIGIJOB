@@ -7,6 +7,7 @@
         <div class="">
             <div class="row">
                 <h4 class="text-center">PROFIL BIO DATA</h4>
+                <!-- form(post) KandidatController => simpan_kandidat_company -->
                 <form action="/isi_kandidat_company" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
@@ -14,7 +15,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h6 class="ml-5 float-start">PENGALAMAN KERJA</h6> 
-                                    <!-- Button trigger modal -->
+                                    <!-- Tombol modal tambah pengalaman pekerjaan -->
                                     <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#buatPengalamanKerja" onclick="create()">
                                         Tambah
                                     </button>
@@ -64,32 +65,11 @@
             </div>
             <hr>
         </div>
-        <!-- Modal -->
-        <!-- Create -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <form action="/tambah_kandidat_pengalaman_kerja" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Pengalaman Kerja</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="" id="page"></div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <!-- EndCreate -->
-        
-        <!-- Edit -->
+        <!-- Modal -->        
+        <!-- Buat data -->
         <div class="modal fade" id="buatPengalamanKerja" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
+                <!-- form(post) KandidatController => tambahPengalamanKerja -->
                 <form action="/simpan_kandidat_pengalaman_kerja" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-content">
@@ -98,22 +78,27 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
+                            <!-- input nama perusahaan -->
                             <div class="mb-2">
-                                <label for="exampleInputEmail1" class="form-label">Nama Perusahaan / Majikan</label>
+                                <label for="" class="form-label">Nama Perusahaan / Majikan</label>
                                 <input type="text" name="nama_perusahaan" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                             </div>
+                            <!-- input alamat perusahaan -->
                             <div class="mb-2">
-                                <label for="exampleInputEmail1" class="form-label">Alamat Perusahaan / Majikan</label>
+                                <label for="" class="form-label">Alamat Perusahaan / Majikan</label>
                                 <input type="text" name="alamat_perusahaan" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                             </div>
+                            <!-- input jabatan -->
                             <div class="mb-2">
-                                <label for="exampleInputEmail1" class="form-label">Jabatan</label>
+                                <label for="" class="form-label">Jabatan</label>
                                 <input type="text" name="jabatan" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                             </div>
+                            <!-- input deskripsi -->
                             <div class="row mb-2">
                                 <label for="" class="form-label">Deskripsi Pekerjaan</label>
                                 <textarea name="deskripsi" id="" class="form-control" cols="5" rows="3"></textarea>
                             </div>
+                            <!-- input periode awal & akhir -->
                             <div class="row mb-2">
                                 <label for="">Periode</label>
                                 <div class="col-6">
@@ -123,10 +108,12 @@
                                     <input type="date" required class="form-control" name="periode_akhir" id="">
                                 </div>
                             </div>
+                            <!-- input alasan berhenti -->
                             <div class="mb-2">
-                                <label for="exampleInputEmail1" class="form-label">Alasan Berhenti</label>
+                                <label for="" class="form-label">Alasan Berhenti</label>
                                 <input type="text" required name="alasan_berhenti" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                             </div>
+                            <!-- input pilihan tambah foto / video -->
                             <div class="mb-2">
                                 <label for="" class="form-label">Galeri Pengalaman Kerja</label>
                                 <select name="type" class="form-select" id="data_pengalaman">
@@ -135,12 +122,14 @@
                                     <option value="foto">Foto</option>
                                 </select>
                             </div>
+                            <!-- input video -->
                             <div class="mb-2" id="video_pengalaman">
-                                <label for="exampleInputEmail1" class="form-label">Video Pengalaman Kerja</label>
+                                <label for="" class="form-label">Video Pengalaman Kerja</label>
                                 <input type="file" name="video" class="form-control" id="" aria-describedby="emailHelp" accept="video/*">
-                            </div>    
+                            </div> 
+                            <!-- input foto -->   
                             <div class="mb-2" id="foto_pengalaman">
-                                <label for="exampleInputEmail1" class="form-label">Foto Pengalaman Kerja</label>
+                                <label for="" class="form-label">Foto Pengalaman Kerja</label>
                                 <input type="file" name="foto" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" accept="image/*">
                             </div>    
                         </div>
@@ -151,9 +140,9 @@
                 </form>
             </div>
         </div>
-        <!-- EndEdit -->
     </div>
 </div>
+<!-- fungsi tombol loading -->
 <script>
     function processing() {
         var submit = document.getElementById('btn').style.display = 'none';

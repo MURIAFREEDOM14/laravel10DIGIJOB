@@ -4,6 +4,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <title>DIGIJOB</title>
         <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+        
+        <!-- gambar logo di tab browser -->
         <link rel="icon" href="/gambar/icon.ico" type="image/x-icon"/>
         
         <link rel="stylesheet" href="/moving.css">
@@ -18,14 +20,12 @@
                 }
             });
         </script>
-        {{-- <script src="/js/captcha.js"></script> --}}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
         <!-- CSS Files -->
         <link rel="stylesheet" href="/Atlantis/examples/assets/css/bootstrap.min.css">
         <link rel="stylesheet" href="/Atlantis/examples/assets/css/atlantis.min.css">
         <link rel="stylesheet" href="/cardSlide/style.css">
-        {{-- <link rel="stylesheet" href="/captcha.css">     --}}
         <link rel="stylesheet" href="/css/loader.css">
         <style>
             .bold{
@@ -99,14 +99,15 @@
     <body onload="loadingPage()">
         <div class="">
             <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-                {{-- nama logo --}}
+                <!-- nama logo -->
                 <a class="navbar-brand" href="/" style="color: white; font-weight:bold; background-color:#1572e8">DIGIJOB</a>
-                {{-- Pembatas antar nama logo dan foto profil --}}
+                <!-- Pembatas antar nama logo dan foto profil -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 </div>
                 <div class="">
                     <a class="float-left" style="color:white; margin-right:13px; margin-top:12%; background-color:#1572e8; text-decoration:none;" href="/semua_pesan">
                         <i class="fas fa-envelope" style="font-size:23px; background-color:#1572e8;"></i>
+                        <!-- menghitung total data pesan -->
                         @php
                             $ttl_pesan = $pesan->count();
                         @endphp
@@ -156,20 +157,18 @@
                     </div>
                 </div>
             </nav>
-            {{-- Sistem Loading --}}
+            
+            <!-- Sistem Loading -->
             <div class="loading align">
                 <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
             </div>
-            {{-- <div class="main-panel">
-                <div class="content">
-                    <main class="px-1">
-                        @yield('content')
-                    </main>
-                </div>
-            </div> --}}
+            
             <main class="py-5">
                 @yield('content')
+
+                <!-- pembatas body dengan footer -->
                 <div class="" style="height: 80px;"></div>
+                
                 <footer class="footer fixed-bottom" style="background-color: #1269db;">
                     <div class="container-fluid">
                         <nav class="pull-left">
@@ -190,6 +189,7 @@
                 </footer>
             </main>
         </div>
+
         <!--   Core JS Files   -->
         <script src="/Atlantis/examples/assets/js/core/jquery.3.2.1.min.js"></script>
         <script src="/Atlantis/examples/assets/js/core/popper.min.js"></script>
@@ -202,7 +202,6 @@
 
         <!-- jQuery Scrollbar -->
         <script src="/Atlantis/examples/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-
 
         <!-- Chart JS -->
         <script src="/Atlantis/examples/assets/js/plugin/chart.js/chart.min.js"></script>
@@ -278,7 +277,10 @@
                 });
             });
         </script>
+        
+        <!-- sistem halaman loading -->
         <script src="/js/loader.js"></script>
+        
         <script type="text/javascript">
             // Alert konfirmasi keluar / Log out //
             function confirmation(ev)
@@ -465,8 +467,9 @@
                 })
             });
             
+            // fungsi memunculkan modal saat masuk ke sebuah halaman
             $(window).on('load',function() {
-            $('#staticBackdrop').modal('show');                                                   
+            $('#info').modal('show');                                                   
             });
 
             // fungsi tampilan pilihan Konfirmasi Interview //

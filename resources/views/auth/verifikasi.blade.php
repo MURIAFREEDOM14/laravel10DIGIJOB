@@ -3,6 +3,7 @@
 @include('sweetalert::alert')
 @include('flash_message')
     <div class="container mt-5">
+        <!-- Route(view) VerifikasiController => '/verifikasi' -->
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">

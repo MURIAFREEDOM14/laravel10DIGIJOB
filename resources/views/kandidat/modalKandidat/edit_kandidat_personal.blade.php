@@ -7,6 +7,7 @@
             <div class="">
                 <div class="row">
                     <h4 class="text-center">PROFIL BIO DATA</h4>
+                    <!-- form(post) KandidatController => simpan_kandidat_personal -->
                     <form action="/isi_kandidat_personal" method="POST">
                         @csrf
                         <div class="" id="personal_biodata">
@@ -15,6 +16,7 @@
                                     <h6 class="ms-5">PROFIL BIO DATA</h6> 
                                 </div>
                             </div>
+                            <!-- input nama -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Nama Lengkap</label>
@@ -23,6 +25,7 @@
                                     <input type="text" value="{{$user->name}}" name="nama" id="nama" class="form-control" disabled aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input nama panggilan -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Nama Panggilan</label>
@@ -36,6 +39,7 @@
                                     @enderror
                                 </div>
                             </div>
+                            <!-- pilihan jenis kelamin -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Jenis Kelamin</label>
@@ -48,6 +52,7 @@
                                     </select>
                                 </div>
                             </div>
+                            <!-- input tempat lahir -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Tempat Lahir</label>
@@ -56,6 +61,7 @@
                                     <input type="text" required placeholder="Masukkan Tempat Lahir" value="{{$kandidat->tmp_lahir}}" name="tmp_lahir" id="tmp_lahir" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input tanggal lahir -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Tanggal Lahir</label>
@@ -64,6 +70,7 @@
                                     <input type="date" required value="{{$kandidat->tgl_lahir}}" name="tgl_lahir" id="tgl_lahir" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input no. telp -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">No Telepon</label>
@@ -71,12 +78,10 @@
                                 <div class="col-md-8">
                                     <div class="input-group">
                                         <input type="number" disabled value="{{$user->no_telp}}" name="no_telp" id="telp" class="form-control" aria-labelledby="passwordHelpInline">
-                                        {{-- <div class="input-group-append">
-                                            <a class="btn btn-warning" href="/edit_kandidat_no_telp" id="button-addon2">Ubah</a>
-                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
+                            <!-- pilihan agama -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Agama</label>
@@ -94,6 +99,7 @@
                                     </select>
                                 </div>
                             </div>
+                            <!-- input berat & tinggi -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Berat & Tinggi Badan</label>
@@ -111,6 +117,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- input email -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Email</label>
@@ -119,6 +126,7 @@
                                     <input type="email" disabled required value="{{$user->email}}" name="email" id="email" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- link ubah password -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <a href="/edit_kandidat_password" class="btn btn-primary">Edit Password</a>
@@ -134,7 +142,8 @@
                 <hr>
             </div>
         </div>
-    </div> 
+    </div>
+<!-- fungsi tombol loading --> 
 <script>
     function processing() {
         var jenis_kelamin = document.getElementById('jenis_kelamin').value;

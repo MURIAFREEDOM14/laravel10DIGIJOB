@@ -7,6 +7,7 @@
         <div class="">
             <div class="row">
                 <h4 class="text-center">PROFIL BIO DATA</h4>
+                <!-- form(post) KandidatController => simpan_kandidat_permission -->
                 <form action="/isi_kandidat_permission" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="" id="perizin">
@@ -15,6 +16,7 @@
                                 <h6 class="ms-5">Kontak Darurat</h6> 
                             </div>
                         </div>
+                        <!-- pilihan hubungan perizin -->
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="" class="col-form-label">Hubungan Kontak Darurat</label>
@@ -44,6 +46,7 @@
                                 </select>    
                             </div>
                         </div>
+                        <!-- input nama kontak darurat / perizin -->
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="" class="col-form-label">Nama Kontak Darurat</label>
@@ -52,6 +55,7 @@
                                 <input type="text" required value="{{$kandidat->nama_perizin}}" name="nama_perizin" id="namaHubungan" class="form-control" aria-labelledby="passwordHelpInline">  
                             </div>
                         </div>
+                        <!-- input nik kontak darurat / perizin -->
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="" class="col-form-label">NIK Kontak Darurat</label>
@@ -65,6 +69,7 @@
                                 @enderror
                             </div>
                         </div>
+                        <!-- input no. telp -->
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="" class="col-form-label">No. Telp / HP</label>
@@ -78,6 +83,7 @@
                                 @enderror
                             </div>
                         </div>
+                        <!-- input tempat lahir kontak darurat / perizin -->
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="" class="col-form-label">Tempat Lahir Kontak Darurat</label>
@@ -86,6 +92,7 @@
                                 <input type="text" value="{{$kandidat->tmp_lahir_perizin}}" name="tmp_lahir_perizin" id="tmpLahirHubungan" class="form-control" aria-labelledby="passwordHelpInline">
                             </div>
                         </div>
+                        <!-- input tanggal lahir kontak darurat / perizin -->
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="" class="col-form-label">Tanggal Lahir Kontak Darurat</label>
@@ -94,12 +101,17 @@
                                 <input type="date" value="{{$kandidat->tgl_lahir_perizin}}" name="tgl_lahir_perizin" id="tglLahirHubungan" class="form-control" aria-labelledby="passwordHelpInline">                                        
                             </div>
                         </div>
+                        <!-- input alamat kontak darurat / perizin -->
                         <div class="row g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="" class="col-form-label">Alamat Lengkap Kontak Darurat</label>
                             </div>
                         </div>
-                        @livewire('location-permission')
+                        <!-- menggunakan livewire -->
+                        <!-- lokasi livewire : app/Http/Livewire/Kandidat/LocationPermission -->
+                        <!-- lokasi livewire view : resources/views/livewire/kandidat/location_permission -->
+                        @livewire('kandidat.location-permission')
+                        <!-- input rt & rw perizin / kontak darurat -->
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="" class="col-form-label">RT</label>
@@ -124,6 +136,7 @@
                                 @enderror
                             </div>
                         </div>
+                        <!-- input foto ktp -->
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="" class="col-form-label">Foto KTP Kontak Darurat</label>
@@ -155,6 +168,7 @@
                                 @endif
                             </div>
                         </div>
+                        <!-- pilihan kondisi paspor -->
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="" class="col-form-label">Apakah anda memiliki Paspor</label>
@@ -181,6 +195,7 @@
         </div>
     </div>
 </div>
+<!-- fungsi tombol loading -->
 <script>
     function processing() {
         var namaHubungan = document.getElementById('namaHubungan').value;

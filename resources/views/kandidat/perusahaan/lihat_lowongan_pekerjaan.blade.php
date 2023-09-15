@@ -273,9 +273,13 @@
                     </div>
                     <hr>
                 @endif
+                <!-- apabila data kandidat di status pemilik bukan "diterima" -->
                 @if($kandidat->stat_pemilik !== "diterima")
+                    <!-- apabila data konfirmasi adalah kosong -->
                     @if($konfirmasi == null)
+                        <!-- apabila data interview adalah kosong -->
                         @if ($interview == null)
+                            <!-- apabila data jabatab adalah kosong -->
                             @if ($jabatan !== null)
                                 <a href="/profil_perusahaan/{{$lowongan->id_perusahaan}}" class="btn btn-danger">Kembali</a>
                                 <a href="/permohonan_lowongan/{{$lowongan->id_lowongan}}" class="btn btn-primary float-right" onclick="return confirm('apakah anda ingin menganti lamaran sebelumnya?')">Melamar</a>                    

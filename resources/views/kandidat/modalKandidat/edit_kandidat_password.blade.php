@@ -5,8 +5,9 @@
     <div class="container mt-5">
         <div class="row">
             <h4 class="text-center">Profil Biodata</h4>
-            @if ($password == null)    
-                <form action="edit_password_confirm" method="POST">
+            @if ($password == null)
+                <!-- form(post) KandidatController => edit_password_confirm -->    
+                <form action="/edit_password_confirm" method="POST">
                     @csrf
                     <div id="password">
                         <div class="row mb-1">
@@ -14,6 +15,7 @@
                                 <h6 class="ms-5">Ubah Password</h6>
                             </div>
                         </div>
+                        <!-- input email -->
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="" class="col-form-label">Masukkan Email</label>
@@ -22,6 +24,7 @@
                                 <input type="email" required class="form-control" name="email" id="">
                             </div>
                         </div>
+                        <!-- input password -->
                         <div class="row mb-3 g-3 align-items-center">
                             <div class="col-md-4">
                                 <label for="" class="col-form-label">Masukkan Password</label>
@@ -34,8 +37,10 @@
                     </div>
                 </form>
             @elseif ($password !== null)
-                <form action="ubah_kandidat_password" method="POST">
+                <!-- form(post) KandidatController => ubah_kandidat_password -->
+                <form action="/ubah_kandidat_password" method="POST">
                     @csrf
+                    <!-- input email -->
                     <div class="row mb-3 g-3 align-items-center">
                         <div class="col-md-4">
                             <label for="" class="col-form-label">Email Anda</label>
@@ -44,6 +49,7 @@
                             <input type="text" disabled class="form-control" value="{{$password->email}}" id="">
                         </div>
                     </div>
+                    <!-- input password -->
                     <div class="row mb-3 g-3 align-items-center">
                         <div class="col-md-4">
                             <label for="" class="col-form-label">Masukkan Password Baru</label>
@@ -52,6 +58,7 @@
                             <input type="text" required class="form-control" name="password_new" id="">
                         </div>
                     </div>
+                    <!-- input konfirmasi password -->
                     <div class="row mb-3 g-3 align-items-center">
                         <div class="col-md-4">
                             <label for="" class="col-form-label">Konfirmasi Password Baru</label>

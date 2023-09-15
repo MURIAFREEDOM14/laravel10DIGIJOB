@@ -11,16 +11,19 @@
                     <h4 class="text-center">Lupa Password</h4>
                 </div>
                 <div class="card-body">
+                    <!-- form(post) VerifikasiController => confirmPassword -->
                     <form action="/new_password" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-md-12">
+                                <!-- input email -->
                                 <div class="mb-3">
-                                    <label for="exampleInputPassword1">Masukkan Email</label>
+                                    <label for="">Masukkan Email</label>
                                     <input name="email" disabled type="email" class="form-control" value="{{$user->email}}" required id="exampleInputPassword1">
                                 </div>
+                                <!-- input password baru -->
                                 <div class="mb-3">
-                                    <label for="exampleInputPassword1">Masukkan Password Baru</label>
+                                    <label for="">Masukkan Password Baru</label>
                                     <input name="password" type="text" placeholder="Harap ingat password anda" class="form-control" value="{{old('email')}}" required id="exampleInputPassword1">
                                 </div>
                             </div>

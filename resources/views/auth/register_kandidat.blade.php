@@ -9,10 +9,12 @@
                     <h4 class="text-center">{{ __('Register Kandidat') }}</h4>
                 </div>
                 <div class="card-body">
+                    <!-- form(post) RegisterController => kandidat -->
                     <form method="POST" action="/register/kandidat">
                         @csrf
                         <div class="row">
                             <div class="col-md-12">
+                                <!-- input nama -->
                                 <div class="mb-3">
                                     <label for="name" class="">{{ __('Nama') }}</label>
                                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -22,6 +24,7 @@
                                         </span>
                                     @enderror
                                 </div>
+                                <!-- input nik -->
                                 <div class="mb-3">
                                     <label for="nik" class="">{{ __('No. NIK') }}</label>
                                     <input id="nik" type="number" class="form-control @error('nik') is-invalid @enderror" name="nik" value="{{ old('nik') }}" required autocomplete="nik" autofocus>
@@ -31,6 +34,7 @@
                                         </span>
                                     @enderror
                                 </div>
+                                <!-- input tgl -->
                                 <div class="mb-3">
                                     <label for="tgl" class="">{{ __('Masukkan Tanggal Lahir') }}</label>
                                     <input id="tgl" type="date" class="form-control @error('tgl') is-invalid @enderror" name="tgl" value="{{ old('tgl') }}" required autocomplete="tgl" autofocus>
@@ -40,6 +44,7 @@
                                         </span>
                                     @enderror
                                 </div>
+                                <!-- input no telp -->
                                 <div class="mb-3">
                                     <label for="no_telp" class="">{{ __('No Telp') }}</label>
                                     <input id="no_telp" type="number" class="form-control @error('no_telp') is-invalid @enderror" name="no_telp" value="{{ old('no_telp') }}" required autocomplete="no_telp" autofocus>
@@ -49,6 +54,7 @@
                                         </span>
                                     @enderror
                                 </div>
+                                <!-- input nama panggilan -->
                                 <div class="mb-3">
                                     <label for="nama_panggilan" class="">{{ __('Username / Nama Panggilan') }}</label>
                                     <input id="nama_panggilan" type="text" placeholder="Maks 20 kata" class="form-control @error('nama_panggilan') is-invalid @enderror" name="nama_panggilan" value="{{ old('nama_panggilan') }}" required autocomplete="nama_panggilan">
@@ -58,8 +64,9 @@
                                         </span>
                                     @enderror
                                 </div>
+                                <!-- input email -->
                                 <div class="mb-3">
-                                    <label for="email" class="">{{ __('Email Address') }}</label>
+                                    <label for="" class="">{{ __('Email Address') }}</label>
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -67,8 +74,9 @@
                                         </span>
                                     @enderror
                                 </div>
+                                <!-- input password -->
                                 <div class="mb-3">
-                                    <label for="email" class="">{{ __('Buat Password') }}</label>
+                                    <label for="" class="">{{ __('Buat Password') }}</label>
                                     <input id="password" type="text" placeholder="min 8 kata" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" required autocomplete="password">
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -76,8 +84,9 @@
                                         </span>
                                     @enderror
                                 </div>
+                                <!-- input konfirmasi password -->
                                 <div class="mb-3">
-                                    <label for="email" class="">{{ __('Konfirmasi Password') }}</label>
+                                    <label for="" class="">{{ __('Konfirmasi Password') }}</label>
                                     <input id="password_confirm" type="text" placeholder="Masukkan ulang password anda dengan benar" class="form-control @error('passwordConfirm') is_invalid @enderror" name="passwordConfirm" required autocomplete="password">
                                     @error('passwordConfirm')
                                         <span class="invalid-feedback" role="alert">
@@ -85,6 +94,7 @@
                                         </span>
                                     @enderror
                                 </div>
+                                <!-- input kode captcha -->
                                 <div class="mb-3">
                                     <div class="slidercaptcha card">
                                       <div class="card-header">

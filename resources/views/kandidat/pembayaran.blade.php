@@ -2,15 +2,14 @@
 @section('content')
     <div class="container mt-3">
         @if ($pembayaran->stats_pembayaran !== null)
-            {{-- confirm email send --}}
+            <!-- konfirmasi pengiriman email -->
             <div class="card">
                 <div class="card-body text-center">
                     <b class="">Kami telah mengirim pembayaran dengan email anda</b>
                     <p><b class="">Silahkan cek email anda untuk proses pembayaran</b></p>
                 </div>
             </div>
-            
-            {{-- confirmation payment --}}
+            <!-- konfirmasi pembayaran -->
             <div class="card">
                 <div class="card-header">
                     <b class="bold">Konfirmasi Pembayaran</b>

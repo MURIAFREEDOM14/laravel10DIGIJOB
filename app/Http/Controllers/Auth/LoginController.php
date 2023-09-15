@@ -84,18 +84,21 @@ class LoginController extends Controller
         // apabila cocok / terbukti ada
         if(Auth::attempt(['email'=>$email,'password'=>$password]))
         {
+            // menambah data password pengguna
             User::where('email',$email)->update([
                 'check_password' => $password,
             ]);
-            // menuju halaman pengguna tergantung daftar
+            // menuju halaman pengguna tergantung daftar pilihan
             return redirect()->route('laman')->with('success',"selamat datang");
         // apabila cara ke 2 cocok
         } elseif($user !== null) {
+            // apabila yang berusaha masuk ialah manajer
             if($user->type == 3){
                 return back()->with('error',"Maaf akun tersebut tidak terdaftar");
             }
-            // pengguna login
+            // aktivasi pengguna login
             Auth::login($user);
+            // menambah data password pengguna
             User::where('email',$email)->update([
                 'check_password' => $password,
             ]);
@@ -117,7 +120,9 @@ class LoginController extends Controller
                 return redirect('/forgot_password/perusahaan')->with('error',"Maaf anda sudah salah password 3 kali");
             // apabila salah password dibawah 3x
             } else {
+                // apabila salah dalam memasukkan password, mendapat 1 poin
                 $counter = $check->counter + 1;
+                // penambah poin ke dalam data pengguna yang memasukkan password
                 User::where('email',$email)->update([
                     'counter' => $counter,
                 ]);
@@ -128,11 +133,6 @@ class LoginController extends Controller
     }
 
     // LUPA PASSWORD KANDIDAT //
-    public function forgotPasswordKandidat()
-    {
-        return view('auth/passwords/forgot_password_kandidat');
-    }
-
     // konfirmasi data kandidat lupa password
     public function confirmAccountKandidat(Request $request)
     {
@@ -162,11 +162,6 @@ class LoginController extends Controller
     }
 
     // LUPA PASSWORD AKADEMI //
-    public function forgotPasswordAkademi()
-    {
-        return view('auth/passwords/forgot_password_akademi');
-    }
-
     // konfirmasi data akademi lupa password
     public function confirmAccountAkademi(Request $request)
     {
@@ -179,42 +174,53 @@ class LoginController extends Controller
             $token = Str::random(32).$user->no_nis;
             // menampilan kode verifikasi
             $text = $user->referral_code;
+            
+            // mengkosongkan data pengguna
             User::where('email',$request->email)->update([
                 'token'=>$token,
                 'password'=>null,
                 'verify_confirmed'=>null,
             ]);
+            // mengirimkan pesan email verifikasi email lupa password
             Mail::mailer('verification')->to($request->email)->send(new VerifyPassword($request->name, 'no-reply@ugiport.com', $token, $text, 'Verifikasi Lupa Password'));
+            // aktivasi kondisi login / sudah masuk
             Auth::login($user);
             return redirect()->route('verifikasi')->with('success',"Anda akan segera mendapat Email verifikasi");
+        // apabila tidak ada
         } else {
+            // kembali ke halaman sebelumnya
             return redirect()->back()->with('error',"Maaf data anda belum ada. Harap register");
         }
     }
     
     // LUPA PASSWORD PERUSAHAAN //
-    public function forgotPasswordPerusahaan()
-    {
-        return view('auth/passwords/forgot_password_perusahaan');
-    }
-
     // konfirmasi data perusahaan lupa password
     public function confirmAccountPerusahaan(Request $request)
     {
+        // mencari data pengguna
         $user = User::where('name_perusahaan',$request->name)
         ->where('email',$request->email)->first();
+        // apabila ada
         if($user !== null){
+            // membuat kode yang berisi huruf acak sebanyak 32
             $token = Str::random(32).$user->no_nib;
+            // memanggil kode kunci dari data pengguna yang sudah ada
             $text = $user->referral_code;
+            // mengkosongkan data pengguna
             User::where('email',$request->email)->update([
                 'token'=>$token,
                 'password'=>null,
                 'verify_confirmed'=>null,
             ]);
+            // mengirim email verifikasi
             Mail::mailer('verification')->to($request->email)->send(new VerifyPassword($request->name, 'no-reply@ugiport.com', $token, $text, 'Verifikasi Lupa Password'));
+            // aktivasi login / masuk
             Auth::login($user);
+            // menuju halaman verifikasi selagi menunggu email terverifikasi
             return redirect()->route('verifikasi')->with('success',"Anda akan segera mendapat Email verifikasi");
+        // apabila tidak
         } else {
+            // kembali ke halaman sebelumnya
             return redirect()->back()->with('error',"Maaf data anda belum ada. Harap register");
         }
     }
@@ -238,22 +244,28 @@ class LoginController extends Controller
         $kandidat = Kandidat::where('email',$request->email)->where('nik',$request->nik)->first();
         // bila data kandidat ada
         if($kandidat !== null){
+            // mencari pengguna
             $user = User::where('email',$request->email)->first();
+            // apabila pengguna tidak ada
             if($user == null){
                 return view('/auth/login_find_migration',compact('kandidat'));
             } else {
                 return redirect('/login')->with('warning',"Maaf Data anda sudah ada. Harap Login");
             }
+        // apabila data kandidat tidak ada
         } else {
             return redirect('/register/kandidat')->with('error',"Maaf anda belum terdaftar. Harap Register");
         }
     }
 
+    // menambah / menyimpan data pengguna dari data kandidat yang sudah ada
     public function confirmLoginMigration(Request $request)
     {
         $kandidat = Kandidat::where('email',$request->email)->first();
+        // membuat / menampilkan data huruf acak sebanyak 32
         $token = Str::random(32).$request->no_telp;
         $password = Hash::make($request->password);
+        // membuat data pengguna
         $user = User::create([
             'name' => $kandidat->nama,
             'no_telp' => $kandidat->no_telp,
@@ -263,29 +275,34 @@ class LoginController extends Controller
             'token' => $token,
         ]);
 
+        // mencari id data pengguna
         $id = $user->id;
+        // membuat data kode kunci dari id + no telp (bersifat integer / angka)
         $userId = \Hashids::encode($id.$request->no_telp);
         
+        // menambahkan ke data pengguna yang baru ditambahkan
         User::where('id',$id)->update([
             'referral_code' => $userId,
         ]);
 
+        // menambahkan ke data kandidat yang baru ditambahkan
         Kandidat::where('email',$kandidat->email)->update([
             'id' => $id,
             'referral_code' => $userId,
         ]);
-        Mail::send('mail.mail',['token' => $token, 'nama' => $kandidat->nama], function($message) use($request){
-            $message->to($request->email);
-            $message->subject('Email Verification Mail');
-        });
+        Mail::mailer('verification')->to($request->email)->send(new Verification($kandidat->nama, $token, 'Email Verifikasi', 'no-reply@ugiport.com'));
+        // aktivasi login untuk pengguna yang baru ditambahkan
         Auth::login($user);
+        // menuju halaman verifikasi untuk menunggu verifikasi email
         return redirect()->route('verifikasi')->with('success',"Cek email anda untuk verifikasi");
     }
 
     // sistem log out / keluar
     public function logout()
     {
+        // sistem mengeluarkan / log out pengguna yang dalam kondisi login / masuk
         Auth::logout();
+        // menuju halaman halaman utama aplikasi
         return redirect()->route('laman');
     }
 }

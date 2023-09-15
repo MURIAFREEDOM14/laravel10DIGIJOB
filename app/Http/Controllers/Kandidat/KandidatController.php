@@ -44,6 +44,7 @@ class KandidatController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     // halaman beranda kandidat
      public function index()
     {
@@ -54,9 +55,8 @@ class KandidatController extends Controller
         $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
         $notifyK = notifyKandidat::orderBy('created_at','desc')->limit(30)->get();
         $pendidikan = Pendidikan::where('pendidikan','like','%'.$kandidat->pendidikan.'%')->first();
-        // dd($pendidikan);
 
-        // menampilkan lowongan pekerjaan + filterisasi dengan data kandidat
+        // menampilkan lowongan pekerjaan + perusahaan + pendidikans dan filterisasi dengan data kandidat     
         $lowongan = LowonganPekerjaan::join(
             'perusahaan', 'lowongan_pekerjaan.id_perusahaan','=','perusahaan.id_perusahaan'
         )->join(
@@ -65,13 +65,17 @@ class KandidatController extends Controller
         ->where('perusahaan.penempatan_kerja','like','%'.$kandidat->penempatan.'%')
         ->where('lowongan_pekerjaan.jenis_kelamin','like','%'.$kandidat->jenis_kelamin.'%')
         ->get();
+        
         $cari_perusahaan = null;
         $perusahaan_semua = Perusahaan::whereNotNull('email_operator')->where('penempatan_kerja','like','%'.$kandidat->penempatan.'%')->get();
+        
+        // apabila kandidat memiliki hub dengan perusahaan
         if($kandidat->id_perusahaan !== null){
             $perusahaan = Perusahaan::where('id_perusahaan',$kandidat->id_perusahaan)->first();
         } else {
             $perusahaan = null;
         }
+        // menampilkan data persetujuan kandidat + perusahaan + lowongan pekerjaan
         $persetujuan_kandidat = PersetujuanKandidat::join(
             'perusahaan', 'persetujuan_kandidat.id_perusahaan','=','perusahaan.id_perusahaan'
         )
@@ -79,6 +83,7 @@ class KandidatController extends Controller
             'lowongan_pekerjaan', 'persetujuan_kandidat.id_lowongan','=','lowongan_pekerjaan.id_lowongan'
         )
         ->where('persetujuan_kandidat.nama_kandidat',$kandidat->nama)->where('persetujuan_kandidat.id_kandidat',$kandidat->id_kandidat)->first();
+        // menampilkan data kandidat interview + kandidat
         $kandidat_interview = KandidatInterview::join(
             'kandidat','kandidat_interviews.id_kandidat','=','kandidat.id_kandidat'
         )
@@ -87,7 +92,9 @@ class KandidatController extends Controller
         )
         ->where('kandidat.id_kandidat',$kandidat->id_kandidat)->where('kandidat_interviews.status','like',"terjadwal")
         ->where('kandidat_interviews.persetujuan','like','ya')->first();
+        // apabila data persetujuan kandidat tidak kosong
         if($persetujuan_kandidat !== null){
+            // apabila persetujuan kandidat di bagian persetujuan kosong
             if($persetujuan_kandidat->persetujuan == null){
                 $persetujuan = $persetujuan_kandidat;
             } else {
@@ -96,6 +103,7 @@ class KandidatController extends Controller
         } else {
             $persetujuan = null;
         }
+        // apabila kandidat interview ada
         if($kandidat_interview){
             $interview = $kandidat_interview;
         } else {
@@ -124,12 +132,14 @@ class KandidatController extends Controller
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
+        // menampilkan data negara + kandidat
         $negara = Negara::join(
             'kandidat', 'ref_negara.negara_id','=','kandidat.negara_id'
         )
         ->where('referral_code',$id->referral_code)
         ->first();
         $usia = Carbon::parse($kandidat->tgl_lahir)->age;
+        // meng update data usia kandidat
         Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
             'usia' => $usia,
         ]);
@@ -138,8 +148,10 @@ class KandidatController extends Controller
         $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->get();
         $notif = notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        // apabila hub. perizin / kontak darurat kosong
         if($kandidat->hubungan_perizin == null){
             return redirect()->route('kandidat')->with('warning',"Harap lengkapi profil anda terlebih dahulu");
+        // apabila negara tujuan kosong
         } elseif($kandidat->negara_id == null) {
             return redirect()->route('kandidat')->with('warning',"Harap tentukan tempat kerja anda");
         } else {
@@ -194,6 +206,7 @@ class KandidatController extends Controller
      {
          $user = Auth::user();
          $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+         // simpan data info ke kandidat
          Kandidat::where('id_kandidat',$kandidat->id_kandidat)->update([
              'info' => $request->info,
          ]);
@@ -216,13 +229,7 @@ class KandidatController extends Controller
         $usia = Carbon::parse($request->tgl_lahir)->age;
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        if($request->password !== null){
-            $password =  Hash::make($request->password);
-            $check_password = $request->password;
-        } else {
-            $password = $id->password;
-            $check_password = $id->check_password;
-        }
+        
         Kandidat::where('referral_code',$id->referral_code)->update([
             'nama' => $kandidat->nama,
             'jenis_kelamin' => $request->jenis_kelamin,
@@ -236,11 +243,6 @@ class KandidatController extends Controller
             'usia'=> $usia,
         ]);
 
-        $userId = Kandidat::where('referral_code',$id->referral_code)->first();
-        User::where('referral_code', $userId->referral_code)->update([
-            'password' => $password,
-            'check_password' => $check_password,
-        ]);
         // Alert::toast('Data anda tersimpan','success');
         return redirect('/isi_kandidat_document')
         ->with('success',"Data anda tersimpan");
@@ -256,14 +258,16 @@ class KandidatController extends Controller
         return view('kandidat/modalKandidat/edit_kandidat_password',compact('kandidat','password'));
     }
 
-    // sistem pengecekan konfirmasi kandidat
+    // sistem pengecekan konfirmasi kandidat password
     public function edit_password_confirm(Request $request)
     {
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $password = User::where('email',$request->email)->where('check_password',$request->password)->where('referral_code',$kandidat->referral_code)->first();
+        // apabila data pengguna email dan password dan data input sama
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password, 'referral_code' => $kandidat->referral_code])){
             return view('kandidat/modalKandidat/edit_kandidat_password',compact('kandidat','password'));
+        // apabila data pengguna email dan password dan data input sama
         } elseif ($password !== null) {
             return view('kandidat/modalKandidat/edit_kandidat_password',compact('kandidat','password'));
         } else {
@@ -277,12 +281,16 @@ class KandidatController extends Controller
         $auth = Auth::user();
         $kandidat = Kandidat::where('referral_code',$auth->referral_code)->first();
         $user = User::where('email',$kandidat->email)->first();
+        // apabila inputan password dengan konfirmasi password tidak sama
         if ($request->password_new !== $request->password_confirm) {
             return redirect('/edit_kandidat_password')->with('error',"Maaf, Password baru dengan Password konfirmasi anda tidak cocok. Harap teliti kembali.");
+        // apabila password data pengguna dengan inputan password sama 
         } elseif($user->check_password == $request->password_new) {
             return redirect('/edit_kandidat_password')->with('error',"Maaf anda tidak bisa membuat password baru dengan password lama anda.");            
         } else {
+            // merubah input password menjadi kode acak
             $hast = Hash::make($request->password_new);
+            // memasukkan kode dan password baru ke data pengguna
             User::where('email',$kandidat->email)->update([
                 'password' => $hast,
                 'check_password' => $request->password_new,
@@ -374,6 +382,7 @@ class KandidatController extends Controller
     // sistem simpan data document / dokumen
     public function simpan_kandidat_document(Request $request)
     {
+        // sistem validasi input
         $validated = $request->validate([
             'rt' => 'required|max:3|min:3',
             'rw' => 'required|max:3|min:3',
@@ -387,11 +396,14 @@ class KandidatController extends Controller
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code', $id->referral_code)->first();  
         // cek foto ktp
+        // apabila ada input
         if($request->file('foto_ktp') !== null){
+            // mencari data foto dan menghapus bila data foto ada
             $hapus_ktp = public_path('gambar/Kandidat/'.$kandidat->nama.'/KTP/').$kandidat->foto_ktp;
             if(file_exists($hapus_ktp)){
                 @unlink($hapus_ktp);
             }
+            // menyimpan file foto ke dalam aplikasi
             $ktp = $request->file('foto_ktp');  
             $simpan_ktp = $kandidat->nama.time().'.'.$ktp->extension();
             $ktp->move('gambar/Kandidat/'.$kandidat->nama.'/KTP/',$simpan_ktp);           
@@ -403,11 +415,14 @@ class KandidatController extends Controller
             }
         }
         // cek foto kk
+        // apabila ada input
         if ($request->file('foto_kk') !== null) {    
+            // mencari data foto dan menghapus bila data foto ada
             $hapus_kk = public_path('gambar/Kandidat/'.$kandidat->nama.'/KK/').$kandidat->foto_kk;
             if(file_exists($hapus_kk)){
                 @unlink($hapus_kk);
             }
+            // menyimpan file foto ke dalam aplikasi
             $kk = $request->file('foto_kk');
             $simpan_kk = $kandidat->nama.time().'.'.$kk->extension();  
             $kk->move('gambar/Kandidat/'.$kandidat->nama.'/KK/',$simpan_kk);
@@ -419,11 +434,14 @@ class KandidatController extends Controller
             }
         }
         // cek foto set badan
+        // apabila ada input
         if($request->file('foto_set_badan') !== null){
+            // mencari data foto dan menghapus bila data foto ada
             $hapus_set_badan = public_path('gambar/Kandidat/'.$kandidat->nama.'/Set_badan/').$kandidat->foto_set_badan;
             if(file_exists($hapus_set_badan)){
                 @unlink($hapus_set_badan);
             }
+            // menyimpan file foto ke dalam aplikasi
             $set_badan = $request->file('foto_set_badan');
             $simpan_set_badan = $kandidat->nama.time().'.'.$set_badan->extension();
             $set_badan->move('gambar/Kandidat/'.$kandidat->nama.'/Set_badan/',$simpan_set_badan);
@@ -435,11 +453,14 @@ class KandidatController extends Controller
             }
         }
         // cek foto 4x6
+        // apabila ada input
         if($request->file('foto_4x6') !== null){
+            // mencari data foto dan menghapus bila data foto ada
             $hapus_4x6 = public_path('gambar/Kandidat/'.$kandidat->nama.'/4x6/').$kandidat->foto_4x6;
             if(file_exists($hapus_4x6)){
                 @unlink($hapus_4x6);
             }
+            // menyimpan file foto ke dalam aplikasi
             $foto_4x6 = $request->file('foto_4x6');
             $simpan_foto_4x6 = $kandidat->nama.time().'.'.$foto_4x6->extension();  
             $foto_4x6->move('gambar/Kandidat/'.$kandidat->nama.'/4x6/',$simpan_foto_4x6);
@@ -451,11 +472,14 @@ class KandidatController extends Controller
             }
         }
         // cek foto ket lahir
+        // apabila ada input
         if($request->file('foto_ket_lahir') !== null){
+            // mencari data foto dan menghapus bila data foto ada
             $hapus_ket_lahir = public_path('gambar/Kandidat/'.$kandidat->nama.'/Ket_lahir/').$kandidat->foto_ket_lahir;
             if(file_exists($hapus_ket_lahir)){
                 @unlink($hapus_ket_lahir);
             }
+            // menyimpan file foto ke dalam aplikasi
             $ket_lahir = $request->file('foto_ket_lahir');
             $simpan_ket_lahir = $kandidat->nama.time().'.'.$ket_lahir->extension();  
             $ket_lahir->move('gambar/Kandidat/'.$kandidat->nama.'/Ket_lahir/',$simpan_ket_lahir);
@@ -467,11 +491,14 @@ class KandidatController extends Controller
             }
         }
         // cek foto ijazah
+        // apabila ada input
         if($request->file('foto_ijazah') !== null){
+            // mencari data foto dan menghapus bila data foto ada
             $hapus_ijazah = public_path('gambar/Kandidat/'.$kandidat->nama.'/Ijazah/').$kandidat->foto_ijazah;
             if(file_exists($hapus_ijazah)){
                 @unlink($hapus_ijazah);
             }
+            // menyimpan file foto ke dalam aplikasi
             $ijazah = $request->file('foto_ijazah');  
             $simpan_ijazah = $kandidat->nama.time().'.'.$ijazah->extension();
             $ijazah->move('gambar/Kandidat/'.$kandidat->nama.'/Ijazah',$simpan_ijazah);            
@@ -519,11 +546,13 @@ class KandidatController extends Controller
             $foto_ijazah = null;
         }
         
+        // mencari nama alamat dari inputan id 
         $provinsi = Provinsi::where('id',$request->provinsi_id)->first();
         $kota = Kota::where('id',$request->kota_id)->first();
         $kecamatan = Kecamatan::where('id',$request->kecamatan_id)->first();
         $kelurahan = kelurahan::where('id',$request->kelurahan_id)->first();
 
+        // menambahkan ke data kandidat
         Kandidat::where('referral_code',$id->referral_code)->update([
             'pendidikan' => $request->pendidikan,
             'rt' => $request->rt,
@@ -576,8 +605,8 @@ class KandidatController extends Controller
             return redirect()->route('family')
             // ->with('toast_success',"Data anda tersimpan");
             ->with('success',"Data anda tersimpan");
+
         } elseif($request->stats_nikah == "Cerai mati"){
-            
             // mereset data keluarga / family sebelumnya 
             $hapus_buku_nikah = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/').$kandidat->foto_buku_nikah;
             if(file_exists($hapus_buku_nikah)){
@@ -603,8 +632,8 @@ class KandidatController extends Controller
             return redirect()->route('family')
             // ->with('toast_success',"Data anda tersimpan");
             ->with('success',"Data anda tersimpan");
+
         } else {
-            
             // mereset data keluarga / family sebelumnya 
             $hapus_buku_nikah = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/').$kandidat->foto_buku_nikah;
             if(file_exists($hapus_buku_nikah)){
@@ -665,10 +694,14 @@ class KandidatController extends Controller
     // sistem tambah & simpan data kandidat anak (jika sudah punya)
     public function simpan_kandidat_anak(Request $request)
     {
+        // mencari data pengguna yang saat ini login / masuk
         $user = Auth::user();
+        // mencari data kandidat
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        // mencari data anak dengan input tanggal lahir
         $age = Carbon::parse($request->tgl_lahir_anak)->age;
 
+        // membuat data keluarga
         DataKeluarga::create([
             'id_kandidat' => $kandidat->id_kandidat,
             'nama_kandidat' => $kandidat->nama,
@@ -702,12 +735,14 @@ class KandidatController extends Controller
             }
         }
         // cek buku nikah
+        // apabila ada input
         if($request->file('foto_buku_nikah') !== null){
             // cek foto sebelumnya dan hapus jika ada
             $hapus_buku_nikah = public_path('gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/').$kandidat->foto_buku_nikah;
             if(file_exists($hapus_buku_nikah)){
                 @unlink($hapus_buku_nikah);
             }
+            // memasukkan file ke dalam aplikasi
             $buku_nikah = $request->file('foto_buku_nikah');  
             $simpan_buku_nikah = $kandidat->nama.time().'.'.$buku_nikah->extension();
             $buku_nikah->move('gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/',$simpan_buku_nikah);
@@ -719,12 +754,14 @@ class KandidatController extends Controller
             }
         }
         // cek buku cerai hidup
+        // apabila ada input
         if($request->file('foto_cerai') !== null){
             // cek foto sebelumnya dan hapus jika ada
             $hapus_foto_cerai = public_path('gambar/Kandidat/'.$kandidat->nama.'/Cerai/').$kandidat->foto_cerai;
             if(file_exists($hapus_foto_cerai)){
                 @unlink($hapus_foto_cerai);
             }
+            // memasukkan file ke dalam aplikasi
             $cerai = $request->file('foto_cerai');  
             $simpan_cerai = $kandidat->nama.time().'.'.$cerai->extension();
             $cerai->move('gambar/Kandidat/'.$kandidat->nama.'/Cerai/',$simpan_cerai);
@@ -736,12 +773,14 @@ class KandidatController extends Controller
             }
         }
         // cek buku foto kematian pasangan
+        // apabila ada input
         if($request->file('foto_kematian_pasangan') !== null){
             // cek foto sebelumnya dan hapus jika ada
             $hapus_kematian_pasangan = public_path('gambar/Kandidat/'.$kandidat->nama.'/Kematian Pasangan/').$kandidat->foto_kematian_pasangan;
             if(file_exists($hapus_kematian_pasangan)){
                 @unlink($hapus_kematian_pasangan);
             }
+            // memasukkan file ke dalam aplikasi
             $kematian_pasangan = $request->file('foto_kematian_pasangan');  
             $simpan_kematian_pasangan = $kandidat->nama.time().'.'.$kematian_pasangan->extension();
             $kematian_pasangan->move('gambar/Kandidat/'.$kandidat->nama.'/Kematian Pasangan/',$simpan_kematian_pasangan);
@@ -773,6 +812,7 @@ class KandidatController extends Controller
         // mencari umur pasangan melalui tgl lahir pasangan
         $umur = Carbon::parse($request->tgl_lahir_pasangan)->age;
 
+        // menambahkan ke data kandidat
         Kandidat::where('referral_code', $id->referral_code)->update([
             'foto_buku_nikah' => $foto_buku_nikah,
             'nama_pasangan' => $request->nama_pasangan,
@@ -814,12 +854,14 @@ class KandidatController extends Controller
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         // cek vaksin1
+        // apabila ada input
         if($request->file('sertifikat_vaksin1') !== null){
             // cek foto sebelumnya dan hapus jika ada
             $hapus_sertifikat_vaksin1 = public_path('gambar/Kandidat/'.$kandidat->nama.'/Vaksin Pertama/').$kandidat->sertifikat_vaksin1;
             if(file_exists($hapus_sertifikat_vaksin1)){
                 @unlink($hapus_sertifikat_vaksin1);
             }
+            // memasukkan file ke dalam aplikasi
             $sertifikat_vaksin1 = $request->file('sertifikat_vaksin1');  
             $simpan_sertifikat_vaksin1 = $kandidat->nama.time().'.'.$sertifikat_vaksin1->extension();
             $sertifikat_vaksin1->move('gambar/Kandidat/'.$kandidat->nama.'/Vaksin Pertama/',$simpan_sertifikat_vaksin1);
@@ -831,12 +873,14 @@ class KandidatController extends Controller
             }
         }
         // cek vaksin2
+        // apabila ada input
         if($request->file('sertifikat_vaksin2') !== null){
             // cek foto sebelumnya dan hapus jika ada
             $hapus_sertifikat_vaksin2 = public_path('gambar/Kandidat/'.$kandidat->nama.'/Vaksin Kedua/').$kandidat->sertifikat_vaksin2;
             if(file_exists($hapus_sertifikat_vaksin2)){
                 @unlink($hapus_sertifikat_vaksin2);
             }
+            // memasukkan file ke dalam aplikasi
             $sertifikat_vaksin2 = $request->file('sertifikat_vaksin2');  
             $simpan_sertifikat_vaksin2 = $kandidat->nama.time().'.'.$sertifikat_vaksin2->extension();
             $sertifikat_vaksin2->move('gambar/Kandidat/'.$kandidat->nama.'/Vaksin Kedua/',$simpan_sertifikat_vaksin2);    
@@ -848,12 +892,14 @@ class KandidatController extends Controller
             }
         }
         // cek vaksin3
+        // apabila ada input
         if($request->file('sertifikat_vaksin3') !== null){
             // cek foto sebelumnya dan hapus jika ada
             $hapus_sertifikat_vaksin3 = public_path('gambar/Kandidat/'.$kandidat->nama.'/Vaksin Ketiga/').$kandidat->sertifikat_vaksin3;
             if(file_exists($hapus_sertifikat_vaksin3)){
                 @unlink($hapus_sertifikat_vaksin3);
             }
+            // memasukkan file ke dalam aplikasi
             $sertifikat_vaksin3 = $request->file('sertifikat_vaksin3');  
             $simpan_sertifikat_vaksin3 = $kandidat->nama.time().'.'.$sertifikat_vaksin3->extension();
             $sertifikat_vaksin3->move('gambar/Kandidat/'.$kandidat->nama.'/Vaksin Ketiga/',$simpan_sertifikat_vaksin3);
@@ -882,8 +928,9 @@ class KandidatController extends Controller
         } else {
             $foto_sertifikat_vaksin3 = null;
         }
-
+        // mencari data pengguna yang saat ini login / masuk
         $id = Auth::user();
+        // menambahkan ke data kandidat
         Kandidat::where('referral_code', $id->referral_code)->update([
             'vaksin1' => $request->vaksin1,
             'no_batch_v1' => $request->no_batch_v1,
@@ -914,11 +961,13 @@ class KandidatController extends Controller
     // sistem simpan data kandidat parent / orang tua
     public function simpan_kandidat_parent(Request $request)
     {
+        // sistem validasi inputan
         $validated = $request->validate([
             'rt' => 'required|max:3|min:3',
             'rw' => 'required|max:3|min:3',
         ]);
         $id = Auth::user();
+
         $provinsi = Provinsi::where('id',$request->provinsi_id)->first();
         $kota = Kota::where('id',$request->kota_id)->first();
         $kecamatan = Kecamatan::where('id',$request->kecamatan_id)->first();
@@ -989,9 +1038,6 @@ class KandidatController extends Controller
         
         // simpan data video jika ada
         if($request->file('video') !== null){
-            // $validated = $request->validate([
-            //     'video' => 'mimes:mp4,mov,ogg,qt',
-            // ]);
             $video = $request->file('video');
             $simpan_video = $kandidat->nama.$jabatan.$video->getClientOriginalName();
             $video->move('gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/',$kandidat->nama.$jabatan.$video->getClientOriginalName());
@@ -1019,11 +1065,12 @@ class KandidatController extends Controller
         } else {
             $foto_pengalaman = null;
         }
-        // mencari interval bekerja dari awal tahun ke akhir tahun
+        // mencari interval bekerja dari awal tahun sampai akhir tahun
         $periodeAwal = new \Datetime($request->periode_awal);
         $periodeAkhir = new \DateTime($request->periode_akhir);
         $tahun = $periodeAkhir->diff($periodeAwal)->y;
 
+        // membuat data pengalaman kerja
         $pengalaman = PengalamanKerja::create([
             'nama_perusahaan'=>$request->nama_perusahaan,
             'alamat_perusahaan'=>$request->alamat_perusahaan,
@@ -1075,8 +1122,10 @@ class KandidatController extends Controller
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $code = "tambah";
+        // apabila inputan berisi "video"
         if($type == "video"){
             return view('kandidat/modalKandidat/video_kerja',compact('kandidat','code','id'));
+        // apabila inputan berisi "foto"
         } elseif($type == "foto") {
             return view('kandidat/modalKandidat/foto_kerja',compact('kandidat','code','id'));
         } 
@@ -1106,6 +1155,7 @@ class KandidatController extends Controller
             } else {
                 $video = null;
             }
+            // membuat data video
             VideoKerja::create([
                 'video' => $video,
                 'pengalaman_kerja_id' => $pengalaman->pengalaman_kerja_id,
@@ -1126,6 +1176,7 @@ class KandidatController extends Controller
             } else {
                 $foto = null;
             }
+            // membuat data foto
             FotoKerja::create([
                 'foto' => $foto,
                 'pengalaman_kerja_id' => $pengalaman->pengalaman_kerja_id,
@@ -1143,8 +1194,10 @@ class KandidatController extends Controller
         $foto = FotoKerja::where('foto_kerja_id',$id)->first();
         $video = VideoKerja::where('video_kerja_id',$id)->first();
         $code = "edit";
+        // apabila inputan berisi "video"
         if($type == "video"){
             return view('kandidat/modalKandidat/video_kerja',compact('kandidat','video','code'));
+        // apabila inputan berisi "foto"
         } elseif($type == "foto") {
             return view('kandidat/modalKandidat/foto_kerja',compact('kandidat','foto','code'));
         } else {
@@ -1186,6 +1239,7 @@ class KandidatController extends Controller
             } else {
                 $video_pengalaman = null;
             }
+            // merubah data video lama dengan yang baru
             VideoKerja::where('video_kerja_id',$id)->update([
                 'video'=>$video_pengalaman,
             ]);
@@ -1216,6 +1270,7 @@ class KandidatController extends Controller
             } else {
                 $foto_pengalaman = null;
             }
+            // merubah data foto lama dengan yang baru
             FotoKerja::where('foto_kerja_id',$id)->update([
                 'foto'=>$foto_pengalaman,
             ]);
@@ -1228,21 +1283,31 @@ class KandidatController extends Controller
     {
         $user = Auth::user();
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        // apabila inputan berisi "video"
         if($type == "video"){
+            // mencari video kerja melalui id
             $video = VideoKerja::where('video_kerja_id',$id)->first();
+            // mencari id pengalaman kerja dari data video
             $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$video->pengalaman_kerja_id)->first();
+            // mencari file dan menghapus bila file ada
             $hapus_video_kerja = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$video->video;
                 if(file_exists($hapus_video_kerja)){
                     @unlink($hapus_video_kerja);
                 }
+            // menghapus data video dengan id
             VideoKerja::where('video_kerja_id',$id)->delete();
+        // apabila inputan berisi "foto"
         } elseif($type == "foto"){
+            // mencari foto kerja melalui id
             $foto = FotoKerja::where('foto_kerja_id',$id)->first();
+            // mencari id pengalaman kerja dari data video
             $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$foto->pengalaman_kerja_id)->first();
+            // mencari file dan menghapus bila file ada
             $hapus_foto = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Pengalaman Kerja/').$foto->foto;
                 if(file_exists($hapus_foto)){
                     @unlink($hapus_foto);
                 }
+            // menghapus data video dengan id
             FotoKerja::where('foto_kerja_id',$id)->delete();
         }
         return redirect('/lihat_kandidat_pengalaman_kerja/'.$pengalaman->pengalaman_kerja_id)->with('success',"Data Telah dihapus");
@@ -1262,6 +1327,7 @@ class KandidatController extends Controller
         $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
         $video_kandidat = PengalamanKerja::where('id_kandidat',$kandidat->id_kandidat)->first();
 
+        // mencari interval bekerja dari awal tahun sampai akhir tahun
         $periodeAwal = new \Datetime($request->periode_awal);
         $periodeAkhir = new \DateTime($request->periode_akhir);
         $tahun = $periodeAkhir->diff($periodeAwal)->y;
@@ -1303,9 +1369,11 @@ class KandidatController extends Controller
                 @unlink($hapus_foto_kerja);
             }
         }
-           
+        // mengapus data video kerja dari id pengalaman kerja
         VideoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->delete();
+        // mengapus data foto kerja dari id pengalaman kerja
         FotoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->delete();    
+        // mengapus data pengalaman kerja dengan id
         PengalamanKerja::where('pengalaman_kerja_id',$id)->delete();
         return redirect()->route('company')->with('success',"Data berhasi dihapus");
     }
@@ -1317,7 +1385,7 @@ class KandidatController extends Controller
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         $jabatan = $request->jabatan;
         $lama_kerja = $request->lama_kerja;
-        // merubah data pengalaman kerja dalam bentuk column database menjadi string (jadi 1 colomn dari beberapa banyak column)
+        // merubah data array menjadi string
         if($jabatan !== null){
             $jabatanValues = implode(", ",$jabatan);
             $lamaKerjaValues = array_sum($lama_kerja);
@@ -1368,13 +1436,12 @@ class KandidatController extends Controller
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         // cek foto ktp izin
         if($request->file('foto_ktp_izin') !== null){
-            // $this->validate($request, [
-            //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
-            // ]);
+
             $hapus_foto_ktp_izin = public_path('gambar/Kandidat/'.$kandidat->nama.'/KTP Perizin/').$kandidat->foto_ktp_izin;
             if(file_exists($hapus_foto_ktp_izin)){
                 @unlink($hapus_foto_ktp_izin);
             }
+
             $ktp_izin = $request->file('foto_ktp_izin');
             $simpan_ktp_izin = $kandidat->nama.time().'.'.$ktp_izin->extension();
             $ktp_izin->move('gambar/Kandidat/'.$kandidat->nama.'/KTP Perizin/',$simpan_ktp_izin);
@@ -1483,7 +1550,6 @@ class KandidatController extends Controller
             'tmp_paspor'=>$request->tmp_paspor,
             'foto_paspor'=>$foto_paspor,
         ]);
-        // Alert::success('');
         return redirect('/kandidat')->with('success',"Data anda tersimpan");
     }
 

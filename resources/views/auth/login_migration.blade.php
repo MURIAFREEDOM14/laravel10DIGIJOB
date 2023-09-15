@@ -10,16 +10,19 @@
                     <h4 class="text-center">Login</h4>
                 </div>
                 <div class="card-body">
+                    <!-- form(post) LoginController => checkLoginMigration -->
                     <form action="/login/migration" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-md-12">
+                                <!-- input email -->
                                 <div class="mb-3">
-                                    <label for="exampleInputPassword1">Masukkan Email</label>
+                                    <label for="">Masukkan Email</label>
                                     <input name="email" type="email" class="form-control" id="exampleInputPassword1">
                                 </div>
+                                <!-- input nik -->
                                 <div class="mb-3">
-                                    <label for="exampleInputPassword1">Masukkan No. NIK</label>
+                                    <label for="">Masukkan No. NIK</label>
                                     <input name="nik" type="number" class="form-control" id="exampleInputPassword1">
                                 </div>
                             </div>

@@ -6,8 +6,10 @@
                 <h4><b>Permohonan Lowongan Pekerjaan</b></h4>
             </div>
             <div class="card-body">
+                <!-- form(post) KandidatPerusahaanController => kirimPermohonan  -->
                 <form action="/permohonan_lowongan/{{$lowongan->id_lowongan}}" method="POST">
                     @csrf
+                    <!-- input info disabled nama perusahaan -->
                     <div class="row mb-3">
                         <div class="col-md-4">
                             <label for="" class="col-form-label">Nama Perusahaan</label>
@@ -16,6 +18,7 @@
                             <input type="text" name="" class="form-control" disabled value="{{$perusahaan->nama_perusahaan}}" id="">
                         </div>
                     </div>
+                    <!-- input info disabled nama jabatan -->
                     <div class="row mb-3">
                         <div class="col-md-4">
                             <label for="" class="col-form-label">Nama Jabatan</label>
@@ -24,6 +27,7 @@
                             <input type="text" name="" class="form-control" disabled value="{{$lowongan->jabatan}}" id="">
                         </div>
                     </div>
+                    <!-- input info disabled nama kandidat -->
                     <div class="row mb-3">
                         <div class="col-md-4">
                             <label for="" class="col-form-label">Nama Kandidat</label>

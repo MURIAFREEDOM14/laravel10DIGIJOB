@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Kandidat;
 
-use Livewire\Component;
 use App\Models\Kandidat;
+use Livewire\Component;
 use App\Models\Provinsi;
 use App\Models\Kota;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use Illuminate\Support\Facades\Auth;
 
-class LocationPermission extends Component
+class Location extends Component
 {
     public $provinsis;
     public $kotas;
@@ -19,7 +19,7 @@ class LocationPermission extends Component
     public $kota = NULL;
     public $kecamatan = NULL;
     public $kelurahan = NULL;
-
+    
     /**
      * Write code on Method
      *
@@ -42,9 +42,13 @@ class LocationPermission extends Component
     {
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-        return view('livewire.location_permission',compact('kandidat'))->extends('layouts.script');
+        $prov = Provinsi::where('provinsi',$kandidat->provinsi)->first('id');
+        $kab = Kota::where('kota',$kandidat->kabupaten)->first('id');
+        $kel = Kelurahan::where('kelurahan',$kandidat->kelurahan)->first('id');
+        $kec = Kecamatan::where('kecamatan',$kandidat->kecamatan)->first('id');
+        return view('livewire.kandidat.location',compact('kandidat','prov','kab','kel','kec'))->extends('layouts.script');
     }
-
+  
     /**
      * Write code on Method
      *
