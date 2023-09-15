@@ -1,6 +1,6 @@
 @extends('layouts.kandidat')
 @section('content')
-    <div class="container mt-5">
+    <div class="mx-3 mt-5 my-5">
         <div class="card">
             <div class="card-header">
                 <h4><b class="bold">List Lowongan Pekerjaan</b></h4>

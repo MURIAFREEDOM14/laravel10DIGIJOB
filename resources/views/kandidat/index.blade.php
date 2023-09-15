@@ -16,7 +16,7 @@
     // Dari negara tujuan
     $negara = $kandidat->negara_id;                                
 @endphp
-<div class="container mt-5 my-3">
+<div class="mx-3 mt-5 my-5">
     @if ($personal == null)
         <div class="row mt-2">
             <div class="col-md-12">

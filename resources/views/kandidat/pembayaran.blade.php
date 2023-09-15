@@ -1,6 +1,6 @@
 @extends('layouts.kandidat')
 @section('content')
-    <div class="container mt-3">
+    <div class="mx-3 mt-5 my-5">
         @if ($pembayaran->stats_pembayaran !== null)
             <!-- konfirmasi pengiriman email -->
             <div class="card">

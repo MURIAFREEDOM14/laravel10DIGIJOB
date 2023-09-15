@@ -163,7 +163,7 @@
                 <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
             </div>
             
-            <main class="py-5">
+            <main class="">
                 @yield('content')
 
                 <!-- pembatas body dengan footer -->

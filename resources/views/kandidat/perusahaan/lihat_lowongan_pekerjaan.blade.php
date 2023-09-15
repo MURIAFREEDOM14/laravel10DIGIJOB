@@ -2,7 +2,7 @@
 @section('content')
 @include('sweetalert::alert')
 @include('flash_message')
-    <div class="container mt-5">
+    <div class="mx-3 mt-5 my-5">
         <div class="card">
             <div class="card-header">
                 <h4><b class="bold">Informasi Lowongan</b></h4>
