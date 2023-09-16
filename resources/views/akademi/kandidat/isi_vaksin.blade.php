@@ -6,6 +6,7 @@
                 <div class="row">
                     <h4 class="text-center">PROFIL BIO DATA</h4>
                     <h6 class="text-center mb-5">Indonesia</h6>
+                    <!-- form(post) AkademiKandidatController => simpan_vaksin -->
                     <form action="" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="" id="vaksinasi">
@@ -15,6 +16,7 @@
                                 </div>
                             </div>
                             <div class="" id="vaksin1">
+                                <!-- pilihan nama vaksin 1 -->
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
                                         <label for="inputPassword6" class="col-form-label">Nama Vaksin Pertama</label>
@@ -32,6 +34,7 @@
                                         </select>
                                     </div>
                                 </div>
+                                <!-- input batch ID 1 -->
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
                                         <label for="inputPassword6" class="col-form-label">Batch ID Pertama</label>
@@ -41,6 +44,7 @@
                                         <input type="text" required value="{{$kandidat->no_batch_v1}}" name="no_batch_v1" class="form-control">
                                     </div>
                                 </div>
+                                <!-- input tanggal vaksin 1 -->
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
                                         <label for="inputPassword6" class="col-form-label">Tanggal Vaksin Pertama</label>
@@ -49,6 +53,7 @@
                                         <input type="date" required value="{{$kandidat->tgl_vaksin1}}" name="tgl_vaksin1" class="form-control" autofocus>
                                     </div>
                                 </div>
+                                <!-- input sertifikat vaksin 1 -->
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
                                         <label for="inputPassword6" class="col-form-label">Sertifikat Vaksin</label>
@@ -67,6 +72,7 @@
                             </div>
                             <hr class="">    
                             <div class="" id="vaksin2">
+                                <!-- pilihan nama vaksin 2 -->
                                 <div class="row my-3 g-3 align-items-center">
                                     <div class="col-md-4">
                                         <label for="inputPassword6" class="col-form-label">Nama Vaksin Kedua</label>
@@ -84,6 +90,7 @@
                                         </select>
                                     </div>
                                 </div>
+                                <!-- input batch ID 2 -->
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
                                         <label for="inputPassword6" class="col-form-label">Batch ID Kedua</label>
@@ -93,6 +100,7 @@
                                         <input type="text" required value="{{$kandidat->no_batch_v2}}" name="no_batch_v2" class="form-control">
                                     </div>
                                 </div>
+                                <!-- input tanggal vaksin 2 -->
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
                                         <label for="inputPassword6" class="col-form-label">Tanggal Vaksin Kedua</label>
@@ -101,6 +109,7 @@
                                         <input type="date" required value="{{$kandidat->tgl_vaksin2}}" name="tgl_vaksin2" class="form-control">
                                     </div>
                                 </div>
+                                <!-- input sertifikat vaksin 2 -->
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
                                         <label for="inputPassword6" class="col-form-label">Sertifikat Vaksin</label>
@@ -119,6 +128,7 @@
                                 <hr>    
                             </div>
                             <div class="" id="vaksin3">
+                                <!-- pilihan nama vaksin 3 -->
                                 <div class="row my-3 g-3 align-items-center">
                                     <div class="col-md-4">
                                         <label for="inputPassword6" class="col-form-label">Nama Vaksin Ketiga</label>
@@ -136,6 +146,7 @@
                                         </select>
                                     </div>
                                 </div>
+                                <!-- input batch ID 3 -->
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
                                         <label for="inputPassword6" class="col-form-label">Batch ID Ketiga</label>
@@ -145,6 +156,7 @@
                                         <input type="text" value="{{$kandidat->no_batch_v3}}" name="no_batch_v3" class="form-control">
                                     </div>
                                 </div>
+                                <!-- input tanggal vaksin 3 -->
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
                                         <label for="inputPassword6" class="col-form-label">Tanggal Vaksin Ketiga</label>
@@ -153,6 +165,7 @@
                                         <input type="date" value="{{$kandidat->tgl_vaksin3}}" name="tgl_vaksin3" class="form-control">
                                     </div>
                                 </div>
+                                <!-- input sertifikat vaksin 3 -->
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
                                         <label for="inputPassword6" class="col-form-label">Sertifikat Vaksin</label>

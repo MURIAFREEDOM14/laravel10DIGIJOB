@@ -7,6 +7,7 @@
                 <div class="row">
                     <h4 class="text-center">PROFIL BIO DATA</h4>
                     <h6 class="text-center mb-4">Indonesia</h6>
+                    <!-- form(post) AkademiKandidatController => simpan_document -->
                     <form action="" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="" id="document">
@@ -15,6 +16,7 @@
                                     <h6 class="ms-4">DOCUMENT BIO DATA</h6> 
                                 </div>
                             </div>
+                            <!-- input NIK -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">NIK</label>
@@ -28,6 +30,7 @@
                                     @enderror
                                 </div>
                             </div>
+                            <!-- pilihan pendidikan terakhir -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Pendidikan Terakhir</label>
@@ -44,23 +47,17 @@
                                     </select>
                                 </div>
                             </div>
+                            <!-- input alamat -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Alamat Lengkap</label>
                                 </div>
-                                {{-- <div class="col-md-8">
-                                    <input name="dusun" value="{{$kandidat->dusun}}" class="form-control" id="" cols="" rows="">
-                                </div> --}}
                             </div>
+                            <!-- menggunakan livewire -->
+                            <!-- lokasi livewire : app/Http/Livewire/Akademi/Location -->
+                            <!-- lokasi livewire view : resources/views/livewire/akademi/location -->
                             @livewire('akademi.location')
-                            <div class="row mb-3 g-3 align-items-center">
-                                <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Dusun</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input name="dusun" value="{{$kandidat->dusun}}" class="form-control" id="" cols="" rows="">
-                                </div>
-                            </div>
+                            <!-- input rt & rw -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">RT / RW</label>
@@ -72,6 +69,7 @@
                                     <input type="number" required value="{{$kandidat->rw}}" placeholder="Masukkan RW" name="rw" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input foto ktp -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Foto KTP</label>
@@ -102,6 +100,7 @@
                                     @endif
                                 </div>
                             </div>
+                            <!-- input foto set badan -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Foto Setengah Badan</label>
@@ -132,6 +131,7 @@
                                     @endif
                                 </div>
                             </div>
+                            <!-- input foto 4x6 -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Foto 4x6</label>
@@ -162,6 +162,7 @@
                                     @endif
                                 </div>
                             </div>
+                            <!-- input foto akta kelahiran / ket lahir -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Foto Akta Kelahiran / Keterangan Lahir</label>
@@ -192,6 +193,7 @@
                                     @endif
                                 </div>
                             </div>
+                            <!-- input foto ijazah -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Foto Ijazah Terakhir</label>

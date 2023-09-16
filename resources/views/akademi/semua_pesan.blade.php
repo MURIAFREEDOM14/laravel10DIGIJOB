@@ -26,8 +26,11 @@
             Semua Pesan
         </div>
         <div class="card-body">
+            <!-- menampilkan semua pesan kepada akademi -->
             @foreach ($semua_pesan as $item)
+                <!-- apabila pesan sudan dibaca -->
                 @if ($item->check_click == "y")
+                    <!-- apabila ada pesan dari kandidat -->
                     @if ($item->id_kandidat !== null)
                         <div class="list-group">                        
                             <a href="/kirim_balik/{{$item->id}}" class="link-list">
@@ -38,6 +41,7 @@
                                 @php
                                     $dayNow = date('Y-m-d');
                                 @endphp
+                                <!-- apabila tanggal waktu pengiriman pesan sama dengan tanggal waktu saat itu -->
                                 @if (date('Y-m-d',strtotime($item->created_at)) == $dayNow)
                                     <div class="float-right mx-1">{{date('h:i A',strtotime($item->created_at))}}</div>                                
                                 @else
@@ -45,6 +49,7 @@
                                 @endif
                             </a>
                         </div>
+                    <!-- apabila ada pesan dari perusahaan -->
                     @elseif($item->id_perusahaan !== null)
                         <div class="list-group">                        
                             <a href="/kirim_balik/{{$item->id}}" class="link-list">

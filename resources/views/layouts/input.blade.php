@@ -223,7 +223,7 @@
           })
         })
 
-        // fungsi tampilan modal untuk data anak yang berkeluarga
+        // fungsi tampilan modal untuk data anak (yang berkeluarga)
         $(document).ready(function() {
           $(document).on('change','#anak',function() {
             var anak = $(this).val();
@@ -233,6 +233,7 @@
           })
         })
 
+        // sistem pilihan keterangan keadaan ayah kandidat
         $(document).ready(function() {
           $(document).on('change','#ket_keadaan_ayah',function() {
             var Keterangan = $(this).val();
@@ -245,6 +246,7 @@
           })
         })
 
+        // sistem pilihan keterangan keadaan ayah kandidat
         $(document).ready(function() {
           $(document).on('change','#ket_keadaan_ibu',function() {
             var Keterangan = $(this).val();

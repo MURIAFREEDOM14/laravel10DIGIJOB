@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <!-- gambar icon pada tab halaman -->
   <link rel="icon" href="/gambar/icon.ico" type="image/x-icon"/>
 
   <title>DIGIJOB</title>
@@ -142,32 +143,8 @@
           btn.disabled = "true";
         }
       }
+      // sistem penyeleksian captcha
       grecaptcha.execute();
-
-      // modal tampilan tutorial video
-      // $(window).on('load',function() {
-      // $('#tutorial_kandidat').modal('show');                                                   
-      // });
-      // fungsi tampilan mulai video
-      var video = document.getElementById('video');
-      var btnPlay = document.getElementById('play');
-      var btnJeda = document.getElementById('jeda');
-      function play() {
-        if (video.paused) {
-          video.play();
-          btnJeda.style.display = 'block';
-          btnPlay.style.display = 'none';
-        }
-      }
-
-      // fungsi tampilan jeda video
-      function pause() {
-        if (video.play) {
-          video.pause();
-          btnPlay.style.display = 'block';
-          btnJeda.style.display = 'none';
-        }
-      }
     </script>
   </body>
 </html>

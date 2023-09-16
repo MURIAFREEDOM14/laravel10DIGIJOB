@@ -1,4 +1,5 @@
 <div>
+    <!-- pilihan provinsi -->
     <div class="row mb-3 g-3 align-items-center">
         <div class="col-md-4">
             <label for="inputPassword6" class="col-form-label">Provinsi</label>
@@ -12,7 +13,7 @@
             </select>
         </div>
     </div>
-
+    <!-- pilihan kab / kota -->
     <div class="row mb-3 g-3 align-items-center">
         <div class="col-md-4">
             <label for="inputPassword6" class="col-form-label">Kabupaten / Kota</label>
@@ -30,7 +31,7 @@
             </select>
         </div>
     </div>
-
+    <!-- pilihan kecamatan -->
     <div class="row mb-3 g-3 align-items-center">
         <div class="col-md-4">
             <label for="inputPassword6" class="col-form-label">Kecamatan</label>
@@ -48,7 +49,7 @@
             </select>
         </div>
     </div>
-
+    <!-- pilihan kelurahan -->
     <div class="row mb-3 g-3 align-items-center">
         <div class="col-md-4">
             <label for="inputPassword6" class="col-form-label">Kelurahan</label>
@@ -63,8 +64,16 @@
                 @else
                     <option value="">-- Harap Pilih Kecamatan Dahulu --</option>
                 @endif
-                
             </select>
+        </div>
+    </div>
+    <!-- input dusun -->
+    <div class="row mb-3 g-3 align-items-center">
+        <div class="col-md-4">
+            <label for="inputPassword6" class="col-form-label">Dusun Perizin</label>
+        </div>
+        <div class="col-md-8">
+            <input type="text" required name="dusun_perizin" class="form-control" value="{{$kandidat->dusun_perizin}}" id="">
         </div>
     </div>
 </div>

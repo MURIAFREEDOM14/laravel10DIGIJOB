@@ -7,14 +7,17 @@
                 <div class="row">
                     <h4 class="text-center">PROFIL BIO DATA</h4>
                     <h6 class="text-center mb-5">Indonesia</h6>
+                    <!-- form(post) AkademiKandidatController => simpan_placement -->
                     <form action="" method="POST" enctype="multipart/form-data">
                         @csrf
+                        <!-- pilihan penempatan kerja -->
                         <label for="" class="col-form-label">Penempatan</label>
                         <select name="penempatan" required class="form-select" id="placement">
                             <option value="">-- Pilih Penempatan Tempat Kerja --</option>
                             <option value="dalam negeri">Dalam Negeri</option>
                             <option value="luar negeri">Luar Negeri</option>
                         </select>
+                        <!-- pilihan negara tujuan -->
                         <label for="" class="col-form-label">Status Negara Tujuan</label>
                         <select name="negara_id" class="form-select" id="negara_tujuan">
                             <option value="">-- Harap Tentukan Penempatan Tempat Kerja --</option>
@@ -27,7 +30,9 @@
                 <hr>
             </div>
         </div>
+        <!-- AJAX Script -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <!-- sistem ajax pilihan penempatan dan negara tujuan -->
         <script type="text/javascript">
             $(document).ready(function() {
                 $(document).on('change','#placement',function() {

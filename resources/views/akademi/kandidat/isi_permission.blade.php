@@ -6,15 +6,16 @@
                 <div class="row">
                     <h4 class="text-center">PROFIL BIO DATA</h4>
                     <h6 class="text-center mb-5">Indonesia</h6>
+                    <!-- form(post) AkademiKandidatController => simpan_permission -->
                     <form action="" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="" id="perizin">
                             <div class="row mb-1">
                                 <div class="col-md-12">
-                                    {{-- <h6 class="ms-5">Surat Izin OrangTua / Suami / Istri / Wali</h6>  --}}
                                     <h6 class="ms-5">Kontak Darurat</h6> 
                                 </div>
                             </div>
+                            <!-- input nama perizin / kontak darurat -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Nama Pemberi Izin</label>
@@ -23,6 +24,7 @@
                                     <input type="text" required value="{{$kandidat->nama_perizin}}" name="nama_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input NIK Perizin / kontak darurat -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">NIK Perizin</label>
@@ -36,6 +38,7 @@
                                     @enderror
                                 </div>
                             </div>
+                            <!-- input no telp -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">No. Telp / HP</label>
@@ -49,6 +52,7 @@
                                     @enderror
                                 </div>
                             </div>
+                            <!-- input tempat & tanggal lahir  -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Tempat / Tanggal Lahir Perizin</label>
@@ -60,20 +64,17 @@
                                     <input type="date" value="{{$kandidat->tgl_lahir_perizin}}" name="tgl_lahir_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">                                        
                                 </div>
                             </div>
+                            <!-- input alamat perizin / kontak darurat -->
                             <div class="row g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Alamat Lengkap Perizin</label>
                                 </div>
                             </div>
+                            <!-- menggunakan livewire -->
+                            <!-- lokasi livewire : app/Http/Livewire/Akademi/LocationPermission -->
+                            <!-- lokasi livewire view : resources/views/livewire/akademi/location-permission -->
                             @livewire('akademi.location-permission')
-                            <div class="row mb-3 g-3 align-items-center">
-                                <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Dusun Perizin</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <input type="text" required name="dusun_perizin" class="form-control" value="{{$kandidat->dusun_perizin}}" id="">
-                                </div>
-                            </div>
+                            <!-- input rt & rw -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">RT / RW</label>
@@ -85,6 +86,7 @@
                                     <input type="number" required value="{{$kandidat->rw_perizin}}" placeholder="Masukkan RW" name="rw_perizin" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input foto ktp pemberi izin -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Foto KTP Pemberi Izin</label>
@@ -115,6 +117,7 @@
                                     @endif
                                 </div>
                             </div>
+                            <!-- input hub. pemberi izin -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Hubungan Pemberi Izin</label>

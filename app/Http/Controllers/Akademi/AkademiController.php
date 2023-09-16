@@ -33,6 +33,7 @@ class AkademiController extends Controller
         $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
         $akademi_kandidat = Kandidat::where('id_akademi',$akademi->id_akademi)->limit(10)->get();
         $notifiA = notifyAkademi::where('created_at','<',Carbon::now()->subDays(14))->delete();
+        // mereset ulang kesalahan saat login di data pengguna
         User::where('referral_code',$akademi->referral_code)->update([
             'counter' => null,
         ]);
@@ -46,9 +47,12 @@ class AkademiController extends Controller
         $akademi = Akademi::where('referral_code',$user->referral_code)->first();
         $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
+        // apabila nama kepala akademi masih kosong
         if($akademi->nama_kepala_akademi == null){
+            // menuju halaman beranda akademi
             return redirect()->route('akademi')->with('warning',"Harap lengkapi profil akademi terlebih dahulu");
         } else {
+            // menuju profil akademi
             return view('akademi/lihat_profil_akademi',compact('akademi','pesan','notif'));
         }
     }
@@ -67,12 +71,8 @@ class AkademiController extends Controller
         $id = Auth::user();
         $akademi = Akademi::where('referral_code',$id->referral_code)->first();
         // cek foto akademi
+        // apabila ada inputan
         if($request->file('foto_akademi') !== null){
-            // sistem validasi data input
-            // $this->validate($request, [
-            //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
-            // ]);
-
             // pengecekan data foto sebelumnya dan hapus jika ada
             $hapus_foto_akademi = public_path('/gambar/Akademi/'.$akademi->nama_akademi.'/Foto Akademi/').$akademi->foto_akademi;
             if(file_exists($hapus_foto_akademi)){
@@ -92,13 +92,12 @@ class AkademiController extends Controller
         }
         // cek logo akademi
         if($request->file('logo_akademi') !== null){
-            // $this->validate($request, [
-            //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
-            // ]);
+            // pengecekan data foto sebelumnya dan hapus jika ada
             $hapus_logo_akademi = public_path('/gambar/Akademi/'.$akademi->nama_akademi.'/Logo Akademi/').$akademi->logo_akademi;
             if(file_exists($hapus_logo_akademi)){
                 @unlink($hapus_logo_akademi);
             }
+            // memasukkan data file foto ke dalam aplikasi
             $logo_akademi = $request->file('logo_akademi');
             $simpan_logo_akademi = $akademi->nama_akademi.time().'.'.$request->logo_akademi->extension();  
             $logo_akademi->move('gambar/Akademi/'.$akademi->nama_akademi.'/Logo Akademi/',$simpan_logo_akademi);
@@ -127,6 +126,7 @@ class AkademiController extends Controller
         $kec = Kecamatan::where('id',$request->kecamatan_id)->first();
         $kel = Kelurahan::where('id',$request->kelurahan_id)->first();
 
+        // menambah data akademi
         $akademi = Akademi::where('referral_code',$id->referral_code)->update([
             'no_surat_izin' => $request->no_surat_izin,
             'alamat_akademi' => $request->alamat_akademi,
@@ -156,6 +156,7 @@ class AkademiController extends Controller
     public function simpan_akademi_operator(Request $request)
     {
         $id = Auth::user();
+        // menambah data operator
         $akademi = Akademi::where('referral_code',$id->referral_code)->update([
             'nama_kepala_akademi' => $request->nama_kepala_akademi,
             'nama_operator' => $request->nama_operator,
@@ -195,6 +196,7 @@ class AkademiController extends Controller
         $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
         $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
+        // menampilkan data negara + kandidat akademi
         $negara = Negara::join(
             'akademi_kandidat','ref_negara.negara_id','=','akademi_kandidat.negara_id'
         )

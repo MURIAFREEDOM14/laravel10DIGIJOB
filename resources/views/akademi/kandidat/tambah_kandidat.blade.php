@@ -8,8 +8,10 @@
                     <h4 class="text-center">PROFIL BIO DATA</h4>
                     <h6 class="text-center mb-4">
                     </h6>
+                    <!-- form(post) AkademiKandidatController => simpanKandidat -->
                     <form action="" method="POST">
                         @csrf
+                            <!-- input nama -->
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <label for="name" class="">{{ __('Nama') }}</label>
@@ -23,6 +25,7 @@
                                     @enderror
                                 </div>  
                             </div>
+                            <!-- input NIK -->
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <label for="nik" class="">{{ __('No. NIK') }}</label>
@@ -36,6 +39,7 @@
                                     @enderror
                                 </div>
                             </div>
+                            <!-- input tanggal lahir -->
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <label for="tgl" class="">{{ __('Tanggal Lahir') }}</label>
@@ -49,6 +53,7 @@
                                     @enderror
                                 </div>
                             </div>
+                            <!-- input no telp -->
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <label for="no_telp" class="">{{ __('No Telp') }}</label>
@@ -62,6 +67,7 @@
                                     @enderror
                                 </div>
                             </div>
+                            <!-- input nama panggilan -->
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <label for="nama_panggilan" class="">{{ __('Username') }}</label>
@@ -75,9 +81,10 @@
                                     @enderror
                                 </div>
                             </div>
+                            <!-- input email -->
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label for="email" class="">{{ __('Email Address') }}</label>
+                                    <label for="" class="">{{ __('Email Address') }}</label>
                                 </div>
                                 <div class="col-md-8">
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -88,9 +95,10 @@
                                     @enderror
                                 </div>
                             </div>
+                            <!-- input password -->
                             <div class="row mb-3">
                                 <div class="col-md-4">
-                                    <label for="email" class="">{{ __('Password') }}</label>
+                                    <label for="" class="">{{ __('Password') }}</label>
                                 </div>
                                 <div class="col-md-8">
                                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" required autocomplete="password">

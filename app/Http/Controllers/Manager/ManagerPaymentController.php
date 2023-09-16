@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\KandidatInterview;
 use App\Models\Pembayaran;
 use App\Models\PersetujuanKandidat;
-use App\Models\Perusahaan;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;

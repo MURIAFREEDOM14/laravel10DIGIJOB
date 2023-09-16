@@ -2,6 +2,7 @@
 @section('content')
 @include('sweetalert::alert')
     <div class="container mt-5">
+        <!-- apabila nama kepala akademi / sekolah masih kosong -->
         @if ($akademi->nama_kepala_akademi == null)
             <div class="row">
                 <div class="col-12">
@@ -32,17 +33,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <!-- menampilkan semua data perusahaan -->
                                         @foreach ($perusahaan as $item)
                                             <tr>
                                                 <td>{{$loop->iteration}}</td>
                                                 <td style="text-transform: uppercase">{{$item->nama_perusahaan}}</td>
-                                                {{-- <th>
-                                                    @if ($item->logo_perusahaan == null)
-                                                        <img src="/gambar/default_user.png" width="150" height="150" alt="">
-                                                    @else
-                                                        <img src="/gambar/Perusahaan/{{$item->nama_perusahaan}}/Logo Perusahaan/{{$item->logo_perusahaan}}" width="150" height="150" alt="">
-                                                    @endif
-                                                </th> --}}
                                                 <td>
                                                     <a href="/akademi/lihat/profil_perusahaan/{{$item->id_perusahaan}}" class="btn btn-info">Lihat</a>
                                                 </td>

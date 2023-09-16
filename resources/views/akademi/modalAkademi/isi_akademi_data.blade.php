@@ -7,6 +7,7 @@
                 <div class="">
                     <div class="row">
                         <h4 class="text-center">AKADEMI BIO DATA</h4>
+                        <!-- form(post) AkademiController => simpan_akademi_data -->
                         <form action="/akademi/isi_akademi_data" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="" id="personal_biodata">
@@ -15,57 +16,67 @@
                                         <h6 class="ms-4">AKADEMI BIO DATA</h6> 
                                     </div>
                                 </div>
+                                <!-- input nama akademi -->
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
-                                        <label for="inputPassword6" class="col-form-label">Nama Akademi</label>
+                                        <label for="" class="col-form-label">Nama Akademi</label>
                                     </div>
                                     <div class="col-md-8">
                                         <input type="text" value="{{$akademi->nama_akademi}}" disabled name="nama_akademi" id="akademi" class="form-control" aria-labelledby="passwordHelpInline">
                                     </div>
                                 </div>
+                                <!-- input No. NIS -->
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
-                                        <label for="inputPassword6" class="col-form-label">No. NIS</label>
+                                        <label for="" class="col-form-label">No. NIS</label>
                                     </div>
                                     <div class="col-md-8">
                                         <input type="number" disabled value="{{$akademi->no_nis}}" name="no_nis" id="NIS" class="form-control" aria-labelledby="passwordHelpInline">
                                     </div>
                                 </div>
+                                <!-- input No. Surat Izin -->
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
-                                        <label for="inputPassword6" class="col-form-label">No. Surat Izin </label>
+                                        <label for="" class="col-form-label">No. Surat Izin </label>
                                     </div>
                                     <div class="col-md-8">
                                         <input type="number" required value="{{$akademi->no_surat_izin}}" name="no_surat_izin" id="suratIzin" class="form-control" aria-labelledby="passwordHelpInline">
                                     </div>
                                 </div>
+                                <!-- input telp akademi -->
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
-                                        <label for="inputPassword6" class="col-form-label">No Telepon Akademi</label>
+                                        <label for="" class="col-form-label">No Telepon Akademi</label>
                                     </div>
                                     <div class="col-md-8">
                                         <input type="number" required value="{{$akademi->no_telp_akademi}}" name="no_telp_akademi" id="telp" class="form-control" aria-labelledby="passwordHelpInline">
                                     </div>
                                 </div>
+                                <!-- input email -->
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
-                                        <label for="inputPassword6" class="col-form-label">Email</label>
+                                        <label for="" class="col-form-label">Email</label>
                                     </div>
                                     <div class="col-md-8">
                                         <input type="email" disabled value="{{$akademi->email}}" name="email" id="email" class="form-control" aria-labelledby="passwordHelpInline">
                                     </div>
                                 </div>
+                                <!-- input alamat akademi -->
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
-                                        <label for="inputPassword6" class="col-form-label">Alamat Akademi</label>
+                                        <label for="" class="col-form-label">Alamat Akademi</label>
                                     </div>
                                 </div>
+                                <!-- menggunakan livewire -->
+                                <!-- lokasi livewire : app/Http/Livewire/Akademi/Location -->
+                                <!-- lokasi livewire view : resources/views/livewire/akademi/location -->
                                 <div class="row mb-3 g-3 align-items-center">
                                     @livewire('akademi.location')
                                 </div>
+                                <!-- input foto akademi / sekolah -->
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
-                                        <label for="inputPassword6" class="col-form-label">Foto Akademi/Sekolah</label>
+                                        <label for="" class="col-form-label">Foto Akademi/Sekolah</label>
                                     </div>
                                     <div class="col-md-8">
                                         @if ($akademi->foto_akademi == "")
@@ -94,9 +105,10 @@
                                         @endif
                                     </div>
                                 </div>
+                                <!-- input logo akademi / sekolah -->
                                 <div class="row mb-3 g-3 align-items-center">
                                     <div class="col-md-4">
-                                        <label for="inputPassword6" class="col-form-label">Logo Akademi/Sekolah</label>
+                                        <label for="" class="col-form-label">Logo Akademi/Sekolah</label>
                                     </div>
                                     <div class="col-md-8">
                                         @if ($akademi->logo_akademi == "")

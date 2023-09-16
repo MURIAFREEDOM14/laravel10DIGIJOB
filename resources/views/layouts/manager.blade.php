@@ -105,9 +105,6 @@
                     <div class="container-fluid">
                         <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
                             <li class="nav-item dropdown hidden-caret">
-                                {{-- <a class="nav-link dropdown-toggle" href="#" id="messageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-envelope"></i>
-                                </a> --}}
                                 <ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
                                     <li>
                                         <div class="dropdown-title d-flex justify-content-between align-items-center">
@@ -384,21 +381,6 @@
                                         &copy; Copyright <strong><span>DIGIJOB-UGIPORT</span></strong>. All Rights Reserved
                                     </div>
                                 </li>
-                                {{-- <li class="nav-item">
-                                    <a class="nav-link" href="https://www.themekita.com">
-                                        ThemeKita
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">
-                                        Help
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">
-                                        Licenses
-                                    </a>
-                                </li> --}}
                             </ul>
                         </nav>
                         <div class="copyright ml-auto">
@@ -452,6 +434,7 @@
             
         </script>
         <script>
+            // fungsi tabel
             $(document).ready(function() {
                 $('#basic-datatables').DataTable({
                 });

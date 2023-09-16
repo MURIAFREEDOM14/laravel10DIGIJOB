@@ -10,7 +10,7 @@
                         <h4 class="text-center">Login</h4>
                     </div>
                     <div class="card-body">
-                        <!-- Form post menuju web php ('/login', 'authenticateLogin') -->
+                        <!-- form(post) LoginController => AuthenticateLogin -->
                         <form action="/login" method="POST">
                             @csrf
                             <div class="row">

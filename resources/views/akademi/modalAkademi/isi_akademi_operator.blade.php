@@ -8,6 +8,7 @@
             <div class="card-body">
                 <div class="row">
                     <h4 class="text-center">AKADEMI BIO DATA</h4>
+                    <!-- form(post) AkademiController => simpan_akademi_operator -->
                     <form action="/akademi/isi_akademi_operator" method="POST">
                         @csrf
                         <div class="" id="personal_biodata">
@@ -16,6 +17,7 @@
                                     <h6 class="ms-4">AKADEMI BIO DATA</h6> 
                                 </div>
                             </div>
+                            <!-- input nama kepala akademi / sekolah -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Nama Kepala Akademi/Sekolah</label>
@@ -24,6 +26,7 @@
                                     <input type="text" required value="{{$akademi->nama_kepala_akademi}}" name="nama_kepala_akademi" id="akademi" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input nama operator -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Nama Operator</label>
@@ -32,6 +35,7 @@
                                     <input type="text" value="{{$akademi->nama_operator}}" required name="nama_operator" id="operator" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input email operator -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">Email Operator</label>
@@ -40,6 +44,7 @@
                                     <input type="email" required value="{{$akademi->email_operator}}" name="email_operator" id="email" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input no telp operator -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="inputPassword6" class="col-form-label">No. Telp Operator</label>
