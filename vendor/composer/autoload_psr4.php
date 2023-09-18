@@ -133,5 +133,4 @@ return array(
     'Barryvdh\\DomPDF\\' => array($vendorDir . '/barryvdh/laravel-dompdf/src'),
     'ArchTech\\Enums\\' => array($vendorDir . '/archtechx/enums/src'),
     'App\\' => array($baseDir . '/app', $vendorDir . '/laravel/pint/app'),
-    'Anhskohbo\\NoCaptcha\\' => array($vendorDir . '/anhskohbo/no-captcha/src'),
 );

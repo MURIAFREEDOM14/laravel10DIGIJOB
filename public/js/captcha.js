@@ -13,8 +13,8 @@
 var captcha = sliderCaptcha({
     id: 'captcha',
     loadingText: 'Memuat...',
-    failedText: 'Coba lagi',
-    barText: 'Geser puzzle',
+    failedText: '--> Coba lagi -->',
+    barText: '--> Geser puzzle -->',
     repeatIcon: '-->',
     onSuccess: function () {
         // var handler = setTimeout(function () {

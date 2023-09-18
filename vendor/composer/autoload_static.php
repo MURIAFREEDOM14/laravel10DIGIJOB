@@ -231,7 +231,6 @@ class ComposerStaticInit587246653a71d30b9c74e985c120f87b
         array (
             'ArchTech\\Enums\\' => 15,
             'App\\' => 4,
-            'Anhskohbo\\NoCaptcha\\' => 20,
         ),
     );
 
@@ -750,10 +749,6 @@ class ComposerStaticInit587246653a71d30b9c74e985c120f87b
             0 => __DIR__ . '/../..' . '/app',
             1 => __DIR__ . '/..' . '/laravel/pint/app',
         ),
-        'Anhskohbo\\NoCaptcha\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/anhskohbo/no-captcha/src',
-        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -767,9 +762,6 @@ class ComposerStaticInit587246653a71d30b9c74e985c120f87b
     );
 
     public static $classMap = array (
-        'Anhskohbo\\NoCaptcha\\Facades\\NoCaptcha' => __DIR__ . '/..' . '/anhskohbo/no-captcha/src/Facades/NoCaptcha.php',
-        'Anhskohbo\\NoCaptcha\\NoCaptcha' => __DIR__ . '/..' . '/anhskohbo/no-captcha/src/NoCaptcha.php',
-        'Anhskohbo\\NoCaptcha\\NoCaptchaServiceProvider' => __DIR__ . '/..' . '/anhskohbo/no-captcha/src/NoCaptchaServiceProvider.php',
         'App\\Console\\Commands\\JadwalCron' => __DIR__ . '/../..' . '/app/Console/Commands/JadwalCron.php',
         'App\\Console\\Commands\\TimeJadwal' => __DIR__ . '/../..' . '/app/Console/Commands/TimeJadwal.php',
         'App\\Console\\Commands\\TimePerusahaan' => __DIR__ . '/../..' . '/app/Console/Commands/TimePerusahaan.php',
@@ -789,7 +781,6 @@ class ComposerStaticInit587246653a71d30b9c74e985c120f87b
         'App\\Http\\Controllers\\CaptchaController' => __DIR__ . '/../..' . '/app/Http/Controllers/CaptchaController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
-        'App\\Http\\Controllers\\Kandidat\\FileUploadController' => __DIR__ . '/../..' . '/app/Http/Controllers/Kandidat/FileUploadController.php',
         'App\\Http\\Controllers\\Kandidat\\KandidatController' => __DIR__ . '/../..' . '/app/Http/Controllers/Kandidat/KandidatController.php',
         'App\\Http\\Controllers\\Kandidat\\KandidatPerusahaanController' => __DIR__ . '/../..' . '/app/Http/Controllers/Kandidat/KandidatPerusahaanController.php',
         'App\\Http\\Controllers\\LamanController' => __DIR__ . '/../..' . '/app/Http/Controllers/LamanController.php',
@@ -803,7 +794,6 @@ class ComposerStaticInit587246653a71d30b9c74e985c120f87b
         'App\\Http\\Controllers\\NotifikasiController' => __DIR__ . '/../..' . '/app/Http/Controllers/NotifikasiController.php',
         'App\\Http\\Controllers\\OutputController' => __DIR__ . '/../..' . '/app/Http/Controllers/OutputController.php',
         'App\\Http\\Controllers\\PaymentController' => __DIR__ . '/../..' . '/app/Http/Controllers/PaymentController.php',
-        'App\\Http\\Controllers\\PekerjaanController' => __DIR__ . '/../..' . '/app/Http/Controllers/PekerjaanController.php',
         'App\\Http\\Controllers\\Perusahaan\\PerusahaanController' => __DIR__ . '/../..' . '/app/Http/Controllers/Perusahaan/PerusahaanController.php',
         'App\\Http\\Controllers\\Perusahaan\\PerusahaanRecruitmentController' => __DIR__ . '/../..' . '/app/Http/Controllers/Perusahaan/PerusahaanRecruitmentController.php',
         'App\\Http\\Controllers\\PrioritasController' => __DIR__ . '/../..' . '/app/Http/Controllers/PrioritasController.php',
@@ -812,18 +802,17 @@ class ComposerStaticInit587246653a71d30b9c74e985c120f87b
         'App\\Http\\Livewire\\Akademi\\Location' => __DIR__ . '/../..' . '/app/Http/Livewire/Akademi/Location.php',
         'App\\Http\\Livewire\\Akademi\\LocationPermission' => __DIR__ . '/../..' . '/app/Http/Livewire/Akademi/LocationPermission.php',
         'App\\Http\\Livewire\\CompanyLocation' => __DIR__ . '/../..' . '/app/Http/Livewire/CompanyLocation.php',
+        'App\\Http\\Livewire\\Kandidat\\Location' => __DIR__ . '/../..' . '/app/Http/Livewire/Kandidat/Location.php',
+        'App\\Http\\Livewire\\Kandidat\\LocationPermission' => __DIR__ . '/../..' . '/app/Http/Livewire/Kandidat/LocationPermission.php',
         'App\\Http\\Livewire\\Kandidat\\ParentLocation' => __DIR__ . '/../..' . '/app/Http/Livewire/Kandidat/ParentLocation.php',
-        'App\\Http\\Livewire\\Location' => __DIR__ . '/../..' . '/app/Http/Livewire/Location.php',
-        'App\\Http\\Livewire\\LocationPermission' => __DIR__ . '/../..' . '/app/Http/Livewire/LocationPermission.php',
         'App\\Http\\Livewire\\Manager\\DisnakerLocate' => __DIR__ . '/../..' . '/app/Http/Livewire/Manager/DisnakerLocate.php',
         'App\\Http\\Livewire\\Manager\\Location' => __DIR__ . '/../..' . '/app/Http/Livewire/Manager/Location.php',
         'App\\Http\\Livewire\\Manager\\LocationPermission' => __DIR__ . '/../..' . '/app/Http/Livewire/Manager/LocationPermission.php',
+        'App\\Http\\Livewire\\Manager\\Permission' => __DIR__ . '/../..' . '/app/Http/Livewire/Manager/Permission.php',
+        'App\\Http\\Livewire\\Manager\\PermissionKandidat' => __DIR__ . '/../..' . '/app/Http/Livewire/Manager/PermissionKandidat.php',
         'App\\Http\\Livewire\\Pencarian' => __DIR__ . '/../..' . '/app/Http/Livewire/Pencarian.php',
-        'App\\Http\\Livewire\\Permission' => __DIR__ . '/../..' . '/app/Http/Livewire/Permission.php',
-        'App\\Http\\Livewire\\PermissionKandidat' => __DIR__ . '/../..' . '/app/Http/Livewire/PermissionKandidat.php',
         'App\\Http\\Middleware\\Akademi' => __DIR__ . '/../..' . '/app/Http/Middleware/Akademi.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
-        'App\\Http\\Middleware\\Beta' => __DIR__ . '/../..' . '/app/Http/Middleware/Beta.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\Guest' => __DIR__ . '/../..' . '/app/Http/Middleware/Guest.php',
         'App\\Http\\Middleware\\Kandidat' => __DIR__ . '/../..' . '/app/Http/Middleware/Kandidat.php',

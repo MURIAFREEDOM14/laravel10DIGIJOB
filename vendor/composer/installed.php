@@ -3,22 +3,13 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '29b7bc08683cb4a61d3d0ed7889d1097275ae8db',
+        'reference' => '6fb97b00088e2c0b1ebcbae26bb37875487955a5',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
-        'anhskohbo/no-captcha' => array(
-            'pretty_version' => '3.5.0',
-            'version' => '3.5.0.0',
-            'reference' => '81302b9ddfb4ee5904b66f24bf3e11ea74fa0b92',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../anhskohbo/no-captcha',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
         'archtechx/enums' => array(
             'pretty_version' => 'v0.3.2',
             'version' => '0.3.2.0',
@@ -562,7 +553,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '29b7bc08683cb4a61d3d0ed7889d1097275ae8db',
+            'reference' => '6fb97b00088e2c0b1ebcbae26bb37875487955a5',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

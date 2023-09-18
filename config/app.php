@@ -190,7 +190,6 @@ return [
         Milon\Barcode\BarcodeServiceProvider::class,
 
         //capctha
-        Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
         /*
@@ -228,7 +227,6 @@ return [
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
 
         //Image
-        'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
         'Image' => Intervention\Image\Facades\Image::class,
         
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
