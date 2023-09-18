@@ -4,6 +4,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <title>DIGIJOB</title>
         <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+        <!-- gambar icon tab browser -->
         <link rel="icon" href="/gambar/icon.ico" type="image/x-icon"/>
         <!-- Fonts and icons -->
         <script src="/Atlantis/examples/assets/js/plugin/webfont/webfont.min.js"></script>
@@ -16,9 +17,9 @@
                 }
             });
         </script>
+        <!-- sistem AJAX -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-        @livewireStyles
         <!-- CSS Files -->
         <link rel="stylesheet" href="/Atlantis/examples/assets/css/bootstrap.min.css">
         <link rel="stylesheet" href="/Atlantis/examples/assets/css/atlantis.min.css">
@@ -94,6 +95,7 @@
                 display: none;
             }
         </style>
+        @livewireStyles
     </head>
     <body onload="loadingPage()">
         <div class="wrapper">
@@ -248,8 +250,12 @@
                                 <h4 class="text-section">Menu</h4>
                             </li>
                             @php
+                                // sistem penyeleksian data inputan
+                                // dari isi perusahaan data
                                 $data = $perusahaan->logo_perusahaan;
+                                // dari isi perusahaan alamat
                                 $alamat = $perusahaan->no_telp_perusahaan;
+                                // dari isi perusahaan operator
                                 $operator = $perusahaan->email_operator;
                             @endphp
                             @if ($data == null)
@@ -617,7 +623,7 @@
                 }
             }
 
-            // fungsi tampilan benefit lowongan //
+            // fungsi tampilan tambah benefit lowongan //
             function btnTambahBenefit() {
                 var tambah = document.getElementById('tambahBenefit');
                 var benefit = document.getElementById('benefitTambah');
@@ -625,6 +631,7 @@
                 tambah.style.display = 'none';
             }
 
+            // fungsi tampilan pembatalan benefit lowongan
             function batalBenefit() {
                 var tambah = document.getElementById('tambahBenefit');
                 var benefit = document.getElementById('benefitTambah');
@@ -632,6 +639,7 @@
                 tambah.style.display = 'block';
             }
 
+            // fungsi AJAX pengiriman data benefit
             function opsiBenefit() {
                 var input = document.getElementById('inputBenefit').value;
                 var tambah = document.getElementById('tambahBenefit');
@@ -647,7 +655,7 @@
                     }
                 })
             }
-             // fungsi tampilan fasilitas lowongan //
+             // fungsi tampilan tambah fasilitas lowongan //
             function btnTambahFasilitas() {
                 var tambah = document.getElementById('tambahFasilitas');
                 var fasilitas = document.getElementById('fasilitasTambah');
@@ -655,6 +663,7 @@
                 tambah.style.display = 'none';
             }
 
+            // fungsi tampilan pembatalan fasilitas lowongan
             function batalFasilitas() {
                 var tambah = document.getElementById('tambahFasilitas');
                 var fasilitas = document.getElementById('fasilitasTambah');
@@ -662,6 +671,7 @@
                 tambah.style.display = 'block';
             }
 
+            // fungsi AJAX pengiriman data fasilitas
             function opsiFasilitas() {
                 var input = document.getElementById('inputFasilitas').value;
                 var tambah = document.getElementById('tambahFasilitas');

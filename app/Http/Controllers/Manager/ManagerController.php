@@ -128,47 +128,6 @@ class ManagerController extends Controller
         ));
     }
 
-    // halaman laporan pengguna masuk / baru
-    public function laporanPengguna()
-    {
-        $user = Auth::user();
-        $manager = User::where('referral_code',$user->referral_code)->first();
-        $jadwalIn = Jadwal::where('status',"login")->get();
-        $jadwalNew = Jadwal::where('status',"baru")->get();
-        return view('manager/laporan_pengguna',compact('manager','jadwalIn','jadwalNew'));
-    }
-
-    // muat ulang halaman laporan pengguna
-    public function perbaruiLaporanPengguna()
-    {
-        $user = Auth::user();
-        $manager = User::where('referral_code',$user->referral_code)->first();
-        $reportNew = ReportNewUser::all();
-        foreach($reportNew as $key){
-            Jadwal::create([
-                'email' => $key->email,
-                'referral_code' => $key->referral_code,
-                'type' => $key->type,
-                'password' => $key->password,
-                'status' => "baru",
-                'data_created' => $key->created_at,
-            ]);
-        }
-
-        $reportIn = ReportUserIn::all();
-        foreach($reportIn as $key){
-            Jadwal::create([
-                'email' => $key->email,
-                'referral_code' => $key->referral_code,
-                'type' => $key->type,
-                'password' => $key->password,
-                'status' => "login",
-                'data_created' => $key->updated_at,
-            ]);
-        } 
-        return redirect()->route('manager')->with('success',"Data Laporan diperbarui");
-    }
-
     // halaman data pengiriman pesan lewat email
     public function searchEmail()
     {

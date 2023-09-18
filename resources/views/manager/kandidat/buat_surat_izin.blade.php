@@ -6,8 +6,10 @@
                 Buat Surat Izin
             </div>
             <div class="card-body">
+                <!-- form(post) ManagerController => simpanSuratIzin -->
                 <form action="" method="POST">
                     @csrf
+                    <!-- input nama lengkap -->
                     <div class="row mb-3">
                         <div class="col-4">
                             <b class="bold">Nama Lengkap</b>
@@ -16,6 +18,7 @@
                             <input type="text" required name="nama" value="{{old('nama')}}" class="form-control" id="">
                         </div>
                     </div>
+                    <!-- input nama panggilan -->
                     <div class="row mb-3">
                         <div class="col-4">
                             <b class="bold">Nama Panggilan</b>
@@ -24,6 +27,7 @@
                             <input type="text" required name="nama_panggilan" value="{{old('nama_panggilan')}}" class="form-control" id="">
                         </div>
                     </div>
+                    <!-- pilihan jenis kelamin -->
                     <div class="row mb-3">
                         <div class="col-4">
                             <b class="bold">Jenis Kelamin</b>
@@ -36,6 +40,7 @@
                             </select>
                         </div>
                     </div>
+                    <!-- input tempat & tanggal lahir -->
                     <div class="row mb-3">
                         <div class="col-4">
                             <b class="bold">Tempat / Tanggal Lahir</b>
@@ -47,6 +52,7 @@
                             <input type="date" required name="tgl_lahir" value="{{old('tgl_lahir')}}" class="form-control" id="">
                         </div>
                     </div>
+                    <!-- input no. telp -->
                     <div class="row mb-3">
                         <div class="col-4">
                             <b class="bold">No. Telp</b>
@@ -60,6 +66,7 @@
                             </span>
                         @enderror
                     </div>
+                    <!-- pilihan agama -->
                     <div class="row mb-3">
                         <div class="col-4">
                             <b class="bold">Agama</b>
@@ -77,6 +84,7 @@
                             </select>
                         </div>
                     </div>
+                    <!-- input email -->
                     <div class="row mb-3">
                         <div class="col-4">
                             <b class="bold">Email</b>
@@ -90,9 +98,10 @@
                             </span>
                         @enderror
                     </div>
+                    <!-- pilihan status nikah -->
                     <div class="row mb-3">
                         <div class="col-4">
-                            <label for="inputPassword6" class="col-form-label">Status Pernikahan</label>
+                            <label for="" class="col-form-label">Status Pernikahan</label>
                         </div>
                         <div class="col-4">
                             <select name="stats_nikah" class="form-control" id="">
@@ -103,6 +112,7 @@
                             </select>
                         </div>
                     </div>
+                    <!-- plihan penempatan negara -->
                     <div class="row mb-3">
                         <div class="col-4">
                             <b class="bold">Penempatan Kerja</b>
@@ -116,6 +126,7 @@
                             </select>
                         </div>
                     </div>
+                    <!-- input NIK -->
                     <div class="row mb-3">
                         <div class="col-4">
                             <b class="bold">NIK</b>
@@ -129,7 +140,11 @@
                             </span>
                         @enderror
                     </div>
+                    <!-- menggunakan livewire -->
+                    <!-- lokasi livewire : app/Http/Livewire/Manager/Permission -->
+                    <!-- lokasi livewire view : resources/views/livewire/manager/permission -->
                     @livewire('permission')
+                    <!-- input rt & rw -->
                     <div class="row mb-3">
                         <div class="col-4">
                             <b class="bold">RT / RW</b>
@@ -141,6 +156,7 @@
                             <input type="number" placeholder="Masukkan RW" name="rw" value="{{old('rw')}}" class="form-control" id="">
                         </div>
                     </div>
+                    <!-- input nama pemberi izin /  kontak darurat -->
                     <div class="row mb-3">
                         <div class="col-4">
                             <b class="bold">Nama Pemberi Izin</b>
@@ -149,9 +165,10 @@
                             <input type="text" name="nama_perizin" value="{{old('nama_perizin')}}" class="form-control" id="">
                         </div>
                     </div>
+                    <!-- input NIK Perizin / NIK kontak darurat -->
                     <div class="row mb-3 g-3 align-items-center">
                         <div class="col-md-4">
-                            <label for="inputPassword6" class="col-form-label">NIK Perizin</label>
+                            <label for="" class="col-form-label">NIK Perizin</label>
                         </div>
                         <div class="col-md-8">
                             <input type="text" name="nik_perizin" value="{{old('nik_perizin')}}" id="inputPassword6" class="form-control @error('nik_perizin') is-invalid @enderror" aria-labelledby="passwordHelpInline">
@@ -162,9 +179,10 @@
                             @enderror
                         </div>
                     </div>
+                    <!-- input no. telp perizin / kontak darurat -->
                     <div class="row mb-3 g-3 align-items-center">
                         <div class="col-md-4">
-                            <label for="inputPassword6" class="col-form-label">No. Telp / HP</label>
+                            <label for="" class="col-form-label">No. Telp / HP</label>
                         </div>
                         <div class="col-md-8">
                             <input type="text" name="no_telp_perizin" value="{{old('no_telp_perizin')}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
@@ -175,9 +193,10 @@
                             @enderror
                         </div>
                     </div>
+                    <!-- input tempat & tanggal lahir perizin / kontak darurat -->
                     <div class="row mb-3 g-3 align-items-center">
                         <div class="col-md-4">
-                            <label for="inputPassword6" class="col-form-label">Tempat / Tanggal Lahir Perizin</label>
+                            <label for="" class="col-form-label">Tempat / Tanggal Lahir Perizin</label>
                         </div>
                         <div class="col-md-4">
                             <input type="text" name="tmp_lahir_perizin" value="{{old('tmp_lahir_perizin')}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
@@ -186,15 +205,20 @@
                             <input type="date" name="tgl_lahir_perizin" value="{{old('tgl_lahir_perizin')}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">                                        
                         </div>
                     </div>
+                    <!-- input alamat perizin / kontak darurat -->
                     <div class="row g-3 align-items-center">
                         <div class="col-md-4">
-                            <label for="inputPassword6" class="col-form-label">Alamat Lengkap Perizin</label>
+                            <label for="" class="col-form-label">Alamat Lengkap Perizin</label>
                         </div>
                     </div>
+                    <!-- menggunakan livewire -->
+                    <!-- lokasi livewire : app/Http/Livewire/Manager/PermissionKandidat -->
+                    <!-- lokasi livewire view : resources/views/livewire/manager/permission-kandidat -->
                     @livewire('permission-kandidat')
+                    <!-- input rt & rw -->
                     <div class="row mb-3 g-3 align-items-center">
                         <div class="col-md-4">
-                            <label for="inputPassword6" class="col-form-label">RT / RW</label>
+                            <label for="" class="col-form-label">RT / RW</label>
                         </div>
                         <div class="col-md-4">
                             <input type="number" required placeholder="Masukkan RT" name="rt_perizin" value="{{old('rt_perizin')}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
@@ -203,9 +227,10 @@
                             <input type="number" required placeholder="Masukkan RW" name="rw_perizin" value="{{old('rw_perizin')}}" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                         </div>
                     </div>
+                    <!-- input hubungan pemberi izin -->
                     <div class="row mb-3 g-3 align-items-center">
                         <div class="col-md-4">
-                            <label for="inputPassword6" class="col-form-label">Hubungan Pemberi Izin</label>
+                            <label for="" class="col-form-label">Hubungan Pemberi Izin</label>
                         </div>
                         <div class="col-md-8">
                             <input type="text" class="form-control" name="hubungan_perizin" value="{{old('hubungan_perizin')}}" placeholder="Masukkan hubungan. contoh: ayah, ibu, suami, anak, dll." id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">

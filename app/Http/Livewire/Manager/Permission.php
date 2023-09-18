@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Manager;
 
 use Livewire\Component;
 use App\Models\Provinsi;
@@ -31,7 +31,7 @@ class Permission extends Component
     {
         $auth = Auth::user();
         $manager = User::where('referral_code',$auth->referral_code)->first();
-        return view('livewire.permission',compact('manager'))->extends('layouts.manager');
+        return view('livewire.manager.permission',compact('manager'))->extends('layouts.manager');
     }
 
     public function updatedkota($state)

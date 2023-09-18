@@ -341,12 +341,6 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="btn" href="/manager/laporan_pengguna">
-                                    <i class="fas fa-th-list"></i>
-                                    <p>Laporan Pengguna</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="btn" href="/manager/disnaker_list">
                                     <i class="fas fa-th-list"></i>
                                     <p>Dinas Tenaga Kerja</p>

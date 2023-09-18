@@ -297,7 +297,8 @@
         <!-- Atlantis JS -->
         <script src="/Atlantis/examples/assets/js/atlantis.min.js"></script>
 
-        <script >
+        <script>
+            // fungsi tabel
             $(document).ready(function() {
                 $('#basic-datatables').DataTable({
                 });
@@ -347,6 +348,7 @@
         </script>
 
         <script type="text/javascript">
+            // alert konfirmasi log out / keluar
             function confirmation(ev)
                 {
                 ev.preventDefault();
@@ -376,6 +378,7 @@
                 });    
             }
 
+            // alert konfirmasi hapus data
             function hapusNegara(ev)
                 {
                 ev.preventDefault();

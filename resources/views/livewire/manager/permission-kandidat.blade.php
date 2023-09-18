@@ -1,24 +1,26 @@
 <div>
+    <!-- pilihan provinsi -->
     <div class="row mb-3 g-3 align-items-center">
         <div class="col-md-4">
-            <label for="inputPassword6" class="col-form-label">Provinsi</label>
+            <label for="" class="col-form-label">Provinsi Perizin</label>
         </div>
         <div class="col-md-8">
-            <select wire:model.live="kota" required class="form-control" name="provinsi_id">
+            <select wire:model.live="kota" required class="form-control" name="provinsi_perizin">
                 <option value="">-- Pilih Provinsi --</option>
                 @foreach($provinsis as $item)
-                    <option value="{{ $item->id }}">{{ $item->provinsi }}</option>
+                    <option value="{{ $item->id }}" >{{ $item->provinsi }}</option>
                 @endforeach
             </select>
         </div>
     </div>
 
+    <!-- pilihan kota / kab -->
     <div class="row mb-3 g-3 align-items-center">
         <div class="col-md-4">
-            <label for="inputPassword6" class="col-form-label">Kabupaten / Kota</label>
+            <label for="" class="col-form-label">Kabupaten / Kota Perizin</label>
         </div>
         <div class="col-md-8">
-            <select class="form-control" required wire:model.live="kecamatan" name="kota_id">
+            <select class="form-control" required wire:model.live="kecamatan" name="kota_perizin">
                 @if (!is_null($kota))
                     <option value="">-- Pilih Kabupaten / Kota --</option>
                     @foreach($kotas as $item)
@@ -31,16 +33,17 @@
         </div>
     </div>
 
+    <!-- pilihan kecamatan -->
     <div class="row mb-3 g-3 align-items-center">
         <div class="col-md-4">
-            <label for="inputPassword6" class="col-form-label">Kecamatan</label>
+            <label for="" class="col-form-label">Kecamatan Perizin</label>
         </div>
         <div class="col-md-8">
-            <select class="form-control" required wire:model.live="kelurahan" name="kecamatan_id">
+            <select class="form-control" required wire:model.live="kelurahan" name="kecamatan_perizin">
                 @if (!is_null($kecamatan))
                     <option value="">-- Pilih Kecamatan --</option>
                     @foreach($kecamatans as $item)
-                        <option value="{{ $item->id }}">{{ $item->kecamatan }}</option>
+                        <option value="{{ $item->id }}" >{{ $item->kecamatan }}</option>
                     @endforeach
                 @else
                     <option value="">-- Harap Pilih Kabupaten / Kota Dahulu --</option>
@@ -49,16 +52,17 @@
         </div>
     </div>
 
+    <!-- pilihan kelurahan -->
     <div class="row mb-3 g-3 align-items-center">
         <div class="col-md-4">
-            <label for="inputPassword6" class="col-form-label">Kelurahan</label>
+            <label for="" class="col-form-label">Kelurahan Perizin</label>
         </div>
         <div class="col-md-8">
-            <select class="form-control" required name="kelurahan_id">
+            <select class="form-control" required name="kelurahan_perizin">
                 @if (!is_null($kelurahan))
                     <option value="">-- Pilih Kelurahan --</option>
                     @foreach($kelurahans as $item)
-                        <option value="{{ $item->id }}">{{ $item->kelurahan }}</option>
+                        <option value="{{ $item->id }}" >{{ $item->kelurahan }}</option>
                     @endforeach
                 @else
                     <option value="">-- Harap Pilih Kecamatan Dahulu --</option>
@@ -68,12 +72,13 @@
         </div>
     </div>
 
+    <!-- input dusun -->
     <div class="row mb-3 g-3 align-items-center">
         <div class="col-md-4">
-            <label for="inputPassword6" class="col-form-label">Dusun</label>
+            <label for="" class="col-form-label">Dusun Perizin</label>
         </div>
         <div class="col-md-8">
-            <input type="text" class="form-control" name="dusun" required placeholder="Masukkan Alamat Dusun">
+            <input type="text" name="dusun_perizin" class="form-control" required id="">
         </div>
     </div>
 </div>

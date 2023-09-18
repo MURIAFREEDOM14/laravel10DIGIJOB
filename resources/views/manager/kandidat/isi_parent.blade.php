@@ -8,6 +8,7 @@
                 </div>
                 <div class="">
                     <h6 class="text-center mb-5">Indonesia</h6>
+                    <!-- form(post) ManagerKandidatController = simpan_parent -->
                     <form action="" method="POST">
                         @csrf
                         <div class="" id="parent">
@@ -16,25 +17,28 @@
                                     <h6 class="ms-5">Data Orang Tua / Wali</h6> 
                                 </div>
                             </div>
+                            <!-- input nama ayah -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Nama Ayah</label>
+                                    <label for="" class="col-form-label">Nama Ayah</label>
                                 </div>
                                 <div class="col-md-8">
                                     <input type="text" required value="{{$kandidat->nama_ayah}}" name="nama_ayah" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input  -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Umur Ayah</label>
+                                    <label for="" class="col-form-label">Umur Ayah</label>
                                 </div>
                                 <div class="col-md-2">
                                     <input type="number" value="{{$kandidat->umur_ayah}}" name="umur_ayah" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input nama ibu -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Nama Ibu</label>
+                                    <label for="" class="col-form-label">Nama Ibu</label>
                                 </div>
                                 <div class="col-md-8">
                                     <input type="text" required value="{{$kandidat->nama_ibu}}" name="nama_ibu" class="form-control" id="">
@@ -42,31 +46,34 @@
                             </div>
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Umur Ibu</label>
+                                    <label for="" class="col-form-label">Umur Ibu</label>
                                 </div>
                                 <div class="col-md-2">
                                     <input type="number" value="{{$kandidat->umur_ayah}}" name="umur_ibu" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input jumlah saudara laki2 -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Jumlah Saudara Laki-laki</label>
+                                    <label for="" class="col-form-label">Jumlah Saudara Laki-laki</label>
                                 </div>
                                 <div class="col-md-8">
                                     <input type="number" value="{{$kandidat->jml_sdr_lk}}" name="jml_sdr_lk" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input jumlah saudara perempuan -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Jumlah Saudara Perempuan</label>
+                                    <label for="" class="col-form-label">Jumlah Saudara Perempuan</label>
                                 </div>
                                 <div class="col-md-8">
                                     <input type="number" value="{{$kandidat->jml_sdr_lk}}" name="jml_sdr_pr" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input anak ke -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Anak Ke</label>
+                                    <label for="" class="col-form-label">Anak Ke</label>
                                 </div>
                                 <div class="col-md-2">
                                     @if ($kandidat->anak_ke == null)
@@ -77,19 +84,6 @@
                                 </div>
                             </div>
                             <hr>
-                            <div class="row mb-3 g-3 align-items-center">
-                                <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Apakah Anda Pernah memiliki Pengalaman Kerja?</label>
-                                </div>
-                                <div class="col-md-2">
-                                    <select name="confirm" class="form-control" id="">
-                                        <option value="0">Tidak</option>
-                                        <option value="1" @if ($kandidat->nama_perusahaan1 !== null)
-                                            selected
-                                        @endif>Ya</option>
-                                    </select>
-                                </div>
-                            </div>
                         </div>
                         <button class="btn btn-primary my-3 float-end" type="submit">Simpan</button>
                     </form>

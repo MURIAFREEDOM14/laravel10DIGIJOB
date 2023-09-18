@@ -6,8 +6,10 @@
                 <h4>Tambah Pelatihan</h4>
             </div>
             <div class="card-body">
+                <!-- form(post) ManagerController => updateVideoPelatihan -->
                 <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
+                    <!-- input judul video -->
                     <div class="row mb-3">
                         <div class="col-4">
                             <label for="">Masukkan Judul</label>
@@ -16,6 +18,7 @@
                             <input type="text" value="{{$pelatihan->judul}}" class="form-control" name="judul" required id="">
                         </div>
                     </div>
+                    <!-- input video -->
                     <div class="row mb-3">
                         <div class="col-4">
                             <label for="">Masukkan Video</label>
@@ -38,6 +41,7 @@
                             @enderror
                         </div>
                     </div>
+                    <!-- input URL video (jika ada) -->
                     <div class="row mb-3">
                         <div class="col-4">
                             <label for="">Masukkan URL</label>
@@ -46,6 +50,7 @@
                             <input type="text" value="{{$pelatihan->url}}" class="form-control" placeholder="Masukkan url video jika ada" name="url" id="">
                         </div>
                     </div>
+                    <!-- input thumbnail video (jika ada) -->
                     <div class="row mb-3">
                         <div class="col-4">
                             <label for="">Sertakan Thumbnail</label>
@@ -66,6 +71,7 @@
                             @enderror
                         </div>
                     </div>
+                    <!-- input deskripsi -->
                     <div class="row mb-3">
                         <div class="col-4">
                             <label for="">TambahKan Deskripsi</label>
@@ -74,6 +80,7 @@
                             <textarea name="deskripsi" id="" class="form-control">{{$pelatihan->deskripsi}}</textarea>
                         </div>
                     </div>
+                    <!-- pilihan negara -->
                     <div class="row mb-3">
                         <div class="col-4">
                             <label for="">Pilih Negara</label>

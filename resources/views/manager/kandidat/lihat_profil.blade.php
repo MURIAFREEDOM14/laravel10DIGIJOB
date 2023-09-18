@@ -435,17 +435,14 @@
                     <p>
                         <a href="/manager/edit/kandidat/personal/{{$kandidat->id_kandidat}}" class="btn btn-warning">Edit Personal</a>
                         <a href="/manager/edit/kandidat/document/{{$kandidat->id_kandidat}}" class="btn btn-warning">Edit Document</a>
-                        <a href="/manager/edit/kandidat/vaksin/{{$kandidat->id_kandidat}}" class="btn btn-warning">Edit Vaksin</a>
                         <a href="/manager/edit/kandidat/family/{{$kandidat->id_kandidat}}" class="btn btn-warning">Edit Family</a>        
                     </p>
                     <p>
                         <a href="/manager/edit/kandidat/parent/{{$kandidat->id_kandidat}}" class="btn btn-warning">Edit Parent</a>
                         <a href="/manager/edit/kandidat/permission/{{$kandidat->id_kandidat}}" class="btn btn-warning">Edit Permission</a>
                         <a href="/manager/edit/kandidat/placement/{{$kandidat->id_kandidat}}" class="btn btn-warning">Edit Placement</a>
-                        <a href="/manager/edit/kandidat/job/{{$kandidat->id_kandidat}}" class="btn btn-warning">Edit Job</a>        
                     </p>
                     <p>
-                        <a href="/manager/edit/kandidat/company/{{$kandidat->id_kandidat}}" class="btn btn-warning">Edit Company</a>
                         <a href="/manager/edit/kandidat/paspor/{{$kandidat->id_kandidat}}" class="btn btn-warning">Edit Paspor</a>        
                     </p>
                 </div>

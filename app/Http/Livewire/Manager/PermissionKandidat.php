@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Manager;
 
 use Livewire\Component;
 use App\Models\Provinsi;
@@ -36,7 +36,7 @@ class PermissionKandidat extends Component
         $kab = Kota::where('kota',$manager->kabupaten)->first('id');
         $kel = Kelurahan::where('kelurahan',$manager->kelurahan)->first('id');
         $kec = Kecamatan::where('kecamatan',$manager->kecamatan)->first('id');
-        return view('livewire.permission-kandidat',compact('manager','prov','kab','kel','kec'))->extends('layouts.manager');
+        return view('livewire.manager.permission-kandidat',compact('manager','prov','kab','kel','kec'))->extends('layouts.manager');
     }
 
     public function updatedkota($state)

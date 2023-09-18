@@ -8,6 +8,7 @@
                 </div>
                 <div class="">
                     <h6 class="text-center mb-5">Indonesia</h6>
+                    <!-- form(post) ManagerKandidatController => simpan_paspor -->
                     <form action="" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="" id="perizin">
@@ -16,41 +17,46 @@
                                     <h6 class="ms-5">Data Paspor</h6> 
                                 </div>
                             </div>
+                            <!-- input no. paspor -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">No. Paspor</label>
+                                    <label for="" class="col-form-label">No. Paspor</label>
                                 </div>
                                 <div class="col-md-8">
                                     <input type="text" value="{{$kandidat->no_paspor}}" name="no_paspor" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input tanggal terbit -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Tanggal Terbit</label>
+                                    <label for="" class="col-form-label">Tanggal Terbit</label>
                                 </div>
                                 <div class="col-md-8">
                                     <input type="date"  value="{{$kandidat->tgl_terbit_paspor}}" name="tgl_terbit_paspor" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input tanggal akhir -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Tanggal Akhir</label>
+                                    <label for="" class="col-form-label">Tanggal Akhir</label>
                                 </div>
                                 <div class="col-md-8">
                                     <input type="date" value="{{$kandidat->tgl_akhir_paspor}}" name="tgl_akhir_paspor" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input tempat penerbitan -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Tempat Penerbitan</label>
+                                    <label for="" class="col-form-label">Tempat Penerbitan</label>
                                 </div>
                                 <div class="col-md-8">
                                     <input type="text"  value="{{$kandidat->tmp_paspor}}" name="tmp_paspor" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input foto paspor -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Foto Paspor</label>
+                                    <label for="" class="col-form-label">Foto Paspor</label>
                                 </div>
                                 <div class="col-md-8">
                                     @if ($kandidat->foto_paspor == "")

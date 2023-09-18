@@ -6,8 +6,10 @@
                 <b style="text-transform: uppercase">Cek Pembayaran</b>
             </div>
             <div class="card-body">
+                <!-- form(post) ManagerPaymentController => confirmKandidatPayment -->
                 <form action="" method="POST">
                     @csrf
+                    <!-- input nama kandidat -->
                     <div class="row mb-3">
                         <div class="col-4">
                             <b class="bold">Nama Kandidat</b>
@@ -16,6 +18,7 @@
                             <input type="text" name="nama" class="form-control" value="{{$pembayaran->nama_pembayaran}}" id="">
                         </div>
                     </div>
+                    <!-- input NIK -->
                     <div class="row mb-3">
                         <div class="col-4">
                             <b class="bold">No. NIK</b>
@@ -24,6 +27,7 @@
                             <input type="text" name="nik" class="form-control" value="{{$pembayaran->nik}}" id="">
                         </div>
                     </div>
+                    <!-- input nominal pembayaran -->
                     <div class="row mb-3">
                         <div class="col-4">
                             <b class="bold">Nominal Pembayaran</b>
@@ -32,6 +36,7 @@
                             <input type="text" name="nominal_pembayaran" class="form-control" value="{{$pembayaran->nominal_pembayaran}}" id="">
                         </div>
                     </div>
+                    <!-- tampilan foto pembayaran -->
                     @if ($pembayaran->foto_pembayaran !== null)
                         <div class="row mb-3">
                             <div class="col-4">

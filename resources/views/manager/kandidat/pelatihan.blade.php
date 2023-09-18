@@ -8,6 +8,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
+                    <!-- menampilkan tema video pelatihan -->
                     @foreach ($pelatihan as $item)
                         <div class="col-12">
                             <div class="card">
@@ -27,6 +28,7 @@
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
+            <!-- form(post) ManagerController => simpanTemaPelatihan -->
             <form action="/manager/kandidat/tambah_tema_pelatihan" method="POST">
                 @csrf
                 <div class="modal-header">

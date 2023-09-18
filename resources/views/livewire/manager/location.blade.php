@@ -1,7 +1,8 @@
 <div>
+    <!-- pilihan provinsi -->
     <div class="row mb-3 g-3 align-items-center">
         <div class="col-md-4">
-            <label for="inputPassword6" class="col-form-label">Provinsi</label>
+            <label for="" class="col-form-label">Provinsi</label>
         </div>
         <div class="col-md-8">
             <select wire:model.live="kota" required class="form-control" name="provinsi_id">
@@ -13,9 +14,10 @@
         </div>
     </div>
 
+    <!-- pilihan kota / kab -->
     <div class="row mb-3 g-3 align-items-center">
         <div class="col-md-4">
-            <label for="inputPassword6" class="col-form-label">Kabupaten / Kota</label>
+            <label for="" class="col-form-label">Kabupaten / Kota</label>
         </div>
         <div class="col-md-8">
             <select class="form-control" required wire:model.live="kecamatan" name="kota_id">
@@ -31,9 +33,10 @@
         </div>
     </div>
 
+    <!-- pilihan kecamatan -->
     <div class="row mb-3 g-3 align-items-center">
         <div class="col-md-4">
-            <label for="inputPassword6" class="col-form-label">Kecamatan</label>
+            <label for="" class="col-form-label">Kecamatan</label>
         </div>
         <div class="col-md-8">
             <select class="form-control" required wire:model.live="kelurahan" name="kecamatan_id">
@@ -49,9 +52,10 @@
         </div>
     </div>
 
+    <!-- pilihan kelurahan -->
     <div class="row mb-3 g-3 align-items-center">
         <div class="col-md-4">
-            <label for="inputPassword6" class="col-form-label">Kelurahan</label>
+            <label for="" class="col-form-label">Kelurahan</label>
         </div>
         <div class="col-md-8">
             <select class="form-control" required name="kelurahan_id">
@@ -62,9 +66,18 @@
                     @endforeach
                 @else
                     <option value="">-- Harap Pilih Kecamatan Dahulu --</option>
-                @endif
-                
+                @endif  
             </select>
+        </div>
+    </div>
+
+    <!-- input dusun -->
+    <div class="row mb-3 g-3 align-items-center">
+        <div class="col-md-4">
+            <label for="" class="col-form-label">Dusun</label>
+        </div>
+        <div class="col-md-8">
+            <input type="text" class="form-control" value="{{$kandidat->dusun}}" name="dusun" required placeholder="Masukkan Alamat Dusun">
         </div>
     </div>
 </div>

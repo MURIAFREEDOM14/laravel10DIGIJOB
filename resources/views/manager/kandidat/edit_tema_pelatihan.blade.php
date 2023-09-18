@@ -28,8 +28,10 @@
                         <h5 style="font-weight: 600">Tema Pelatihan</h5>
                     </div>
                     <div class="card-body">
+                        <!-- form(post) ManagerController => updateTemaPelatihan -->
                         <form action="" method="POST">
                             @csrf
+                            <!-- input tema pelatihan -->
                             <label for="" class="">Nama Tema</label>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" name="tema" required value="{{$pelatihan->tema_pelatihan}}" id="">    

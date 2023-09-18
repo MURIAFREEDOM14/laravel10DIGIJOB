@@ -9,6 +9,7 @@
                 </div>
                 <div class="">
                     <h6 class="text-center mb-5">Indonesia</h6>
+                    <!-- form(post) ManagerKandidatController => simpan_placement -->
                     <form action="" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="" id="perizin">
@@ -17,9 +18,10 @@
                                     <h6 class="ms-5">Data Penempatan Kerja</h6> 
                                 </div>
                             </div>
+                            <!-- pilihan negara tujuan -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
-                                    <label for="inputPassword6" class="col-form-label">Pilih Penempatan Negara</label>
+                                    <label for="" class="col-form-label">Pilih Penempatan Negara</label>
                                 </div>
                                 <div class="col-md-8">
                                     <select name="negara_id" required class="form-control" id="">

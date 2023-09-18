@@ -314,8 +314,8 @@
 
         <!-- Atlantis JS -->
         <script src="/Atlantis/examples/assets/js/atlantis.min.js"></script>
-        
-        <script >
+        <script>
+            // fungsi tabel
             $(document).ready(function() {
                 $('#basic-datatables').DataTable({
                 });
@@ -363,6 +363,7 @@
                 });
             });
         </script>
+        <!-- fungsi sistem loading -->
         <script src="/js/loader.js"></script>
         <script type="text/javascript">
             // alert konfirmasi keluar / log out

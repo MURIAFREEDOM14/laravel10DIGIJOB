@@ -6,6 +6,7 @@
                 <h4>Tambah Pelatihan</h4>
             </div>
             <div class="card-body">
+                <!-- form(post) ManagerController => simpanVideoPelatihan -->
                 <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row mb-3">

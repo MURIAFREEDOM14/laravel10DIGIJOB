@@ -8,8 +8,10 @@
                 <b style="text-transform: uppercase">Cek Pembayaran</b>
             </div>
             <div class="card-body">
+                <!-- form(post) ManagerPaymentController => confirmKandidatPayment -->
                 <form action="" method="POST">
                     @csrf
+                    <!-- input nama kandidat -->
                     <div class="row mb-3">
                         <div class="col-4">
                             <label for="" class="col-form-label">Nama Kandidat</label>
@@ -18,6 +20,7 @@
                             <input type="text" disabled name="nama" class="form-control" value="{{$pembayaran->nama_pembayaran}}" id="">
                         </div>
                     </div>
+                    <!-- input NIK -->
                     <div class="row mb-3">
                         <div class="col-4">
                             <label for="" class="col-form-label">No. NIK</label>
@@ -26,6 +29,7 @@
                             <input type="text" disabled name="nik" class="form-control" value="{{$pembayaran->nik}}" id="">
                         </div>
                     </div>
+                    <!-- input nominal pembayaran -->
                     <div class="row mb-3">
                         <div class="col-4">
                             <label for="" class="col-form-label">Nominal Pembayaran</label>
@@ -34,7 +38,9 @@
                             <input type="text" disabled name="nominal_pembayaran" class="form-control" value="{{$pembayaran->nominal_pembayaran}}" id="">
                         </div>
                     </div>
+                    <!-- apabila foto pembayaran ada -->
                     @if ($pembayaran->foto_pembayaran !== null)
+                        <!-- gambar foto pembayaran dari kandidat ke manager accounting -->
                         <div class="row mb-3">
                             <div class="col-4">
                                 <label for="" class="col-form-label">Foto Pembayaran</label>
@@ -43,6 +49,7 @@
                                 <img src="/gambar/Kandidat/{{$pembayaran->nama_pembayaran}}/pembayaran/{{$pembayaran->foto_pembayaran}}" width="300" height="300" alt="">
                             </div>
                         </div>
+                        <!-- pilihan status pembayaran -->
                         <div class="row mb-3">
                             <div class="col-4">
                                 <label for="" class="col-form-label">Status Pembayaran</label>
