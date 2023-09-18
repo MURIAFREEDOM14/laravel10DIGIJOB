@@ -15,7 +15,7 @@ var captcha = sliderCaptcha({
     loadingText: 'Memuat...',
     failedText: 'Coba lagi',
     barText: 'Geser puzzle',
-    repeatIcon: 'fa fa-redo',
+    repeatIcon: '-->',
     onSuccess: function () {
         // var handler = setTimeout(function () {
         //     window.clearTimeout(handler);
@@ -26,7 +26,7 @@ var captcha = sliderCaptcha({
             // alert('Your captcha is successfully verified.');
             // captcha.reset();
             var check_captcha = document.getElementById("captcha").style.display = "none";
-            var confirmCaptcha = document.getElementById("confirm").innerHTML = "Kode Captcha Terkonfirmasi";
+            var confirmCaptcha = document.getElementById("confirm").innerHTML = "Captcha Terkonfirmasi";
             var valueCaptcha = document.getElementById("confirmCaptcha").value = 1;
         }, 1000);
     },

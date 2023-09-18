@@ -43,6 +43,16 @@ use App\Models\User;
 // Auth::routes();
 // Auth::routes(['verify' => true]);
 
+// MIDDLEWARE //
+// manager = hanya dapat diakses oleh manager
+// kandidat = hanya dapat diakses oleh kandidat
+// akademi = hanya dapat diakses oleh akademi
+// perusahaan = hanya dapat diakses oleh perusahaan
+// payment = hanya dapat diakses oleh manager bagian pembayaran
+// contact.service = hanya dapat diakses oleh manager bagian contact service
+// guest = hanya dapat diakses oleh pengguna yang belum login
+
+
 // DATA MANAGER //
 Route::controller(ManagerController::class)->group(function() {
     // route login manager

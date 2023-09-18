@@ -49,10 +49,10 @@
 </head>
 <body>
   <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top" style="background-color: #FFD966">
+  <header id="header" class="fixed-top" style="background-color: #FFC436;">
     <div class="container d-flex align-items-center">
       <h1 class="logo me-auto"><a href="/laman" style="text-transform: uppercase; font-family:poppins; color:black">DIGIJOB</a></h1>
-      <nav id="navbar" class="navbar" style="background-color: #FFD966;">
+      <nav id="navbar" class="navbar" style="background-color: #FFC436;">
         <ul>
           {{-- <li><a class="nav-link scrollto active" style="color: black" href="#hero">Beranda</a></li> --}}
           {{-- <li><a class="nav-link scrollto disabled" style="color: gray;" href="/about_us">Tentang</a></li> --}}
@@ -175,7 +175,7 @@
     <section id="services" class="services section-bg">
       <div class="container" data-aos="fade-up">
         <div class="section-title">
-          <a class="btn btn-outline-primary" href="/register" style="width: 15rem; height:3rem;">
+          <a class="btn btn-outline-primary" href="/register" style="width: 10rem; height:3rem; padding-top:10px; text-transform:uppercase; font-family:poppins; font-size:20px;">
             Registrasi
           </a>
         </div>
@@ -278,7 +278,7 @@
   <!-- End #main -->
 
   <!-- ======= Footer ======= -->
-  <footer id="footer" style="background-color: #FFD966;" class="">
+  <footer id="footer" style="background-color: #FFC436;" class="">
     <div class="container footer-bottom clearfix">
       <div class="copyright" style="color:black;">
         &copy; Copyright <strong><span>DIGIJOB-UGIPORT</span></strong>. All Rights Reserved

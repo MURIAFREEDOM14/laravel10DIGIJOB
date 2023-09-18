@@ -41,8 +41,7 @@
                                                 <div class="card-body">
                                                     <div class="@error('captcha') is-invalid @enderror" id="captcha">
                                                     </div>
-                                                    <div class="text-center mt-5" id="confirm">
-                                                    </div>
+                                                    <div class="text-center" style="margin-top:20%; font-weight:600;" id="confirm"></div>
                                                 </div>
                                             </div>
                                             <div class="" id="confirm_captcha"></div>
