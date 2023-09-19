@@ -119,7 +119,7 @@
                                         Halo 
                                     </div>
                                     <div class="" style="padding: 0px 30px 20px 30px; color: black; font-family: 'Poppins', Helvetica, sans-serif; text-transform:uppercase; font-size: 18px; font-weight: 400; line-height: 25px;">
-                                        {{-- {{$nama}} --}}
+                                        {{$nama}}
                                     </div>
                                 </td>
                             </tr>
@@ -138,7 +138,7 @@
                                         <tr>
                                             <td align="center" style="border-radius: 3px;" bgcolor="red">
                                                 <a 
-                                                {{-- href="{{route('users_verification',$token)}}"  --}}
+                                                href="{{route('users_verification',$token)}}" 
                                                 style="margin:20px; font-size:20px; line-height:50px; text-decoration:none; color:white; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif">
                                                     Verifikasi Akun
                                                 </a>

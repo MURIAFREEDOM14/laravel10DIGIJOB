@@ -14,7 +14,7 @@
             }
         @endphp
         <style>
-            .slidercaptcha {
+            .input_captcha {
                 display: none;
             }
             #btn {
@@ -44,15 +44,14 @@
                                         <label for="">Masukkan Password</label>
                                         <input name="password" type="password" class="form-control" value="{{ old('password') }}" required id="password">
                                         <div class="my-2">
-                                            <input type="checkbox" class="me-1" name="" onclick="seePassword()"
-                                                id=""><span>Tampilkan Password</span>
+                                            <input type="checkbox" class="me-1" name="" onclick="seePassword()" id=""><span>Tampilkan Password</span>
                                         </div>
                                     </div>
-                                    {{-- @if ($c1 == 0) --}}
-                                        <!-- input kode captcha -->
-                                        <div class="row mb-3">
-                                            <div class="col-md-12">
-                                                <div class="slidercaptcha card" id="sliderCaptcha">
+                                    <div class="mb-3">
+                                        @if ($c1 == 0)
+                                            <!-- input kode captcha -->
+                                            <div class="input_captcha" id="inputCaptcha">
+                                                <div class="slidercaptcha card">
                                                     <div class="card-header">
                                                         <span>Kode Captcha</span>
                                                     </div>
@@ -64,23 +63,25 @@
                                                 </div>
                                                 <div class="" id="confirm_captcha"></div>
                                                 <input type="text" name="captcha" hidden required value="" id="confirmCaptcha">
+                                                @error('captcha')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>Harap isi captcha anda</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
-                                            @error('captcha')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>Harap isi captcha anda</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    {{-- @elseif($c1 == 1) 
-                                        <!-- input kode captcha -->
-                                        <div class="captcha_img">
-                                            <span>{!!captcha_img('flat')!!}</span>
-                                            <button type="button" class="btn btn-danger reload" id="reload">
-                                                &#x21bb;
-                                            </button>
-                                        </div>
-                                        <input type="text" placeholder="Masukkan kode captcha" required class="form-control mt-2" name="captcha" id="confirmCaptcha">
-                                    @endif --}}
+                                        @elseif($c1 == 1) 
+                                            <!-- input kode captcha -->
+                                            <div class="input_captcha" id="inputCaptcha">
+                                                <div class="captcha_img">
+                                                    <span>{!!captcha_img('flat')!!}</span>
+                                                    <button type="button" class="btn btn-danger reload" id="reload">
+                                                        &#x21bb;
+                                                    </button>
+                                                </div>
+                                                <input type="text" placeholder="Masukkan kode captcha" required class="form-control mt-2" name="captcha" id="confirmCaptcha">                                                
+                                            </div>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                             <div class=""><button type="button" class="btn btn-link mb-2" style="text-decoration: none;" data-bs-toggle="modal" data-bs-target="#forgotPassword">Lupa Password</button></div>
@@ -147,7 +148,7 @@
         function btnInputMailPass() {
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
-            var captchaCode = document.getElementById('sliderCaptcha');
+            var captchaCode = document.getElementById('inputCaptcha');
             var btn = document.getElementById('btn');
             var btnInputMailPass = document.getElementById('inputMailPass');
             if (email !== '' && password !== '') {
