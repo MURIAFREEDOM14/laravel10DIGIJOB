@@ -121,7 +121,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-check">
+                        <div class="form-check" id="formCheck">
                             <input class="form-check-input" type="checkbox" value="" onclick="enable()" id="check">
                             <span class="form-check-label" for="flexCheckDefault" style="font-size: 13px">
                                 Dengan ini, anda menyetujui <a href="/syarat_ketentuan/kandidat">syarat & ketentuan</a> kami.
@@ -159,14 +159,14 @@
         var email = document.getElementById('email').value;
         var password = document.getElementById('password').value;
         var passwordConfirm = document.getElementById('password_confirm').value;
-        var checkbox = document.getElementById('check');
+        var checkbox = document.getElementById('formCheck');
         var captchaCode = document.getElementById('inputCaptcha');
         var btn = document.getElementById('btn');
         var btnInputMailPass = document.getElementById('inputMailPass');
         var infoPassword = document.getElementById('confirmPasswordInfo');
         if (password !== passwordConfirm) {
             infoPassword.innerHTML = "Harap masukkan konfirmasi password anda dengan benar."
-            infoPassword.color = 'red';
+            infoPassword.style.color = 'red';
         } else {
             if (email !== '' && password !== '') {
                 btnInputMailPass.style.display = 'none';
