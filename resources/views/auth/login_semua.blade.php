@@ -73,7 +73,7 @@
                                             <!-- input kode captcha -->
                                             <div class="input_captcha" id="inputCaptcha">
                                                 <div class="captcha_img">
-                                                    <span>{!!captcha_img('flat')!!}</span>
+                                                    <span>{!!captcha_img()!!}</span>
                                                     <button type="button" class="btn btn-danger reload" id="reload">
                                                         &#x21bb;
                                                     </button>

@@ -88,7 +88,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    {{-- @if ($c1 == 0) --}}
+                                    @if ($c1 == 0)
                                         <!-- input kode captcha -->
                                         <div class="input_captcha" id="inputCaptcha">
                                             <div class="slidercaptcha card">
@@ -108,16 +108,16 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                    {{-- @elseif($c1 == 1) 
+                                    @elseif($c1 == 1) 
                                         <!-- input kode captcha -->
                                         <div class="input_captcha" id="inputCaptcha">
                                             <div class="captcha_img">
-                                                <span>{!!captcha_img('flat')!!}</span>
+                                                <span>{!!captcha_img()!!}</span>
                                                 <button type="button" class="btn btn-danger reload" id="reload">&#x21bb;</button>
                                             </div>
                                             <input type="text" placeholder="Masukkan kode captcha" required class="form-control mt-2" name="captcha" id="confirmCaptcha">
                                         </div>
-                                    @endif --}}
+                                    @endif
                                 </div>
                             </div>
                         </div>
