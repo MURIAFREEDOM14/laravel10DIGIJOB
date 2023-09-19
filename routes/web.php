@@ -234,14 +234,14 @@ Route::controller(ContactUsController::class)->group(function() {
 Route::controller(LamanController::class)->group(function() {
     // route halaman awal
     Route::get('/', 'index')->name('laman')->middleware('guest');    
-    
-    // route halaman register
-    Route::view('/register','auth/register_semua')->middleware('guest');
-    
+        
     // route syarat dan ketentuan register
     Route::view('/syarat_ketentuan/kandidat','laman/persyaratan_kandidat')->middleware('guest');
     Route::view('/syarat_ketentuan/akademi','laman/persyaratan_akademi')->middleware('guest');
     Route::view('/syarat_ketentuan/perusahaan','laman/persyaratan_perusahaan')->middleware('guest');
+
+    // route refresh captcha input
+    Route::get('/reload-captcha','reloadCaptcha');
 
     // Route::get('/login_gmail',  'login_gmail')->name('login_gmail')->middleware('guest');
     // Route::get('/login_referral',  'login_referral')->middleware('guest');
@@ -285,19 +285,22 @@ Route::controller(LoginController::class)->group(function() {
 
 // DATA REGISTER //
 Route::controller(RegisterController::class)->group(function() {
+    // route halaman register
+    Route::view('/register','auth/register_semua')->middleware('guest');
+    
     // route register kandidat
-    Route::view('/register/kandidat', 'auth/register_kandidat');
+    Route::view('/register/kandidat', 'auth/register_kandidat')->middleware('guest');
     Route::post('/register/kandidat', 'kandidat');
     
     // Route::get('/kandidat_umur/{nama}','umurKandidat')->middleware('guest');
     Route::post('/kandidat_umur/{nama}','syaratUmur');
     
     // route register akademi
-    Route::view('/register/akademi', 'auth/register_akademi');
+    Route::view('/register/akademi', 'auth/register_akademi')->middleware('guest');
     Route::post('/register/akademi', 'akademi');
     
     // route register perusahaan
-    Route::view('/register/perusahaan', 'auth/register_perusahaan');
+    Route::view('/register/perusahaan', 'auth/register_perusahaan')->middleware('guest');
     Route::post('/register/perusahaan', 'perusahaan');
 });
 

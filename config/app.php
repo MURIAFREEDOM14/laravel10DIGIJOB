@@ -189,9 +189,11 @@ return [
         //Barcode
         Milon\Barcode\BarcodeServiceProvider::class,
 
-        //capctha
-        Intervention\Image\ImageServiceProvider::class,
+        //Capctha
+        Mews\Captcha\CaptchaServiceProvider::class,
 
+        //Image
+        Intervention\Image\ImageServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -229,8 +231,11 @@ return [
         //Image
         'Image' => Intervention\Image\Facades\Image::class,
         
+        //Alert
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
 
+        // Captcha
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
     ])->toArray(),
 
 ];

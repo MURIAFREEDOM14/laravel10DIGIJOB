@@ -225,12 +225,6 @@ class LoginController extends Controller
         }
     }
 
-    // memuat ulang kode captcha
-    public function reloadCaptcha()
-    {
-        return response()->json(['captcha' => captcha_img()]);
-    }
-
     // aktivasi akun bila sudah ada
     public function loginMigration()
     {

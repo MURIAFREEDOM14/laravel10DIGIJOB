@@ -2,7 +2,7 @@
 @section('content')
 @include('sweetalert::alert')
 @include('flash_message')
-<div class="container mt-5">        
+<div class="container mt-5">
     <div class="">
         <div class="">
             <div class="row">

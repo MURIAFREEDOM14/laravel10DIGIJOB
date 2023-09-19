@@ -39,6 +39,7 @@ class ComposerStaticInit587246653a71d30b9c74e985c120f87b
         '5f2edeb18ca19ebd9ee6da72dc9f4292' => __DIR__ . '/..' . '/biscolab/laravel-recaptcha/src/helpers.php',
         '40275907c8566c390185147049ef6e5d' => __DIR__ . '/..' . '/livewire/livewire/src/helpers.php',
         '38ea50801e981fa2297115e1c44a148b' => __DIR__ . '/..' . '/mckenziearts/laravel-notify/src/helpers.php',
+        '5e8fe2a5ffaded85af682684fe3bbf5a' => __DIR__ . '/..' . '/mews/captcha/src/helpers.php',
         'c72349b1fe8d0deeedd3a52e8aa814d8' => __DIR__ . '/..' . '/mockery/mockery/library/helpers.php',
         'ce9671a430e4846b44e1c68c7611f9f5' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'a1cfe24d14977df6878b9bf804af2d1c' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Phpunit/Autoload.php',
@@ -139,6 +140,7 @@ class ComposerStaticInit587246653a71d30b9c74e985c120f87b
             'Monolog\\' => 8,
             'Money\\' => 6,
             'Mockery\\' => 8,
+            'Mews\\Captcha\\' => 13,
             'Mckenziearts\\Notify\\' => 20,
             'MaxMind\\WebService\\' => 19,
             'MaxMind\\Exception\\' => 18,
@@ -495,6 +497,10 @@ class ComposerStaticInit587246653a71d30b9c74e985c120f87b
         'Mockery\\' => 
         array (
             0 => __DIR__ . '/..' . '/mockery/mockery/library/Mockery',
+        ),
+        'Mews\\Captcha\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mews/captcha/src',
         ),
         'Mckenziearts\\Notify\\' => 
         array (
@@ -4410,6 +4416,11 @@ class ComposerStaticInit587246653a71d30b9c74e985c120f87b
         'Mckenziearts\\Notify\\LaravelNotify' => __DIR__ . '/..' . '/mckenziearts/laravel-notify/src/LaravelNotify.php',
         'Mckenziearts\\Notify\\LaravelNotifyServiceProvider' => __DIR__ . '/..' . '/mckenziearts/laravel-notify/src/LaravelNotifyServiceProvider.php',
         'Mckenziearts\\Notify\\Storage\\Session' => __DIR__ . '/..' . '/mckenziearts/laravel-notify/src/Storage/Session.php',
+        'Mews\\Captcha\\Captcha' => __DIR__ . '/..' . '/mews/captcha/src/Captcha.php',
+        'Mews\\Captcha\\CaptchaController' => __DIR__ . '/..' . '/mews/captcha/src/CaptchaController.php',
+        'Mews\\Captcha\\CaptchaServiceProvider' => __DIR__ . '/..' . '/mews/captcha/src/CaptchaServiceProvider.php',
+        'Mews\\Captcha\\Facades\\Captcha' => __DIR__ . '/..' . '/mews/captcha/src/Facades/Captcha.php',
+        'Mews\\Captcha\\LumenCaptchaController' => __DIR__ . '/..' . '/mews/captcha/src/LumenCaptchaController.php',
         'Milon\\Barcode\\BarcodeServiceProvider' => __DIR__ . '/..' . '/milon/barcode/src/Milon/Barcode/BarcodeServiceProvider.php',
         'Milon\\Barcode\\DNS1D' => __DIR__ . '/..' . '/milon/barcode/src/Milon/Barcode/DNS1D.php',
         'Milon\\Barcode\\DNS2D' => __DIR__ . '/..' . '/milon/barcode/src/Milon/Barcode/DNS2D.php',
@@ -5989,6 +6000,7 @@ class ComposerStaticInit587246653a71d30b9c74e985c120f87b
         'Picqer\\Barcode\\Types\\TypeRms4cc' => __DIR__ . '/..' . '/picqer/php-barcode-generator/src/Types/TypeRms4cc.php',
         'Picqer\\Barcode\\Types\\TypeStandard2of5' => __DIR__ . '/..' . '/picqer/php-barcode-generator/src/Types/TypeStandard2of5.php',
         'Picqer\\Barcode\\Types\\TypeStandard2of5Checksum' => __DIR__ . '/..' . '/picqer/php-barcode-generator/src/Types/TypeStandard2of5Checksum.php',
+        'Picqer\\Barcode\\Types\\TypeTelepen' => __DIR__ . '/..' . '/picqer/php-barcode-generator/src/Types/TypeTelepen.php',
         'Picqer\\Barcode\\Types\\TypeUpcA' => __DIR__ . '/..' . '/picqer/php-barcode-generator/src/Types/TypeUpcA.php',
         'Picqer\\Barcode\\Types\\TypeUpcE' => __DIR__ . '/..' . '/picqer/php-barcode-generator/src/Types/TypeUpcE.php',
         'Picqer\\Barcode\\Types\\TypeUpcExtension2' => __DIR__ . '/..' . '/picqer/php-barcode-generator/src/Types/TypeUpcExtension2.php',
@@ -6060,6 +6072,7 @@ class ComposerStaticInit587246653a71d30b9c74e985c120f87b
         'Psy\\CodeCleaner\\ValidFunctionNamePass' => __DIR__ . '/..' . '/psy/psysh/src/CodeCleaner/ValidFunctionNamePass.php',
         'Psy\\Command\\BufferCommand' => __DIR__ . '/..' . '/psy/psysh/src/Command/BufferCommand.php',
         'Psy\\Command\\ClearCommand' => __DIR__ . '/..' . '/psy/psysh/src/Command/ClearCommand.php',
+        'Psy\\Command\\CodeArgumentParser' => __DIR__ . '/..' . '/psy/psysh/src/Command/CodeArgumentParser.php',
         'Psy\\Command\\Command' => __DIR__ . '/..' . '/psy/psysh/src/Command/Command.php',
         'Psy\\Command\\DocCommand' => __DIR__ . '/..' . '/psy/psysh/src/Command/DocCommand.php',
         'Psy\\Command\\DumpCommand' => __DIR__ . '/..' . '/psy/psysh/src/Command/DumpCommand.php',

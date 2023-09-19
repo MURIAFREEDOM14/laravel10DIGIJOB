@@ -1,6 +1,18 @@
 @extends('layouts.manager')
 @section('content')
-    <div class="container">
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="" style="text-transform: uppercase; font-weight:bold;">Total Kandidat</div>
+                    </div>
+                    <div class="col-6">
+                        <div class="" style="font-weight: bold;">{{$kandidat->count()}}</div>
+                    </div>
+                </div>
+            </div>    
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="card">

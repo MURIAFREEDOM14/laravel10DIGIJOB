@@ -1,6 +1,17 @@
 @extends('layouts.laman')
 @section('content')
 <div class="container">
+    @php
+        $c1 = 1;
+        $date = date('D');
+        if (date('D') == 'Sun') {
+            if ($c1 == 0) {
+                $c1 = $c1 + 1;
+            } elseif ($c1 == 1) {
+                $c1 = $c1 - 1;
+            }
+        }
+    @endphp
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
@@ -68,23 +79,34 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <div class="slidercaptcha card">
-                                      <div class="card-header">
-                                          <span>Kode Captcha</span>
-                                      </div>
-                                      <div class="card-body">
-                                        <div class="@error('captcha') is-invalid @enderror" id="captcha"></div>
-                                        <div class="text-center mt-5" id="confirm">
+                                    @if ($c1 == 0)
+                                        <!-- input kode captcha -->
+                                        <div class="captcha_img">
+                                            <span>{!!captcha_img('flat')!!}</span>
+                                            <button type="button" class="btn btn-danger reload" id="reload">
+                                                &#x21bb;
+                                            </button>
                                         </div>
-                                      </div>
-                                    </div>
-                                    <div id="confirm_captcha"></div>
-                                    <input type="text" hidden name="captcha" value="" id="captcha">
-                                    @error('captcha')
-                                      <span class="invalid-feedback" role="alert">
-                                          <strong>{{ "Harap isi captcha anda" }}</strong>
-                                      </span>
-                                    @enderror
+                                        <input type="text" placeholder="Masukkan kode captcha" required class="form-control mt-2" name="captcha" id="confirmCaptcha">
+                                    @elseif($c1 == 1)
+                                        <!-- input kode captcha -->
+                                        <div class="slidercaptcha card">
+                                            <div class="card-header">
+                                                <span>Kode Captcha</span>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="@error('captcha') is-invalid @enderror" id="captcha"></div>
+                                                <div class="text-center mt-5" id="confirm"></div>
+                                            </div>
+                                        </div>
+                                        <div id="confirm_captcha"></div>
+                                        <input type="text" hidden name="captcha" value="" id="captcha">
+                                        @error('captcha')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ "Harap isi captcha anda" }}</strong>
+                                            </span>
+                                        @enderror    
+                                    @endif
                                 </div>
                             </div>
                         </div>

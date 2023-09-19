@@ -11,10 +11,17 @@ use App\Models\User;
 
 class LamanController extends Controller
 {
+    // halaman awal aplikasi
     public function index()
     {
         return view('laman');
     }
+
+    // refresh captcha
+    protected function reloadCaptcha()
+    {
+        return response()->json(['captcha' => captcha_img('flat')]);
+    } 
 
     // sistem login dengan Google (masih belum selesai)
     // public function login_gmail()

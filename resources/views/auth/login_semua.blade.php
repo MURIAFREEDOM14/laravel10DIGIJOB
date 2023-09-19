@@ -2,6 +2,25 @@
 @section('content')
     @include('sweetalert::alert')
     <div class="container">
+        @php
+            $c1 = 1;
+            $date = date('D');
+            if (date('D') == 'Sun') {
+                if ($c1 == 0) {
+                    $c1 = $c1 + 1;
+                } elseif ($c1 == 1) {
+                    $c1 = $c1 - 1;
+                }
+            }
+        @endphp
+        <style>
+            .slidercaptcha {
+                display: none;
+            }
+            #btn {
+                display: none;
+            }
+        </style>
         <div class="row justify-content-center">
             <div class="col-md-3"></div>
             <div class="col-md-6">
@@ -18,50 +37,58 @@
                                     <!-- input email -->
                                     <div class="mb-3">
                                         <label for="">Masukkan Email</label>
-                                        <input name="email" type="email" class="form-control"
-                                            value="{{ old('email') }}" required id="email">
+                                        <input name="email" type="email" class="form-control email" value="{{ old('email') }}" required id="email">
                                     </div>
                                     <!-- input password -->
                                     <div class="mb-3">
                                         <label for="">Masukkan Password</label>
-                                        <input name="password" type="password" class="form-control"
-                                            value="{{ old('password') }}" required id="password_input">
+                                        <input name="password" type="password" class="form-control" value="{{ old('password') }}" required id="password">
                                         <div class="my-2">
                                             <input type="checkbox" class="me-1" name="" onclick="seePassword()"
                                                 id=""><span>Tampilkan Password</span>
                                         </div>
                                     </div>
-                                    <!-- input kode captcha -->
-                                    <div class="row mb-3">
-                                        <div class="col-md-12">
-                                            <div class="slidercaptcha card">
-                                                <div class="card-header">
-                                                    <span>Kode Captcha</span>
-                                                </div>
-                                                <div class="card-body">
-                                                    <div class="@error('captcha') is-invalid @enderror" id="captcha">
+                                    {{-- @if ($c1 == 0) --}}
+                                        <!-- input kode captcha -->
+                                        <div class="row mb-3">
+                                            <div class="col-md-12">
+                                                <div class="slidercaptcha card" id="sliderCaptcha">
+                                                    <div class="card-header">
+                                                        <span>Kode Captcha</span>
                                                     </div>
-                                                    <div class="text-center" style="margin-top:20%; font-weight:600;" id="confirm"></div>
+                                                    <div class="card-body">
+                                                        <div class="@error('captcha') is-invalid @enderror" id="captcha">
+                                                        </div>
+                                                        <div class="text-center" style="margin-top:20%; font-weight:600;" id="confirm"></div>
+                                                    </div>
                                                 </div>
+                                                <div class="" id="confirm_captcha"></div>
+                                                <input type="text" name="captcha" hidden required value="" id="confirmCaptcha">
                                             </div>
-                                            <div class="" id="confirm_captcha"></div>
-                                            <input type="text" name="captcha" hidden required value=""
-                                                id="confirmCaptcha">
+                                            @error('captcha')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>Harap isi captcha anda</strong>
+                                                </span>
+                                            @enderror
                                         </div>
-                                        @error('captcha')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>Harap isi captcha anda</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                    {{-- @elseif($c1 == 1) 
+                                        <!-- input kode captcha -->
+                                        <div class="captcha_img">
+                                            <span>{!!captcha_img('flat')!!}</span>
+                                            <button type="button" class="btn btn-danger reload" id="reload">
+                                                &#x21bb;
+                                            </button>
+                                        </div>
+                                        <input type="text" placeholder="Masukkan kode captcha" required class="form-control mt-2" name="captcha" id="confirmCaptcha">
+                                    @endif --}}
                                 </div>
                             </div>
                             <div class=""><button type="button" class="btn btn-link mb-2" style="text-decoration: none;" data-bs-toggle="modal" data-bs-target="#forgotPassword">Lupa Password</button></div>
                             <div class="">Belum punya akun?
                                 <a href="/register" style="text-decoration:none;" class="btn btn-link mb-2">Daftar yuk!!</a>
                             </div>
-                            <button type="submit" class="btn btn-primary float-right mr-2" id="btn"
-                                onclick="processing()">Masuk</button>
+                            <button id="inputMailPass" class="btn btn-primary float-right mr-2" onclick="btnInputMailPass()">Lanjut</button>
+                            <button type="submit" class="btn btn-primary float-right mr-2" id="btn" onclick="processing()">Masuk</button>
                             <button type="button" class="btn btn-primary float-right mr-2" id="btnload">
                                 <div class="spinner-border text-light" role="status"></div>
                             </button>
@@ -116,19 +143,34 @@
         </div>
     </div>
     <script>
-        // fungsi tampilan lihat password
-        function seePassword() {
-            var p = document.getElementById('password_input').type;
-            if (p == "password") {
-                document.getElementById('password_input').type = 'text';
-            } else {
-                document.getElementById('password_input').type = 'password';
+        // fungsi confirmasi email & password
+        function btnInputMailPass() {
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
+            var captchaCode = document.getElementById('sliderCaptcha');
+            var btn = document.getElementById('btn');
+            var btnInputMailPass = document.getElementById('inputMailPass');
+            if (email !== '' && password !== '') {
+                btnInputMailPass.style.display = 'none';
+                btn.style.display = 'block';
+                captchaCode.style.display = 'block';
             }
         }
 
+        // fungsi tampilan lihat password
+        function seePassword() {
+            var p = document.getElementById('password').type;
+            if (p == "password") {
+                document.getElementById('password').type = 'text';
+            } else {
+                document.getElementById('password').type = 'password';
+            }
+        }
+
+        // fungsi tombol loading
         function processing() {
             var email = document.getElementById('email').value;
-            var password = document.getElementById('password_input').value;
+            var password = document.getElementById('password').value;
             var captcha = document.getElementById('confirmCaptcha').value;
             var confirm_captcha = document.getElementById('confirm_captcha');
             if (captcha == '') {

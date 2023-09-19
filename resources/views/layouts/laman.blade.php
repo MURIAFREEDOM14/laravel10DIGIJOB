@@ -61,6 +61,12 @@
     display: none;
   }
 </style>
+
+<!-- script -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.26.9/dist/sweetalert2.all.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
 </head>
   <body>
     <!-- ======= Header ======= -->
@@ -126,10 +132,8 @@
     <script src="/Arsha/assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="/Arsha/assets/vendor/waypoints/noframework.waypoints.js"></script>
     <script src="/Arsha/assets/vendor/php-email-form/validate.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.26.9/dist/sweetalert2.all.min.js"></script>
     <script src="/js/captcha.js"></script>
     <script src="/js/loader.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
     <!-- Template Main JS File -->
     <script src="/Arsha/assets/js/main.js"></script>
@@ -143,8 +147,17 @@
           btn.disabled = "true";
         }
       }
-      // sistem penyeleksian captcha
-      grecaptcha.execute();
+
+      // fungsi muat ulang gambar captcha
+      $('#reload').click(function() {
+        $.ajax({
+            type:'get',
+            url: 'reload-captcha',
+            success:function(data) {
+                $(".captcha_img span").html(data.captcha)
+            }
+        })
+      })
     </script>
   </body>
 </html>

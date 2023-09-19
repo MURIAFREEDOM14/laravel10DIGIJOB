@@ -1,6 +1,25 @@
 @extends('layouts.laman')
 @section('content')
 <div class="container">
+    @php
+        $c1 = 1;
+        $date = date('D');
+        if (date('D') == 'Sun') {
+            if ($c1 == 0) {
+                $c1 = $c1 + 1;
+            } elseif ($c1 == 1) {
+                $c1 = $c1 - 1;
+            }
+        }
+    @endphp
+    <style>
+        .slidercaptcha {
+            display: none;
+        }
+        #btn {
+            display: none;
+        }
+    </style>
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
@@ -14,6 +33,7 @@
                         @csrf
                         <div class="row">
                             <div class="col-md-12">
+                                <!-- input nama akademi -->
                                 <div class="mb-3">
                                     <label for="name" class="">{{ __('Nama Akademi') }}</label>
                                     <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -23,6 +43,7 @@
                                         </span>
                                     @enderror
                                 </div>
+                                <!-- input no. NIS -->
                                 <div class="mb-3">
                                     <label for="no_nis" class="">{{ __('No. NIS') }}</label>
                                     <input id="nis" type="number" class="form-control @error('no_nis') is-invalid @enderror" name="no_nis" value="{{ old('no_nis') }}" required autocomplete="no_nis" autofocus>
@@ -32,6 +53,7 @@
                                         </span>
                                     @enderror
                                 </div>
+                                <!-- input email -->
                                 <div class="mb-3">
                                     <label for="email" class="">{{ __('Email Address') }}</label>
                                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -41,6 +63,7 @@
                                         </span>
                                     @enderror
                                 </div>
+                                <!-- input password -->
                                 <div class="mb-3">
                                     <label for="email" class="">{{ __('Buat Password') }}</label>
                                     <input id="password" type="text" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" required autocomplete="password">
@@ -50,28 +73,40 @@
                                         </span>
                                     @enderror
                                 </div>
+                                <!-- input konfirmasi password -->
                                 <div class="mb-3">
                                     <label for="email" class="">{{ __('Konfirmasi Password') }}</label>
                                     <input id="password_confirm" type="text" class="form-control " name="passwordConfirm" required autocomplete="password">
                                 </div>
                                 <div class="mb-3">
-                                    <div class="slidercaptcha card">
-                                      <div class="card-header">
-                                          <span>Kode Captcha</span>
-                                      </div>
-                                      <div class="card-body">
-                                        <div class="@error('captcha') is-invalid @enderror" id="captcha"></div>
-                                        <div class="text-center mt-5" id="confirm">
+                                    @if ($c1 == 0)
+                                        <!-- input kode captcha -->
+                                        <div class="slidercaptcha card" id="sliderCaptcha">
+                                            <div class="card-header">
+                                                <span>Kode Captcha</span>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="@error('captcha') is-invalid @enderror" id="captcha"></div>
+                                                <div class="text-center mt-5" id="confirm"></div>
+                                            </div>
                                         </div>
-                                      </div>
-                                    </div>
-                                    <div id="confirm_captcha"></div>
-                                    <input type="text" hidden name="captcha" value="" id="confirmCaptcha">
-                                    @error('captcha')
-                                      <span class="invalid-feedback" role="alert">
-                                          <strong>{{ "Harap isi captcha anda" }}</strong>
-                                      </span>
-                                    @enderror
+                                        <div id="confirm_captcha"></div>
+                                        <input type="text" hidden name="captcha" value="" id="confirmCaptcha">
+                                        @error('captcha')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ "Harap isi captcha anda" }}</strong>
+                                            </span>
+                                        @enderror
+                                    @elseif($c1 == 1) 
+                                        <!-- input kode captcha -->
+                                        <div class="captcha_img">
+                                            <span>{!!captcha_img('flat')!!}</span>
+                                            <button type="button" class="btn btn-danger reload" id="reload">
+                                                &#x21bb;
+                                            </button>
+                                        </div>
+                                        <input type="text" placeholder="Masukkan kode captcha" required class="form-control mt-2" name="captcha" id="confirmCaptcha">
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -83,6 +118,7 @@
                         </div>
                         <div class="mt-3">Sudah punya akun?<a href="/login" class="ms-1">Login</a></div>
                         {{-- <div class="">Bingung cara untuk daftar?<button type="button" data-bs-toggle="modal" data-bs-target="#tutorial_kandidat" class="btn btn-link">Yuk lihat video ini</button></div> --}}
+                        <button id="inputMailPass" class="btn btn-primary float-right mr-2" onclick="btnInputMailPass()">Lanjut</button>
                         <button type="submit" id="btn" disabled="true" class="btn btn-primary mt-3" onclick="processing()">
                             {{ __('Register') }}
                         </button>
@@ -108,6 +144,19 @@
     </div>
 </div>
 <script>
+    function btnInputMailPass() {
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password_input').value;
+        var captchaCode = document.getElementById('sliderCaptcha');
+        var btn = document.getElementById('btn');
+        var btnInputMailPass = document.getElementById('inputMailPass');
+        if (email !== '' && password !== '') {
+            btnInputMailPass.style.display = 'none';
+            btn.style.display = 'block';
+            captchaCode.style.display = 'block';
+        }
+    }
+
     function processing() {
         var name = document.getElementById('name').value;
         var nis = document.getElementById('nis').value;
