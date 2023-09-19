@@ -39,8 +39,8 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 <style>
-  p {
-    font-family: 'poppins';
+  body {
+    font-family: Poppins;
   }
   .img {
     width: 100%;

@@ -184,7 +184,7 @@
 <script>
     function btnInputMailPass() {
         var email = document.getElementById('email').value;
-        var password = document.getElementById('password_input').value;
+        var password = document.getElementById('password').value;
         var captchaCode = document.getElementById('sliderCaptcha');
         var btn = document.getElementById('btn');
         var btnInputMailPass = document.getElementById('inputMailPass');
