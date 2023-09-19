@@ -16,6 +16,9 @@
         .input_captcha {
             display: none;
         }
+        .form-check {
+            display: none;
+        }
         #btn {
             display: none;
         }
@@ -79,8 +82,9 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="password" class="">{{ __('Konfirmasi Password') }}</label>
-                                    <input id="password_confirm" type="text" class="form-control @error('password') is-invalid @enderror" name="passwordConfirm" value="{{ old('password') }}" required autocomplete="password">
-                                    @error('password')
+                                    <input id="password_confirm" type="text" class="form-control @error('passwordConfirm') is-invalid @enderror" name="passwordConfirm" value="{{ old('password') }}" required autocomplete="password">
+                                    <div class="" id="confirmPasswordInfo"></div>
+                                    @error('passwordConfirm')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ "Password konfirmasi harus sama dengan buat password" }}</strong>
                                         </span>
@@ -160,13 +164,22 @@
     function btnInputMailPass() {
         var email = document.getElementById('email').value;
         var password = document.getElementById('password').value;
+        var passwordConfirm = document.getElementById('password_confirm').value;
+        var checkbox = document.getElementById('check');
         var captchaCode = document.getElementById('inputCaptcha');
         var btn = document.getElementById('btn');
         var btnInputMailPass = document.getElementById('inputMailPass');
-        if (email !== '' && password !== '') {
-            btnInputMailPass.style.display = 'none';
-            btn.style.display = 'block';
-            captchaCode.style.display = 'block';
+        var infoPassword = document.getElementById('confirmPasswordInfo');
+        if (password !== passwordConfirm) {
+            infoPassword.innerHTML = "Harap masukkan konfirmasi password anda dengan benar."
+            infoPassword.style.color = 'red';
+        } else {
+            if (email !== '' && password !== '') {
+                btnInputMailPass.style.display = 'none';
+                btn.style.display = 'block';
+                captchaCode.style.display = 'block';
+                checkbox.style.display = 'block';
+            }
         }
     }
 
