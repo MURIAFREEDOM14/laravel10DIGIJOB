@@ -79,7 +79,7 @@
                                     <input id="password_confirm" type="text" class="form-control " name="passwordConfirm" required autocomplete="password">
                                 </div>
                                 <div class="mb-3">
-                                    @if ($c1 == 0)
+                                    {{-- @if ($c1 == 0) --}}
                                         <!-- input kode captcha -->
                                         <div class="slidercaptcha card" id="sliderCaptcha">
                                             <div class="card-header">
@@ -97,7 +97,7 @@
                                                 <strong>{{ "Harap isi captcha anda" }}</strong>
                                             </span>
                                         @enderror
-                                    @elseif($c1 == 1) 
+                                    {{-- @elseif($c1 == 1) 
                                         <!-- input kode captcha -->
                                         <div class="captcha_img">
                                             <span>{!!captcha_img('flat')!!}</span>
@@ -106,7 +106,7 @@
                                             </button>
                                         </div>
                                         <input type="text" placeholder="Masukkan kode captcha" required class="form-control mt-2" name="captcha" id="confirmCaptcha">
-                                    @endif
+                                    @endif --}}
                                 </div>
                             </div>
                         </div>
@@ -146,7 +146,7 @@
 <script>
     function btnInputMailPass() {
         var email = document.getElementById('email').value;
-        var password = document.getElementById('password_input').value;
+        var password = document.getElementById('password').value;
         var captchaCode = document.getElementById('sliderCaptcha');
         var btn = document.getElementById('btn');
         var btnInputMailPass = document.getElementById('inputMailPass');

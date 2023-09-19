@@ -12,6 +12,14 @@
             }
         }
     @endphp
+    <style>
+        .slidercaptcha {
+            display: none;
+        }
+        #btn {
+            display: none;
+        }
+    </style>
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
@@ -79,7 +87,7 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    @if ($c1 == 0)
+                                    {{-- @if ($c1 == 0)
                                         <!-- input kode captcha -->
                                         <div class="captcha_img">
                                             <span>{!!captcha_img('flat')!!}</span>
@@ -88,9 +96,9 @@
                                             </button>
                                         </div>
                                         <input type="text" placeholder="Masukkan kode captcha" required class="form-control mt-2" name="captcha" id="confirmCaptcha">
-                                    @elseif($c1 == 1)
+                                    @elseif($c1 == 1) --}}
                                         <!-- input kode captcha -->
-                                        <div class="slidercaptcha card">
+                                        <div class="slidercaptcha card" id="sliderCaptcha">
                                             <div class="card-header">
                                                 <span>Kode Captcha</span>
                                             </div>
@@ -106,7 +114,7 @@
                                                 <strong>{{ "Harap isi captcha anda" }}</strong>
                                             </span>
                                         @enderror    
-                                    @endif
+                                    {{-- @endif --}}
                                 </div>
                             </div>
                         </div>
@@ -116,9 +124,9 @@
                                 Dengan ini, anda menyetujui <a href="/syarat_ketentuan/kandidat">syarat & ketentuan</a> kami.
                             </span>
                         </div>
-                        {{-- <a href="/login/perusahaan" class="btn btn-secondary">Kembali</a> --}}
                         <div class="mt-3">Sudah punya akun?<a href="/login" class="ms-1">Login</a></div>
                         <div class="">Bingung cara untuk daftar?<button type="button" data-bs-toggle="modal" data-bs-target="#tutorial_kandidat" class="btn btn-link">Yuk lihat video ini</button></div>
+                        <button id="inputMailPass" class="btn btn-primary float-right mr-2" onclick="btnInputMailPass()">Lanjut</button>
                         <button type="submit" id="btn" disabled="true" class="btn btn-primary mt-3" onclick="processing()">
                             {{ __('Register') }}
                         </button>
@@ -144,6 +152,21 @@
     </div>
 </div>
 <script>
+    // fungsi confirmasi email & password
+    function btnInputMailPass() {
+        var email = document.getElementById('email').value;
+        var password = document.getElementById('password').value;
+        var captchaCode = document.getElementById('sliderCaptcha');
+        var btn = document.getElementById('btn');
+        var btnInputMailPass = document.getElementById('inputMailPass');
+        if (email !== '' && password !== '') {
+            btnInputMailPass.style.display = 'none';
+            btn.style.display = 'block';
+            captchaCode.style.display = 'block';
+        }
+    }
+
+    // fungsi tombol loading
     function processing() {
         var name = document.getElementById('name').value;
         var nib = document.getElementById('nib').value;
