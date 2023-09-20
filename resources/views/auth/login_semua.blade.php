@@ -104,7 +104,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel" style="font-family:poppins">sebagai siapakah anda lupa password?</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel" style="font-family:poppins">Sebagai siapakah anda lupa password?</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -131,7 +131,7 @@
                     <div class="row">
                         <div class="col-md-12 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                             <a href="/forgot_password/perusahaan" style="color: white">
-                                <div class="icon-box text-center" style="border-style: outset; background-image: linear-gradient(to top, white, rgb(208, 231, 210), rgb(21, 182, 7)); padding:20px;">
+                                <div class="icon-box text-center" style="border-style: outset; background-image: linear-gradient(to top, white, rgb(208, 231, 210), rgb(23, 163, 10)); padding:20px;">
                                     {{-- <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div> --}}
                                     <h4 style="text-transform: uppercase; color: black">Perusahaan</h4>
                                 </div>

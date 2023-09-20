@@ -85,7 +85,7 @@
         <table border="0" cellpadding="0" cellspacing="0" width="100%">
             <!-- LOGO -->
             <tr>
-                <td bgcolor="blue" align="center">
+                <td bgcolor="#C0C0C0" align="center">
                     <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                         <tr>
                             <td align="center" valign="top" style="padding: 40px 10px 40px 10px;"> </td>
@@ -94,7 +94,7 @@
                 </td>
             </tr>
             <tr>
-                <td bgcolor="blue" align="center" style="padding: 0px 10px 0px 10px;">
+                <td bgcolor="#C0C0C0" align="center" style="padding: 0px 10px 0px 10px;">
                     <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 950px;">
                         <tr>
                             <td bgcolor="#ffffff" align="center" valign="top" style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Poppins', Helvetica, Arial, sans-serif; font-size: 36px; font-weight: 600; letter-spacing: 4px; line-height: 48px;">
@@ -216,7 +216,7 @@
                                             <div class="" style="font-family: poppins;">Silahkan tekan link berikut untuk Konfirmasi pembayaran</div>                                                
                                             <table border="0" cellspacing="0" cellpadding="0">
                                                 <tr>
-                                                    <td align="center" style="border-radius: 3px;" bgcolor="blue">
+                                                    <td align="center" style="border-radius: 3px;" bgcolor="#0000FF">
                                                         <a 
                                                         href="{{route('payment.confirm',$token)}}" 
                                                         style="margin:20px; font-size:20px; line-height:50px; text-decoration:none; color:white">

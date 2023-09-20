@@ -4,7 +4,7 @@
         <!-- Route(view) LamanController => '/register' -->
         <div class="row mb-3">
             <div class="col-md-5 mx-auto">
-                <div class="card" style="border-top: 10px solid #19A7CE; border-radius:25px; padding:20px; width:100%; height:auto;">
+                <div class="card" style="background-image: linear-gradient(to top, white, rgb(232, 232, 232), rgb(232,232,232), rgb(0, 100, 255)); border-radius:25px; padding:20px; width:100%; height:auto;">
                     <div class="card-body text-center">
                         <p style="text-transform: uppercase">Pencari Kerja / Kandidat</p>
                         <a class="btn btn-outline-primary" style="text-transform: uppercase;" href="/register/kandidat">Registrasi</a>
@@ -14,7 +14,7 @@
         </div>
         <div class="row mb-3">
             <div class="col-md-5 mx-auto">
-                <div class="card" style="border-top: 10px solid #FFD966; border-radius:25px; padding:20px; width:100%; height:auto;">
+                <div class="card" style="background-image: linear-gradient(to top, white, white, rgb(255, 254, 196), rgb(241, 201, 59)); border-radius:25px; padding:20px; width:100%; height:auto;">
                     <div class="card-body text-center">
                         <p style="text-transform: uppercase">Akademi</p>
                         <a class="btn btn-outline-primary" style="text-transform: uppercase;" href="/register/akademi">Registrasi</a>
@@ -24,7 +24,7 @@
         </div>
         <div class="row mb-3">
             <div class="col-md-5 mx-auto">
-                <div class="card" style="border-top: 10px solid #2bb930; border-radius:25px; padding:20px; width:100%; height:auto;">
+                <div class="card" style="background-image: linear-gradient(to top, white, white, rgb(208, 231, 210), rgb(23, 163, 10)); border-radius:25px; padding:20px; width:100%; height:auto;">
                     <div class="card-body text-center">
                         <p style="text-transform:uppercase">Perusahaan</p>
                         <a class="btn btn-outline-primary" style="text-transform:uppercase;" href="/register/perusahaan">Registrasi</a>
