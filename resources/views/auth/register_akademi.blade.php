@@ -1,15 +1,18 @@
 @extends('layouts.laman')
 @section('content')
+@include('sweetalert::alert')
 <div class="container">
     @php
-        $c1 = 0;
-        $date = date('D');
-        if (date('D') == 'Sun') {
-            if ($c1 == 0) {
-                $c1 = $c1 + 1;
-            } elseif ($c1 == 1) {
-                $c1 = $c1 - 1;
+        if (date('j') == 15) {
+            if (date('G') < 12) {
+                $c1 = 1;
+            } elseif(date('G') >= 12) {
+                $c1 = 0;
             }
+        } elseif (date('j') < 15) {
+            $c1 = 1;
+        } elseif (date('j') > 15) {
+            $c1 = 0;
         }
     @endphp
     <style>
@@ -91,6 +94,14 @@
                                     @if ($c1 == 0)
                                         <!-- input kode captcha -->
                                         <div class="input_captcha" id="inputCaptcha">
+                                            <div class="captcha_img">
+                                                <span>{!!captcha_img('flat')!!}</span>
+                                            </div>
+                                            <input type="text" placeholder="Masukkan kode captcha" required class="form-control mt-2" name="captcha" id="confirmCaptcha">
+                                        </div>
+                                    @elseif($c1 == 1) 
+                                        <!-- input kode captcha -->
+                                        <div class="input_captcha" id="inputCaptcha">
                                             <div class="slidercaptcha card">
                                                 <div class="card-header">
                                                     <span>Kode Captcha</span>
@@ -107,14 +118,6 @@
                                                     <strong>{{ "Harap isi captcha anda" }}</strong>
                                                 </span>
                                             @enderror
-                                        </div>
-                                    @elseif($c1 == 1) 
-                                        <!-- input kode captcha -->
-                                        <div class="input_captcha" id="inputCaptcha">
-                                            <div class="captcha_img">
-                                                <span>{!!captcha_img()!!}</span>
-                                            </div>
-                                            <input type="text" placeholder="Masukkan kode captcha" required class="form-control mt-2" name="captcha" id="confirmCaptcha">
                                         </div>
                                     @endif
                                 </div>

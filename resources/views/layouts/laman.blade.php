@@ -72,7 +72,7 @@
     <!-- ======= Header ======= -->
     <header id="header" class="fixed-top" style="background-color: #FFC436;">
       <div class="container d-flex align-items-center">
-      <h1 class="logo me-auto"><a href="/laman" style="text-transform: uppercase; font-family:poppins; color:black">DIGIJOB</a></h1>
+      <h1 class="logo me-auto"><a href="/" style="text-transform: uppercase; font-family:poppins; color:black">DIGIJOB</a></h1>
       <nav id="navbar" class="navbar" style="background-color: #FFC436;">
           <ul>
           {{-- <li><a class="nav-link scrollto" style="color: black" href="/register">Registrasi</a></li> --}}
