@@ -21,9 +21,7 @@ use App\Models\Pembayaran;
 use App\Models\notifyPerusahaan;
 use App\Models\messagePerusahaan;
 use App\Models\LowonganPekerjaan;
-use App\Models\PMIID;
 use App\Models\PermohonanLowongan;
-use App\Models\PerusahaanNegara;
 use App\Mail\transfer;
 use Illuminate\Support\Facades\Mail;
 use App\Models\notifyKandidat;
@@ -36,6 +34,8 @@ use App\Models\FotoKerja;
 use App\Models\VideoKerja;
 use Carbon\CarbonPeriod;
 use App\Models\LaporanPekerja;
+use App\Models\ContactUsPerusahaan;
+
 
 class PerusahaanController extends Controller
 {
@@ -246,16 +246,29 @@ class PerusahaanController extends Controller
     }
 
     // halaman hub. kami / bantuan perusahaan
-    // public function contactUsPerusahaan()
-    // {
-    //     $id = Auth::user();
-    //     $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
-    //     $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like','%'.$perusahaan->penempatan_kerja.'%')->get();
-    //     $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
-    //     $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
-    //     $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-    //     return view('perusahaan/contact_us',compact('perusahaan','notif','pesan','cabang','credit'));
-    // }
+    public function contactUsPerusahaan()
+    {
+        $id = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
+        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like','%'.$perusahaan->penempatan_kerja.'%')->get();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        return view('perusahaan/contact_us',compact('perusahaan','notif','pesan','cabang','credit'));
+    }
+
+    public function sendContactUsPerusahaan(Request $request)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        ContactUsPerusahaan::create([
+            'id_perusahaan' => $perusahaan->id_perusahaan,
+            'dari' => $perusahaan->nama_perusahaan,
+            'isi' => $request->isi,
+            'balas' => "belum dibaca",
+        ]);
+        return redirect('/perusahaan/contact_us_perusahaan')->with('success',"pesan telah terkirim");
+    }
 
     // DATA KANDIDAT //
     // halaman data semua kandidat yang diterima

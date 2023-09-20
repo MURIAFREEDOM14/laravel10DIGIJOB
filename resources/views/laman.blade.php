@@ -68,8 +68,8 @@
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex align-items-center" style="background-color: #468B97; height:100%">
-    <div class="container mt-5">
+  <section id="hero" class="" style="background-color: #468B97; height:100%">
+    <div class=" mt-5">
       <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
@@ -117,54 +117,53 @@
       </div>
       <div class="col-md-2"></div>
       <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6 d-flex flex-column justify-content-center pt-4 pt-lg-0" data-aos="fade-up" data-aos-delay="200">
+        {{-- <div class="col"></div> --}}
+        <div class="col-12" data-aos="fade-up" data-aos-delay="200" style="width: 100%; height:100%;">
           <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-            {{-- <div class="carousel-indicators">
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 0"></button>
-            </div> --}}
             <div class="carousel-inner">
               <div class="carousel-item active" data-bs-interval="1500">
-                <img src="Arsha/assets/img/hero-img.png" class="img-fluid text-center" alt="">
+                {{-- <img src="Arsha/assets/img/hero-img.png" class="img-fluid text-center" alt=""> --}}
+                <img src="/gambar/Laman/image1.jpg" class="img-fluid text-center" alt="" style="width: 100%; height:auto;">
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
                 </div>
               </div>
               <div class="carousel-item" data-bs-interval="1500">
-                <img src="Arsha/assets/img/hero-img.png" class="img-fluid" alt="">
+                <img src="/gambar/Laman/image2.jpg" class="img-fluid text-center" alt="" style="width: 100%; height:auto">
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
                 </div>
               </div>
               <div class="carousel-item" data-bs-interval="1500">
-                <img src="Arsha/assets/img/hero-img.png" class="img-fluid" alt="">
+                <img src="/gambar/Laman/image3.jpg" class="img-fluid text-center" alt="" style="width: 100%; height:auto">
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
                 </div>
               </div>
               <div class="carousel-item" data-bs-interval="1500">
-                <img src="Arsha/assets/img/hero-img.png" class="img-fluid" alt="">
+                <img src="/gambar/Laman/image4.jpg" class="img-fluid text-center" alt="" style="width: 100%; height:auto">
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
                 </div>
               </div>
               <div class="carousel-item" data-bs-interval="1500">
-                <img src="Arsha/assets/img/hero-img.png" class="img-fluid" alt="">
+                <img src="/gambar/Laman/image5.jpg" class="img-fluid text-center" alt="" style="width: 100%; height:auto;">
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
                 </div>
               </div>
             </div>
-            {{-- <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            </button> --}}
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true" style="background-color: black;"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true" style="background-color: black;"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
           </div>
         </div>
-        <div class="col-md-3"></div>
+        {{-- <div class="col-md-3"></div> --}}
       </div>
     </div>
 

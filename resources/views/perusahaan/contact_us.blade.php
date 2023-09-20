@@ -1,5 +1,7 @@
 @extends('layouts.perusahaan')
 @section('content')
+@include('sweetalert::alert')
+@include('flash_message')
 <div class="container mt-5">
     <div class="container-fluid">
         <div class="card">
@@ -7,7 +9,8 @@
                 Contact Us
             </div>
             <div class="card-body">
-                <form action="/manager/contact_us" method="POST">
+                <!-- form(post) PerusahaanController => sendContactUsPerusahaan -->
+                <form action="/perusahaan/contact_us_perusahaan" method="POST">
                     @csrf       
                     <div class="row mb-3">
                         <div class="col-6">
@@ -16,12 +19,14 @@
                                 <div class="col-4">
                                     <label class="form-label" for="">Nama Pengirim</label>
                                 </div>
+                                <!-- input nama perusahaan -->
                                 <div class="col-8">
                                     <input type="text" class="form-control" disabled name="" value="{{$perusahaan->nama_perusahaan}}" id="">
                                     <input type="text" hidden name="dari" value="{{$perusahaan->nama_perusahaan}}" id="">    
                                 </div>
                             </div>
                         </div>
+                        <!-- input pesan -->
                         <div class="col-6">
                             <div class="row">
                                 <div class="mx-auto">Jelaskan apa kendalamu</div>

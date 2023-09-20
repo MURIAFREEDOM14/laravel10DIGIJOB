@@ -16,6 +16,7 @@ use App\Models\notifyKandidat;
 
 class ManagerPaymentController extends Controller
 {
+    // halaman beranda manager pembayaran
     public function index()
     {
         $user = Auth::user();
@@ -25,6 +26,7 @@ class ManagerPaymentController extends Controller
         return view('manager/payment/index',compact('manager','data_kandidat','data_perusahaan'));
     }
 
+    // halaman data pembayaran kandidat
     public function kandidatPayment()
     {
         $user = Auth::user();
@@ -34,6 +36,7 @@ class ManagerPaymentController extends Controller
         return view('manager/payment/kandidat_payment',compact('manager','pembayaran','riwayat'));
     }
 
+    // halaman lihat detail pembayaran kandidat
     public function lihatKandidatPayment($id)
     {
         $user = Auth::user();
@@ -42,6 +45,7 @@ class ManagerPaymentController extends Controller
         return view('manager/payment/lihat_kandidat_payment',compact('manager','pembayaran'));
     }
 
+    // konfirmasi pembayaran kandidat
     public function confirmKandidatPayment(Request $request, $id)
     {
         $user = Auth::user();
@@ -49,6 +53,7 @@ class ManagerPaymentController extends Controller
         return redirect('/manager/payment/kandidat')->with('success',"Successfully");
     }
 
+    // halaman data pembayaran perusahaan
     public function perusahaanPayment()
     {
         $user = Auth::user();
@@ -58,6 +63,7 @@ class ManagerPaymentController extends Controller
         return view('manager/payment/perusahaan_payment',compact('manager','pembayaran','riwayat'));
     }
 
+    // halaman lihat detail pembayaran perusahaan
     public function lihatPerusahaanPayment($id)
     {
         $user = Auth::user();
@@ -66,6 +72,7 @@ class ManagerPaymentController extends Controller
         return view('manager/payment/lihat_perusahaan_payment',compact('manager','pembayaran'));
     }
 
+    // konfirmasi pembayaran perusahaan
     public function confirmPerusahaanPayment(Request $request, $id)
     {
         $user = Auth::user();

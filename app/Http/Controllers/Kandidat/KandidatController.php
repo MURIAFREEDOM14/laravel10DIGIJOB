@@ -29,15 +29,13 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\PersetujuanKandidat;
 use App\Models\Pelatihan;
 use App\Models\VerifyOTP;
-use Twilio\Rest\Client;
 use App\Models\Interview;
 use App\Models\Portofolio;
 use App\Models\VideoKerja;
 use App\Models\FotoKerja;
-use App\Models\ReportUserIn;
-use App\Models\ReportNewUser;
 use App\Models\DataKeluarga;
 use App\Models\KandidatInterview;
+use App\Models\ContactUsKandidat;
 
 class KandidatController extends Controller
 {
@@ -1588,15 +1586,29 @@ class KandidatController extends Controller
     }
 
     // halaman hub. kami / bantuan bagian kandidat
-    // public function contactUsKandidat()
-    // {
-    //     $id = Auth::user();
-    //     $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
-    //     $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
-    //     $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
-    //     $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
-    //     return view('kandidat/contact_us',compact('kandidat','notif','pembayaran','pesan'));
-    // }
+    public function contactUsKandidat()
+    {
+        $id = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
+        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $pembayaran = Pembayaran::where('id_kandidat',$kandidat->id_kandidat)->first();
+        return view('kandidat/contact_us',compact('kandidat','notif','pembayaran','pesan'));
+    }
+
+    // proses kirim pesan contact us kandidat
+    public function sendContactUsKandidat(Request $request)
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        ContactUsKandidat::create([
+            'id_kandidat' => $kandidat->id_kandidat,
+            'dari' => $kandidat->nama,
+            'isi' => $request->isi,
+            'balas' => "belum dibaca",
+        ]);
+        return redirect('/contact_us_kandidat')->with('success',"Pesan telah terkirim");
+    }
 
     // halaman data video pelatihan untuk kandidat
     public function videoPelatihan()

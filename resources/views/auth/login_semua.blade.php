@@ -111,9 +111,9 @@
                     <div class="row">
                         <div class="col-md-12 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                             <a href="/forgot_password/kandidat" style="color: white;">
-                                <div class="icon-box text-center" style="border-style: outset; background-color: #19A7CE; padding:20px">
+                                <div class="icon-box text-center" style="border-style: outset; background-image: linear-gradient(to top, white, rgb(232,232,232), rgb(0, 100, 255)); padding:20px">
                                     {{-- <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div> --}}
-                                    <h4 style="text-transform: uppercase;color: white">Pencari Kerja /  Kandidat</h4>
+                                    <h4 style="text-transform: uppercase;color: black">Pencari Kerja /  Kandidat</h4>
                                 </div>
                             </a>
                         </div>
@@ -121,9 +121,9 @@
                     <div class="row">
                         <div class="col-md-12 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                             <a href="/forgot_password/akademi" style="color: white">
-                                <div class="icon-box text-center" style="border-style: outset;background-color: #F0B86E; padding:20px;">
+                                <div class="icon-box text-center" style="border-style: outset; background-image: linear-gradient(to top, white, rgb(255, 254, 196), rgb(241, 201, 59)); padding:20px;">
                                     {{-- <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div> --}}
-                                    <h4 style="text-transform: uppercase; color: white">Akademi</h4>
+                                    <h4 style="text-transform: uppercase; color: black">Akademi</h4>
                                 </div>
                             </a>
                         </div>
@@ -131,9 +131,9 @@
                     <div class="row">
                         <div class="col-md-12 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                             <a href="/forgot_password/perusahaan" style="color: white">
-                                <div class="icon-box text-center" style="border-style: outset;background-color: #2bb930; padding:20px;">
+                                <div class="icon-box text-center" style="border-style: outset; background-image: linear-gradient(to top, white, rgb(208, 231, 210), rgb(21, 182, 7)); padding:20px;">
                                     {{-- <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div> --}}
-                                    <h4 style="text-transform: uppercase; color: white">Perusahaan</h4>
+                                    <h4 style="text-transform: uppercase; color: black">Perusahaan</h4>
                                 </div>
                             </a>
                         </div>

@@ -1,5 +1,7 @@
 @extends('layouts.akademi')
 @section('content')
+@include('sweetalert::alert')
+@include('flash_message')
 <div class="container mt-5">
     <div class="container-fluid">
         <div class="card">
@@ -7,8 +9,8 @@
                 Contact Us
             </div>
             <div class="card-body">
-                <!-- form(post) ContactUsController => sendContactUs -->
-                <form action="/manager/contact_us" method="POST">
+                <!-- form(post) AkademiController => sendContactUsAkademi -->
+                <form action="/akademi/contact_us_akademi" method="POST">
                     @csrf       
                     <div class="row mb-3">
                         <div class="col-6">

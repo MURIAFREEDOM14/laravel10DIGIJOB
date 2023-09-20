@@ -26,39 +26,7 @@ use Illuminate\Support\Facades\Mail;
 
 class ContactUsController extends Controller
 {
-    public function contactUsAdmin()
-    {
-        $user = Auth::user();
-        // $admin = User::where('type',4)->first();
-        $admin = User::where('type',4)->first();
-        return view('manager/contactService/contact_us',compact('admin'));
-    }
-
-    public function tambahContactUsAdmin(Request $request)
-    {
-        $code = "1357924680";
-        $user = User::create([
-            'name' => $request->admin,
-            'email' => $request->email,
-            'password' => $request->password,
-            'type' =>   4,
-        ]);
-
-        $id = $user->id;
-        $referral_code = \Hashids::encode($id.$code);
-        
-        User::where('id',$id)->update([
-            'referral_code' => $referral_code,
-        ]);
-        return redirect('/manager/contact_us_admin')->with('success',"Data ditambahkan");
-    }
-
-    public function hapusContactUsAdmin(Request $request)
-    {
-        $hapus = User::where('referral_code',$request->referral_code)->delete();
-        return redirect('/manager/contact_us_admin')->with('success',"Data dihapus");
-    }
-
+    // halaman beranda Manager Contact Us
     public function contactUs()
     {
         $user = Auth::user();
@@ -68,63 +36,8 @@ class ContactUsController extends Controller
         $notifCP = ContactUsPerusahaan::where('balas',"belum dibaca")->limit(20)->get();
         return view('manager/contactService/index',compact('admin','notifCK','notifCA','notifCP'));
     }
-    
-    public function lihatContactUs($id)
-    {
-        $user = Auth::user();
-        $manager = User::where('referral_code',$user->referral_code)->first();
-        $contact_us = ContactUs::where('id',$id)->first();
-        return view('manager/contactService/lihat_contact_us',compact('admin','contact_us'));
-    }
 
-    public function sendContactUs(Request $request)
-    {
-        $dari = $request->dari;
-        $isi = $request->isi;
-        $id_kandidat = $request->id_kandidat;
-        $id_akademi = $request->id_akademi;
-        $id_perusahaan = $request->id_perusahaan;
-        $email = $request->email;
-        $no_telp = $request->no_telp;
-
-        if($id_perusahaan !== null){
-            ContactUsPerusahaan::create([
-                'id_perusahaan' => $id_perusahaan,
-                'dari' => $dari,
-                'isi' => $isi,
-                'balas' => "belum dibaca",
-            ]);
-        } elseif($id_akademi !== null){
-            ContactUsAkademi::create([
-                'id_akademi' => $id_akademi,
-                'dari' => $dari,
-                'isi' => $isi,
-                'balas' => "belum dibaca",
-            ]);
-        } elseif($id_kandidat !== null){
-            ContactUsKandidat::create([
-                'id_kandidat' => $id_kandidat,
-                'dari' => $dari,
-                'isi' => $isi,
-                'balas' => "belum dibaca",
-            ]);
-        } else {
-            ContactUs::create([
-                'dari' => $dari,
-                'isi' => $isi,
-                'email' => $email,
-                'no_telp' => $no_telp,
-                'balas' => "belum dibaca",
-            ]);
-        }
-        if(Auth::user() == null)
-        {
-            return redirect('/hubungi_kami')->with('success',"Pesan berhasil terkirim");
-        } else {
-            return redirect('/')->with('success',"Pesan berhasil terkirim");
-        }
-    }
-
+    // halaman data pesan kandidat
     public function contactUsKandidatList()
     {
         $user = Auth::user();
@@ -133,6 +46,7 @@ class ContactUsController extends Controller
         return view('manager/contactService/kandidat_list',compact('admin','semua_kandidat'));
     }
 
+    // halaman lihat pesan kandidat
     public function contactUsKandidatLihat($id)
     {
         $user = Auth::user();
@@ -141,6 +55,7 @@ class ContactUsController extends Controller
         return view('manager/contactService/kandidat_lihat',compact('admin','kandidat'));
     }
 
+    // sistem kirim pesan ke kandidat
     public function contactUsKandidatJawab(Request $request,$id)
     {
         $contact_kandidat = ContactUsKandidat::where('id_contact_kandidat',$id)->first();
@@ -160,6 +75,8 @@ class ContactUsController extends Controller
         ]);
         return redirect('/manager/lihat/contact_kandidat/'.$id)->with('success',"Pesan Terkirim");
     }
+
+    // halaman data pesan akademi
     public function contactUsAkademiList()
     {
         $user = Auth::user();
@@ -168,6 +85,7 @@ class ContactUsController extends Controller
         return view('manager/contactService/akademi_list',compact('admin','semua_akademi'));
     }
 
+    // halaman lihat pesan akademi
     public function contactUsAkademiLihat($id)
     {
         $user = Auth::user();
@@ -176,6 +94,7 @@ class ContactUsController extends Controller
         return view('manager/contactService/akademi_lihat',compact('admin','akademi'));
     }
 
+    // sistem kirim pesan ke akademi
     public function contactUsAkademiJawab(Request $request,$id)
     {
         $contact_akademi = ContactUsAkademi::where('id_contact_akademi',$id)->first();
@@ -195,6 +114,8 @@ class ContactUsController extends Controller
         ]);
         return redirect('/manager/lihat/contact_akademi/'.$id)->with('success',"Pesan Terkirim");
     }
+
+    // halaman data pesan perusahaan
     public function contactUsPerusahaanList()
     {
         $user = Auth::user();
@@ -203,6 +124,7 @@ class ContactUsController extends Controller
         return view('manager/contactService/perusahaan_list',compact('admin','semua_perusahaan'));
     }
 
+    // halaman lihat pesan perusahaan
     public function contactUsPerusahaanLihat($id)
     {
         $user = Auth::user();
@@ -211,6 +133,7 @@ class ContactUsController extends Controller
         return view('manager/contactService/perusahaan_lihat',compact('admin','perusahaan'));
     }
 
+    // sistem kirim pesan ke perusahaan
     public function contactUsPerusahaanJawab(Request $request, $id)
     {
         $contact_perusahaan = ContactUsPerusahaan::where('id_contact_perusahaan',$id)->first();

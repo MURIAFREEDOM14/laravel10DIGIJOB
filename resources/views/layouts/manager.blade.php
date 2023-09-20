@@ -265,11 +265,6 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="btn" href="/manager/kandidat/penolakan_kandidat">
-                                                <span class="sub-item">Penolakan Kandidat</span>
-                                            </a>
-                                        </li>
-                                        <li>
                                             <a class="btn" href="/manager/kandidat/penghapusan_kandidat">
                                                 <span class="sub-item">Penghapusan Kandidat</span>
                                             </a>

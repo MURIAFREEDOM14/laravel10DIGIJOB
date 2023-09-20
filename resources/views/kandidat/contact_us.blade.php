@@ -1,5 +1,7 @@
 @extends('layouts.kandidat')
 @section('content')
+@include('sweetalert::alert')
+@include('flash_message')
     <div class="container mt-5">
         <div class="container-fluid">
             <div class="card">
@@ -7,8 +9,8 @@
                     Contact Us
                 </div>
                 <div class="card-body">
-                    <!-- form(post) ContactUsController => contactUs -->
-                    <form action="/manager/contact_us" method="POST">
+                    <!-- form(post) KandidatController => sendContactUsKandidat -->
+                    <form action="/contact_us_kandidat" method="POST">
                         @csrf       
                         <div class="row mb-3">
                             <div class="col-6">

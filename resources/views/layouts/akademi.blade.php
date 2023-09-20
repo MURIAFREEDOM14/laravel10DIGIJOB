@@ -271,7 +271,7 @@
                         </nav>
                         <div class="copyright ml-auto">
                             &nbsp;
-                            <strong><a class="" href="/contact_us_akademi" style="color: white; background-color:transparent; text-decoration:none; text-transform:uppercase;">Hubungi Kami</a></strong>
+                            <strong><a class="" href="/akademi/contact_us_akademi" style="color: white; background-color:transparent; text-decoration:none; text-transform:uppercase;">Hubungi Kami</a></strong>
                         </div>
                     </div>
                 </footer>

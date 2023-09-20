@@ -67,14 +67,17 @@ class ManagerController extends Controller
         if($data == null){
             return redirect()->back()->with('error',"maaf Email atau Password anda salah");
         } else {
+            // apabila ialah Manager
             if($data->type == 3){
                 $user = User::where('type',3)->first();
                 Auth::login($user);
                 return redirect()->route('manager');
+            // atau jika ialah Manager Contact Service
             } elseif($data->type == 4) {
                 $user = User::where('type',4)->first();
                 Auth::login($user);
                 return redirect()->route('cs');
+            // atau jika ialah Manager Pembayaran
             } elseif($data->type == 5) {
                 $user = User::where('type',5)->first();
                 Auth::login($user);
@@ -91,29 +94,50 @@ class ManagerController extends Controller
         $id = Auth::user();
         $manager = User::where('referral_code',$id->referral_code)->where('type','like',3)->first();
 
+        // menjumlahkan semua data pengguna, dari : kandidat, akademi, dan perusahaan
         $semua_kandidat = User::where('type',0)->count();
         $semua_akademi = User::where('type',1)->count();
         $semua_perusahaan = User::where('type',2)->count();
         
+        // mengambil data hari ini
         $data = date('Y-m-d');
+        
+        // mencari kandidat yang baru saya register
         $kandidat_baru = User::where('created_at','like','%'.$data.'%')->where('type',0)->get();
+        // menjumlahkan data kandidat yang register
         $ttl_baru_kandidat = $kandidat_baru->count();
+        // mencari kandidat yang login hari ini
         $login_kandidat = User::where('updated_at','like','%'.$data.'%')->where('type',0)->get();
+        // menjumlahkan kandidat yang login hari ini
         $total_kandidat = $login_kandidat->count();
         
+        // mencari akademi yang baru saya register
         $akademi_baru = User::where('created_at','like','%'.$data.'%')->where('type',1)->get();
+        // menjumlahkan data akademi yang register
         $ttl_baru_akademi = $akademi_baru->count();
+        // mencari akademi yang login hari ini
         $login_akademi = User::where('updated_at','like','%'.$data.'%')->where('type',1)->get();
+        // menjumlahkan akademi yang login hari ini
         $total_akademi = $login_akademi->count();        
+        
+        // membatasi menampilkan data akademi sebanyak 10
         $akademi_list = Akademi::limit(10)->get();
 
+        // // mencari perusahaan yang baru saya register
         $perusahaan_baru = User::where('created_at','like','%'.$data.'%')->where('type',2)->get();
+        // menjumlahkan data perusahaan yang register
         $ttl_baru_perusahaan = $perusahaan_baru->count();
+        // mencari perusahaan yang login hari ini
         $login_perusahaan = User::where('updated_at','like','%'.$data.'%')->where('type',2)->get();
+        // menjumlahkan perusahaan yang login hari ini
         $total_perusahaan = $login_perusahaan->count();                
+        
+        // membatasi menampilkan data perusahaan sebanyak 10
         $perusahaan_list = Perusahaan::limit(10)->get();
 
+        // menampilkan data negara tujuan
         $negara_tujuan = Negara::all();
+        // menampilkan data kandidat
         $kandidat = Kandidat::all();
 
         return view('manager/manager_home',compact(
@@ -149,26 +173,35 @@ class ManagerController extends Controller
     // proses pengiriman email kepada para pengguna aplikasi (kecuali manager)
     public function sendEmailVerify(Request $request, $id)
     {
+        // mencari data pengguna
         $pengguna = User::where('email',$request->email)->first();
+        // apabila memilih pesan verifikasi email
         if($request->type == 0){
+            // apabila data pengguna adalah perusahaan    
             if($pengguna->type == 2){
                 Mail::mailer('verification')->to($request->email)->send(new Verification($pengguna->name_perusahaan, $pengguna->token, 'Email Verifikasi', 'no-reply@ugiport.com'));
+            // jika data pengguna adalah akademi
             } elseif($pengguna->type == 1) {
                 Mail::mailer('verification')->to($request->email)->send(new Verification($pengguna->name_akademi, $pengguna->token, 'Email Verifikasi', 'no-reply@ugiport.com'));
+            // jika data pengguna adalah kandidat
             } elseif($pengguna->type == 0) {
                 Mail::mailer('verification')->to($request->email)->send(new Verification($pengguna->name, $pengguna->token, 'Email Verifikasi','no-reply@ugiport.com'));
             }
+        // apabila memilih pesan pembayaran email
         } elseif($request->type == 1) {
             $namarec = "PT HARAPAN MENTARI PAGI";
             $bank = "PT Bank Central Asia Tbk";
             $nomorec = 4399997272;
             $payment = 0;
             $token = $pengguna->token;
+            // apabila data pengguna adalah perusahaan
             if($pengguna->type == 2){
                 Mail::mailer('payment')->to($request->email)->send(new Payment($pengguna->name_perusahaan, $token, $payment, 'Pembayaran Interview', 'digijobaccounting@ugiport.com', $namarec, $nomorec, $bank));
+            // jika data pengguna adalah kandidat
             } else {
                 Mail::mailer('payment')->to($request->email)->send(new Payment($pengguna->name, $token, $payment, 'Pembayaran Akun Prioritas', 'digijobaccounting@ugiport.com', $namarec, $nomorec, $bank));
             }
+            
         } elseif($request->type == 2) {
             $alamat = $pengguna->kabupaten;
         }

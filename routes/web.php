@@ -157,10 +157,6 @@ Route::controller(ManagerKandidatController::class)->group(function() {
     Route::get('/manager/kandidat/pelamar_lowongan','pelamarLowongan');
     Route::get('/manager/kandidat/lihat_lowongan_pelamar/{id}','lihatPelamarLowongan');
 
-    // route penolakan kandidat
-    Route::get('/manager/kandidat/penolakan_kandidat','penolakanKandidat');
-    Route::get('/manager/kandidat/lihat/penolakan_kandidat/{id}','lihatPenolakanKandidat');
-
     // route penghapusan data kandidat
     Route::get('/manager/kandidat/penghapusan_kandidat','penghapusanKandidat')->middleware('manager');
     Route::get('/manager/kandidat/confirm_penghapusan/{id}','confirmPenghapusanKandidat');
@@ -207,20 +203,29 @@ Route::controller(ContactUsController::class)->group(function() {
     Route::get('/manager/contact_us','contactUs')->middleware('contact.service')->name('cs');
     Route::post('/manager/contact_us','sendContactUs');
     
-    // route manager contact us kandidat
-    Route::get('/manager/contact_us_kandidat','contactUsKandidatList')->middleware('contact.service');
-    Route::get('/manager/lihat/contact_kandidat/{id}','contactUsKandidatLihat')->middleware('contact.service');
-    Route::post('/manager/lihat/contact_kandidat/{id}','contactUsKandidatJawab');
+    // DENGAN KANDIDAT //
+    {
+        // route manager contact us kandidat
+        Route::get('/manager/contact_us_kandidat','contactUsKandidatList')->middleware('contact.service');
+        Route::get('/manager/lihat/contact_kandidat/{id}','contactUsKandidatLihat')->middleware('contact.service');
+        Route::post('/manager/lihat/contact_kandidat/{id}','contactUsKandidatJawab');
+    }
     
-    // route manager contact us akademi
-    Route::get('/manager/contact_us_akademi','contactUsAkademiList')->middleware('contact.service');
-    Route::get('/manager/lihat/contact_akademi/{id}','contactUsAkademiLihat')->middleware('contact.service');
-    Route::post('/manager/lihat/contact_akademi/{id}','contactUsAkademiJawab');
-    
-    // route manager contact us perusahaan
-    Route::get('/manager/contact_us_perusahaan','contactUsPerusahaanList')->middleware('contact.service');
-    Route::get('/manager/lihat/contact_perusahaan/{id}','contactUsPerusahaanLihat')->middleware('contact.service');
-    Route::post('/manager/lihat/contact_perusahaan/{id}','contactUsPerusahaanJawab');
+    // DENGAN AKADEMI //
+    {
+        // route manager contact us akademi
+        Route::get('/manager/contact_us_akademi','contactUsAkademiList')->middleware('contact.service');
+        Route::get('/manager/lihat/contact_akademi/{id}','contactUsAkademiLihat')->middleware('contact.service');
+        Route::post('/manager/lihat/contact_akademi/{id}','contactUsAkademiJawab');
+    }
+
+    // DENGAN PERUSAHAAN //
+    {
+        // route manager contact us perusahaan
+        Route::get('/manager/contact_us_perusahaan','contactUsPerusahaanList')->middleware('contact.service');
+        Route::get('/manager/lihat/contact_perusahaan/{id}','contactUsPerusahaanLihat')->middleware('contact.service');
+        Route::post('/manager/lihat/contact_perusahaan/{id}','contactUsPerusahaanJawab');
+    }
 });
 
 // DATA LAMAN //
@@ -319,6 +324,7 @@ Route::controller(KandidatController::class)->group(function() {
     
     // contact us kandidat
     Route::get('/contact_us_kandidat','contactUsKandidat')->middleware('kandidat');
+    Route::post('/contact_us_kandidat','sendContactUsKandidat');
 
     // route informasi aplikasi ini didapat
     Route::post('/info_connect/{nama}/{id}','simpanInfoConnect');
@@ -392,10 +398,6 @@ Route::controller(KandidatController::class)->group(function() {
     // route video pelatihan kandidat
     Route::get('/video_pelatihan','videoPelatihan')->middleware('kandidat');
     Route::get('/lihat_video_pelatihan/{id}','lihatVideoPelatihan')->middleware('kandidat');
-    
-    // route hub. kami / bantuan kandidat
-    // Route::get('/contact_us','contactUsKandidat');
-    // Route::post('/contact_us','sendContactUsKandidat');
 });
 
 // DATA KANDIDAT PERUSAHAAN //
@@ -431,8 +433,9 @@ Route::controller(AkademiController::class)->group(function() {
         Route::get('/akademi/lihat/profil','lihatProfilAkademi')->middleware('akademi');
         
         // route hub. kami / bantuan akademi
-        // Route::get('/contact_us_akademi','contactUsAkademi')->middleware('akademi');
-        
+        Route::get('/akademi/contact_us_akademi','contactUsAkademi')->middleware('akademi');
+        Route::post('/akademi/contact_us_akademi','sendContactUsAkademi');
+
         // route isi data akademi
         Route::get('/akademi/isi_akademi_data','isi_akademi_data')->middleware('akademi')->name('akademi.data');
         Route::post('/akademi/isi_akademi_data','simpan_akademi_data');
@@ -502,8 +505,9 @@ Route::controller(PerusahaanController::class)->group(function(){
         Route::post('/perusahaan/isi_perusahaan_operator','simpan_perusahaan_operator');
         
         // route hub. kami / bantuan bagian perusahaan
-        // Route::get('/contact_us_perusahaan','contactUsPerusahaan')->middleware('perusahaan');
-
+        Route::get('/perusahaan/contact_us_perusahaan','contactUsPerusahaan')->middleware('perusahaan');
+        Route::post('/perusahaan/contact_us_perusahaan','sendContactUsPerusahaan');
+        
         // route pembayaran perusahaan
         Route::get('/perusahaan/list/pembayaran','pembayaran')->middleware('perusahaan');
         Route::get('/perusahaan/payment/{id}','payment')->middleware('perusahaan');

@@ -20,6 +20,7 @@ use App\Models\notifyAkademi;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\ContactUsAkademi;
 
 class AkademiController extends Controller
 {
@@ -167,14 +168,28 @@ class AkademiController extends Controller
     }
 
     // halaman hub. kami / bantuan bagian akademi
-    // public function contactUsAkademi()
-    // {
-    //     $id = Auth::user();
-    //     $akademi = Akademi::where('referral_code',$id->referral_code)->first();
-    //     $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
-    //     $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
-    //     return view('akademi/contact_us',compact('akademi','pesan','notif'));
-    // }
+    public function contactUsAkademi()
+    {
+        $id = Auth::user();
+        $akademi = Akademi::where('referral_code',$id->referral_code)->first();
+        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->limit(3)->get();
+        return view('akademi/contact_us',compact('akademi','pesan','notif'));
+    }
+
+    // proses kirim pesan contact us akademi
+    public function sendContactUsAkademi(Request $request)
+    {
+        $user = Auth::user();
+        $akademi = Akademi::where('referral_code',$user->referral_code)->first();
+        ContactUsAkademi::create([
+            'id_akademi' => $akademi->id_akademi,
+            'dari' => $akademi->nama_akademi,
+            'isi' => $request->isi,
+            'balas' => "belum dibaca",
+        ]);
+        return redirect('/akademi/contact_us_akademi')->with('success',"Pesan telah terkirim");
+    }
 
     // halaman data kandidat dalam akademi
     public function listKandidat()
