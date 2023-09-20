@@ -16,11 +16,14 @@
                         </div>
                         <div class="col-md-9">
                             <select name="penempatan" required class="form-control" id="negara_tujuan">
-                                <option value="">-- Pilih Negara Penempatan --</option>
                                 @if ($type == "dalam")
-                                    <option value="{{$negara->negara}}">{{$negara->negara}}</option>
+                                    <option value="">-- Pilih Provinsi --</option>
+                                    @foreach ($provinsi as $item)
+                                        <option value="{{$item->provinsi}}">{{$item->provinsi}}</option>                                        
+                                    @endforeach
                                 @else
-                                    @foreach ($negara as $item)                                    
+                                    <option value="">-- Pilih Negara Penempatan --</option>                                    
+                                    @foreach ($negara as $item)
                                         <option value="{{$item->negara}}">{{$item->negara}}</option>                                                                        
                                     @endforeach    
                                 @endif
@@ -208,18 +211,26 @@
                         <div class="col-md-9">
                             <div class="form-check">                               
                                 @if ($type == "dalam")
-                                    <label class="form-radio-label">
-                                        <input class="form-radio-input" type="radio" name="pencarian_tmp" value="{{$perusahaan->kota}}"  checked="">
-                                        <span class="form-radio-sign">Se-Kabupaten /  Kota</span>
-                                    </label>
-                                    <label class="form-radio-label ml-3">
-                                        <input class="form-radio-input" type="radio" name="pencarian_tmp" value="{{$perusahaan->provinsi}}">
-                                        <span class="form-radio-sign">Se-Provinsi</span>
-                                    </label>
-                                    <label class="form-radio-label ml-3">
-                                        <input class="form-radio-input" type="radio" name="pencarian_tmp" value="Se-indonesia">
-                                        <span class="form-radio-sign">Se-Indonesia</span>
-                                    </label>    
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label class="form-radio-label">
+                                                <input class="form-radio-input" type="radio" name="pencarian_tmp" value="{{$perusahaan->kota}}"  checked="">
+                                                <span class="form-radio-sign">Se-Kabupaten /  Kota</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-radio-label ml-3">
+                                                <input class="form-radio-input" type="radio" name="pencarian_tmp" value="{{$perusahaan->provinsi}}">
+                                                <span class="form-radio-sign">Se-Provinsi</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-radio-label ml-3">
+                                                <input class="form-radio-input" type="radio" name="pencarian_tmp" value="Se-indonesia">
+                                                <span class="form-radio-sign">Se-Indonesia</span>
+                                            </label>
+                                        </div>
+                                    </div>
                                 @elseif($type == "luar")
                                     <label class="form-radio-label ml-3">
                                         <input class="form-radio-input" type="radio" name="pencarian_tmp" value="Se-indonesia" checked="">

@@ -313,12 +313,12 @@
                                                 </a>    
                                             @endif
                                             <li class="nav-section">
-                                                <h4 class="text-section">Daftar Lowongan</h4>
+                                                <h4 class="text-section">List Lowongan</h4>
                                             </li>
                                             <a href="/perusahaan/list_permohonan_lowongan">
                                                 <li class="nav-item">
                                                     <i class="fas fa-pen-square"></i>
-                                                    <p>Daftar Lowongan</p>
+                                                    <p>List Lowongan</p>
                                                 </li>
                                             </a>
                                         </ul>

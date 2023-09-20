@@ -45,6 +45,7 @@
                         </div>
                     @endforeach
                 </div>
+                <a href="/perusahaan" class="btn btn-danger">Kembali</a>
             </div>
         </div>
     </div>

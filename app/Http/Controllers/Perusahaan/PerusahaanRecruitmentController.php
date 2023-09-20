@@ -70,11 +70,13 @@ class PerusahaanRecruitmentController extends Controller
         // apabila memilih lowongan dalam negeri
         if($type == "dalam"){
             $negara = Negara::where('negara','like',"%Indonesia%")->first();
+            $provinsi = Provinsi::all();
         } else {
             $negara = Negara::where('negara','not like',"%Indonesia%")->get();
+            $provinsi = Provinsi::all();
         }
         $jenis_pekerjaan = JenisPekerjaan::all();
-        return view('perusahaan/lowongan/tambah_lowongan',compact('perusahaan','notif','pesan','credit','negara','jenis_pekerjaan','type','benefit','fasilitas'));
+        return view('perusahaan/lowongan/tambah_lowongan',compact('perusahaan','notif','pesan','credit','negara','provinsi','jenis_pekerjaan','type','benefit','fasilitas'));
     }
 
     // Ajax lowongan negara tujuan

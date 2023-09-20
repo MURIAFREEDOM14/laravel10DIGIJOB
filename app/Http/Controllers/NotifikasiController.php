@@ -12,7 +12,6 @@ use App\Models\Akademi;
 use App\Models\Notification;
 use App\Models\Pembayaran;
 use App\Models\Perusahaan;
-use App\Models\PerusahaanCabang;
 use App\Models\Message;
 use App\Models\messageKandidat;
 use App\Models\messageAkademi;
@@ -78,9 +77,8 @@ class NotifikasiController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $semua_notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('pengirim','not like',$perusahaan->nama_perusahaan)->where('check_click',"n")->get();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/semua_notif',compact('perusahaan','notif','pesan','semua_notif','cabang','credit'));
+        return view('perusahaan/semua_notif',compact('perusahaan','notif','pesan','semua_notif','credit'));
     }
 
     public function lihatNotifPerusahaan($id)

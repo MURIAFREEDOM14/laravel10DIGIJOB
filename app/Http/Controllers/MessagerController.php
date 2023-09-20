@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Notification;
 use App\Models\Message;
 use App\Models\Perusahaan;
-use App\Models\PerusahaanCabang;
 use App\Models\Pembayaran;
 use App\Models\CreditPerusahaan;
 use Carbon\Carbon;
@@ -93,10 +92,9 @@ class MessagerController extends Controller
             'check_click' => 'y',
         ]);
         $pengirim = messagePerusahaan::where('id',$id)->first();
-        $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
-        return view('perusahaan/hapus_pesan',compact('perusahaan','pesan','notif','pengirim','cabang','credit','id'));
+        return view('perusahaan/hapus_pesan',compact('perusahaan','pesan','notif','pengirim','credit','id'));
     }
 
     public function deleteMessagePerusahaan($id)
