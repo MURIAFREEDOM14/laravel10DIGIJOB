@@ -121,32 +121,32 @@
         <div class="col-12" data-aos="fade-up" data-aos-delay="200" style="width: 100%; height:100%;">
           <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-              <div class="carousel-item active" data-bs-interval="1500">
+              <div class="carousel-item active" data-bs-interval="7000">
                 {{-- <img src="Arsha/assets/img/hero-img.png" class="img-fluid text-center" alt=""> --}}
                 <img src="/gambar/Laman/image1.jpg" class="img-fluid text-center" alt="" style="width: 100%; height:auto;">
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
                 </div>
               </div>
-              <div class="carousel-item" data-bs-interval="1500">
+              <div class="carousel-item" data-bs-interval="7000">
                 <img src="/gambar/Laman/image2.jpg" class="img-fluid text-center" alt="" style="width: 100%; height:auto">
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
                 </div>
               </div>
-              <div class="carousel-item" data-bs-interval="1500">
+              <div class="carousel-item" data-bs-interval="7000">
                 <img src="/gambar/Laman/image3.jpg" class="img-fluid text-center" alt="" style="width: 100%; height:auto">
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
                 </div>
               </div>
-              <div class="carousel-item" data-bs-interval="1500">
+              <div class="carousel-item" data-bs-interval="7000">
                 <img src="/gambar/Laman/image4.jpg" class="img-fluid text-center" alt="" style="width: 100%; height:auto">
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
                 </div>
               </div>
-              <div class="carousel-item" data-bs-interval="1500">
+              <div class="carousel-item" data-bs-interval="7000">
                 <img src="/gambar/Laman/image5.jpg" class="img-fluid text-center" alt="" style="width: 100%; height:auto;">
                 <div class="carousel-caption d-none d-md-block">
                   <p style="color: black"></p>
