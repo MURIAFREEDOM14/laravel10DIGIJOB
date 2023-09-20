@@ -50,6 +50,7 @@ class PerusahaanController extends Controller
         $interview = Interview::where('status',"terjadwal")->where('id_perusahaan',$perusahaan->id_perusahaan)->get();        
         $notifyP = notifyPerusahaan::where('created_at','<',Carbon::now()->subDays(14))->delete();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        // menampilkan data negara + pekerjaan
         $penempatan = Negara::join(
             'pekerjaan', 'ref_negara.negara_id','=','pekerjaan.negara_id'
         )
@@ -63,6 +64,7 @@ class PerusahaanController extends Controller
                 'no_nib' => $perusahaan->no_nib,
             ]);
         } 
+        // mereset ulang jumlah kesalahan password
         User::where('no_nib',$perusahaan->no_nib)->update([
             'counter' => null,
         ]);
@@ -79,6 +81,7 @@ class PerusahaanController extends Controller
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->get();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        // jika nama pemimpin perusahaan belum ada
         if($perusahaan->nama_pemimpin == null)
         {
             return redirect()->route('perusahaan')->with('warning',"Harap lengkapi profil perusahaan terlebih dahulu");
@@ -102,55 +105,52 @@ class PerusahaanController extends Controller
         $id = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
         // cek foto perusahaan
+        // apabila ada inputan
         if($request->file('foto_perusahaan') !== null){
-            // sistem validasi data perusahaan
-            // $this->validate($request, [
-            //     'foto_perusahaan' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
-            // ]);
-            // mencari dan menghapus data foto sebelumnya bila ada
+            // mencari data sebelumnya dan menghapusnya bila ada
             $hapus_foto_perusahaan = public_path('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Foto Perusahaan/').$perusahaan->foto_perusahaan;
             if(file_exists($hapus_foto_perusahaan)){
                 @unlink($hapus_foto_perusahaan);
             }
             // memasukkan data file ke aplikasi
-            $photo_perusahaan = $perusahaan->nama_perusahaan.time().'.'.$request->foto_perusahaan->extension();  
-            $simpan_photo_perusahaan = $request->file('foto_perusahaan');
-            $simpan_photo_perusahaan->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Foto Perusahaan/',$perusahaan->nama_perusahaan.time().'.'.$simpan_photo_perusahaan->extension());
+            $photo_perusahaan = $request->file('foto_perusahaan');
+            $simpan_photo_perusahaan = $perusahaan->nama_perusahaan.time().'.'.$photo_perusahaan->extension();  
+            $photo_perusahaan->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Foto Perusahaan/',$simpan_photo_perusahaan);
         } else {
             if($perusahaan->foto_perusahaan !== null){
-                $photo_perusahaan = $perusahaan->foto_perusahaan;                
+                $simpan_photo_perusahaan = $perusahaan->foto_perusahaan;                
             } else {
-                $photo_perusahaan = null;    
+                $simpan_photo_perusahaan = null;    
             }
         }
         // cek logo perusahaan
+        // apabila ada inputan
         if($request->file('logo_perusahaan') !== null){
-            // $this->validate($request, [
-            //     'foto_ktp_izin' => 'required|file|image|mimes:jpeg,png,jpg|max:1024',
-            // ]);
+            // mencari file sebelumnya dan menghapusnya bila ada
             $hapus_logo_perusahaan = public_path('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Logo Perusahaan/').$perusahaan->logo_perusahaan;
             if(file_exists($hapus_logo_perusahaan)){
                 @unlink($hapus_logo_perusahaan);
             }
-            $logo = $perusahaan->nama_perusahaan.time().'.'.$request->logo_perusahaan->extension();  
-            $simpan_logo = $request->file('logo_perusahaan');
-            $simpan_logo->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Logo Perusahaan/',$perusahaan->nama_perusahaan.time().'.'.$simpan_logo->extension());
+            // memasukkan file ke dalam aplikasi
+            $logo = $request->file('logo_perusahaan');
+            $simpan_logo = $perusahaan->nama_perusahaan.time().'.'.$logo->extension();  
+            $logo->move('gambar/Perusahaan/'.$perusahaan->nama_perusahaan.'/Logo Perusahaan/',$simpan_logo);
         } else {
             if($perusahaan->logo_perusahaan !== null){
-                $logo = $perusahaan->logo_perusahaan;                
+                $simpan_logo = $perusahaan->logo_perusahaan;                
             } else {
-                $logo = null;    
+                $simpan_logo = null;    
             }
         }
-        // cek foto perusahaan 
-        if ($photo_perusahaan !== null) {
-            $foto_perusahaan = $photo_perusahaan;
+        // cek foto perusahaan bila ada
+        if ($simpan_photo_perusahaan !== null) {
+            $foto_perusahaan = $simpan_photo_perusahaan;
         } else {
             $foto_perusahaan = null;
         }
 
-        if ($logo !== null) {
-            $logo_perusahaan = $logo;
+        if ($simpan_logo !== null) {
+            $logo_perusahaan = $simpan_logo;
         } else {
             $logo_perusahaan = null;
         }
@@ -161,7 +161,7 @@ class PerusahaanController extends Controller
         } else {
             $negara_id = null;
         }
-
+        // menambahkan data perusahaan
         Perusahaan::where('no_nib',$id->no_nib)->update([
             'nama_perusahaan' => $perusahaan->nama_perusahaan,
             'no_nib' => $perusahaan->no_nib,
@@ -190,11 +190,13 @@ class PerusahaanController extends Controller
         $perusahaan = Perusahaan::where('no_nib',$id->no_nib)->first();
         // apabila tempat perusahaan dalam negeri
         if($perusahaan->tmp_perusahaan == "Dalam negeri"){
+            // mencari alamat dari id livewire
             $cari_provinsi = Provinsi::where('id',$request->provinsi_id)->first();
             $cari_kota = Kota::where('id',$request->kota_id)->first();
             $cari_kecamatan = Kecamatan::where('id',$request->kecamatan_id)->first();
             $cari_kelurahan = kelurahan::where('id',$request->kelurahan_id)->first();    
 
+            // mengambil data
             $provinsi = $cari_provinsi->provinsi;
             $kota = $cari_kota->kota;
             $kecamatan = $cari_kecamatan->kecamatan;
@@ -209,6 +211,7 @@ class PerusahaanController extends Controller
             $negara_id = $request->negara_id;
         }
 
+        // menambah data perusahaan
         Perusahaan::where('no_nib',$id->no_nib)->update([
             'provinsi'=>$provinsi,
             'kota'=>$kota,
@@ -257,10 +260,12 @@ class PerusahaanController extends Controller
         return view('perusahaan/contact_us',compact('perusahaan','notif','pesan','cabang','credit'));
     }
 
+    // proses membuat pesan contact us dari perusahaan ke manager contact service
     public function sendContactUsPerusahaan(Request $request)
     {
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        // membuat data contact us perusahaan
         ContactUsPerusahaan::create([
             'id_perusahaan' => $perusahaan->id_perusahaan,
             'dari' => $perusahaan->nama_perusahaan,
@@ -335,11 +340,13 @@ class PerusahaanController extends Controller
     {
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        // menjadikan kandidat belum memiliki ikatan dengan perusahaan
         Kandidat::where('id_kandidat',$id)->where('stat_pemilik',"diterima")->where('id_perusahaan',$perusahaan->id_perusahaan)->update([
             'stat_pemilik' => null,
             'id_perusahaan' => null,
             'jabatan_kandidat' => null,
         ]);
+        // membuat pesan kepada kandidat
         messageKandidat::create([
             'id_kandidat' => $id,
             'pesan' => "Mohon maaf, Anda telah dikeluarkan dari perusahan ".$perusahaan->nama_perusahaan.". ",
@@ -347,6 +354,7 @@ class PerusahaanController extends Controller
             'kepada' => $nama,
             'id_perusahaan' => $perusahaan->id_perusahaan,
         ]);
+        // membatasi pesan kandidat hanya sebanyak 30
         $allMessage = messageKandidat::where('id_kandidat',$id)->get();
         $total = 30;
         if ($allMessage->count() > $total) {
@@ -383,12 +391,14 @@ class PerusahaanController extends Controller
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        // apabila memilih video
         if($type == "video") {
             $video = VideoKerja::where('video_kerja_id',$id)->first();
             $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$video->pengalaman_kerja_id)->first();
             $semua_video = VideoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->get();    
             $semua_foto = FotoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->get();
             return view('perusahaan/kandidat/lihat_galeri_kandidat',compact('perusahaan','pengalaman','cabang','pesan','notif','credit','video','semua_video','semua_foto','type'));
+        // apabila memilih foto
         } else {
             $foto = FotoKerja::where('foto_kerja_id',$id)->first();
             $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$foto->pengalaman_kerja_id)->first();
@@ -412,44 +422,45 @@ class PerusahaanController extends Controller
     // }
 
     // sistem ubah jadwal interview
-    public function ubahJadwalInterview(Request $request,$id)
-    { 
-        $auth = Auth::user();
-        $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
-        $interview = Interview::where('id_interview',$id)->first();
-        $kandidat = Kandidat::where('id_kandidat',$interview->id_kandidat)->first();
-        if($interview->kesempatan == 1){
-            return back()->with('warning',"Maaf kesempatan anda mengubah jadwal telah habis. Harap hubungi admin");
-        }
-        if($interview->jadwal_interview !== $request->jadwal){
-            $time = Carbon::create($request->jadwal)->isoformat('D MMM Y | h A');
-            messageKandidat::create([
-                'id_kandidat'=>$interview->id_kandidat,
-                'id_perusahaan'=>$interview->id_perusahaan,
-                'pesan'=>$perusahaan->nama_perusahaan." mengubah waktu interview anda menjadi ".$time.".",
-                'pengirim'=>$perusahaan->nama_perusahaan,
-                'kepada'=>$kandidat->nama,
-                'id_interview'=>$interview->id_interview,
-            ]);
-            $allMessage = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->get();
-            $total = 30;
-            if ($allMessage->count() > $total) {
-                $operator = $allMessage->count() - $total;
-                messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('id','asc')->limit($operator)->delete();
-            }
-        }
-        Interview::where('id_interview',$id)->update([
-            'jadwal_interview'=>$request->jadwal,
-            'kesempatan' => 1,
-        ]);
-        return redirect('/perusahaan/interview')->with('success',"Jadwal berhasil diubah");
-    }
+    // public function ubahJadwalInterview(Request $request,$id)
+    // { 
+    //     $auth = Auth::user();
+    //     $perusahaan = Perusahaan::where('no_nib',$auth->no_nib)->first();
+    //     $interview = Interview::where('id_interview',$id)->first();
+    //     $kandidat = Kandidat::where('id_kandidat',$interview->id_kandidat)->first();
+    //     if($interview->kesempatan == 1){
+    //         return back()->with('warning',"Maaf kesempatan anda mengubah jadwal telah habis. Harap hubungi admin");
+    //     }
+    //     if($interview->jadwal_interview !== $request->jadwal){
+    //         $time = Carbon::create($request->jadwal)->isoformat('D MMM Y | h A');
+    //         messageKandidat::create([
+    //             'id_kandidat'=>$interview->id_kandidat,
+    //             'id_perusahaan'=>$interview->id_perusahaan,
+    //             'pesan'=>$perusahaan->nama_perusahaan." mengubah waktu interview anda menjadi ".$time.".",
+    //             'pengirim'=>$perusahaan->nama_perusahaan,
+    //             'kepada'=>$kandidat->nama,
+    //             'id_interview'=>$interview->id_interview,
+    //         ]);
+    //         $allMessage = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->get();
+    //         $total = 30;
+    //         if ($allMessage->count() > $total) {
+    //             $operator = $allMessage->count() - $total;
+    //             messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('id','asc')->limit($operator)->delete();
+    //         }
+    //     }
+    //     Interview::where('id_interview',$id)->update([
+    //         'jadwal_interview'=>$request->jadwal,
+    //         'kesempatan' => 1,
+    //     ]);
+    //     return redirect('/perusahaan/interview')->with('success',"Jadwal berhasil diubah");
+    // }
 
     // halaman data pembayaran perusahaan
     public function pembayaran()
     {
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        // menampilkan data pembayaran + lowongan pekerjaan
         $pembayaran = Pembayaran::join(
             'lowongan_pekerjaan','pembayaran.id_lowongan','=','lowongan_pekerjaan.id_lowongan'
         )
@@ -470,6 +481,7 @@ class PerusahaanController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('check_click',"n")->get();
         $cabang = PerusahaanCabang::where('no_nib',$perusahaan->no_nib)->where('penempatan_kerja','not like',$perusahaan->penempatan_kerja)->get();
+        // menampilkan data pembayaran + lowongan pekerjaan
         $pembayaran = Pembayaran::join(
             'lowongan_pekerjaan','pembayaran.id_lowongan','=','lowongan_pekerjaan.id_lowongan'
         )

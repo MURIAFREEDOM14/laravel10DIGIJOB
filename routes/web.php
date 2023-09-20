@@ -533,10 +533,6 @@ Route::controller(PerusahaanController::class)->group(function(){
 
 // DATA PERUSAHAAN RECRUITMENT // 
 Route::controller(PerusahaanRecruitmentController::class)->group(function() {
-    // route cari kandidat staff perusahaan
-    Route::get('/perusahaan/cari_kandidat_staff','cariKandidatStaff');
-    Route::post('/perusahaan/cari_kandidat_staff','pencarianKandidatStaff');
-
     // route lowongan pekerjaan
     Route::get('/perusahaan/list/lowongan/{type}','lowonganPekerjaan')->middleware('perusahaan');
     Route::get('/perusahaan/buat_lowongan/{type}','tambahLowongan')->middleware('perusahaan');

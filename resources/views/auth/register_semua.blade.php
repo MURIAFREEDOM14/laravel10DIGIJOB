@@ -4,7 +4,7 @@
         <!-- Route(view) LamanController => '/register' -->
         <div class="row mb-3">
             <div class="col-md-5 mx-auto">
-                <div class="card" style="background-image: linear-gradient(to top, white, rgb(232, 232, 232), rgb(232,232,232), rgb(0, 100, 255)); border-radius:25px; padding:20px; width:100%; height:auto;">
+                <div class="card" style="background-image: linear-gradient(to top, white, white, rgb(190, 210, 255), rgb(0, 100, 255)); border-radius:25px; padding:20px; width:100%; height:auto;">
                     <div class="card-body text-center">
                         <p style="text-transform: uppercase">Pencari Kerja / Kandidat</p>
                         <a class="btn btn-outline-primary" style="text-transform: uppercase;" href="/register/kandidat">Registrasi</a>
