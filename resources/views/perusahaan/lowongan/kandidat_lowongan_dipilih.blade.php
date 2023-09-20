@@ -38,19 +38,31 @@
                     <hr>
                     @if ($isi !== 0)
                         @if ($interview == null)
-                            <button class="btn btn-success float-right" type="submit" id="">Konfirmasi kandidat</button>    
-                            <a class="btn btn-danger float-right mx-1" href="/perusahaan/batal_kandidat_lowongan/{{$id}}">Batalkan kandidat</a>                            
+                            <div class="">
+                                <button class="btn btn-success float-right" type="submit" id="">Konfirmasi kandidat</button>    
+                            </div>
+                            <div class="">
+                                <a class="btn btn-danger float-right mx-1" href="/perusahaan/batal_kandidat_lowongan/{{$id}}">Batalkan kandidat</a>                            
+                            </div>
                         @elseif($pembayaran !== null)
                             @if ($pembayaran->stats_pembayaran == "sudah dibayar")
-                                <a class="btn btn-warning float-right mx-1" href="/perusahaan/lihat_jadwal_interview/{{$id}}">Lihat Jadwal Interview</a>                        
+                                <div class="">
+                                    <a class="btn btn-warning float-right mx-1" href="/perusahaan/lihat_jadwal_interview/{{$id}}">Lihat Jadwal Interview</a>                        
+                                </div>
                             @elseif($pembayaran->stats_pembayaran == "belum dibayar")    
-                                <a class="float-right btn btn-warning" href="/perusahaan/list/pembayaran">Selesaikan Pembayaran</a>
+                                <div class="">
+                                    <a class="float-right btn btn-warning" href="/perusahaan/list/pembayaran">Selesaikan Pembayaran</a>
+                                </div>
                             @endif
                         @elseif($interview->status == "pilih")
-                            <a class="btn btn-warning float-right" href="/perusahaan/jadwal_interview/{{$id}}">Lengkapi Jadwal</a>   
+                            <div class="">
+                                <a class="btn btn-warning float-right" href="/perusahaan/jadwal_interview/{{$id}}">Lengkapi Jadwal</a>   
+                            </div>
                         @endif
                     @endif
-                    <a class="btn btn-danger" href="/perusahaan/list_permohonan_lowongan">Kembali</a>    
+                    <div class="">
+                        <a class="btn btn-danger" href="/perusahaan/list_permohonan_lowongan">Kembali</a>    
+                    </div>
                 </form>
             </div>
         </div>
