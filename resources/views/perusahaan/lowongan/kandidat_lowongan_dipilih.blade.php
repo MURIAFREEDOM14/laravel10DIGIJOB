@@ -16,11 +16,11 @@
                                 <div class="card">
                                     <a class="btn" style="border: 2px solid #1269DB; border-top-left-radius:10%;border-bottom-right-radius:10%" href="/perusahaan/lihat/kandidat/{{$item->id_kandidat}}">
                                         <div class="card-header text-center mt--5">
-                                            <div class="avatar avatar-xl">
+                                            <div class="avatar avatar-xl" style="width: 100%; height:auto;">
                                                 @if ($item->foto_4x6 == null)
                                                     <img src="/gambar/default_user.png" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                            
                                                 @else
-                                                    <img src="/gambar/Kandidat/{{$item->nama}}/4x6/{{$item->foto_4x6}}" alt="" class="avatar-img rounded-circle">                                            
+                                                    <img src="/gambar/Kandidat/{{$item->nama}}/4x6/{{$item->foto_4x6}}" alt="" class="">                                            
                                                 @endif
                                             </div>
                                         </div>
@@ -38,31 +38,21 @@
                     <hr>
                     @if ($isi !== 0)
                         @if ($interview == null)
-                            <div class="">
-                                <button class="btn btn-success float-right" type="submit" id="">Konfirmasi kandidat</button>    
-                            </div>
-                            <div class="">
-                                <a class="btn btn-danger float-right mx-1" href="/perusahaan/batal_kandidat_lowongan/{{$id}}">Batalkan kandidat</a>                            
+                            <div class="float-right">
+                                <button class="btn btn-success mt-1" type="submit" id="">Konfirmasi kandidat</button>    
+                                <a class="btn btn-danger mt-1" href="/perusahaan/batal_kandidat_lowongan/{{$id}}">Batalkan kandidat</a>                                
                             </div>
                         @elseif($pembayaran !== null)
                             @if ($pembayaran->stats_pembayaran == "sudah dibayar")
-                                <div class="">
-                                    <a class="btn btn-warning float-right mx-1" href="/perusahaan/lihat_jadwal_interview/{{$id}}">Lihat Jadwal Interview</a>                        
-                                </div>
+                                <a class="btn btn-warning float-right mx-1" href="/perusahaan/lihat_jadwal_interview/{{$id}}">Lihat Jadwal Interview</a>                        
                             @elseif($pembayaran->stats_pembayaran == "belum dibayar")    
-                                <div class="">
-                                    <a class="float-right btn btn-warning" href="/perusahaan/list/pembayaran">Selesaikan Pembayaran</a>
-                                </div>
+                                <a class="float-right btn btn-warning" href="/perusahaan/list/pembayaran">Selesaikan Pembayaran</a>
                             @endif
                         @elseif($interview->status == "pilih")
-                            <div class="">
-                                <a class="btn btn-warning float-right" href="/perusahaan/jadwal_interview/{{$id}}">Lengkapi Jadwal</a>   
-                            </div>
+                            <a class="btn btn-warning float-right" href="/perusahaan/jadwal_interview/{{$id}}">Lengkapi Jadwal</a>   
                         @endif
                     @endif
-                    <div class="">
-                        <a class="btn btn-danger" href="/perusahaan/list_permohonan_lowongan">Kembali</a>    
-                    </div>
+                        <a class="btn btn-danger mt-1" href="/perusahaan/list_permohonan_lowongan">Kembali</a>    
                 </form>
             </div>
         </div>
