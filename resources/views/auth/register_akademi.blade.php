@@ -127,7 +127,7 @@
                             </span>
                         </div>
                         <div class="mt-3">Sudah punya akun?<a href="/login" class="ms-1">Login</a></div>
-                        {{-- <div class="">Bingung cara untuk daftar?<button type="button" data-bs-toggle="modal" data-bs-target="#tutorial_kandidat" class="btn btn-link">Yuk lihat video ini</button></div> --}}
+                        <div class="">Bingung cara untuk daftar?<button type="button" data-bs-toggle="modal" data-bs-target="#tutorial_akademi" class="btn btn-link">Yuk lihat video ini</button></div>
                         <button id="inputMailPass" class="btn btn-primary float-right mr-2" onclick="btnInputMailPass()">Lanjut</button>
                         <button type="submit" id="btn" disabled="true" class="btn btn-primary mt-3" onclick="processing()">
                             {{ __('Register') }}
@@ -140,7 +140,7 @@
         <div class="col-md-3"></div>
     </div>
 </div>
-<div class="modal fade" id="tutorial_kandidat" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="tutorial_akademi" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content" style="background-color:transparent; border:none;">
             <div class="text-center">

@@ -79,7 +79,9 @@ class ManagerKandidatController extends Controller
             'nama_panggilan' => 'required|max:20',
             'email' => 'required',
         ]);
+        // mencari usia kandidat melalui tanggal lahir kandidat
         $usia = Carbon::parse($request->tgl_lahir)->age;
+        // menambah data kandidat
         Kandidat::where('id_kandidat',$id)->update([
             'nama' => $request->nama,
             'nama_panggilan' => $request->nama_panggilan,
@@ -107,7 +109,9 @@ class ManagerKandidatController extends Controller
             ]);
         }
 
+        // mencari data id kandidat
         $userId = Kandidat::where('id_kandidat',$id)->first();
+        // menambah data pengguna
         User::where('referral_code', $userId->referral_code)->update([
             'name' => $request->nama,
             'no_telp' => $request->no_telp,
@@ -279,11 +283,13 @@ class ManagerKandidatController extends Controller
             $foto_ijazah = null;
         }
         
+        // mencari alamat dari pengiriman id dari livewire
         $provinsi = Provinsi::where('id',$request->provinsi_id)->first();
         $kota = Kota::where('id',$request->kota_id)->first();
         $kecamatan = Kecamatan::where('id',$request->kecamatan_id)->first();
         $kelurahan = kelurahan::where('id',$request->kelurahan_id)->first();
 
+        // menambah data kandidat
         Kandidat::where('id_kandidat',$id)->update([
             'nik' => $request->nik,
             'pendidikan' => $request->pendidikan,
@@ -325,18 +331,22 @@ class ManagerKandidatController extends Controller
     {
         $kandidat = Kandidat::where('id_kandidat',$id)->first();
         // cek buku nikah
+        // apabila ada input
         if($request->file('foto_buku_nikah') !== null){
+            // mencari data sebelumnya dan hapus jika ada
             $hapus_buku_nikah = public_path('/gambar/Kandidat/'.$kandidat->nama.'/Buku Nikah/').$kandidat->foto_buku_nikah;
             if(file_exists($hapus_buku_nikah)){
                 @unlink($hapus_buku_nikah);
             }
-            $buku_nikah = $kandidat->nama.time().'.'.$request->foto_buku_nikah->extension();  
-            $request->foto_buku_nikah->move(public_path('/gambar/Kandidat/Buku Nikah'), $buku_nikah);
+            // meletakkan file ke dalam aplikasi
+            $buku_nikah = $request->file('foto_buku_nikah');
+            $simpan_buku_nikah = $kandidat->nama.time().'.'.$buku_nikah->extension();  
+            $buku_nikah->move('/gambar/Kandidat/Buku Nikah', $simpan_buku_nikah);
         } else {
             if($kandidat->foto_buku_nikah !== null){
-                $buku_nikah = $kandidat->foto_buku_nikah;
+                $simpan_buku_nikah = $kandidat->foto_buku_nikah;
             } else {
-                $buku_nikah = null;
+                $simpan_buku_nikah = null;
             }
         }
         // cek foto cerai

@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
     @php
-        $c1 = 0;
+        $c1 = 1;
         $date = date('D');
         if (date('D') == 'Sun') {
             if ($c1 == 0) {

@@ -23,7 +23,7 @@ class verifyConfirm
                 return redirect('/');
             }
         } else {
-            return redirect('/laman');
+            return redirect()->route('laman');
         }
     }
 }

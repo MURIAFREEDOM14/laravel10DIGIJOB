@@ -14,20 +14,13 @@ use App\Http\Controllers\Kandidat\KandidatPerusahaanController;
 use App\Http\Controllers\Kandidat\KandidatController;
 use App\Http\Controllers\Perusahaan\PerusahaanController;
 use App\Http\Controllers\Perusahaan\PerusahaanRecruitmentController;
-use App\Http\Controllers\CaptureController;
 use App\Http\Controllers\OutputController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PrioritasController;
 use App\Http\Controllers\NotifikasiController;
-use App\Http\Controllers\LamanController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ReferralController;
-use App\Http\Controllers\MailController;
 use App\Http\Controllers\MessagerController;
 use PHPUnit\TextUI\Configuration\Group;
-use App\Http\Controllers\CaptchaController;
-use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -231,28 +224,29 @@ Route::controller(ContactUsController::class)->group(function() {
 });
 
 // DATA LAMAN //
-Route::controller(LamanController::class)->group(function() {
-    // route halaman awal
-    Route::get('/', 'index')->name('laman')->middleware('guest');    
+    {
+        // route halaman awal
+        Route::view('/', 'laman')->name('laman')->middleware('guest');    
+        Route::view('/laman', 'laman')->middleware('guest');
         
-    // route syarat dan ketentuan register
-    Route::view('/syarat_ketentuan/kandidat','laman/persyaratan_kandidat')->middleware('guest');
-    Route::view('/syarat_ketentuan/akademi','laman/persyaratan_akademi')->middleware('guest');
-    Route::view('/syarat_ketentuan/perusahaan','laman/persyaratan_perusahaan')->middleware('guest');
+        // route syarat dan ketentuan register
+        Route::view('/syarat_ketentuan/kandidat','laman/persyaratan_kandidat')->middleware('guest');
+        Route::view('/syarat_ketentuan/akademi','laman/persyaratan_akademi')->middleware('guest');
+        Route::view('/syarat_ketentuan/perusahaan','laman/persyaratan_perusahaan')->middleware('guest');
 
-    // Route::get('/login_gmail',  'login_gmail')->name('login_gmail')->middleware('guest');
-    // Route::get('/login_referral',  'login_referral')->middleware('guest');
-    // Route::get('/login_info',  'login_info')->middleware('guest');
-    // Route::post('/login_info',  'info');
+        // Route::get('/login_gmail',  'login_gmail')->name('login_gmail')->middleware('guest');
+        // Route::get('/login_referral',  'login_referral')->middleware('guest');
+        // Route::get('/login_info',  'login_info')->middleware('guest');
+        // Route::post('/login_info',  'info');
+        
+        // route halaman awal
+        Route::view('/digijob_system','digijob_system')->middleware('guest');
+        Route::view('/benefits','benefits')->middleware('guest');
+        Route::view('/features','features')->middleware('guest');
+        Route::view('/hubungi_kami','contact_us')->middleware('guest');
+        Route::view('/about_us','about_us')->middleware('guest');
+    }
     
-    // route halaman awal
-    Route::view('/digijob_system','digijob_system')->middleware('guest');
-    Route::view('/benefits','benefits')->middleware('guest');
-    Route::view('/features','features')->middleware('guest');
-    Route::view('/hubungi_kami','contact_us')->middleware('guest');
-    Route::view('/about_us','about_us')->middleware('guest');
-});
-
 // DATA LOGIN //
 Route::controller(LoginController::class)->group(function() {
     // route halaman awal login
@@ -673,36 +667,7 @@ Route::controller(PaymentController::class)->group(function(){
     Route::view('check_mail_verify','mail/verify');
 });
 
-Route::controller(MailController::class)->group(function() {
-    Route::get('send_email','sendEmail');
-});
-
 Route::view('/pembayaran','mail.pembayaran')->middleware('manager');
-
-Route::post('/kirim_email', [MailController::class, 'index']);
-Route::get('/user_referral', [ReferralController::class, 'user_referral'])->middleware('verify')->name('user_referral');
-
-// user routes
-Route::middleware(['auth', 'user-access:0'])->group(function () {
-    Route::get('/isi_data_diri', [HomeController::class, 'index'])->name('isi_data_diri');
-});
-
-// admin routes
-Route::middleware(['auth', 'user-access:1'])->group(function () {
-    Route::get('/admin_home', [HomeController::class, 'adminHome'])->name('admin_home');
-});
-
-// // manager routes
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/tulis_pesan', [HomeController::class, 'tulis_pesan']);
-});
-
-Route::get('/laman', [HomeController::class, 'managerHome'])->name('manager_home')->middleware('guest');
-
-Route::controller(CaptchaController::class)->group(function() {
-Route::get('/sliding-puzzle', [CaptchaController::class, 'showSlidingPuzzle']);
-Route::post('/sliding-puzzle/verify', [CaptchaController::class, 'verifySlidingPuzzle'])->name('sliding-puzzle.verify');
-});
 
 Route::view('/perbaikan','dalam_proses');
 Route::view('/mail', 'mail/mail');
