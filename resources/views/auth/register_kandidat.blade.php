@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
     @php
-        $c1 = 1;
+        $c1 = 0;
         $date = date('D');
         if (date('D') == 'Sun') {
             if ($c1 == 0) {
@@ -123,7 +123,6 @@
                                         <div class="input_captcha" id="inputCaptcha">
                                             <div class="captcha_img">
                                                 <span>{!!captcha_img()!!}</span>
-                                                <button type="button" class="btn btn-danger reload" id="reload">&#x21bb;</button>
                                             </div>
                                             <input type="text" placeholder="Masukkan kode captcha" required class="form-control mt-2" name="captcha" id="confirmCaptcha">                                                
                                         </div>
@@ -135,8 +134,8 @@
                                                     <span>Kode Captcha</span>
                                                 </div>
                                                 <div class="card-body">
-                                                <div class="@error('captcha') is-invalid @enderror" id="captcha"></div>
-                                                <div class="text-center mt-5" id="confirm"></div>
+                                                    <div class="@error('captcha') is-invalid @enderror" id="captcha"></div>
+                                                    <div class="text-center mt-5" id="confirm"></div>
                                                 </div>
                                             </div>
                                             <div class="" id="confirm_captcha"></div>

@@ -17,12 +17,6 @@ class LamanController extends Controller
         return view('laman');
     }
 
-    // refresh captcha
-    protected function reloadCaptcha()
-    {
-        return response()->json(['captcha' => captcha_img()]);
-    } 
-
     // sistem login dengan Google (masih belum selesai)
     // public function login_gmail()
     // {

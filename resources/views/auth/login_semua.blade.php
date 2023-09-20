@@ -74,9 +74,6 @@
                                             <div class="input_captcha" id="inputCaptcha">
                                                 <div class="captcha_img">
                                                     <span>{!!captcha_img()!!}</span>
-                                                    <button type="button" class="btn btn-danger reload" id="reload">
-                                                        &#x21bb;
-                                                    </button>
                                                 </div>
                                                 <input type="text" placeholder="Masukkan kode captcha" required class="form-control mt-2" name="captcha" id="confirmCaptcha">                                                
                                             </div>

@@ -79,7 +79,7 @@
                                 <!-- input konfirmasi password -->
                                 <div class="mb-3">
                                     <label for="email" class="">{{ __('Konfirmasi Password') }}</label>
-                                    <input id="password_confirm" type="text" class="form-control @error('passwordConfirm') is-invalid @enderror" name="passwordConfirm" required autocomplete="password">
+                                    <input id="password_confirm" type="text" class="form-control @error('passwordConfirm') is-invalid @enderror" name="passwordConfirm" required autocomplete="password" placeholder="Masukkan ulang password anda dengan benar">
                                     <div class="" id="confirmPasswordInfo"></div>
                                     @error('passwordConfirm')
                                         <span class="invalid-feedback" role="alert">
@@ -101,7 +101,7 @@
                                                 </div>
                                             </div>
                                             <div id="confirm_captcha"></div>
-                                            <input type="text" hidden name="captcha" value="" id="confirmCaptcha">
+                                            <input type="text" hidden name="captcha" value="" id="confirmCaptcha" required>
                                             @error('captcha')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ "Harap isi captcha anda" }}</strong>
@@ -113,7 +113,6 @@
                                         <div class="input_captcha" id="inputCaptcha">
                                             <div class="captcha_img">
                                                 <span>{!!captcha_img()!!}</span>
-                                                <button type="button" class="btn btn-danger reload" id="reload">&#x21bb;</button>
                                             </div>
                                             <input type="text" placeholder="Masukkan kode captcha" required class="form-control mt-2" name="captcha" id="confirmCaptcha">
                                         </div>

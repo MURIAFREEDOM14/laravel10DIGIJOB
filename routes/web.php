@@ -240,9 +240,6 @@ Route::controller(LamanController::class)->group(function() {
     Route::view('/syarat_ketentuan/akademi','laman/persyaratan_akademi')->middleware('guest');
     Route::view('/syarat_ketentuan/perusahaan','laman/persyaratan_perusahaan')->middleware('guest');
 
-    // route refresh captcha input
-    Route::get('/reload-captcha','reloadCaptcha');
-
     // Route::get('/login_gmail',  'login_gmail')->name('login_gmail')->middleware('guest');
     // Route::get('/login_referral',  'login_referral')->middleware('guest');
     // Route::get('/login_info',  'login_info')->middleware('guest');
