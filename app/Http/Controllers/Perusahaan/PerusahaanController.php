@@ -66,7 +66,7 @@ class PerusahaanController extends Controller
         User::where('no_nib',$perusahaan->no_nib)->update([
             'counter' => null,
         ]);
-        return view('perusahaan/index',compact('perusahaan','cabang','notif','interview','pesan','credit','penempatan','lowongan'));
+        return view('perusahaan/index',compact('perusahaan','notif','interview','pesan','credit','penempatan','lowongan'));
     }
 
     // halaman data profil perusahaan
@@ -83,7 +83,7 @@ class PerusahaanController extends Controller
         {
             return redirect()->route('perusahaan')->with('warning',"Harap lengkapi profil perusahaan terlebih dahulu");
         } else {
-            return view('perusahaan/profil_perusahaan',compact('cabang','perusahaan','notif','pesan','lowongan','credit'));
+            return view('perusahaan/profil_perusahaan',compact('perusahaan','notif','pesan','lowongan','credit'));
         }
     }
 
@@ -252,7 +252,7 @@ class PerusahaanController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/contact_us',compact('perusahaan','notif','pesan','cabang','credit'));
+        return view('perusahaan/contact_us',compact('perusahaan','notif','pesan','credit'));
     }
 
     // proses membuat pesan contact us dari perusahaan ke manager contact service
@@ -296,7 +296,7 @@ class PerusahaanController extends Controller
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
         $kandidat = Kandidat::where('id_perusahaan',$perusahaan->id_perusahaan)->where('stat_pemilik','diterima')->where('jabatan_kandidat','like','%'.$lowongan->jabatan.'%')->get();        
         $isi = $kandidat->count();
-        return view('perusahaan/kandidat/lowongan_kandidat',compact('kandidat','perusahaan','isi','notif','pesan','cabang','credit','lowongan','semua_lowongan','id'));
+        return view('perusahaan/kandidat/lowongan_kandidat',compact('kandidat','perusahaan','isi','notif','pesan','credit','lowongan','semua_lowongan','id'));
     }
 
     // mengarahkan ke pencarian kandidat lowongan tujuan
@@ -323,7 +323,7 @@ class PerusahaanController extends Controller
         return view('perusahaan/kandidat/profil_kandidat',compact(
             'kandidat','pengalaman_kerja_kandidat','perusahaan',
             'usia','tgl_user','pesan',
-            'interview','notif','cabang',
+            'interview','notif',
             'credit','video',
         ));
     }
@@ -371,7 +371,7 @@ class PerusahaanController extends Controller
         $semua_video = VideoKerja::where('pengalaman_kerja_id',$pengalaman_kandidat->pengalaman_kerja_id)->get();
         $foto = FotoKerja::where('pengalaman_kerja_id',$pengalaman_kandidat->pengalaman_kerja_id)->get();
         $pengalaman_kerja = PengalamanKerja::where('id_kandidat',$pengalaman_kandidat->id_kandidat)->get();
-        return view('perusahaan/kandidat/galeri_kandidat',compact('perusahaan','pengalaman_kandidat','pengalaman_kerja','cabang','pesan','notif','credit','video','foto','semua_video'));
+        return view('perusahaan/kandidat/galeri_kandidat',compact('perusahaan','pengalaman_kandidat','pengalaman_kerja','pesan','notif','credit','video','foto','semua_video'));
     }
 
     // halaman lihat galeri kandidat
@@ -388,14 +388,14 @@ class PerusahaanController extends Controller
             $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$video->pengalaman_kerja_id)->first();
             $semua_video = VideoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->get();    
             $semua_foto = FotoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->get();
-            return view('perusahaan/kandidat/lihat_galeri_kandidat',compact('perusahaan','pengalaman','cabang','pesan','notif','credit','video','semua_video','semua_foto','type'));
+            return view('perusahaan/kandidat/lihat_galeri_kandidat',compact('perusahaan','pengalaman','pesan','notif','credit','video','semua_video','semua_foto','type'));
         // apabila memilih foto
         } else {
             $foto = FotoKerja::where('foto_kerja_id',$id)->first();
             $pengalaman = PengalamanKerja::where('pengalaman_kerja_id',$foto->pengalaman_kerja_id)->first();
             $semua_foto = FotoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->get();    
             $semua_video = VideoKerja::where('pengalaman_kerja_id',$pengalaman->pengalaman_kerja_id)->get();    
-            return view('perusahaan/kandidat/lihat_galeri_kandidat',compact('perusahaan','pengalaman','cabang','pesan','notif','credit','foto','semua_video','semua_foto','type'));            
+            return view('perusahaan/kandidat/lihat_galeri_kandidat',compact('perusahaan','pengalaman','pesan','notif','credit','foto','semua_video','semua_foto','type'));            
         }
     }
 
@@ -408,7 +408,7 @@ class PerusahaanController extends Controller
     //     $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
     //     $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('check_click',"n")->get();
     //     $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-    //     return view('perusahaan/edit_interview',compact('perusahaan','interview','notif','pesan','cabang','credit'));
+    //     return view('perusahaan/edit_interview',compact('perusahaan','interview','notif','pesan','credit'));
     // }
 
     // sistem ubah jadwal interview
@@ -459,7 +459,7 @@ class PerusahaanController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('check_click',"n")->get();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/pembayaran/list_pembayaran', compact('perusahaan','pembayaran','notif','pesan','cabang','credit'));
+        return view('perusahaan/pembayaran/list_pembayaran', compact('perusahaan','pembayaran','notif','pesan','credit'));
     }
 
     // halaman lihat detail pembayaran perusahaan
@@ -475,7 +475,7 @@ class PerusahaanController extends Controller
         )
         ->where('pembayaran.id_pembayaran',$id)->first();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/pembayaran/pembayaran',compact('perusahaan','notif','pembayaran','pesan','cabang','credit'));
+        return view('perusahaan/pembayaran/pembayaran',compact('perusahaan','notif','pembayaran','pesan','credit'));
     }
 
     // sistem konfirmasi bukti pembayaran perusahaan

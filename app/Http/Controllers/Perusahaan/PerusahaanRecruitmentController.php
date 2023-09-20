@@ -54,7 +54,7 @@ class PerusahaanRecruitmentController extends Controller
         } else {
             $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('negara','not like','%Indonesia%')->get();
         }
-        return view('perusahaan/lowongan/lowongan_pekerjaan',compact('perusahaan','notif','pesan','lowongan','cabang','credit','type'));
+        return view('perusahaan/lowongan/lowongan_pekerjaan',compact('perusahaan','notif','pesan','lowongan','credit','type'));
     }
 
     // halaman tambah lowongan pekerjaan dalam / luar negeri
@@ -74,7 +74,7 @@ class PerusahaanRecruitmentController extends Controller
             $negara = Negara::where('negara','not like',"%Indonesia%")->get();
         }
         $jenis_pekerjaan = JenisPekerjaan::all();
-        return view('perusahaan/lowongan/tambah_lowongan',compact('perusahaan','notif','pesan','cabang','credit','negara','jenis_pekerjaan','type','benefit','fasilitas'));
+        return view('perusahaan/lowongan/tambah_lowongan',compact('perusahaan','notif','pesan','credit','negara','jenis_pekerjaan','type','benefit','fasilitas'));
     }
 
     // Ajax lowongan negara tujuan
@@ -232,7 +232,7 @@ class PerusahaanRecruitmentController extends Controller
         $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->limit(3)->get();
         $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
-        return view('perusahaan/lowongan/lihat_lowongan',compact('perusahaan','lowongan','pesan','notif','cabang','credit','type'));
+        return view('perusahaan/lowongan/lihat_lowongan',compact('perusahaan','lowongan','pesan','notif','credit','type'));
     }
 
     // halaman edit lowongan dalam / luar negeri
@@ -253,7 +253,7 @@ class PerusahaanRecruitmentController extends Controller
         }        
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
         $jenis_pekerjaan = JenisPekerjaan::all();
-        return view('perusahaan/lowongan/edit_lowongan',compact('perusahaan','pesan','notif','lowongan','cabang','negara','credit','jenis_pekerjaan','type','benefit','fasilitas'));
+        return view('perusahaan/lowongan/edit_lowongan',compact('perusahaan','pesan','notif','lowongan','negara','credit','jenis_pekerjaan','type','benefit','fasilitas'));
     }
 
     // sistem ubah lowongan dalam / luar negeri
@@ -442,7 +442,7 @@ class PerusahaanRecruitmentController extends Controller
                 'lowongan_pekerjaan','interview.id_lowongan','=','lowongan_pekerjaan.id_lowongan'
             )->where('pembayaran.stats_pembayaran','like',"sudah dibayar")->get();
         }
-        return view('perusahaan/lowongan/list_permohonan_lowongan',compact('perusahaan','lowongan','pesan','notif','cabang','credit','interview'));
+        return view('perusahaan/lowongan/list_permohonan_lowongan',compact('perusahaan','lowongan','pesan','notif','credit','interview'));
     }
 
     // halaman lihat data permohonan lowongan / pelamar dari kandidat
@@ -460,7 +460,7 @@ class PerusahaanRecruitmentController extends Controller
         )
         ->where('kandidat.id_perusahaan',$perusahaan->id_perusahaan)->whereNull('kandidat.stat_pemilik')->where('id_lowongan',$id)->get();
         $isi = $permohonan->count();
-        return view('perusahaan/lowongan/lihat_permohonan_lowongan',compact('perusahaan','permohonan','pesan','notif','cabang','isi','credit','id','interview'));
+        return view('perusahaan/lowongan/lihat_permohonan_lowongan',compact('perusahaan','permohonan','pesan','notif','isi','credit','id','interview'));
     }
 
     // sistem memberi penanda jika kandidat sudah dipilih oleh perusahaan
