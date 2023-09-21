@@ -7,9 +7,15 @@ use App\Models\JenisPekerjaan;
 
 class JenisPekerjaanLowongan extends Component
 {
+    public $jenis_pekerjaan;
+
+    public function mount()
+    {
+        $this->jenis_pekerjaan = JenisPekerjaan::all();
+    }
+
     public function render()
     {
-        $jenis_pekerja = JenisPekerjaan::all();
-        return view('livewire.perusahaan.jenis-pekerjaan-lowongan',compact('jenis_pekerjaan'))->extends('layouts.perusahaan');
+        return view('livewire.perusahaan.jenis-pekerjaan-lowongan')->extends('layouts.perusahaan');
     }
 }

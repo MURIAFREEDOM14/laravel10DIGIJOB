@@ -60,7 +60,14 @@
                                 </select>
                             <!-- apabila perusahaan menempatkan pekerja ke luar negeri -->
                             @elseif($perusahaan->penempatan_kerja == "Luar negeri")
-                                @livewire('perusahaan.jenis-pekerjaan-lowongan')
+                                <!-- pilihan jenis pekerja -->
+                                <select name="lvl_pekerjaan" required class="form-control" id="jenisPekerjaan">
+                                    <option value="">-- Tentukan Jenis Pekerja --</option>
+                                    @foreach ($jenis_pekerjaan as $item)
+                                        <option value="{{$item->judul}}">{{$item->judul}}</option>
+                                    @endforeach
+                                    <option value="lainnya">Lainnya</option>
+                                </select>
                                 <!-- input tambah pilihan jenis pekerja -->
                                 <input type="text" name="judul_jenis_pekerja" class="form-control mt-2" placeholder="Judul jenis pekerja" id="judulJenisPekerja">
                                 <input type="text" name="nama_jenis_pekerja" class="form-control mt-2" placeholder="Keterangan jenis pekerja" id="namaJenisPekerja">

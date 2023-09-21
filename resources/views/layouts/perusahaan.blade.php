@@ -736,12 +736,18 @@
                 $(document).on('click','#btnJenisPekerja', function() {
                     var judulJenisPekerja = document.getElementById('judulJenisPekerja').value;
                     var namaJenisPekerja = document.getElementById('namaJenisPekerja').value;
+                    var selectJenisPekerja = document.getElementById('jenisPekerjaan');
                     console.log(judulJenisPekerja, namaJenisPekerja);
                     $.ajax({
                         type:'get',
                         url:'{!!URL::to('/jenis_pekerja')!!}',
                         data:{'judul':judulJenisPekerja, 'nama':namaJenisPekerja},
                         success:function (data) {
+                            console.log(data.length);
+                            selectJenisPekerja.append('<option value="'+data.judul+'">'+data.judul+'</option>');
+                            document.getElementById('btnJenisPekerja').style.display = 'none';
+                            // judulJenisPekerja.style.display = 'none';
+                            // namaJenisPekerja.style.display = 'none';
                             location.reload();
                         }
                     })
