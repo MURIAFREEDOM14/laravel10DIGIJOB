@@ -270,11 +270,10 @@
                     </div>
                     <hr>
                 @endif
-                    <a href="/perusahaan/list/lowongan/{{$type}}" class="btn btn-danger mt-2"><- Kembali</a>
-                    <div class="float-right">
-                        <a class="btn btn-warning mt-2" href="/perusahaan/edit_lowongan/{{$lowongan->id_lowongan}}/{{$type}}">Edit</a>
-                        <a class="btn btn-danger mt-2" href="/perusahaan/hapus_lowongan/{{$lowongan->id_lowongan}}/{{$type}}" onclick="hapusData(event)">Hapus</a>                            
-                    </div>
+                <a href="/perusahaan/list/lowongan/{{$type}}" class="btn btn-danger mt-2"><- Kembali</a>
+                <div class="float-right">
+                    <a class="btn btn-warning mt-2" href="/perusahaan/edit_lowongan/{{$lowongan->id_lowongan}}/{{$type}}">Edit</a>
+                    <a class="btn btn-danger mt-2" href="/perusahaan/hapus_lowongan/{{$lowongan->id_lowongan}}/{{$type}}" onclick="hapusData(event)">Hapus</a>                            
                 </div>
             </div>
         </div>
