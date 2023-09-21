@@ -57,13 +57,13 @@
                                     <label class="">: {{$item->waktu_interview_awal}} Sampai {{$item->waktu_interview_akhir}}</label>
                                     <br>
                                     <label for="" class="">: 
-                                        {{-- @if ($item->status == "terjadwal")
+                                        @if ($item->status == "terjadwal")
                                             Belum Interview
                                         @elseif($item->status == "dimulai")
                                             Sedang Interview
-                                        @elseif($item->status == "berakhir") --}}
+                                        @elseif($item->status == "berakhir")
                                             Sudah Interview
-                                        {{-- @endif                   --}}
+                                        @endif
                                     </label>    
                                 </div>
                             </div>

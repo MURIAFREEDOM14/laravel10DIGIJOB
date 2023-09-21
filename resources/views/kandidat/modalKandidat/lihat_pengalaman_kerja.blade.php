@@ -92,15 +92,12 @@
                                                 <div class="card-header">
                                                 </div>
                                                 <div class="card-body">
-                                                    <video id="video">
+                                                    <video id="video" controls>
                                                         <source class="" src="/gambar/Kandidat/{{$pengalaman->nama_kandidat}}/Pengalaman Kerja/{{$item->video}}">
                                                     </video>
-                                                    <div class="text-center">
-                                                        <button class="btn btn-success" id="play" type="button" onclick="play()">Mulai</button>
-                                                        <button class="btn btn-warning" id="jeda" type="button" onclick="pause()">Jeda</button>
-                                                        <a class="btn btn-warning" href="/edit_portofolio_pengalaman_kerja/{{$item->video_kerja_id}}/{{"video"}}">Edit</a>
-                                                        <a class="btn btn-danger" onclick="hapusData(event)" href="/hapus_portofolio_pengalaman_kerja/{{$item->video_kerja_id}}/{{"video"}}">Hapus</a>
-                                                    </div>                                                            
+                                                    <hr>
+                                                    <a class="btn btn-warning" href="/edit_portofolio_pengalaman_kerja/{{$item->video_kerja_id}}/{{"video"}}">Edit</a>
+                                                    <a class="btn btn-danger" onclick="hapusData(event)" href="/hapus_portofolio_pengalaman_kerja/{{$item->video_kerja_id}}/{{"video"}}">Hapus</a>                                                            
                                                 </div>
                                             </div>
                                         </div>    
@@ -111,11 +108,10 @@
                                                 <div class="card-header">
                                                 </div>
                                                 <div class="card-body">
-                                                    <img src="/gambar/Kandidat/{{$pengalaman->nama_kandidat}}/Pengalaman Kerja/{{$item->foto}}" class="img2 mb-1" alt="">
-                                                    <div class="text-center">
-                                                        <a class="btn btn-warning mb-2" href="/edit_portofolio_pengalaman_kerja/{{$item->foto_kerja_id}}/{{"foto"}}">Edit</a>
-                                                        <a class="btn btn-danger mb-2" onclick="hapusData(event)" href="/hapus_portofolio_pengalaman_kerja/{{$item->foto_kerja_id}}/{{"foto"}}">Hapus</a>
-                                                    </div>                                                            
+                                                    <img src="/gambar/Kandidat/{{$pengalaman->nama_kandidat}}/Pengalaman Kerja/{{$item->foto}}" class="" style="width: 100%; height:auto;"  alt="">
+                                                    <hr>
+                                                    <a class="btn btn-warning mb-2" href="/edit_portofolio_pengalaman_kerja/{{$item->foto_kerja_id}}/{{"foto"}}">Edit</a>
+                                                    <a class="btn btn-danger mb-2" onclick="hapusData(event)" href="/hapus_portofolio_pengalaman_kerja/{{$item->foto_kerja_id}}/{{"foto"}}">Hapus</a>
                                                 </div>
                                             </div>
                                         </div>

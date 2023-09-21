@@ -34,33 +34,6 @@
                             <label for="exampleInputEmail1" class="form-label">Alasan Berhenti</label>
                             <input type="text" required name="alasan_berhenti" value="{{$pengalaman_kerja->alasan_berhenti}}" class="form-control" id="alasan_berhenti" aria-describedby="emailHelp">
                         </div>
-                        {{-- <div class="mb-2">
-                            <label for="exampleInputEmail1" class="form-label">Video Kerja</label>
-                            <div class="">
-                                @if ($pengalaman_kerja->video_pengalaman_kerja !== null)
-                                    <video width="400" class="" id="video">
-                                        <source src="/gambar/Kandidat/{{$pengalaman_kerja->nama_kandidat}}/Pengalaman Kerja/{{$pengalaman_kerja->video_pengalaman_kerja}}">
-                                    </video>
-                                    <button class="btn btn-success mb-2" type="button" onclick="playPause()">Mulai/Jeda</button>
-                                    <input type="file" name="video" class="form-control" id="video" aria-describedby="emailHelp" accept="video/*">
-                                    <small>Usahakan untuk ukuran video 3mb</small>                                
-                                @else
-                                    <input type="file" name="video" class="form-control" id="video" aria-describedby="emailHelp" accept="video/*">
-                                    <small>Usahakan untuk ukuran video 3mb</small>                                
-                                @endif
-                            </div>
-                        </div>
-                        <div class="mb-2">
-                            <label for="" class="form-label">Foto Kerja</label>
-                            <div class="">
-                                @if ($pengalaman_kerja->foto_pengalaman_kerja !== null)
-                                    <img src="/gambar/Kandidat/{{$pengalaman_kerja->nama_kandidat}}/Pengalaman Kerja/{{$pengalaman_kerja->foto_pengalaman_kerja}}" class="img mb-1">
-                                    <input type="file" class="form-control" name="foto" accept="image/*">
-                                @else
-                                    <input type="file" class="form-control" name="foto" accept="image/*">                
-                                @endif
-                            </div>
-                        </div> --}}
                         <div class="mb-2">
                             <a href="/isi_kandidat_company" class="btn btn-danger">Kembali</a>
                             <button type="submit" class="btn btn-warning">Ubah</button>

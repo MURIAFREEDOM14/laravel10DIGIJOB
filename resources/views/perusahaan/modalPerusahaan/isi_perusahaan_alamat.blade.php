@@ -15,15 +15,22 @@
             <div class="">
                 <div class="row">
                     <h4 class="text-center">PERUSAHAAN BIO DATA</h4>
+                    <!-- form(post) PerusahaanController => simpan_perusahaan_alamat -->
                     <form action="/perusahaan/isi_perusahaan_alamat" method="POST">
                         @csrf
+                        <!-- input alamat perusahaan -->
                         <div class="row mb-3">
                             <label for="">Alamat Perusahaan</label>
                         </div>
+                        <!-- mengambil data alamat perusahaan -->
                         <input type="text" hidden name="" value="{{$perusahaan->tmp_perusahaan}}" id="penempatan">
+                        <!-- apabila tempat perusahaan ada dalam negeri -->
                         @if ($perusahaan->tmp_perusahaan == "Dalam negeri")
-                            @livewire('company-location')                                                
+                            <!-- menggunakan livewire -->
+                            <!-- lokasi livewire : app/Http/Livewire/ -->
+                            @livewire('perusahaan.company-location')                                                
                         @else
+                            <!-- pilihan alamat negara perusahaan -->
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <label for="">Pilih Nama Negara</label>
@@ -31,12 +38,14 @@
                                 <div class="col-md-8">
                                     <select name="negara_id" class="form-control" required id="negara">
                                         <option value="">-- Pilih Negara --</option>
+                                        <!-- menampilkan data negara -->
                                         @foreach ($negara as $item)
                                             <option value="{{$item->negara_id}}">{{$item->negara}}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>    
+                            </div>
+                            <!-- input alamat negara -->    
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <label for="">Masukkan alamat</label>
@@ -46,6 +55,7 @@
                                 </div>
                             </div>
                         @endif
+                            <!-- input email perusahaan -->
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <label for="">Email Perusahaan</label>
@@ -54,6 +64,7 @@
                                     <input type="email" disabled value="{{$perusahaan->email_perusahaan}}" class="form-control" name="email_perusahaan" id="email">
                                 </div>
                             </div>
+                            <!-- input no telp perusahaan -->
                             <div class="row mb-3">
                                 <div class="col-md-4">
                                     <label for="">No. Telp Perusahaan</label>
@@ -72,6 +83,7 @@
         </div>
     </div>
     <script>
+        // fungsi tombol loading
         function processing() {
             var penempatan = document.getElementById('penempatan').value;
             var telp = document.getElementById('telp').value;

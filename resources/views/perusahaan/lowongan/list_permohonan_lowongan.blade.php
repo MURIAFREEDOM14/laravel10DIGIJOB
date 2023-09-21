@@ -9,6 +9,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
+                    <!-- menampilkan data lowongan -->
                     @foreach ($lowongan as $item)
                         <div class="col-md-6">
                             <div class="card" style="border:1px solid green">

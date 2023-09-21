@@ -20,6 +20,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <!-- menampilkan data pembayaran -->
                             @foreach ($pembayaran as $item)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
@@ -40,6 +41,8 @@
                         </tbody>
                     </table>
                 </div>
+                <hr>
+                <a href="/perusahaan" class="btn btn-danger">Kembali</a>
             </div>
         </div>
     </div>

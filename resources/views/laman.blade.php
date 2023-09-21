@@ -185,7 +185,7 @@
           <div class="col-md-12 align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
             <div class="icon-box text-center" style="">
               <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="digijob_system" style="text-transform: uppercase;">Digijob Sistem</a></h4>
+              <h4><a href="digijob_system" style="text-transform: uppercase;" class="text1">Digijob Sistem</a></h4>
               <p class="text1">
                 DIGIJOB dirancang untuk membantu organisasi dalam upaya mereka memaksimalkan efisiensi dan efektivitas proses perekrutan pekerja lokal dan migran. DIGIJOB mengubah kemampuan rekrutmen yang secara tradisional digunakan oleh industri rekrutmen pekerja menjadi platform online tunggal yang mudah digunakan dan hemat biaya. Sebagai sistem yang lengkap, DIGIJOB menawarkan nilai yang luar biasa kepada pengguna.   DIGIJOB dirancang agar sesuai dengan proses rekrutmen pekerja di negara-negara sumber tenaga kerja lokal dan luar negeri. Ruang lingkup DIGIJOB mencakup semua langkah utama dalam proses perekrutan pekerja migran dan menyediakan portal manajemen yang komprehensif bagi pengguna. Selain itu, DIGIJOB dirancang untuk meminimalkan upaya administratif dan menjadi solusi sederhana dan mudah digunakan untuk perekrutan pekerja migran.
               </p>
@@ -196,7 +196,7 @@
           <div class="col-md-12 align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="100">
             <div class="icon-box text-center">
               <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="/benefits" style="text-transform: uppercase;">Keunggulan</a></h4>
+              <h4><a href="/benefits" style="text-transform: uppercase;" class="text1">Keunggulan</a></h4>
               <p class="text1">
                 Murah, Mudah, Cepat, Akurat, Menyatu
               </p>
@@ -207,7 +207,7 @@
           <div class="col-md-12 align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
             <div class="icon-box text-center">
               <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="/features" style="text-transform: uppercase;">Tambahan</a></h4>
+              <h4><a href="/features" style="text-transform: uppercase;" class="text1">Tambahan</a></h4>
               <p class="text1">
                 Jaminan kehadiran pekerja di Pusat Medis Terakreditasi untuk pemeriksaan kesehatan pekerja.
               </p>
@@ -218,7 +218,7 @@
           <div class="col-md-12 align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
             <div class="icon-box text-center">
               <div class="icon"><i class="bx bx-file"></i></div>
-              <h4><a href="/hubungi_kami" style="text-transform: uppercase;">Hubungi Kami</a></h4>
+              <h4><a href="/hubungi_kami" style="text-transform: uppercase;" class="text1">Hubungi Kami</a></h4>
               <p class="text1">
                 Hubungi kami
                 <br>&nbsp;
@@ -226,50 +226,7 @@
             </div>
           </div>
         </div>
-      </div>
-      <!-- Modal -->
-      {{-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel" style="font-family:poppins">Anda ingin daftar sebagai siapa?</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <div class="row">
-                <div class="col-md-12 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-                  <a href="/register/kandidat" style="color: white">
-                    <div class="icon-box text-center" style="border-style: outset; background-color: #19A7CE">
-                      <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
-                      <h4 style="text-transform: uppercase;color: white">Pencari Kerja</h4>  
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-                  <a href="/register/akademi" style="color: white">
-                    <div class="icon-box text-center" style="border-style: outset;background-color: #FFD966">
-                      <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
-                      <h4 style="text-transform: uppercase; color: white">Akademi</h4>
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12 mb-3 align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-                  <a href="/register/perusahaan" style="color: white">
-                    <div class="icon-box text-center" style="border-style: outset;background-color: #2bb930">
-                      <div class="icon"><i class="bx bx-file" style="color: #0a3e52"></i></div>
-                      <h4 style="text-transform: uppercase; color: white">Perusahaan</h4>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> --}}
+      </div>      
     </section>
     <!-- End Services Section -->
 

@@ -88,9 +88,9 @@
                     <div class="col-md-3">
                         <div class="float-right">
                             @if ($kandidat->foto_set_badan !== null)
-                                <img class="img" src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" alt="">
+                                <img class="" src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" alt="" style="width: 100%; height:auto; border:1px solid black; border-radius:5%">
                             @else
-                                <img class="img" src="/gambar/default_user.png" alt="">
+                                <img class="" src="/gambar/default_user.png" alt="" style="width: 100%; height:auto; border:1px solid black; border-radius:5%">
                             @endif
                         </div>
                     </div>
@@ -140,10 +140,9 @@
                         </div>
                     </div>
                 </div>
-                {{-- @if ($kandidat->id_perusahaan !== null && $kandidat->stat_pemilik == "diterima") --}}
-                    <a class="btn btn-success" href="/output_izin_waris">Cetak Surat Izin & Ahli waris</a>                    
-                {{-- @endif --}}
-            </div>        
+                <a href="/" class="btn btn-danger mt-2">Kembali</a>
+                <a class="btn btn-success mt-2" href="/output_izin_waris">Cetak Surat Izin & Waris</a>                    
+            </div>
         </div>
     </div>        
     <!-- Modal -->

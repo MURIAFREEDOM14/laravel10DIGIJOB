@@ -2,6 +2,7 @@
 @section('content')
 @include('sweetalert::alert')
 @include('flash_message')
+
 @php
     $alamat = $perusahaan->tmp_perusahaan;
     $telp = $perusahaan->no_telp_perusahaan;

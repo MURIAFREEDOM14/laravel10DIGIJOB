@@ -7,6 +7,7 @@
             <div class="">
                 <div class="row">
                     <h4 class="text-center">PERUSAHAAN BIO DATA</h4>
+                    <!-- form(post) PerusahaanController => simpan_perusahaan_operator -->
                     <form action="/perusahaan/isi_perusahaan_operator" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="" id="perusahaan_biodata">
@@ -15,6 +16,7 @@
                                     <h6 class="ms-4">OPERATOR BIO DATA</h6> 
                                 </div>
                             </div>
+                            <!-- input nama operator -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Nama Operator</label>
@@ -23,6 +25,7 @@
                                     <input type="text" required value="{{$perusahaan->nama_operator}}" name="nama_operator" id="operator" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input no telp operator -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">No. Telp Operator</label>
@@ -31,6 +34,7 @@
                                     <input type="number" required value="{{$perusahaan->no_telp_operator}}" name="no_telp_operator" id="telp" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input email operator -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for=""  class="col-form-label">Email Operator</label>
@@ -39,6 +43,7 @@
                                     <input type="email" required value="{{$perusahaan->email_operator}}" name="email_operator" id="email" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input company profil -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Company Profile</label>
@@ -58,6 +63,7 @@
         </div>
     </div>
     <script>
+        // fungsi tombol loading
         function processing() {
             var operator = document.getElementById('operator').value;
             var telp = document.getElementById('telp').value;

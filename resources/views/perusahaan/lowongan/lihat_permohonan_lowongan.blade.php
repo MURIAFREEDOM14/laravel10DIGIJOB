@@ -11,11 +11,14 @@
                 <h4><b class="bold">List Pelamar Lowongan Pekerjaan</b></h4>
             </div>
             <div class="card-body">
+                <!-- form(post) PerusahaanRecruitmentController => confirmPermohonanLowongan -->
                 <form action="/perusahaan/terima_permohonan_lowongan/{{$id}}" method="POST">
                     @csrf    
                     <div class="row">
+                        <!-- menampilkan data permohonan lowongan / kandidat yang melamar -->
                         @foreach ($permohonan as $item)
                             <div class="col-md-3">
+                                <!-- mengambil data id kandidat -->
                                 <input type="checkbox" aria-label="Checkbox for following text input" name="id_kandidat[]" value="{{$item->id_kandidat}}">
                                 <div class="card">
                                     <a class="btn" style="border: 2px solid #1269DB; border-top-left-radius:10%;border-bottom-right-radius:10%" href="/perusahaan/lihat/kandidat/{{$item->id_kandidat}}">
@@ -39,6 +42,7 @@
                         @endforeach
                     </div>
                     <hr>
+                    <!-- apabila data permohonan lowongan ada / tidak kosong -->
                     @if ($isi !== 0)
                         <button class="btn btn-success float-right" type="submit">Pilih Kandidat</button>                    
                     @endif

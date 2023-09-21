@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-3"></div>
             </div>
-            <div class="text-center">
+            <div class="float-left">
                 <button class="btn btn-success mb-2" id="play" type="button" onclick="play()">Mulai</button>
                 <button class="btn btn-warning mb-2" id="jeda" type="button" onclick="pause()">Jeda</button>
             </div>
@@ -39,7 +39,7 @@
             <div class="row">
                 @foreach ($semua_foto as $item)
                     <div class="col-3">
-                        <div class="card" style="border:2px solid #1269db">
+                        <div class="card" style="border:2px solid #1269db; border-radius:10% 0% 10% 0%;">
                             <a href="/perusahaan/lihat/galeri_kandidat/{{$item->foto_kerja_id}}/{{"foto"}}">
                                 <div class="card-body">
                                     <img src="/gambar/Kandidat/{{$pengalaman->nama_kandidat}}/Pengalaman Kerja/{{$item->foto}}" class="img2" alt="">
@@ -49,11 +49,11 @@
                     </div>    
                 @endforeach
                 @foreach ($semua_video as $item)
-                    <div class="col-3">
-                        <div class="card" style="border:2px solid #1269db">
+                    <div class="col-4">
+                        <div class="" style="border:2px solid #1269db; border-radius:10% 0% 10% 0%;">
                             <a href="/perusahaan/lihat/galeri_kandidat/{{$item->video_kerja_id}}/{{"video"}}">
-                                <div class="card-body">
-                                    <video id="video">
+                                <div class="" style="padding: 7%;">
+                                    <video id="video" height="auto">
                                         <source class="" src="/gambar/Kandidat/{{$pengalaman->nama_kandidat}}/Pengalaman Kerja/{{$item->video}}">
                                     </video>
                                 </div>

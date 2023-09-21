@@ -7,6 +7,7 @@
             <div class="">
                 <div class="row">
                     <h4 class="text-center">PERUSAHAAN BIO DATA</h4>
+                    <!-- form(post) PerusahaanController => simpan_perusahaan_data -->
                     <form action="/perusahaan/isi_perusahaan_data" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="" id="perusahaan_biodata">
@@ -15,6 +16,7 @@
                                     <h6 class="ms-4">PERUSAHAAN BIO DATA</h6> 
                                 </div>
                             </div>
+                            <!-- input nama perusahaan -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Nama Perusahaan</label>
@@ -23,6 +25,7 @@
                                     <input type="text" disabled required value="{{$perusahaan->nama_perusahaan}}" name="nama_perusahaan" id="perusahaan" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input NIB perusahaan -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">NIB Perusahaan</label>
@@ -31,6 +34,7 @@
                                     <input type="text" disabled required value="{{$perusahaan->no_nib}}" name="no_nib" id="NIB" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- input nama pemimpin -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Nama Pemimpin</label>
@@ -39,6 +43,7 @@
                                     <input type="text" required value="{{$perusahaan->nama_pemimpin}}" name="nama_pemimpin" id="pemimpin" class="form-control" aria-labelledby="passwordHelpInline">
                                 </div>
                             </div>
+                            <!-- pilihan alamat perusahaan  -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Alamat Perusahaan</label>
@@ -55,6 +60,7 @@
                                     </select>
                                 </div>
                             </div>
+                            <!-- input foto perusahaan -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Foto Perusahaan</label>
@@ -71,6 +77,7 @@
                                     @endif
                                 </div>
                             </div>
+                            <!-- input logo perusahaan -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">
                                     <label for="" class="col-form-label">Logo Perusahaan</label>

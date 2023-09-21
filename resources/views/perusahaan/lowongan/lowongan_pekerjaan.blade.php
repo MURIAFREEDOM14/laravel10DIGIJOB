@@ -20,6 +20,7 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <!-- menampilkan data lowongan -->
                             @foreach ($lowongan as $item)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
@@ -41,6 +42,8 @@
                         </tbody>
                     </table>
                 </div>
+                <hr>
+                <a class="btn btn-danger" href="/perusahaan">Kembali</a>        
             </div>
         </div>
     </div>

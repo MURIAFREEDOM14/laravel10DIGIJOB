@@ -8,14 +8,17 @@
                 <h4 style="font-weight: bold">Tambah Lowongan</h4>
             </div>
             <div class="card-body">
+                <!-- form(post) perusahaanRecruitmentController => simpanLowongan -->
                 <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
+                    <!-- pilihan penempatan pekerja -->
                     <div class="row mb-3">
                         <div class="col-md-3">
                             <label for="" class="col-form-label">Penempatan Kerja</label>
                         </div>
                         <div class="col-md-9">
                             <select name="penempatan" required class="form-control" id="negara_tujuan">
+                                <!-- apabila lowongan dalam negeri -->
                                 @if ($type == "dalam")
                                     <option value="">-- Pilih Provinsi --</option>
                                     @foreach ($provinsi as $item)
@@ -30,6 +33,7 @@
                             </select>
                         </div>
                     </div>
+                    <!-- input judul pekerjaan -->
                     <div class="row mb-3">
                         <div class="col-md-3">
                             <label for="" class="col-form-label">Judul Pekerjaan</label>
@@ -38,11 +42,13 @@
                             <input type="text" required name="jabatan" value="{{old('jabatan')}}" class="form-control" id="">
                         </div>
                     </div>
+                    <!-- pilihan jenis pekerja -->
                     <div class="row mb-3">
                         <div class="col-md-3">
                             <label for="" class="col-form-label">Jenis Pekerja</label>
                         </div>
                         <div class="col-md-6">
+                            <!-- apabila lowongan dalam negeri -->
                             @if ($type == "dalam")
                                 <select name="lvl_pekerjaan" required class="form-control" id="">
                                     <option value="">-- Tentukan Jenis Pekerja --</option>
@@ -52,16 +58,24 @@
                                     <option value="direktur">Direktur</option>
                                     <option value="ceo">CEO</option>
                                 </select>
+                            <!-- apabila perusahaan menempatkan pekerja ke luar negeri -->
                             @elseif($perusahaan->penempatan_kerja == "Luar negeri")
-                                <select name="lvl_pekerjaan" required class="form-control" id="">
+                                <!-- pilihan jenis pekerja -->
+                                <select name="lvl_pekerjaan" required class="form-control" id="jenisPekerjaan">
                                     <option value="">-- Tentukan Jenis Pekerja --</option>
                                     @foreach ($jenis_pekerjaan as $item)
                                         <option value="{{$item->judul}}">{{$item->judul}}</option>
                                     @endforeach
+                                    <option value="lainnya">Lainnya</option>
                                 </select>
+                                <!-- input tambah pilihan jenis pekerja -->
+                                <input type="text" name="judul_jenis_pekerja" class="form-control mt-2" placeholder="Judul jenis pekerja" id="judulJenisPekerja">
+                                <input type="text" name="nama_jenis_pekerja" class="form-control mt-2" placeholder="Keterangan jenis pekerja" id="namaJenisPekerja">
+                                <button id="btnJenisPekerja" class="btn btn-primary mt-2" type="button">Tambah</button>
                             @endif  
                         </div>
                     </div>
+                    <!-- input deskripsi -->
                     <div class="row mb-3">
                         <div class="col-md-3">
                             <label for="" class="col-form-label">Deskripsi Pekerjaan</label>
@@ -70,6 +84,7 @@
                             <textarea name="deskripsi" required id="" class="form-control">{{old('deskripsi')}}</textarea>
                         </div>
                     </div>
+                    <!-- input gambar flyer -->
                     <div class="row mb-3">
                         <div class="col-md-3">
                             <label for="" class="col-form-label">Flyer (jika ada)</label>
@@ -85,6 +100,7 @@
                         </div>
                     </div>
                     <hr>
+                    <!-- pilihan syarat jenis kelamin -->
                     <div class="row mb-3">
                         <div class="col-md-3">
                             <label for="" class="col-form-label">Jenis Kelamin</label>
@@ -98,6 +114,7 @@
                             </select>
                         </div>
                     </div>
+                    <!-- pilihan tingkat pendidikan -->
                     <div class="row mb-3">
                         <div class="col-md-3">
                             <label for="" class="col-form-label">Pendidikan Minimal</label>
@@ -116,6 +133,7 @@
                             </select>
                         </div>
                     </div>
+                    <!-- input syarat usia min & maks -->
                     <div class="row mb-3">
                         <div class="col-md-3 mb-2">
                             <label for="" class="col-form-label">Syarat Usia</label>
@@ -137,7 +155,9 @@
                             </div>
                         </div>
                     </div>
+                    <!-- apabila lowongan luar negeri -->
                     @if ($type == "luar")
+                        <!-- input pengalaman kerja -->
                         <div class="row mb-3">
                             <div class="col-md-3">
                                 <label for="" class="col-form-label">Pengalaman Bekerja</label>
@@ -145,23 +165,24 @@
                             <div class="col-md-9">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <input type="checkbox" name="pengalaman_kerja[]" value="non" aria-label="Checkbox for following text input" checked>
-                                    </div>
+                                        <div class="input-group-text">
+                                            <input type="checkbox" name="pengalaman_kerja[]" value="non" aria-label="Checkbox for following text input" checked>
+                                        </div>
                                     </div>
                                     <span class="selectgroup-button">Non</span>
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <input type="checkbox" name="pengalaman_kerja[]" value="ex" aria-label="Checkbox for following text input">
-                                    </div>
+                                        <div class="input-group-text">
+                                            <input type="checkbox" name="pengalaman_kerja[]" value="ex" aria-label="Checkbox for following text input">
+                                        </div>
                                     </div>
                                     <span class="selectgroup-button">Ex</span>
                                 </div>
                             </div>
                         </div>    
                     @endif
+                    <!-- input tinggi badan -->
                     <div class="row mb-3">
                         <div class="col-md-3">
                             <label for="" class="col-form-label">Tinggi Badan Minimal</label>
@@ -174,7 +195,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>  
+                    </div>
+                    <!-- pilihan syarat berat badan min & maks -->  
                     <div class="row mb-3">
                         <div class="col-md-3 mb-2">
                             <label for="" class="col-form-label">Syarat Berat Badan</label>
@@ -184,6 +206,7 @@
                                 <option value="ideal">Ideal</option>
                                 <option value="kustom">Kustom</option>
                             </select>
+                            <!-- input apabila meng-kustom berat badan min & maks -->
                             <div class="mt-2" id="random">
                                 <div class="mb-2">
                                     <div class="input-group">
@@ -204,12 +227,14 @@
                             </div>
                         </div>
                     </div>
+                    <!-- input area rekrut pekerja -->
                     <div class="row mb-3">
                         <div class="col-md-3">
                             <label class="col-form-label">Area Rekrut Pekerja</label>
                         </div>
                         <div class="col-md-9">
                             <div class="form-check">                               
+                                <!-- apabila lowongan dalam negeri -->
                                 @if ($type == "dalam")
                                     <div class="row">
                                         <div class="col-md-4">
@@ -247,6 +272,7 @@
                         </div>
                     </div>
                     <hr>
+                    <!-- input fasilitas yang disediakan oleh perusahaan -->
                     <div class="row">
                         <div class="col-md-3">
                             <label for="" class="form-label">Fasilitas Pekerjaan</label>
@@ -276,6 +302,7 @@
                                 </div>
                                 <span class="selectgroup-button">Tempat Tinggal</span>
                             </div>
+                            <!-- menampilkan data fasilitas dari perusahaan -->
                             @foreach ($fasilitas as $item)
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -286,6 +313,7 @@
                                     <span class="selectgroup-button">{{$item->fasilitas}}</span>
                                 </div>    
                             @endforeach
+                            <!-- input tambah fasilitas dari perusahaan -->
                             <div class="">
                                 <button class="btn btn-primary" type="button" onclick="btnTambahFasilitas()" id="tambahFasilitas">Tambah Fasilitas</button>
                                 <div class="" id="fasilitasTambah">
@@ -303,10 +331,12 @@
                         </div>
                     </div>
                     <hr>
+                    <!-- input benefit yang didapat dari perusahaan -->
                     <div class="row mb-3">
                         <div class="col-md-3 mb-2">
                             <label for="" class="col-form-label">Informasi Gaji </label>
                         </div>
+                        <!-- input gaji min -->
                         <div class="col-md-4 mb-2">
                             <div class="input-group flex-nowrap">
                                 <div class="input-group-prepend" id="">
@@ -315,6 +345,7 @@
                                 <input type="number" required name="gaji_minimum" value="{{old('gaji_minimum')}}" id="" placeholder="Gaji Minimum" class="form-control">
                             </div>
                         </div>
+                        <!-- input gaji maks -->
                         <div class="col-md-4 mb-2">
                             <div class="input-group flex-nowrap">
                                 <div class="input-group-prepend">
@@ -324,6 +355,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- input benefit lainnya yang didapat dari perusahaan -->
                     <div class="row">
                         <div class="col-md-3">
                             <label class="form-label">Benefit Pekerjaan</label>
@@ -369,6 +401,7 @@
                                 </div>
                                 <span class="selectgroup-button">Asuransi</span>
                             </div>
+                            <!-- apabila lowongan luar negeri -->
                             @if ($type == "luar")
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -379,16 +412,18 @@
                                     <span class="selectgroup-button">Tiket Pulang Sehabis Kontrak</span>
                                 </div>    
                             @endif
+                            <!-- menampilkan data benefit dari perusahaan -->
                             @foreach ($benefit as $item)
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <input type="checkbox" name="benefit[]" value="{{$item->benefit}}" aria-label="Checkbox for following text input">
-                                    </div>
+                                        <div class="input-group-text">
+                                            <input type="checkbox" name="benefit[]" value="{{$item->benefit}}" aria-label="Checkbox for following text input">
+                                        </div>
                                     </div>
                                     <span class="selectgroup-button">{{$item->benefit}}</span>
                                 </div>    
                             @endforeach
+                            <!-- menambah data benefit dari perusahaan -->
                             <div class="">
                                 <button class="btn btn-primary" type="button" onclick="btnTambahBenefit()" id="tambahBenefit">Tambah Benefit</button>
                                 <div class="" id="benefitTambah">
@@ -399,7 +434,8 @@
                             </div>
                         </div>
                     </div>
-                    <hr>                  
+                    <hr>
+                    <!-- kode undangan perusahaan -->                  
                     <div class="row mb-3">
                         <div class="col-md-3">
                             <label for="" class="col-form-label">Kode Undangan</label>
@@ -409,6 +445,7 @@
                         </div>
                     </div>
                     <hr>
+                    <!-- input tanggal tutup lowongan -->
                     <div class="row mb-3">
                         <div class="col-md-3">
                             <label for="" class="col-form-label">Tanggal Tutup Lowongan</label>
@@ -418,6 +455,7 @@
                         </div>
                     </div>
                     <hr>
+                    <!-- input tanggal inteview awal & interview akhir -->
                     <div class="row mb-3">
                         <div class="col-md-3">
                             <label for="" class="col-form-label">Tanggal Awal Interview</label>

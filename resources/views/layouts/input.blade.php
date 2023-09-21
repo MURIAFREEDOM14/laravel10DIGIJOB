@@ -243,6 +243,7 @@
         var video = document.getElementById("video");
         var btnPlay = document.getElementById('play');
         var btnJeda = document.getElementById('jeda');
+        
         // fungsi mulai video
         function play() {
           if (video.paused) {

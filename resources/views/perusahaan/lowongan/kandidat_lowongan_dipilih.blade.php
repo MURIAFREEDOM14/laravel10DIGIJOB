@@ -7,10 +7,12 @@
             <div class="card-header">
                 <h4 class="float-left"><b class="bold">Kandidat Dipilih</b></h4>
             </div>
-            <div class="card-body">                
+            <div class="card-body">
+                <!-- form(post) PerusahaanRecruitmentController => kandidatDipilihInterview -->                
                 <form action="/perusahaan/kandidat_dipilih_interview/{{$id}}" method="POST">
                     @csrf
                     <div class="row">        
+                        <!-- menampilkan data kandidat yang dipilih untuk diinterview / stat_pemilik = kosong -->
                         @foreach ($kandidat as $item)
                             <div class="col-3">
                                 <div class="card">
@@ -24,6 +26,7 @@
                                                 @endif
                                             </div>
                                         </div>
+                                        <!-- mengambil id kandidat -->
                                         <div class="text-center" style="background-color: #1269DB">
                                             <div class="mt-2" style="color: white; text-transform:uppercase">
                                                 {{$item->nama_panggilan}}
@@ -36,18 +39,23 @@
                         @endforeach
                     </div>
                     <hr>
+                    <!-- apabila data kandidat kosong / 0 -->
                     @if ($isi !== 0)
+                        <!-- apabila di data interview ada data kandidat -->
                         @if ($interview == null)
                             <div class="float-right">
                                 <button class="btn btn-success mt-1" type="submit" id="">Konfirmasi kandidat</button>    
                                 <a class="btn btn-danger mt-1" href="/perusahaan/batal_kandidat_lowongan/{{$id}}">Batalkan kandidat</a>                                
                             </div>
+                        <!-- apabila di data pembayaran ada data kandidat -->
                         @elseif($pembayaran !== null)
+                            <!-- apabila data pembayaran terdeteksi sudah dibayar --->
                             @if ($pembayaran->stats_pembayaran == "sudah dibayar")
                                 <a class="btn btn-warning float-right mx-1" href="/perusahaan/lihat_jadwal_interview/{{$id}}">Lihat Jadwal Interview</a>                        
                             @elseif($pembayaran->stats_pembayaran == "belum dibayar")    
                                 <a class="float-right btn btn-warning" href="/perusahaan/list/pembayaran">Selesaikan Pembayaran</a>
                             @endif
+                        <!-- apabila data inteview masih berstatus "pilih" -->
                         @elseif($interview->status == "pilih")
                             <a class="btn btn-warning float-right" href="/perusahaan/jadwal_interview/{{$id}}">Lengkapi Jadwal</a>   
                         @endif

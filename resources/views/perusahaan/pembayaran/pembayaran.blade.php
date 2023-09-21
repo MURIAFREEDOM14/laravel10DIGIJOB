@@ -14,8 +14,11 @@
                 <b class="" style="text-transform: uppercase;">Pembayaran</b>
             </div>
             <div class="card-body">
+                <!-- apabila data pembayaran perusahaan ada -->
                 @if ($pembayaran !== null)
+                    <!-- apabila foto pembayaran kosong -->
                     @if ($pembayaran->foto_pembayaran == null)
+                        <!-- form(post) PerusahaanController => paymentCheck -->
                         <form action="" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row mb-3">
@@ -39,6 +42,7 @@
                                     <label for=""><b class="bold">Judul Pembayaran</b></label>
                                 </div>
                                 <div class="col-8">
+                                    <!-- apabila data pembayaran interview -->
                                     @if ($pembayaran->id_lowongan !== null)
                                         <div class=""><b class="bold">: Interview {{$pembayaran->jabatan}}</b></div>                                        
                                     @else
@@ -76,6 +80,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- input foto bukti pembayaran -->
                             <div class="row mb-3">
                                 <div class="col-4">
                                     <label for=""><b class="bold">Bukti Pembayaran</b></label>
@@ -84,7 +89,6 @@
                                     <input type="file" required class="form-control" name="foto_pembayaran" id="inputPassword6" class="form-control" aria-labelledby="passwordHelpInline" accept="image/*">                                        
                                 </div>
                             </div>
-                            {{-- <a href="/" class="btn btn-danger">Kembali</a> --}}
                             <button type="submit" class="btn btn-success float-right">Bayar</button>    
                         </form>
                     @else
@@ -100,6 +104,7 @@
                     </div>
                     <h5>Maaf belum ada pembayaran</h5>
                 @endif
+                <a href="/perusahaan" class="btn btn-danger">Kembali</a>
             </div>    
         </div>
     </div>

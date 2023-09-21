@@ -149,6 +149,8 @@
                     @endif
                 @endif
             @endforeach
+            <hr>
+            <a href="/" class="btn btn-danger" style="color: white;">Kembali</a>
         </div>
     </div>
 </div>

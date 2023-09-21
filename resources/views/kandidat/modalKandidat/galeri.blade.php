@@ -1,6 +1,6 @@
 @extends('layouts.kandidat')
 @section('content')
-    <div class="container mt-5">
+    <div class="container mt-5 my-5">
         <div class="card">
             <div class="card-header">
                 <h5 style="font-weight: 600">Pengalaman Kerja</h5>
@@ -65,10 +65,10 @@
             <div class="card-body">
                 <div class="row">
                     @foreach ($video as $item)
-                        <div class="col-3">
-                            <div class="card" style="border:2px solid #1269db; border-radius: 10% 0% 10% 0%;">
+                        <div class="col-4">
+                            <div class="" style="border:2px solid #1269db; border-radius: 10% 0% 10% 0%;">
                                 <a href="/lihat_galeri_pengalaman_kerja/{{$item->video_kerja_id}}/{{"video"}}">
-                                    <div class="" style="padding: 7px">
+                                    <div class="" style="padding: 7%">
                                         <video id="video" height="auto">
                                             <source class="" src="/gambar/Kandidat/{{$kandidat->nama}}/Pengalaman Kerja/{{$item->video}}">
                                         </video>
@@ -78,8 +78,8 @@
                         </div>
                     @endforeach
                     @foreach ($foto as $item)
-                        <div class="col-3">
-                            <div class="card" style="border:2px solid #1269db; border-radius:10% 0% 10% 0%;">
+                        <div class="col-4">
+                            <div class="" style="border:2px solid #1269db; border-radius:10% 0% 10% 0%;">
                                 <a href="/lihat_galeri_pengalaman_kerja/{{$item->foto_kerja_id}}/{{"foto"}}">
                                     <div class="" style="padding: 7px;">
                                         <img src="/gambar/Kandidat/{{$kandidat->nama}}/Pengalaman Kerja/{{$item->foto}}" style="width: 100%; height:auto;" class="" alt="">

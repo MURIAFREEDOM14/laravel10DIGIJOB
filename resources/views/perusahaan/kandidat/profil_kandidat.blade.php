@@ -6,7 +6,6 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="text-center text-light"><b class="bold" style="font-size: 25px; text-transform:uppercase; border-bottom:2px solid white">Biodata Kandidat</b></div>
-                    {{-- <h6 class="text-center text-light" style="line-height:20px; text-transform:uppercase;">{{$negara->negara}}</h6> --}}
                 </div>
             </div>
         </div>
@@ -75,7 +74,6 @@
                                 @if ($kandidat->stat_pemilik == "dimiliki")
                                     : Dsn. {{$kandidat->dusun}}, RT/RW : {{$kandidat->rt}}/ {{$kandidat->rw}}, Kel/Desa : {{$kandidat->kelurahan}}, Kec. {{$kandidat->kecamatan}}, {{$kandidat->kabupaten}}, {{$kandidat->provinsi}}                                    
                                 @else
-                                    
                                 @endif
                                     : {{$kandidat->kabupaten}}
                             </b>
@@ -93,11 +91,11 @@
                     @endif
                 </div>
                 <div class="col-md-3">
-                    <div class="float-right mt--5">
+                    <div class="float-right">
                         @if ($kandidat->foto_set_badan !== null)
-                            <img class="img" src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" width="130px" height="150px" alt="">
+                            <img class="" src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" alt="" style="width: 100%; height:auto; border:1px solid black; border-radius:5%">
                         @else
-                            <img class="img" src="/gambar/default_user.png" width="120px" height="150px" alt="">
+                            <img class="" src="/gambar/default_user.png" alt="" style="width: 100%; height:auto; border:1px solid black; border-radius:5%">
                         @endif
                     </div>
                 </div>
@@ -150,43 +148,8 @@
             @if ($kandidat->stat_pemilik == "diterima")
                 <a href="/perusahaan/keluarkan_kandidat_perusahaan/{{$kandidat->id_kandidat}}/{{$kandidat->nama}}" class="btn btn-danger float-right" onclick="keluarkanKandidat(event)">Keluarkan Kandidat</a>                
             @endif
-            <a href="/perusahaan/list_permohonan_lowongan" class="btn btn-primary">Kembali</a>
+            <a href="/perusahaan/list_permohonan_lowongan" class="btn btn-danger">Kembali</a>
         </div>        
     </div>
-    {{-- <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-header">
-                    Rekomendasi untuk anda
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        @foreach ($semua_kandidat as $item)
-                            <div class="col-md-3">
-                                <div class="card">
-                                    <a class="btn" style="border: 2px solid #1269DB; border-top-left-radius:10%;border-bottom-right-radius:10%" href="/perusahaan/lihat/kandidat/{{$item->id_kandidat}}">
-                                        <div class="card-header text-center mt--5">
-                                            <div class="avatar avatar-xl">
-                                                @if ($item->foto_4x6 == null)
-                                                    <img src="/gambar/default_user.png" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                            
-                                                @else
-                                                    <img src="/gambar/Kandidat/{{$item->nama}}/4x6/{{$item->foto_4x6}}" alt="" class="avatar-img rounded-circle">                                            
-                                                @endif
-                                            </div>
-                                        </div>
-                                        <div class="card-body text-center" style="background-color: #1269DB">
-                                            <div class="mt-2" style="color: white; text-transform:uppercase">
-                                                {{$item->nama_panggilan}}
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 </div>        
 @endsection

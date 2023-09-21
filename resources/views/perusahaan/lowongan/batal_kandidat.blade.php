@@ -8,11 +8,14 @@
                 <h4 class="float-left"><b class="bold">Batal Pilih Kandidat</b></h4>
             </div>
             <div class="card-body">                
+                <!-- form(post) PerusahaanRecruitmentController => confirmCancelKandidatLowongan -->
                 <form action="" method="POST">
                     @csrf
                     <div class="row">        
+                        <!-- menampilkan data kandidat yang sudah dipilih / stat_pemilik = kosong -->
                         @foreach ($kandidat as $item)
                             <div class="col-3">
+                                <!-- mengambil banyaknya data kadidat yang dibatalkan dengan id kandidat -->
                                 <input type="checkbox" name="id_kandidat[]" value="{{$item->id_kandidat}}" id="">
                                 <div class="card">
                                     <a class="btn" style="border: 2px solid #1269DB; border-top-left-radius:10%;border-bottom-right-radius:10%" href="/perusahaan/lihat/kandidat/{{$item->id_kandidat}}">

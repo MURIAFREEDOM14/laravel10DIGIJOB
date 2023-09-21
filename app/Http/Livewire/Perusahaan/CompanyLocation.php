@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Perusahaan;
 
 use Livewire\Component;
 use App\Models\Provinsi;
@@ -8,7 +8,6 @@ use App\Models\Kota;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use App\Models\Perusahaan;
 
 class CompanyLocation extends Component
@@ -37,7 +36,7 @@ class CompanyLocation extends Component
         $kab = Kota::where('kota',$perusahaan->kabupaten)->first('id');
         $kel = Kelurahan::where('kelurahan',$perusahaan->kelurahan)->first('id');
         $kec = Kecamatan::where('kecamatan',$perusahaan->kecamatan)->first('id');
-        return view('livewire.company-location',compact('perusahaan','prov','kab','kel','kec'))->extends('layouts.input');
+        return view('livewire.perusahaan.company-location',compact('perusahaan','prov','kab','kel','kec'))->extends('layouts.input');
     }
 
     public function updatedkota($state)

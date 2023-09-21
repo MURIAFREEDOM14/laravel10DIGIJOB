@@ -1,4 +1,5 @@
 <div>
+    <!-- pilihan provinsi -->
     <div class="row mb-3 g-3 align-items-center">
         <div class="col-md-4">
             <label for="inputPassword6" class="col-form-label">Provinsi</label>
@@ -13,6 +14,7 @@
         </div>
     </div>
 
+    <!-- pilihan kota -->
     <div class="row mb-3 g-3 align-items-center">
         <div class="col-md-4">
             <label for="inputPassword6" class="col-form-label">Kabupaten / Kota</label>
@@ -31,6 +33,7 @@
         </div>
     </div>
 
+    <!-- pilihan kecamatan -->
     <div class="row mb-3 g-3 align-items-center">
         <div class="col-md-4">
             <label for="inputPassword6" class="col-form-label">Kecamatan</label>
@@ -49,6 +52,7 @@
         </div>
     </div>
 
+    <!-- pilihan kelurahan -->
     <div class="row mb-3 g-3 align-items-center">
         <div class="col-md-4">
             <label for="inputPassword6" class="col-form-label">Kelurahan</label>

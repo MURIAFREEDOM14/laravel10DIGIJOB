@@ -64,6 +64,15 @@
                 width: 100%;
                 height: auto;
             }
+            #judulJenisPekerja {
+                display: none;
+            }
+            #namaJenisPekerja {
+                display: none;
+            }
+            #btnJenisPekerja {
+                display: none;
+            }
             video {
                 width: 100%;
                 height: auto;
@@ -349,36 +358,38 @@
                 <div class="content">
                     <main class="px-1">
                         @yield('content')
+                        <div class="" style="height: 100px;"></div>
+                        <!-- pembatas antara body dengan footer -->
+                        <footer class="footer" style="background-color: #2bb930;">
+                            <div class="container-fluid">
+                                <nav class="pull-left">
+                                    <ul class="nav nav-primary">
+                                        <li class="nav-item">
+                                            <div class="copyright" style="color:white;">
+                                                &copy; Copyright <strong><span>DIGIJOB-UGIPORT</span></strong>. All Rights Reserved
+                                            </div>
+                                        </li>
+                                        {{-- <li class="nav-item">
+                                            <a class="nav-link" href="#">
+                                                Help
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#">
+                                                Licenses
+                                            </a>
+                                        </li> --}}
+                                    </ul>
+                                </nav>
+                                <div class="copyright ml-auto">
+                                    &nbsp;
+                                    <strong><a class="" style="color: white; background-color:#2bb930; text-decoration:none;" href="/perusahaan/contact_us_perusahaan" style="text-transform: uppercase">Hubungi Kami</a></strong>
+                                    {{-- 2018, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">ThemeKita</a> --}}
+                                </div>
+                            </div>
+                        </footer>
                     </main>
                 </div>
-                <footer class="footer" style="background-color: #2bb930;">
-                    <div class="container-fluid">
-                        <nav class="pull-left">
-                            <ul class="nav nav-primary">
-                                <li class="nav-item">
-                                    <div class="copyright" style="color:white;">
-                                        &copy; Copyright <strong><span>DIGIJOB-UGIPORT</span></strong>. All Rights Reserved
-                                    </div>
-                                </li>
-                                {{-- <li class="nav-item">
-                                    <a class="nav-link" href="#">
-                                        Help
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">
-                                        Licenses
-                                    </a>
-                                </li> --}}
-                            </ul>
-                        </nav>
-                        <div class="copyright ml-auto">
-                            &nbsp;
-                            <strong><a class="" style="color: white; background-color:#2bb930; text-decoration:none;" href="/perusahaan/contact_us_perusahaan" style="text-transform: uppercase">Hubungi Kami</a></strong>
-                            {{-- 2018, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">ThemeKita</a> --}}
-                        </div>
-                    </div>
-                </footer>
             </div>
         </div>
         <!--   Core JS Files   -->
@@ -699,6 +710,42 @@
                     } else {
                         custom.style.display = 'none';
                     }
+                })
+            })
+            
+            // fungsi menambah opsi tambahan jenis pekerja
+            $(document).ready(function() {
+                $(document).on('change','#jenisPekerjaan', function() {
+                    var jenisPekerjaan = this.value;
+                    var judulJenisPekerja = document.getElementById('judulJenisPekerja');
+                    var namaJenisPekerja = document.getElementById('namaJenisPekerja');
+                    var btnTambahOpsi = document.getElementById('btnJenisPekerja');
+                    if (jenisPekerjaan == "lainnya") {
+                        judulJenisPekerja.style.display = 'block';
+                        namaJenisPekerja.style.display = 'block';
+                        btnTambahOpsi.style.display = 'block';
+                    } else {
+                        judulJenisPekerja.style.display = 'none';
+                        namaJenisPekerja.style.display = 'none';
+                        btnTambahOpsi.style.display = 'none';
+                    }
+                })
+            })
+
+            // mengirimkan input dengan AJAX
+            $(document).ready(function() {
+                $(document).on('click','#btnJenisPekerja', function() {
+                    var judulJenisPekerja = document.getElementById('judulJenisPekerja').value;
+                    var namaJenisPekerja = document.getElementById('namaJenisPekerja').value;
+                    console.log(judulJenisPekerja, namaJenisPekerja);
+                    $.ajax({
+                        type:'get',
+                        url:'{!!URL::to('/jenis_pekerja')!!}',
+                        data:{'judul':judulJenisPekerja, 'nama':namaJenisPekerja},
+                        success:function (data) {
+                            location.reload();
+                        }
+                    })
                 })
             })
         </script>

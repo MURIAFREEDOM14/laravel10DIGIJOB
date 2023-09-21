@@ -279,24 +279,24 @@
                     @if($konfirmasi == null)
                         <!-- apabila data interview adalah kosong -->
                         @if ($interview == null)
-                            <!-- apabila data jabatab adalah kosong -->
+                            <!-- apabila data jabatan adalah kosong -->
                             @if ($jabatan !== null)
-                                <a href="/profil_perusahaan/{{$lowongan->id_perusahaan}}" class="btn btn-danger">Kembali</a>
-                                <a href="/permohonan_lowongan/{{$lowongan->id_lowongan}}" class="btn btn-primary float-right" onclick="return confirm('apakah anda ingin menganti lamaran sebelumnya?')">Melamar</a>                    
+                                <a href="/profil_perusahaan/{{$lowongan->id_perusahaan}}" class="btn btn-danger mt-2">Kembali</a>
+                                <a href="/permohonan_lowongan/{{$lowongan->id_lowongan}}" class="btn btn-primary float-right mt-2" onclick="return confirm('apakah anda ingin menganti lamaran sebelumnya?')">Melamar</a>                    
                             @else
-                                <a href="/profil_perusahaan/{{$lowongan->id_perusahaan}}" class="btn btn-danger">Kembali</a>
-                                <a href="/permohonan_lowongan/{{$lowongan->id_lowongan}}" class="btn btn-primary float-right">Melamar</a>
+                                <a href="/profil_perusahaan/{{$lowongan->id_perusahaan}}" class="btn btn-danger mt-2">Kembali</a>
+                                <a href="/permohonan_lowongan/{{$lowongan->id_lowongan}}" class="btn btn-primary float-right mt-2">Melamar</a>
                             @endif
                         @else
-                            <a href="/profil_perusahaan/{{$lowongan->id_perusahaan}}" class="btn btn-danger">Kembali</a>                                                        
+                            <a href="/profil_perusahaan/{{$lowongan->id_perusahaan}}" class="btn btn-danger mt-2">Kembali</a>                                                        
                         @endif
                     @else
                         <div>Anda menerima undangan interview dari perusahaan. Harap untuk konfirmasi terlebih dahulu sebelum melanjutkan.</div>
-                        <a href="/profil_perusahaan/{{$lowongan->id_perusahaan}}" class="btn btn-danger">Kembali</a>                        
-                        <a class="btn btn-primary" href="/kandidat">Konfirmasi</a>
+                        <a href="/profil_perusahaan/{{$lowongan->id_perusahaan}}" class="btn btn-danger mt-2">Kembali</a>                        
+                        <a class="btn btn-primary mt-2" href="/kandidat">Konfirmasi</a>
                     @endif
                 @else
-                    <a href="/profil_perusahaan/{{$lowongan->id_perusahaan}}" class="btn btn-danger">Kembali</a>
+                    <a href="/profil_perusahaan/{{$lowongan->id_perusahaan}}" class="btn btn-danger mt-2">Kembali</a>
                 @endif
             </div>
         </div>

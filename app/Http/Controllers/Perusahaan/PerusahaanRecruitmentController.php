@@ -120,6 +120,24 @@ class PerusahaanRecruitmentController extends Controller
         return response()->json($data);
     }
 
+    // AJAX tambah data jenis pekerjaan
+    protected function lowonganJenisPekerja(Request $request)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $jenis_pekerja = $request->validate([
+            'judul' => 'required',
+            'nama' => 'required',
+        ]);
+        // menambah data opsi jenis pekerja dari perusahaan
+        JenisPekerjaan::create([
+            'judul' => $request->judul,
+            'nama' => $request->nama,
+        ]);
+        $data = JenisPekerjaan::all();
+        return \response()->json($data);        
+    }
+
     // sistem simpan data lowongan
     public function simpanLowongan(Request $request,$type)
     {
@@ -623,11 +641,12 @@ class PerusahaanRecruitmentController extends Controller
         $interview_akhir = new Carbon ($lowongan->tgl_interview_akhir);
         // memgambil tanggal interval dari tanggal awal sampai tanggal akhir
         $jadwal = CarbonPeriod::create($interview_awal, $interview_akhir);
-        // 
+        // menampilkan data interview + kandidat interview
         $kandidat = Interview::join(
             'kandidat_interviews', 'interview.id_interview','=','kandidat_interviews.id_interview'
         )
         ->where('interview.id_perusahaan',$perusahaan->id_perusahaan)->where('kandidat_interviews.id_lowongan',$id)->get();
+        // mendata
         $check = $kandidat->count();
         if($check > 0){
             return view('perusahaan/interview/jadwal_interview',compact('perusahaan','notif','pesan','credit','lowongan','kandidat','jadwal','check','id'));

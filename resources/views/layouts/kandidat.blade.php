@@ -162,12 +162,10 @@
             <div class="loading align">
                 <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
             </div>
-            
             <main class="">
                 @yield('content')
-
                 <!-- pembatas body dengan footer -->
-                <div class="" style="height: 80px;"></div>
+                <div class="" style="height: 100px;"></div>
                 
                 <footer class="footer fixed-bottom" style="background-color: #1269db;">
                     <div class="container-fluid">

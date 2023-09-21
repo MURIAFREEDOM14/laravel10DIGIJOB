@@ -1,6 +1,6 @@
 @extends('layouts.kandidat')
 @section('content')
-    <div class="container mt-5">
+    <div class="container mt-5 mb-5">
         <div class="card">
             <div class="card-header">
                 <h5 style="font-weight: 600">Lihat {{$type}}</h5>
@@ -16,7 +16,7 @@
                     </div>
                     <div class="col-3"></div>
                 </div>
-                <div class="text-center">
+                <div class="float-left">
                     <button class="btn btn-success mb-2" id="play" type="button" onclick="play()">Mulai</button>
                     <button class="btn btn-warning mb-2" id="jeda" type="button" onclick="pause()">Jeda</button>
                 </div>
@@ -49,11 +49,11 @@
                         </div>
                     @endforeach
                     @foreach ($video_pengalaman as $item)
-                        <div class="col-3">
-                            <div class="card" style="border:2px solid #1269db; border-radius: 10% 0% 10% 0%;">
+                        <div class="col-4">
+                            <div class="" style="border:2px solid #1269db; border-radius: 10% 0% 10% 0%;">
                                 <a href="/lihat_galeri_pengalaman_kerja/{{$item->video_kerja_id}}/{{"video"}}">
-                                    <div class="" style="padding: 7px;">
-                                        <video id="video">
+                                    <div class="" style="padding: 7%;">
+                                        <video id="video" height="auto">
                                             <source class="" src="/gambar/Kandidat/{{$kandidat->nama}}/Pengalaman Kerja/{{$item->video}}">
                                         </video>
                                     </div>

@@ -51,18 +51,22 @@
                     </div>
                 </div>
                 <hr>
+                <a href="/perusahaan/lihat/kandidat/{{$pengalaman_kandidat->id_kandidat}}" class="btn btn-danger">Kembali</a>
             </div>
         </div>
         <div class="card">
+            <div class="card-header">
+                <h5 style="font-weight: 600">Galeri Pengalaman Kerja</h5>
+            </div>
             <div class="card-body">
                 <div class="row">
                     @foreach ($video as $item)
-                        <div class="col-3">
-                            <div class="card" style="border:2px solid #1269db">
+                        <div class="col-4">
+                            <div class="" style="border:2px solid #1269db; border-radius:10% 0% 10% 0%;">
                                 <a href="/perusahaan/lihat/galeri_kandidat/{{$item->video_kerja_id}}/{{"video"}}">
-                                    <div class="card-body">
-                                        <video id="video">
-                                            <source class="" src="/gambar/Kandidat/{{$pengalaman_kandidat->nama}}/Pengalaman Kerja/{{$item->video}}">
+                                    <div class="" style="padding:7%;">
+                                        <video id="video" height="auto">
+                                            <source class="" src="/gambar/Kandidat/{{$pengalaman_kandidat->nama_kandidat}}/Pengalaman Kerja/{{$item->video}}">
                                         </video>
                                     </div>
                                 </a>
@@ -70,11 +74,11 @@
                         </div>
                     @endforeach
                     @foreach ($foto as $item)
-                        <div class="col-3">
-                            <div class="card" style="border:2px solid #1269db">
+                        <div class="col-4">
+                            <div class="" style="border:2px solid #1269db; border-radius:10% 0% 10% 0%;">
                                 <a href="/perusahaan/lihat/galeri_kandidat/{{$item->foto_kerja_id}}/{{"foto"}}">
-                                    <div class="card-body">
-                                        <img src="/gambar/Kandidat/{{$pengalaman_kandidat->nama_kandidat}}/Pengalaman Kerja/{{$item->foto}}" class="img2 mb-2" alt="">
+                                    <div class="" style="padding: 7%;">
+                                        <img src="/gambar/Kandidat/{{$pengalaman_kandidat->nama_kandidat}}/Pengalaman Kerja/{{$item->foto}}" style="width: 100%; height:auto;" class="" alt="">
                                     </div>
                                 </a>
                             </div>
