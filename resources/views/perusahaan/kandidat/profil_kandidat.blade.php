@@ -93,9 +93,9 @@
                 <div class="col-md-3">
                     <div class="float-right">
                         @if ($kandidat->foto_set_badan !== null)
-                            <img class="" src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" alt="" style="width: 100%; height:auto; border:1px solid black; border-radius:5%">
+                            <img class="img2" src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" alt="" style="border:1px solid black; border-radius:5%;">
                         @else
-                            <img class="" src="/gambar/default_user.png" alt="" style="width: 100%; height:auto; border:1px solid black; border-radius:5%">
+                            <img class="img2" src="/gambar/default_user.png" alt="" style="border:1px solid black; border-radius:5%;">
                         @endif
                     </div>
                 </div>
