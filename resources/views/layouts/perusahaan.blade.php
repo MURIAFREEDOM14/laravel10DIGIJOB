@@ -61,7 +61,7 @@
                 border-radius: 2%;
             }
             .img2 {
-                width: 100%;
+                width: 50%;
                 height: 100%;
                 border-radius: 50%;
             }
