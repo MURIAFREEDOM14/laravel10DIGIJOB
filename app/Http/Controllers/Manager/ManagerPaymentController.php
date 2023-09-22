@@ -13,6 +13,7 @@ use App\Models\notifyPerusahaan;
 use App\Models\messagePerusahaan;
 use App\Models\Interview;
 use App\Models\notifyKandidat;
+use App\Models\messageKandidat;
 
 class ManagerPaymentController extends Controller
 {
@@ -133,11 +134,12 @@ class ManagerPaymentController extends Controller
                 'id_interview' => $interview->id_interview,
             ]);
 
-            notifyKandidat::create([
+            messageKandidat::create([
                 'id_kandidat' => $key->id_kandidat,
-                'isi' => "Anda mendapat sebuah undangan interview.",
-                'pengirim' => "Sistem",
-                'url' => '/kandidat',
+                'id_perusahaan' => $key->id_perusahaan,
+                'pesan' => "Selamat anda mendapat undangan interview dari ".$pembayaran->nama_perusahaan.". Apakah anda menyetujuinya?",
+                'pengirim' => $pembayaran->nama_perusahaan,
+                'kepada' => $key->nama,
             ]);
         }
         return redirect('/manager/payment/perusahaan')->with('success',"Pembayaran Terverifikasi");

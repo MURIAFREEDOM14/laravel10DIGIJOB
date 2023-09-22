@@ -1,6 +1,7 @@
 @extends('layouts.input')
 @section('content')
 @include('sweetalert::alert')
+@include('flash_message')
     <div class="container mt-5">        
         <div class="card mb-4">
             <div class="card-body">
@@ -17,10 +18,10 @@
                                     <label for="name" class="">{{ __('Nama') }}</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-                                    @error('name')
+                                    <input id="nama" type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ old('nama') }}" required autocomplete="nama" autofocus>
+                                    @error('nama')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <strong>{{ "harap isi nama kandidat" }}</strong>
                                         </span>
                                     @enderror
                                 </div>  
@@ -34,7 +35,7 @@
                                     <input id="nik" type="number" class="form-control @error('nik') is-invalid @enderror" name="nik" value="{{ old('nik') }}" required autocomplete="nik" autofocus>
                                     @error('nik')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <strong>{{ "Harap masukkan NIK anda dengan benar" }}</strong>
                                         </span>
                                     @enderror
                                 </div>
@@ -48,7 +49,7 @@
                                     <input id="tgl" type="date" class="form-control @error('tgl') is-invalid @enderror" name="tgl" value="{{ old('tgl') }}" required autocomplete="tgl" autofocus>
                                     @error('tgl')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <strong>{{ "masukkan tanggal lahir kandidat dengan benar" }}</strong>
                                         </span>
                                     @enderror
                                 </div>
@@ -59,10 +60,10 @@
                                     <label for="no_telp" class="">{{ __('No Telp') }}</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input id="no_telp" type="number" class="form-control @error('no_telp') is-invalid @enderror" name="no_telp" value="{{ old('no_telp') }}" required autocomplete="no_telp" autofocus>
+                                    <input id="no_telp" type="number" placeholder="Masukkan no telp anda min 10 angka dan maks 12 angka" class="form-control @error('no_telp') is-invalid @enderror" name="no_telp" value="{{ old('no_telp') }}" required autocomplete="no_telp" autofocus>
                                     @error('no_telp')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
+                                            <strong>{{ "No telp sudah terdaftar" }}</strong>
                                         </span>
                                     @enderror
                                 </div>

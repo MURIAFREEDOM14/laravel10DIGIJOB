@@ -465,10 +465,14 @@
                 })
             });
             
-            // fungsi memunculkan modal saat masuk ke sebuah halaman
+            // fungsi memunculkan modal info saat masuk ke sebuah halaman
             $(window).on('load',function() {
-            $('#info').modal('show');                                                   
+                $('#info').modal('show');                                                   
             });
+
+            $(window).on('load',function() {
+                $('#persetujuan').modal('show');
+            })
 
             // fungsi tampilan pilihan Konfirmasi Interview //
             function tidakInterview() {

@@ -74,6 +74,15 @@
                             <!-- lokasi livewire : app/Http/Livewire/Akademi/LocationPermission -->
                             <!-- lokasi livewire view : resources/views/livewire/akademi/location-permission -->
                             @livewire('akademi.location-permission')
+                            <!-- input dusun -->
+                            <div class="row mb-3 g-3 align-items-center">
+                                <div class="col-md-4">
+                                    <label for="inputPassword6" class="col-form-label">Dusun Perizin</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" required name="dusun_perizin" class="form-control" value="{{$kandidat->dusun_perizin}}" id="">
+                                </div>
+                            </div>
                             <!-- input rt & rw -->
                             <div class="row mb-3 g-3 align-items-center">
                                 <div class="col-md-4">

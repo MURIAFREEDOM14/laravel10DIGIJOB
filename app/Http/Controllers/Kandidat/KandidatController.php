@@ -107,7 +107,7 @@ class KandidatController extends Controller
         } else {
             $interview = null;
         }
-
+        
         // sistem pembatasan data pesan kandidat hanya 30 pesan
         $allMessage = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->get();
         $total = 30;

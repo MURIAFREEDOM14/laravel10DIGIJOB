@@ -7,6 +7,9 @@ use App\Models\Provinsi;
 use App\Models\Kota;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
+use App\Models\Kandidat;
+use illuminate\Support\Facades\Auth;
+use App\Models\Akademi;
 
 class LocationPermission extends Component
 {
@@ -26,6 +29,9 @@ class LocationPermission extends Component
     }
     public function render()
     {
+        $user = Auth::user();
+        $akademi = Akademi::where('referral_code',$user->referral_code)->first();
+        $kandidat = Kandidat::where('id_akademi',$akademi->id_akademi)->first();
         return view('livewire.akademi.location-permission')->extends('layouts.input');
     }
 

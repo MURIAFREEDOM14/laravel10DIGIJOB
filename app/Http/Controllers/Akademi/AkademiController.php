@@ -110,14 +110,14 @@ class AkademiController extends Controller
             }
         }
         // cek data foto ada atau kosong
-        if ($foto_akademi !== null) {
-            $photo_akademi = $foto_akademi;
+        if ($simpan_foto_akademi !== null) {
+            $photo_akademi = $simpan_foto_akademi;
         } else {
             $photo_akademi = null;
         }
 
-        if ($logo_akademi !== null) {
-            $logos_akademi = $logo_akademi;
+        if ($simpan_logo_akademi !== null) {
+            $logos_akademi = $simpan_logo_akademi;
         } else {
             $logos_akademi = null;
         }
@@ -238,7 +238,7 @@ class AkademiController extends Controller
         $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
         $pengirim = messageakademi::where('id',$id)->first();
-        return view('akademi/kirim_pesan',compact('akademi','pesan','notif','pengirim'));
+        return view('akademi/lihat_pesan',compact('akademi','pesan','notif','pengirim','id'));
     }
 
     // sistem hapus pesan akademi

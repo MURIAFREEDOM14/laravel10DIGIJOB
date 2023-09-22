@@ -114,7 +114,8 @@
                 @if ($kandidat->count() !== 0)
                     <div class="row">
                         <div class="col">
-                            <a class="btn btn-outline-primary float-right" style="border-radius: 0% 20% 0% 20%" href="/perusahaan/seleksi_kandidat/{{$id}}">Tentukan Kandidat</a>
+                            <a class="btn btn-outline-primary float-right mt-2" style="border-radius: 0% 20% 0% 20%" href="/perusahaan/seleksi_kandidat/{{$id}}">Tentukan Kandidat</a>
+                            <a href="/perusahaan/list_permohonan_lowongan" class="btn btn-danger mt-2 float-left">Kembali</a>
                         </div>
                     </div>    
                 @endif

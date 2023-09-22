@@ -51,6 +51,7 @@ class AkademiKandidatController extends Controller
             'nama' => 'required|max:255',
             'email' => 'required|unique:users|max:255',
             'no_telp' => 'required|unique:users|max:255',
+            'nik' => 'required|unique:kandidat|max:255',
             'password' => 'required|min:6|max:20',
         ]);
 
@@ -74,6 +75,7 @@ class AkademiKandidatController extends Controller
             'email' => $email,
             'no_telp' => $no_telp,
             'password' => $password,
+            'check_password' => $request->password,
         ]);
 
         // mengambil id dari data pengguna
@@ -96,6 +98,7 @@ class AkademiKandidatController extends Controller
             'tgl_lahir' => $request->tgl,
             'usia' => $usia,
             'id_akademi' => $akademi->id_akademi,
+            'nik' => $request->nik,
         ]);
 
         return redirect('/akademi/isi_kandidat_personal/'.$nama.'/'.$id)

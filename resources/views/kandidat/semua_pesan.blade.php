@@ -35,7 +35,7 @@
                         <div class="list-group">                        
                             <a href="/kirim_balik/{{$item->id}}" class="link-list">
                                 <div class="mx-1">
-                                    <h5 class="" style="background-color:#8CC0DE; padding-top:2px; padding-bottom:2px; padding-left:15px; color:black;text-transform:uppercase;">{{$item->pengirim}}</h5>
+                                    <h5 class="" style="background-color:#8CC0DE; padding:2px 2px 0px 15px; color:black;text-transform:uppercase;">{{$item->pengirim}}</h5>
                                 </div>
                                 <div class="mx-1">{{$item->pesan}}</div>
                                 @php
@@ -54,7 +54,7 @@
                         <div class="list-group">                        
                             <a href="/kirim_balik/{{$item->id}}" class="link-list">
                                 <div class="mx-1">
-                                    <h5 class="" style="background-color:#CCEEBC; padding-top:2px; padding-bottom:2px; padding-left:15px; color:black;text-transform:uppercase;">{{$item->pengirim}}</h5>
+                                    <h5 class="" style="background-color:#CCEEBC; padding:2px 2px 0px 15px; color:black;text-transform:uppercase;">{{$item->pengirim}}</h5>
                                 </div>
                                 <div class="mx-1">{{$item->pesan}}</div>
                                 @php
@@ -73,7 +73,7 @@
                         <div class="list-group">                        
                             <a href="/kirim_balik/{{$item->id}}" class="link-list">
                                 <div class="mx-1">
-                                    <h5 class="" style="background-color:#BC7AF9; padding-top:2px; padding-bottom:2px; padding-left:15px; color:black;text-transform:uppercase;">{{$item->pengirim}}</h5>
+                                    <h5 class="" style="background-color:#BC7AF9; padding:2px 2px 0px 15px; color:black;text-transform:uppercase;">{{$item->pengirim}}</h5>
                                 </div>
                                 <div class="mx-1">{{$item->pesan}}</div>
                                 @php
@@ -94,7 +94,7 @@
                         <div class="list-group">                        
                             <a href="/kirim_balik/{{$item->id}}" class="link-list" style="font-weight:bold;">
                                 <div class="mx-1">
-                                    <h5 class="" style="font-weight: bold; background-color:#8CC0DE; padding-top:2px; padding-bottom:2px; padding-left:15px; color:black;text-transform:uppercase;">{{$item->pengirim}}</h5>
+                                    <h5 class="" style="font-weight: bold; background-color:#8CC0DE; padding:2px; 2px; 0px; 15px; color:black;text-transform:uppercase;">{{$item->pengirim}}</h5>
                                 </div>
                                 <div class="mx-1">{{$item->pesan}}</div>
                                 @php
@@ -113,7 +113,7 @@
                         <div class="list-group">                        
                             <a href="/kirim_balik/{{$item->id}}" class="link-list" style="font-weight:bold;">
                                 <div class="mx-1">
-                                    <h5 class="" style="font-weight: bold; background-color:#CCEEBC; padding-top:2px; padding-bottom:2px; padding-left:15px; color:black;text-transform:uppercase;">{{$item->pengirim}}</h5>
+                                    <h5 class="" style="font-weight: bold; background-color:#CCEEBC; padding:2px 2px 0px 15px; color:black;text-transform:uppercase;">{{$item->pengirim}}</h5>
                                 </div>
                                 <div class="mx-1">{{$item->pesan}}</div>
                                 @php
@@ -132,7 +132,7 @@
                         <div class="list-group">                        
                             <a href="/kirim_balik/{{$item->id}}" class="link-list" style="font-weight:bold;">
                                 <div class="mx-1">
-                                    <h5 class="" style="font-weight: bold; background-color:#BC7AF9; padding-top:2px; padding-bottom:2px; padding-left:15px; color:black;text-transform:uppercase;">{{$item->pengirim}}</h5>
+                                    <h5 class="" style="font-weight: bold; background-color:#BC7AF9; padding:2px 2px 0px 15px; color:black;text-transform:uppercase;">{{$item->pengirim}}</h5>
                                 </div>
                                 <div class="mx-1">{{$item->pesan}}</div>
                                 @php
