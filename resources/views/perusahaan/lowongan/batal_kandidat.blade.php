@@ -14,13 +14,13 @@
                     <div class="row">        
                         <!-- menampilkan data kandidat yang sudah dipilih / stat_pemilik = kosong -->
                         @foreach ($kandidat as $item)
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <!-- mengambil banyaknya data kadidat yang dibatalkan dengan id kandidat -->
                                 <input type="checkbox" name="id_kandidat[]" value="{{$item->id_kandidat}}" id="">
                                 <div class="card">
                                     <a class="btn" style="border: 2px solid #1269DB; border-top-left-radius:10%;border-bottom-right-radius:10%" href="/perusahaan/lihat/kandidat/{{$item->id_kandidat}}">
                                         <div class="card-header text-center mt--5">
-                                            <div class="avatar avatar-xxl" style="width: auto; height:auto;">
+                                            <div class="avatar avatar-xxl" style="width: 75%; height:auto;">
                                                 @if ($item->foto_4x6 == null)
                                                     <img src="/gambar/default_user.png" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                            
                                                 @else
