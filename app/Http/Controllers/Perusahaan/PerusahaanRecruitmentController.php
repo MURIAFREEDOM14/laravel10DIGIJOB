@@ -50,9 +50,9 @@ class PerusahaanRecruitmentController extends Controller
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
         // apabila memilih lowongan dalam negeri
         if($type == "dalam"){
-            $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('negara','like','%Indonesia%')->get();            
+            $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('negara_id','like',2)->get();            
         } else {
-            $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('negara','not like','%Indonesia%')->get();
+            $lowongan = LowonganPekerjaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('negara_id','not like',2)->get();
         }
         return view('perusahaan/lowongan/lowongan_pekerjaan',compact('perusahaan','notif','pesan','lowongan','credit','type'));
     }
@@ -144,6 +144,7 @@ class PerusahaanRecruitmentController extends Controller
         $user = Auth::user();
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
         $penempatan = Negara::where('negara',$request->penempatan)->first();
+        $provinsi = Provinsi::where('provinsi',$request->penempatan)->first();
         // mengecekan apabila lowongan berada dalam / luar negeri
         if($type == "dalam"){
             // dalam negeri
@@ -208,11 +209,13 @@ class PerusahaanRecruitmentController extends Controller
             $mata_uang = $penempatan->mata_uang;
             $negara_id = $penempatan->negara_id;
             $penempatan = $penempatan->negara;
-        } else {
-            $mata_uang = null;
-            $negara_id=null;
-            $penempatan = null;
-        }
+        } elseif($provinsi !== null) {
+            $negara = Negara::where('negara_id',2)->first();
+            $mata_uang = $negara->mata_uang;
+            $negara_id = $negara->negara_id;
+            $penempatan = $request->penempatan;
+        } 
+
         // membuat data lowongan pekerjaan
         LowonganPekerjaan::create([
             'usia_min' => $request->usia_min,
@@ -239,6 +242,7 @@ class PerusahaanRecruitmentController extends Controller
             'fasilitas' => $fasilitas,
             'tgl_interview_awal' => $request->tgl_interview_awal,
             'tgl_interview_akhir' => $request->tgl_interview_akhir,
+            
         ]);
         return redirect('perusahaan/list/lowongan/'.$type)->with('success');
     }
@@ -268,12 +272,14 @@ class PerusahaanRecruitmentController extends Controller
         // apabila memilih lowongan dalam negeri
         if($type == "dalam") {
             $negara = Negara::where('negara','like',"%Indonesia%")->first();
+            $provinsi = Provinsi::all();
         } else {
             $negara = Negara::where('negara','not like',"%Indonesia%")->get();
+            $provinsi = Provinsi::all();
         }        
         $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
         $jenis_pekerjaan = JenisPekerjaan::all();
-        return view('perusahaan/lowongan/edit_lowongan',compact('perusahaan','pesan','notif','lowongan','negara','credit','jenis_pekerjaan','type','benefit','fasilitas'));
+        return view('perusahaan/lowongan/edit_lowongan',compact('perusahaan','pesan','notif','lowongan','negara','credit','jenis_pekerjaan','type','benefit','fasilitas','provinsi'));
     }
 
     // sistem ubah lowongan dalam / luar negeri
@@ -283,6 +289,7 @@ class PerusahaanRecruitmentController extends Controller
         $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
         $lowongan = LowonganPekerjaan::where('id_lowongan',$id)->first();
         $penempatan = Negara::where('negara',$request->penempatan)->first();
+        $provinsi = Provinsi::where('provinsi',$request->penempatan)->first();
         // cek file gambar flyer lowongan
         // apabila ada
         if($request->file('gambar') !== null){
@@ -316,8 +323,8 @@ class PerusahaanRecruitmentController extends Controller
             $berat_maks = $request->berat_maks;
         }
         // apabila gambar flyer ada
-        if($gambar !== null) {
-            $gambar_flyer = $gambar;
+        if($gambar_lowongan !== null) {
+            $gambar_flyer = $gambar_lowongan;
         } else {
             $gambar_flyer = null;
         }
@@ -344,10 +351,11 @@ class PerusahaanRecruitmentController extends Controller
             $mata_uang = $penempatan->mata_uang;
             $negara_id = $penempatan->negara_id;
             $penempatan = $penempatan->negara;
-        } else {
-            $mata_uang = null;
-            $negara_id = null;
-            $penempatan = null;
+        } elseif($provinsi !== null) {
+            $negara = Negara::where('negara_id',2)->first();
+            $mata_uang = $negara->mata_uang;
+            $negara_id = $negara->negara_id;
+            $penempatan = $request->penempatan;
         }
         // tambah / ubah data lowongan pekerjaan
         LowonganPekerjaan::where('id_lowongan',$id)->update([

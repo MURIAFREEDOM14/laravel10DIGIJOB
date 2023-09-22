@@ -18,11 +18,13 @@
                         </div>
                         <div class="col-md-9">
                             <select name="penempatan" required class="form-control" id="negara_tujuan">
-                                <option value="">-- Pilih Negara Penempatan --</option>
+                                <option value="">-- Pilih Provinsi --</option>
                                 @if ($type == "dalam")
-                                    <option value="{{$negara->negara}}" @if ($lowongan->negara == $negara->negara)
-                                        selected
-                                    @endif>{{$negara->negara}}</option>
+                                    @foreach ($provinsi as $item)
+                                        <option value="{{$item->provinsi}}" @if ($lowongan->negara == $item->provinsi)
+                                            selected
+                                        @endif>{{$item->provinsi}}</option>
+                                    @endforeach
                                 @else
                                     @foreach ($negara as $item)                                    
                                         <option value="{{$item->negara}}" @if ($lowongan->negara == $item->negara)

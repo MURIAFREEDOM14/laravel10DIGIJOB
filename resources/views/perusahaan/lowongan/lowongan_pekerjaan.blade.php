@@ -15,7 +15,7 @@
                             <tr class="text-center">
                                 <th>No.</th>
                                 <th>Nama Jabatan</th>
-                                <th>Negara Tujuan</th>
+                                <th>Penempatan Kerja</th>
                                 <th>Lihat Detail</th>
                             </tr>
                         </thead>

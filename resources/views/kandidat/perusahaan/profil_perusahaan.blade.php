@@ -153,7 +153,7 @@
                                 <thead>
                                     <tr class="text-center">
                                         <th scope="col" style="">Nama Jabatan</th>
-                                        <th scope="col">Negara</th>
+                                        <th scope="col">Penempatan Kerja</th>
                                         <th scope="col" style="">Pencarian Kandidat</th>
                                         <th scope="col" style="width: 0px;">Lihat Detail</th>
                                     </tr>
