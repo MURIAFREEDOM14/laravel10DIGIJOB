@@ -86,6 +86,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
+                                    <!-- menampilkan video pengalaman kerja -->
                                     @foreach ($video as $item)
                                         <div class="col-md-4 mb-3">
                                             <div class="card">
@@ -102,6 +103,7 @@
                                             </div>
                                         </div>    
                                     @endforeach
+                                    <!-- menampilkan foto pengalaman kerja -->
                                     @foreach ($foto as $item)
                                         <div class="col-md-4 mb-3">
                                             <div class="card">

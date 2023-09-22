@@ -37,6 +37,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
+                    <!-- menampilkan foto pengalaman kerja -->
                     @foreach ($foto_pengalaman as $item)
                         <div class="col-3">
                             <div class="card" style="border:2px solid #1269db; border-radius: 10% 0% 10% 0%;">
@@ -48,6 +49,7 @@
                             </div>
                         </div>
                     @endforeach
+                    <!-- menampilkan video pengalaman kerja -->
                     @foreach ($video_pengalaman as $item)
                         <div class="col-4">
                             <div class="" style="border:2px solid #1269db; border-radius: 10% 0% 10% 0%;">

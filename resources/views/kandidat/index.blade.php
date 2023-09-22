@@ -112,23 +112,6 @@
             </div>
             <div class="col-md-3"></div>
         </div>
-    {{-- @elseif($interview !== null)
-        <div class="row">
-            <div class="col-md-12">
-                <a href="/interview_perusahaan" style="text-decoration: none;">
-                    <div class="card" style="padding:20px; background-image:linear-gradient(#557A46, #7A9D54);color:white;font-size:17px; border-radius:5% 0% 5% 5%;">
-                        <div class="" style="margin-bottom:1.5vw; text-transform:uppercase; font-weight:600;">Interview Perusahaan</div>
-                        <div class="" style="border-bottom:1px solid white;"></div>
-                        <div class="" style="font-weight: 600;">Nama Lowongan :</div>
-                        <div class="">{{$interview->jabatan}}</div>
-                        <div class="" style="font-weight:600;">Jadwal Interview :</div>
-                        <div class="">{{date('d M Y',strtotime($interview->jadwal_interview))}}</div>
-                        <div class="" style="font-weight: 600;">Waktu Interview :</div>
-                        <div class="">{{date('h:i:s A',strtotime($interview->waktu_interview_awal))}} Sampai {{date('h:i:s A',strtotime($interview->waktu_interview_akhir))}}</div>
-                    </div>
-                </a>
-            </div>
-        </div> --}}
     @else
         <div class="row mt-2">
             <div class="col-md-6">
@@ -211,6 +194,7 @@
                                     </tbody>    
                                 @else
                                     <tbody>
+                                        <!-- menampilkan data perusahaan -->
                                         @foreach ($perusahaan_semua as $item)
                                             <tr class="text-center">
                                                 <td>{{$loop->iteration}}</td>
@@ -423,32 +407,4 @@
             </div>
         </div>
     @endif
-
-    {{-- @if($Interview !== null)
-        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <form action="" method="post">
-                        @csrf
-                        <div class="modal-header">
-                            <h3 class="modal-title" id="staticBackdropLabel">Undangan Interview</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="text-center" id="terimaInterview">
-                                <h4 class="">{{$interview->}}</h4>
-                                <h5 class="">Apakah anda ingin menyetujuinya?</h5>
-                                <button type="submit" onclick="infoConfirm()" name="persetujuan" value="ya" class="btn btn-success" id="">Ya</button>
-                                <button type="button" onclick="tidakInterview()" class="btn btn-danger" data-dismiss="modal">Tidak</button>    
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    @endif --}}
 @endsection

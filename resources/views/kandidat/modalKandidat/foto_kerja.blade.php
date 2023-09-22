@@ -10,6 +10,7 @@
                 <!-- form(post) KandidatController => simpanPortofolio -->
                 <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
+                    <!-- input foto -->
                     <div class="row">
                         <div class="col-md-4">
                             <label for="" class="col-form-label">Foto Baru</label>
@@ -32,6 +33,7 @@
                 <!-- form(post) KandidatController => ubahPortofolio -->
                 <form action="" method="POST" enctype="multipart/form-data">
                     @csrf
+                    <!-- input foto -->
                     <div class="row">
                         <div class="col-md-4">
                             <label for="" class="col-form-label">Ubah Foto</label>
@@ -48,6 +50,5 @@
         </div>            
         @else
         @endif
-        
     </div>
 @endsection
