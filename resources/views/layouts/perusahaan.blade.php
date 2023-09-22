@@ -63,6 +63,7 @@
             .img2 {
                 width: 100%;
                 height: auto;
+                border-radius: 50%;
             }
             #judulJenisPekerja {
                 display: none;
