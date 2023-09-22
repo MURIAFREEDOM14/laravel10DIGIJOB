@@ -14,7 +14,7 @@
                     <div class="row">        
                         <!-- menampilkan data kandidat yang dipilih untuk diinterview / stat_pemilik = kosong -->
                         @foreach ($kandidat as $item)
-                            <div class="col-3">
+                            <div class="col-md-3">
                                 <div class="card">
                                     <a class="btn" style="border: 2px solid #1269DB; border-top-left-radius:10%;border-bottom-right-radius:10%" href="/perusahaan/lihat/kandidat/{{$item->id_kandidat}}">
                                         <div class="card-header text-center mt--5">
@@ -22,7 +22,7 @@
                                                 @if ($item->foto_4x6 == null)
                                                     <img src="/gambar/default_user.png" alt="/Atlantis/examples." class="avatar-img rounded-circle">                                            
                                                 @else
-                                                    <img src="/gambar/Kandidat/{{$item->nama}}/4x6/{{$item->foto_4x6}}" alt="" class="">                                            
+                                                    <img src="/gambar/Kandidat/{{$item->nama}}/4x6/{{$item->foto_4x6}}" alt="" class="avatar-img rounded-circle">                                            
                                                 @endif
                                             </div>
                                         </div>

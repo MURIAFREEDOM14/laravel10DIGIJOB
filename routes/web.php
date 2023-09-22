@@ -14,12 +14,10 @@ use App\Http\Controllers\Kandidat\KandidatPerusahaanController;
 use App\Http\Controllers\Kandidat\KandidatController;
 use App\Http\Controllers\Perusahaan\PerusahaanController;
 use App\Http\Controllers\Perusahaan\PerusahaanRecruitmentController;
-use App\Http\Controllers\OutputController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PrioritasController;
 use App\Http\Controllers\NotifikasiController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\MessagerController;
 use PHPUnit\TextUI\Configuration\Group;
 
 /*
@@ -398,7 +396,18 @@ Route::controller(KandidatController::class)->group(function() {
     // route video pelatihan kandidat
     Route::get('/video_pelatihan','videoPelatihan')->middleware('kandidat');
     Route::get('/lihat_video_pelatihan/{id}','lihatVideoPelatihan')->middleware('kandidat');
+
+    // route pesan kandidat
+    Route::get('/semua_pesan','messageKandidat')->middleware('kandidat')->name('semuaPesan');
+    Route::get('/kirim_balik/{id}','sendMessageKandidat')->middleware('kandidat');
+    Route::post('/kirim_balik/{id}','sendMessageConfirmKandidat');
+    Route::get('/hapus_pesan/{id}','deleteMessageKandidat')->middleware('kandidat');    
+
+    // route cetak data dari kandidat
+    Route::get('/output_izin_waris', 'izinWaris')->middleware('kandidat');
 });
+
+Route::view('output','Output/output');
 
 // DATA KANDIDAT PERUSAHAAN //
 Route::controller(KandidatPerusahaanController::class)->group(function() {    
@@ -443,6 +452,12 @@ Route::controller(AkademiController::class)->group(function() {
         // route isi data akademi operator
         Route::get('/akademi/isi_akademi_operator','isi_akademi_operator')->middleware('akademi')->name('akademi.operator');
         Route::post('/akademi/isi_akademi_operator','simpan_akademi_operator');
+        
+        // route pesan akademi
+        Route::get('/akademi/semua_pesan','messageAkademi')->middleware('akademi')->name('akademi.semuaPesan');
+        Route::get('/akademi/kirim_balik/{id}','sendMessageAkademi')->middleware('akademi');
+        Route::post('/akademi/kirim_balik/{id}','sendMessageConfirmAkademi');
+        Route::get('/akademi/hapus_pesan/{id}','deleteMessageAkademi')->middleware('akademi');    
     }
     
     // DATA KANDIDAT //
@@ -512,6 +527,12 @@ Route::controller(PerusahaanController::class)->group(function(){
         Route::get('/perusahaan/list/pembayaran','pembayaran')->middleware('perusahaan');
         Route::get('/perusahaan/payment/{id}','payment')->middleware('perusahaan');
         Route::post('/perusahaan/payment/{id}','paymentCheck');
+    
+        // route pesan perusahaan
+        Route::get('/perusahaan/semua_pesan','messagePerusahaan')->middleware('perusahaan')->name('perusahaan.semuaPesan');
+        Route::get('/perusahaan/kirim_balik/{id}','sendMessagePerusahaan')->middleware('perusahaan');
+        Route::post('/perusahaan/kirim_balik/{id}','sendMessageConfirmPerusahaan');
+        Route::get('/perusahaan/hapus_pesan/{id}','deleteMessagePerusahaan')->middleware('perusahaan');    
     }
 
     // DATA KANDIDAT //
@@ -596,46 +617,6 @@ Route::controller(NotifikasiController::class)->group(function() {
         Route::get('/perusahaan/semua_notif','notifyPerusahaan')->middleware('perusahaan');
         Route::get('/perusahaan/lihat_notif_perusahaan/{id}','lihatNotifPerusahaan')->middleware('perusahaan');    
     }
-});
-
-// DATA PESAN //
-Route::controller(MessagerController::class)->group(function() {
-    // DATA KANDIDAT //
-    {
-        Route::get('/semua_pesan','messageKandidat')->middleware('kandidat')->name('semuaPesan');
-        Route::get('/kirim_balik/{id}','sendMessageKandidat')->middleware('kandidat');
-        Route::post('/kirim_balik/{id}','sendMessageConfirmKandidat');
-        Route::get('/hapus_pesan/{id}','deleteMessageKandidat')->middleware('kandidat');    
-    }
-
-    // DATA AKADEMI //
-    {
-        Route::get('/akademi/semua_pesan','messageAkademi')->middleware('akademi')->name('akademi.semuaPesan');
-        Route::get('/akademi/kirim_balik/{id}','sendMessageAkademi')->middleware('akademi');
-        Route::post('/akademi/kirim_balik/{id}','sendMessageConfirmAkademi');
-        Route::get('/akademi/hapus_pesan/{id}','deleteMessageAkademi')->middleware('akademi');    
-    }
-
-    // DATA PERUSAHAAN //
-    {
-        Route::get('/perusahaan/semua_pesan','messagePerusahaan')->middleware('perusahaan')->name('perusahaan.semuaPesan');
-        Route::get('/perusahaan/kirim_balik/{id}','sendMessagePerusahaan')->middleware('perusahaan');
-        Route::post('/perusahaan/kirim_balik/{id}','sendMessageConfirmPerusahaan');
-        Route::get('/perusahaan/hapus_pesan/{id}','deleteMessagePerusahaan')->middleware('perusahaan');    
-    }
-});
-
-// CETAK DATA //
-Route::controller(OutputController::class)->group(function() {
-    // route cetak data dari kandidat
-    Route::get('/output_izin_waris', 'izinWaris')->middleware('kandidat');
-    
-    // route cetak data
-    Route::get('/surat_izin_waris', 'suratIzinWaris');
-    Route::get('/cetak/{id}', 'cetak')->name('cetak');
-    
-    // route cetak data dari manager
-    Route::get('/manager/perusahaan/cetak_pmi_id/{id}','cetakPmiID')->middleware('manager');
 });
 
 // DATA NEGARA TUJUAN //

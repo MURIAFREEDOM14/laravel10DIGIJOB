@@ -491,5 +491,41 @@ class PerusahaanController extends Controller
             'foto_pembayaran'=>$foto_pembayaran,
         ]);
         return redirect('/perusahaan')->with('success','Metode pembayaran sedang diproses mohon tunggu');
-    }    
+    }
+    
+    // halaman data pesan perusahaan
+    public function messagePerusahaan()
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();        
+        $semua_pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->get();
+        return view('perusahaan/semua_pesan',compact('perusahaan','notif','pesan','credit','semua_pesan'));
+    }
+
+    // halaman lihat pesan perusahaan
+    public function sendMessagePerusahaan($id)
+    {
+        $auth = Auth::user();
+        $perusahaan = Perusahaan::where('referral_code',$auth->referral_code)->first();
+        $notif = notifyPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        messagePerusahaan::where('id',$id)->update([
+            'check_click' => 'y',
+        ]);
+        $pengirim = messagePerusahaan::where('id',$id)->first();
+        $credit = CreditPerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->where('no_nib',$perusahaan->no_nib)->first();
+        $pesan = messagePerusahaan::where('id_perusahaan',$perusahaan->id_perusahaan)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        return view('perusahaan/lihat_pesan',compact('perusahaan','pesan','notif','pengirim','credit','id'));
+    }
+
+    // sistem hapus pesan perusahaan
+    public function deleteMessagePerusahaan($id)
+    {
+        $user = Auth::user();
+        $perusahaan = Perusahaan::where('no_nib',$user->no_nib)->first();
+        $hapus_pesan = messagePerusahaan::where('id',$id)->delete();
+        return redirect('/perusahaan/semua_pesan')->with('success',"Pesan telah dihapus");
+    }
 }

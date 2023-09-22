@@ -152,7 +152,7 @@
                         </tbody>
                     </table>
                 </div>
-                <a href="/perusahaan/list/pmi_id" class="btn btn-danger">Kembali</a>
+                <a href="/manager/perusahaan/list/pmi_id" class="btn btn-danger">Kembali</a>
                 <a class="btn btn-primary" href="/manager/perusahaan/cetak_pmi_id/{{$pmi_id->pmi_id}}">Cetak</a>            
             </div>
         </div>

@@ -1632,4 +1632,67 @@ class KandidatController extends Controller
         $pelatihan = Pelatihan::where('negara_id',$kandidat->negara_id)->where('id','not like',$id)->get();
         return view('kandidat/lihat_video_pelatihan',compact('kandidat','notif','pesan','video','pelatihan'));
     }
+
+    // halaman data pesan kandidat
+    public function messageKandidat()
+    {
+        $id = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
+        $semua_pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->get();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $notif = notifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        return view('kandidat/semua_pesan',compact('kandidat','pesan','semua_pesan','notif'));
+    }
+
+    // halaman lihat pesan kandidat
+    public function sendMessageKandidat($id)
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        $notif = NotifyKandidat::where('id_kandidat',$kandidat->id_kandidat)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        messageKandidat::where('id',$id)->update([
+            'check_click' => 'y',
+        ]);
+        $pengirim = messageKandidat::where('id',$id)->first();
+        $pesan = messageKandidat::where('id_kandidat',$kandidat->id_kandidat)->where('pengirim','not like',$kandidat->nama)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        return view('kandidat/lihat_pesan',compact('kandidat','pesan','notif','pengirim','id'));
+    }
+
+    // sistem hapus pesan kandidat
+    public function deleteMessageKandidat($id)
+    {
+        $user = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$user->referral_code)->first();
+        $hapus_pesan = messageKandidat::where('id',$id)->delete();
+        return redirect('/semua_pesan')->with('success',"Pesan telah dihapus");
+    }
+
+    // halaman surat izin & ahli waris
+    public function izinWaris()
+    {
+        $tgl_print = Carbon::now()->isoFormat('D MMM Y');
+        $id = Auth::user();
+        $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
+        $perusahaan = Perusahaan::where('id_perusahaan',$kandidat->id_perusahaan)->first();
+        if($kandidat->penempatan == null)
+        {
+            return redirect('/kandidat');
+        }
+        $tgl_user = Carbon::create($kandidat->tgl_lahir)->isoFormat('D MMM Y');
+        $tgl_perizin = Carbon::create($kandidat->tgl_lahir_perizin)->isoFormat('D MMM Y');
+        // dd($tmp_user->cityName);
+        $negara = Negara::join(
+            'kandidat', 'ref_negara.negara_id','=','kandidat.negara_id'
+        )
+        ->where('kandidat.referral_code',$id->referral_code)
+        ->first();
+        return view('kandidat/output_izin_waris',compact(
+            'kandidat',
+            'tgl_print',
+            'tgl_user',
+            'tgl_perizin',
+            'negara',
+            'perusahaan',
+        ));
+    }
 }

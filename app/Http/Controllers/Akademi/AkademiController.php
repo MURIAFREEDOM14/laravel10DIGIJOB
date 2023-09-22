@@ -218,4 +218,35 @@ class AkademiController extends Controller
         ->first();
         return view('akademi/kandidat/profil_kandidat',compact('akademi','kandidat','negara','tgl_user','pesan','notif'));
     }
+
+    // halaman data pesan akademi
+    public function messageAkademi()
+    {
+        $user = Auth::user();
+        $akademi = Akademi::where('referral_code',$user->referral_code)->first();
+        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $semua_pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->get();
+        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        return view('akademi/semua_pesan',compact('akademi','pesan','semua_pesan','notif'));
+    }
+
+    // halaman lihat pesan akademi
+    public function sendMessageAkademi($id)
+    {
+        $auth = Auth::user();
+        $akademi = akademi::where('referral_code',$auth->referral_code)->first();
+        $notif = notifyAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $pesan = messageAkademi::where('id_akademi',$akademi->id_akademi)->orderBy('created_at','desc')->where('check_click',"n")->get();
+        $pengirim = messageakademi::where('id',$id)->first();
+        return view('akademi/kirim_pesan',compact('akademi','pesan','notif','pengirim'));
+    }
+
+    // sistem hapus pesan akademi
+    public function deleteMessageAkademi($id)
+    {
+        $user = Auth::user();
+        $akademi = Akademi::where('referral_code',$user->referral_code)->first();
+        $hapus_pesan = messageAkademi::where('id',$id)->delete();
+        return redirect('/akademi/semua_pesan')->with('success',"Pesan telah dihapus");
+    }
 }

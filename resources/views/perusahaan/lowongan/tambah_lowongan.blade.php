@@ -166,7 +166,7 @@
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
-                                            <input type="checkbox" name="pengalaman_kerja[]" value="non" aria-label="Checkbox for following text input" checked>
+                                            <input type="checkbox" name="pengalaman_kerja[]" value="non" checked>
                                         </div>
                                     </div>
                                     <span class="selectgroup-button">Non</span>
@@ -174,7 +174,7 @@
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
-                                            <input type="checkbox" name="pengalaman_kerja[]" value="ex" aria-label="Checkbox for following text input">
+                                            <input type="checkbox" name="pengalaman_kerja[]" value="ex">
                                         </div>
                                     </div>
                                     <span class="selectgroup-button">Ex</span>
@@ -281,7 +281,7 @@
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                   <div class="input-group-text">
-                                    <input type="checkbox" name="fasilitas[]" value="komunikasi" aria-label="Checkbox for following text input">
+                                    <input type="checkbox" name="fasilitas[]" value="komunikasi">
                                   </div>
                                 </div>
                                 <span class="selectgroup-button">Komunikasi</span>
@@ -289,7 +289,7 @@
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                   <div class="input-group-text">
-                                    <input type="checkbox" name="fasilitas[]" value="makanan" aria-label="Checkbox for following text input">
+                                    <input type="checkbox" name="fasilitas[]" value="makanan">
                                   </div>
                                 </div>
                                 <span class="selectgroup-button">Makanan</span>
@@ -297,7 +297,7 @@
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                   <div class="input-group-text">
-                                    <input type="checkbox" name="fasilitas[]" value="tempat tinggal" aria-label="Checkbox for following text input">
+                                    <input type="checkbox" name="fasilitas[]" value="tempat tinggal">
                                   </div>
                                 </div>
                                 <span class="selectgroup-button">Tempat Tinggal</span>
@@ -307,7 +307,7 @@
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
-                                            <input type="checkbox" name="fasilitas[]" value="{{$item->fasilitas}}" aria-label="Checkbox for following text input">
+                                            <input type="checkbox" name="fasilitas[]" value="{{$item->fasilitas}}">
                                         </div>
                                     </div>
                                     <span class="selectgroup-button">{{$item->fasilitas}}</span>
@@ -364,7 +364,7 @@
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
-                                    <input type="checkbox" name="benefit[]" value="libur mingguan" aria-label="Checkbox for following text input">
+                                    <input type="checkbox" name="benefit[]" value="libur mingguan">
                                     </div>
                                 </div>
                                 <span class="selectgroup-button">Libur Mingguan</span>
@@ -372,7 +372,7 @@
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
-                                    <input type="checkbox" name="benefit[]" value="libur tahunan" aria-label="Checkbox for following text input">
+                                    <input type="checkbox" name="benefit[]" value="libur tahunan">
                                     </div>
                                 </div>
                                 <span class="selectgroup-button">Libur Tahunan</span>
@@ -380,7 +380,7 @@
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
-                                    <input type="checkbox" name="benefit[]" value="uang lembur" aria-label="Checkbox for following text input">
+                                    <input type="checkbox" name="benefit[]" value="uang lembur">
                                     </div>
                                 </div>
                                 <span class="selectgroup-button">Uang Lembur</span>
@@ -388,7 +388,7 @@
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
-                                    <input type="checkbox" name="benefit[]" value="cuti sakit" aria-label="Checkbox for following text input">
+                                    <input type="checkbox" name="benefit[]" value="cuti sakit">
                                     </div>
                                 </div>
                                 <span class="selectgroup-button">Cuti Sakit</span>
@@ -396,7 +396,7 @@
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
-                                    <input type="checkbox" name="benefit[]" value="asuransi" aria-label="Checkbox for following text input">
+                                    <input type="checkbox" name="benefit[]" value="asuransi">
                                     </div>
                                 </div>
                                 <span class="selectgroup-button">Asuransi</span>
@@ -406,7 +406,7 @@
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
-                                        <input type="checkbox" name="benefit[]" value="tiket pulang" aria-label="Checkbox for following text input">
+                                        <input type="checkbox" name="benefit[]" value="tiket pulang">
                                         </div>
                                     </div>
                                     <span class="selectgroup-button">Tiket Pulang Sehabis Kontrak</span>
@@ -417,7 +417,7 @@
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <div class="input-group-text">
-                                            <input type="checkbox" name="benefit[]" value="{{$item->benefit}}" aria-label="Checkbox for following text input">
+                                            <input type="checkbox" name="benefit[]" value="{{$item->benefit}}">
                                         </div>
                                     </div>
                                     <span class="selectgroup-button">{{$item->benefit}}</span>
