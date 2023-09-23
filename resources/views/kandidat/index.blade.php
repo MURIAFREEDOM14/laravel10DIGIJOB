@@ -114,8 +114,8 @@
         </div>
     @else
         <div class="row mt-2">
-            @if ($interview !== null)
-                <div class="col-md-6">
+            <div class="col-md-6">
+                @if ($interview !== null)        
                     <a href="/interview_perusahaan" style="text-decoration: none;">
                         <div class="card" style="padding:20px; background-image:linear-gradient(#557A46, #7A9D54);color:white;font-size:17px;">
                             <div class="" style="margin-bottom:1.5vw; text-transform:uppercase; font-weight:600;">Interview Perusahaan</div>
@@ -125,8 +125,8 @@
                             <div class="" style="font-weight: 600;">Waktu Interview : {{date('h:i:s A',strtotime($interview->waktu_interview_awal))}} Sampai {{date('h:i:s A',strtotime($interview->waktu_interview_akhir))}}</div>
                         </div>
                     </a>
-                </div>
-            @endif
+                @endif
+            </div>
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
