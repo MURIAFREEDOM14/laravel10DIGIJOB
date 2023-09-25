@@ -154,7 +154,7 @@
                                                 <a 
                                                 href="{{route('users_verification',$token)}}" 
                                                 style="margin:20px; font-size:20px; line-height:50px; text-decoration:none; color:white">
-                                                    Verifikasi Akun
+                                                    Verifikasi Password
                                                 </a>
                                             </td>
                                         </tr>
