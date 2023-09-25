@@ -220,6 +220,11 @@
                                 <div class="collapse" id="kandidat">
                                     <ul class="nav nav-collapse">
                                         <li>
+                                            <a class="btn" href="/manager/kandidat/semua_kandidat">
+                                                <span class="sub-item">Semua Kandidat</span>
+                                            </a>
+                                        </li>
+                                        <li>
                                             <a class="btn" href="/manager/kandidat/kandidat_baru">
                                                 <span class="sub-item">Kandidat Baru</span>
                                             </a>

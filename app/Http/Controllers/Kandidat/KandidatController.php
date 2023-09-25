@@ -386,8 +386,8 @@ class KandidatController extends Controller
             'rw' => 'required|max:3|min:3',
             'foto_ktp' => 'image',
             'foto_kk' => 'image',
-            'foto_set_badan' => 'image',
-            'foto_4x6' => 'image',
+            'foto_set_badan' => 'image|dimensions:max_width=720, max_height=1008',
+            'foto_4x6' => 'image|dimensions:max_width=400, max_height=600',
             'foto_ket_lahir' => 'image',
             'foto_ijazah' => 'image',
         ]);

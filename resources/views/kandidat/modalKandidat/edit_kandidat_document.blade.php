@@ -157,19 +157,19 @@
                                             <label for="">Contoh Foto Setengah Badan</label>
                                         </div>
                                         <img src="/gambar/contoh_foto.jpg" alt="" class="img mb-1">
-                                        <input type="file" required name="foto_set_badan" id="f_setBadan" class="form-control @error('foto_set_badan') is_invalid @enderror" accept="image/*">                                        
+                                        <input type="file" required name="foto_set_badan" id="f_setBadan" class="form-control @error('foto_set_badan') is-invalid @enderror" accept="image/*">                                        
                                         @error('foto_set_badan')
                                             <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
+                                                <strong>{{ "Maaf batas untuk foto setengah badan maks: 480x672 pixel" }}</strong>
                                             </span>
                                         @enderror
                                     @elseif($kandidat->foto_set_badan !== null)
                                         <img src="/gambar/Kandidat/{{$kandidat->nama}}/Set_badan/{{$kandidat->foto_set_badan}}" alt="" class="img mb-1">
-                                        <input type="file" name="foto_set_badan" id="" class="form-control @error('foto_set_badan') is_invalid @enderror" accept="image/*">
+                                        <input type="file" name="foto_set_badan" id="" class="form-control @error('foto_set_badan') is-invalid @enderror" accept="image/*">
                                         <input type="text" name="" hidden id="f_setBadan" value="foto_set_badan">
                                         @error('foto_set_badan')
                                             <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
+                                                <strong>{{ "Maaf batas untuk foto setengah badan maks: 480x672 pixel" }}</strong>
                                             </span>
                                         @enderror
                                     @else
@@ -177,10 +177,10 @@
                                             <label for="">Contoh Foto Setengah Badan</label>
                                         </div>
                                         <img src="/gambar/contoh_foto.jpg" alt="" class="img mb-1">
-                                        <input type="file" required name="foto_set_badan" id="f_setBadan" class="form-control @error('foto_set_badan') is_invalid @enderror" accept="image/*">                                        
+                                        <input type="file" required name="foto_set_badan" id="f_setBadan" class="form-control @error('foto_set_badan') is-invalid @enderror" accept="image/*">                                        
                                         @error('foto_set_badan')
                                             <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
+                                                <strong>{{ "Maaf batas untuk foto setengah badan maks: 480x672 pixel" }}</strong>
                                             </span>
                                         @enderror
                                     @endif
@@ -197,19 +197,19 @@
                                             <label for="">Contoh Foto 4x6</label>
                                         </div>
                                         <img src="/gambar/contoh_foto.jpg" alt="" class="img mb-1">
-                                        <input type="file" required name="foto_4x6" id="f_4x6" class="form-control @error('foto_4x6') is_invalid @enderror" accept="image/*">                                        
+                                        <input type="file" required name="foto_4x6" id="f_4x6" class="form-control @error('foto_4x6') is-invalid @enderror" accept="image/*">                                        
                                         @error('foto_4x6')
                                             <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
+                                                <strong>{{ "Maaf batas untuk foto setengah badan maks: 400x600 pixel" }}</strong>
                                             </span>
                                         @enderror
                                     @elseif ($kandidat->foto_4x6 !== null)
                                         <img src="/gambar/Kandidat/{{$kandidat->nama}}/4x6/{{$kandidat->foto_4x6}}" alt="" class="img mb-1">
-                                        <input type="file" name="foto_4x6" id="" class="form-control @error('foto_4x6') is_invalid @enderror" accept="image/*">
+                                        <input type="file" name="foto_4x6" id="" class="form-control @error('foto_4x6') is-invalid @enderror" accept="image/*">
                                         <input type="text" name="" hidden id="f_4x6" value="foto_4x6">
                                         @error('foto_4x6')
                                             <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
+                                                <strong>{{ "Maaf batas untuk foto setengah badan maks: 400x600 pixel" }}</strong>
                                             </span>
                                         @enderror
                                     @else
@@ -217,10 +217,10 @@
                                             <label for="">Contoh Foto 4x6</label>
                                         </div>
                                         <img src="/gambar/contoh_foto.jpg" alt="" class="img mb-1">
-                                        <input type="file" required name="foto_4x6" id="f_4x6" class="form-control @error('foto_4x6') is_invalid @enderror" accept="image/*">                                        
+                                        <input type="file" required name="foto_4x6" id="f_4x6" class="form-control @error('foto_4x6') is-invalid @enderror" accept="image/*">                                        
                                         @error('foto_4x6')
                                             <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
+                                                <strong>{{ "Maaf batas untuk foto setengah badan maks: 400x600 pixel" }}</strong>
                                             </span>
                                         @enderror
                                     @endif

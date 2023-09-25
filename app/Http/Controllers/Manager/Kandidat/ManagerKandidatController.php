@@ -35,6 +35,14 @@ use Illuminate\Support\Facades\Mail;
 class ManagerKandidatController extends Controller
 {
     //===== Kandidat =====//
+    // halaman data semua kandidat dalam aplikasi
+    public function semuaKandidat()
+    {
+        $user = Auth::user();
+        $manager = User::where('referral_code',$user->referral_code)->first();
+        
+    }
+
     // halaman data kandidat baru masuk / daftar
     public function kandidatBaru()
     {

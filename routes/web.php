@@ -119,6 +119,7 @@ Route::controller(ManagerController::class)->group(function() {
 // DATA MANAGER KANDIDAT //
 Route::controller(ManagerKandidatController::class)->group(function() {
     // route data kandidat
+    Route::get('/manager/kandidat/semua_kandidat','semuaKandidat')->middleware('manager');
     Route::get('/manager/kandidat/kandidat_baru','kandidatBaru')->middleware('manager');
     Route::get('/manager/kandidat/dalam_negeri','dalamNegeri')->middleware('manager');
     Route::get('/manager/kandidat/luar_negeri','luarNegeri')->middleware('manager');
