@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Location extends Component
 {
+    // membuat fungsi agar variabel bisa dibaca di view
     public $provinsis;
     public $kotas;
     public $kecamatans;
@@ -40,6 +41,7 @@ class Location extends Component
      */
     public function render()
     {
+        // menampilkan data pengguna & data provinsi, data kota / kabupaten, data kelurahan, dan data kecamatan
         $id = Auth::user();
         $kandidat = Kandidat::where('referral_code',$id->referral_code)->first();
         $prov = Provinsi::where('provinsi',$kandidat->provinsi)->first('id');
@@ -54,18 +56,24 @@ class Location extends Component
      *
      * @return response()
      */
+    
+    // mencari data kota / kabupaten yang sesuai dengan id provinsi
     public function updatedkota($state)
     {
         if (!is_null($state)) {
             $this->kotas = Kota::where('provinsi_id', $state)->get();
         }
     }
+
+    // mencari data kecamatan yang sesuai dengan id kota / kabupaten
     public function updatedkecamatan($kota_id)
     {
         if (!is_null($kota_id)) {
             $this->kecamatans = Kecamatan::where('kota_id', $kota_id)->get();
         }
     }
+    
+    // mencari data kelurahan yang sesuai dengan id kecamatan
     public function updatedkelurahan($kecamatan_id)
     {
         if (!is_null($kecamatan_id)) {
