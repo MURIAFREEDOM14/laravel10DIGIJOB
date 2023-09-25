@@ -24,7 +24,7 @@
                                     <input type="checkbox" name="id_kandidat[]" value="{{$item->id_kandidat}}" id="">
                                     <div class="card">
                                         <a class="btn" style="border: 2px solid #1269DB; border-top-left-radius:10%;border-bottom-right-radius:10%" href="/perusahaan/lihat/kandidat/{{$item->id_kandidat}}">
-                                            <div class="card-header text-center mt--5">
+                                            <div class="card-header text-center my-1">
                                                 <div class="avatar avatar-xxl" style="width: 100%; height: 50%;">
                                                     @if ($item->foto_4x6 == null)
                                                         <img src="/gambar/default_user.png" alt="" class="img2">                                            
@@ -34,7 +34,7 @@
                                                 </div>
                                             </div>
                                             <div class="text-center" style="background-color: #1269DB">
-                                                <div class="mt-2" style="color: white; text-transform:uppercase">
+                                                <div class="mt-2" style="color: white; text-transform:uppercase;">
                                                     {{$item->nama_panggilan}}
                                                 </div>
                                             </div>

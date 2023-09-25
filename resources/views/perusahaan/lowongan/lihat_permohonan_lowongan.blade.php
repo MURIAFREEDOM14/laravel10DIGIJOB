@@ -22,7 +22,7 @@
                                 <input type="checkbox" aria-label="Checkbox for following text input" name="id_kandidat[]" value="{{$item->id_kandidat}}">
                                 <div class="card">
                                     <a class="btn" style="border: 2px solid #1269DB; border-top-left-radius:10%;border-bottom-right-radius:10%" href="/perusahaan/lihat/kandidat/{{$item->id_kandidat}}">
-                                        <div class="card-header text-center mt--5">
+                                        <div class="card-header text-center my-1">
                                             <div class="avatar avatar-xxl" style="width: 100%; height:50%;">
                                                 @if ($item->foto_4x6 == null)
                                                     <img src="/gambar/default_user.png" alt="" class="img2">                                            
