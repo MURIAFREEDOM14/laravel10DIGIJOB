@@ -40,7 +40,8 @@ class ManagerKandidatController extends Controller
     {
         $user = Auth::user();
         $manager = User::where('referral_code',$user->referral_code)->first();
-        
+        $kandidat = Kandidat::all();
+        return view('manager/kandidat/semua_kandidat',compact('manager','kandidat'));
     }
 
     // halaman data kandidat baru masuk / daftar

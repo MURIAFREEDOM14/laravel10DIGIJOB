@@ -653,4 +653,4 @@ Route::controller(PaymentController::class)->group(function(){
 Route::view('/pembayaran','mail.pembayaran')->middleware('manager');
 
 Route::view('/perbaikan','dalam_proses');
-Route::view('/mail', 'mail/mail');
+Route::view('/mail', 'mail/verify');

@@ -82,7 +82,7 @@
 
 <body style="background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;">
 <!-- HIDDEN PREHEADER TEXT -->
-<div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'Poppins', Helvetica, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">Selamat Datang {{isset($pengirim['name']) ? $pengirim['name']: ''}}</div>
+<div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'Poppins', Helvetica, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">Reset Password {{isset($pengirim['name']) ? $pengirim['name']: ''}}</div>
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
     <!-- LOGO -->
     <tr>
@@ -130,6 +130,7 @@
                                 <td bgcolor="#ffffff" align="center" style="padding: 10px 30px 10px 30px;">
                                     <div class="" style="padding: 0px 30px 10px 30px; color: #666666; font-family: 'Poppins', Helvetica, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
                                         Gunakan Kode ini Untuk verifikasi bahwa ini benar-benar anda 
+                                        
                                     </div>
                                     <div class="" style="padding: 0px 30px 20px 30px; font-size:20px; font-weight:bold; color: black; font-family: 'Poppins', Helvetica, sans-serif; text-transform:uppercase; font-size: 18px; font-weight: 400; line-height: 25px;">
                                         {{-- (Nama) --}}
@@ -146,7 +147,7 @@
                             <tr>
                                 <td bgcolor="#ffffff" align="center" style="padding: 10px 30px 30px 30px;">
                                     <div class="" style="padding: 0px 30px 20px 30px; color: #666666; font-family: 'Poppins', Helvetica, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                                        Silahkan tuju link berikut untuk verifikasi Email anda
+                                        Silahkan tuju link berikut untuk mereset password anda
                                     </div>
 									<table border="0" cellspacing="0" cellpadding="0">
                                         <tr>
@@ -154,7 +155,7 @@
                                                 <a 
                                                 href="{{route('users_verification',$token)}}" 
                                                 style="margin:20px; font-size:20px; line-height:50px; text-decoration:none; color:white">
-                                                    Verifikasi Password
+                                                    Reset Password
                                                 </a>
                                             </td>
                                         </tr>
@@ -164,14 +165,30 @@
                         </table>
                     </td>
                 </tr>
+                <tr>
+                    <td bgcolor="#ffffff" align="left">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td bgcolor="#ffffff" align="left" style="padding: 10px 30px 30px 30px;">
+                                    <div class="" style="padding: 0px 30px 20px 30px; color: #666666; font-family: 'Poppins', Helvetica, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
+                                        jika Anda tidak meminta pengaturan ulang kata sandi, kami sarankan Anda menghubungi tim dukungan kami dan mengamankan akun Anda.                                        
+                                    </div>
+                                    <div class="" style="padding: 0px 30px 10px 30px; color: #666666; font-family: 'Poppins', Helvetica, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
+                                        Hubungi kami : <a href="https://api.whatsapp.com/send?phone=62816372729">0816372729</a> atau kirim email kepada kami : help@ugiport.com
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
 				 <!-- COPY -->
                 <tr>
                     <td bgcolor="gray" align="left" style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #666666; font-family: 'Poppins', Helvetica, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                        <p style="margin: 0;">Follow me on:</p>
+                        {{-- <p style="margin: 0;">Follow me on:</p>
                         <div>
                             <a style="padding-right:10px" href=""><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="25"></a>
                             <a href=><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" width="25"></a>
-                        </div>
+                        </div> --}}
                     </td>
                 </tr>
             </table>
